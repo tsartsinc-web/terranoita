@@ -46,7 +46,7 @@ namespace Terranoita.Cli
                                 : new EntityLookup(files.Archive.Entries.Select(x => x.Path), p => Text(files, p), null).Find(args[2], null, null, null).Path
                                   ?? throw new FileNotFoundException("no entity file for " + args[2]);
                             var facts = EnemyJson(files, path);
-                            Console.WriteLine(facts.ToJsonString(new JsonSerializerOptions { WriteIndented = true }));
+                            Console.WriteLine(facts.ToJsonString(new JsonSerializerOptions { TypeInfoResolver = new System.Text.Json.Serialization.Metadata.DefaultJsonTypeInfoResolver(), WriteIndented = true }));
                             return 0;
                         }
                         case "facts":
@@ -264,7 +264,7 @@ namespace Terranoita.Cli
             }
             else
                 Console.Error.WriteLine("note: " + docPath + " not found; facts written without component documentation");
-            File.WriteAllText(outPath, result.ToJsonString(new JsonSerializerOptions { WriteIndented = true, Encoder = System.Text.Encodings.Web.JavaScriptEncoder.UnsafeRelaxedJsonEscaping }));
+            File.WriteAllText(outPath, result.ToJsonString(new JsonSerializerOptions { TypeInfoResolver = new System.Text.Json.Serialization.Metadata.DefaultJsonTypeInfoResolver(), WriteIndented = true, Encoder = System.Text.Encodings.Web.JavaScriptEncoder.UnsafeRelaxedJsonEscaping }));
             Console.WriteLine($"facts: {ok} read, {missing} without an entity file, {failed} failed -> {outPath}");
             return 0;
         }
