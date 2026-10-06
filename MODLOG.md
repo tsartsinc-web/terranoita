@@ -84,4 +84,12 @@ Terraria folder for testing: Terranoita.exe, Terranoita.Game.dll, Terranoita.Cor
 - Screenshot uploaded (showcase capture: TERRANOITA_AUTOTEST=1 + TERRANOITA_SHOWCASE=1, noon + 5 enemies).
 - **Waiting for the author**: press Test on the mashup's page in the Melty app; publish only with the author's permission.
 - Local commits not pushed: `git push` needs the author's GitHub login. melty.json at repo root not added yet (needs consent).
-- Since the screenshot: thrower/shooter range hysteresis (author: "moves in jerks") — check in game.
+- After the screenshot: thrower/shooter range hysteresis; **shrink_by_one_pixel** fixed (cells are frame_width apart,
+  drawn 1 px smaller — the old +1 step made the miner's walk slide and snap); melee reach is center-to-center like Noita
+  (was edge-to-edge: enemies bit from afar); rat `hitbox_mult` 0.5 (author). Author confirmed: miner walks normally.
+  Release 0.1.0 re-uploaded with these fixes (still draft, publishable, one click: yes).
+
+**Next session, in order**: (1) author presses Test in the Melty app → mod_status → publish only with the author's
+"yes"; (2) author runs `git push` (needs their GitHub login), then ask about committing melty.json; (3) stage 1b
+(all ~170 regular enemies): `python tools/apply_facts.py build/noita_facts.json --stage 1b`, then preflight --gate 1b
+and fill what it lists (new archetypes: ghost_phase, wall_climber, worm, swimmer, static_turret, ...).
