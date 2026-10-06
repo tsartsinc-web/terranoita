@@ -93,3 +93,35 @@ Terraria folder for testing: Terranoita.exe, Terranoita.Game.dll, Terranoita.Cor
 "yes"; (2) author runs `git push` (needs their GitHub login), then ask about committing melty.json; (3) stage 1b
 (all ~170 regular enemies): `python tools/apply_facts.py build/noita_facts.json --stage 1b`, then preflight --gate 1b
 and fill what it lists (new archetypes: ghost_phase, wall_climber, worm, swimmer, static_turret, ...).
+
+## Checklist for adding creatures (lessons from stage 1a — read before 1b)
+
+Sprites
+- Sprite rects: cells are frame_width x frame_height apart; `shrink_by_one_pixel` draws 1 px less (not a 1 px gap).
+  Check each new sprite XML for other attributes (has_offset, other names) before trusting NoitaSprite.
+- Draw: feet = lowest opaque pixel of the "stand" frame on the hitbox bottom (NoitaArt.Foot). Scale = 3 x `size`.
+- Animation names differ per creature (stand/walk/run/fly/attack/attack_ranged/throw/jump_up/jump_fall); Carriers.AnimNames
+  has the fallbacks — add names it does not know. Some creatures have several SpriteComponents (emissive/light layers
+  are skipped; bodies made of several sprites or verlet limbs are not drawn yet — note them).
+- Textures are premultiplied on load; Noita PNGs have binary alpha. Dark Noita sprites get a light floor of 70.
+
+Numbers (all via tools: never type them by hand)
+- Component defaults come from Noita's tools_modding/component_documentation.txt (AnimalAiDefaults etc.); an absent
+  attribute is NOT zero (gravity 400, ranged max distance 160, dash 120 frames...).
+- Base files: values often come from `<Base file>` chains (base_humanoid, base_enemy_flying...). NoitaEntity merges them.
+- AnimalAIComponent uses attack_ranged_* names; AIAttackComponent uses min_distance/max_distance/frames_between.
+- Ranged cooldown = frames_between + attack state duration (Noita stays in its attack state).
+- Melee reach is center to center. Lunges: walkers leap in an arc at the target (Brain.Aim), flyers dart straight.
+- Throws (physics projectiles like TNT) get the speed needed to reach the target.
+- Hitbox from HitboxComponent; the author can change `size` (sprite+hitbox) and `hitbox_mult` (hitbox only).
+- Sounds: pick the folder with a `death` event, most specific first (not animals/generic); attack events
+  attack_melee / attack_dash / attack_shoot / voc_shoot / _throw / _voc_attack; check names against noita_sounds.txt.
+- Some creatures can fly although the wiki calls them crawlers (acid/slime shooters): trust can_fly/can_walk from data.
+
+Game side
+- Carrier NPC 146 with aiStyle 0 (never -1). Terraria swallows exceptions in UpdateNPC and draw and silently removes the
+  NPC: wrap new patch code in try/catch + Entry.Error, and watch the log for "ERROR".
+- Every patch has a hooks.json row and a [Hook] class; patches are applied from Main.OnEngineLoad (not earlier).
+- Debuffs: keep to early-game strength for tier t1/t2 (Poisoned, not Venom).
+- Test each new creature with the autotest (TERRANOITA_AUTOTEST=1) on the PC: it must stand on the ground, walk without
+  sliding, attack only when close, and its log must show attacks and no ERROR.
