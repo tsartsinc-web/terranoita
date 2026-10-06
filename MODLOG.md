@@ -335,3 +335,14 @@ Entry.Stage default 1b, version 0.2.0. Проверить на ПК also: worm l
   lasershooter 1800, wraith_glowing 1475, skullfly 1260, wizard_hearty 1200, barfer 1200, skullrat 1110.
   Most are dungeon (Temple of the Art, tier t3) — the pre-hardmode dungeon gets fewer Noita enemies.
 - проверить на ПК: game side builds (Spawning.cs changed), next pc_step run.
+
+## PC step 4 (2026-10-06): stage 1b shipped by default, autotest 10 s each
+- Entry.Stage default "1b". pc_step -AutoTest 1b -AutoTestSeconds 10: gate clean, builds ok, 141 spawned, 470 hits,
+  0 ERROR, 1 WARN (berserkspirit aura: no Terraria effect yet). Commit 98e4a79.
+- Author watched it: no damage / no visible shots from scavenger_invis (Хяйвехииси), scavenger_shield (Кильпихииси),
+  coward (Раукка), cook (Коккихииси), miner_fire (Тулихийси, molotov), tentacler (Турсо), barfer (Турвонну вельхо).
+  Log confirms 0 hits for all 7. Leads: invis/shield have only support attacks (Noita gives them guns? check);
+  coward.teleportation; cook.sausages speed 3 lifetime -1; miner_fire.cocktail potion.png speed 3 lifetime -1;
+  tentacler smalltentacle speed 0.4, freeze_circle sprite none speed 0; barfer.toxic_sludge_spit sprite none. For the cloud.
+- Release 0.2.0 (terranoita-0.2.0.zip, Release build of 98e4a79+, stage 1b default) uploaded and submitted to the Melty
+  draft: status draft, publishable, one click yes. Waiting for the author's Test in the Melty app, then publish.
