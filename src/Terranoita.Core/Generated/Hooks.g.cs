@@ -52,6 +52,8 @@ namespace Terranoita.Generated
             new HookDef { Id = "fluids_draw", Target = "Terraria.Main:DrawPlayers_AfterProjectiles()", Patch = "postfix", System = "block_physics", Purpose = "Noita liquids and gases drawn in front of the player, see-through like Terraria's water.", Stage = "2" },
             new HookDef { Id = "player_draw", Target = "Terraria.Graphics.Renderers.LegacyPlayerRenderer:DrawPlayer(Camera, Player, ...)", Patch = "prefix", System = "noita_status", Purpose = "Invisible or polymorphed player: Terraria does not draw them.", Stage = "2" },
             new HookDef { Id = "player_form_draw", Target = "Terraria.Main:DrawPlayers_AfterProjectiles()", Patch = "postfix", System = "noita_status", Purpose = "A polymorphed player is drawn as the Noita creature.", Stage = "2" },
+            new HookDef { Id = "mouse_over", Target = "Terraria.Main:DrawMouseOver()", Patch = "postfix", System = "block_physics", Purpose = "The name of the liquid under the mouse (??? if not touched yet), shown like a sign's text.", Stage = "2" },
+            new HookDef { Id = "cursor_draw", Target = "Terraria.Main:DrawInterface_36_Cursor()", Patch = "postfix", System = "block_physics", Purpose = "The hover name of a liquid drawn next to the cursor, last, so nothing covers it.", Stage = "2" },
         };
     }
 }

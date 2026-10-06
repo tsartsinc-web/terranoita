@@ -18,7 +18,7 @@ namespace Terranoita.Game.Physics
     public static class LiquidAudit
     {
         public static readonly bool Enabled = Environment.GetEnvironmentVariable("TERRANOITA_AUTOTEST_AUDIT") == "1";
-        const int Start = 420, Each = 90, Settle = 75;
+        const int Start = 420, Each = 45, Settle = 38;   // author: twice as fast
         public static bool Done { get; private set; }
         static int _index = -1, _hp;
         static Vector2 _at;
@@ -78,7 +78,7 @@ namespace Terranoita.Game.Physics
                 int lost = _hp - p.statLife;
                 bool moved = Vector2.Distance(p.position, _at) > 6 * 16;
                 Entry.Log("AUDIT " + name + " | " + (def?.Kind ?? "terraria") + " | effects " + (Seen.Count > 0 ? string.Join(",", Seen) : "-") +
-                          " | hp " + (lost >= 0 ? "-" : "+") + Math.Abs(lost) + " in 1.2 s" +
+                          " | hp " + (lost >= 0 ? "-" : "+") + Math.Abs(lost) + " in 0.6 s" +
                           (moved ? " | TELEPORTED" : "") + (Forms.Count > 0 ? " | form " + string.Join(",", Forms.Select(f => f.Split('/').Last())) : "") +
                           (p.dead ? " | DIED" : "") +
                           " | at " + ((int)(p.position.X / 16) - left) + "," + ((int)(p.position.Y / 16) - top) + " touching " + Fluids.UnderCount(p.Hitbox) +

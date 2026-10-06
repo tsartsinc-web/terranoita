@@ -86,7 +86,12 @@ namespace Terranoita.Game.Physics
                 Status.Clear();
                 Fluids.Clear();
                 if (On)
+                {
                     Placed.Load();
+                    // a world without our liquids yet (new or old) gets its cave pools once
+                    if (!Fluids.Load())
+                        CavePools.Generate();
+                }
             }
         }
 
@@ -97,7 +102,10 @@ namespace Terranoita.Game.Physics
             static void Postfix()
             {
                 if (On)
+                {
                     Placed.Save();
+                    Fluids.Save();
+                }
             }
         }
 
@@ -132,6 +140,33 @@ namespace Terranoita.Game.Physics
                     Fluids.Update();
                 }
                 catch (Exception ex) { Entry.Error("physics update", ex); }
+            }
+        }
+
+        [Hook("mouse_over")]
+        [HarmonyPatch(typeof(Main), "DrawMouseOver")]
+        static class MouseOverPatch
+        {
+            // where Terraria shows a sign's text under the mouse: the liquid's name (or ???)
+            static void Postfix()
+            {
+                if (!Live)
+                    return;
+                try { Fluids.HoverName(); }
+                catch (Exception ex) { Entry.Error("mouse over", ex); }
+            }
+        }
+
+        [Hook("cursor_draw")]
+        [HarmonyPatch(typeof(Main), "DrawInterface_36_Cursor")]
+        static class CursorPatch
+        {
+            static void Postfix()
+            {
+                if (!Live)
+                    return;
+                try { Fluids.DrawHoverText(); }
+                catch (Exception ex) { Entry.Error("hover text", ex); }
             }
         }
 

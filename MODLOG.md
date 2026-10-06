@@ -454,3 +454,9 @@ Entry.Stage default 1b, version 0.2.0. Проверить на ПК also: worm l
   one polymorph, one teleportitis). Hovering a liquid shows its Noita name if the player touched it, else ???
   (known list per character in %LOCALAPPDATA%/Terranoita/known_<name>.txt). Random polymorph: walking/flying
   creatures only. Fluid update reuses one key list (no garbage per tick).
+- Hover name: computed under the mouse (log shows it) but not visible in game after three tries (MouseText,
+  MouseTextHackZoom in DrawMouseOver, DrawBorderString after DrawInterface_36_Cursor). Author: leave it for now.
+- Author: Noita liquid pools in the caves, kept simple. design/sheets/cave_pools.json (ground snow/jungle/desert or
+  depth dirt/cavern/deep -> liquids, pools per 1000 tiles of width); Physics/CavePools.cs fills a hollow's floor wall
+  to wall, up to 4 rows. Done once per world: the first load without <world>.wld.fluids (new or old worlds). Our
+  liquids are now kept with the world in that file (material names). Not run in game yet.

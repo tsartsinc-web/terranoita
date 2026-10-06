@@ -377,6 +377,17 @@ namespace Terranoita.Game.Physics
         // ---- names the player knows (author: shown under the mouse once touched, as in Noita) ----
 
         static HashSet<string> _known;
+        static bool _hoverLogged;
+        static string _hoverText;
+
+        /// <summary>After the cursor is drawn: the hover name next to it, so nothing draws over it.</summary>
+        public static void DrawHoverText()
+        {
+            if (_hoverText == null)
+                return;
+            Utils.DrawBorderString(Main.spriteBatch, _hoverText, new Vector2(Main.mouseX + 20, Main.mouseY + 20), Color.White);
+            _hoverText = null;
+        }
         static string _knownFor;
 
         static string KnownFile(string player) =>
@@ -425,21 +436,89 @@ namespace Terranoita.Game.Physics
         /// <summary>The name of the liquid or gas under the mouse, if the player knows it (interface drawing).</summary>
         public static void HoverName()
         {
-            if (Cells.Count == 0 || Main.LocalPlayer.mouseInterface || Main.gameMenu)
+            if (Cells.Count == 0 || Main.gameMenu)
                 return;
             int x = (int)(Main.MouseWorld.X / 16), y = (int)(Main.MouseWorld.Y / 16);
             if (!Cells.TryGetValue(Key(x, y), out var c) || c.Amount < 8)
                 return;
             var d = _defs[c.Kind - 1];
-            // author: an unknown one shows as ???; drawn by us next to the cursor (Terraria's mouse text gets
-            // replaced by its own later in the frame)
+            // author: an unknown one shows as ???; shown the way Terraria shows a sign's text (Main.DrawMouseOver)
             string text = !Known().Contains(d.Id) ? "???" :
                 NoitaArt.Text(d.NameKey, d.Id) + (c.Burn > 0 && !d.OnFire ? " (" + NoitaArt.Text("mat_fire", "fire") + ")" : "");
-            Utils.DrawBorderString(Main.spriteBatch, text, new Vector2(Main.mouseX + 18, Main.mouseY + 18), Color.White);
+            _hoverText = text;   // drawn on top of everything with the cursor (DrawHoverText)
+            if (!_hoverLogged)
+            {
+                _hoverLogged = true;
+                Entry.Log("hover name shown: " + text + " (" + d.Id + ")");
+            }
         }
 
         /// <summary>How many liquids or gases the box touches (tests).</summary>
         public static int UnderCount(Rectangle box) => Under(box).Count();
+
+        public static bool Has(int x, int y) => Cells.ContainsKey(Key(x, y));
+
+        // ---- kept with the world: <world>.wld.fluids (material names, so the sheet may change) ----
+
+        static string FluidsFile => string.IsNullOrEmpty(Main.worldPathName) ? null : Main.worldPathName + ".fluids";
+
+        /// <summary>Read the world's liquids; false when the world has none of ours yet (then the caves get pools).</summary>
+        public static bool Load()
+        {
+            if (_defs == null)
+                Build();
+            Cells.Clear();
+            var path = FluidsFile;
+            if (path == null || !System.IO.File.Exists(path))
+                return false;
+            try
+            {
+                using (var r = new System.IO.BinaryReader(System.IO.File.OpenRead(path)))
+                {
+                    int w = r.ReadInt32(), kinds = r.ReadInt32();
+                    var map = new byte[kinds + 1];
+                    for (int i = 1; i <= kinds; i++)
+                        map[i] = (byte)KindOf(r.ReadString());
+                    int n = r.ReadInt32();
+                    for (int i = 0; i < n; i++)
+                    {
+                        int k = r.ReadInt32();
+                        byte kind = r.ReadByte(), amount = r.ReadByte(), burn = r.ReadByte();
+                        if (kind <= kinds && map[kind] > 0)
+                            Cells[k % w + k / w * Main.maxTilesX] = new Cell { Kind = map[kind], Amount = amount, Burn = burn };
+                    }
+                }
+                Entry.Log("fluids: " + Cells.Count + " cells read from " + System.IO.Path.GetFileName(path));
+            }
+            catch (Exception ex) { Entry.Error("fluids load", ex); }
+            return true;
+        }
+
+        public static void Save()
+        {
+            var path = FluidsFile;
+            if (path == null || _defs == null)
+                return;
+            try
+            {
+                using (var w = new System.IO.BinaryWriter(System.IO.File.Create(path)))
+                {
+                    w.Write(Main.maxTilesX);
+                    w.Write(_defs.Length);
+                    foreach (var d in _defs)
+                        w.Write(d.Id);
+                    w.Write(Cells.Count);
+                    foreach (var kv in Cells)
+                    {
+                        w.Write(kv.Key);
+                        w.Write(kv.Value.Kind);
+                        w.Write(kv.Value.Amount);
+                        w.Write(kv.Value.Burn);
+                    }
+                }
+            }
+            catch (Exception ex) { Entry.Error("fluids save", ex); }
+        }
 
         /// <summary>Cells sitting inside solid blocks: should be none (tests).</summary>
         public static int InsideBlocks() => Cells.Keys.Count(k => !Open(k % Main.maxTilesX, k / Main.maxTilesX));

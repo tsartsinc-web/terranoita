@@ -277,6 +277,24 @@
    "purpose": "A polymorphed player is drawn as the Noita creature.",
    "stage": "2",
    "_unverified": {}
+  },
+  {
+   "id": "mouse_over",
+   "target": "Terraria.Main:DrawMouseOver()",
+   "patch": "postfix",
+   "system": "block_physics",
+   "purpose": "The name of the liquid under the mouse (??? if not touched yet), shown like a sign's text.",
+   "stage": "2",
+   "_unverified": {}
+  },
+  {
+   "id": "cursor_draw",
+   "target": "Terraria.Main:DrawInterface_36_Cursor()",
+   "patch": "postfix",
+   "system": "block_physics",
+   "purpose": "The hover name of a liquid drawn next to the cursor, last, so nothing covers it.",
+   "stage": "2",
+   "_unverified": {}
   }
  ]
 }

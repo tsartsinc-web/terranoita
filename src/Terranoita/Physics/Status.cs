@@ -300,7 +300,7 @@ namespace Terranoita.Game.Physics
         {
             static void Postfix()
             {
-                try { DrawIcons(); Fluids.HoverName(); }
+                try { DrawIcons(); }
                 catch (Exception ex) { Entry.Error("status icons", ex); }
             }
         }

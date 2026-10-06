@@ -38,6 +38,7 @@ NAMES = {
     "status_effects": ("StatusEffectDef", "StatusEffects"),
     "noita_solids": ("NoitaSolidDef", "NoitaSolids"),
     "enemy_blood": ("EnemyBloodDef", "EnemyBlood"),
+    "cave_pools": ("CavePoolDef", "CavePools"),
     "spells": ("SpellDef", "SpellTable"),
     "wands": ("WandDef", "WandTable"),
 }
