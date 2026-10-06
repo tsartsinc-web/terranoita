@@ -87,7 +87,7 @@ namespace Terranoita.Ai
         const float MaxFall = 10f;
         const int AttackPoseFrames = 18;
         const float GripMargin = 6f;          // climbers hold on to tiles this close to their body
-        const float WormTurn = 0.05f;         // radians per frame a burrowing head can turn
+        const float WormTurn = 0.05f;         // fallback when a burrower's row has no turn_rate
         const int TrailLength = 256;
 
         public readonly EnemyDef Enemy;
@@ -110,6 +110,7 @@ namespace Terranoita.Ai
         int _age;
         bool _awake;
         V2 _heading;
+        float _speed;
         readonly List<V2> _trail = new List<V2>();
 
         public bool Dashing => _dashLeft > 0;
@@ -117,6 +118,7 @@ namespace Terranoita.Ai
         public int Age => _age;
         /// <summary>Ghosts and worms move through tiles: the game turns tile collision off for them.</summary>
         public bool PassesTiles => Move == "phase" || Move == "burrow";
+        bool Burrows => Move == "burrow" || Move == "burrow_liquid";
         /// <summary>A disguised creature (mimic) that has not noticed the player yet.</summary>
         public bool Dormant => !_awake;
         /// <summary>Burrowers: where the head has been, newest first, one point per frame (for drawing the body).</summary>
@@ -198,14 +200,14 @@ namespace Terranoita.Ai
                 body.Velocity = new V2(0, 0);
             else if (Move == "climb" && terrain != null)
                 ClimbMove(body, target, engaged, rng, terrain);
-            else if (Move == "burrow")
+            else if (Burrows)
                 BurrowMove(body, target, engaged, rng, terrain);
             else if (Move == "swim")
                 SwimMove(body, target, engaged, rng, terrain);
             else
                 GroundMove(body, target, engaged, rng);
 
-            if (Move == "burrow")
+            if (Burrows)
             {
                 _trail.Insert(0, body.Center);
                 if (_trail.Count > TrailLength)
@@ -219,7 +221,7 @@ namespace Terranoita.Ai
                 SetAnim("attack");
             else if (Flying)
                 SetAnim("fly");
-            else if (Move == "burrow" || Move == "swim" || (Move == "climb" && terrain != null))
+            else if (Burrows || Move == "swim" || (Move == "climb" && terrain != null))
                 SetAnim(body.Velocity.Length > 0.1f ? "walk" : "stand");
             else if (!body.OnGround)
                 SetAnim(body.Velocity.Y < 0 ? "jump_up" : "jump_fall");
@@ -366,7 +368,9 @@ namespace Terranoita.Ai
         /// </summary>
         void ClimbMove(IBody body, Target target, bool engaged, Random rng, ITerrain terrain)
         {
-            if (!Grips(body, terrain, body.Center))
+            bool levitates = Enemy.Gravity <= 0f;
+            bool grip = Grips(body, terrain, body.Center);
+            if (!grip && !levitates)
             {
                 Fall(body);
                 return;
@@ -374,6 +378,16 @@ namespace Terranoita.Ai
             var goal = engaged ? target.Center : WanderGoal(body, rng, 120, 180, 48);
             var to = goal - body.Center;
             float speed = Math.Max(Enemy.RunSpeed, 0.5f);
+            if (!grip)
+            {
+                // nothing to hold on to: a levitating body is pushed straight at its goal (PhysicsAIComponent)
+                var w = to.Length > 4 && _pose <= 0 ? to.Normalized * speed : new V2(0, 0);
+                var vv = body.Velocity;
+                vv.X += (w.X - vv.X) * Accel;
+                vv.Y += (w.Y - vv.Y) * Accel;
+                body.Velocity = vv;
+                return;
+            }
             var want = new V2(0, 0);
             if (to.Length > 4 && _pose <= 0)
             {
@@ -402,25 +416,33 @@ namespace Terranoita.Ai
         /// </summary>
         void BurrowMove(IBody body, Target target, bool engaged, Random rng, ITerrain terrain)
         {
-            bool inside = terrain == null || terrain.Solid(body.Center) || terrain.Liquid(body.Center);
-            float speed = Math.Max(Enemy.RunSpeed, 0.5f);
+            // Noita's WormComponent: the speed steps toward the target speed by `accel` each frame (hunting or roaming
+            // speed from WormAIComponent), the head turns by turn_rate / roam_turn_rate radians per frame. Water worms
+            // (burrow_liquid) move only inside liquid.
+            bool water = Move == "burrow_liquid";
+            bool inside = terrain == null || terrain.Liquid(body.Center) || (!water && terrain.Solid(body.Center));
+            bool hunting = engaged;
+            float top = hunting ? Enemy.RunSpeed : (Enemy.RoamSpeed > 0 ? Enemy.RoamSpeed : Enemy.RunSpeed * 0.5f);
+            top = Math.Max(top, 0.5f);
+            float turn = hunting ? Enemy.TurnRate : Enemy.RoamTurnRate;
+            if (turn <= 0)
+                turn = WormTurn;
             if (_heading.Length < 0.5f)
                 _heading = new V2(Direction, 0);
             if (inside)
             {
                 var goal = engaged ? target.Center : WanderGoal(body, rng, 90, 120, 64);
-                _heading = Turn(_heading, (goal - body.Center).Normalized, WormTurn);
-                var v = body.Velocity;
-                var want = _heading * speed;
-                v.X += (want.X - v.X) * Accel;
-                v.Y += (want.Y - v.Y) * Accel;
-                body.Velocity = v;
+                _heading = Turn(_heading, (goal - body.Center).Normalized, turn);
+                float step = Enemy.Accel > 0 ? Enemy.Accel : 0.05f;
+                _speed = _speed < top ? Math.Min(top, _speed + step) : Math.Max(top, _speed - step);
+                body.Velocity = _heading * _speed;
             }
             else
             {
                 Fall(body);
                 if (body.Velocity.Length > 0.1f)
                     _heading = body.Velocity.Normalized;
+                _speed = body.Velocity.Length;
             }
             if (Math.Abs(body.Velocity.X) > 0.05f)
                 Direction = body.Velocity.X > 0 ? 1 : -1;

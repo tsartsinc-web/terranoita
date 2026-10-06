@@ -340,9 +340,10 @@ namespace Terranoita.Game
                 if (art?.Texture == null)
                     return;
                 var anim = art.Sprite.Find(AnimNames(n.Brain.Anim));
-                if (anim == null)
-                    return;
-                anim.FrameRect(anim.FrameAt(n.Brain.AnimTicks), out int fx, out int fy, out int fw, out int fh);
+                // a plain .png sprite (eel_head.png, potion.png) has no animations: the whole image is the frame
+                int fx = 0, fy = 0, fw = art.Texture.Width, fh = art.Texture.Height;
+                if (anim != null)
+                    anim.FrameRect(anim.FrameAt(n.Brain.AnimTicks), out fx, out fy, out fw, out fh);
                 var light = Lighting.GetColor((int)(npc.Center.X / 16), (int)(npc.Center.Y / 16));
                 // fully opaque; a little self-lit, since Noita sprites have no dark outline and vanish into night scenes
                 const int floor = 70;
@@ -359,7 +360,7 @@ namespace Terranoita.Game
             {
                 switch (anim)
                 {
-                    case "attack": return new[] { "attack", "attack_ranged", "throw", "walk", "stand" };
+                    case "attack": return new[] { "attack", "attack_ranged", "throw", "eat", "walk", "stand" };
                     case "fly": return new[] { "fly", "walk", "stand" };
                     case "jump_up": return new[] { "jump_up", "jump", "fly", "walk", "stand" };
                     case "jump_fall": return new[] { "jump_fall", "fall", "jump", "fly", "walk", "stand" };

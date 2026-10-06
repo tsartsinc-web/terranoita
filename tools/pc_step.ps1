@@ -8,7 +8,8 @@ Run it from the repository folder, in PowerShell:
 What it does, in order (it stops at the first failure and says which step):
   1. updates the branch from GitHub
   2. reads facts from the player's Noita into design/sources/noita_facts.json (tncli facts; read-only)
-  3. applies them to the sheets (tools/apply_facts.py) and runs preflight for the stage
+  3. applies them to the sheets (tools/apply_facts.py) and runs preflight for the stage; when it is clean, generates
+     the stage's tables (tools/gen_cs.py --gate); -AutoTest stops here when it is not
   4. runs the Core tests and builds Terranoita.exe and Terranoita.Game.dll against the player's Terraria.exe
   5. with -AutoTest: copies the mod next to Terraria.exe, starts it with the test character on a copy of the save
      folder, spawns that stage's enemies one by one, closes the game when done and keeps the log
@@ -57,7 +58,7 @@ function Finish([string]$outcome) {
     [System.IO.File]::WriteAllLines($out, $report)
     Write-Host "report: design/sources/pc_check.txt" -ForegroundColor Yellow
     if ($NoPush) { exit 0 }
-    $paths = @("design/sources/noita_facts.json", "design/sources/pc_check.txt", "design/sheets") +
+    $paths = @("design/sources/noita_facts.json", "design/sources/pc_check.txt", "design/sheets", "src/Terranoita.Core/Generated", "src/Terranoita/Generated") +
              @(Get-ChildItem design/sources -Filter "pc_autotest_*.txt" | ForEach-Object { "design/sources/" + $_.Name })
     git add -- $paths
     git commit -m "PC step ($outcome): facts from Noita, build check$(if ($AutoTest) { ", autotest $AutoTest" })" | Out-Host
@@ -87,8 +88,15 @@ Say "commit $head"
 
 if ((Run "facts from Noita" "pc_facts" { dotnet run --project src/Terranoita.Cli -c Release -- facts $Noita design/sheets/enemies.json design/sources/noita_facts.json }) -ne 0) { Finish "facts failed" }
 if ((Run "apply facts" "pc_apply" { & $python tools/apply_facts.py design/sources/noita_facts.json --stage $Stage --sounds design/sources/noita_sounds.txt }) -ne 0) { Finish "apply_facts failed" }
-Run "preflight $Stage" "pc_preflight" { & $python tools/preflight.py --gate $Stage -q } | Out-Null
+$gate = Run "preflight $Stage" "pc_preflight" { & $python tools/preflight.py --gate $Stage -q }
 Get-Content build/pc_preflight.log | Select-Object -Last 5 | ForEach-Object { $report.Add("   " + $_) | Out-Null }
+if ($gate -eq 0) {
+    # the stage's sheets are complete: build its tables (Core and game) from them
+    if ((Run "generate tables for $Stage" "pc_gen" { & $python tools/gen_cs.py --gate $Stage }) -ne 0) { Finish "gen_cs failed" }
+} elseif ($AutoTest -eq $Stage) {
+    & $python tools/preflight.py --gate $Stage | Select-String "^(UNFILLED|UNVERIFIED|BAD)" | Select-Object -First 40 |
+        ForEach-Object { $report.Add("   " + $_.Line.Substring(0, [math]::Min(110, $_.Line.Length))) | Out-Null }
+}
 
 $tests = Run "Core tests" "pc_tests" { dotnet test tests/Terranoita.Core.Tests -c Release }
 $launcher = Run "build Terranoita.exe" "pc_launcher" { dotnet build src/Terranoita.Launcher -c Release }
@@ -102,6 +110,10 @@ if ($game -ne 0) {
 }
 if ($tests -ne 0 -or $launcher -ne 0 -or $game -ne 0) { Finish "build or tests failed" }
 
+if ($AutoTest -and $AutoTest -eq $Stage -and $gate -ne 0) {
+    Say "== autotest $AutoTest skipped: preflight --gate $AutoTest is not clean (open cells listed above)"
+    Finish "gate not clean"
+}
 if ($AutoTest) {
     Say "== autotest $AutoTest"
     $files = @()

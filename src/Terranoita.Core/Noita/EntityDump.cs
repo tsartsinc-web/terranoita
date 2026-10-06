@@ -69,10 +69,12 @@ namespace Terranoita.Noita
             return n;
         }
 
+        // a whole path, or the start of one a script completes at run time ("data/entities/animals/" .. name .. ".xml")
         static readonly System.Text.RegularExpressions.Regex EntityFile =
-            new System.Text.RegularExpressions.Regex(@"[""'](data/entities/[^""']+?\.xml)[""']");
+            new System.Text.RegularExpressions.Regex(@"[""'](data/entities/[^""']*?(?:\.xml|/))[""']");
 
-        /// <summary>Entity XML paths written as string literals in a script, in order, without repeats.</summary>
+        /// <summary>Entity XML paths (or folder prefixes a script completes) written as string literals in a script, in
+        /// order, without repeats.</summary>
         public static IEnumerable<string> EntityFilesIn(string script) =>
             EntityFile.Matches(script).Cast<System.Text.RegularExpressions.Match>().Select(m => m.Groups[1].Value).Distinct();
 

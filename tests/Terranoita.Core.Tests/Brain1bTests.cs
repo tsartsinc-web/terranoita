@@ -81,11 +81,11 @@ namespace Terranoita.Tests
             {
                 Id = e.Id, Ai = e.Ai, Attacks = e.Attacks, Stage = e.Stage, SpawnRule = e.SpawnRule,
                 Walks = run > 0, Flies = fly > 0, RunSpeed = run, FlySpeed = fly, FlyUpSpeed = fly, Gravity = gravity,
-                Accel = accel, JumpSpeed = 4, SightTiles = sight,
+                Accel = accel, JumpSpeed = 4, SightTiles = sight, RoamSpeed = run / 2, TurnRate = 0.06f, RoamTurnRate = 0.02f,
             };
         }
 
-        static readonly string[] Moves = { "ground", "ground_levitate", "hover", "phase", "fly", "hop", "climb", "burrow", "swim", "static" };
+        static readonly string[] Moves = { "ground", "ground_levitate", "hover", "phase", "fly", "hop", "climb", "burrow", "burrow_liquid", "swim", "static" };
 
         [Fact]
         public void Every1bEnemyHasAnArchetypeTheBrainKnows()
@@ -153,6 +153,80 @@ namespace Terranoita.Tests
             Assert.True(cameBack, "never fell back in");
             Assert.Equal(256, brain.Trail.Count);
             Assert.Equal(body.Pos.X - body.Velocity.X, brain.Trail[0].X, 3);
+        }
+
+        [Fact]
+        public void WormsFromTheSheetHaveTheirNoitaNumbers()
+        {
+            foreach (var id in new[] { "worm", "worm_big", "worm_tiny", "eel" })
+            {
+                var e = Defs.Enemy[id];
+                Assert.True(e.RunSpeed > e.RoamSpeed && e.RoamSpeed > 0, id + " hunt faster than roam");
+                Assert.True(e.TurnRate > 0 && e.RoamTurnRate > 0, id + " turn rates");
+                Assert.True(e.Gravity > 0 && e.Accel > 0, id + " gravity/accel");
+            }
+            Assert.Equal("burrow_liquid", new Brain(Defs.Enemy["eel"]).Archetype.Move);
+        }
+
+        [Fact]
+        public void WormSpeedsUpStepByStepAndTurnsNoFasterThanItsRate()
+        {
+            var row = Row("worm", run: 6f, gravity: 0.2f, accel: 0.1f);
+            var brain = new Brain(row);
+            var body = new FreeBody { Pos = new V2(0, 200) };
+            var rng = new Random(1);
+            float lastSpeed = 0;
+            V2 lastDir = new V2(1, 0);
+            for (int i = 0; i < 120; i++)
+            {
+                brain.Update(body, At(400, 200), new Sink(), rng);   // no terrain: always in its element
+                body.Step();
+                float sp = body.Velocity.Length;
+                Assert.True(sp - lastSpeed <= row.Accel + 1e-3f, "speed step " + (sp - lastSpeed));
+                if (sp > 0.01f && lastSpeed > 0.01f)
+                {
+                    var d = body.Velocity.Normalized;
+                    double ang = Math.Acos(Math.Max(-1, Math.Min(1, d.X * lastDir.X + d.Y * lastDir.Y)));
+                    Assert.True(ang <= row.TurnRate + 1e-3, "turned " + ang);
+                    lastDir = d;
+                }
+                else if (sp > 0.01f)
+                    lastDir = body.Velocity.Normalized;
+                lastSpeed = sp;
+            }
+            Assert.InRange(lastSpeed, row.RunSpeed - 0.01f, row.RunSpeed + 0.01f);
+        }
+
+        [Fact]
+        public void EelFallsOutOfTheWaterAndCannotDig()
+        {
+            var world = new World { IsLiquid = p => p.Y > 0 && p.Y < 100, IsSolid = p => p.Y >= 100 };
+            var brain = new Brain(Row("eel", run: 3f, gravity: 0.2f, accel: 0.1f));
+            Assert.False(brain.PassesTiles);
+            var body = new FreeBody { Pos = new V2(0, -40) };
+            for (int i = 0; i < 30; i++)
+            {
+                brain.Update(body, At(0, 60), new Sink(), new Random(1), world);
+                body.Step();
+            }
+            Assert.True(body.Velocity.Y > 0, "out of the water it falls: " + body.Velocity);
+        }
+
+        [Fact]
+        public void LevitatingLukkiCrossesTheOpenStraightToThePlayer()
+        {
+            var world = new World { IsSolid = p => p.Y >= 0 };
+            var brain = new Brain(Row("lukki", run: 2f, gravity: 0f));
+            var body = new FreeBody { Pos = new V2(0, -300) };
+            var rng = new Random(2);
+            float start = (body.Pos - new V2(200, -300)).Length;
+            for (int i = 0; i < 200; i++)
+            {
+                brain.Update(body, At(200, -300), new Sink(), rng, world);
+                body.Step();
+                Assert.True(body.Velocity.Y <= 0.5f, "does not fall: " + body.Velocity);
+            }
+            Assert.True((body.Pos - new V2(200, -300)).Length < start / 2, "got closer: " + body.Pos);
         }
 
         [Fact]

@@ -70,46 +70,7 @@ namespace Terranoita.Cli
             var e = NoitaEntity.Load(p => Text(files, p), path);
             var f = EnemyFacts.From(e);
             var dump = EntityDump.Of(e);
-            var ranged = new JsonArray();
-            foreach (var r in f.Ranged)
-            {
-                var o = new JsonObject
-                {
-                    ["source"] = r.Source,
-                    ["entity_file"] = r.EntityFile,
-                    ["frames_between"] = r.FramesBetween,
-                    ["min_distance_px"] = r.MinDistance,
-                    ["max_distance_px"] = r.MaxDistance,
-                    ["count_min"] = r.CountMin,
-                    ["count_max"] = r.CountMax,
-                    ["state_frames"] = r.StateFrames,
-                };
-                if (r.EntityFile != null && files.TryReadText(r.EntityFile, out _))
-                {
-                    try
-                    {
-                        var p = ProjectileFacts.From(NoitaEntity.Load(x => Text(files, x), r.EntityFile));
-                        o["projectile"] = new JsonObject
-                        {
-                            ["sprite"] = p.Sprite,
-                            ["speed_min"] = p.SpeedMin,
-                            ["speed_max"] = p.SpeedMax,
-                            ["gravity_y"] = p.GravityY,
-                            ["lifetime_frames"] = p.LifetimeFrames,
-                            ["explosion_radius_px"] = p.ExplosionRadius,
-                            ["damage"] = p.Damage,
-                            ["audio_root"] = p.AudioRoot,
-                            ["explosion_sound"] = p.ExplosionSound,
-                            ["components"] = DumpJson(EntityDump.Of(NoitaEntity.Load(x => Text(files, x), r.EntityFile))),
-                        };
-                    }
-                    catch (Exception ex)
-                    {
-                        o["projectile_error"] = ex.Message;
-                    }
-                }
-                ranged.Add(o);
-            }
+            var ranged = RangedJson(files, f.Ranged);
             var mult = new JsonObject();
             foreach (var kv in f.DamageMultipliers)
                 mult[kv.Key] = kv.Value;
@@ -161,10 +122,44 @@ namespace Terranoita.Cli
                 ["audio_roots"] = new JsonArray(f.AudioRoots.Select(a => (JsonNode)a).ToArray()),
                 ["damage_multipliers"] = mult,
                 ["ranged"] = ranged,
+                ["ranged_disabled"] = RangedJson(files, f.RangedDisabled),
                 ["components"] = DumpJson(dump),
                 ["scripts"] = new JsonArray(EntityDump.Scripts(dump).Select(x => (JsonNode)x).ToArray()),
                 ["script_entities"] = ScriptEntities(files, EntityDump.Scripts(dump)),
+                ["script_projectiles"] = ScriptProjectiles(files, EntityDump.Scripts(dump)),
             };
+        }
+
+        static JsonArray RangedJson(NoitaFiles files, List<RangedAttackFacts> list)
+        {
+            var ranged = new JsonArray();
+            foreach (var r in list)
+            {
+                var o = new JsonObject
+                {
+                    ["source"] = r.Source,
+                    ["entity_file"] = r.EntityFile,
+                    ["frames_between"] = r.FramesBetween,
+                    ["min_distance_px"] = r.MinDistance,
+                    ["max_distance_px"] = r.MaxDistance,
+                    ["count_min"] = r.CountMin,
+                    ["count_max"] = r.CountMax,
+                    ["state_frames"] = r.StateFrames,
+                };
+                if (r.EntityFile != null && files.TryReadText(r.EntityFile, out _))
+                {
+                    try
+                    {
+                        o["projectile"] = ProjectileJson(files, r.EntityFile);
+                    }
+                    catch (Exception ex)
+                    {
+                        o["projectile_error"] = ex.Message;
+                    }
+                }
+                ranged.Add(o);
+            }
+            return ranged;
         }
 
         /// <summary>Entity files each script names (what a nest releases, what a creature summons), not the script itself.</summary>
@@ -176,6 +171,44 @@ namespace Terranoita.Cli
                 var text = Text(files, script);
                 o[script] = text == null ? null
                     : new JsonArray(EntityDump.EntityFilesIn(text).Select(x => (JsonNode)x).ToArray());
+            }
+            return o;
+        }
+
+        static JsonObject ProjectileJson(NoitaFiles files, string file)
+        {
+            var p = ProjectileFacts.From(NoitaEntity.Load(x => Text(files, x), file));
+            return new JsonObject
+            {
+                ["sprite"] = p.Sprite,
+                ["speed_min"] = p.SpeedMin,
+                ["speed_max"] = p.SpeedMax,
+                ["gravity_y"] = p.GravityY,
+                ["lifetime_frames"] = p.LifetimeFrames,
+                ["explosion_radius_px"] = p.ExplosionRadius,
+                ["damage"] = p.Damage,
+                ["audio_root"] = p.AudioRoot,
+                ["explosion_sound"] = p.ExplosionSound,
+                ["components"] = DumpJson(EntityDump.Of(NoitaEntity.Load(x => Text(files, x), file))),
+            };
+        }
+
+        /// <summary>Projectile facts of the projectile/explosion files a creature's scripts load (death explosions, script attacks).</summary>
+        static JsonObject ScriptProjectiles(NoitaFiles files, IEnumerable<string> scripts)
+        {
+            var o = new JsonObject();
+            foreach (var script in scripts)
+            {
+                var text = Text(files, script);
+                if (text == null)
+                    continue;
+                foreach (var file in EntityDump.EntityFilesIn(text).Where(x => x.StartsWith("data/entities/projectiles/") && x.EndsWith(".xml")))
+                {
+                    if (o.ContainsKey(file) || !files.TryReadText(file, out _))
+                        continue;
+                    try { o[file] = ProjectileJson(files, file); }
+                    catch (Exception ex) { o[file] = new JsonObject { ["error"] = ex.Message }; }
+                }
             }
             return o;
         }

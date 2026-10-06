@@ -105,6 +105,19 @@ namespace Terranoita.Tests
         }
 
         [Fact]
+        public void Entity_RemoveFromBaseDropsTheBaseComponent()
+        {
+            var files = new Dictionary<string, string>
+            {
+                ["b.xml"] = @"<Entity><ProjectileComponent damage=""1"" /><DamageModelComponent hp=""1"" /></Entity>",
+                ["e.xml"] = @"<Entity><Base file=""b.xml""><ProjectileComponent _remove_from_base=""1"" /></Base></Entity>",
+            };
+            var e = NoitaEntity.Load(p => files.TryGetValue(p, out var t) ? t : null, "e.xml");
+            Assert.Null(e.Component("ProjectileComponent"));
+            Assert.NotNull(e.Component("DamageModelComponent"));
+        }
+
+        [Fact]
         public void Projectile_FactsAndUnits()
         {
             var e = NoitaEntity.Load(_ => @"<Entity>

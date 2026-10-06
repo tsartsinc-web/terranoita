@@ -70,7 +70,7 @@
   },
   "run_speed": {
    "type": "number",
-   "desc": "Walking speed, Terraria pixels/frame (CharacterPlatformingComponent run_velocity)."
+   "desc": "Walking speed, Terraria pixels/frame (CharacterPlatformingComponent run_velocity). Burrowers: hunting speed (WormAIComponent speed_hunt, Noita px/frame x 3). PhysicsAI movers (lukki): min(force_coeff*target_vec_max_len, force_max)/force_balancing_coeff px/s."
   },
   "fly_speed": {
    "type": "number",
@@ -82,7 +82,7 @@
   },
   "accel": {
    "type": "number",
-   "desc": "Share of the gap to target speed closed per frame (accel_x, 0..1)."
+   "desc": "Share of the gap to target speed closed per frame (accel_x, 0..1). Burrowers: px/frame the speed steps by each frame (WormComponent acceleration /60 x 3)."
   },
   "gravity": {
    "type": "number",
@@ -95,6 +95,18 @@
   "sight_tiles": {
    "type": "number",
    "desc": "Notices the player within this many tiles (creature_detection_range_x)."
+  },
+  "roam_speed": {
+   "type": "number",
+   "desc": "Burrowers: roaming speed, Terraria px/frame (WormAIComponent speed, Noita px/frame x 3); 0 for others."
+  },
+  "turn_rate": {
+   "type": "number",
+   "desc": "Burrowers: radians per frame the head turns while hunting (WormAIComponent direction_adjust_speed_hunt); 0 for others."
+  },
+  "roam_turn_rate": {
+   "type": "number",
+   "desc": "Burrowers: radians per frame while roaming (WormAIComponent direction_adjust_speed); 0 for others."
   },
   "audio": {
    "type": "string",
@@ -183,6 +195,9 @@
    "gravity": 0.5,
    "jump_speed": 10.0,
    "sight_tiles": 46.9,
+   "roam_speed": 0.0,
+   "turn_rate": 0.0,
+   "roam_turn_rate": 0.0,
    "audio": "animals/ghost",
    "attacks": [],
    "spawn_in": [
@@ -212,8 +227,9 @@
    "blood": "Magical Liquid",
    "drops": "noita_gold",
    "stage": "1b",
-   "_unverified": {
-    "attacks": "wiki lists no attack; confirm in the entity XML"
+   "_unverified": {},
+   "_sources": {
+    "attacks": "data/entities/animals/weakspirit.xml: no ranged, dash, aura, explosion or script attack"
    }
   },
   {
@@ -243,6 +259,9 @@
    "gravity": 0.5,
    "jump_speed": 10.0,
    "sight_tiles": 46.9,
+   "roam_speed": 0.0,
+   "turn_rate": 0.0,
+   "roam_turn_rate": 0.0,
    "audio": "animals/ghost",
    "attacks": [],
    "spawn_in": [
@@ -274,8 +293,9 @@
    "blood": "Magical Liquid",
    "drops": "noita_gold",
    "stage": "1b",
-   "_unverified": {
-    "attacks": "wiki lists no attack; confirm in the entity XML"
+   "_unverified": {},
+   "_sources": {
+    "attacks": "data/entities/animals/slimespirit.xml: no ranged, dash, aura, explosion or script attack"
    }
   },
   {
@@ -305,6 +325,9 @@
    "gravity": 0.5,
    "jump_speed": 10.0,
    "sight_tiles": 46.9,
+   "roam_speed": 0.0,
+   "turn_rate": 0.0,
+   "roam_turn_rate": 0.0,
    "audio": "animals/ghost",
    "attacks": [],
    "spawn_in": [
@@ -336,8 +359,9 @@
    "blood": "Magical Liquid",
    "drops": "noita_gold",
    "stage": "1b",
-   "_unverified": {
-    "attacks": "wiki lists no attack; confirm in the entity XML"
+   "_unverified": {},
+   "_sources": {
+    "attacks": "data/entities/animals/confusespirit.xml: no ranged, dash, aura, explosion or script attack"
    }
   },
   {
@@ -367,6 +391,9 @@
    "gravity": 0.5,
    "jump_speed": 10.0,
    "sight_tiles": 46.9,
+   "roam_speed": 0.0,
+   "turn_rate": 0.0,
+   "roam_turn_rate": 0.0,
    "audio": "animals/ghost",
    "attacks": [],
    "spawn_in": [
@@ -396,8 +423,9 @@
    "blood": "Magical Liquid",
    "drops": "noita_gold",
    "stage": "1b",
-   "_unverified": {
-    "attacks": "wiki lists no attack; confirm in the entity XML"
+   "_unverified": {},
+   "_sources": {
+    "attacks": "data/entities/animals/berserkspirit.xml: no ranged, dash, aura, explosion or script attack"
    }
   },
   {
@@ -427,6 +455,9 @@
    "gravity": 0.5,
    "jump_speed": 10.0,
    "sight_tiles": 56.2,
+   "roam_speed": 0.0,
+   "turn_rate": 0.0,
+   "roam_turn_rate": 0.0,
    "audio": "animals/giantshooter",
    "attacks": [
     "giantshooter.explodes_into_acid_on_death",
@@ -483,6 +514,9 @@
    "gravity": 0.5,
    "jump_speed": 10.0,
    "sight_tiles": 56.2,
+   "roam_speed": 0.0,
+   "turn_rate": 0.0,
+   "roam_turn_rate": 0.0,
    "audio": "animals/giantshooter",
    "attacks": [
     "giantshooter_weak.explodes_into_acid_on_death",
@@ -538,6 +572,9 @@
    "gravity": 0.1667,
    "jump_speed": 10.0,
    "sight_tiles": 56.2,
+   "roam_speed": 0.0,
+   "turn_rate": 0.0,
+   "roam_turn_rate": 0.0,
    "audio": "animals/generic",
    "attacks": [
     "fly.lunge",
@@ -596,6 +633,9 @@
    "gravity": 0.0,
    "jump_speed": 0.0,
    "sight_tiles": 9.4,
+   "roam_speed": 0.0,
+   "turn_rate": 0.0,
+   "roam_turn_rate": 0.0,
    "audio": "none",
    "attacks": [
     "nest_fly.release"
@@ -622,12 +662,11 @@
    "blood": "none",
    "drops": "noita_gold",
    "stage": "1b",
-   "_unverified": {
-    "attacks": "a nest releases its creatures: confirm in its spawn script"
-   },
+   "_unverified": {},
    "_sources": {
     "id": "sheet id kept; Noita file data/entities/buildings/flynest.xml (found by file_words)",
-    "walks": "no movement component of any kind in data/entities/buildings/flynest.xml: does not move"
+    "walks": "no movement component of any kind in data/entities/buildings/flynest.xml: does not move",
+    "attacks": "its spawn script releases fly"
    }
   },
   {
@@ -657,6 +696,9 @@
    "gravity": 0.5,
    "jump_speed": 10.0,
    "sight_tiles": 24.0,
+   "roam_speed": 0.0,
+   "turn_rate": 0.0,
+   "roam_turn_rate": 0.0,
    "audio": "none",
    "attacks": [],
    "spawn_in": [
@@ -709,6 +751,9 @@
    "gravity": 0.5,
    "jump_speed": 6.5,
    "sight_tiles": 56.2,
+   "roam_speed": 0.0,
+   "turn_rate": 0.0,
+   "roam_turn_rate": 0.0,
    "audio": "animals/firemage",
    "attacks": [
     "firemage.ghostly_fireball",
@@ -759,16 +804,19 @@
    "size": 1.0,
    "hitbox_mult": 1.0,
    "ai": "static_turret",
-   "walks": null,
-   "flies": null,
-   "jumps": null,
-   "run_speed": null,
-   "fly_speed": null,
-   "fly_up_speed": null,
-   "accel": null,
-   "gravity": null,
-   "jump_speed": null,
-   "sight_tiles": null,
+   "walks": false,
+   "flies": false,
+   "jumps": false,
+   "run_speed": 0.0,
+   "fly_speed": 0.0,
+   "fly_up_speed": 0.0,
+   "accel": 0.0,
+   "gravity": 0.0,
+   "jump_speed": 0.0,
+   "sight_tiles": 9.4,
+   "roam_speed": 0.0,
+   "turn_rate": 0.0,
+   "roam_turn_rate": 0.0,
    "audio": "none",
    "attacks": [],
    "spawn_in": [
@@ -796,8 +844,10 @@
    "blood": "Blue Sand",
    "drops": "noita_gold",
    "stage": "1b",
-   "_unverified": {
-    "attacks": "wiki lists no attack; confirm in the entity XML"
+   "_unverified": {},
+   "_sources": {
+    "walks": "no movement component of any kind in data/entities/buildings/hpcrystal.xml: does not move",
+    "attacks": "data/entities/buildings/hpcrystal.xml: no ranged, dash, aura, explosion or script attack"
    }
   },
   {
@@ -824,6 +874,9 @@
    "gravity": null,
    "jump_speed": null,
    "sight_tiles": null,
+   "roam_speed": 0.0,
+   "turn_rate": 0.0,
+   "roam_turn_rate": 0.0,
    "audio": null,
    "attacks": [],
    "spawn_in": [
@@ -852,11 +905,14 @@
    ],
    "blood": "Spark",
    "drops": "noita_gold",
-   "stage": "1b",
+   "stage": "1c",
    "_unverified": {
     "id": "synthetic id; find the real entity file name in data.wak",
     "noita_entity": "path guessed from the id; check in the player's data.wak (tools: Terranoita.Cli wak-cat)",
     "attacks": "wiki lists no attack; confirm in the entity XML"
+   },
+   "_sources": {
+    "stage": "moved from 1b: no entity file found"
    }
   },
   {
@@ -886,6 +942,9 @@
    "gravity": 0.5,
    "jump_speed": 10.0,
    "sight_tiles": 75.0,
+   "roam_speed": 0.0,
+   "turn_rate": 0.0,
+   "roam_turn_rate": 0.0,
    "audio": "animals/failed_alchemist_b",
    "attacks": [
     "failed_alchemist_b.damage_field"
@@ -943,6 +1002,9 @@
    "gravity": 0.5,
    "jump_speed": 10.0,
    "sight_tiles": 9.4,
+   "roam_speed": 0.0,
+   "turn_rate": 0.0,
+   "roam_turn_rate": 0.0,
    "audio": "none",
    "attacks": [],
    "spawn_in": [
@@ -996,6 +1058,9 @@
    "gravity": null,
    "jump_speed": null,
    "sight_tiles": null,
+   "roam_speed": 0.0,
+   "turn_rate": 0.0,
+   "roam_turn_rate": 0.0,
    "audio": null,
    "attacks": [
     "gate_monster_c.curse"
@@ -1054,6 +1119,9 @@
    "gravity": null,
    "jump_speed": null,
    "sight_tiles": null,
+   "roam_speed": 0.0,
+   "turn_rate": 0.0,
+   "roam_turn_rate": 0.0,
    "audio": null,
    "attacks": [
     "gate_monster_b.curse"
@@ -1112,6 +1180,9 @@
    "gravity": null,
    "jump_speed": null,
    "sight_tiles": null,
+   "roam_speed": 0.0,
+   "turn_rate": 0.0,
+   "roam_turn_rate": 0.0,
    "audio": null,
    "attacks": [
     "gate_monster_d.curse"
@@ -1170,6 +1241,9 @@
    "gravity": null,
    "jump_speed": null,
    "sight_tiles": null,
+   "roam_speed": 0.0,
+   "turn_rate": 0.0,
+   "roam_turn_rate": 0.0,
    "audio": null,
    "attacks": [
     "gate_monster_a.curse"
@@ -1228,6 +1302,9 @@
    "gravity": null,
    "jump_speed": null,
    "sight_tiles": null,
+   "roam_speed": 0.0,
+   "turn_rate": 0.0,
+   "roam_turn_rate": 0.0,
    "audio": null,
    "attacks": [],
    "spawn_in": [],
@@ -1281,6 +1358,9 @@
    "gravity": null,
    "jump_speed": null,
    "sight_tiles": null,
+   "roam_speed": 0.0,
+   "turn_rate": 0.0,
+   "roam_turn_rate": 0.0,
    "audio": "none",
    "attacks": [
     "snowcrystal.summons_ghosts_periodically"
@@ -1308,8 +1388,11 @@
    ],
    "blood": "Blue Sand",
    "drops": "noita_gold",
-   "stage": "1b",
-   "_unverified": {}
+   "stage": "1c",
+   "_unverified": {},
+   "_sources": {
+    "stage": "moved from 1b: its spawn script builds the creature path at run time"
+   }
   },
   {
    "id": "wizard_hearty",
@@ -1338,6 +1421,9 @@
    "gravity": 0.5,
    "jump_speed": 10.0,
    "sight_tiles": 75.0,
+   "roam_speed": 0.0,
+   "turn_rate": 0.0,
+   "roam_turn_rate": 0.0,
    "audio": "animals/wizard",
    "attacks": [
     "wizard_hearty.projectile"
@@ -1400,6 +1486,9 @@
    "gravity": 0.5,
    "jump_speed": 10.0,
    "sight_tiles": 56.2,
+   "roam_speed": 0.0,
+   "turn_rate": 0.0,
+   "roam_turn_rate": 0.0,
    "audio": "animals/necromancer",
    "attacks": [
     "necromancer.chaotic_polymorphine",
@@ -1461,6 +1550,9 @@
    "gravity": 0.5,
    "jump_speed": 4.0,
    "sight_tiles": 75.0,
+   "roam_speed": 0.0,
+   "turn_rate": 0.0,
+   "roam_turn_rate": 0.0,
    "audio": "animals/scavenger",
    "attacks": [
     "scavenger_invis.turns_other_enemies_link_status_effects_invisible_invisible"
@@ -1507,16 +1599,19 @@
    "size": 1.0,
    "hitbox_mult": 1.0,
    "ai": "wall_climber",
-   "walks": null,
-   "flies": null,
-   "jumps": null,
-   "run_speed": null,
-   "fly_speed": null,
-   "fly_up_speed": null,
-   "accel": null,
-   "gravity": null,
-   "jump_speed": null,
-   "sight_tiles": null,
+   "walks": true,
+   "flies": true,
+   "jumps": false,
+   "run_speed": 6.25,
+   "fly_speed": 6.25,
+   "fly_up_speed": 6.25,
+   "accel": 0.0132,
+   "gravity": 0.0,
+   "jump_speed": 10.0,
+   "sight_tiles": 22.5,
+   "roam_speed": 0.0,
+   "turn_rate": 0.0,
+   "roam_turn_rate": 0.0,
    "audio": "animals/lukki",
    "attacks": [
     "lukki.melee"
@@ -1554,7 +1649,7 @@
    "name_fi": "Lukki",
    "name_key": "$animal_lukki_longleg",
    "category": "Spiders",
-   "faction": "slimes",
+   "faction": "spider",
    "noita_hp": 200,
    "noita_entity": "data/entities/animals/lukki/lukki_longleg.xml",
    "sprite": "data/entities/animals/lukki/lukki_feet/lukki_sprite.xml",
@@ -1565,16 +1660,19 @@
    "size": 1.0,
    "hitbox_mult": 1.0,
    "ai": "wall_climber",
-   "walks": null,
-   "flies": null,
-   "jumps": null,
-   "run_speed": null,
-   "fly_speed": null,
-   "fly_up_speed": null,
-   "accel": null,
-   "gravity": null,
-   "jump_speed": null,
-   "sight_tiles": null,
+   "walks": true,
+   "flies": true,
+   "jumps": false,
+   "run_speed": 6.25,
+   "fly_speed": 6.25,
+   "fly_up_speed": 6.25,
+   "accel": 0.0132,
+   "gravity": 0.0,
+   "jump_speed": 10.0,
+   "sight_tiles": 22.5,
+   "roam_speed": 0.0,
+   "turn_rate": 0.0,
+   "roam_turn_rate": 0.0,
    "audio": "animals/lukki",
    "attacks": [
     "lukki_longleg.melee"
@@ -1603,7 +1701,10 @@
    "blood": "Green Slime",
    "drops": "noita_gold",
    "stage": "1b",
-   "_unverified": {}
+   "_unverified": {},
+   "_sources": {
+    "faction": "GenomeDataComponent herd_id spider (data.wak; wiki said slimes)"
+   }
   },
   {
    "id": "lukki_tiny",
@@ -1622,19 +1723,23 @@
    "size": 1.0,
    "hitbox_mult": 1.0,
    "ai": "wall_climber",
-   "walks": null,
-   "flies": null,
-   "jumps": null,
-   "run_speed": null,
-   "fly_speed": null,
-   "fly_up_speed": null,
-   "accel": null,
-   "gravity": null,
-   "jump_speed": null,
-   "sight_tiles": null,
+   "walks": true,
+   "flies": true,
+   "jumps": false,
+   "run_speed": 3.125,
+   "fly_speed": 3.125,
+   "fly_up_speed": 3.125,
+   "accel": 0.0132,
+   "gravity": 0.0,
+   "jump_speed": 10.0,
+   "sight_tiles": 22.5,
+   "roam_speed": 0.0,
+   "turn_rate": 0.0,
+   "roam_turn_rate": 0.0,
    "audio": "animals/lukki_tiny",
    "attacks": [
-    "lukki_tiny.melee"
+    "lukki_tiny.melee",
+    "lukki_tiny.touch"
    ],
    "spawn_in": [
     "Underground Jungle",
@@ -1690,6 +1795,9 @@
    "gravity": 0.5,
    "jump_speed": 10.0,
    "sight_tiles": 56.2,
+   "roam_speed": 0.0,
+   "turn_rate": 0.0,
+   "roam_turn_rate": 0.0,
    "audio": "animals/longleg",
    "attacks": [
     "longleg.lunge",
@@ -1744,6 +1852,9 @@
    "gravity": null,
    "jump_speed": null,
    "sight_tiles": null,
+   "roam_speed": 0.0,
+   "turn_rate": 0.0,
+   "roam_turn_rate": 0.0,
    "audio": null,
    "attacks": [
     "nest_longleg.release"
@@ -1769,11 +1880,14 @@
    "immunities": [],
    "blood": "none",
    "drops": "noita_gold",
-   "stage": "1b",
+   "stage": "1c",
    "_unverified": {
     "id": "synthetic id; find the real entity file name in data.wak",
     "noita_entity": "path guessed from the id; check in the player's data.wak (tools: Terranoita.Cli wak-cat)",
     "attacks": "a nest releases its creatures: confirm in its spawn script"
+   },
+   "_sources": {
+    "stage": "moved from 1b: no entity file found"
    }
   },
   {
@@ -1803,6 +1917,9 @@
    "gravity": 0.5,
    "jump_speed": 10.0,
    "sight_tiles": 56.2,
+   "roam_speed": 0.0,
+   "turn_rate": 0.0,
+   "roam_turn_rate": 0.0,
    "audio": "animals/acidshooter",
    "attacks": [
     "acidshooter.acid_ball",
@@ -1862,6 +1979,9 @@
    "gravity": 0.5,
    "jump_speed": 10.0,
    "sight_tiles": 56.2,
+   "roam_speed": 0.0,
+   "turn_rate": 0.0,
+   "roam_turn_rate": 0.0,
    "audio": "animals/acidshooter",
    "attacks": [
     "acidshooter_weak.acid_ball",
@@ -1917,6 +2037,9 @@
    "gravity": 0.5,
    "jump_speed": 4.0,
    "sight_tiles": 75.0,
+   "roam_speed": 0.0,
+   "turn_rate": 0.0,
+   "roam_turn_rate": 0.0,
    "audio": "animals/shotgunner",
    "attacks": [
     "shotgunner.projectile",
@@ -1977,6 +2100,9 @@
    "gravity": 0.5,
    "jump_speed": 4.0,
    "sight_tiles": 75.0,
+   "roam_speed": 0.0,
+   "turn_rate": 0.0,
+   "roam_turn_rate": 0.0,
    "audio": "animals/shotgunner",
    "attacks": [
     "shotgunner_weak.projectile",
@@ -2032,6 +2158,9 @@
    "gravity": 0.5,
    "jump_speed": 4.0,
    "sight_tiles": 75.0,
+   "roam_speed": 0.0,
+   "turn_rate": 0.0,
+   "roam_turn_rate": 0.0,
    "audio": "animals/shotgunner",
    "attacks": [
     "shotgunner_hell.projectile",
@@ -2089,6 +2218,9 @@
    "gravity": 0.5,
    "jump_speed": 10.0,
    "sight_tiles": 37.5,
+   "roam_speed": 0.0,
+   "turn_rate": 0.0,
+   "roam_turn_rate": 0.0,
    "audio": "animals/robot",
    "attacks": [
     "missilecrab.missiles",
@@ -2149,6 +2281,9 @@
    "gravity": 0.5,
    "jump_speed": 7.0,
    "sight_tiles": 56.2,
+   "roam_speed": 0.0,
+   "turn_rate": 0.0,
+   "roam_turn_rate": 0.0,
    "audio": "animals/spitmonster",
    "attacks": [
     "spitmonster.projectile"
@@ -2205,6 +2340,9 @@
    "gravity": 0.5,
    "jump_speed": 10.0,
    "sight_tiles": 56.2,
+   "roam_speed": 0.0,
+   "turn_rate": 0.0,
+   "roam_turn_rate": 0.0,
    "audio": "animals/gazer",
    "attacks": [
     "gazer.lava"
@@ -2244,20 +2382,26 @@
    "noita_hp": 625,
    "noita_entity": "data/entities/animals/worm_end.xml",
    "sprite": "data/enemies_gfx/endworm_head.xml",
-   "hitbox": null,
+   "hitbox": [
+    54,
+    54
+   ],
    "size": 1.0,
    "hitbox_mult": 1.0,
    "ai": "worm",
-   "walks": null,
-   "flies": null,
-   "jumps": null,
-   "run_speed": null,
-   "fly_speed": null,
-   "fly_up_speed": null,
-   "accel": null,
-   "gravity": null,
-   "jump_speed": null,
-   "sight_tiles": null,
+   "walks": false,
+   "flies": false,
+   "jumps": false,
+   "run_speed": 24.0,
+   "fly_speed": 0.0,
+   "fly_up_speed": 0.0,
+   "accel": 0.025,
+   "gravity": 0.2,
+   "jump_speed": 0.0,
+   "sight_tiles": 48.0,
+   "roam_speed": 15.0,
+   "turn_rate": 0.04,
+   "roam_turn_rate": 0.005,
    "audio": "animals/worm",
    "attacks": [
     "worm_end.worm_bite"
@@ -2315,6 +2459,9 @@
    "gravity": 0.5,
    "jump_speed": 5.0,
    "sight_tiles": 46.9,
+   "roam_speed": 0.0,
+   "turn_rate": 0.0,
+   "roam_turn_rate": 0.0,
    "audio": "animals/mimic_potion",
    "attacks": [],
    "spawn_in": [],
@@ -2326,7 +2473,7 @@
     "slice": 1.0,
     "explosion": 1.0,
     "electricity": 1.0,
-    "fire": 0.2,
+    "fire": 1.0,
     "ice": 1.0,
     "drill": 1.0,
     "radioactive": 1.0,
@@ -2340,8 +2487,9 @@
    "blood": "None",
    "drops": "noita_gold",
    "stage": "1b",
-   "_unverified": {
-    "attacks": "wiki lists no attack; confirm in the entity XML"
+   "_unverified": {},
+   "_sources": {
+    "attacks": "data/entities/animals/mimic_potion.xml: no ranged, dash, aura, explosion or script attack"
    }
   },
   {
@@ -2371,6 +2519,9 @@
    "gravity": 0.5,
    "jump_speed": 5.0,
    "sight_tiles": 112.5,
+   "roam_speed": 0.0,
+   "turn_rate": 0.0,
+   "roam_turn_rate": 0.0,
    "audio": "animals/giant",
    "attacks": [
     "giant.rock_spirit",
@@ -2426,6 +2577,9 @@
    "gravity": 0.5,
    "jump_speed": 10.0,
    "sight_tiles": 56.2,
+   "roam_speed": 0.0,
+   "turn_rate": 0.0,
+   "roam_turn_rate": 0.0,
    "audio": "animals/wraith_glowing",
    "attacks": [
     "wraith_glowing.pinpoint_of_light"
@@ -2486,6 +2640,9 @@
    "gravity": 0.5,
    "jump_speed": 0.0,
    "sight_tiles": 56.2,
+   "roam_speed": 0.0,
+   "turn_rate": 0.0,
+   "roam_turn_rate": 0.0,
    "audio": "animals/statue_physics",
    "attacks": [
     "statue_physics.green_radial_orb",
@@ -2545,6 +2702,9 @@
    "gravity": null,
    "jump_speed": null,
    "sight_tiles": null,
+   "roam_speed": 0.0,
+   "turn_rate": 0.0,
+   "roam_turn_rate": 0.0,
    "audio": "none",
    "attacks": [
     "ghost_crystal.freezing"
@@ -2574,10 +2734,11 @@
    ],
    "blood": "Blue Sand",
    "drops": "noita_gold",
-   "stage": "1b",
+   "stage": "1c",
    "_unverified": {},
    "_sources": {
-    "id": "sheet id kept; Noita file data/entities/buildings/ghost_crystal.xml (found by guess)"
+    "id": "sheet id kept; Noita file data/entities/buildings/ghost_crystal.xml (found by guess)",
+    "stage": "moved from 1b: no name key; attack is a death script firing ice.xml"
    }
   },
   {
@@ -2590,7 +2751,10 @@
    "noita_hp": 500,
    "noita_entity": "data/entities/animals/ghost.xml",
    "sprite": "data/enemies_gfx/ghost.xml",
-   "hitbox": null,
+   "hitbox": [
+    48,
+    48
+   ],
    "size": 1.0,
    "hitbox_mult": 1.0,
    "ai": "ghost_phase",
@@ -2604,6 +2768,9 @@
    "gravity": 0.0,
    "jump_speed": 0.0,
    "sight_tiles": 9.4,
+   "roam_speed": 0.0,
+   "turn_rate": 0.0,
+   "roam_turn_rate": 0.0,
    "audio": "animals/ghost",
    "attacks": [
     "ghost.curse"
@@ -2633,7 +2800,8 @@
    "stage": "1b",
    "_unverified": {},
    "_sources": {
-    "walks": "no movement component of any kind in data/entities/animals/ghost.xml: does not move"
+    "walks": "no movement component of any kind in data/entities/animals/ghost.xml: does not move",
+    "hitbox": "design placeholder: ghost.xml has no HitboxComponent (it is invulnerable: all damage multipliers 0); 16 Noita px"
    }
   },
   {
@@ -2663,6 +2831,9 @@
    "gravity": 0.5,
    "jump_speed": 10.0,
    "sight_tiles": 56.2,
+   "roam_speed": 0.0,
+   "turn_rate": 0.0,
+   "roam_turn_rate": 0.0,
    "audio": "animals/fungus",
    "attacks": [
     "fungus_giga.pollen",
@@ -2723,6 +2894,9 @@
    "gravity": 0.5,
    "jump_speed": 10.0,
    "sight_tiles": 46.9,
+   "roam_speed": 0.0,
+   "turn_rate": 0.0,
+   "roam_turn_rate": 0.0,
    "audio": "animals/zombie",
    "attacks": [
     "zombie_weak.lunge",
@@ -2778,6 +2952,9 @@
    "gravity": 0.5,
    "jump_speed": 10.0,
    "sight_tiles": 46.9,
+   "roam_speed": 0.0,
+   "turn_rate": 0.0,
+   "roam_turn_rate": 0.0,
    "audio": "animals/zombie",
    "attacks": [
     "zombie.lunge",
@@ -2837,6 +3014,9 @@
    "gravity": 0.5,
    "jump_speed": 10.0,
    "sight_tiles": 56.2,
+   "roam_speed": 0.0,
+   "turn_rate": 0.0,
+   "roam_turn_rate": 0.0,
    "audio": "animals/wraith",
    "attacks": [],
    "spawn_in": [
@@ -2894,6 +3074,9 @@
    "gravity": 0.5,
    "jump_speed": 4.0,
    "sight_tiles": 75.0,
+   "roam_speed": 0.0,
+   "turn_rate": 0.0,
+   "roam_turn_rate": 0.0,
    "audio": "animals/generic",
    "attacks": [
     "scavenger_clusterbomb.timed_mines",
@@ -2953,6 +3136,9 @@
    "gravity": 0.5,
    "jump_speed": 10.0,
    "sight_tiles": 112.5,
+   "roam_speed": 0.0,
+   "turn_rate": 0.0,
+   "roam_turn_rate": 0.0,
    "audio": "animals/robot",
    "attacks": [
     "tank_rocket.homing_rocket",
@@ -3016,6 +3202,9 @@
    "gravity": 0.5,
    "jump_speed": 4.0,
    "sight_tiles": 75.0,
+   "roam_speed": 0.0,
+   "turn_rate": 0.0,
+   "roam_turn_rate": 0.0,
    "audio": "animals/robot",
    "attacks": [
     "icer.icethrower"
@@ -3075,6 +3264,9 @@
    "gravity": 0.5,
    "jump_speed": 10.0,
    "sight_tiles": 56.2,
+   "roam_speed": 0.0,
+   "turn_rate": 0.0,
+   "roam_turn_rate": 0.0,
    "audio": "animals/iceskull",
    "attacks": [
     "iceskull.iceball",
@@ -3133,6 +3325,9 @@
    "gravity": 0.5,
    "jump_speed": 10.0,
    "sight_tiles": 46.9,
+   "roam_speed": 0.0,
+   "turn_rate": 0.0,
+   "roam_turn_rate": 0.0,
    "audio": "animals/frog_big",
    "attacks": [
     "frog_big.tentacle",
@@ -3191,6 +3386,9 @@
    "gravity": 0.5,
    "jump_speed": 10.0,
    "sight_tiles": 46.9,
+   "roam_speed": 0.0,
+   "turn_rate": 0.0,
+   "roam_turn_rate": 0.0,
    "audio": "animals/drone_lasership",
    "attacks": [
     "drone_lasership.intense_concentrated_light_variant"
@@ -3235,20 +3433,26 @@
    "noita_hp": 3500,
    "noita_entity": "data/entities/animals/worm_big.xml",
    "sprite": "data/enemies_gfx/worm_big_head.xml",
-   "hitbox": null,
+   "hitbox": [
+    54,
+    54
+   ],
    "size": 1.0,
    "hitbox_mult": 1.0,
    "ai": "worm",
-   "walks": null,
-   "flies": null,
-   "jumps": null,
-   "run_speed": null,
-   "fly_speed": null,
-   "fly_up_speed": null,
-   "accel": null,
-   "gravity": null,
-   "jump_speed": null,
-   "sight_tiles": null,
+   "walks": false,
+   "flies": false,
+   "jumps": false,
+   "run_speed": 15.0,
+   "fly_speed": 0.0,
+   "fly_up_speed": 0.0,
+   "accel": 0.075,
+   "gravity": 0.15,
+   "jump_speed": 0.0,
+   "sight_tiles": 48.0,
+   "roam_speed": 12.0,
+   "turn_rate": 0.04,
+   "roam_turn_rate": 0.003,
    "audio": "animals/worm",
    "attacks": [
     "worm_big.worm_bite"
@@ -3308,6 +3512,9 @@
    "gravity": 0.5,
    "jump_speed": 5.0,
    "sight_tiles": 56.2,
+   "roam_speed": 0.0,
+   "turn_rate": 0.0,
+   "roam_turn_rate": 0.0,
    "audio": "animals/generic",
    "attacks": [
     "miner_santa.present_grenade",
@@ -3365,6 +3572,9 @@
    "gravity": 0.5,
    "jump_speed": 10.0,
    "sight_tiles": 56.2,
+   "roam_speed": 0.0,
+   "turn_rate": 0.0,
+   "roam_turn_rate": 0.0,
    "audio": "animals/failed_alchemist",
    "attacks": [
     "failed_alchemist.melee"
@@ -3426,6 +3636,9 @@
    "gravity": 0.5,
    "jump_speed": 0.0,
    "sight_tiles": 56.2,
+   "roam_speed": 0.0,
+   "turn_rate": 0.0,
+   "roam_turn_rate": 0.0,
    "audio": "animals/skullfly",
    "attacks": [
     "skullfly.path_of_dark_flame",
@@ -3483,6 +3696,9 @@
    "gravity": 0.5,
    "jump_speed": 10.0,
    "sight_tiles": 46.9,
+   "roam_speed": 0.0,
+   "turn_rate": 0.0,
+   "roam_turn_rate": 0.0,
    "audio": "animals/skullrat",
    "attacks": [
     "skullrat.lunge",
@@ -3522,20 +3738,26 @@
    "noita_hp": 625,
    "noita_entity": "data/entities/animals/worm_skull.xml",
    "sprite": "data/enemies_gfx/worm_skull_head.xml",
-   "hitbox": null,
+   "hitbox": [
+    54,
+    54
+   ],
    "size": 1.0,
    "hitbox_mult": 1.0,
    "ai": "worm",
-   "walks": null,
-   "flies": null,
-   "jumps": null,
-   "run_speed": null,
-   "fly_speed": null,
-   "fly_up_speed": null,
-   "accel": null,
-   "gravity": null,
-   "jump_speed": null,
-   "sight_tiles": null,
+   "walks": false,
+   "flies": false,
+   "jumps": false,
+   "run_speed": 24.0,
+   "fly_speed": 0.0,
+   "fly_up_speed": 0.0,
+   "accel": 0.025,
+   "gravity": 0.2,
+   "jump_speed": 0.0,
+   "sight_tiles": 48.0,
+   "roam_speed": 15.0,
+   "turn_rate": 0.04,
+   "roam_turn_rate": 0.005,
    "audio": "animals/ghost",
    "attacks": [
     "worm_skull.worm_bite",
@@ -3585,16 +3807,19 @@
    "size": 1.0,
    "hitbox_mult": 1.0,
    "ai": "wall_climber",
-   "walks": null,
-   "flies": null,
-   "jumps": null,
-   "run_speed": null,
-   "fly_speed": null,
-   "fly_up_speed": null,
-   "accel": null,
-   "gravity": null,
-   "jump_speed": null,
-   "sight_tiles": null,
+   "walks": true,
+   "flies": true,
+   "jumps": false,
+   "run_speed": 11.111,
+   "fly_speed": 11.111,
+   "fly_up_speed": 11.111,
+   "accel": 0.0149,
+   "gravity": 0.0,
+   "jump_speed": 10.0,
+   "sight_tiles": 9.4,
+   "roam_speed": 0.0,
+   "turn_rate": 0.0,
+   "roam_turn_rate": 0.0,
    "audio": "animals/lukki",
    "attacks": [
     "lukki_dark.melee"
@@ -3643,16 +3868,19 @@
    "size": 1.0,
    "hitbox_mult": 1.0,
    "ai": "wall_climber",
-   "walks": null,
-   "flies": null,
-   "jumps": null,
-   "run_speed": null,
-   "fly_speed": null,
-   "fly_up_speed": null,
-   "accel": null,
-   "gravity": null,
-   "jump_speed": null,
-   "sight_tiles": null,
+   "walks": true,
+   "flies": true,
+   "jumps": false,
+   "run_speed": 6.25,
+   "fly_speed": 6.25,
+   "fly_up_speed": 6.25,
+   "accel": 0.0132,
+   "gravity": 0.0,
+   "jump_speed": 10.0,
+   "sight_tiles": 22.5,
+   "roam_speed": 0.0,
+   "turn_rate": 0.0,
+   "roam_turn_rate": 0.0,
    "audio": "animals/lukki",
    "attacks": [
     "lukki_creepy_long.melee"
@@ -3710,6 +3938,9 @@
    "gravity": 0.5,
    "jump_speed": 4.0,
    "sight_tiles": 75.0,
+   "roam_speed": 0.0,
+   "turn_rate": 0.0,
+   "roam_turn_rate": 0.0,
    "audio": "animals/ultimate_killer",
    "attacks": [
     "ultimate_killer.evergreen_seed",
@@ -3767,6 +3998,9 @@
    "gravity": 0.5,
    "jump_speed": 4.0,
    "sight_tiles": 75.0,
+   "roam_speed": 0.0,
+   "turn_rate": 0.0,
+   "roam_turn_rate": 0.0,
    "audio": "animals/scavenger",
    "attacks": [
     "scavenger_shield.shield_buff"
@@ -3822,6 +4056,9 @@
    "gravity": 0.5,
    "jump_speed": 0.0,
    "sight_tiles": 56.2,
+   "roam_speed": 0.0,
+   "turn_rate": 0.0,
+   "roam_turn_rate": 0.0,
    "audio": "animals/crystal",
    "attacks": [
     "crystal_physics.projectile"
@@ -3879,6 +4116,9 @@
    "gravity": 0.5,
    "jump_speed": 10.0,
    "sight_tiles": 46.9,
+   "roam_speed": 0.0,
+   "turn_rate": 0.0,
+   "roam_turn_rate": 0.0,
    "audio": "animals/ghost",
    "attacks": [
     "phantom_b.energy_orb"
@@ -3942,6 +4182,9 @@
    "gravity": 0.5,
    "jump_speed": 5.0,
    "sight_tiles": 56.2,
+   "roam_speed": 0.0,
+   "turn_rate": 0.0,
+   "roam_turn_rate": 0.0,
    "audio": "animals/blob",
    "attacks": [
     "blob.lunge",
@@ -3999,6 +4242,9 @@
    "gravity": null,
    "jump_speed": null,
    "sight_tiles": null,
+   "roam_speed": 0.0,
+   "turn_rate": 0.0,
+   "roam_turn_rate": 0.0,
    "audio": null,
    "attacks": [],
    "spawn_in": [],
@@ -4060,6 +4306,9 @@
    "gravity": 0.5,
    "jump_speed": 10.0,
    "sight_tiles": 112.5,
+   "roam_speed": 0.0,
+   "turn_rate": 0.0,
+   "roam_turn_rate": 0.0,
    "audio": "animals/robot",
    "attacks": [
     "tank.machine_gun",
@@ -4125,6 +4374,9 @@
    "gravity": 0.5,
    "jump_speed": 10.0,
    "sight_tiles": 75.0,
+   "roam_speed": 0.0,
+   "turn_rate": 0.0,
+   "roam_turn_rate": 0.0,
    "audio": "animals/wizard",
    "attacks": [
     "wizard_homing.projectile"
@@ -4179,6 +4431,9 @@
    "gravity": null,
    "jump_speed": null,
    "sight_tiles": null,
+   "roam_speed": 0.0,
+   "turn_rate": 0.0,
+   "roam_turn_rate": 0.0,
    "audio": null,
    "attacks": [
     "boss_centipede.circular_orb",
@@ -4242,6 +4497,9 @@
    "gravity": null,
    "jump_speed": null,
    "sight_tiles": null,
+   "roam_speed": 0.0,
+   "turn_rate": 0.0,
+   "roam_turn_rate": 0.0,
    "audio": null,
    "attacks": [
     "boss_centipede_minion.projectile"
@@ -4297,6 +4555,9 @@
    "gravity": null,
    "jump_speed": null,
    "sight_tiles": null,
+   "roam_speed": 0.0,
+   "turn_rate": 0.0,
+   "roam_turn_rate": 0.0,
    "audio": null,
    "attacks": [
     "slimeshooter_boss_limbs.projectile",
@@ -4349,6 +4610,9 @@
    "gravity": null,
    "jump_speed": null,
    "sight_tiles": null,
+   "roam_speed": 0.0,
+   "turn_rate": 0.0,
+   "roam_turn_rate": 0.0,
    "audio": null,
    "attacks": [
     "boss_limbs.projectile",
@@ -4409,6 +4673,9 @@
    "gravity": null,
    "jump_speed": null,
    "sight_tiles": null,
+   "roam_speed": 0.0,
+   "turn_rate": 0.0,
+   "roam_turn_rate": 0.0,
    "audio": null,
    "attacks": [
     "boss_robot.rocket_barrage",
@@ -4469,6 +4736,9 @@
    "gravity": null,
    "jump_speed": null,
    "sight_tiles": null,
+   "roam_speed": 0.0,
+   "turn_rate": 0.0,
+   "roam_turn_rate": 0.0,
    "audio": null,
    "attacks": [
     "boss_meat.homing_orb",
@@ -4532,6 +4802,9 @@
    "gravity": 0.5,
    "jump_speed": 10.0,
    "sight_tiles": 46.9,
+   "roam_speed": 0.0,
+   "turn_rate": 0.0,
+   "roam_turn_rate": 0.0,
    "audio": "animals/frog",
    "attacks": [
     "frog.lunge"
@@ -4587,6 +4860,9 @@
    "gravity": 0.5,
    "jump_speed": 10.0,
    "sight_tiles": 46.9,
+   "roam_speed": 0.0,
+   "turn_rate": 0.0,
+   "roam_turn_rate": 0.0,
    "audio": "animals/robot",
    "attacks": [
     "healerdrone_physics.heal",
@@ -4649,6 +4925,9 @@
    "gravity": 0.5,
    "jump_speed": 4.0,
    "sight_tiles": 75.0,
+   "roam_speed": 0.0,
+   "turn_rate": 0.0,
+   "roam_turn_rate": 0.0,
    "audio": "animals/scavenger",
    "attacks": [
     "scavenger_grenade.firebolt_like",
@@ -4713,6 +4992,9 @@
    "gravity": 0.5,
    "jump_speed": 4.0,
    "sight_tiles": 75.0,
+   "roam_speed": 0.0,
+   "turn_rate": 0.0,
+   "roam_turn_rate": 0.0,
    "audio": "animals/ghost",
    "attacks": [
     "playerghost.melee"
@@ -4783,6 +5065,9 @@
    "gravity": 0.5,
    "jump_speed": 10.0,
    "sight_tiles": 56.2,
+   "roam_speed": 0.0,
+   "turn_rate": 0.0,
+   "roam_turn_rate": 0.0,
    "audio": "animals/robot",
    "attacks": [
     "roboguard_big.projectile",
@@ -4843,6 +5128,9 @@
    "gravity": 0.5,
    "jump_speed": 10.0,
    "sight_tiles": 56.2,
+   "roam_speed": 0.0,
+   "turn_rate": 0.0,
+   "roam_turn_rate": 0.0,
    "audio": "animals/fungus",
    "attacks": [
     "fungus.lunge",
@@ -4902,6 +5190,9 @@
    "gravity": 0.5,
    "jump_speed": 0.0,
    "sight_tiles": 33.8,
+   "roam_speed": 0.0,
+   "turn_rate": 0.0,
+   "roam_turn_rate": 0.0,
    "audio": "animals/sheep",
    "attacks": [],
    "spawn_in": [
@@ -4951,6 +5242,9 @@
    "gravity": null,
    "jump_speed": null,
    "sight_tiles": null,
+   "roam_speed": 0.0,
+   "turn_rate": 0.0,
+   "roam_turn_rate": 0.0,
    "audio": null,
    "attacks": [],
    "spawn_in": [],
@@ -5000,6 +5294,9 @@
    "gravity": null,
    "jump_speed": null,
    "sight_tiles": null,
+   "roam_speed": 0.0,
+   "turn_rate": 0.0,
+   "roam_turn_rate": 0.0,
    "audio": null,
    "attacks": [],
    "spawn_in": [],
@@ -5052,6 +5349,9 @@
    "gravity": 0.5,
    "jump_speed": 10.0,
    "sight_tiles": 112.5,
+   "roam_speed": 0.0,
+   "turn_rate": 0.0,
+   "roam_turn_rate": 0.0,
    "audio": "animals/robot",
    "attacks": [
     "tank_super.laser_blasts",
@@ -5117,6 +5417,9 @@
    "gravity": 0.5,
    "jump_speed": 10.0,
    "sight_tiles": 46.9,
+   "roam_speed": 0.0,
+   "turn_rate": 0.0,
+   "roam_turn_rate": 0.0,
    "audio": "animals/robot",
    "attacks": [
     "drone_physics.projectile",
@@ -5180,6 +5483,9 @@
    "gravity": 0.5,
    "jump_speed": 10.0,
    "sight_tiles": 56.2,
+   "roam_speed": 0.0,
+   "turn_rate": 0.0,
+   "roam_turn_rate": 0.0,
    "audio": "animals/bat",
    "attacks": [
     "bat.lunge"
@@ -5234,6 +5540,9 @@
    "gravity": 0.5,
    "jump_speed": 4.0,
    "sight_tiles": 75.0,
+   "roam_speed": 0.0,
+   "turn_rate": 0.0,
+   "roam_turn_rate": 0.0,
    "audio": "animals/robot",
    "attacks": [
     "flamer.flamethrower"
@@ -5292,6 +5601,9 @@
    "gravity": 0.5,
    "jump_speed": 10.0,
    "sight_tiles": 56.2,
+   "roam_speed": 0.0,
+   "turn_rate": 0.0,
+   "roam_turn_rate": 0.0,
    "audio": "animals/fireskull",
    "attacks": [
     "fireskull.lunge",
@@ -5350,6 +5662,9 @@
    "gravity": 0.5,
    "jump_speed": 4.0,
    "sight_tiles": 75.0,
+   "roam_speed": 0.0,
+   "turn_rate": 0.0,
+   "roam_turn_rate": 0.0,
    "audio": "animals/scavenger",
    "attacks": [
     "scavenger_glue.glue_shot",
@@ -5408,6 +5723,9 @@
    "gravity": 0.5,
    "jump_speed": 10.0,
    "sight_tiles": 56.2,
+   "roam_speed": 0.0,
+   "turn_rate": 0.0,
+   "roam_turn_rate": 0.0,
    "audio": "animals/slimeshooter",
    "attacks": [
     "slimeshooter_weak.slimeball"
@@ -5462,6 +5780,9 @@
    "gravity": 0.5,
    "jump_speed": 10.0,
    "sight_tiles": 56.2,
+   "roam_speed": 0.0,
+   "turn_rate": 0.0,
+   "roam_turn_rate": 0.0,
    "audio": "animals/slimeshooter",
    "attacks": [
     "slimeshooter.slimeball_sludge"
@@ -5516,6 +5837,9 @@
    "gravity": null,
    "jump_speed": null,
    "sight_tiles": null,
+   "roam_speed": 0.0,
+   "turn_rate": 0.0,
+   "roam_turn_rate": 0.0,
    "audio": null,
    "attacks": [
     "maggot_tiny.green_orb",
@@ -5564,7 +5888,7 @@
    "category": "Monsters",
    "faction": "giant",
    "noita_hp": 2.5,
-   "noita_entity": "data/entities/projectiles/pebble.xml",
+   "noita_entity": "data/entities/animals/pebble_physics.xml",
    "sprite": "data/enemies_gfx/pebble_physics.png",
    "hitbox": null,
    "size": 1.0,
@@ -5580,6 +5904,9 @@
    "gravity": null,
    "jump_speed": null,
    "sight_tiles": null,
+   "roam_speed": 0.0,
+   "turn_rate": 0.0,
+   "roam_turn_rate": 0.0,
    "audio": "none",
    "attacks": [
     "pebble.explodes_on_death"
@@ -5604,8 +5931,13 @@
    ],
    "blood": "Freezing Liquid",
    "drops": "noita_gold",
-   "stage": "1b",
-   "_unverified": {}
+   "stage": "1c",
+   "_unverified": {
+    "noita_entity": "from pebble_spawn.lua (pebble.xml projectile spawns it); rerun facts"
+   },
+   "_sources": {
+    "stage": "moved from 1b: the creature is animals/pebble_physics.xml (pebble_spawn.lua), not in facts yet"
+   }
   },
   {
    "id": "wizard_neutral",
@@ -5634,6 +5966,9 @@
    "gravity": 0.5,
    "jump_speed": 10.0,
    "sight_tiles": 75.0,
+   "roam_speed": 0.0,
+   "turn_rate": 0.0,
+   "roam_turn_rate": 0.0,
    "audio": "animals/wizard",
    "attacks": [
     "wizard_neutral.neutralizing_bolt"
@@ -5700,6 +6035,9 @@
    "gravity": 0.5,
    "jump_speed": 4.0,
    "sight_tiles": 46.9,
+   "roam_speed": 0.0,
+   "turn_rate": 0.0,
+   "roam_turn_rate": 0.0,
    "audio": "animals/shaman",
    "attacks": [
     "shaman.cursed_sphere"
@@ -5759,6 +6097,9 @@
    "gravity": 0.5,
    "jump_speed": 10.0,
    "sight_tiles": 56.2,
+   "roam_speed": 0.0,
+   "turn_rate": 0.0,
+   "roam_turn_rate": 0.0,
    "audio": "animals/assassin",
    "attacks": [
     "necrobot_super.projectile"
@@ -5816,6 +6157,9 @@
    "gravity": null,
    "jump_speed": null,
    "sight_tiles": null,
+   "roam_speed": 0.0,
+   "turn_rate": 0.0,
+   "roam_turn_rate": 0.0,
    "audio": null,
    "attacks": [
     "minipit.projectile"
@@ -5871,6 +6215,9 @@
    "gravity": null,
    "jump_speed": null,
    "sight_tiles": null,
+   "roam_speed": 0.0,
+   "turn_rate": 0.0,
+   "roam_turn_rate": 0.0,
    "audio": null,
    "attacks": [
     "bigzombietorso.fireball",
@@ -5923,6 +6270,9 @@
    "gravity": null,
    "jump_speed": null,
    "sight_tiles": null,
+   "roam_speed": 0.0,
+   "turn_rate": 0.0,
+   "roam_turn_rate": 0.0,
    "audio": null,
    "attacks": [
     "bigzombiehead.melee"
@@ -5979,6 +6329,9 @@
    "gravity": 0.5,
    "jump_speed": 10.0,
    "sight_tiles": 46.9,
+   "roam_speed": 0.0,
+   "turn_rate": 0.0,
+   "roam_turn_rate": 0.0,
    "audio": "animals/generic",
    "attacks": [
     "bigzombie.fireball",
@@ -6019,20 +6372,26 @@
    "noita_hp": 87.5,
    "noita_entity": "data/entities/animals/meatmaggot.xml",
    "sprite": "data/enemies_gfx/meatmaggot_head.xml",
-   "hitbox": null,
+   "hitbox": [
+    12,
+    12
+   ],
    "size": 1.0,
    "hitbox_mult": 1.0,
    "ai": "worm",
-   "walks": null,
-   "flies": null,
-   "jumps": null,
-   "run_speed": null,
-   "fly_speed": null,
-   "fly_up_speed": null,
-   "accel": null,
-   "gravity": null,
-   "jump_speed": null,
-   "sight_tiles": null,
+   "walks": false,
+   "flies": false,
+   "jumps": false,
+   "run_speed": 12.0,
+   "fly_speed": 0.0,
+   "fly_up_speed": 0.0,
+   "accel": 0.015,
+   "gravity": 0.2,
+   "jump_speed": 0.0,
+   "sight_tiles": 48.0,
+   "roam_speed": 9.0,
+   "turn_rate": 0.06,
+   "roam_turn_rate": 0.02,
    "audio": "animals/worm",
    "attacks": [
     "meatmaggot.worm_bite"
@@ -6043,7 +6402,7 @@
    "spawn_rule": "natural",
    "tier": "t3",
    "dmg_mult": {
-    "melee": null,
+    "melee": 1.0,
     "projectile": 0.5,
     "slice": 1.2,
     "explosion": 1.0,
@@ -6063,9 +6422,7 @@
    "blood": "Worm Blood",
    "drops": "noita_gold",
    "stage": "1b",
-   "_unverified": {
-    "dmg_mult": "wiki has no multiplier for some damage types; read DamageModelComponent check in the player's data.wak (tools: Terranoita.Cli wak-cat)"
-   }
+   "_unverified": {}
   },
   {
    "id": "chest_leggy",
@@ -6083,17 +6440,20 @@
    ],
    "size": 1.0,
    "hitbox_mult": 1.0,
-   "ai": "mimic",
-   "walks": null,
-   "flies": null,
-   "jumps": null,
-   "run_speed": null,
-   "fly_speed": null,
-   "fly_up_speed": null,
-   "accel": null,
-   "gravity": null,
-   "jump_speed": null,
-   "sight_tiles": null,
+   "ai": "leggy_mimic",
+   "walks": true,
+   "flies": false,
+   "jumps": false,
+   "run_speed": 6.25,
+   "fly_speed": 6.25,
+   "fly_up_speed": 6.25,
+   "accel": 0.0132,
+   "gravity": 0.0,
+   "jump_speed": 10.0,
+   "sight_tiles": 131.2,
+   "roam_speed": 0.0,
+   "turn_rate": 0.0,
+   "roam_turn_rate": 0.0,
    "audio": "animals",
    "attacks": [
     "chest_leggy.melee"
@@ -6109,7 +6469,7 @@
     "electricity": 1.2,
     "fire": 1.2,
     "ice": 1.0,
-    "drill": 0.7,
+    "drill": 1.0,
     "radioactive": 1.0,
     "holy": 2
    },
@@ -6149,6 +6509,9 @@
    "gravity": 0.5,
    "jump_speed": 10.0,
    "sight_tiles": 131.2,
+   "roam_speed": 0.0,
+   "turn_rate": 0.0,
+   "roam_turn_rate": 0.0,
    "audio": "animals/generic",
    "attacks": [
     "chest_mimic.melee"
@@ -6184,20 +6547,26 @@
    "noita_hp": 500,
    "noita_entity": "data/entities/animals/worm.xml",
    "sprite": "data/enemies_gfx/worm_head.xml",
-   "hitbox": null,
+   "hitbox": [
+    30,
+    30
+   ],
    "size": 1.0,
    "hitbox_mult": 1.0,
    "ai": "worm",
-   "walks": null,
-   "flies": null,
-   "jumps": null,
-   "run_speed": null,
-   "fly_speed": null,
-   "fly_up_speed": null,
-   "accel": null,
-   "gravity": null,
-   "jump_speed": null,
-   "sight_tiles": null,
+   "walks": false,
+   "flies": false,
+   "jumps": false,
+   "run_speed": 12.0,
+   "fly_speed": 0.0,
+   "fly_up_speed": 0.0,
+   "accel": 0.025,
+   "gravity": 0.2,
+   "jump_speed": 0.0,
+   "sight_tiles": 48.0,
+   "roam_speed": 6.0,
+   "turn_rate": 0.06,
+   "roam_turn_rate": 0.012,
    "audio": "animals/worm",
    "attacks": [
     "worm.worm_bite"
@@ -6257,6 +6626,9 @@
    "gravity": null,
    "jump_speed": null,
    "sight_tiles": null,
+   "roam_speed": 0.0,
+   "turn_rate": 0.0,
+   "roam_turn_rate": 0.0,
    "audio": null,
    "attacks": [
     "blood_orb.blood_link"
@@ -6315,6 +6687,9 @@
    "gravity": null,
    "jump_speed": null,
    "sight_tiles": null,
+   "roam_speed": 0.0,
+   "turn_rate": 0.0,
+   "roam_turn_rate": 0.0,
    "audio": null,
    "attacks": [
     "death_orb_throne.curse"
@@ -6373,6 +6748,9 @@
    "gravity": null,
    "jump_speed": null,
    "sight_tiles": null,
+   "roam_speed": 0.0,
+   "turn_rate": 0.0,
+   "roam_turn_rate": 0.0,
    "audio": null,
    "attacks": [
     "boss_wizard.green_meteor",
@@ -6437,6 +6815,9 @@
    "gravity": 0.5,
    "jump_speed": 4.0,
    "sight_tiles": 75.0,
+   "roam_speed": 0.0,
+   "turn_rate": 0.0,
+   "roam_turn_rate": 0.0,
    "audio": "animals/scavenger",
    "attacks": [
     "scavenger_mine.proximity_mine",
@@ -6497,6 +6878,9 @@
    "gravity": null,
    "jump_speed": null,
    "sight_tiles": null,
+   "roam_speed": 0.0,
+   "turn_rate": 0.0,
+   "roam_turn_rate": 0.0,
    "audio": null,
    "attacks": [
     "player.melee"
@@ -6548,6 +6932,9 @@
    "gravity": null,
    "jump_speed": null,
    "sight_tiles": null,
+   "roam_speed": 0.0,
+   "turn_rate": 0.0,
+   "roam_turn_rate": 0.0,
    "audio": null,
    "attacks": [
     "miniblob.lunge",
@@ -6605,6 +6992,9 @@
    "gravity": 0.5,
    "jump_speed": 10.0,
    "sight_tiles": 75.0,
+   "roam_speed": 0.0,
+   "turn_rate": 0.0,
+   "roam_turn_rate": 0.0,
    "audio": "animals/lasershooter",
    "attacks": [
     "lasershooter.laser"
@@ -6661,6 +7051,9 @@
    "gravity": 0.5,
    "jump_speed": 4.0,
    "sight_tiles": 46.9,
+   "roam_speed": 0.0,
+   "turn_rate": 0.0,
+   "roam_turn_rate": 0.0,
    "audio": "animals/monk",
    "attacks": [
     "monk.projectile"
@@ -6721,6 +7114,9 @@
    "gravity": 0.5,
    "jump_speed": 10.0,
    "sight_tiles": 75.0,
+   "roam_speed": 0.0,
+   "turn_rate": 0.0,
+   "roam_turn_rate": 0.0,
    "audio": "animals/wizard",
    "attacks": [
     "wizard_poly.polymorphing"
@@ -6779,6 +7175,9 @@
    "gravity": 0.5,
    "jump_speed": 7.0,
    "sight_tiles": 56.2,
+   "roam_speed": 0.0,
+   "turn_rate": 0.0,
+   "roam_turn_rate": 0.0,
    "audio": "animals/generic",
    "attacks": [
     "ant.acid_spray",
@@ -6835,6 +7234,9 @@
    "gravity": 0.5,
    "jump_speed": 4.0,
    "sight_tiles": 93.8,
+   "roam_speed": 0.0,
+   "turn_rate": 0.0,
+   "roam_turn_rate": 0.0,
    "audio": "animals/scavenger",
    "attacks": [
     "scavenger_poison.poison_trail_shot",
@@ -6892,6 +7294,9 @@
    "gravity": 0.5,
    "jump_speed": 10.0,
    "sight_tiles": 56.2,
+   "roam_speed": 0.0,
+   "turn_rate": 0.0,
+   "roam_turn_rate": 0.0,
    "audio": "animals/fungus",
    "attacks": [
     "fungus_tiny.lunge",
@@ -6930,20 +7335,26 @@
    "noita_hp": 500,
    "noita_entity": "data/entities/animals/eel.xml",
    "sprite": "data/enemies_gfx/eel_head.png",
-   "hitbox": null,
+   "hitbox": [
+    30,
+    30
+   ],
    "size": 1.0,
    "hitbox_mult": 1.0,
-   "ai": "worm",
-   "walks": null,
-   "flies": null,
-   "jumps": null,
-   "run_speed": null,
-   "fly_speed": null,
-   "fly_up_speed": null,
-   "accel": null,
-   "gravity": null,
-   "jump_speed": null,
-   "sight_tiles": null,
+   "ai": "worm_water",
+   "walks": false,
+   "flies": false,
+   "jumps": false,
+   "run_speed": 12.0,
+   "fly_speed": 0.0,
+   "fly_up_speed": 0.0,
+   "accel": 0.025,
+   "gravity": 0.2,
+   "jump_speed": 0.0,
+   "sight_tiles": 48.0,
+   "roam_speed": 6.0,
+   "turn_rate": 0.06,
+   "roam_turn_rate": 0.012,
    "audio": "none",
    "attacks": [
     "eel.worm_bite"
@@ -7001,6 +7412,9 @@
    "gravity": 0.5,
    "jump_speed": 10.0,
    "sight_tiles": 24.0,
+   "roam_speed": 0.0,
+   "turn_rate": 0.0,
+   "roam_turn_rate": 0.0,
    "audio": "none",
    "attacks": [],
    "spawn_in": [
@@ -7053,6 +7467,9 @@
    "gravity": 0.5,
    "jump_speed": 10.0,
    "sight_tiles": 56.2,
+   "roam_speed": 0.0,
+   "turn_rate": 0.0,
+   "roam_turn_rate": 0.0,
    "audio": "animals/fungus",
    "attacks": [
     "fungus_big.lunge",
@@ -7111,9 +7528,13 @@
    "gravity": 0.0833,
    "jump_speed": 10.0,
    "sight_tiles": 56.2,
+   "roam_speed": 0.0,
+   "turn_rate": 0.0,
+   "roam_turn_rate": 0.0,
    "audio": "none",
    "attacks": [
-    "ethereal_being.curse"
+    "ethereal_being.curse",
+    "ethereal_being.touch"
    ],
    "spawn_in": [
     "Snowy Chasm",
@@ -7173,6 +7594,9 @@
    "gravity": 0.5,
    "jump_speed": 10.0,
    "sight_tiles": 131.2,
+   "roam_speed": 0.0,
+   "turn_rate": 0.0,
+   "roam_turn_rate": 0.0,
    "audio": "animals/generic",
    "attacks": [
     "dark_alchemist.melee"
@@ -7225,6 +7649,9 @@
    "gravity": 0.5,
    "jump_speed": 10.0,
    "sight_tiles": 56.2,
+   "roam_speed": 0.0,
+   "turn_rate": 0.0,
+   "roam_turn_rate": 0.0,
    "audio": "animals/wizard",
    "attacks": [
     "icemage.iceball",
@@ -7287,6 +7714,9 @@
    "gravity": 0.5,
    "jump_speed": 10.0,
    "sight_tiles": 75.0,
+   "roam_speed": 0.0,
+   "turn_rate": 0.0,
+   "roam_turn_rate": 0.0,
    "audio": "animals/wizard",
    "attacks": [
     "wizard_returner.iceball"
@@ -7347,6 +7777,9 @@
    "gravity": 0.5,
    "jump_speed": 4.0,
    "sight_tiles": 75.0,
+   "roam_speed": 0.0,
+   "turn_rate": 0.0,
+   "roam_turn_rate": 0.0,
    "audio": "animals/scavenger",
    "attacks": [
     "scavenger_heal.healing_bolt"
@@ -7405,6 +7838,9 @@
    "gravity": 0.5,
    "jump_speed": 4.0,
    "sight_tiles": 75.0,
+   "roam_speed": 0.0,
+   "turn_rate": 0.0,
+   "roam_turn_rate": 0.0,
    "audio": "animals/statue",
    "attacks": [
     "statue.melee"
@@ -7463,6 +7899,9 @@
    "gravity": 0.5,
    "jump_speed": 10.0,
    "sight_tiles": 56.2,
+   "roam_speed": 0.0,
+   "turn_rate": 0.0,
+   "roam_turn_rate": 0.0,
    "audio": "animals/spearbot",
    "attacks": [
     "spearbot.laser_spear"
@@ -7523,6 +7962,9 @@
    "gravity": null,
    "jump_speed": null,
    "sight_tiles": null,
+   "roam_speed": 0.0,
+   "turn_rate": 0.0,
+   "roam_turn_rate": 0.0,
    "audio": null,
    "attacks": [
     "wand_ghost_charmed.projectile"
@@ -7562,20 +8004,26 @@
    "noita_hp": 75,
    "noita_entity": "data/entities/animals/worm_tiny.xml",
    "sprite": "data/enemies_gfx/worm_tiny_head.xml",
-   "hitbox": null,
+   "hitbox": [
+    12,
+    12
+   ],
    "size": 1.0,
    "hitbox_mult": 1.0,
    "ai": "worm",
-   "walks": null,
-   "flies": null,
-   "jumps": null,
-   "run_speed": null,
-   "fly_speed": null,
-   "fly_up_speed": null,
-   "accel": null,
-   "gravity": null,
-   "jump_speed": null,
-   "sight_tiles": null,
+   "walks": false,
+   "flies": false,
+   "jumps": false,
+   "run_speed": 9.0,
+   "fly_speed": 0.0,
+   "fly_up_speed": 0.0,
+   "accel": 0.015,
+   "gravity": 0.2,
+   "jump_speed": 0.0,
+   "sight_tiles": 48.0,
+   "roam_speed": 6.0,
+   "turn_rate": 0.04,
+   "roam_turn_rate": 0.01,
    "audio": "animals/worm",
    "attacks": [
     "worm_tiny.worm_bite"
@@ -7633,6 +8081,9 @@
    "gravity": 0.5,
    "jump_speed": 10.0,
    "sight_tiles": 56.2,
+   "roam_speed": 0.0,
+   "turn_rate": 0.0,
+   "roam_turn_rate": 0.0,
    "audio": "animals/slime",
    "attacks": [
     "tentacler_small.creates_a_circle_of_stillness_around_itself_for_a_short_time",
@@ -7652,7 +8103,7 @@
     "explosion": 1.0,
     "electricity": 1.0,
     "fire": 1.0,
-    "ice": 0.4,
+    "ice": 1.0,
     "drill": 0.5,
     "radioactive": 1.0,
     "holy": 1.0
@@ -7680,16 +8131,19 @@
    "size": 1.0,
    "hitbox_mult": 1.0,
    "ai": "static_turret",
-   "walks": null,
-   "flies": null,
-   "jumps": null,
-   "run_speed": null,
-   "fly_speed": null,
-   "fly_up_speed": null,
-   "accel": null,
-   "gravity": null,
-   "jump_speed": null,
-   "sight_tiles": null,
+   "walks": false,
+   "flies": false,
+   "jumps": false,
+   "run_speed": 0.0,
+   "fly_speed": 0.0,
+   "fly_up_speed": 0.0,
+   "accel": 0.0,
+   "gravity": 0.0,
+   "jump_speed": 0.0,
+   "sight_tiles": 65.6,
+   "roam_speed": 0.0,
+   "turn_rate": 0.0,
+   "roam_turn_rate": 0.0,
    "audio": "animals/shooterflower",
    "attacks": [
     "shooterflower.explosive_homing"
@@ -7715,7 +8169,10 @@
    "blood": "Green Slime",
    "drops": "noita_gold",
    "stage": "1b",
-   "_unverified": {}
+   "_unverified": {},
+   "_sources": {
+    "walks": "no movement component of any kind in data/entities/animals/shooterflower.xml: does not move"
+   }
   },
   {
    "id": "elk",
@@ -7744,6 +8201,9 @@
    "gravity": 0.5,
    "jump_speed": 10.0,
    "sight_tiles": 24.0,
+   "roam_speed": 0.0,
+   "turn_rate": 0.0,
+   "roam_turn_rate": 0.0,
    "audio": "none",
    "attacks": [],
    "spawn_in": [
@@ -7796,6 +8256,9 @@
    "gravity": 0.5,
    "jump_speed": 7.5,
    "sight_tiles": 56.2,
+   "roam_speed": 0.0,
+   "turn_rate": 0.0,
+   "roam_turn_rate": 0.0,
    "audio": "animals/alchemist",
    "attacks": [
     "alchemist.thrown_potion"
@@ -7854,6 +8317,9 @@
    "gravity": 0.5,
    "jump_speed": 7.0,
    "sight_tiles": 56.2,
+   "roam_speed": 0.0,
+   "turn_rate": 0.0,
+   "roam_turn_rate": 0.0,
    "audio": "animals/bloom",
    "attacks": [
     "bloom.slimeball"
@@ -7908,6 +8374,9 @@
    "gravity": 0.5,
    "jump_speed": 10.0,
    "sight_tiles": 46.9,
+   "roam_speed": 0.0,
+   "turn_rate": 0.0,
+   "roam_turn_rate": 0.0,
    "audio": "animals/drone_lasership",
    "attacks": [
     "neutralizer.neutralize_shot",
@@ -7968,6 +8437,9 @@
    "gravity": 0.5,
    "jump_speed": 4.0,
    "sight_tiles": 75.0,
+   "roam_speed": 0.0,
+   "turn_rate": 0.0,
+   "roam_turn_rate": 0.0,
    "audio": "animals/scavenger",
    "attacks": [
     "coward.teleportation"
@@ -8025,6 +8497,9 @@
    "gravity": 0.5,
    "jump_speed": 10.0,
    "sight_tiles": 56.2,
+   "roam_speed": 0.0,
+   "turn_rate": 0.0,
+   "roam_turn_rate": 0.0,
    "audio": "animals/robot",
    "attacks": [
     "roboguard.projectile",
@@ -8086,6 +8561,9 @@
    "gravity": 0.5,
    "jump_speed": 10.0,
    "sight_tiles": 56.2,
+   "roam_speed": 0.0,
+   "turn_rate": 0.0,
+   "roam_turn_rate": 0.0,
    "audio": "animals/rat",
    "attacks": [
     "rat.melee"
@@ -8142,6 +8620,9 @@
    "gravity": null,
    "jump_speed": null,
    "sight_tiles": null,
+   "roam_speed": 0.0,
+   "turn_rate": 0.0,
+   "roam_turn_rate": 0.0,
    "audio": null,
    "attacks": [
     "plague_rats_rat.lunge",
@@ -8197,6 +8678,9 @@
    "gravity": 0.5,
    "jump_speed": 4.0,
    "sight_tiles": 75.0,
+   "roam_speed": 0.0,
+   "turn_rate": 0.0,
+   "roam_turn_rate": 0.0,
    "audio": "animals/scavenger",
    "attacks": [
     "scavenger_smg.rifle",
@@ -8262,6 +8746,9 @@
    "gravity": 0.5,
    "jump_speed": 4.0,
    "sight_tiles": 75.0,
+   "roam_speed": 0.0,
+   "turn_rate": 0.0,
+   "roam_turn_rate": 0.0,
    "audio": "animals/goblin",
    "attacks": [
     "goblin_bomb.glitter_bomb",
@@ -8317,6 +8804,9 @@
    "gravity": 0.5,
    "jump_speed": 10.0,
    "sight_tiles": 56.2,
+   "roam_speed": 0.0,
+   "turn_rate": 0.0,
+   "roam_turn_rate": 0.0,
    "audio": "animals/thunderskull",
    "attacks": [
     "thunderskull.ball_lightning"
@@ -8380,6 +8870,9 @@
    "gravity": 0.5,
    "jump_speed": 10.0,
    "sight_tiles": 56.2,
+   "roam_speed": 0.0,
+   "turn_rate": 0.0,
+   "roam_turn_rate": 0.0,
    "audio": "animals/assassin",
    "attacks": [
     "assassin.lunge",
@@ -8441,6 +8934,9 @@
    "gravity": 0.5,
    "jump_speed": 10.0,
    "sight_tiles": 75.0,
+   "roam_speed": 0.0,
+   "turn_rate": 0.0,
+   "roam_turn_rate": 0.0,
    "audio": "animals/wizard",
    "attacks": [
     "wizard_twitchy.twitching_shot"
@@ -8499,6 +8995,9 @@
    "gravity": null,
    "jump_speed": null,
    "sight_tiles": null,
+   "roam_speed": 0.0,
+   "turn_rate": 0.0,
+   "roam_turn_rate": 0.0,
    "audio": null,
    "attacks": [
     "parallel_tentacles.polymorphing",
@@ -8570,6 +9069,9 @@
    "gravity": null,
    "jump_speed": null,
    "sight_tiles": null,
+   "roam_speed": 0.0,
+   "turn_rate": 0.0,
+   "roam_turn_rate": 0.0,
    "audio": null,
    "attacks": [
     "boss_pit.polymorphing",
@@ -8646,6 +9148,9 @@
    "gravity": 0.5,
    "jump_speed": 10.0,
    "sight_tiles": 75.0,
+   "roam_speed": 0.0,
+   "turn_rate": 0.0,
+   "roam_turn_rate": 0.0,
    "audio": "animals/wizard",
    "attacks": [
     "wizard_tele.teleportation"
@@ -8706,6 +9211,9 @@
    "gravity": 0.5,
    "jump_speed": 10.0,
    "sight_tiles": 24.0,
+   "roam_speed": 0.0,
+   "turn_rate": 0.0,
+   "roam_turn_rate": 0.0,
    "audio": "animals/longleg",
    "attacks": [],
    "spawn_in": [
@@ -8758,6 +9266,9 @@
    "gravity": null,
    "jump_speed": null,
    "sight_tiles": null,
+   "roam_speed": 0.0,
+   "turn_rate": 0.0,
+   "roam_turn_rate": 0.0,
    "audio": null,
    "attacks": [
     "necromancer_super.double_accelerating_bolts",
@@ -8819,6 +9330,9 @@
    "gravity": 0.5,
    "jump_speed": 3.5,
    "sight_tiles": 131.2,
+   "roam_speed": 0.0,
+   "turn_rate": 0.0,
+   "roam_turn_rate": 0.0,
    "audio": "animals/sniper",
    "attacks": [
     "sniper_hell.projectile",
@@ -8876,6 +9390,9 @@
    "gravity": 0.5,
    "jump_speed": 3.5,
    "sight_tiles": 131.2,
+   "roam_speed": 0.0,
+   "turn_rate": 0.0,
+   "roam_turn_rate": 0.0,
    "audio": "animals/sniper",
    "attacks": [
     "sniper.projectile",
@@ -8933,6 +9450,9 @@
    "gravity": 0.5,
    "jump_speed": 10.0,
    "sight_tiles": 75.0,
+   "roam_speed": 0.0,
+   "turn_rate": 0.0,
+   "roam_turn_rate": 0.0,
    "audio": "animals/wizard",
    "attacks": [
     "wizard_dark.blinding"
@@ -8993,6 +9513,9 @@
    "gravity": 0.5,
    "jump_speed": 10.0,
    "sight_tiles": 46.9,
+   "roam_speed": 0.0,
+   "turn_rate": 0.0,
+   "roam_turn_rate": 0.0,
    "audio": "animals/ghost",
    "attacks": [
     "phantom_a.energy_orb"
@@ -9056,6 +9579,9 @@
    "gravity": 0.5,
    "jump_speed": 6.5,
    "sight_tiles": 56.2,
+   "roam_speed": 0.0,
+   "turn_rate": 0.0,
+   "roam_turn_rate": 0.0,
    "audio": "animals/firemage",
    "attacks": [
     "firemage_weak.weaker_fireball",
@@ -9113,6 +9639,9 @@
    "gravity": null,
    "jump_speed": null,
    "sight_tiles": null,
+   "roam_speed": 0.0,
+   "turn_rate": 0.0,
+   "roam_turn_rate": 0.0,
    "audio": null,
    "attacks": [
     "necromancer_shop.long_range_accelerating_orb",
@@ -9168,6 +9697,9 @@
    "gravity": null,
    "jump_speed": null,
    "sight_tiles": null,
+   "roam_speed": 0.0,
+   "turn_rate": 0.0,
+   "roam_turn_rate": 0.0,
    "audio": null,
    "attacks": [
     "boss_dragon.green_orb",
@@ -9231,6 +9763,9 @@
    "gravity": 0.5,
    "jump_speed": 10.0,
    "sight_tiles": 56.2,
+   "roam_speed": 0.0,
+   "turn_rate": 0.0,
+   "roam_turn_rate": 0.0,
    "audio": "animals/generic",
    "attacks": [
     "wolf.lunge",
@@ -9286,6 +9821,9 @@
    "gravity": 0.5,
    "jump_speed": 10.0,
    "sight_tiles": 56.2,
+   "roam_speed": 0.0,
+   "turn_rate": 0.0,
+   "roam_turn_rate": 0.0,
    "audio": "animals/generic",
    "attacks": [
     "thundermage_big.thunder_charge_homing",
@@ -9352,6 +9890,9 @@
    "gravity": 0.5,
    "jump_speed": 10.0,
    "sight_tiles": 9.4,
+   "roam_speed": 0.0,
+   "turn_rate": 0.0,
+   "roam_turn_rate": 0.0,
    "audio": "none",
    "attacks": [],
    "spawn_in": [
@@ -9407,6 +9948,9 @@
    "gravity": 0.5,
    "jump_speed": 10.0,
    "sight_tiles": 56.2,
+   "roam_speed": 0.0,
+   "turn_rate": 0.0,
+   "roam_turn_rate": 0.0,
    "audio": "animals/bigbat",
    "attacks": [
     "bigbat.summon_lepakko",
@@ -9459,6 +10003,9 @@
    "gravity": null,
    "jump_speed": null,
    "sight_tiles": null,
+   "roam_speed": 0.0,
+   "turn_rate": 0.0,
+   "roam_turn_rate": 0.0,
    "audio": null,
    "attacks": [
     "ghoul.two_small_acid_balls"
@@ -9510,6 +10057,9 @@
    "gravity": null,
    "jump_speed": null,
    "sight_tiles": null,
+   "roam_speed": 0.0,
+   "turn_rate": 0.0,
+   "roam_turn_rate": 0.0,
    "audio": null,
    "attacks": [
     "fish_giga.big_green_orb"
@@ -9576,6 +10126,9 @@
    "gravity": 0.5,
    "jump_speed": 0.0,
    "sight_tiles": 56.2,
+   "roam_speed": 0.0,
+   "turn_rate": 0.0,
+   "roam_turn_rate": 0.0,
    "audio": "animals/generic",
    "attacks": [
     "wand_ghost.projectile"
@@ -9602,8 +10155,11 @@
    ],
    "blood": "Magical Liquid",
    "drops": "noita_gold",
-   "stage": "1b",
-   "_unverified": {}
+   "stage": "1c",
+   "_unverified": {},
+   "_sources": {
+    "stage": "moved from 1b: its body is the wand it loads at spawn (wand_ghost.lua: items/wand_level_03.xml); no sprite of its own"
+   }
   },
   {
    "id": "skygazer",
@@ -9632,6 +10188,9 @@
    "gravity": 0.5,
    "jump_speed": 10.0,
    "sight_tiles": 56.2,
+   "roam_speed": 0.0,
+   "turn_rate": 0.0,
+   "roam_turn_rate": 0.0,
    "audio": "animals/gazer",
    "attacks": [
     "skygazer.chaotic_polymorphine"
@@ -9689,6 +10248,9 @@
    "gravity": 0.5,
    "jump_speed": 0.0,
    "sight_tiles": 56.2,
+   "roam_speed": 0.0,
+   "turn_rate": 0.0,
+   "roam_turn_rate": 0.0,
    "audio": "animals/generic",
    "attacks": [
     "skycrystal_physics.blue_concentrated_light"
@@ -9748,6 +10310,9 @@
    "gravity": null,
    "jump_speed": null,
    "sight_tiles": null,
+   "roam_speed": 0.0,
+   "turn_rate": 0.0,
+   "roam_turn_rate": 0.0,
    "audio": "none",
    "attacks": [
     "wisp.holy_aura"
@@ -9778,8 +10343,11 @@
    ],
    "blood": "Magical Liquid",
    "drops": "noita_gold",
-   "stage": "1b",
-   "_unverified": {}
+   "stage": "1c",
+   "_unverified": {},
+   "_sources": {
+    "stage": "moved from 1b: moved by its Lua script (boss_spirit minion)"
+   }
   },
   {
    "id": "islandspirit",
@@ -9805,6 +10373,9 @@
    "gravity": null,
    "jump_speed": null,
    "sight_tiles": null,
+   "roam_speed": 0.0,
+   "turn_rate": 0.0,
+   "roam_turn_rate": 0.0,
    "audio": null,
    "attacks": [
     "islandspirit.blue_orb",
@@ -9871,6 +10442,9 @@
    "gravity": 0.5,
    "jump_speed": 5.0,
    "sight_tiles": 56.2,
+   "roam_speed": 0.0,
+   "turn_rate": 0.0,
+   "roam_turn_rate": 0.0,
    "audio": "animals/miner",
    "attacks": [
     "miner_hell.tnt",
@@ -9928,6 +10502,9 @@
    "gravity": 0.5,
    "jump_speed": 5.0,
    "sight_tiles": 56.2,
+   "roam_speed": 0.0,
+   "turn_rate": 0.0,
+   "roam_turn_rate": 0.0,
    "audio": "animals/miner",
    "attacks": [
     "cook.sausages",
@@ -9983,6 +10560,9 @@
    "gravity": 0.5,
    "jump_speed": 5.0,
    "sight_tiles": 56.2,
+   "roam_speed": 0.0,
+   "turn_rate": 0.0,
+   "roam_turn_rate": 0.0,
    "audio": "animals/miner",
    "attacks": [
     "miner.tnt",
@@ -10043,6 +10623,9 @@
    "gravity": 0.5,
    "jump_speed": 5.0,
    "sight_tiles": 56.2,
+   "roam_speed": 0.0,
+   "turn_rate": 0.0,
+   "roam_turn_rate": 0.0,
    "audio": "animals/miner",
    "attacks": [
     "miner_weak.tnt",
@@ -10099,6 +10682,9 @@
    "gravity": 0.5,
    "jump_speed": 10.0,
    "sight_tiles": 46.9,
+   "roam_speed": 0.0,
+   "turn_rate": 0.0,
+   "roam_turn_rate": 0.0,
    "audio": "animals/drone_lasership",
    "attacks": [
     "sentry.targeting"
@@ -10158,6 +10744,9 @@
    "gravity": 0.5,
    "jump_speed": 10.0,
    "sight_tiles": 46.9,
+   "roam_speed": 0.0,
+   "turn_rate": 0.0,
+   "roam_turn_rate": 0.0,
    "audio": "animals/drone_lasership",
    "attacks": [
     "soldier.projectile"
@@ -10218,6 +10807,9 @@
    "gravity": 0.5,
    "jump_speed": 4.0,
    "sight_tiles": 75.0,
+   "roam_speed": 0.0,
+   "turn_rate": 0.0,
+   "roam_turn_rate": 0.0,
    "audio": "animals/scavenger_leader",
    "attacks": [
     "scavenger_leader.grenades",
@@ -10280,6 +10872,9 @@
    "gravity": 0.5,
    "jump_speed": 10.0,
    "sight_tiles": 131.2,
+   "roam_speed": 0.0,
+   "turn_rate": 0.0,
+   "roam_turn_rate": 0.0,
    "audio": "animals/robot",
    "attacks": [
     "turret.laser",
@@ -10342,6 +10937,9 @@
    "gravity": 0.5,
    "jump_speed": 10.0,
    "sight_tiles": 112.5,
+   "roam_speed": 0.0,
+   "turn_rate": 0.0,
+   "roam_turn_rate": 0.0,
    "audio": "animals/maggot",
    "attacks": [
     "maggot.maggot_blob",
@@ -10397,6 +10995,9 @@
    "gravity": null,
    "jump_speed": null,
    "sight_tiles": null,
+   "roam_speed": 0.0,
+   "turn_rate": 0.0,
+   "roam_turn_rate": 0.0,
    "audio": null,
    "attacks": [
     "friend.evergreen_seed",
@@ -10452,6 +11053,9 @@
    "gravity": null,
    "jump_speed": null,
    "sight_tiles": null,
+   "roam_speed": 0.0,
+   "turn_rate": 0.0,
+   "roam_turn_rate": 0.0,
    "audio": null,
    "attacks": [
     "friend_hostile.projectile",
@@ -10502,7 +11106,7 @@
    "category": "Uncategorised",
    "faction": "trap",
    "noita_hp": 750,
-   "noita_entity": "data/entities/props/physics/trap_circle_acid.xml",
+   "noita_entity": null,
    "sprite": "data/props_gfx/trap_acid.png",
    "hitbox": null,
    "size": 1.0,
@@ -10518,6 +11122,9 @@
    "gravity": 0.0,
    "jump_speed": 0.0,
    "sight_tiles": 9.4,
+   "roam_speed": 0.0,
+   "turn_rate": 0.0,
+   "roam_turn_rate": 0.0,
    "audio": "none",
    "attacks": [
     "trap_acid.acid_spit"
@@ -10546,11 +11153,14 @@
    ],
    "blood": "Sand",
    "drops": "noita_gold",
-   "stage": "1b",
-   "_unverified": {},
+   "stage": "1c",
+   "_unverified": {
+    "noita_entity": "lookup took a physics prop; rerun facts"
+   },
    "_sources": {
     "id": "sheet id kept; Noita file data/entities/props/physics/trap_circle_acid.xml (found by file_words)",
-    "walks": "no movement component of any kind in data/entities/props/physics/trap_circle_acid.xml: does not move"
+    "walks": "no movement component of any kind in data/entities/props/physics/trap_circle_acid.xml: does not move",
+    "stage": "moved from 1b: lookup took a physics prop; rerun facts"
    }
   },
   {
@@ -10580,6 +11190,9 @@
    "gravity": 0.0,
    "jump_speed": 0.0,
    "sight_tiles": 56.2,
+   "roam_speed": 0.0,
+   "turn_rate": 0.0,
+   "roam_turn_rate": 0.0,
    "audio": "none",
    "attacks": [
     "trap_arrow.arrow"
@@ -10611,10 +11224,11 @@
    ],
    "blood": "Sand",
    "drops": "noita_gold",
-   "stage": "1b",
+   "stage": "1c",
    "_unverified": {},
    "_sources": {
-    "id": "sheet id kept; Noita file data/entities/buildings/arrowtrap_left.xml (found by file_words)"
+    "id": "sheet id kept; Noita file data/entities/buildings/arrowtrap_left.xml (found by file_words)",
+    "stage": "moved from 1b: arrowtrap_left.xml shoots from a Lua script; arrow.xml numbers not in facts"
    }
   },
   {
@@ -10625,7 +11239,7 @@
    "category": "Uncategorised",
    "faction": "trap",
    "noita_hp": 112.5,
-   "noita_entity": "data/entities/projectiles/fire_trap.xml",
+   "noita_entity": null,
    "sprite": null,
    "hitbox": null,
    "size": 1.0,
@@ -10641,6 +11255,9 @@
    "gravity": null,
    "jump_speed": null,
    "sight_tiles": null,
+   "roam_speed": 0.0,
+   "turn_rate": 0.0,
+   "roam_turn_rate": 0.0,
    "audio": "projectiles/trap_fire",
    "attacks": [
     "trap_fire.fire"
@@ -10669,10 +11286,13 @@
    ],
    "blood": "Sand",
    "drops": "noita_gold",
-   "stage": "1b",
-   "_unverified": {},
+   "stage": "1c",
+   "_unverified": {
+    "noita_entity": "lookup took the trap's shot (projectiles/fire_trap.xml); rerun facts"
+   },
    "_sources": {
-    "id": "sheet id kept; Noita file data/entities/projectiles/fire_trap.xml (found by file_words)"
+    "id": "sheet id kept; Noita file data/entities/projectiles/fire_trap.xml (found by file_words)",
+    "stage": "moved from 1b: lookup took the trap's shot (projectiles/fire_trap.xml); rerun facts"
    }
   },
   {
@@ -10683,7 +11303,7 @@
    "category": "Uncategorised",
    "faction": "trap",
    "noita_hp": 137.5,
-   "noita_entity": "data/entities/projectiles/thunder_trap.xml",
+   "noita_entity": null,
    "sprite": null,
    "hitbox": null,
    "size": 1.0,
@@ -10699,6 +11319,9 @@
    "gravity": null,
    "jump_speed": null,
    "sight_tiles": null,
+   "roam_speed": 0.0,
+   "turn_rate": 0.0,
+   "roam_turn_rate": 0.0,
    "audio": "none",
    "attacks": [
     "trap_thunder.electric_spark"
@@ -10727,10 +11350,13 @@
    ],
    "blood": "Sand",
    "drops": "noita_gold",
-   "stage": "1b",
-   "_unverified": {},
+   "stage": "1c",
+   "_unverified": {
+    "noita_entity": "lookup took the trap's shot (projectiles/thunder_trap.xml); rerun facts"
+   },
    "_sources": {
-    "id": "sheet id kept; Noita file data/entities/projectiles/thunder_trap.xml (found by file_words)"
+    "id": "sheet id kept; Noita file data/entities/projectiles/thunder_trap.xml (found by file_words)",
+    "stage": "moved from 1b: lookup took the trap's shot (projectiles/thunder_trap.xml); rerun facts"
    }
   },
   {
@@ -10760,6 +11386,9 @@
    "gravity": 0.5,
    "jump_speed": 6.0,
    "sight_tiles": 56.2,
+   "roam_speed": 0.0,
+   "turn_rate": 0.0,
+   "roam_turn_rate": 0.0,
    "audio": "animals/miner_fire",
    "attacks": [
     "miner_fire.cocktail"
@@ -10817,6 +11446,9 @@
    "gravity": 0.0,
    "jump_speed": 0.0,
    "sight_tiles": 9.4,
+   "roam_speed": 0.0,
+   "turn_rate": 0.0,
+   "roam_turn_rate": 0.0,
    "audio": "none",
    "attacks": [
     "nest_firebug.release"
@@ -10842,12 +11474,11 @@
    "blood": "Lava",
    "drops": "noita_gold",
    "stage": "1b",
-   "_unverified": {
-    "attacks": "a nest releases its creatures: confirm in its spawn script"
-   },
+   "_unverified": {},
    "_sources": {
     "id": "sheet id kept; Noita file data/entities/buildings/firebugnest.xml (found by file_words)",
-    "walks": "no movement component of any kind in data/entities/buildings/firebugnest.xml: does not move"
+    "walks": "no movement component of any kind in data/entities/buildings/firebugnest.xml: does not move",
+    "attacks": "its spawn script releases firebug, bigfirebug"
    }
   },
   {
@@ -10877,6 +11508,9 @@
    "gravity": 0.5,
    "jump_speed": 10.0,
    "sight_tiles": 56.2,
+   "roam_speed": 0.0,
+   "turn_rate": 0.0,
+   "roam_turn_rate": 0.0,
    "audio": "animals/firebug",
    "attacks": [
     "firebug.firebomb",
@@ -10934,6 +11568,9 @@
    "gravity": 0.5,
    "jump_speed": 10.0,
    "sight_tiles": 56.2,
+   "roam_speed": 0.0,
+   "turn_rate": 0.0,
+   "roam_turn_rate": 0.0,
    "audio": "animals/generic",
    "attacks": [
     "bigfirebug.firebomb",
@@ -10991,6 +11628,9 @@
    "gravity": 0.5,
    "jump_speed": 10.0,
    "sight_tiles": 56.2,
+   "roam_speed": 0.0,
+   "turn_rate": 0.0,
+   "roam_turn_rate": 0.0,
    "audio": "animals/assassin",
    "attacks": [
     "necrobot.projectile"
@@ -11051,9 +11691,15 @@
    "gravity": 0.5,
    "jump_speed": 10.0,
    "sight_tiles": 75.0,
+   "roam_speed": 0.0,
+   "turn_rate": 0.0,
+   "roam_turn_rate": 0.0,
    "audio": "animals/slime",
    "attacks": [
-    "tentacler.tentacle"
+    "tentacler.tentacle",
+    "tentacler.smalltentacle",
+    "tentacler.freeze_circle",
+    "tentacler.smalltentacle_melee"
    ],
    "spawn_in": [
     "Fungal Caverns",
@@ -11107,6 +11753,9 @@
    "gravity": 0.5,
    "jump_speed": 10.0,
    "sight_tiles": 46.9,
+   "roam_speed": 0.0,
+   "turn_rate": 0.0,
+   "roam_turn_rate": 0.0,
    "audio": "animals/robot",
    "attacks": [
     "drone_shield.shield_buff"
@@ -11138,9 +11787,7 @@
    "blood": "Oil",
    "drops": "noita_gold",
    "stage": "1b",
-   "_unverified": {
-    "dmg_mult": "wiki has no multiplier for some damage types; read DamageModelComponent check in the player's data.wak (tools: Terranoita.Cli wak-cat)"
-   }
+   "_unverified": {}
   },
   {
    "id": "wizard_weaken",
@@ -11169,6 +11816,9 @@
    "gravity": 0.5,
    "jump_speed": 10.0,
    "sight_tiles": 75.0,
+   "roam_speed": 0.0,
+   "turn_rate": 0.0,
+   "roam_turn_rate": 0.0,
    "audio": "animals/wizard",
    "attacks": [
     "wizard_weaken.projectile"
@@ -11230,6 +11880,9 @@
    "gravity": 0.5,
    "jump_speed": 10.0,
    "sight_tiles": 75.0,
+   "roam_speed": 0.0,
+   "turn_rate": 0.0,
+   "roam_turn_rate": 0.0,
    "audio": "animals/wizard",
    "attacks": [
     "barfer.toxic_sludge_spit"
@@ -11285,6 +11938,9 @@
    "gravity": 0.5,
    "jump_speed": 10.0,
    "sight_tiles": 56.2,
+   "roam_speed": 0.0,
+   "turn_rate": 0.0,
+   "roam_turn_rate": 0.0,
    "audio": "animals/generic",
    "attacks": [
     "thundermage.thunder_charge",
@@ -11351,6 +12007,9 @@
    "gravity": 0.5,
    "jump_speed": 10.0,
    "sight_tiles": 56.2,
+   "roam_speed": 0.0,
+   "turn_rate": 0.0,
+   "roam_turn_rate": 0.0,
    "audio": "animals/wraith_storm",
    "attacks": [
     "wraith_storm.lightning_bolt"
@@ -11405,6 +12064,9 @@
    "gravity": null,
    "jump_speed": null,
    "sight_tiles": null,
+   "roam_speed": 0.0,
+   "turn_rate": 0.0,
+   "roam_turn_rate": 0.0,
    "audio": null,
    "attacks": [
     "boss_ghost_polyp.explosion"
@@ -11456,6 +12118,9 @@
    "gravity": null,
    "jump_speed": null,
    "sight_tiles": null,
+   "roam_speed": 0.0,
+   "turn_rate": 0.0,
+   "roam_turn_rate": 0.0,
    "audio": null,
    "attacks": [
     "boss_ghost.curse"
@@ -11520,6 +12185,9 @@
    "gravity": 0.5,
    "jump_speed": 10.0,
    "sight_tiles": 75.0,
+   "roam_speed": 0.0,
+   "turn_rate": 0.0,
+   "roam_turn_rate": 0.0,
    "audio": "animals/wizard",
    "attacks": [
     "wizard_swapper.swapper_bolt"
@@ -11578,6 +12246,9 @@
    "gravity": 0.5,
    "jump_speed": 10.0,
    "sight_tiles": 46.9,
+   "roam_speed": 0.0,
+   "turn_rate": 0.0,
+   "roam_turn_rate": 0.0,
    "audio": "animals/drone_lasership",
    "attacks": [
     "hidden.projectile"
@@ -11637,6 +12308,9 @@
    "gravity": 0.5,
    "jump_speed": 10.0,
    "sight_tiles": 75.0,
+   "roam_speed": 0.0,
+   "turn_rate": 0.0,
+   "roam_turn_rate": 0.0,
    "audio": "animals/enlightened_alchemist",
    "attacks": [
     "enlightened_alchemist.meteor",
@@ -11669,8 +12343,11 @@
    ],
    "blood": "Slime",
    "drops": "noita_gold",
-   "stage": "1b",
-   "_unverified": {}
+   "stage": "1c",
+   "_unverified": {},
+   "_sources": {
+    "stage": "moved from 1b: its init script picks one of four wands (enlightened_laser_*_wand.xml); three are not in facts yet"
+   }
   },
   {
    "id": "shaman_wind",
@@ -11699,6 +12376,9 @@
    "gravity": 0.5,
    "jump_speed": 10.0,
    "sight_tiles": 131.2,
+   "roam_speed": 0.0,
+   "turn_rate": 0.0,
+   "roam_turn_rate": 0.0,
    "audio": "animals/generic",
    "attacks": [
     "shaman_wind.melee"
@@ -11751,6 +12431,9 @@
    "gravity": 0.5,
    "jump_speed": 10.0,
    "sight_tiles": 56.2,
+   "roam_speed": 0.0,
+   "turn_rate": 0.0,
+   "roam_turn_rate": 0.0,
    "audio": "animals/slimeshooter",
    "attacks": [
     "lurker.curse",
@@ -11809,6 +12492,9 @@
    "gravity": 0.5,
    "jump_speed": 0.0,
    "sight_tiles": 56.2,
+   "roam_speed": 0.0,
+   "turn_rate": 0.0,
+   "roam_turn_rate": 0.0,
    "audio": "animals/generic",
    "attacks": [
     "bloodcrystal_physics.projectile"
@@ -11865,6 +12551,9 @@
    "gravity": null,
    "jump_speed": null,
    "sight_tiles": null,
+   "roam_speed": 0.0,
+   "turn_rate": 0.0,
+   "roam_turn_rate": 0.0,
    "audio": null,
    "attacks": [
     "parallel_alchemist.orb_which_summons_3_wands",
@@ -11926,6 +12615,9 @@
    "gravity": null,
    "jump_speed": null,
    "sight_tiles": null,
+   "roam_speed": 0.0,
+   "turn_rate": 0.0,
+   "roam_turn_rate": 0.0,
    "audio": null,
    "attacks": [
     "boss_alchemist.orb_which_summons_3_wands",

@@ -98,14 +98,14 @@
    },
    "per_frames": "hit",
    "cooldown_frames": 0,
-   "range_tiles": 0,
+   "range_tiles": 5.62,
    "lunge_speed": 0,
    "sound": "none",
    "wiki_text": "Explodes into acid on death/Explosion/75",
    "stage": "1b",
-   "_unverified": {
-    "cooldown_frames": "default for kind 'death_explosion'; read AnimalAIComponent attack_*_frames_between check in the player's data.wak (tools: Terranoita.Cli wak-cat)",
-    "range_tiles": "default for kind; read AnimalAIComponent attack_*_range check in the player's data.wak (tools: Terranoita.Cli wak-cat)"
+   "_unverified": {},
+   "_sources": {
+    "range_tiles": "data/entities/animals/giantshooter.xml ExplodeOnDamageComponent config_explosion"
    }
   },
   {
@@ -148,14 +148,14 @@
    },
    "per_frames": "hit",
    "cooldown_frames": 0,
-   "range_tiles": 0,
+   "range_tiles": 5.62,
    "lunge_speed": 0,
    "sound": "none",
    "wiki_text": "Explodes into acid on death/Explosion/75",
    "stage": "1b",
-   "_unverified": {
-    "cooldown_frames": "default for kind 'death_explosion'; read AnimalAIComponent attack_*_frames_between check in the player's data.wak (tools: Terranoita.Cli wak-cat)",
-    "range_tiles": "default for kind; read AnimalAIComponent attack_*_range check in the player's data.wak (tools: Terranoita.Cli wak-cat)"
+   "_unverified": {},
+   "_sources": {
+    "range_tiles": "data/entities/animals/giantshooter_weak.xml ExplodeOnDamageComponent config_explosion"
    }
   },
   {
@@ -289,18 +289,18 @@
     1
    ],
    "damage": {
-    "curse": 2.25
+    "projectile": 2.25
    },
-   "per_frames": "40F",
+   "per_frames": "1F",
    "cooldown_frames": 1,
-   "range_tiles": 6,
+   "range_tiles": 12.0,
    "lunge_speed": 0,
    "sound": "none",
    "wiki_text": "Damage Field:/Curse/2.25/40F",
    "stage": "1b",
-   "_unverified": {
-    "cooldown_frames": "default for kind 'aura'; read AnimalAIComponent attack_*_frames_between check in the player's data.wak (tools: Terranoita.Cli wak-cat)",
-    "range_tiles": "default for kind; read AnimalAIComponent attack_*_range check in the player's data.wak (tools: Terranoita.Cli wak-cat)"
+   "_unverified": {},
+   "_sources": {
+    "damage": "data/entities/animals/failed_alchemist_b.xml AreaDamageComponent"
    }
   },
   {
@@ -420,7 +420,7 @@
    "lunge_speed": 0,
    "sound": "none",
    "wiki_text": "Summons ghosts periodically",
-   "stage": "1b",
+   "stage": "1c",
    "_unverified": {
     "cooldown_frames": "default for kind 'summon'; read AnimalAIComponent attack_*_frames_between check in the player's data.wak (tools: Terranoita.Cli wak-cat)",
     "range_tiles": "default for kind; read AnimalAIComponent attack_*_range check in the player's data.wak (tools: Terranoita.Cli wak-cat)",
@@ -460,7 +460,9 @@
     1,
     1
    ],
-   "damage": null,
+   "damage": {
+    "projectile": 25.0
+   },
    "per_frames": "hit",
    "cooldown_frames": 245,
    "range_tiles": 30.0,
@@ -468,7 +470,10 @@
    "sound": "none",
    "wiki_text": "[[Chaotic Polymorphine]] projectile",
    "stage": "1b",
-   "_unverified": {}
+   "_unverified": {},
+   "_sources": {
+    "damage": "its projectile's ProjectileComponent (data.wak); not on the wiki"
+   }
   },
   {
    "id": "necromancer.melee",
@@ -505,7 +510,9 @@
     1,
     1
    ],
-   "damage": {},
+   "damage": {
+    "projectile": 0
+   },
    "per_frames": "hit",
    "cooldown_frames": 75,
    "range_tiles": 48.75,
@@ -513,7 +520,10 @@
    "sound": "none",
    "wiki_text": "Turns other enemies <span class=\"status-effect\"><span class=\"notranslate setChildImgSize\">[[File:Effect invisibility.png|link=Status Effects#Invisible|Invisible]]</span> [[Status Effects#Invisible|Invisible]]</span>",
    "stage": "1b",
-   "_unverified": {}
+   "_unverified": {},
+   "_sources": {
+    "damage": "its projectile's ProjectileComponent (data.wak); not on the wiki"
+   }
   },
   {
    "id": "lukki.melee",
@@ -526,18 +536,19 @@
     1
    ],
    "damage": {
-    "melee": 2.5
+    "melee": 12.5
    },
-   "per_frames": "10F",
+   "per_frames": "hit",
    "cooldown_frames": 40,
-   "range_tiles": 1.5,
+   "range_tiles": 7.5,
    "lunge_speed": 0,
    "sound": "animals/lukki/limb_attack",
    "wiki_text": "Melee/Melee/12.5; Melee/Melee/2.5/10F",
    "stage": "1b",
-   "_unverified": {
-    "cooldown_frames": "default for kind 'melee'; read AnimalAIComponent attack_*_frames_between check in the player's data.wak (tools: Terranoita.Cli wak-cat)",
-    "range_tiles": "default for kind; read AnimalAIComponent attack_*_range check in the player's data.wak (tools: Terranoita.Cli wak-cat)"
+   "_unverified": {},
+   "_sources": {
+    "damage": "limb hit (wiki 12.5); the wiki's 2.5/10F is lukki_tiny's AreaDamageComponent (lukki has none in data.wak)",
+    "cooldown_frames": "design placeholder, no data in data.wak (engine-private); confirm in the PC autotest: IKLimbAttackerComponent strike cycle"
    }
   },
   {
@@ -555,14 +566,14 @@
    },
    "per_frames": "hit",
    "cooldown_frames": 40,
-   "range_tiles": 1.5,
+   "range_tiles": 15.0,
    "lunge_speed": 0,
    "sound": "animals/lukki/limb_attack",
    "wiki_text": "Melee/Melee/12.5",
    "stage": "1b",
-   "_unverified": {
-    "cooldown_frames": "default for kind 'melee'; read AnimalAIComponent attack_*_frames_between check in the player's data.wak (tools: Terranoita.Cli wak-cat)",
-    "range_tiles": "default for kind; read AnimalAIComponent attack_*_range check in the player's data.wak (tools: Terranoita.Cli wak-cat)"
+   "_unverified": {},
+   "_sources": {
+    "cooldown_frames": "design placeholder, no data in data.wak (engine-private); confirm in the PC autotest: IKLimbAttackerComponent strike cycle"
    }
   },
   {
@@ -580,14 +591,14 @@
    },
    "per_frames": "hit",
    "cooldown_frames": 40,
-   "range_tiles": 1.5,
+   "range_tiles": 2.62,
    "lunge_speed": 0,
    "sound": "none",
    "wiki_text": "Melee/Melee/12.5",
    "stage": "1b",
-   "_unverified": {
-    "cooldown_frames": "default for kind 'melee'; read AnimalAIComponent attack_*_frames_between check in the player's data.wak (tools: Terranoita.Cli wak-cat)",
-    "range_tiles": "default for kind; read AnimalAIComponent attack_*_range check in the player's data.wak (tools: Terranoita.Cli wak-cat)"
+   "_unverified": {},
+   "_sources": {
+    "cooldown_frames": "design placeholder, no data in data.wak (engine-private); confirm in the PC autotest: IKLimbAttackerComponent strike cycle"
    }
   },
   {
@@ -978,40 +989,40 @@
    },
    "per_frames": "hit",
    "cooldown_frames": 40,
-   "range_tiles": 1.5,
+   "range_tiles": 1.88,
    "lunge_speed": 0,
    "sound": "animals/worm/attack_bite",
    "wiki_text": "worm bite/Melee/25",
    "stage": "1b",
-   "_unverified": {
-    "cooldown_frames": "default for kind 'melee'; read AnimalAIComponent attack_*_frames_between check in the player's data.wak (tools: Terranoita.Cli wak-cat)",
-    "range_tiles": "default for kind; read AnimalAIComponent attack_*_range check in the player's data.wak (tools: Terranoita.Cli wak-cat)"
+   "_unverified": {},
+   "_sources": {
+    "cooldown_frames": "design placeholder, no data in data.wak (engine-private); confirm in the PC autotest: WormComponent bites on contact; 40 = Terraria's hit immunity"
    }
   },
   {
    "id": "giant.rock_spirit",
    "enemy": "giant",
-   "kind": "summon",
-   "projectile": "none",
-   "summons": [
-    "pebble"
-   ],
+   "kind": "projectile",
+   "projectile": "pebble",
+   "summons": [],
    "count": [
     1,
     1
    ],
-   "damage": {},
+   "damage": {
+    "projectile": 0
+   },
    "per_frames": "hit",
-   "cooldown_frames": 600,
-   "range_tiles": 30,
+   "cooldown_frames": 145,
+   "range_tiles": 112.5,
    "lunge_speed": 0,
    "sound": "animals/giant/attack_shoot",
    "wiki_text": "Throws [[Lohkare|Rock Spirits]]",
    "stage": "1b",
-   "_unverified": {
-    "cooldown_frames": "default for kind 'summon'; read AnimalAIComponent attack_*_frames_between check in the player's data.wak (tools: Terranoita.Cli wak-cat)",
-    "range_tiles": "default for kind; read AnimalAIComponent attack_*_range check in the player's data.wak (tools: Terranoita.Cli wak-cat)",
-    "summons": "from the wiki text; confirm in the entity's spawn script (facts script_entities)"
+   "_unverified": {},
+   "_sources": {
+    "kind": "data.wak: giant AnimalAI ranged attack projectiles/pebble.xml; it turns into a Rock Spirit (pebble_physics) on removal: summon comes in 1c with pebble",
+    "damage": "its projectile's ProjectileComponent (data.wak); not on the wiki"
    }
   },
   {
@@ -1055,20 +1066,22 @@
    },
    "per_frames": "hit",
    "cooldown_frames": 0,
-   "range_tiles": 30,
+   "range_tiles": 56.2,
    "lunge_speed": 0,
    "sound": "animals/wraith_glowing/shoot",
    "wiki_text": "Retaliates with [[Pinpoint of Light]] when hit/Explosion/14.5; Retaliates with [[Pinpoint of Light]] when hit/Holy/8.75",
    "stage": "1b",
-   "_unverified": {
-    "cooldown_frames": "default for kind 'retaliate'; read AnimalAIComponent attack_*_frames_between check in the player's data.wak (tools: Terranoita.Cli wak-cat)",
-    "range_tiles": "default for kind; read AnimalAIComponent attack_*_range check in the player's data.wak (tools: Terranoita.Cli wak-cat)"
+   "_unverified": {},
+   "_sources": {
+    "count": "design placeholder, no data in data.wak (engine-private); confirm in the PC autotest: the script script_damage_received decides how many",
+    "range_tiles": "design placeholder, no data in data.wak (engine-private); confirm in the PC autotest: the script decides when to fire; its sight",
+    "cooldown_frames": "data/entities/animals/wraith_glowing.xml LuaComponent script_damage_received every -1 frames -> data/entities/projectiles/wraith_glowing_laser.xml"
    }
   },
   {
    "id": "statue_physics.green_radial_orb",
    "enemy": "statue_physics",
-   "kind": "projectile",
+   "kind": "retaliate",
    "projectile": "green_radial_orb",
    "summons": [],
    "count": [
@@ -1079,16 +1092,18 @@
     "projectile": 20.0
    },
    "per_frames": "hit",
-   "cooldown_frames": 90,
-   "range_tiles": 25,
+   "cooldown_frames": 0,
+   "range_tiles": 56.2,
    "lunge_speed": 0,
    "sound": "none",
    "wiki_text": "Green radial orb projectile/Projectile/20",
    "stage": "1b",
-   "_unverified": {
-    "cooldown_frames": "default for kind 'projectile'; read AnimalAIComponent attack_*_frames_between check in the player's data.wak (tools: Terranoita.Cli wak-cat)",
-    "range_tiles": "default for kind; read AnimalAIComponent attack_*_range check in the player's data.wak (tools: Terranoita.Cli wak-cat)",
-    "count": "wiki shows no count; read attack_ranged_entity_count check in the player's data.wak (tools: Terranoita.Cli wak-cat)"
+   "_unverified": {},
+   "_sources": {
+    "kind": "data/entities/animals/statue_physics.xml fires data/entities/projectiles/orb_green_spin.xml from script_collision_trigger_hit",
+    "count": "design placeholder, no data in data.wak (engine-private); confirm in the PC autotest: the script script_collision_trigger_hit decides how many",
+    "range_tiles": "design placeholder, no data in data.wak (engine-private); confirm in the PC autotest: the script decides when to fire; its sight",
+    "cooldown_frames": "data/entities/animals/statue_physics.xml LuaComponent script_collision_trigger_hit every -1 frames -> data/entities/projectiles/orb_green_spin.xml"
    }
   },
   {
@@ -1133,7 +1148,7 @@
    "lunge_speed": 0,
    "sound": "none",
    "wiki_text": "Freezing projectile",
-   "stage": "1b",
+   "stage": "1c",
    "_unverified": {
     "cooldown_frames": "default for kind 'projectile'; read AnimalAIComponent attack_*_frames_between check in the player's data.wak (tools: Terranoita.Cli wak-cat)",
     "range_tiles": "default for kind; read AnimalAIComponent attack_*_range check in the player's data.wak (tools: Terranoita.Cli wak-cat)",
@@ -1157,15 +1172,15 @@
     ]
    },
    "per_frames": "3F",
-   "cooldown_frames": 1,
-   "range_tiles": 6,
+   "cooldown_frames": 3,
+   "range_tiles": 3.0,
    "lunge_speed": 0,
    "sound": "none",
    "wiki_text": "Curse/Curse/2.5-5/3F",
    "stage": "1b",
-   "_unverified": {
-    "cooldown_frames": "default for kind 'aura'; read AnimalAIComponent attack_*_frames_between check in the player's data.wak (tools: Terranoita.Cli wak-cat)",
-    "range_tiles": "default for kind; read AnimalAIComponent attack_*_range check in the player's data.wak (tools: Terranoita.Cli wak-cat)"
+   "_unverified": {},
+   "_sources": {
+    "damage": "data/entities/animals/ghost.xml DamageNearbyEntitiesComponent"
    }
   },
   {
@@ -1205,16 +1220,17 @@
     "projectile": 30.0
    },
    "per_frames": "hit",
-   "cooldown_frames": 90,
-   "range_tiles": 25,
+   "cooldown_frames": 10,
+   "range_tiles": 56.2,
    "lunge_speed": 0,
    "sound": "none",
    "wiki_text": "[[Pollen]] bundle projectile/Projectile/30",
    "stage": "1b",
-   "_unverified": {
-    "cooldown_frames": "default for kind 'projectile'; read AnimalAIComponent attack_*_frames_between check in the player's data.wak (tools: Terranoita.Cli wak-cat)",
-    "range_tiles": "default for kind; read AnimalAIComponent attack_*_range check in the player's data.wak (tools: Terranoita.Cli wak-cat)",
-    "count": "wiki shows no count; read attack_ranged_entity_count check in the player's data.wak (tools: Terranoita.Cli wak-cat)"
+   "_unverified": {},
+   "_sources": {
+    "cooldown_frames": "data/entities/animals/fungus_giga.xml LuaComponent script_source_file every 10 frames -> data/entities/projectiles/pollen.xml",
+    "count": "design placeholder, no data in data.wak (engine-private); confirm in the PC autotest: the script script_source_file decides how many",
+    "range_tiles": "design placeholder, no data in data.wak (engine-private); confirm in the PC autotest: the script decides when to fire; its sight"
    }
   },
   {
@@ -1254,14 +1270,14 @@
    },
    "per_frames": "hit",
    "cooldown_frames": 0,
-   "range_tiles": 0,
+   "range_tiles": 2,
    "lunge_speed": 0,
    "sound": "animals/fungus/death_buildup",
    "wiki_text": "Explodes on death/Explosion/125",
    "stage": "1b",
-   "_unverified": {
-    "cooldown_frames": "default for kind 'death_explosion'; read AnimalAIComponent attack_*_frames_between check in the player's data.wak (tools: Terranoita.Cli wak-cat)",
-    "range_tiles": "default for kind; read AnimalAIComponent attack_*_range check in the player's data.wak (tools: Terranoita.Cli wak-cat)"
+   "_unverified": {},
+   "_sources": {
+    "range_tiles": "design placeholder, no data in data.wak (engine-private); confirm in the PC autotest: radius of data/entities/projectiles/fungus_big_explosion.xml (death script), dumped by the next facts run"
    }
   },
   {
@@ -1372,34 +1388,30 @@
     "explosion": 100.0
    },
    "per_frames": "hit",
-   "cooldown_frames": 90,
-   "range_tiles": 25,
+   "cooldown_frames": 95,
+   "range_tiles": 58.12,
    "lunge_speed": 0,
    "sound": "none",
    "wiki_text": "Timed Mines/Explosion/100",
    "stage": "1b",
-   "_unverified": {
-    "cooldown_frames": "default for kind 'projectile'; read AnimalAIComponent attack_*_frames_between check in the player's data.wak (tools: Terranoita.Cli wak-cat)",
-    "range_tiles": "default for kind; read AnimalAIComponent attack_*_range check in the player's data.wak (tools: Terranoita.Cli wak-cat)",
-    "count": "wiki shows no count; read attack_ranged_entity_count check in the player's data.wak (tools: Terranoita.Cli wak-cat)"
-   }
+   "_unverified": {}
   },
   {
    "id": "scavenger_clusterbomb.projectile",
    "enemy": "scavenger_clusterbomb",
    "kind": "projectile",
-   "projectile": "scavenger_clusterbomb_shot",
+   "projectile": "firebolt_like",
    "summons": [],
    "count": [
     1,
-    1
+    2
    ],
    "damage": {
     "projectile": 32.5
    },
    "per_frames": "hit",
-   "cooldown_frames": 95,
-   "range_tiles": 58.12,
+   "cooldown_frames": 125,
+   "range_tiles": 18.75,
    "lunge_speed": 0,
    "sound": "none",
    "wiki_text": "Projectile/Projectile/32.5",
@@ -1469,14 +1481,14 @@
    },
    "per_frames": "hit",
    "cooldown_frames": 0,
-   "range_tiles": 0,
+   "range_tiles": 7.5,
    "lunge_speed": 0,
    "sound": "none",
    "wiki_text": "Explodes on death/Explosion/75",
    "stage": "1b",
-   "_unverified": {
-    "cooldown_frames": "default for kind 'death_explosion'; read AnimalAIComponent attack_*_frames_between check in the player's data.wak (tools: Terranoita.Cli wak-cat)",
-    "range_tiles": "default for kind; read AnimalAIComponent attack_*_range check in the player's data.wak (tools: Terranoita.Cli wak-cat)"
+   "_unverified": {},
+   "_sources": {
+    "range_tiles": "data/entities/animals/tank_rocket.xml ExplodeOnDamageComponent config_explosion"
    }
   },
   {
@@ -1653,14 +1665,14 @@
    },
    "per_frames": "hit",
    "cooldown_frames": 40,
-   "range_tiles": 1.5,
+   "range_tiles": 1.88,
    "lunge_speed": 0,
    "sound": "animals/worm/attack_bite",
    "wiki_text": "worm bite/Melee/25",
    "stage": "1b",
-   "_unverified": {
-    "cooldown_frames": "default for kind 'melee'; read AnimalAIComponent attack_*_frames_between check in the player's data.wak (tools: Terranoita.Cli wak-cat)",
-    "range_tiles": "default for kind; read AnimalAIComponent attack_*_range check in the player's data.wak (tools: Terranoita.Cli wak-cat)"
+   "_unverified": {},
+   "_sources": {
+    "cooldown_frames": "design placeholder, no data in data.wak (engine-private); confirm in the PC autotest: WormComponent bites on contact; 40 = Terraria's hit immunity"
    }
   },
   {
@@ -1844,14 +1856,14 @@
    },
    "per_frames": "hit",
    "cooldown_frames": 40,
-   "range_tiles": 1.5,
+   "range_tiles": 1.88,
    "lunge_speed": 0,
    "sound": "none",
    "wiki_text": "worm bite/Melee/25",
    "stage": "1b",
-   "_unverified": {
-    "cooldown_frames": "default for kind 'melee'; read AnimalAIComponent attack_*_frames_between check in the player's data.wak (tools: Terranoita.Cli wak-cat)",
-    "range_tiles": "default for kind; read AnimalAIComponent attack_*_range check in the player's data.wak (tools: Terranoita.Cli wak-cat)"
+   "_unverified": {},
+   "_sources": {
+    "cooldown_frames": "design placeholder, no data in data.wak (engine-private); confirm in the PC autotest: WormComponent bites on contact; 40 = Terraria's hit immunity"
    }
   },
   {
@@ -1871,21 +1883,21 @@
     ]
    },
    "per_frames": "4F",
-   "cooldown_frames": 1,
-   "range_tiles": 6,
+   "cooldown_frames": 4,
+   "range_tiles": 3.0,
    "lunge_speed": 0,
    "sound": "none",
    "wiki_text": "Curse/Curse/2.5-5/4F",
    "stage": "1b",
-   "_unverified": {
-    "cooldown_frames": "default for kind 'aura'; read AnimalAIComponent attack_*_frames_between check in the player's data.wak (tools: Terranoita.Cli wak-cat)",
-    "range_tiles": "default for kind; read AnimalAIComponent attack_*_range check in the player's data.wak (tools: Terranoita.Cli wak-cat)"
+   "_unverified": {},
+   "_sources": {
+    "damage": "data/entities/animals/worm_skull.xml DamageNearbyEntitiesComponent"
    }
   },
   {
    "id": "lukki_dark.melee",
    "enemy": "lukki_dark",
-   "kind": "melee",
+   "kind": "aura",
    "projectile": "none",
    "summons": [],
    "count": [
@@ -1896,15 +1908,16 @@
     "melee": 3.5
    },
    "per_frames": "4F",
-   "cooldown_frames": 40,
-   "range_tiles": 1.5,
+   "cooldown_frames": 4,
+   "range_tiles": 3.38,
    "lunge_speed": 0,
-   "sound": "animals/lukki/limb_attack",
+   "sound": "none",
    "wiki_text": "Melee/Melee/3.5/4F",
    "stage": "1b",
-   "_unverified": {
-    "cooldown_frames": "default for kind 'melee'; read AnimalAIComponent attack_*_frames_between check in the player's data.wak (tools: Terranoita.Cli wak-cat)",
-    "range_tiles": "default for kind; read AnimalAIComponent attack_*_range check in the player's data.wak (tools: Terranoita.Cli wak-cat)"
+   "_unverified": {},
+   "_sources": {
+    "kind": "lukki_dark.xml has no IKLimbAttackerComponent, only AreaDamageComponent (jaws)",
+    "damage": "data/entities/animals/lukki/lukki_dark.xml AreaDamageComponent"
    }
   },
   {
@@ -1922,14 +1935,14 @@
    },
    "per_frames": "hit",
    "cooldown_frames": 40,
-   "range_tiles": 1.5,
+   "range_tiles": 15.0,
    "lunge_speed": 0,
    "sound": "animals/lukki/limb_attack",
    "wiki_text": "Melee/Melee/12.5",
    "stage": "1b",
-   "_unverified": {
-    "cooldown_frames": "default for kind 'melee'; read AnimalAIComponent attack_*_frames_between check in the player's data.wak (tools: Terranoita.Cli wak-cat)",
-    "range_tiles": "default for kind; read AnimalAIComponent attack_*_range check in the player's data.wak (tools: Terranoita.Cli wak-cat)"
+   "_unverified": {},
+   "_sources": {
+    "cooldown_frames": "design placeholder, no data in data.wak (engine-private); confirm in the PC autotest: IKLimbAttackerComponent strike cycle"
    }
   },
   {
@@ -1989,7 +2002,9 @@
     1,
     1
    ],
-   "damage": {},
+   "damage": {
+    "projectile": 0
+   },
    "per_frames": "hit",
    "cooldown_frames": 75,
    "range_tiles": 48.75,
@@ -1997,7 +2012,10 @@
    "sound": "none",
    "wiki_text": "Shield Gun",
    "stage": "1b",
-   "_unverified": {}
+   "_unverified": {},
+   "_sources": {
+    "damage": "its projectile's ProjectileComponent (data.wak); not on the wiki"
+   }
   },
   {
    "id": "crystal_physics.projectile",
@@ -2150,14 +2168,14 @@
    },
    "per_frames": "hit",
    "cooldown_frames": 0,
-   "range_tiles": 0,
+   "range_tiles": 7.5,
    "lunge_speed": 0,
    "sound": "none",
    "wiki_text": "Explodes on death/Explosion/75",
    "stage": "1b",
-   "_unverified": {
-    "cooldown_frames": "default for kind 'death_explosion'; read AnimalAIComponent attack_*_frames_between check in the player's data.wak (tools: Terranoita.Cli wak-cat)",
-    "range_tiles": "default for kind; read AnimalAIComponent attack_*_range check in the player's data.wak (tools: Terranoita.Cli wak-cat)"
+   "_unverified": {},
+   "_sources": {
+    "range_tiles": "data/entities/animals/tank.xml ExplodeOnDamageComponent config_explosion"
    }
   },
   {
@@ -2661,14 +2679,14 @@
    },
    "per_frames": "hit",
    "cooldown_frames": 0,
-   "range_tiles": 0,
+   "range_tiles": 2.25,
    "lunge_speed": 0,
    "sound": "none",
    "wiki_text": "Explodes on death/Explosion/37.5",
    "stage": "1b",
-   "_unverified": {
-    "cooldown_frames": "default for kind 'death_explosion'; read AnimalAIComponent attack_*_frames_between check in the player's data.wak (tools: Terranoita.Cli wak-cat)",
-    "range_tiles": "default for kind; read AnimalAIComponent attack_*_range check in the player's data.wak (tools: Terranoita.Cli wak-cat)"
+   "_unverified": {},
+   "_sources": {
+    "range_tiles": "data/entities/animals/healerdrone_physics.xml ExplodeOnDamageComponent config_explosion"
    }
   },
   {
@@ -2728,7 +2746,12 @@
     1,
     1
    ],
-   "damage": null,
+   "damage": {
+    "melee": [
+     10.0,
+     17.5
+    ]
+   },
    "per_frames": "hit",
    "cooldown_frames": 20,
    "range_tiles": 3.75,
@@ -2823,14 +2846,14 @@
    },
    "per_frames": "hit",
    "cooldown_frames": 0,
-   "range_tiles": 0,
+   "range_tiles": 2,
    "lunge_speed": 0,
    "sound": "animals/fungus/death_buildup",
    "wiki_text": "Explodes on death/Explosion/125",
    "stage": "1b",
-   "_unverified": {
-    "cooldown_frames": "default for kind 'death_explosion'; read AnimalAIComponent attack_*_frames_between check in the player's data.wak (tools: Terranoita.Cli wak-cat)",
-    "range_tiles": "default for kind; read AnimalAIComponent attack_*_range check in the player's data.wak (tools: Terranoita.Cli wak-cat)"
+   "_unverified": {},
+   "_sources": {
+    "range_tiles": "design placeholder, no data in data.wak (engine-private); confirm in the PC autotest: radius of data/entities/projectiles/fungus_explosion.xml (death script), dumped by the next facts run"
    }
   },
   {
@@ -2893,14 +2916,14 @@
    },
    "per_frames": "hit",
    "cooldown_frames": 0,
-   "range_tiles": 0,
+   "range_tiles": 15.0,
    "lunge_speed": 0,
    "sound": "none",
    "wiki_text": "Explodes on death/Explosion/75",
    "stage": "1b",
-   "_unverified": {
-    "cooldown_frames": "default for kind 'death_explosion'; read AnimalAIComponent attack_*_frames_between check in the player's data.wak (tools: Terranoita.Cli wak-cat)",
-    "range_tiles": "default for kind; read AnimalAIComponent attack_*_range check in the player's data.wak (tools: Terranoita.Cli wak-cat)"
+   "_unverified": {},
+   "_sources": {
+    "range_tiles": "data/entities/animals/tank_super.xml ExplodeOnDamageComponent config_explosion"
    }
   },
   {
@@ -2966,14 +2989,14 @@
    },
    "per_frames": "hit",
    "cooldown_frames": 0,
-   "range_tiles": 0,
+   "range_tiles": 3.75,
    "lunge_speed": 0,
    "sound": "none",
    "wiki_text": "Explodes on death/Explosion/62.5",
    "stage": "1b",
-   "_unverified": {
-    "cooldown_frames": "default for kind 'death_explosion'; read AnimalAIComponent attack_*_frames_between check in the player's data.wak (tools: Terranoita.Cli wak-cat)",
-    "range_tiles": "default for kind; read AnimalAIComponent attack_*_range check in the player's data.wak (tools: Terranoita.Cli wak-cat)"
+   "_unverified": {},
+   "_sources": {
+    "range_tiles": "data/entities/animals/drone_physics.xml ExplodeOnDamageComponent config_explosion"
    }
   },
   {
@@ -3257,7 +3280,7 @@
    "lunge_speed": 0,
    "sound": "none",
    "wiki_text": "Explodes on death/Explosion/62.5",
-   "stage": "1b",
+   "stage": "1c",
    "_unverified": {
     "cooldown_frames": "default for kind 'death_explosion'; read AnimalAIComponent attack_*_frames_between check in the player's data.wak (tools: Terranoita.Cli wak-cat)",
     "range_tiles": "default for kind; read AnimalAIComponent attack_*_range check in the player's data.wak (tools: Terranoita.Cli wak-cat)"
@@ -3321,7 +3344,9 @@
     1,
     1
    ],
-   "damage": null,
+   "damage": {
+    "projectile": 20.0
+   },
    "per_frames": "hit",
    "cooldown_frames": 125,
    "range_tiles": 41.25,
@@ -3329,7 +3354,10 @@
    "sound": "none",
    "wiki_text": "Projectile/Projectile/20,Summons Pienkätyri",
    "stage": "1b",
-   "_unverified": {}
+   "_unverified": {},
+   "_sources": {
+    "damage": "its projectile's ProjectileComponent (data.wak); not on the wiki"
+   }
   },
   {
    "id": "minipit.projectile",
@@ -3503,14 +3531,14 @@
    },
    "per_frames": "hit",
    "cooldown_frames": 40,
-   "range_tiles": 1.5,
+   "range_tiles": 1.31,
    "lunge_speed": 0,
    "sound": "animals/worm/attack_bite",
    "wiki_text": "worm bite/Melee/10",
    "stage": "1b",
-   "_unverified": {
-    "cooldown_frames": "default for kind 'melee'; read AnimalAIComponent attack_*_frames_between check in the player's data.wak (tools: Terranoita.Cli wak-cat)",
-    "range_tiles": "default for kind; read AnimalAIComponent attack_*_range check in the player's data.wak (tools: Terranoita.Cli wak-cat)"
+   "_unverified": {},
+   "_sources": {
+    "cooldown_frames": "design placeholder, no data in data.wak (engine-private); confirm in the PC autotest: WormComponent bites on contact; 40 = Terraria's hit immunity"
    }
   },
   {
@@ -3578,14 +3606,14 @@
    },
    "per_frames": "hit",
    "cooldown_frames": 40,
-   "range_tiles": 1.5,
+   "range_tiles": 1.31,
    "lunge_speed": 0,
    "sound": "animals/worm/attack_bite",
    "wiki_text": "worm bite/Melee/25",
    "stage": "1b",
-   "_unverified": {
-    "cooldown_frames": "default for kind 'melee'; read AnimalAIComponent attack_*_frames_between check in the player's data.wak (tools: Terranoita.Cli wak-cat)",
-    "range_tiles": "default for kind; read AnimalAIComponent attack_*_range check in the player's data.wak (tools: Terranoita.Cli wak-cat)"
+   "_unverified": {},
+   "_sources": {
+    "cooldown_frames": "design placeholder, no data in data.wak (engine-private); confirm in the PC autotest: WormComponent bites on contact; 40 = Terraria's hit immunity"
    }
   },
   {
@@ -3715,24 +3743,20 @@
    "projectile": "scavenger_mine_shot",
    "summons": [],
    "count": [
-    1,
-    1
+    2,
+    3
    ],
    "damage": {
     "projectile": 6.75
    },
    "per_frames": "hit",
-   "cooldown_frames": 90,
-   "range_tiles": 25,
+   "cooldown_frames": 190,
+   "range_tiles": 41.25,
    "lunge_speed": 0,
    "sound": "none",
    "wiki_text": "Projectile/Projectile/6.75",
    "stage": "1b",
-   "_unverified": {
-    "cooldown_frames": "default for kind 'projectile'; read AnimalAIComponent attack_*_frames_between check in the player's data.wak (tools: Terranoita.Cli wak-cat)",
-    "range_tiles": "default for kind; read AnimalAIComponent attack_*_range check in the player's data.wak (tools: Terranoita.Cli wak-cat)",
-    "count": "wiki shows no count; read attack_ranged_entity_count check in the player's data.wak (tools: Terranoita.Cli wak-cat)"
-   }
+   "_unverified": {}
   },
   {
    "id": "scavenger_mine.melee",
@@ -3871,16 +3895,17 @@
     "projectile": 20.0
    },
    "per_frames": "hit",
-   "cooldown_frames": 90,
-   "range_tiles": 25,
+   "cooldown_frames": 60,
+   "range_tiles": 46.9,
    "lunge_speed": 0,
    "sound": "none",
    "wiki_text": "Projectile/Projectile/20",
    "stage": "1b",
-   "_unverified": {
-    "cooldown_frames": "default for kind 'projectile'; read AnimalAIComponent attack_*_frames_between check in the player's data.wak (tools: Terranoita.Cli wak-cat)",
-    "range_tiles": "default for kind; read AnimalAIComponent attack_*_range check in the player's data.wak (tools: Terranoita.Cli wak-cat)",
-    "count": "wiki shows no count; read attack_ranged_entity_count check in the player's data.wak (tools: Terranoita.Cli wak-cat)"
+   "_unverified": {},
+   "_sources": {
+    "cooldown_frames": "data/entities/animals/monk.xml LuaComponent script_source_file every 60 frames -> data/entities/projectiles/orb_green_accelerating.xml",
+    "count": "design placeholder, no data in data.wak (engine-private); confirm in the PC autotest: the script script_source_file decides how many",
+    "range_tiles": "design placeholder, no data in data.wak (engine-private); confirm in the PC autotest: the script decides when to fire; its sight"
    }
   },
   {
@@ -3916,7 +3941,9 @@
     1,
     1
    ],
-   "damage": null,
+   "damage": {
+    "projectile": 0
+   },
    "per_frames": "hit",
    "cooldown_frames": 135,
    "range_tiles": 9.38,
@@ -3924,7 +3951,10 @@
    "sound": "none",
    "wiki_text": "Spits a small spray of [[Acid]]",
    "stage": "1b",
-   "_unverified": {}
+   "_unverified": {},
+   "_sources": {
+    "damage": "its projectile's ProjectileComponent (data.wak); not on the wiki"
+   }
   },
   {
    "id": "ant.melee",
@@ -4036,14 +4066,14 @@
    },
    "per_frames": "hit",
    "cooldown_frames": 0,
-   "range_tiles": 0,
+   "range_tiles": 2,
    "lunge_speed": 0,
    "sound": "animals/fungus/death_buildup",
    "wiki_text": "Explodes on death/Explosion/125",
    "stage": "1b",
-   "_unverified": {
-    "cooldown_frames": "default for kind 'death_explosion'; read AnimalAIComponent attack_*_frames_between check in the player's data.wak (tools: Terranoita.Cli wak-cat)",
-    "range_tiles": "default for kind; read AnimalAIComponent attack_*_range check in the player's data.wak (tools: Terranoita.Cli wak-cat)"
+   "_unverified": {},
+   "_sources": {
+    "range_tiles": "design placeholder, no data in data.wak (engine-private); confirm in the PC autotest: radius of data/entities/projectiles/fungus_explosion.xml (death script), dumped by the next facts run"
    }
   },
   {
@@ -4061,14 +4091,14 @@
    },
    "per_frames": "hit",
    "cooldown_frames": 40,
-   "range_tiles": 1.5,
+   "range_tiles": 1.31,
    "lunge_speed": 0,
    "sound": "none",
    "wiki_text": "worm bite/Melee/25",
    "stage": "1b",
-   "_unverified": {
-    "cooldown_frames": "default for kind 'melee'; read AnimalAIComponent attack_*_frames_between check in the player's data.wak (tools: Terranoita.Cli wak-cat)",
-    "range_tiles": "default for kind; read AnimalAIComponent attack_*_range check in the player's data.wak (tools: Terranoita.Cli wak-cat)"
+   "_unverified": {},
+   "_sources": {
+    "cooldown_frames": "design placeholder, no data in data.wak (engine-private); confirm in the PC autotest: WormComponent bites on contact; 40 = Terraria's hit immunity"
    }
   },
   {
@@ -4108,14 +4138,14 @@
    },
    "per_frames": "hit",
    "cooldown_frames": 0,
-   "range_tiles": 0,
+   "range_tiles": 2,
    "lunge_speed": 0,
    "sound": "animals/fungus/death_buildup",
    "wiki_text": "Explodes on death/Explosion/125",
    "stage": "1b",
-   "_unverified": {
-    "cooldown_frames": "default for kind 'death_explosion'; read AnimalAIComponent attack_*_frames_between check in the player's data.wak (tools: Terranoita.Cli wak-cat)",
-    "range_tiles": "default for kind; read AnimalAIComponent attack_*_range check in the player's data.wak (tools: Terranoita.Cli wak-cat)"
+   "_unverified": {},
+   "_sources": {
+    "range_tiles": "design placeholder, no data in data.wak (engine-private); confirm in the PC autotest: radius of data/entities/projectiles/fungus_big_explosion.xml (death script), dumped by the next facts run"
    }
   },
   {
@@ -4135,15 +4165,15 @@
     ]
    },
    "per_frames": "40F",
-   "cooldown_frames": 1,
-   "range_tiles": 6,
+   "cooldown_frames": 40,
+   "range_tiles": 3.0,
    "lunge_speed": 0,
    "sound": "none",
    "wiki_text": "Curse/Curse/4-8/40F",
    "stage": "1b",
-   "_unverified": {
-    "cooldown_frames": "default for kind 'aura'; read AnimalAIComponent attack_*_frames_between check in the player's data.wak (tools: Terranoita.Cli wak-cat)",
-    "range_tiles": "default for kind; read AnimalAIComponent attack_*_range check in the player's data.wak (tools: Terranoita.Cli wak-cat)"
+   "_unverified": {},
+   "_sources": {
+    "damage": "data/entities/animals/ethereal_being.xml DamageNearbyEntitiesComponent"
    }
   },
   {
@@ -4351,14 +4381,14 @@
    },
    "per_frames": "hit",
    "cooldown_frames": 40,
-   "range_tiles": 1.5,
+   "range_tiles": 1.31,
    "lunge_speed": 0,
    "sound": "animals/worm/attack_bite",
    "wiki_text": "worm bite/Melee/7.5",
    "stage": "1b",
-   "_unverified": {
-    "cooldown_frames": "default for kind 'melee'; read AnimalAIComponent attack_*_frames_between check in the player's data.wak (tools: Terranoita.Cli wak-cat)",
-    "range_tiles": "default for kind; read AnimalAIComponent attack_*_range check in the player's data.wak (tools: Terranoita.Cli wak-cat)"
+   "_unverified": {},
+   "_sources": {
+    "cooldown_frames": "design placeholder, no data in data.wak (engine-private); confirm in the PC autotest: WormComponent bites on contact; 40 = Terraria's hit immunity"
    }
   },
   {
@@ -4371,7 +4401,9 @@
     1,
     1
    ],
-   "damage": null,
+   "damage": {
+    "projectile": 0
+   },
    "per_frames": "hit",
    "cooldown_frames": 145,
    "range_tiles": 7.12,
@@ -4381,7 +4413,8 @@
    "stage": "1b",
    "_unverified": {},
    "_sources": {
-    "kind": "data.wak: tentacler_small fires data/entities/projectiles/freeze_circle.xml from AnimalAIComponent"
+    "kind": "data.wak: tentacler_small fires data/entities/projectiles/freeze_circle.xml from AnimalAIComponent",
+    "damage": "its projectile's ProjectileComponent (data.wak); not on the wiki"
    }
   },
   {
@@ -4441,7 +4474,9 @@
     1,
     1
    ],
-   "damage": null,
+   "damage": {
+    "projectile": 25.0
+   },
    "per_frames": "hit",
    "cooldown_frames": 125,
    "range_tiles": 30.0,
@@ -4449,7 +4484,10 @@
    "sound": "none",
    "wiki_text": "Throws [[Potions]].",
    "stage": "1b",
-   "_unverified": {}
+   "_unverified": {},
+   "_sources": {
+    "damage": "its projectile's ProjectileComponent (data.wak); not on the wiki"
+   }
   },
   {
    "id": "bloom.slimeball",
@@ -4484,25 +4522,26 @@
     1,
     1
    ],
-   "damage": null,
+   "damage": {
+    "projectile": 0
+   },
    "per_frames": "hit",
-   "cooldown_frames": 90,
-   "range_tiles": 25,
+   "cooldown_frames": 105,
+   "range_tiles": 37.5,
    "lunge_speed": 0,
    "sound": "none",
    "wiki_text": "Neutralize shot",
    "stage": "1b",
-   "_unverified": {
-    "cooldown_frames": "default for kind 'projectile'; read AnimalAIComponent attack_*_frames_between check in the player's data.wak (tools: Terranoita.Cli wak-cat)",
-    "range_tiles": "default for kind; read AnimalAIComponent attack_*_range check in the player's data.wak (tools: Terranoita.Cli wak-cat)",
-    "count": "wiki shows no count; read attack_ranged_entity_count check in the player's data.wak (tools: Terranoita.Cli wak-cat)"
+   "_unverified": {},
+   "_sources": {
+    "damage": "its projectile's ProjectileComponent (data.wak); not on the wiki"
    }
   },
   {
    "id": "neutralizer.projectile",
    "enemy": "neutralizer",
    "kind": "projectile",
-   "projectile": "neutralizer_shot",
+   "projectile": "roboguard_big_shot",
    "summons": [],
    "count": [
     1,
@@ -4513,13 +4552,18 @@
     "fire": 5.0
    },
    "per_frames": "hit",
-   "cooldown_frames": 105,
-   "range_tiles": 37.5,
+   "cooldown_frames": 40,
+   "range_tiles": 46.9,
    "lunge_speed": 0,
    "sound": "none",
    "wiki_text": "Projectile/Projectile/11.25; Projectile/Fire/5",
    "stage": "1b",
-   "_unverified": {}
+   "_unverified": {},
+   "_sources": {
+    "cooldown_frames": "data/entities/animals/basebot_neutralizer.xml LuaComponent script_source_file every 40 frames -> data/entities/projectiles/machinegun_bullet_roboguard_big.xml",
+    "count": "design placeholder, no data in data.wak (engine-private); confirm in the PC autotest: the script script_source_file decides how many",
+    "range_tiles": "design placeholder, no data in data.wak (engine-private); confirm in the PC autotest: the script decides when to fire; its sight"
+   }
   },
   {
    "id": "coward.teleportation",
@@ -5951,16 +5995,15 @@
    ],
    "damage": {},
    "per_frames": "hit",
-   "cooldown_frames": 600,
-   "range_tiles": 30,
+   "cooldown_frames": 295,
+   "range_tiles": 30.0,
    "lunge_speed": 0,
    "sound": "animals/bigbat/attack_ranged",
    "wiki_text": "Summon [[Lepakko]]",
    "stage": "1b",
-   "_unverified": {
-    "cooldown_frames": "default for kind 'summon'; read AnimalAIComponent attack_*_frames_between check in the player's data.wak (tools: Terranoita.Cli wak-cat)",
-    "range_tiles": "default for kind; read AnimalAIComponent attack_*_range check in the player's data.wak (tools: Terranoita.Cli wak-cat)",
-    "summons": "from the wiki text; confirm in the entity's spawn script (facts script_entities)"
+   "_unverified": {},
+   "_sources": {
+    "summons": "data/entities/animals/bigbat.xml fires data/entities/projectiles/bat.xml, which spawns data/entities/animals/bat.xml"
    }
   },
   {
@@ -6053,7 +6096,7 @@
    "lunge_speed": 0,
    "sound": "none",
    "wiki_text": "Projectile/Projectile/20,Wand (random spells)",
-   "stage": "1b",
+   "stage": "1c",
    "_unverified": {}
   },
   {
@@ -6119,7 +6162,7 @@
    "lunge_speed": 0,
    "sound": "none",
    "wiki_text": "Holy Aura/Holy/7.5/1F",
-   "stage": "1b",
+   "stage": "1c",
    "_unverified": {
     "cooldown_frames": "default for kind 'aura'; read AnimalAIComponent attack_*_frames_between check in the player's data.wak (tools: Terranoita.Cli wak-cat)",
     "range_tiles": "default for kind; read AnimalAIComponent attack_*_range check in the player's data.wak (tools: Terranoita.Cli wak-cat)"
@@ -6375,7 +6418,9 @@
     1,
     1
    ],
-   "damage": null,
+   "damage": {
+    "projectile": 0
+   },
    "per_frames": "hit",
    "cooldown_frames": 105,
    "range_tiles": 37.5,
@@ -6383,7 +6428,10 @@
    "sound": "none",
    "wiki_text": "Targeting Projectile",
    "stage": "1b",
-   "_unverified": {}
+   "_unverified": {},
+   "_sources": {
+    "damage": "its projectile's ProjectileComponent (data.wak); not on the wiki"
+   }
   },
   {
    "id": "soldier.projectile",
@@ -6497,14 +6545,14 @@
    },
    "per_frames": "hit",
    "cooldown_frames": 0,
-   "range_tiles": 0,
+   "range_tiles": 5.62,
    "lunge_speed": 0,
    "sound": "none",
    "wiki_text": "Explodes on death/Explosion/50",
    "stage": "1b",
-   "_unverified": {
-    "cooldown_frames": "default for kind 'death_explosion'; read AnimalAIComponent attack_*_frames_between check in the player's data.wak (tools: Terranoita.Cli wak-cat)",
-    "range_tiles": "default for kind; read AnimalAIComponent attack_*_range check in the player's data.wak (tools: Terranoita.Cli wak-cat)"
+   "_unverified": {},
+   "_sources": {
+    "range_tiles": "data/entities/animals/turret_left.xml ExplodeOnDamageComponent config_explosion"
    }
   },
   {
@@ -6680,7 +6728,7 @@
    "lunge_speed": 0,
    "sound": "none",
    "wiki_text": "[[Acid]] spit/Projectile/5",
-   "stage": "1b",
+   "stage": "1c",
    "_unverified": {
     "cooldown_frames": "default for kind 'projectile'; read AnimalAIComponent attack_*_frames_between check in the player's data.wak (tools: Terranoita.Cli wak-cat)",
     "range_tiles": "default for kind; read AnimalAIComponent attack_*_range check in the player's data.wak (tools: Terranoita.Cli wak-cat)",
@@ -6706,7 +6754,7 @@
    "lunge_speed": 0,
    "sound": "none",
    "wiki_text": "[[Arrow]]/Projectile/12.5",
-   "stage": "1b",
+   "stage": "1c",
    "_unverified": {
     "cooldown_frames": "default for kind 'projectile'; read AnimalAIComponent attack_*_frames_between check in the player's data.wak (tools: Terranoita.Cli wak-cat)",
     "range_tiles": "default for kind; read AnimalAIComponent attack_*_range check in the player's data.wak (tools: Terranoita.Cli wak-cat)",
@@ -6732,7 +6780,7 @@
    "lunge_speed": 0,
    "sound": "none",
    "wiki_text": "[[Fire]]/Fire/12.5",
-   "stage": "1b",
+   "stage": "1c",
    "_unverified": {
     "cooldown_frames": "default for kind 'projectile'; read AnimalAIComponent attack_*_frames_between check in the player's data.wak (tools: Terranoita.Cli wak-cat)",
     "range_tiles": "default for kind; read AnimalAIComponent attack_*_range check in the player's data.wak (tools: Terranoita.Cli wak-cat)",
@@ -6758,7 +6806,7 @@
    "lunge_speed": 0,
    "sound": "none",
    "wiki_text": "Electric spark/Electricity/25",
-   "stage": "1b",
+   "stage": "1c",
    "_unverified": {
     "cooldown_frames": "default for kind 'projectile'; read AnimalAIComponent attack_*_frames_between check in the player's data.wak (tools: Terranoita.Cli wak-cat)",
     "range_tiles": "default for kind; read AnimalAIComponent attack_*_range check in the player's data.wak (tools: Terranoita.Cli wak-cat)",
@@ -6930,7 +6978,9 @@
     1,
     1
    ],
-   "damage": {},
+   "damage": {
+    "projectile": 0
+   },
    "per_frames": "hit",
    "cooldown_frames": 85,
    "range_tiles": 18.75,
@@ -6938,7 +6988,10 @@
    "sound": "none",
    "wiki_text": "Fires shield buff projectiles at allies,granting them a one-off shield",
    "stage": "1b",
-   "_unverified": {}
+   "_unverified": {},
+   "_sources": {
+    "damage": "its projectile's ProjectileComponent (data.wak); not on the wiki"
+   }
   },
   {
    "id": "wizard_weaken.projectile",
@@ -6973,7 +7026,9 @@
     1,
     1
    ],
-   "damage": null,
+   "damage": {
+    "projectile": 0
+   },
    "per_frames": "hit",
    "cooldown_frames": 145,
    "range_tiles": 30.0,
@@ -6981,7 +7036,10 @@
    "sound": "animals/wizard/voc_attack",
    "wiki_text": "Spits [[Toxic Sludge]]",
    "stage": "1b",
-   "_unverified": {}
+   "_unverified": {},
+   "_sources": {
+    "damage": "its projectile's ProjectileComponent (data.wak); not on the wiki"
+   }
   },
   {
    "id": "thundermage.thunder_charge",
@@ -7046,15 +7104,17 @@
     "electricity": 12.5
    },
    "per_frames": "hit",
-   "cooldown_frames": 0,
-   "range_tiles": 30,
+   "cooldown_frames": 1,
+   "range_tiles": 56.2,
    "lunge_speed": 0,
    "sound": "none",
    "wiki_text": "Retaliates with [[Lightning Bolt]]/Explosion/35; Retaliates with [[Lightning Bolt]]/Electricity/12.5",
    "stage": "1b",
-   "_unverified": {
-    "cooldown_frames": "default for kind 'retaliate'; read AnimalAIComponent attack_*_frames_between check in the player's data.wak (tools: Terranoita.Cli wak-cat)",
-    "range_tiles": "default for kind; read AnimalAIComponent attack_*_range check in the player's data.wak (tools: Terranoita.Cli wak-cat)"
+   "_unverified": {},
+   "_sources": {
+    "cooldown_frames": "data/entities/animals/wraith_storm.xml LuaComponent script_source_file every 1 frames -> data/entities/projectiles/deck/projectile_thunder_lightning.xml",
+    "count": "design placeholder, no data in data.wak (engine-private); confirm in the PC autotest: the script script_source_file decides how many",
+    "range_tiles": "design placeholder, no data in data.wak (engine-private); confirm in the PC autotest: the script decides when to fire; its sight"
    }
   },
   {
@@ -7121,7 +7181,9 @@
     1,
     1
    ],
-   "damage": null,
+   "damage": {
+    "projectile": 0
+   },
    "per_frames": "hit",
    "cooldown_frames": 225,
    "range_tiles": 56.25,
@@ -7129,7 +7191,10 @@
    "sound": "animals/wizard/voc_attack",
    "wiki_text": "[[Swapper]] bolt",
    "stage": "1b",
-   "_unverified": {}
+   "_unverified": {},
+   "_sources": {
+    "damage": "its projectile's ProjectileComponent (data.wak); not on the wiki"
+   }
   },
   {
    "id": "hidden.projectile",
@@ -7176,7 +7241,7 @@
    "lunge_speed": 0,
    "sound": "animals/enlightened_alchemist/voc_attack",
    "wiki_text": "[[Meteor]] (red halo)/Fire/56.25; [[Meteor]] (red halo)/Explosion/125",
-   "stage": "1b",
+   "stage": "1c",
    "_unverified": {
     "cooldown_frames": "default for kind 'projectile'; read AnimalAIComponent attack_*_frames_between check in the player's data.wak (tools: Terranoita.Cli wak-cat)",
     "range_tiles": "default for kind; read AnimalAIComponent attack_*_range check in the player's data.wak (tools: Terranoita.Cli wak-cat)",
@@ -7203,7 +7268,7 @@
    "lunge_speed": 0,
    "sound": "animals/enlightened_alchemist/voc_attack",
    "wiki_text": "[[Lightning Bolt]] x 3 (blue halo)/Electricity/25; [[Lightning Bolt]] x 3 (blue halo)/Explosion/125",
-   "stage": "1b",
+   "stage": "1c",
    "_unverified": {
     "cooldown_frames": "default for kind 'projectile'; read AnimalAIComponent attack_*_frames_between check in the player's data.wak (tools: Terranoita.Cli wak-cat)",
     "range_tiles": "default for kind; read AnimalAIComponent attack_*_range check in the player's data.wak (tools: Terranoita.Cli wak-cat)"
@@ -7229,7 +7294,7 @@
    "lunge_speed": 0,
    "sound": "animals/enlightened_alchemist/voc_attack",
    "wiki_text": "[[Pinpoint of Light]] x 5 (white halo)/Projectile/11.25; [[Pinpoint of Light]] x 5 (white halo)/Explosion/9.5",
-   "stage": "1b",
+   "stage": "1c",
    "_unverified": {
     "cooldown_frames": "default for kind 'projectile'; read AnimalAIComponent attack_*_frames_between check in the player's data.wak (tools: Terranoita.Cli wak-cat)",
     "range_tiles": "default for kind; read AnimalAIComponent attack_*_range check in the player's data.wak (tools: Terranoita.Cli wak-cat)"
@@ -7255,7 +7320,7 @@
    "lunge_speed": 0,
    "sound": "animals/enlightened_alchemist/voc_attack",
    "wiki_text": "[[Intense Concentrated Light]] x 5 (purple halo)/Projectile/25; [[Intense Concentrated Light]] x 5 (purple halo)/Explosion/5.5",
-   "stage": "1b",
+   "stage": "1c",
    "_unverified": {
     "cooldown_frames": "default for kind 'projectile'; read AnimalAIComponent attack_*_frames_between check in the player's data.wak (tools: Terranoita.Cli wak-cat)",
     "range_tiles": "default for kind; read AnimalAIComponent attack_*_range check in the player's data.wak (tools: Terranoita.Cli wak-cat)"
@@ -7300,21 +7365,21 @@
     "curse": 2.5
    },
    "per_frames": "6F",
-   "cooldown_frames": 1,
-   "range_tiles": 6,
+   "cooldown_frames": 6,
+   "range_tiles": 1.88,
    "lunge_speed": 0,
    "sound": "none",
    "wiki_text": "Curse/Curse/2.5/6F",
    "stage": "1b",
-   "_unverified": {
-    "cooldown_frames": "default for kind 'aura'; read AnimalAIComponent attack_*_frames_between check in the player's data.wak (tools: Terranoita.Cli wak-cat)",
-    "range_tiles": "default for kind; read AnimalAIComponent attack_*_range check in the player's data.wak (tools: Terranoita.Cli wak-cat)"
+   "_unverified": {},
+   "_sources": {
+    "damage": "data/entities/animals/lurker.xml AreaDamageComponent"
    }
   },
   {
    "id": "bloodcrystal_physics.projectile",
    "enemy": "bloodcrystal_physics",
-   "kind": "projectile",
+   "kind": "retaliate",
    "projectile": "bloodcrystal_physics_shot",
    "summons": [],
    "count": [
@@ -7325,16 +7390,18 @@
     "projectile": 20.0
    },
    "per_frames": "hit",
-   "cooldown_frames": 90,
-   "range_tiles": 25,
+   "cooldown_frames": 0,
+   "range_tiles": 56.2,
    "lunge_speed": 0,
    "sound": "none",
    "wiki_text": "Projectile/Projectile/20",
    "stage": "1b",
-   "_unverified": {
-    "cooldown_frames": "default for kind 'projectile'; read AnimalAIComponent attack_*_frames_between check in the player's data.wak (tools: Terranoita.Cli wak-cat)",
-    "range_tiles": "default for kind; read AnimalAIComponent attack_*_range check in the player's data.wak (tools: Terranoita.Cli wak-cat)",
-    "count": "wiki shows no count; read attack_ranged_entity_count check in the player's data.wak (tools: Terranoita.Cli wak-cat)"
+   "_unverified": {},
+   "_sources": {
+    "kind": "data/entities/animals/bloodcrystal_physics.xml fires data/entities/projectiles/orb_pink.xml from script_collision_trigger_hit",
+    "count": "design placeholder, no data in data.wak (engine-private); confirm in the PC autotest: the script script_collision_trigger_hit decides how many",
+    "range_tiles": "design placeholder, no data in data.wak (engine-private); confirm in the PC autotest: the script decides when to fire; its sight",
+    "cooldown_frames": "data/entities/animals/bloodcrystal_physics.xml LuaComponent script_collision_trigger_hit every -1 frames -> data/entities/projectiles/orb_pink.xml"
    }
   },
   {
@@ -7615,16 +7682,17 @@
    ],
    "damage": {},
    "per_frames": "hit",
-   "cooldown_frames": 600,
-   "range_tiles": 15,
+   "cooldown_frames": 121,
+   "range_tiles": 9.4,
    "lunge_speed": 0,
    "sound": "none",
    "wiki_text": "Releases its creatures when the player is near (archetype spawner_nest)",
    "stage": "1b",
-   "_unverified": {
-    "count": "design guess; read the nest's spawn script",
-    "cooldown_frames": "design guess; read the nest's spawn script",
-    "range_tiles": "design guess; read the nest's spawn script"
+   "_unverified": {},
+   "_sources": {
+    "cooldown_frames": "design placeholder, no data in data.wak (engine-private); confirm in the PC autotest: its spawn script runs every 121 frames and may not release each time",
+    "count": "design placeholder, no data in data.wak (engine-private); confirm in the PC autotest: the spawn script decides how many",
+    "range_tiles": "design placeholder, no data in data.wak (engine-private); confirm in the PC autotest: the spawn script decides when; its sight"
    }
   },
   {
@@ -7646,7 +7714,7 @@
    "lunge_speed": 0,
    "sound": null,
    "wiki_text": "Releases its creatures when the player is near (archetype spawner_nest)",
-   "stage": "1b",
+   "stage": "1c",
    "_unverified": {
     "summons": "from the nest's name; confirm in its spawn script (facts script_entities)",
     "count": "design guess; read the nest's spawn script",
@@ -7669,16 +7737,17 @@
    ],
    "damage": {},
    "per_frames": "hit",
-   "cooldown_frames": 600,
-   "range_tiles": 15,
+   "cooldown_frames": 121,
+   "range_tiles": 9.4,
    "lunge_speed": 0,
    "sound": "none",
    "wiki_text": "Releases its creatures when the player is near (archetype spawner_nest)",
    "stage": "1b",
-   "_unverified": {
-    "count": "design guess; read the nest's spawn script",
-    "cooldown_frames": "design guess; read the nest's spawn script",
-    "range_tiles": "design guess; read the nest's spawn script"
+   "_unverified": {},
+   "_sources": {
+    "cooldown_frames": "design placeholder, no data in data.wak (engine-private); confirm in the PC autotest: its spawn script runs every 121 frames and may not release each time",
+    "count": "design placeholder, no data in data.wak (engine-private); confirm in the PC autotest: the spawn script decides how many",
+    "range_tiles": "design placeholder, no data in data.wak (engine-private); confirm in the PC autotest: the spawn script decides when; its sight"
    }
   },
   {
@@ -7727,6 +7796,125 @@
    "_sources": {
     "kind": "data.wak has no dash for lurker; the wiki's \"launches itself as a projectile\" is this lurkershot"
    }
+  },
+  {
+   "id": "lukki_tiny.touch",
+   "enemy": "lukki_tiny",
+   "kind": "aura",
+   "projectile": "none",
+   "summons": [],
+   "count": [
+    1,
+    1
+   ],
+   "damage": {
+    "melee": 2.5
+   },
+   "per_frames": "10F",
+   "cooldown_frames": 10,
+   "range_tiles": 1.5,
+   "lunge_speed": 0,
+   "sound": "none",
+   "stage": "1b",
+   "_unverified": {},
+   "wiki_text": "From data.wak: AreaDamageComponent (not on the wiki)",
+   "_sources": {
+    "damage": "data/entities/animals/lukki/lukki_tiny.xml AreaDamageComponent"
+   }
+  },
+  {
+   "id": "ethereal_being.touch",
+   "enemy": "ethereal_being",
+   "kind": "aura",
+   "projectile": "none",
+   "summons": [],
+   "count": [
+    1,
+    1
+   ],
+   "damage": {
+    "curse": [
+     2.5,
+     5.0
+    ]
+   },
+   "per_frames": "3F",
+   "cooldown_frames": 3,
+   "range_tiles": 3.0,
+   "lunge_speed": 0,
+   "sound": "none",
+   "stage": "1b",
+   "_unverified": {},
+   "wiki_text": "From data.wak: DamageNearbyEntitiesComponent (not on the wiki)",
+   "_sources": {
+    "damage": "data/entities/animals/ethereal_being.xml DamageNearbyEntitiesComponent"
+   }
+  },
+  {
+   "id": "tentacler.smalltentacle",
+   "enemy": "tentacler",
+   "kind": "projectile",
+   "projectile": "smalltentacle",
+   "summons": [],
+   "count": [
+    1,
+    1
+   ],
+   "damage": {
+    "projectile": 0.0
+   },
+   "per_frames": "hit",
+   "cooldown_frames": 165,
+   "range_tiles": 20.62,
+   "lunge_speed": 0,
+   "sound": "none",
+   "wiki_text": "From data.wak: ai_attack ranged attack data/entities/projectiles/smalltentacle.xml (not on the wiki)",
+   "stage": "1b",
+   "_unverified": {}
+  },
+  {
+   "id": "tentacler.freeze_circle",
+   "enemy": "tentacler",
+   "kind": "projectile",
+   "projectile": "freeze_circle",
+   "summons": [],
+   "count": [
+    1,
+    1
+   ],
+   "damage": {
+    "projectile": 0.0
+   },
+   "per_frames": "hit",
+   "cooldown_frames": 125,
+   "range_tiles": 7.12,
+   "lunge_speed": 0,
+   "sound": "none",
+   "wiki_text": "From data.wak: ai_attack ranged attack data/entities/projectiles/freeze_circle.xml (not on the wiki)",
+   "stage": "1b",
+   "_unverified": {}
+  },
+  {
+   "id": "tentacler.smalltentacle_melee",
+   "enemy": "tentacler",
+   "kind": "projectile",
+   "projectile": "smalltentacle_melee",
+   "summons": [],
+   "count": [
+    1,
+    1
+   ],
+   "damage": {
+    "projectile": 0.0
+   },
+   "per_frames": "hit",
+   "cooldown_frames": 125,
+   "range_tiles": 6.75,
+   "lunge_speed": 0,
+   "sound": "none",
+   "wiki_text": "From data.wak: ai_attack ranged attack data/entities/projectiles/smalltentacle_melee.xml (not on the wiki)",
+   "stage": "1b",
+   "_unverified": {}
   }
  ]
 }

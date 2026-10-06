@@ -46,6 +46,13 @@ namespace Terranoita.Noita
                     foreach (var over in child.Children)
                     {
                         var target = baseComponents.FirstOrDefault(c => c.Name == over.Name && !used.Contains(c));
+                        if (over.Attr("_remove_from_base") == "1")
+                        {
+                            // Noita drops that base component instead of merging into it
+                            if (target != null)
+                                baseComponents.Remove(target);
+                            continue;
+                        }
                         if (target != null)
                         {
                             target.MergeFrom(over);
@@ -87,6 +94,7 @@ namespace Terranoita.Noita
         public int[] HitboxNoitaPx;         // [w, h] in Noita pixels
         public string NameKey;              // $animal_...
         public readonly List<RangedAttackFacts> Ranged = new List<RangedAttackFacts>();
+        public readonly List<RangedAttackFacts> RangedDisabled = new List<RangedAttackFacts>();
         public int? MeleeFramesBetween;
         public float? MeleeRange;
         public bool DashEnabled;
@@ -132,6 +140,8 @@ namespace Terranoita.Noita
                     f.AnimalAi[kv.Key] = kv.Value;
                 if (ai.Attr("attack_ranged_enabled", "0") == "1" && !string.IsNullOrEmpty(ai.Attr("attack_ranged_entity_file")))
                     f.Ranged.Add(RangedAttackFacts.From(ai, "animal_ai"));
+                else if (!string.IsNullOrEmpty(ai.Attr("attack_ranged_entity_file")))
+                    f.RangedDisabled.Add(RangedAttackFacts.From(ai, "animal_ai"));   // a script may switch it on
                 f.MeleeFramesBetween = ai.Int("attack_melee_frames_between") ?? AnimalAiDefaults.MeleeFramesBetween;
                 f.MeleeRange = ai.Float("attack_melee_max_distance") ?? AnimalAiDefaults.MeleeMaxDistance;
                 f.DashEnabled = ai.Attr("attack_dash_enabled", "0") == "1";

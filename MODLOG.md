@@ -214,3 +214,38 @@ does), walks without sliding, attacks only when close/in range, log shows its at
 - Author: the autotest now removes Terraria's own hostile NPCs and stops natural Noita spawns while it runs.
   Rerun: 12 spawned, 50 hits, **all 12 enemies hit the player** (shotgunner and miner too: vanilla mobs had been
   eating the player's immunity frames), 0 errors.
+
+## 2026-10-06 — cloud: stage 1b sheets from the facts dump (gate 1b: 576 -> 53 open, all waiting for the next facts run)
+
+**Rules added to apply_facts (numbers from tools, defaults from _component_docs):** worms (WormAIComponent speeds are
+Noita px/frame -> x3; WormComponent gravity/acceleration are px/frame per second -> x3/60; turn rates rad/frame; new
+enemies columns roam_speed/turn_rate/roam_turn_rate; hitbox 2 x hitbox_radius; bite reach target_kill_radius, damage
+bite_damage); PhysicsAI movers (lukki, chest_leggy): speed = min(force_coeff x target_vec_max_len, force_max) /
+force_balancing_coeff px/s, accel 1-exp(-k_d/60), gravity 0 when levitate; IK limb reach; auras from
+AreaDamageComponent / DamageNearbyEntitiesComponent (also on child entities; missing ones get a .touch row); death
+explosions from ExplodeOnDamageComponent config_explosion; summons from ProjectileComponent spawn_entity (bigbat) and
+spawn scripts (nests); script attacks (Lua loads a projectile: cooldown = execute_every_n_frame, on damage/touch =
+retaliate); damage-based pairing of shots; AnimalAI's base acidshot ignored when AIAttackComponents exist; extra
+data.wak shots get rows; static = no mover but plain physics (crawler speed 0 counts as still); dmg_mult defaults 1;
+projectile sprite "none" when the file has no image; effect rules ignore visual/motion components.
+Placeholders (in _sources, "design placeholder"): worm bite and lukki limb cooldown 40, script attack count/range,
+nest release count/range, fungus death explosion radius 2 tiles, ghost hitbox 48x48.
+
+**Sheet changes:** archetypes worm_water (eel, move burrow_liquid) and leggy_mimic (chest_leggy, climb + wake);
+lukki.melee = limb hit 12.5; lukki_dark.melee = jaws aura; lukki_tiny.touch aura; lukki_longleg faction spider;
+giant.rock_spirit = its pebble.xml throw (the Rock Spirit it becomes comes in 1c).
+**Moved to 1c (need data not in facts yet):** trap_fire, trap_thunder, trap_acid (lookup had picked their shots/a prop),
+trap_arrow, death_orb_lab, nest_longleg, pebble, ghost_crystal, snowcrystal, wisp, enlightened_alchemist, wand_ghost.
+
+**tncli for the next run:** lookup prefers animals/ and buildings/ over projectiles/; script path prefixes;
+script_projectiles (projectile facts of files scripts load); ranged_disabled (AnimalAI shots a script switches on);
+_remove_from_base honoured. The 53 open cells (monk, statue_physics, bloodcrystal, wraith_glowing/storm, fungus_giga
+pollen, neutralizer shot, coward) fill from those.
+
+**Brain/game:** burrow speed steps by accel toward hunt/roam speed, turn rate from the sheet; burrow_liquid (eel) only
+inside liquid; levitating climbers cross the open; Carriers draws plain .png sprites (eel was invisible), worm "eat"
+animation for attacks. 44 Core + 7 tools tests pass; gate 1a clean.
+
+**Next:** PC: `tools\pc_step.ps1 -AutoTest 1b` (facts -> apply -> preflight; if clean: gen_cs --gate 1b, build,
+autotest 1b; else it stops and lists the open cells). Cloud: read pc_check.txt / pc_autotest_1b.txt, fix, set
+Entry.Stage default 1b, version 0.2.0. Проверить на ПК also: worm leap heights and lukki speeds (unit inferences above).

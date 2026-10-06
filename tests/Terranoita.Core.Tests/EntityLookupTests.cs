@@ -14,6 +14,7 @@ namespace Terranoita.Tests
             ["data/entities/animals/miner_chef.xml"] = @"<Entity name=""$animal_miner_chef""/>",
             ["data/entities/buildings/flynest.xml"] = @"<Entity name=""$animal_flynest""/>",
             ["data/entities/buildings/arrowtrap_left.xml"] = @"<Entity/>",
+            ["data/entities/projectiles/arrow_trap.xml"] = @"<Entity/>",
             ["data/entities/buildings/arrowtrap_right.xml"] = @"<Entity/>",
             ["data/entities/animals/shotgunner.xml"] = @"<Entity name=""$animal_shotgunner""/>",
             ["data/entities/animals/shotgunner_weak.xml"] = @"<Entity name=""$animal_shotgunner""/>",
@@ -55,7 +56,7 @@ namespace Terranoita.Tests
             var trap = Lookup().Find("trap_arrow", null, "$animal_trap_arrow", "Arrow Trap");
             Assert.Equal("file_words", trap.How);
             Assert.Equal("data/entities/buildings/arrowtrap_left.xml", trap.Path);
-            Assert.Equal(new[] { "data/entities/buildings/arrowtrap_right.xml" }, trap.Candidates);
+            Assert.Equal(new[] { "data/entities/buildings/arrowtrap_right.xml", "data/entities/projectiles/arrow_trap.xml" }, trap.Candidates);
         }
 
         [Fact]
@@ -98,6 +99,7 @@ namespace Terranoita.Tests
             var lua = "local x = 1\nEntityLoad( \"data/entities/animals/fly.xml\", x, y )\nEntityLoad('data/entities/animals/fly.xml')\n" +
                       "if r < 0.1 then EntityLoad(\"data/entities/animals/bigfirebug.xml\") end -- data/entities/not_a_string.xml";
             Assert.Equal(new[] { "data/entities/animals/fly.xml", "data/entities/animals/bigfirebug.xml" }, EntityDump.EntityFilesIn(lua).ToArray());
+            Assert.Equal(new[] { "data/entities/animals/" }, EntityDump.EntityFilesIn("EntityLoad(\"data/entities/animals/\" .. name .. \".xml\")").ToArray());
         }
 
         [Fact]

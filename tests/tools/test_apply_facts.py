@@ -35,8 +35,16 @@ class ApplyFactsTest(unittest.TestCase):
     def setUpClass(cls):
         cls.tmp = tempfile.mkdtemp()
         shutil.copytree(os.path.join(ROOT, "design", "sheets"), os.path.join(cls.tmp, "sheets"))
+        # the effect must still be open in the copy for the rule to decide it
+        pj = os.path.join(cls.tmp, "sheets", "projectiles.json")
+        sheet = read_json(pj)
+        for r in sheet["rows"]:
+            if r["id"] == "wizard_hearty_shot":
+                r.setdefault("_unverified", {})["effect"] = "test"
+        with open(pj, "w", encoding="utf-8") as out:
+            json.dump(sheet, out)
         facts = read_json(FACTS)
-        f = {k: v for k, v in facts.items() if k in ("hpcrystal", "wizard_hearty", "weakspirit", "worm")}
+        f = {k: v for k, v in facts.items() if k in ("hpcrystal", "wizard_hearty", "weakspirit", "worm", "_component_docs")}
         f["hpcrystal"]["components"] = [comp("DamageModelComponent", hp=20), comp("LuaComponent", script_source_file="x.lua")]
         f["weakspirit"]["components"] = [comp("DamageModelComponent", hp=3), comp("CharacterPlatformingComponent")]
         f["worm"]["components"] = [comp("WormComponent", speed=7), comp("WormAIComponent", speed=5)]
@@ -70,9 +78,12 @@ class ApplyFactsTest(unittest.TestCase):
         self.assertNotIn("walks", e["_unverified"])
         self.assertGreater(e["sight_tiles"], 0)
 
-    def test_worm_is_left_for_its_components_with_a_note(self):
-        self.assertIsNone(self.rows["worm"]["run_speed"])
-        self.assertIn("worm: moves without CharacterPlatformingComponent (WormAIComponent, WormComponent)", self.out)
+    def test_worm_movement_from_its_components_and_documented_defaults(self):
+        e = self.rows["worm"]
+        self.assertEqual(e["roam_speed"], 5 * 3)            # WormAIComponent speed=5 (px/frame) x 3
+        self.assertEqual(e["run_speed"], 3 * 3)             # speed_hunt absent: documented default 3
+        self.assertEqual((e["walks"], e["flies"]), (False, False))
+        self.assertNotIn("run_speed", e["_unverified"])
 
     def test_projectile_effect_from_game_effect(self):
         p = self.rows["wizard_hearty_shot"]
@@ -107,7 +118,8 @@ class EffectRulesTest(unittest.TestCase):
         self.assertEqual(self.effect(comp("ProjectileComponent", damage=0.3)), "none")
         self.assertEqual(self.effect(comp("ProjectileComponent", damage=-0.2)), "heal")
         self.assertEqual(self.effect(comp("ParticleEmitterComponent", emitted_material_name="radioactive_liquid_fading")), "poison")
-        self.assertIsNone(self.effect(comp("ProjectileComponent"), comp("HomingComponent")))
+        self.assertEqual(self.effect(comp("ProjectileComponent"), comp("HomingComponent")), "none")
+        self.assertIsNone(self.effect(comp("ProjectileComponent"), comp("GameAreaEffectComponent")))
         self.assertIsNone(apply_facts.derive_effect({}, "p.xml")[0])
 
 

@@ -130,7 +130,7 @@
    "explosion_sound": null,
    "effect": "acid",
    "terrain": "none",
-   "stage": "1b",
+   "stage": "1c",
    "_unverified": {
     "effect": "guessed from the name; confirm in the projectile's entity XML"
    }
@@ -142,7 +142,7 @@
     "ant"
    ],
    "noita_file": "data/entities/projectiles/acidburst.xml",
-   "sprite": null,
+   "sprite": "none",
    "speed": 8.0,
    "gravity": -0.0833,
    "lifetime_frames": 20,
@@ -173,7 +173,7 @@
    "explosion_sound": null,
    "effect": "none",
    "terrain": "none",
-   "stage": "1b",
+   "stage": "1c",
    "_unverified": {
     "effect": "guessed from the name; confirm in the projectile's entity XML"
    }
@@ -185,7 +185,7 @@
     "thunderskull"
    ],
    "noita_file": "data/entities/projectiles/lightning_thunderskull.xml",
-   "sprite": null,
+   "sprite": "none",
    "speed": 30.0,
    "gravity": 0.3333,
    "lifetime_frames": 2,
@@ -251,7 +251,7 @@
    "used_by": [
     "bloodcrystal_physics"
    ],
-   "noita_file": null,
+   "noita_file": "data/entities/projectiles/orb_pink.xml",
    "sprite": null,
    "speed": null,
    "gravity": null,
@@ -381,9 +381,9 @@
    ],
    "noita_file": "data/entities/projectiles/polyorb.xml",
    "sprite": "data/projectiles_gfx/polyorb.xml",
-   "speed": null,
+   "speed": 3.0,
    "gravity": 0.3333,
-   "lifetime_frames": null,
+   "lifetime_frames": -1,
    "explosion_radius": 0.0,
    "audio": "projectiles/polymorph_bubble",
    "explosion_sound": "none",
@@ -519,7 +519,7 @@
    "explosion_sound": null,
    "effect": "electric",
    "terrain": "none",
-   "stage": "1b",
+   "stage": "1c",
    "_unverified": {
     "effect": "guessed from the name; confirm in the projectile's entity XML"
    }
@@ -564,8 +564,9 @@
    "effect": "none",
    "terrain": "none",
    "stage": "1b",
-   "_unverified": {
-    "effect": "guessed from the name; confirm in the projectile's entity XML"
+   "_unverified": {},
+   "_sources": {
+    "effect": "ultimate_killer_megabomb.xml: plain damage, no effect, material or damage_by_type"
    }
   },
   {
@@ -627,7 +628,7 @@
    "explosion_sound": null,
    "effect": "fire",
    "terrain": "none",
-   "stage": "1b",
+   "stage": "1c",
    "_unverified": {
     "effect": "guessed from the name; confirm in the projectile's entity XML"
    }
@@ -723,7 +724,8 @@
    "id": "firebolt_like",
    "name_en": "Firebolt-like projectile",
    "used_by": [
-    "scavenger_grenade"
+    "scavenger_grenade",
+    "scavenger_clusterbomb"
    ],
    "noita_file": "data/entities/projectiles/grenade_scavenger.xml",
    "sprite": "data/projectiles_gfx/grenade_scavenger_small.xml",
@@ -801,7 +803,7 @@
    "explosion_sound": null,
    "effect": "ice",
    "terrain": "none",
-   "stage": "1b",
+   "stage": "1c",
    "_unverified": {
     "effect": "guessed from the name; confirm in the projectile's entity XML"
    }
@@ -1008,7 +1010,7 @@
    "used_by": [
     "statue_physics"
    ],
-   "noita_file": null,
+   "noita_file": "data/entities/projectiles/orb_green_spin.xml",
    "sprite": null,
    "speed": null,
    "gravity": null,
@@ -1195,7 +1197,7 @@
    "explosion_sound": null,
    "effect": "light",
    "terrain": "none",
-   "stage": "1b",
+   "stage": "1c",
    "_unverified": {
     "effect": "guessed from the name; confirm in the projectile's entity XML"
    }
@@ -1214,11 +1216,12 @@
    "explosion_radius": 0.0,
    "audio": "projectiles/megalaser_blue",
    "explosion_sound": "none",
-   "effect": "light",
+   "effect": "none",
    "terrain": "none",
    "stage": "1b",
-   "_unverified": {
-    "effect": "guessed from the name; confirm in the projectile's entity XML"
+   "_unverified": {},
+   "_sources": {
+    "effect": "megalaser_blue.xml: plain damage, no effect, material or damage_by_type"
    }
   },
   {
@@ -1316,7 +1319,7 @@
     "spearbot"
    ],
    "noita_file": "data/entities/projectiles/laser_spear.xml",
-   "sprite": null,
+   "sprite": "none",
    "speed": 27.5,
    "gravity": 0.3333,
    "lifetime_frames": 300,
@@ -1362,7 +1365,7 @@
     "parallel_alchemist",
     "boss_alchemist"
    ],
-   "noita_file": null,
+   "noita_file": "data/entities/projectiles/deck/projectile_thunder_lightning.xml",
    "sprite": null,
    "speed": null,
    "gravity": null,
@@ -1482,7 +1485,7 @@
    "explosion_sound": null,
    "effect": "none",
    "terrain": "none",
-   "stage": "1b",
+   "stage": "1c",
    "_unverified": {
     "effect": "guessed from the name; confirm in the projectile's entity XML"
    }
@@ -1536,7 +1539,7 @@
    "used_by": [
     "monk"
    ],
-   "noita_file": null,
+   "noita_file": "data/entities/projectiles/orb_green_accelerating.xml",
    "sprite": null,
    "speed": null,
    "gravity": null,
@@ -1601,27 +1604,26 @@
    "used_by": [
     "neutralizer"
    ],
-   "noita_file": null,
-   "sprite": null,
-   "speed": null,
-   "gravity": null,
-   "lifetime_frames": null,
-   "explosion_radius": null,
-   "audio": null,
-   "explosion_sound": null,
+   "noita_file": "data/entities/projectiles/neutralizershot.xml",
+   "sprite": "data/projectiles_gfx/target2.xml",
+   "speed": 17.5,
+   "gravity": 0.0,
+   "lifetime_frames": 100,
+   "explosion_radius": 0.0,
+   "audio": "projectiles/laser",
+   "explosion_sound": "none",
    "effect": "neutralize",
    "terrain": "none",
    "stage": "1b",
-   "_unverified": {
-    "effect": "guessed from the name; confirm in the projectile's entity XML"
+   "_unverified": {},
+   "_sources": {
+    "effect": "neutralizershot.xml: HitEffectComponent loads data/entities/misc/neutralizer_target.xml on hit"
    }
   },
   {
    "id": "neutralizer_shot",
    "name_en": "Stopper's shot",
-   "used_by": [
-    "neutralizer"
-   ],
+   "used_by": [],
    "noita_file": "data/entities/projectiles/neutralizershot.xml",
    "sprite": "data/projectiles_gfx/target2.xml",
    "speed": 17.5,
@@ -1712,7 +1714,7 @@
     "parallel_alchemist",
     "boss_alchemist"
    ],
-   "noita_file": null,
+   "noita_file": "data/entities/projectiles/wraith_glowing_laser.xml",
    "sprite": null,
    "speed": null,
    "gravity": null,
@@ -1798,7 +1800,7 @@
    "used_by": [
     "fungus_giga"
    ],
-   "noita_file": null,
+   "noita_file": "data/entities/projectiles/pollen.xml",
    "sprite": null,
    "speed": null,
    "gravity": null,
@@ -1928,7 +1930,8 @@
    "id": "roboguard_big_shot",
    "name_en": "Hunchback's shot",
    "used_by": [
-    "roboguard_big"
+    "roboguard_big",
+    "neutralizer"
    ],
    "noita_file": "data/entities/projectiles/machinegun_bullet_roboguard_big.xml",
    "sprite": "data/projectiles_gfx/fireball_smaller_blue.xml",
@@ -2006,16 +2009,15 @@
    "effect": "none",
    "terrain": "none",
    "stage": "1b",
-   "_unverified": {
-    "effect": "guessed from the name; confirm in the projectile's entity XML"
+   "_unverified": {},
+   "_sources": {
+    "effect": "sausage.xml: plain damage, no effect, material or damage_by_type"
    }
   },
   {
    "id": "scavenger_clusterbomb_shot",
    "name_en": "Hiisi Bomber's shot",
-   "used_by": [
-    "scavenger_clusterbomb"
-   ],
+   "used_by": [],
    "noita_file": "data/entities/projectiles/clusterbomb.xml",
    "sprite": "data/projectiles_gfx/pipe_bomb.xml",
    "speed": 13.25,
@@ -2038,19 +2040,20 @@
    "used_by": [
     "scavenger_mine"
    ],
-   "noita_file": null,
-   "sprite": null,
-   "speed": null,
-   "gravity": null,
-   "lifetime_frames": null,
-   "explosion_radius": null,
-   "audio": null,
-   "explosion_sound": null,
+   "noita_file": "data/entities/projectiles/buckshot.xml",
+   "sprite": "data/projectiles_gfx/fireball_small.xml",
+   "speed": 27.5,
+   "gravity": 0.3333,
+   "lifetime_frames": 120,
+   "explosion_radius": 0.75,
+   "audio": "projectiles/shotgun",
+   "explosion_sound": "none",
    "effect": "explosive",
    "terrain": "none",
    "stage": "1b",
-   "_unverified": {
-    "effect": "guessed from the name; confirm in the projectile's entity XML"
+   "_unverified": {},
+   "_sources": {
+    "effect": "buckshot.xml: explodes, radius 4"
    }
   },
   {
@@ -2376,8 +2379,9 @@
    "effect": "none",
    "terrain": "none",
    "stage": "1b",
-   "_unverified": {
-    "effect": "guessed from the name; confirm in the projectile's entity XML"
+   "_unverified": {},
+   "_sources": {
+    "effect": "sentryshot.xml: plain damage, no effect, material or damage_by_type"
    }
   },
   {
@@ -2477,19 +2481,20 @@
    "used_by": [
     "scavenger_clusterbomb"
    ],
-   "noita_file": null,
-   "sprite": null,
-   "speed": null,
-   "gravity": null,
-   "lifetime_frames": null,
-   "explosion_radius": null,
-   "audio": null,
-   "explosion_sound": null,
+   "noita_file": "data/entities/projectiles/clusterbomb.xml",
+   "sprite": "data/projectiles_gfx/pipe_bomb.xml",
+   "speed": 13.25,
+   "gravity": 0.3333,
+   "lifetime_frames": 100,
+   "explosion_radius": 3.75,
+   "audio": "projectiles/bullet_fire_heavy",
+   "explosion_sound": "explosions/tnt",
    "effect": "explosive",
    "terrain": "none",
    "stage": "1b",
-   "_unverified": {
-    "effect": "guessed from the name; confirm in the projectile's entity XML"
+   "_unverified": {},
+   "_sources": {
+    "effect": "clusterbomb.xml: explodes, radius 20"
    }
   },
   {
@@ -2522,7 +2527,7 @@
     "barfer"
    ],
    "noita_file": "data/entities/projectiles/radioactive_liquid.xml",
-   "sprite": null,
+   "sprite": "none",
    "speed": 13.75,
    "gravity": -0.0833,
    "lifetime_frames": 20,
@@ -2617,7 +2622,7 @@
    "explosion_sound": "none",
    "effect": "explosive",
    "terrain": "none",
-   "stage": "1b",
+   "stage": "1c",
    "_unverified": {},
    "_sources": {
     "effect": "orb_pink.xml: explodes, radius 6"
@@ -2762,7 +2767,7 @@
     "bloom"
    ],
    "noita_file": "data/entities/projectiles/dummy.xml",
-   "sprite": null,
+   "sprite": "none",
    "speed": 0.0,
    "gravity": 0.3333,
    "lifetime_frames": 0,
@@ -2868,8 +2873,6 @@
   {
    "id": "invisshot",
    "name_en": "Invisshot projectile",
-   "effect": "explosive",
-   "terrain": "none",
    "used_by": [
     "scavenger_invis"
    ],
@@ -2881,6 +2884,8 @@
    "explosion_radius": 0.19,
    "audio": "projectiles/bullet_invis",
    "explosion_sound": "none",
+   "effect": "explosive",
+   "terrain": "none",
    "stage": "1b",
    "_unverified": {},
    "_sources": {
@@ -2890,29 +2895,28 @@
   {
    "id": "tongue",
    "name_en": "Tongue projectile",
-   "effect": "none",
-   "terrain": "none",
    "used_by": [
     "frog_big"
    ],
    "noita_file": "data/entities/projectiles/tongue.xml",
-   "sprite": null,
+   "sprite": "data/entities/projectiles/tentacle/tongue_0.png",
    "speed": 0.4,
    "gravity": 0.0,
    "lifetime_frames": 35,
    "explosion_radius": 0.0,
    "audio": "projectiles/tongue",
    "explosion_sound": "none",
+   "effect": "none",
+   "terrain": "none",
    "stage": "1b",
-   "_unverified": {
-    "effect": "copied from none; confirm in data/entities/projectiles/tongue.xml"
+   "_unverified": {},
+   "_sources": {
+    "effect": "tongue.xml: plain damage, no effect, material or damage_by_type"
    }
   },
   {
    "id": "healshot_slow",
    "name_en": "Healshot slow projectile",
-   "effect": "explosive",
-   "terrain": "none",
    "used_by": [
     "healerdrone_physics"
    ],
@@ -2924,6 +2928,8 @@
    "explosion_radius": 0.19,
    "audio": "projectiles/bullet_heal",
    "explosion_sound": "none",
+   "effect": "explosive",
+   "terrain": "none",
    "stage": "1b",
    "_unverified": {},
    "_sources": {
@@ -2933,8 +2939,6 @@
   {
    "id": "orb_cursed",
    "name_en": "Orb cursed projectile",
-   "effect": "explosive",
-   "terrain": "none",
    "used_by": [
     "shaman"
    ],
@@ -2946,6 +2950,8 @@
    "explosion_radius": 0.19,
    "audio": "projectiles/orb_cursed",
    "explosion_sound": "none",
+   "effect": "explosive",
+   "terrain": "none",
    "stage": "1b",
    "_unverified": {},
    "_sources": {
@@ -2955,8 +2961,6 @@
   {
    "id": "healshot",
    "name_en": "Healshot projectile",
-   "effect": "explosive",
-   "terrain": "none",
    "used_by": [
     "scavenger_heal"
    ],
@@ -2968,6 +2972,8 @@
    "explosion_radius": 0.19,
    "audio": "projectiles/bullet_heal_robot",
    "explosion_sound": "none",
+   "effect": "explosive",
+   "terrain": "none",
    "stage": "1b",
    "_unverified": {},
    "_sources": {
@@ -2977,19 +2983,20 @@
   {
    "id": "freeze_circle",
    "name_en": "Freeze circle projectile",
-   "effect": "ice",
-   "terrain": "none",
    "used_by": [
-    "tentacler_small"
+    "tentacler_small",
+    "tentacler"
    ],
    "noita_file": "data/entities/projectiles/freeze_circle.xml",
-   "sprite": null,
+   "sprite": "none",
    "speed": 0.0,
    "gravity": 0.0,
    "lifetime_frames": 9999999,
    "explosion_radius": 0.19,
    "audio": "projectiles/freeze_circle",
    "explosion_sound": "none",
+   "effect": "ice",
+   "terrain": "none",
    "stage": "1b",
    "_unverified": {},
    "_sources": {
@@ -2999,22 +3006,23 @@
   {
    "id": "lurkershot",
    "name_en": "Lurkershot projectile",
-   "effect": "none",
-   "terrain": "none",
    "used_by": [
     "lurker"
    ],
    "noita_file": "data/entities/projectiles/lurkershot.xml",
-   "sprite": null,
+   "sprite": "none",
    "speed": 7.5,
    "gravity": 0.0,
    "lifetime_frames": 60,
    "explosion_radius": 0.0,
    "audio": "projectiles/bullet_burst_of_air",
    "explosion_sound": "none",
+   "effect": "none",
+   "terrain": "none",
    "stage": "1b",
-   "_unverified": {
-    "effect": "copied from none; confirm in data/entities/projectiles/lurkershot.xml"
+   "_unverified": {},
+   "_sources": {
+    "effect": "lurkershot.xml: plain damage, no effect, material or damage_by_type"
    }
   },
   {
@@ -3037,6 +3045,72 @@
    "_unverified": {},
    "_sources": {
     "effect": "laser_turret.xml: explodes, radius 3"
+   }
+  },
+  {
+   "id": "pebble",
+   "name_en": "Pebble projectile",
+   "effect": "none",
+   "terrain": "none",
+   "used_by": [
+    "giant"
+   ],
+   "noita_file": "data/entities/projectiles/pebble.xml",
+   "sprite": "data/enemies_gfx/pebble_physics.png",
+   "speed": 13.0,
+   "gravity": 0.3333,
+   "lifetime_frames": 90,
+   "explosion_radius": 0.0,
+   "audio": "none",
+   "explosion_sound": "none",
+   "stage": "1b",
+   "_unverified": {},
+   "_sources": {
+    "effect": "pebble.xml: plain damage, no effect, material or damage_by_type"
+   }
+  },
+  {
+   "id": "smalltentacle",
+   "name_en": "Smalltentacle projectile",
+   "effect": "none",
+   "terrain": "none",
+   "used_by": [
+    "tentacler"
+   ],
+   "noita_file": "data/entities/projectiles/smalltentacle.xml",
+   "sprite": "data/entities/projectiles/tentacle/smalltentacle_0.png",
+   "speed": 0.4,
+   "gravity": 0.0,
+   "lifetime_frames": 60,
+   "explosion_radius": 0.0,
+   "audio": "projectiles/tentacle_enemy",
+   "explosion_sound": "none",
+   "stage": "1b",
+   "_unverified": {},
+   "_sources": {
+    "effect": "smalltentacle.xml: plain damage, no effect, material or damage_by_type"
+   }
+  },
+  {
+   "id": "smalltentacle_melee",
+   "name_en": "Smalltentacle melee projectile",
+   "effect": "none",
+   "terrain": "none",
+   "used_by": [
+    "tentacler"
+   ],
+   "noita_file": "data/entities/projectiles/smalltentacle_melee.xml",
+   "sprite": "data/entities/projectiles/tentacle/smalltentacle_0.png",
+   "speed": 0.4,
+   "gravity": 0.0,
+   "lifetime_frames": 60,
+   "explosion_radius": 0.0,
+   "audio": "projectiles/tentacle_enemy",
+   "explosion_sound": "none",
+   "stage": "1b",
+   "_unverified": {},
+   "_sources": {
+    "effect": "smalltentacle_melee.xml: plain damage, no effect, material or damage_by_type"
    }
   }
  ]
