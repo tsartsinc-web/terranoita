@@ -155,7 +155,21 @@ namespace Terranoita.Cli
                 ["ranged"] = ranged,
                 ["components"] = DumpJson(dump),
                 ["scripts"] = new JsonArray(EntityDump.Scripts(dump).Select(x => (JsonNode)x).ToArray()),
+                ["script_entities"] = ScriptEntities(files, EntityDump.Scripts(dump)),
             };
+        }
+
+        /// <summary>Entity files each script names (what a nest releases, what a creature summons), not the script itself.</summary>
+        static JsonObject ScriptEntities(NoitaFiles files, IEnumerable<string> scripts)
+        {
+            var o = new JsonObject();
+            foreach (var script in scripts)
+            {
+                var text = Text(files, script);
+                o[script] = text == null ? null
+                    : new JsonArray(EntityDump.EntityFilesIn(text).Select(x => (JsonNode)x).ToArray());
+            }
+            return o;
         }
 
         /// <summary>Components as JSON: {component, entity (child entities only), attrs, children}.</summary>

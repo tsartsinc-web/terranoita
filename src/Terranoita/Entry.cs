@@ -17,8 +17,11 @@ namespace Terranoita.Game
     /// <summary>Called by Terranoita.exe after Terraria.exe is loaded and before Terraria starts.</summary>
     public static class Entry
     {
-        /// <summary>The latest stage this build contains.</summary>
-        public const string Stage = "1a";
+        /// <summary>
+        /// The latest stage this build contains. TERRANOITA_STAGE=1b tries the next stage's enemies in a test run
+        /// before it ships (its sheet rows must be complete: preflight --gate 1b).
+        /// </summary>
+        public static readonly string Stage = Environment.GetEnvironmentVariable("TERRANOITA_STAGE") ?? "1a";
 
         public static Action<string> Log = _ => { };
         public static string NoitaDir;
@@ -31,6 +34,13 @@ namespace Terranoita.Game
         {
             if (Reported.Add(where + ex.GetType().Name))
                 Log("ERROR in " + where + ": " + ex);
+        }
+
+        /// <summary>Log a warning once.</summary>
+        public static void Warn(string message)
+        {
+            if (Reported.Add(message))
+                Log("WARN " + message);
         }
 
         /// <summary>ReLogic.OS.Platform.Get&lt;IPathService&gt;().GetStoragePath("Terraria"), as Program.LaunchGame does.

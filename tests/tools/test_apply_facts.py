@@ -42,6 +42,9 @@ class ApplyFactsTest(unittest.TestCase):
         f["worm"]["components"] = [comp("WormComponent", speed=7), comp("WormAIComponent", speed=5)]
         hearty = f["wizard_hearty"]["ranged"][0]["projectile"]
         hearty["components"] = [comp("ProjectileComponent", damage=0.3), comp("GameEffectComponent", effect="BLINDNESS")]
+        f["bigbat"] = facts["bigbat"]
+        f["bigbat"]["script_entities"] = {"data/scripts/animals/bigbat_spawn.lua": ["data/entities/animals/bat.xml"]}
+        f["bigbat"]["components"] = [comp("CharacterPlatformingComponent")]
         f["nest_fly"] = copy.deepcopy(facts["hpcrystal"])
         f["nest_fly"].update(entity="data/entities/buildings/flynest.xml", found_by="file_words", candidates=[],
                              components=[comp("DamageModelComponent", hp=4)], ranged=[])
@@ -85,6 +88,12 @@ class ApplyFactsTest(unittest.TestCase):
         self.assertEqual(e["noita_entity"], "data/entities/buildings/flynest.xml")
         self.assertNotIn("id", e["_unverified"])
         self.assertIn("nest_fly: entity found by file_words", self.out)
+
+
+    def test_summons_come_from_spawn_scripts(self):
+        a = self.rows["bigbat.summon_lepakko"]
+        self.assertEqual(a["summons"], ["bat"])
+        self.assertNotIn("summons", a["_unverified"])
 
 
 class EffectRulesTest(unittest.TestCase):

@@ -57,6 +57,27 @@ namespace Terranoita.Ai
     }
 
     /// <summary>
+    /// The world around the enemy, for movers that need more than their own collisions: climbers (lukki) hold on to
+    /// any solid tile, burrowers (worms) know when they are in the ground, swimmers when they are in liquid.
+    /// Units: Terraria world pixels. Without it those movers fall back to walking (climbers) or act as if they were
+    /// always in their element (burrowers in ground, swimmers on land).
+    /// </summary>
+    public interface ITerrain
+    {
+        bool Solid(V2 p);
+        bool Liquid(V2 p);
+    }
+
+    /// <summary>
+    /// The attacks that are not a hit or a shot: auras, summons, heals, support buffs and death explosions. The game
+    /// side carries them out by the attack's kind and sheet row; a sink without this interface skips them.
+    /// </summary>
+    public interface ISpecialAttackSink
+    {
+        void Special(AttackDef attack);
+    }
+
+    /// <summary>
     /// One enemy's behaviour, driven only by its rows in the sheets: movement numbers from the enemies sheet (read from
     /// Noita), the archetype's movement mode and preferred distance, and its attacks. Called once per frame.
     /// </summary>
@@ -65,6 +86,9 @@ namespace Terranoita.Ai
         public const float Tile = 16f;
         const float MaxFall = 10f;
         const int AttackPoseFrames = 18;
+        const float GripMargin = 6f;          // climbers hold on to tiles this close to their body
+        const float WormTurn = 0.05f;         // radians per frame a burrowing head can turn
+        const int TrailLength = 256;
 
         public readonly EnemyDef Enemy;
         public readonly AiArchetypeDef Archetype;
@@ -84,27 +108,43 @@ namespace Terranoita.Ai
         int _wanderTimer;
         float _wobble;
         int _age;
+        bool _awake;
+        V2 _heading;
+        readonly List<V2> _trail = new List<V2>();
 
         public bool Dashing => _dashLeft > 0;
         /// <summary>Frames this brain has run.</summary>
         public int Age => _age;
+        /// <summary>Ghosts and worms move through tiles: the game turns tile collision off for them.</summary>
+        public bool PassesTiles => Move == "phase" || Move == "burrow";
+        /// <summary>A disguised creature (mimic) that has not noticed the player yet.</summary>
+        public bool Dormant => !_awake;
+        /// <summary>Burrowers: where the head has been, newest first, one point per frame (for drawing the body).</summary>
+        public IReadOnlyList<V2> Trail => _trail;
 
         public Brain(EnemyDef enemy)
+            : this(enemy, enemy.Ai != null && Defs.Archetype.TryGetValue(enemy.Ai, out var a) ? a : null, Defs.AttacksOf(enemy))
+        {
+        }
+
+        public Brain(EnemyDef enemy, AiArchetypeDef archetype, IEnumerable<AttackDef> attacks)
         {
             Enemy = enemy;
-            Archetype = enemy.Ai != null && Defs.Archetype.TryGetValue(enemy.Ai, out var a) ? a : null;
-            _attacks = Defs.AttacksOf(enemy).ToList();
+            Archetype = archetype;
+            _attacks = attacks.ToList();
             foreach (var at in _attacks)
                 _cooldown[at.Id] = at.CooldownFrames / 2;   // first attack comes a little sooner than the full wait
+            _awake = (archetype?.WakeTiles ?? 0) <= 0;
         }
 
         string Move => Archetype?.Move ?? "ground";
-        bool Flying => (Move == "fly" || Move == "hover") && Enemy.Flies;
+        bool Flying => Move == "phase" || ((Move == "fly" || Move == "hover") && Enemy.Flies);
+        bool Flees => Archetype?.Flees ?? false;
         float KeepDistance => (Archetype?.KeepDistanceTiles ?? 0) * Tile;
 
         IAttackSink _sink;
 
-        public void Update(IBody body, Target target, IAttackSink sink, Random rng)
+        public void Update(IBody body, Target target, IAttackSink sink, Random rng, ITerrain terrain = null)
         {
             _sink = sink;
             _age++;
@@ -114,9 +154,24 @@ namespace Terranoita.Ai
             if (_pose > 0)
                 _pose--;
 
+            if (!_awake)
+            {
+                if (target.Has && Distance(body.Center, target.Center) <= Archetype.WakeTiles * Tile)
+                    _awake = true;
+                else
+                {
+                    // disguised: lies still where it is (a potion, a chest) until the player comes close or hurts it
+                    body.Velocity = new V2(0, body.Velocity.Y);
+                    if (Move != "static")
+                        Fall(body);
+                    SetAnim("stand");
+                    return;
+                }
+            }
+
             bool engaged = target.Has && Distance(body.Center, target.Center) <= Math.Max(Enemy.SightTiles, 4f) * Tile;
             if (engaged)
-                Direction = target.Center.X >= body.Center.X ? 1 : -1;
+                Direction = (target.Center.X >= body.Center.X ? 1 : -1) * (Flees ? -1 : 1);
 
             if (_dashLeft > 0)
             {
@@ -141,8 +196,21 @@ namespace Terranoita.Ai
                 HopMove(body, target, engaged, rng);
             else if (Move == "static")
                 body.Velocity = new V2(0, 0);
+            else if (Move == "climb" && terrain != null)
+                ClimbMove(body, target, engaged, rng, terrain);
+            else if (Move == "burrow")
+                BurrowMove(body, target, engaged, rng, terrain);
+            else if (Move == "swim")
+                SwimMove(body, target, engaged, rng, terrain);
             else
                 GroundMove(body, target, engaged, rng);
+
+            if (Move == "burrow")
+            {
+                _trail.Insert(0, body.Center);
+                if (_trail.Count > TrailLength)
+                    _trail.RemoveAt(_trail.Count - 1);
+            }
 
             if (engaged)
                 TryAttacks(body, target, sink, rng);
@@ -151,6 +219,8 @@ namespace Terranoita.Ai
                 SetAnim("attack");
             else if (Flying)
                 SetAnim("fly");
+            else if (Move == "burrow" || Move == "swim" || (Move == "climb" && terrain != null))
+                SetAnim(body.Velocity.Length > 0.1f ? "walk" : "stand");
             else if (!body.OnGround)
                 SetAnim(body.Velocity.Y < 0 ? "jump_up" : "jump_fall");
             else
@@ -187,7 +257,9 @@ namespace Terranoita.Ai
                 float dx = target.Center.X - body.Center.X;
                 float adx = Math.Abs(dx);
                 float keep = KeepDistance;
-                if (keep <= 0)
+                if (Flees)
+                    want = -(dx >= 0 ? 1 : -1) * Enemy.RunSpeed;     // harmless animals run from the player
+                else if (keep <= 0)
                     want = Math.Sign(dx) * Enemy.RunSpeed;
                 else
                 {
@@ -218,7 +290,7 @@ namespace Terranoita.Ai
             if (body.OnGround && Enemy.Walks)
             {
                 bool wall = body.HitWall && Math.Abs(want) > 0.01f;
-                bool climb = engaged && target.Center.Y < body.Center.Y - 3 * Tile &&
+                bool climb = engaged && !Flees && target.Center.Y < body.Center.Y - 3 * Tile &&
                              Math.Abs(target.Center.X - body.Center.X) < 8 * Tile;
                 if ((wall || climb) && Enemy.Jumps)
                     Jump(body, want);
@@ -264,6 +336,142 @@ namespace Terranoita.Ai
                 }
             }
             Fall(body);
+        }
+
+        /// <summary>Wander goal for movers that roam freely: ahead in the current direction, bobbing up and down.</summary>
+        V2 WanderGoal(IBody body, Random rng, int minFrames, int spread, float bob)
+        {
+            _wobble += 0.05f;
+            if (--_wanderTimer <= 0)
+            {
+                _wanderTimer = minFrames + rng.Next(spread);
+                Direction = rng.Next(2) == 0 ? -1 : 1;
+            }
+            return body.Center + new V2(Direction * 64, (float)Math.Sin(_wobble) * bob);
+        }
+
+        bool Grips(IBody body, ITerrain terrain, V2 at)
+        {
+            float hw = body.Width / 2f + GripMargin, hh = body.Height / 2f + GripMargin;
+            for (int i = -1; i <= 1; i++)
+                for (int j = -1; j <= 1; j++)
+                    if ((i != 0 || j != 0) && terrain.Solid(at + new V2(i * hw, j * hh)))
+                        return true;
+            return false;
+        }
+
+        /// <summary>
+        /// Lukki: walks on any solid surface, walls and ceilings included, straight toward the target as long as a
+        /// leg can reach a tile; turns along the surface when the straight way would leave it; falls when it lets go.
+        /// </summary>
+        void ClimbMove(IBody body, Target target, bool engaged, Random rng, ITerrain terrain)
+        {
+            if (!Grips(body, terrain, body.Center))
+            {
+                Fall(body);
+                return;
+            }
+            var goal = engaged ? target.Center : WanderGoal(body, rng, 120, 180, 48);
+            var to = goal - body.Center;
+            float speed = Math.Max(Enemy.RunSpeed, 0.5f);
+            var want = new V2(0, 0);
+            if (to.Length > 4 && _pose <= 0)
+            {
+                var dir = to.Normalized;
+                foreach (float turn in new[] { 0f, 0.8f, -0.8f, 1.57f, -1.57f, 2.4f, -2.4f })
+                {
+                    var d = dir.Rotated(turn);
+                    if (Grips(body, terrain, body.Center + d * (speed * 4 + 2)))
+                    {
+                        want = d * speed;
+                        break;
+                    }
+                }
+            }
+            var v = body.Velocity;
+            v.X += (want.X - v.X) * Accel;
+            v.Y += (want.Y - v.Y) * Accel;
+            body.Velocity = v;
+            if (Math.Abs(v.X) > 0.05f)
+                Direction = v.X > 0 ? 1 : -1;
+        }
+
+        /// <summary>
+        /// Worm: inside the ground (or liquid) the head steers toward the target with a limited turn, at its speed;
+        /// out in the open it keeps its momentum and falls back in an arc, which is how Noita's worms leap out at you.
+        /// </summary>
+        void BurrowMove(IBody body, Target target, bool engaged, Random rng, ITerrain terrain)
+        {
+            bool inside = terrain == null || terrain.Solid(body.Center) || terrain.Liquid(body.Center);
+            float speed = Math.Max(Enemy.RunSpeed, 0.5f);
+            if (_heading.Length < 0.5f)
+                _heading = new V2(Direction, 0);
+            if (inside)
+            {
+                var goal = engaged ? target.Center : WanderGoal(body, rng, 90, 120, 64);
+                _heading = Turn(_heading, (goal - body.Center).Normalized, WormTurn);
+                var v = body.Velocity;
+                var want = _heading * speed;
+                v.X += (want.X - v.X) * Accel;
+                v.Y += (want.Y - v.Y) * Accel;
+                body.Velocity = v;
+            }
+            else
+            {
+                Fall(body);
+                if (body.Velocity.Length > 0.1f)
+                    _heading = body.Velocity.Normalized;
+            }
+            if (Math.Abs(body.Velocity.X) > 0.05f)
+                Direction = body.Velocity.X > 0 ? 1 : -1;
+        }
+
+        static V2 Turn(V2 from, V2 to, float maxRad)
+        {
+            if (to.Length < 1e-3f)
+                return from;
+            double a = Math.Atan2(from.Y, from.X), d = Math.Atan2(to.Y, to.X) - a;
+            while (d > Math.PI) d -= 2 * Math.PI;
+            while (d < -Math.PI) d += 2 * Math.PI;
+            a += Math.Max(-maxRad, Math.Min(maxRad, d));
+            return new V2((float)Math.Cos(a), (float)Math.Sin(a));
+        }
+
+        /// <summary>Fish: swims around in liquid without gravity and turns back at its edge; flops about on land.</summary>
+        void SwimMove(IBody body, Target target, bool engaged, Random rng, ITerrain terrain)
+        {
+            bool wet = terrain != null && terrain.Liquid(body.Center);
+            var v = body.Velocity;
+            if (!wet)
+            {
+                if (body.OnGround)
+                {
+                    v.X *= 0.8f;
+                    if (--_hopTimer <= 0)
+                    {
+                        _hopTimer = 30 + rng.Next(40);
+                        Direction = rng.Next(2) == 0 ? -1 : 1;
+                        v = new V2(Direction * 1.5f, -Math.Max(Enemy.JumpSpeed * 0.4f, 2f));
+                        _sink?.Jumped();
+                    }
+                }
+                body.Velocity = v;
+                Fall(body);
+                return;
+            }
+            var goal = engaged && Flees ? body.Center - (target.Center - body.Center).Normalized * 64
+                                        : WanderGoal(body, rng, 90, 150, 24);
+            var want = (goal - body.Center).Normalized * Math.Max(Enemy.RunSpeed, 0.5f);
+            if (!terrain.Liquid(body.Center + want.Normalized * (body.Width / 2f + 4)))
+            {
+                want = new V2(-want.X, -want.Y * 0.5f);
+                Direction = want.X >= 0 ? 1 : -1;
+                _wanderTimer = 60;
+            }
+            float a = Math.Max(0.04f, Accel * 0.25f);
+            v.X += (want.X - v.X) * a;
+            v.Y += (want.Y - v.Y) * a;
+            body.Velocity = v;
         }
 
         void FlyMove(IBody body, Target target, bool engaged, Random rng)
@@ -313,6 +521,14 @@ namespace Terranoita.Ai
         void TryAttacks(IBody body, Target target, IAttackSink sink, Random rng)
         {
             float dist = Distance(body.Center, target.Center);
+            var special = sink as ISpecialAttackSink;
+            // auras work on their own clock, next to whatever else the creature does
+            foreach (var a in _attacks)
+                if (a.Kind == "aura" && _cooldown[a.Id] <= 0 && dist <= a.RangeTiles * Tile)
+                {
+                    special?.Special(a);
+                    _cooldown[a.Id] = AuraInterval(a);
+                }
             foreach (var a in _attacks)
             {
                 if (_cooldown[a.Id] > 0)
@@ -320,6 +536,18 @@ namespace Terranoita.Ai
                 float range = a.RangeTiles * Tile;
                 switch (a.Kind)
                 {
+                    case "summon":
+                    case "heal":
+                    case "support":
+                        if (dist <= range)
+                        {
+                            sink.Started(a);
+                            special?.Special(a);
+                            _cooldown[a.Id] = Math.Max(1, a.CooldownFrames);
+                            _pose = AttackPoseFrames;
+                            return;
+                        }
+                        break;
                     case "melee":
                         // Noita measures melee reach between the two creatures' positions, not their edges
                         if (dist <= range)
@@ -332,7 +560,7 @@ namespace Terranoita.Ai
                         }
                         break;
                     case "lunge":
-                        if (target.Visible && dist <= range && dist > MeleeRange() && (Flying || body.OnGround))
+                        if (target.Visible && dist <= range && dist > MeleeRange() && (Flying || body.OnGround || Move == "climb"))
                         {
                             // Noita's dash: flyers dart straight at the target; walkers leap at it in an arc
                             body.Velocity = Flying
@@ -359,6 +587,40 @@ namespace Terranoita.Ai
                         break;
                 }
             }
+        }
+
+        /// <summary>Frames between aura ticks: the sheet's "NF" (every N frames), else its cooldown.</summary>
+        static int AuraInterval(AttackDef a)
+        {
+            var pf = a.PerFrames ?? "";
+            if (pf.EndsWith("F") && int.TryParse(pf.Substring(0, pf.Length - 1), out int n) && n > 0)
+                return n;
+            return Math.Max(1, a.CooldownFrames);
+        }
+
+        /// <summary>The enemy was hurt by the attacker: a disguised one wakes, retaliating attacks fire back.</summary>
+        public void Hurt(IBody body, Target attacker, IAttackSink sink, Random rng)
+        {
+            _awake = true;
+            if (!attacker.Has)
+                return;
+            foreach (var a in _attacks)
+                if (a.Kind == "retaliate" && _cooldown[a.Id] <= 0 && a.Projectile != null &&
+                    Defs.Projectile.TryGetValue(a.Projectile, out var p))
+                {
+                    sink.Started(a);
+                    Fire(body, attacker, a, p, sink, rng);
+                    _cooldown[a.Id] = a.CooldownFrames;
+                }
+        }
+
+        /// <summary>The enemy died: its death attacks (explosions, acid bursts) go off.</summary>
+        public void Died(IAttackSink sink)
+        {
+            var special = sink as ISpecialAttackSink;
+            foreach (var a in _attacks)
+                if (a.Kind == "death_explosion")
+                    special?.Special(a);
         }
 
         float MeleeRange()

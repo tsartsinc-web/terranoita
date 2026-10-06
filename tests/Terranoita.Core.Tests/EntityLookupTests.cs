@@ -93,6 +93,14 @@ namespace Terranoita.Tests
         }
 
         [Fact]
+        public void ScriptsNameTheEntitiesTheySpawn()
+        {
+            var lua = "local x = 1\nEntityLoad( \"data/entities/animals/fly.xml\", x, y )\nEntityLoad('data/entities/animals/fly.xml')\n" +
+                      "if r < 0.1 then EntityLoad(\"data/entities/animals/bigfirebug.xml\") end -- data/entities/not_a_string.xml";
+            Assert.Equal(new[] { "data/entities/animals/fly.xml", "data/entities/animals/bigfirebug.xml" }, EntityDump.EntityFilesIn(lua).ToArray());
+        }
+
+        [Fact]
         public void PhysicsBodiesUseTheirBodyImageAsSprite()
         {
             var e = NoitaEntity.Load(_ => @"<Entity name=""$animal_crystal"">

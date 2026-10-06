@@ -35,6 +35,11 @@
    ],
    "desc": "Projectile fired, or none."
   },
+  "summons": {
+   "type": "ref[]",
+   "ref": "enemies",
+   "desc": "Summon only: creatures it releases (from its spawn script or component); [] for other kinds."
+  },
   "count": {
    "type": "int[]",
    "desc": "[min, max] projectiles per volley."
@@ -83,6 +88,7 @@
    "enemy": "giantshooter",
    "kind": "death_explosion",
    "projectile": "none",
+   "summons": [],
    "count": [
     1,
     1
@@ -107,6 +113,7 @@
    "enemy": "giantshooter",
    "kind": "melee",
    "projectile": "none",
+   "summons": [],
    "count": [
     1,
     1
@@ -131,6 +138,7 @@
    "enemy": "giantshooter_weak",
    "kind": "death_explosion",
    "projectile": "none",
+   "summons": [],
    "count": [
     1,
     1
@@ -155,6 +163,7 @@
    "enemy": "giantshooter_weak",
    "kind": "melee",
    "projectile": "none",
+   "summons": [],
    "count": [
     1,
     1
@@ -179,6 +188,7 @@
    "enemy": "fly",
    "kind": "lunge",
    "projectile": "none",
+   "summons": [],
    "count": [
     1,
     1
@@ -200,6 +210,7 @@
    "enemy": "fly",
    "kind": "melee",
    "projectile": "none",
+   "summons": [],
    "count": [
     1,
     1
@@ -224,6 +235,7 @@
    "enemy": "firemage",
    "kind": "projectile",
    "projectile": "ghostly_fireball",
+   "summons": [],
    "count": [
     1,
     1
@@ -246,6 +258,7 @@
    "enemy": "firemage",
    "kind": "melee",
    "projectile": "none",
+   "summons": [],
    "count": [
     1,
     1
@@ -270,6 +283,7 @@
    "enemy": "failed_alchemist_b",
    "kind": "aura",
    "projectile": "none",
+   "summons": [],
    "count": [
     1,
     1
@@ -294,6 +308,7 @@
    "enemy": "gate_monster_c",
    "kind": "aura",
    "projectile": "none",
+   "summons": [],
    "count": [
     1,
     1
@@ -318,6 +333,7 @@
    "enemy": "gate_monster_b",
    "kind": "aura",
    "projectile": "none",
+   "summons": [],
    "count": [
     1,
     1
@@ -342,6 +358,7 @@
    "enemy": "gate_monster_d",
    "kind": "aura",
    "projectile": "none",
+   "summons": [],
    "count": [
     1,
     1
@@ -366,6 +383,7 @@
    "enemy": "gate_monster_a",
    "kind": "aura",
    "projectile": "none",
+   "summons": [],
    "count": [
     1,
     1
@@ -390,6 +408,7 @@
    "enemy": "snowcrystal",
    "kind": "summon",
    "projectile": "none",
+   "summons": null,
    "count": [
     1,
     1
@@ -404,7 +423,8 @@
    "stage": "1b",
    "_unverified": {
     "cooldown_frames": "default for kind 'summon'; read AnimalAIComponent attack_*_frames_between check in the player's data.wak (tools: Terranoita.Cli wak-cat)",
-    "range_tiles": "default for kind; read AnimalAIComponent attack_*_range check in the player's data.wak (tools: Terranoita.Cli wak-cat)"
+    "range_tiles": "default for kind; read AnimalAIComponent attack_*_range check in the player's data.wak (tools: Terranoita.Cli wak-cat)",
+    "summons": "wiki does not name the creature; read the entity's spawn script (facts script_entities)"
    }
   },
   {
@@ -412,6 +432,7 @@
    "enemy": "wizard_hearty",
    "kind": "projectile",
    "projectile": "wizard_hearty_shot",
+   "summons": [],
    "count": [
     1,
     1
@@ -434,6 +455,7 @@
    "enemy": "necromancer",
    "kind": "projectile",
    "projectile": "chaotic_polymorphine",
+   "summons": [],
    "count": [
     1,
     1
@@ -453,6 +475,7 @@
    "enemy": "necromancer",
    "kind": "melee",
    "projectile": "none",
+   "summons": [],
    "count": [
     1,
     1
@@ -477,6 +500,7 @@
    "enemy": "scavenger_invis",
    "kind": "support",
    "projectile": "none",
+   "summons": [],
    "count": [
     1,
     1
@@ -499,6 +523,7 @@
    "enemy": "lukki",
    "kind": "melee",
    "projectile": "none",
+   "summons": [],
    "count": [
     1,
     1
@@ -523,6 +548,7 @@
    "enemy": "lukki_longleg",
    "kind": "melee",
    "projectile": "none",
+   "summons": [],
    "count": [
     1,
     1
@@ -547,6 +573,7 @@
    "enemy": "lukki_tiny",
    "kind": "melee",
    "projectile": "none",
+   "summons": [],
    "count": [
     1,
     1
@@ -571,6 +598,7 @@
    "enemy": "longleg",
    "kind": "lunge",
    "projectile": "none",
+   "summons": [],
    "count": [
     1,
     1
@@ -592,6 +620,7 @@
    "enemy": "longleg",
    "kind": "melee",
    "projectile": "none",
+   "summons": [],
    "count": [
     1,
     1
@@ -616,6 +645,7 @@
    "enemy": "acidshooter",
    "kind": "projectile",
    "projectile": "acid_ball",
+   "summons": [],
    "count": [
     1,
     1
@@ -637,6 +667,7 @@
    "enemy": "acidshooter",
    "kind": "melee",
    "projectile": "none",
+   "summons": [],
    "count": [
     1,
     1
@@ -661,6 +692,7 @@
    "enemy": "acidshooter_weak",
    "kind": "projectile",
    "projectile": "acid_ball",
+   "summons": [],
    "count": [
     1,
     1
@@ -682,6 +714,7 @@
    "enemy": "acidshooter_weak",
    "kind": "melee",
    "projectile": "none",
+   "summons": [],
    "count": [
     1,
     1
@@ -706,6 +739,7 @@
    "enemy": "shotgunner",
    "kind": "projectile",
    "projectile": "shotgunner_shot",
+   "summons": [],
    "count": [
     3,
     4
@@ -727,6 +761,7 @@
    "enemy": "shotgunner",
    "kind": "melee",
    "projectile": "none",
+   "summons": [],
    "count": [
     1,
     1
@@ -751,6 +786,7 @@
    "enemy": "shotgunner_weak",
    "kind": "projectile",
    "projectile": "shotgunner_weak_shot",
+   "summons": [],
    "count": [
     3,
     4
@@ -772,6 +808,7 @@
    "enemy": "shotgunner_weak",
    "kind": "melee",
    "projectile": "none",
+   "summons": [],
    "count": [
     1,
     1
@@ -796,6 +833,7 @@
    "enemy": "shotgunner_hell",
    "kind": "projectile",
    "projectile": "shotgunner_hell_shot",
+   "summons": [],
    "count": [
     12,
     16
@@ -817,6 +855,7 @@
    "enemy": "shotgunner_hell",
    "kind": "melee",
    "projectile": "none",
+   "summons": [],
    "count": [
     1,
     1
@@ -841,6 +880,7 @@
    "enemy": "missilecrab",
    "kind": "projectile",
    "projectile": "missiles",
+   "summons": [],
    "count": [
     3,
     4
@@ -862,6 +902,7 @@
    "enemy": "missilecrab",
    "kind": "melee",
    "projectile": "none",
+   "summons": [],
    "count": [
     1,
     1
@@ -886,6 +927,7 @@
    "enemy": "spitmonster",
    "kind": "projectile",
    "projectile": "spitmonster_shot",
+   "summons": [],
    "count": [
     1,
     1
@@ -907,6 +949,7 @@
    "enemy": "gazer",
    "kind": "projectile",
    "projectile": "lava",
+   "summons": [],
    "count": [
     1,
     1
@@ -928,6 +971,7 @@
    "enemy": "worm_end",
    "kind": "melee",
    "projectile": "none",
+   "summons": [],
    "count": [
     1,
     1
@@ -952,6 +996,9 @@
    "enemy": "giant",
    "kind": "summon",
    "projectile": "none",
+   "summons": [
+    "pebble"
+   ],
    "count": [
     1,
     1
@@ -966,7 +1013,8 @@
    "stage": "1b",
    "_unverified": {
     "cooldown_frames": "default for kind 'summon'; read AnimalAIComponent attack_*_frames_between check in the player's data.wak (tools: Terranoita.Cli wak-cat)",
-    "range_tiles": "default for kind; read AnimalAIComponent attack_*_range check in the player's data.wak (tools: Terranoita.Cli wak-cat)"
+    "range_tiles": "default for kind; read AnimalAIComponent attack_*_range check in the player's data.wak (tools: Terranoita.Cli wak-cat)",
+    "summons": "from the wiki text; confirm in the entity's spawn script (facts script_entities)"
    }
   },
   {
@@ -974,6 +1022,7 @@
    "enemy": "giant",
    "kind": "melee",
    "projectile": "none",
+   "summons": [],
    "count": [
     1,
     1
@@ -998,6 +1047,7 @@
    "enemy": "wraith_glowing",
    "kind": "retaliate",
    "projectile": "pinpoint_of_light",
+   "summons": [],
    "count": [
     1,
     1
@@ -1023,6 +1073,7 @@
    "enemy": "statue_physics",
    "kind": "projectile",
    "projectile": "green_radial_orb",
+   "summons": [],
    "count": [
     1,
     1
@@ -1048,6 +1099,7 @@
    "enemy": "statue_physics",
    "kind": "melee",
    "projectile": "none",
+   "summons": [],
    "count": [
     1,
     1
@@ -1072,6 +1124,7 @@
    "enemy": "ghost_crystal",
    "kind": "projectile",
    "projectile": "freezing",
+   "summons": [],
    "count": [
     1,
     1
@@ -1095,6 +1148,7 @@
    "enemy": "ghost",
    "kind": "aura",
    "projectile": "none",
+   "summons": [],
    "count": [
     1,
     1
@@ -1122,6 +1176,7 @@
    "enemy": "fungus_giga",
    "kind": "projectile",
    "projectile": "pollen",
+   "summons": [],
    "count": [
     1,
     1
@@ -1144,6 +1199,7 @@
    "enemy": "fungus_giga",
    "kind": "projectile",
    "projectile": "pollen_bundle",
+   "summons": [],
    "count": [
     1,
     1
@@ -1169,6 +1225,7 @@
    "enemy": "fungus_giga",
    "kind": "lunge",
    "projectile": "none",
+   "summons": [],
    "count": [
     1,
     1
@@ -1190,6 +1247,7 @@
    "enemy": "fungus_giga",
    "kind": "death_explosion",
    "projectile": "none",
+   "summons": [],
    "count": [
     1,
     1
@@ -1214,6 +1272,7 @@
    "enemy": "zombie_weak",
    "kind": "lunge",
    "projectile": "none",
+   "summons": [],
    "count": [
     1,
     1
@@ -1235,6 +1294,7 @@
    "enemy": "zombie_weak",
    "kind": "melee",
    "projectile": "none",
+   "summons": [],
    "count": [
     1,
     1
@@ -1259,6 +1319,7 @@
    "enemy": "zombie",
    "kind": "lunge",
    "projectile": "none",
+   "summons": [],
    "count": [
     1,
     1
@@ -1280,6 +1341,7 @@
    "enemy": "zombie",
    "kind": "melee",
    "projectile": "none",
+   "summons": [],
    "count": [
     1,
     1
@@ -1304,6 +1366,7 @@
    "enemy": "scavenger_clusterbomb",
    "kind": "projectile",
    "projectile": "timed_mines",
+   "summons": [],
    "count": [
     1,
     1
@@ -1329,6 +1392,7 @@
    "enemy": "scavenger_clusterbomb",
    "kind": "projectile",
    "projectile": "scavenger_clusterbomb_shot",
+   "summons": [],
    "count": [
     1,
     1
@@ -1350,6 +1414,7 @@
    "enemy": "scavenger_clusterbomb",
    "kind": "melee",
    "projectile": "none",
+   "summons": [],
    "count": [
     1,
     1
@@ -1374,6 +1439,7 @@
    "enemy": "tank_rocket",
    "kind": "projectile",
    "projectile": "homing_rocket",
+   "summons": [],
    "count": [
     1,
     1
@@ -1396,6 +1462,7 @@
    "enemy": "tank_rocket",
    "kind": "death_explosion",
    "projectile": "none",
+   "summons": [],
    "count": [
     1,
     1
@@ -1420,6 +1487,7 @@
    "enemy": "icer",
    "kind": "projectile",
    "projectile": "icethrower",
+   "summons": [],
    "count": [
     1,
     1
@@ -1441,6 +1509,7 @@
    "enemy": "iceskull",
    "kind": "projectile",
    "projectile": "iceball",
+   "summons": [],
    "count": [
     1,
     1
@@ -1463,6 +1532,7 @@
    "enemy": "iceskull",
    "kind": "lunge",
    "projectile": "none",
+   "summons": [],
    "count": [
     1,
     1
@@ -1484,6 +1554,7 @@
    "enemy": "iceskull",
    "kind": "melee",
    "projectile": "none",
+   "summons": [],
    "count": [
     1,
     1
@@ -1508,6 +1579,7 @@
    "enemy": "frog_big",
    "kind": "melee",
    "projectile": "none",
+   "summons": [],
    "count": [
     1,
     1
@@ -1529,6 +1601,7 @@
    "enemy": "frog_big",
    "kind": "lunge",
    "projectile": "none",
+   "summons": [],
    "count": [
     1,
     1
@@ -1550,6 +1623,7 @@
    "enemy": "drone_lasership",
    "kind": "projectile",
    "projectile": "intense_concentrated_light_variant",
+   "summons": [],
    "count": [
     1,
     1
@@ -1572,6 +1646,7 @@
    "enemy": "worm_big",
    "kind": "melee",
    "projectile": "none",
+   "summons": [],
    "count": [
     1,
     1
@@ -1596,6 +1671,7 @@
    "enemy": "miner_santa",
    "kind": "projectile",
    "projectile": "present_grenade",
+   "summons": [],
    "count": [
     1,
     1
@@ -1617,6 +1693,7 @@
    "enemy": "miner_santa",
    "kind": "melee",
    "projectile": "none",
+   "summons": [],
    "count": [
     1,
     1
@@ -1641,6 +1718,7 @@
    "enemy": "failed_alchemist",
    "kind": "melee",
    "projectile": "none",
+   "summons": [],
    "count": [
     1,
     1
@@ -1665,6 +1743,7 @@
    "enemy": "skullfly",
    "kind": "projectile",
    "projectile": "path_of_dark_flame",
+   "summons": [],
    "count": [
     1,
     1
@@ -1686,6 +1765,7 @@
    "enemy": "skullfly",
    "kind": "melee",
    "projectile": "none",
+   "summons": [],
    "count": [
     1,
     1
@@ -1710,6 +1790,7 @@
    "enemy": "skullrat",
    "kind": "lunge",
    "projectile": "none",
+   "summons": [],
    "count": [
     1,
     1
@@ -1731,6 +1812,7 @@
    "enemy": "skullrat",
    "kind": "melee",
    "projectile": "none",
+   "summons": [],
    "count": [
     1,
     1
@@ -1755,6 +1837,7 @@
    "enemy": "worm_skull",
    "kind": "melee",
    "projectile": "none",
+   "summons": [],
    "count": [
     1,
     1
@@ -1779,6 +1862,7 @@
    "enemy": "worm_skull",
    "kind": "aura",
    "projectile": "none",
+   "summons": [],
    "count": [
     1,
     1
@@ -1806,6 +1890,7 @@
    "enemy": "lukki_dark",
    "kind": "melee",
    "projectile": "none",
+   "summons": [],
    "count": [
     1,
     1
@@ -1830,6 +1915,7 @@
    "enemy": "lukki_creepy_long",
    "kind": "melee",
    "projectile": "none",
+   "summons": [],
    "count": [
     1,
     1
@@ -1854,6 +1940,7 @@
    "enemy": "ultimate_killer",
    "kind": "projectile",
    "projectile": "evergreen_seed",
+   "summons": [],
    "count": [
     1,
     1
@@ -1875,6 +1962,7 @@
    "enemy": "ultimate_killer",
    "kind": "melee",
    "projectile": "none",
+   "summons": [],
    "count": [
     1,
     1
@@ -1899,6 +1987,7 @@
    "enemy": "scavenger_shield",
    "kind": "support",
    "projectile": "shield_buff",
+   "summons": [],
    "count": [
     1,
     1
@@ -1921,6 +2010,7 @@
    "enemy": "crystal_physics",
    "kind": "projectile",
    "projectile": "crystal_physics_shot",
+   "summons": [],
    "count": [
     1,
     1
@@ -1942,6 +2032,7 @@
    "enemy": "phantom_b",
    "kind": "projectile",
    "projectile": "energy_orb",
+   "summons": [],
    "count": [
     1,
     1
@@ -1963,6 +2054,7 @@
    "enemy": "blob",
    "kind": "lunge",
    "projectile": "none",
+   "summons": [],
    "count": [
     1,
     1
@@ -1984,6 +2076,7 @@
    "enemy": "blob",
    "kind": "melee",
    "projectile": "none",
+   "summons": [],
    "count": [
     1,
     1
@@ -2008,6 +2101,7 @@
    "enemy": "tank",
    "kind": "projectile",
    "projectile": "machine_gun",
+   "summons": [],
    "count": [
     1,
     1
@@ -2034,6 +2128,7 @@
    "enemy": "tank",
    "kind": "projectile",
    "projectile": "grenade",
+   "summons": [],
    "count": [
     1,
     1
@@ -2055,6 +2150,7 @@
    "enemy": "tank",
    "kind": "death_explosion",
    "projectile": "none",
+   "summons": [],
    "count": [
     1,
     1
@@ -2079,6 +2175,7 @@
    "enemy": "wizard_homing",
    "kind": "projectile",
    "projectile": "wizard_homing_shot",
+   "summons": [],
    "count": [
     1,
     1
@@ -2101,6 +2198,7 @@
    "enemy": "boss_centipede",
    "kind": "projectile",
    "projectile": "circular_orb",
+   "summons": [],
    "count": [
     1,
     1
@@ -2126,6 +2224,7 @@
    "enemy": "boss_centipede",
    "kind": "projectile",
    "projectile": "polymorphing_orb",
+   "summons": [],
    "count": [
     1,
     1
@@ -2152,6 +2251,7 @@
    "enemy": "boss_centipede",
    "kind": "projectile",
    "projectile": "homing_orb",
+   "summons": [],
    "count": [
     1,
     1
@@ -2178,6 +2278,7 @@
    "enemy": "boss_centipede",
    "kind": "projectile",
    "projectile": "fire_pillar",
+   "summons": [],
    "count": [
     1,
     1
@@ -2203,6 +2304,7 @@
    "enemy": "boss_centipede",
    "kind": "projectile",
    "projectile": "explosive_orb",
+   "summons": [],
    "count": [
     1,
     1
@@ -2228,6 +2330,7 @@
    "enemy": "boss_centipede",
    "kind": "death_explosion",
    "projectile": "none",
+   "summons": [],
    "count": [
     1,
     1
@@ -2252,6 +2355,7 @@
    "enemy": "boss_centipede_minion",
    "kind": "projectile",
    "projectile": "boss_centipede_minion_shot",
+   "summons": [],
    "count": [
     1,
     1
@@ -2277,6 +2381,7 @@
    "enemy": "slimeshooter_boss_limbs",
    "kind": "projectile",
    "projectile": "slimeshooter_boss_limbs_shot",
+   "summons": [],
    "count": [
     1,
     1
@@ -2303,6 +2408,7 @@
    "enemy": "slimeshooter_boss_limbs",
    "kind": "melee",
    "projectile": "none",
+   "summons": [],
    "count": [
     1,
     1
@@ -2330,6 +2436,7 @@
    "enemy": "boss_limbs",
    "kind": "projectile",
    "projectile": "boss_limbs_shot",
+   "summons": [],
    "count": [
     1,
     1
@@ -2356,6 +2463,7 @@
    "enemy": "boss_limbs",
    "kind": "melee",
    "projectile": "none",
+   "summons": [],
    "count": [
     1,
     1
@@ -2378,6 +2486,7 @@
    "enemy": "boss_robot",
    "kind": "projectile",
    "projectile": "rocket_barrage",
+   "summons": [],
    "count": [
     10,
     10
@@ -2403,6 +2512,7 @@
    "enemy": "boss_robot",
    "kind": "projectile",
    "projectile": "plasma_beam",
+   "summons": [],
    "count": [
     1,
     1
@@ -2428,6 +2538,7 @@
    "enemy": "boss_meat",
    "kind": "projectile",
    "projectile": "homing_orb",
+   "summons": [],
    "count": [
     1,
     1
@@ -2454,6 +2565,7 @@
    "enemy": "boss_meat",
    "kind": "projectile",
    "projectile": "slow_orb",
+   "summons": [],
    "count": [
     1,
     1
@@ -2480,6 +2592,7 @@
    "enemy": "boss_meat",
    "kind": "melee",
    "projectile": "none",
+   "summons": [],
    "count": [
     1,
     1
@@ -2504,6 +2617,7 @@
    "enemy": "frog",
    "kind": "lunge",
    "projectile": "none",
+   "summons": [],
    "count": [
     1,
     1
@@ -2525,6 +2639,7 @@
    "enemy": "healerdrone_physics",
    "kind": "heal",
    "projectile": "none",
+   "summons": [],
    "count": [
     1,
     1
@@ -2549,6 +2664,7 @@
    "enemy": "healerdrone_physics",
    "kind": "death_explosion",
    "projectile": "none",
+   "summons": [],
    "count": [
     1,
     1
@@ -2573,6 +2689,7 @@
    "enemy": "scavenger_grenade",
    "kind": "projectile",
    "projectile": "firebolt_like",
+   "summons": [],
    "count": [
     1,
     1
@@ -2594,6 +2711,7 @@
    "enemy": "scavenger_grenade",
    "kind": "melee",
    "projectile": "none",
+   "summons": [],
    "count": [
     1,
     1
@@ -2618,6 +2736,7 @@
    "enemy": "playerghost",
    "kind": "melee",
    "projectile": "none",
+   "summons": [],
    "count": [
     1,
     1
@@ -2637,6 +2756,7 @@
    "enemy": "roboguard_big",
    "kind": "projectile",
    "projectile": "roboguard_big_shot",
+   "summons": [],
    "count": [
     1,
     1
@@ -2659,6 +2779,7 @@
    "enemy": "roboguard_big",
    "kind": "melee",
    "projectile": "none",
+   "summons": [],
    "count": [
     1,
     1
@@ -2683,6 +2804,7 @@
    "enemy": "fungus",
    "kind": "lunge",
    "projectile": "none",
+   "summons": [],
    "count": [
     1,
     1
@@ -2704,6 +2826,7 @@
    "enemy": "fungus",
    "kind": "death_explosion",
    "projectile": "none",
+   "summons": [],
    "count": [
     1,
     1
@@ -2728,6 +2851,7 @@
    "enemy": "tank_super",
    "kind": "projectile",
    "projectile": "laser_blasts",
+   "summons": [],
    "count": [
     1,
     1
@@ -2753,6 +2877,7 @@
    "enemy": "tank_super",
    "kind": "projectile",
    "projectile": "grenade_leader",
+   "summons": [],
    "count": [
     1,
     1
@@ -2775,6 +2900,7 @@
    "enemy": "tank_super",
    "kind": "death_explosion",
    "projectile": "none",
+   "summons": [],
    "count": [
     1,
     1
@@ -2799,6 +2925,7 @@
    "enemy": "drone_physics",
    "kind": "projectile",
    "projectile": "drone_physics_shot",
+   "summons": [],
    "count": [
     1,
     1
@@ -2821,6 +2948,7 @@
    "enemy": "drone_physics",
    "kind": "melee",
    "projectile": "none",
+   "summons": [],
    "count": [
     1,
     1
@@ -2845,6 +2973,7 @@
    "enemy": "drone_physics",
    "kind": "death_explosion",
    "projectile": "none",
+   "summons": [],
    "count": [
     1,
     1
@@ -2869,6 +2998,7 @@
    "enemy": "bat",
    "kind": "lunge",
    "projectile": "none",
+   "summons": [],
    "count": [
     1,
     1
@@ -2890,6 +3020,7 @@
    "enemy": "flamer",
    "kind": "projectile",
    "projectile": "flamethrower",
+   "summons": [],
    "count": [
     1,
     1
@@ -2912,6 +3043,7 @@
    "enemy": "fireskull",
    "kind": "lunge",
    "projectile": "none",
+   "summons": [],
    "count": [
     1,
     1
@@ -2933,6 +3065,7 @@
    "enemy": "fireskull",
    "kind": "melee",
    "projectile": "none",
+   "summons": [],
    "count": [
     1,
     1
@@ -2957,6 +3090,7 @@
    "enemy": "scavenger_glue",
    "kind": "projectile",
    "projectile": "glue_shot",
+   "summons": [],
    "count": [
     1,
     3
@@ -2978,6 +3112,7 @@
    "enemy": "scavenger_glue",
    "kind": "melee",
    "projectile": "none",
+   "summons": [],
    "count": [
     1,
     1
@@ -3002,6 +3137,7 @@
    "enemy": "slimeshooter_weak",
    "kind": "projectile",
    "projectile": "slimeball",
+   "summons": [],
    "count": [
     1,
     1
@@ -3024,6 +3160,7 @@
    "enemy": "slimeshooter",
    "kind": "projectile",
    "projectile": "slimeball_sludge",
+   "summons": [],
    "count": [
     1,
     1
@@ -3046,6 +3183,7 @@
    "enemy": "maggot_tiny",
    "kind": "projectile",
    "projectile": "green_orb",
+   "summons": [],
    "count": [
     1,
     1
@@ -3072,6 +3210,7 @@
    "enemy": "maggot_tiny",
    "kind": "melee",
    "projectile": "none",
+   "summons": [],
    "count": [
     1,
     1
@@ -3096,6 +3235,7 @@
    "enemy": "maggot_tiny",
    "kind": "aura",
    "projectile": "none",
+   "summons": [],
    "count": [
     1,
     1
@@ -3120,6 +3260,7 @@
    "enemy": "pebble",
    "kind": "death_explosion",
    "projectile": "none",
+   "summons": [],
    "count": [
     1,
     1
@@ -3133,7 +3274,7 @@
    "lunge_speed": 0,
    "sound": null,
    "wiki_text": "Explodes on death/Explosion/62.5",
-   "stage": "1c",
+   "stage": "1b",
    "_unverified": {
     "cooldown_frames": "default for kind 'death_explosion'; read AnimalAIComponent attack_*_frames_between check in the player's data.wak (tools: Terranoita.Cli wak-cat)",
     "range_tiles": "default for kind; read AnimalAIComponent attack_*_range check in the player's data.wak (tools: Terranoita.Cli wak-cat)"
@@ -3144,6 +3285,7 @@
    "enemy": "wizard_neutral",
    "kind": "projectile",
    "projectile": "neutralizing_bolt",
+   "summons": [],
    "count": [
     1,
     1
@@ -3166,6 +3308,7 @@
    "enemy": "shaman",
    "kind": "aura",
    "projectile": "none",
+   "summons": [],
    "count": [
     2,
     2
@@ -3190,6 +3333,7 @@
    "enemy": "necrobot_super",
    "kind": "projectile",
    "projectile": "necrobot_super_shot",
+   "summons": [],
    "count": [
     1,
     1
@@ -3209,6 +3353,7 @@
    "enemy": "minipit",
    "kind": "projectile",
    "projectile": "minipit_shot",
+   "summons": [],
    "count": [
     1,
     1
@@ -3234,6 +3379,7 @@
    "enemy": "bigzombietorso",
    "kind": "projectile",
    "projectile": "fireball",
+   "summons": [],
    "count": [
     1,
     1
@@ -3260,6 +3406,7 @@
    "enemy": "bigzombietorso",
    "kind": "melee",
    "projectile": "none",
+   "summons": [],
    "count": [
     1,
     1
@@ -3287,6 +3434,7 @@
    "enemy": "bigzombiehead",
    "kind": "melee",
    "projectile": "none",
+   "summons": [],
    "count": [
     1,
     1
@@ -3314,6 +3462,7 @@
    "enemy": "bigzombie",
    "kind": "projectile",
    "projectile": "fireball",
+   "summons": [],
    "count": [
     1,
     1
@@ -3336,6 +3485,7 @@
    "enemy": "bigzombie",
    "kind": "melee",
    "projectile": "none",
+   "summons": [],
    "count": [
     1,
     1
@@ -3360,6 +3510,7 @@
    "enemy": "meatmaggot",
    "kind": "melee",
    "projectile": "none",
+   "summons": [],
    "count": [
     1,
     1
@@ -3384,6 +3535,7 @@
    "enemy": "chest_leggy",
    "kind": "melee",
    "projectile": "none",
+   "summons": [],
    "count": [
     1,
     1
@@ -3408,6 +3560,7 @@
    "enemy": "chest_mimic",
    "kind": "melee",
    "projectile": "none",
+   "summons": [],
    "count": [
     1,
     1
@@ -3432,6 +3585,7 @@
    "enemy": "worm",
    "kind": "melee",
    "projectile": "none",
+   "summons": [],
    "count": [
     1,
     1
@@ -3456,6 +3610,7 @@
    "enemy": "blood_orb",
    "kind": "support",
    "projectile": "none",
+   "summons": [],
    "count": [
     1,
     1
@@ -3478,6 +3633,7 @@
    "enemy": "death_orb_throne",
    "kind": "aura",
    "projectile": "none",
+   "summons": [],
    "count": [
     1,
     1
@@ -3500,6 +3656,7 @@
    "enemy": "boss_wizard",
    "kind": "projectile",
    "projectile": "green_meteor",
+   "summons": [],
    "count": [
     1,
     1
@@ -3526,6 +3683,7 @@
    "enemy": "boss_wizard",
    "kind": "melee",
    "projectile": "none",
+   "summons": [],
    "count": [
     1,
     1
@@ -3550,6 +3708,7 @@
    "enemy": "scavenger_mine",
    "kind": "projectile",
    "projectile": "proximity_mine",
+   "summons": [],
    "count": [
     1,
     1
@@ -3571,6 +3730,7 @@
    "enemy": "scavenger_mine",
    "kind": "projectile",
    "projectile": "scavenger_mine_shot",
+   "summons": [],
    "count": [
     1,
     1
@@ -3596,6 +3756,7 @@
    "enemy": "scavenger_mine",
    "kind": "melee",
    "projectile": "none",
+   "summons": [],
    "count": [
     1,
     1
@@ -3620,6 +3781,7 @@
    "enemy": "player",
    "kind": "melee",
    "projectile": "none",
+   "summons": [],
    "count": [
     1,
     1
@@ -3642,6 +3804,7 @@
    "enemy": "miniblob",
    "kind": "lunge",
    "projectile": "none",
+   "summons": [],
    "count": [
     1,
     1
@@ -3666,6 +3829,7 @@
    "enemy": "miniblob",
    "kind": "melee",
    "projectile": "none",
+   "summons": [],
    "count": [
     1,
     1
@@ -3693,6 +3857,7 @@
    "enemy": "lasershooter",
    "kind": "projectile",
    "projectile": "laser",
+   "summons": [],
    "count": [
     1,
     1
@@ -3714,6 +3879,7 @@
    "enemy": "monk",
    "kind": "projectile",
    "projectile": "monk_shot",
+   "summons": [],
    "count": [
     1,
     1
@@ -3739,6 +3905,7 @@
    "enemy": "wizard_poly",
    "kind": "projectile",
    "projectile": "polymorphing",
+   "summons": [],
    "count": [
     1,
     1
@@ -3761,6 +3928,7 @@
    "enemy": "ant",
    "kind": "projectile",
    "projectile": "acid_spray",
+   "summons": [],
    "count": [
     1,
     1
@@ -3780,6 +3948,7 @@
    "enemy": "ant",
    "kind": "melee",
    "projectile": "none",
+   "summons": [],
    "count": [
     1,
     1
@@ -3804,6 +3973,7 @@
    "enemy": "scavenger_poison",
    "kind": "projectile",
    "projectile": "poison_trail_shot",
+   "summons": [],
    "count": [
     1,
     1
@@ -3826,6 +3996,7 @@
    "enemy": "scavenger_poison",
    "kind": "melee",
    "projectile": "none",
+   "summons": [],
    "count": [
     1,
     1
@@ -3850,6 +4021,7 @@
    "enemy": "fungus_tiny",
    "kind": "lunge",
    "projectile": "none",
+   "summons": [],
    "count": [
     1,
     1
@@ -3871,6 +4043,7 @@
    "enemy": "fungus_tiny",
    "kind": "death_explosion",
    "projectile": "none",
+   "summons": [],
    "count": [
     1,
     1
@@ -3895,6 +4068,7 @@
    "enemy": "eel",
    "kind": "melee",
    "projectile": "none",
+   "summons": [],
    "count": [
     1,
     1
@@ -3919,6 +4093,7 @@
    "enemy": "fungus_big",
    "kind": "lunge",
    "projectile": "none",
+   "summons": [],
    "count": [
     1,
     1
@@ -3940,6 +4115,7 @@
    "enemy": "fungus_big",
    "kind": "death_explosion",
    "projectile": "none",
+   "summons": [],
    "count": [
     1,
     1
@@ -3964,6 +4140,7 @@
    "enemy": "ethereal_being",
    "kind": "aura",
    "projectile": "none",
+   "summons": [],
    "count": [
     1,
     1
@@ -3991,6 +4168,7 @@
    "enemy": "dark_alchemist",
    "kind": "melee",
    "projectile": "none",
+   "summons": [],
    "count": [
     1,
     1
@@ -4015,6 +4193,7 @@
    "enemy": "icemage",
    "kind": "projectile",
    "projectile": "icemage_iceball",
+   "summons": [],
    "count": [
     1,
     1
@@ -4037,6 +4216,7 @@
    "enemy": "icemage",
    "kind": "melee",
    "projectile": "none",
+   "summons": [],
    "count": [
     1,
     1
@@ -4061,6 +4241,7 @@
    "enemy": "wizard_returner",
    "kind": "projectile",
    "projectile": "ghostly_fireball",
+   "summons": [],
    "count": [
     1,
     1
@@ -4082,6 +4263,7 @@
    "enemy": "scavenger_heal",
    "kind": "heal",
    "projectile": "none",
+   "summons": [],
    "count": [
     1,
     1
@@ -4106,6 +4288,7 @@
    "enemy": "statue",
    "kind": "melee",
    "projectile": "none",
+   "summons": [],
    "count": [
     1,
     1
@@ -4130,6 +4313,7 @@
    "enemy": "spearbot",
    "kind": "projectile",
    "projectile": "laser_spear",
+   "summons": [],
    "count": [
     1,
     1
@@ -4151,6 +4335,7 @@
    "enemy": "wand_ghost_charmed",
    "kind": "projectile",
    "projectile": "wand_ghost_charmed_shot",
+   "summons": [],
    "count": [
     1,
     1
@@ -4176,6 +4361,7 @@
    "enemy": "worm_tiny",
    "kind": "melee",
    "projectile": "none",
+   "summons": [],
    "count": [
     1,
     1
@@ -4200,6 +4386,7 @@
    "enemy": "tentacler_small",
    "kind": "aura",
    "projectile": "none",
+   "summons": [],
    "count": [
     1,
     1
@@ -4222,6 +4409,7 @@
    "enemy": "tentacler_small",
    "kind": "melee",
    "projectile": "none",
+   "summons": [],
    "count": [
     1,
     1
@@ -4246,6 +4434,7 @@
    "enemy": "shooterflower",
    "kind": "projectile",
    "projectile": "explosive_homing",
+   "summons": [],
    "count": [
     10,
     10
@@ -4267,6 +4456,7 @@
    "enemy": "alchemist",
    "kind": "projectile",
    "projectile": "thrown_potion",
+   "summons": [],
    "count": [
     1,
     1
@@ -4286,6 +4476,7 @@
    "enemy": "bloom",
    "kind": "projectile",
    "projectile": "dummy",
+   "summons": [],
    "count": [
     1,
     1
@@ -4308,6 +4499,7 @@
    "enemy": "neutralizer",
    "kind": "projectile",
    "projectile": "neutralize_shot",
+   "summons": [],
    "count": [
     1,
     1
@@ -4331,6 +4523,7 @@
    "enemy": "neutralizer",
    "kind": "projectile",
    "projectile": "neutralizer_shot",
+   "summons": [],
    "count": [
     1,
     1
@@ -4357,6 +4550,7 @@
    "enemy": "coward",
    "kind": "projectile",
    "projectile": "teleportation",
+   "summons": [],
    "count": [
     1,
     1
@@ -4380,6 +4574,7 @@
    "enemy": "roboguard",
    "kind": "projectile",
    "projectile": "roboguard_shot",
+   "summons": [],
    "count": [
     1,
     1
@@ -4402,6 +4597,7 @@
    "enemy": "roboguard",
    "kind": "melee",
    "projectile": "none",
+   "summons": [],
    "count": [
     1,
     1
@@ -4426,6 +4622,7 @@
    "enemy": "rat",
    "kind": "melee",
    "projectile": "none",
+   "summons": [],
    "count": [
     1,
     1
@@ -4450,6 +4647,7 @@
    "enemy": "plague_rats_rat",
    "kind": "lunge",
    "projectile": "none",
+   "summons": [],
    "count": [
     1,
     1
@@ -4474,6 +4672,7 @@
    "enemy": "plague_rats_rat",
    "kind": "melee",
    "projectile": "none",
+   "summons": [],
    "count": [
     1,
     1
@@ -4501,6 +4700,7 @@
    "enemy": "scavenger_smg",
    "kind": "projectile",
    "projectile": "rifle",
+   "summons": [],
    "count": [
     1,
     1
@@ -4523,6 +4723,7 @@
    "enemy": "scavenger_smg",
    "kind": "melee",
    "projectile": "none",
+   "summons": [],
    "count": [
     1,
     1
@@ -4547,6 +4748,7 @@
    "enemy": "goblin_bomb",
    "kind": "projectile",
    "projectile": "glitter_bomb",
+   "summons": [],
    "count": [
     1,
     1
@@ -4568,6 +4770,7 @@
    "enemy": "goblin_bomb",
    "kind": "melee",
    "projectile": "none",
+   "summons": [],
    "count": [
     1,
     1
@@ -4592,6 +4795,7 @@
    "enemy": "thunderskull",
    "kind": "projectile",
    "projectile": "ball_lightning",
+   "summons": [],
    "count": [
     1,
     1
@@ -4614,6 +4818,7 @@
    "enemy": "assassin",
    "kind": "lunge",
    "projectile": "none",
+   "summons": [],
    "count": [
     1,
     1
@@ -4635,6 +4840,7 @@
    "enemy": "assassin",
    "kind": "melee",
    "projectile": "none",
+   "summons": [],
    "count": [
     1,
     1
@@ -4659,6 +4865,7 @@
    "enemy": "wizard_twitchy",
    "kind": "projectile",
    "projectile": "twitching_shot",
+   "summons": [],
    "count": [
     1,
     1
@@ -4681,6 +4888,7 @@
    "enemy": "parallel_tentacles",
    "kind": "projectile",
    "projectile": "polymorphing",
+   "summons": [],
    "count": [
     1,
     1
@@ -4707,6 +4915,7 @@
    "enemy": "parallel_tentacles",
    "kind": "projectile",
    "projectile": "neutralizing_shot",
+   "summons": [],
    "count": [
     1,
     1
@@ -4733,6 +4942,7 @@
    "enemy": "parallel_tentacles",
    "kind": "projectile",
    "projectile": "teleportation",
+   "summons": [],
    "count": [
     1,
     1
@@ -4759,6 +4969,7 @@
    "enemy": "parallel_tentacles",
    "kind": "projectile",
    "projectile": "blinding",
+   "summons": [],
    "count": [
     1,
     1
@@ -4784,6 +4995,7 @@
    "enemy": "parallel_tentacles",
    "kind": "projectile",
    "projectile": "magic_missile",
+   "summons": [],
    "count": [
     1,
     1
@@ -4810,6 +5022,7 @@
    "enemy": "parallel_tentacles",
    "kind": "projectile",
    "projectile": "large_magic_missile",
+   "summons": [],
    "count": [
     1,
     1
@@ -4836,6 +5049,7 @@
    "enemy": "parallel_tentacles",
    "kind": "projectile",
    "projectile": "giant_magic_missile",
+   "summons": [],
    "count": [
     1,
     1
@@ -4862,6 +5076,7 @@
    "enemy": "parallel_tentacles",
    "kind": "projectile",
    "projectile": "firebolt",
+   "summons": [],
    "count": [
     1,
     1
@@ -4889,6 +5104,7 @@
    "enemy": "parallel_tentacles",
    "kind": "projectile",
    "projectile": "large_firebolt",
+   "summons": [],
    "count": [
     1,
     1
@@ -4916,6 +5132,7 @@
    "enemy": "parallel_tentacles",
    "kind": "projectile",
    "projectile": "giant_firebolt",
+   "summons": [],
    "count": [
     1,
     1
@@ -4942,6 +5159,7 @@
    "enemy": "parallel_tentacles",
    "kind": "projectile",
    "projectile": "bouncing_burst",
+   "summons": [],
    "count": [
     1,
     1
@@ -4965,6 +5183,7 @@
    "enemy": "boss_pit",
    "kind": "projectile",
    "projectile": "polymorphing",
+   "summons": [],
    "count": [
     1,
     1
@@ -4991,6 +5210,7 @@
    "enemy": "boss_pit",
    "kind": "projectile",
    "projectile": "neutralizing_shot",
+   "summons": [],
    "count": [
     1,
     1
@@ -5017,6 +5237,7 @@
    "enemy": "boss_pit",
    "kind": "projectile",
    "projectile": "teleportation",
+   "summons": [],
    "count": [
     1,
     1
@@ -5043,6 +5264,7 @@
    "enemy": "boss_pit",
    "kind": "projectile",
    "projectile": "blinding",
+   "summons": [],
    "count": [
     1,
     1
@@ -5068,6 +5290,7 @@
    "enemy": "boss_pit",
    "kind": "projectile",
    "projectile": "magic_missile",
+   "summons": [],
    "count": [
     1,
     1
@@ -5094,6 +5317,7 @@
    "enemy": "boss_pit",
    "kind": "projectile",
    "projectile": "large_magic_missile",
+   "summons": [],
    "count": [
     1,
     1
@@ -5120,6 +5344,7 @@
    "enemy": "boss_pit",
    "kind": "projectile",
    "projectile": "giant_magic_missile",
+   "summons": [],
    "count": [
     1,
     1
@@ -5146,6 +5371,7 @@
    "enemy": "boss_pit",
    "kind": "projectile",
    "projectile": "firebolt",
+   "summons": [],
    "count": [
     1,
     1
@@ -5173,6 +5399,7 @@
    "enemy": "boss_pit",
    "kind": "projectile",
    "projectile": "large_firebolt",
+   "summons": [],
    "count": [
     1,
     1
@@ -5200,6 +5427,7 @@
    "enemy": "boss_pit",
    "kind": "projectile",
    "projectile": "giant_firebolt",
+   "summons": [],
    "count": [
     1,
     1
@@ -5226,6 +5454,7 @@
    "enemy": "boss_pit",
    "kind": "projectile",
    "projectile": "bouncing_burst",
+   "summons": [],
    "count": [
     1,
     1
@@ -5249,6 +5478,7 @@
    "enemy": "wizard_tele",
    "kind": "projectile",
    "projectile": "teleportation",
+   "summons": [],
    "count": [
     1,
     1
@@ -5271,6 +5501,7 @@
    "enemy": "necromancer_super",
    "kind": "projectile",
    "projectile": "double_accelerating_bolts",
+   "summons": [],
    "count": [
     2,
     2
@@ -5296,6 +5527,7 @@
    "enemy": "necromancer_super",
    "kind": "projectile",
    "projectile": "greater_short_bubble",
+   "summons": [],
    "count": [
     1,
     1
@@ -5321,6 +5553,7 @@
    "enemy": "sniper_hell",
    "kind": "projectile",
    "projectile": "sniper_hell_shot",
+   "summons": [],
    "count": [
     4,
     8
@@ -5343,6 +5576,7 @@
    "enemy": "sniper_hell",
    "kind": "melee",
    "projectile": "none",
+   "summons": [],
    "count": [
     1,
     1
@@ -5367,6 +5601,7 @@
    "enemy": "sniper",
    "kind": "projectile",
    "projectile": "sniper_shot",
+   "summons": [],
    "count": [
     1,
     1
@@ -5389,6 +5624,7 @@
    "enemy": "sniper",
    "kind": "melee",
    "projectile": "none",
+   "summons": [],
    "count": [
     1,
     1
@@ -5413,6 +5649,7 @@
    "enemy": "wizard_dark",
    "kind": "projectile",
    "projectile": "blinding",
+   "summons": [],
    "count": [
     1,
     1
@@ -5435,6 +5672,7 @@
    "enemy": "phantom_a",
    "kind": "projectile",
    "projectile": "orbspawner",
+   "summons": [],
    "count": [
     1,
     1
@@ -5456,6 +5694,7 @@
    "enemy": "firemage_weak",
    "kind": "projectile",
    "projectile": "weaker_fireball",
+   "summons": [],
    "count": [
     1,
     1
@@ -5478,6 +5717,7 @@
    "enemy": "firemage_weak",
    "kind": "melee",
    "projectile": "none",
+   "summons": [],
    "count": [
     1,
     1
@@ -5502,6 +5742,7 @@
    "enemy": "necromancer_shop",
    "kind": "projectile",
    "projectile": "long_range_accelerating_orb",
+   "summons": [],
    "count": [
     2,
     2
@@ -5527,6 +5768,7 @@
    "enemy": "necromancer_shop",
    "kind": "projectile",
    "projectile": "short_range_sparks",
+   "summons": [],
    "count": [
     1,
     1
@@ -5552,6 +5794,7 @@
    "enemy": "boss_dragon",
    "kind": "projectile",
    "projectile": "green_orb",
+   "summons": [],
    "count": [
     1,
     1
@@ -5577,6 +5820,7 @@
    "enemy": "boss_dragon",
    "kind": "melee",
    "projectile": "none",
+   "summons": [],
    "count": [
     1,
     1
@@ -5601,6 +5845,7 @@
    "enemy": "boss_dragon",
    "kind": "projectile",
    "projectile": "fire_breath",
+   "summons": [],
    "count": [
     1,
     1
@@ -5626,6 +5871,7 @@
    "enemy": "wolf",
    "kind": "lunge",
    "projectile": "none",
+   "summons": [],
    "count": [
     1,
     1
@@ -5647,6 +5893,7 @@
    "enemy": "wolf",
    "kind": "melee",
    "projectile": "none",
+   "summons": [],
    "count": [
     1,
     1
@@ -5671,6 +5918,7 @@
    "enemy": "thundermage_big",
    "kind": "projectile",
    "projectile": "thunder_charge_homing",
+   "summons": [],
    "count": [
     1,
     1
@@ -5693,6 +5941,7 @@
    "enemy": "thundermage_big",
    "kind": "melee",
    "projectile": "none",
+   "summons": [],
    "count": [
     1,
     1
@@ -5717,6 +5966,9 @@
    "enemy": "bigbat",
    "kind": "summon",
    "projectile": "none",
+   "summons": [
+    "bat"
+   ],
    "count": [
     1,
     1
@@ -5731,7 +5983,8 @@
    "stage": "1b",
    "_unverified": {
     "cooldown_frames": "default for kind 'summon'; read AnimalAIComponent attack_*_frames_between check in the player's data.wak (tools: Terranoita.Cli wak-cat)",
-    "range_tiles": "default for kind; read AnimalAIComponent attack_*_range check in the player's data.wak (tools: Terranoita.Cli wak-cat)"
+    "range_tiles": "default for kind; read AnimalAIComponent attack_*_range check in the player's data.wak (tools: Terranoita.Cli wak-cat)",
+    "summons": "from the wiki text; confirm in the entity's spawn script (facts script_entities)"
    }
   },
   {
@@ -5739,6 +5992,7 @@
    "enemy": "bigbat",
    "kind": "lunge",
    "projectile": "none",
+   "summons": [],
    "count": [
     1,
     1
@@ -5760,6 +6014,7 @@
    "enemy": "ghoul",
    "kind": "projectile",
    "projectile": "two_small_acid_balls",
+   "summons": [],
    "count": [
     2,
     2
@@ -5784,6 +6039,7 @@
    "enemy": "fish_giga",
    "kind": "projectile",
    "projectile": "big_green_orb",
+   "summons": [],
    "count": [
     1,
     1
@@ -5809,6 +6065,7 @@
    "enemy": "wand_ghost",
    "kind": "projectile",
    "projectile": "wand_ghost_shot",
+   "summons": [],
    "count": [
     1,
     1
@@ -5828,6 +6085,7 @@
    "enemy": "skygazer",
    "kind": "projectile",
    "projectile": "polyshot",
+   "summons": [],
    "count": [
     1,
     1
@@ -5849,6 +6107,7 @@
    "enemy": "skycrystal_physics",
    "kind": "projectile",
    "projectile": "blue_concentrated_light",
+   "summons": [],
    "count": [
     1,
     1
@@ -5870,6 +6129,7 @@
    "enemy": "wisp",
    "kind": "aura",
    "projectile": "none",
+   "summons": [],
    "count": [
     1,
     1
@@ -5894,6 +6154,7 @@
    "enemy": "islandspirit",
    "kind": "projectile",
    "projectile": "blue_orb",
+   "summons": [],
    "count": [
     1,
     1
@@ -5920,6 +6181,7 @@
    "enemy": "islandspirit",
    "kind": "aura",
    "projectile": "none",
+   "summons": [],
    "count": [
     1,
     1
@@ -5944,6 +6206,7 @@
    "enemy": "miner_hell",
    "kind": "projectile",
    "projectile": "tnt_hell",
+   "summons": [],
    "count": [
     6,
     14
@@ -5965,6 +6228,7 @@
    "enemy": "miner_hell",
    "kind": "melee",
    "projectile": "none",
+   "summons": [],
    "count": [
     1,
     1
@@ -5989,6 +6253,7 @@
    "enemy": "cook",
    "kind": "projectile",
    "projectile": "sausages",
+   "summons": [],
    "count": [
     1,
     1
@@ -6014,6 +6279,7 @@
    "enemy": "cook",
    "kind": "melee",
    "projectile": "none",
+   "summons": [],
    "count": [
     1,
     1
@@ -6041,6 +6307,7 @@
    "enemy": "miner",
    "kind": "projectile",
    "projectile": "tnt",
+   "summons": [],
    "count": [
     1,
     1
@@ -6062,6 +6329,7 @@
    "enemy": "miner",
    "kind": "melee",
    "projectile": "none",
+   "summons": [],
    "count": [
     1,
     1
@@ -6086,6 +6354,7 @@
    "enemy": "miner_weak",
    "kind": "projectile",
    "projectile": "tnt",
+   "summons": [],
    "count": [
     1,
     1
@@ -6107,6 +6376,7 @@
    "enemy": "miner_weak",
    "kind": "melee",
    "projectile": "none",
+   "summons": [],
    "count": [
     1,
     1
@@ -6131,6 +6401,7 @@
    "enemy": "sentry",
    "kind": "projectile",
    "projectile": "targeting",
+   "summons": [],
    "count": [
     1,
     1
@@ -6154,6 +6425,7 @@
    "enemy": "soldier",
    "kind": "projectile",
    "projectile": "soldier_shot",
+   "summons": [],
    "count": [
     1,
     1
@@ -6183,6 +6455,7 @@
    "enemy": "scavenger_leader",
    "kind": "projectile",
    "projectile": "grenades",
+   "summons": [],
    "count": [
     2,
     2
@@ -6205,6 +6478,7 @@
    "enemy": "scavenger_leader",
    "kind": "melee",
    "projectile": "none",
+   "summons": [],
    "count": [
     1,
     1
@@ -6229,6 +6503,7 @@
    "enemy": "turret",
    "kind": "projectile",
    "projectile": "laser",
+   "summons": [],
    "count": [
     2,
     2
@@ -6254,6 +6529,7 @@
    "enemy": "turret",
    "kind": "death_explosion",
    "projectile": "none",
+   "summons": [],
    "count": [
     1,
     1
@@ -6278,6 +6554,7 @@
    "enemy": "maggot",
    "kind": "projectile",
    "projectile": "maggot_blob",
+   "summons": [],
    "count": [
     1,
     1
@@ -6300,6 +6577,7 @@
    "enemy": "maggot",
    "kind": "melee",
    "projectile": "none",
+   "summons": [],
    "count": [
     1,
     1
@@ -6324,6 +6602,7 @@
    "enemy": "friend",
    "kind": "projectile",
    "projectile": "evergreen_seed",
+   "summons": [],
    "count": [
     1,
     1
@@ -6349,6 +6628,7 @@
    "enemy": "friend",
    "kind": "melee",
    "projectile": "none",
+   "summons": [],
    "count": [
     1,
     1
@@ -6376,6 +6656,7 @@
    "enemy": "friend_hostile",
    "kind": "projectile",
    "projectile": "friend_hostile_shot",
+   "summons": [],
    "count": [
     1,
     1
@@ -6399,6 +6680,7 @@
    "enemy": "friend_hostile",
    "kind": "melee",
    "projectile": "none",
+   "summons": [],
    "count": [
     1,
     1
@@ -6426,6 +6708,7 @@
    "enemy": "trap_acid",
    "kind": "projectile",
    "projectile": "acid_spit",
+   "summons": [],
    "count": [
     1,
     1
@@ -6451,6 +6734,7 @@
    "enemy": "trap_arrow",
    "kind": "projectile",
    "projectile": "arrow",
+   "summons": [],
    "count": [
     1,
     1
@@ -6476,6 +6760,7 @@
    "enemy": "trap_fire",
    "kind": "projectile",
    "projectile": "fire",
+   "summons": [],
    "count": [
     1,
     1
@@ -6501,6 +6786,7 @@
    "enemy": "trap_thunder",
    "kind": "projectile",
    "projectile": "electric_spark",
+   "summons": [],
    "count": [
     1,
     1
@@ -6526,6 +6812,7 @@
    "enemy": "miner_fire",
    "kind": "projectile",
    "projectile": "cocktail",
+   "summons": [],
    "count": [
     1,
     1
@@ -6547,6 +6834,7 @@
    "enemy": "firebug",
    "kind": "projectile",
    "projectile": "firebomb",
+   "summons": [],
    "count": [
     1,
     1
@@ -6568,6 +6856,7 @@
    "enemy": "firebug",
    "kind": "lunge",
    "projectile": "none",
+   "summons": [],
    "count": [
     1,
     1
@@ -6589,6 +6878,7 @@
    "enemy": "bigfirebug",
    "kind": "projectile",
    "projectile": "fireball_bigfirebug",
+   "summons": [],
    "count": [
     1,
     1
@@ -6611,6 +6901,7 @@
    "enemy": "bigfirebug",
    "kind": "lunge",
    "projectile": "none",
+   "summons": [],
    "count": [
     1,
     1
@@ -6632,6 +6923,7 @@
    "enemy": "necrobot",
    "kind": "projectile",
    "projectile": "necrobot_shot",
+   "summons": [],
    "count": [
     1,
     1
@@ -6653,6 +6945,7 @@
    "enemy": "tentacler",
    "kind": "melee",
    "projectile": "none",
+   "summons": [],
    "count": [
     1,
     1
@@ -6674,6 +6967,7 @@
    "enemy": "drone_shield",
    "kind": "support",
    "projectile": "shield_buff",
+   "summons": [],
    "count": [
     1,
     1
@@ -6696,6 +6990,7 @@
    "enemy": "wizard_weaken",
    "kind": "projectile",
    "projectile": "wizard_weaken_shot",
+   "summons": [],
    "count": [
     1,
     1
@@ -6718,6 +7013,7 @@
    "enemy": "barfer",
    "kind": "projectile",
    "projectile": "toxic_sludge_spit",
+   "summons": [],
    "count": [
     1,
     1
@@ -6737,6 +7033,7 @@
    "enemy": "thundermage",
    "kind": "projectile",
    "projectile": "thunder_charge",
+   "summons": [],
    "count": [
     1,
     1
@@ -6759,6 +7056,7 @@
    "enemy": "thundermage",
    "kind": "melee",
    "projectile": "none",
+   "summons": [],
    "count": [
     1,
     1
@@ -6783,6 +7081,7 @@
    "enemy": "wraith_storm",
    "kind": "retaliate",
    "projectile": "lightning_bolt",
+   "summons": [],
    "count": [
     1,
     1
@@ -6808,6 +7107,7 @@
    "enemy": "boss_ghost_polyp",
    "kind": "death_explosion",
    "projectile": "none",
+   "summons": [],
    "count": [
     1,
     1
@@ -6833,6 +7133,7 @@
    "enemy": "boss_ghost",
    "kind": "aura",
    "projectile": "none",
+   "summons": [],
    "count": [
     1,
     1
@@ -6860,6 +7161,7 @@
    "enemy": "wizard_swapper",
    "kind": "projectile",
    "projectile": "swapper_bolt",
+   "summons": [],
    "count": [
     1,
     1
@@ -6879,6 +7181,7 @@
    "enemy": "hidden",
    "kind": "projectile",
    "projectile": "hidden_shot",
+   "summons": [],
    "count": [
     1,
     1
@@ -6907,6 +7210,7 @@
    "enemy": "enlightened_alchemist",
    "kind": "projectile",
    "projectile": "meteor",
+   "summons": [],
    "count": [
     1,
     1
@@ -6933,6 +7237,7 @@
    "enemy": "enlightened_alchemist",
    "kind": "projectile",
    "projectile": "lightning_bolt",
+   "summons": [],
    "count": [
     3,
     3
@@ -6958,6 +7263,7 @@
    "enemy": "enlightened_alchemist",
    "kind": "projectile",
    "projectile": "pinpoint_of_light",
+   "summons": [],
    "count": [
     5,
     5
@@ -6983,6 +7289,7 @@
    "enemy": "enlightened_alchemist",
    "kind": "projectile",
    "projectile": "intense_concentrated_light",
+   "summons": [],
    "count": [
     5,
     5
@@ -7008,6 +7315,7 @@
    "enemy": "shaman_wind",
    "kind": "melee",
    "projectile": "none",
+   "summons": [],
    "count": [
     1,
     1
@@ -7032,6 +7340,7 @@
    "enemy": "lurker",
    "kind": "lunge",
    "projectile": "none",
+   "summons": [],
    "count": [
     1,
     1
@@ -7056,6 +7365,7 @@
    "enemy": "lurker",
    "kind": "aura",
    "projectile": "none",
+   "summons": [],
    "count": [
     1,
     1
@@ -7080,6 +7390,7 @@
    "enemy": "bloodcrystal_physics",
    "kind": "projectile",
    "projectile": "bloodcrystal_physics_shot",
+   "summons": [],
    "count": [
     1,
     1
@@ -7105,6 +7416,7 @@
    "enemy": "parallel_alchemist",
    "kind": "summon",
    "projectile": "none",
+   "summons": null,
    "count": [
     1,
     1
@@ -7121,7 +7433,8 @@
    "stage": "1c",
    "_unverified": {
     "cooldown_frames": "default for kind 'summon'; read AnimalAIComponent attack_*_frames_between check in the player's data.wak (tools: Terranoita.Cli wak-cat)",
-    "range_tiles": "default for kind; read AnimalAIComponent attack_*_range check in the player's data.wak (tools: Terranoita.Cli wak-cat)"
+    "range_tiles": "default for kind; read AnimalAIComponent attack_*_range check in the player's data.wak (tools: Terranoita.Cli wak-cat)",
+    "summons": "wiki does not name the creature; read the entity's spawn script (facts script_entities)"
    }
   },
   {
@@ -7129,6 +7442,7 @@
    "enemy": "parallel_alchemist",
    "kind": "projectile",
    "projectile": "intense_concentrated_light",
+   "summons": [],
    "count": [
     5,
     5
@@ -7154,6 +7468,7 @@
    "enemy": "parallel_alchemist",
    "kind": "projectile",
    "projectile": "pinpoint_of_light",
+   "summons": [],
    "count": [
     5,
     5
@@ -7179,6 +7494,7 @@
    "enemy": "parallel_alchemist",
    "kind": "projectile",
    "projectile": "meteor",
+   "summons": [],
    "count": [
     1,
     1
@@ -7205,6 +7521,7 @@
    "enemy": "parallel_alchemist",
    "kind": "projectile",
    "projectile": "lightning_bolt",
+   "summons": [],
    "count": [
     3,
     3
@@ -7231,6 +7548,7 @@
    "enemy": "boss_alchemist",
    "kind": "summon",
    "projectile": "none",
+   "summons": null,
    "count": [
     1,
     1
@@ -7247,7 +7565,8 @@
    "stage": "1c",
    "_unverified": {
     "cooldown_frames": "default for kind 'summon'; read AnimalAIComponent attack_*_frames_between check in the player's data.wak (tools: Terranoita.Cli wak-cat)",
-    "range_tiles": "default for kind; read AnimalAIComponent attack_*_range check in the player's data.wak (tools: Terranoita.Cli wak-cat)"
+    "range_tiles": "default for kind; read AnimalAIComponent attack_*_range check in the player's data.wak (tools: Terranoita.Cli wak-cat)",
+    "summons": "wiki does not name the creature; read the entity's spawn script (facts script_entities)"
    }
   },
   {
@@ -7255,6 +7574,7 @@
    "enemy": "boss_alchemist",
    "kind": "projectile",
    "projectile": "intense_concentrated_light",
+   "summons": [],
    "count": [
     5,
     5
@@ -7280,6 +7600,7 @@
    "enemy": "boss_alchemist",
    "kind": "projectile",
    "projectile": "pinpoint_of_light",
+   "summons": [],
    "count": [
     5,
     5
@@ -7305,6 +7626,7 @@
    "enemy": "boss_alchemist",
    "kind": "projectile",
    "projectile": "meteor",
+   "summons": [],
    "count": [
     1,
     1
@@ -7331,6 +7653,7 @@
    "enemy": "boss_alchemist",
    "kind": "projectile",
    "projectile": "lightning_bolt",
+   "summons": [],
    "count": [
     3,
     3
@@ -7350,6 +7673,87 @@
    "_unverified": {
     "cooldown_frames": "default for kind 'projectile'; read AnimalAIComponent attack_*_frames_between check in the player's data.wak (tools: Terranoita.Cli wak-cat)",
     "range_tiles": "default for kind; read AnimalAIComponent attack_*_range check in the player's data.wak (tools: Terranoita.Cli wak-cat)"
+   }
+  },
+  {
+   "id": "nest_fly.release",
+   "enemy": "nest_fly",
+   "kind": "summon",
+   "projectile": "none",
+   "summons": [
+    "fly"
+   ],
+   "count": [
+    1,
+    3
+   ],
+   "damage": {},
+   "per_frames": "hit",
+   "cooldown_frames": 600,
+   "range_tiles": 15,
+   "lunge_speed": 0,
+   "sound": null,
+   "wiki_text": "Releases its creatures when the player is near (archetype spawner_nest)",
+   "stage": "1b",
+   "_unverified": {
+    "summons": "from the nest's name; confirm in its spawn script (facts script_entities)",
+    "count": "design guess; read the nest's spawn script",
+    "cooldown_frames": "design guess; read the nest's spawn script",
+    "range_tiles": "design guess; read the nest's spawn script"
+   }
+  },
+  {
+   "id": "nest_longleg.release",
+   "enemy": "nest_longleg",
+   "kind": "summon",
+   "projectile": "none",
+   "summons": [
+    "longleg"
+   ],
+   "count": [
+    1,
+    3
+   ],
+   "damage": {},
+   "per_frames": "hit",
+   "cooldown_frames": 600,
+   "range_tiles": 15,
+   "lunge_speed": 0,
+   "sound": null,
+   "wiki_text": "Releases its creatures when the player is near (archetype spawner_nest)",
+   "stage": "1b",
+   "_unverified": {
+    "summons": "from the nest's name; confirm in its spawn script (facts script_entities)",
+    "count": "design guess; read the nest's spawn script",
+    "cooldown_frames": "design guess; read the nest's spawn script",
+    "range_tiles": "design guess; read the nest's spawn script"
+   }
+  },
+  {
+   "id": "nest_firebug.release",
+   "enemy": "nest_firebug",
+   "kind": "summon",
+   "projectile": "none",
+   "summons": [
+    "firebug"
+   ],
+   "count": [
+    1,
+    3
+   ],
+   "damage": {},
+   "per_frames": "hit",
+   "cooldown_frames": 600,
+   "range_tiles": 15,
+   "lunge_speed": 0,
+   "sound": null,
+   "wiki_text": "Releases its creatures when the player is near (archetype spawner_nest)",
+   "stage": "1b",
+   "_unverified": {
+    "summons": "from the nest's name; confirm in its spawn script (facts script_entities)",
+    "count": "design guess; read the nest's spawn script",
+    "cooldown_frames": "design guess; read the nest's spawn script",
+    "range_tiles": "design guess; read the nest's spawn script"
    }
   }
  ]

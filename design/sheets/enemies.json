@@ -594,7 +594,9 @@
    "jump_speed": null,
    "sight_tiles": null,
    "audio": null,
-   "attacks": [],
+   "attacks": [
+    "nest_fly.release"
+   ],
    "spawn_in": [
     "Fungal Caverns",
     "Underground Jungle"
@@ -620,7 +622,7 @@
    "_unverified": {
     "id": "synthetic id; find the real entity file name in data.wak",
     "noita_entity": "path guessed from the id; check in the player's data.wak (tools: Terranoita.Cli wak-cat)",
-    "attacks": "wiki lists no attack; confirm in the entity XML"
+    "attacks": "a nest releases its creatures: confirm in its spawn script"
    }
   },
   {
@@ -1738,7 +1740,9 @@
    "jump_speed": null,
    "sight_tiles": null,
    "audio": null,
-   "attacks": [],
+   "attacks": [
+    "nest_longleg.release"
+   ],
    "spawn_in": [
     "Fungal Caverns",
     "Underground Jungle"
@@ -1764,7 +1768,7 @@
    "_unverified": {
     "id": "synthetic id; find the real entity file name in data.wak",
     "noita_entity": "path guessed from the id; check in the player's data.wak (tools: Terranoita.Cli wak-cat)",
-    "attacks": "wiki lists no attack; confirm in the entity XML"
+    "attacks": "a nest releases its creatures: confirm in its spawn script"
    }
   },
   {
@@ -5546,12 +5550,12 @@
    "id": "pebble",
    "name_en": "Rock Spirit",
    "name_fi": "Lohkare",
-   "name_key": "$animal_pebble",
+   "name_key": "$projectile_default",
    "category": "Monsters",
    "faction": "giant",
    "noita_hp": 2.5,
-   "noita_entity": "data/entities/animals/pebble.xml",
-   "sprite": null,
+   "noita_entity": "data/entities/projectiles/pebble.xml",
+   "sprite": "data/enemies_gfx/pebble_physics.png",
    "hitbox": null,
    "size": 1.0,
    "hitbox_mult": 1.0,
@@ -5566,7 +5570,7 @@
    "gravity": null,
    "jump_speed": null,
    "sight_tiles": null,
-   "audio": null,
+   "audio": "none",
    "attacks": [
     "pebble.explodes_on_death"
    ],
@@ -5590,10 +5594,8 @@
    ],
    "blood": "Freezing Liquid",
    "drops": "noita_gold",
-   "stage": "1c",
-   "_unverified": {
-    "noita_entity": "path guessed from the id; check in the player's data.wak (tools: Terranoita.Cli wak-cat)"
-   }
+   "stage": "1b",
+   "_unverified": {}
   },
   {
    "id": "wizard_neutral",
@@ -10794,7 +10796,9 @@
    "jump_speed": null,
    "sight_tiles": null,
    "audio": null,
-   "attacks": [],
+   "attacks": [
+    "nest_firebug.release"
+   ],
    "spawn_in": [
     "Coal Pits"
    ],
@@ -10819,7 +10823,7 @@
    "_unverified": {
     "id": "synthetic id; find the real entity file name in data.wak",
     "noita_entity": "path guessed from the id; check in the player's data.wak (tools: Terranoita.Cli wak-cat)",
-    "attacks": "wiki lists no attack; confirm in the entity XML"
+    "attacks": "a nest releases its creatures: confirm in its spawn script"
    }
   },
   {

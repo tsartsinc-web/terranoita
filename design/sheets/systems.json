@@ -89,7 +89,7 @@
   },
   {
    "id": "enemy_ai",
-   "description": "One state machine per AI archetype, written against a small body/world interface so it is unit-tested without the game.",
+   "description": "One state machine per AI archetype, written against a small body/world interface so it is unit-tested without the game. Stage 1b adds movers that need the world (ITerrain: solid and liquid tiles): climb (lukki hold on to any tile, walls and ceilings), burrow (worms steer inside ground, arc out under gravity, leave a trail for their body), swim (fish stay in liquid, flop on land); phase and burrow pass through tiles (npc.noTileCollide); archetypes that flee (harmless animals) or wake when the target comes close (mimics); auras on their own clock, summons, heals, support, retaliation when hurt and death explosions (ISpecialAttackSink, carried out by Carriers.Attacks).",
    "stage": "1a",
    "hooks": [
     "npc_ai"
@@ -132,7 +132,7 @@
   },
   {
    "id": "test_tools",
-   "description": "Debug keys to spawn any Noita enemy near the player and log what happens, for repeatable in-game tests and screenshots.",
+   "description": "Debug keys to spawn any Noita enemy near the player and log what happens, for repeatable in-game tests and screenshots. TERRANOITA_STAGE=1b runs a test build with the next stage's enemies before it ships.",
    "stage": "1a",
    "hooks": [
     "main_update"

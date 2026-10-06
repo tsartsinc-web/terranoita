@@ -149,6 +149,17 @@ def is_static(f):
     return not any(c["component"] in MOVERS or c["component"] == "AnimalAIComponent" for c in components(f))
 
 
+def spawned_files(f):
+    """Entity files a creature's scripts and components name: what it summons or releases."""
+    out = []
+    for files in (f.get("script_entities") or {}).values():
+        out += files or []
+    for c in components(f):
+        for n in all_nodes(c):
+            out += [v for v in n["attrs"].values() if isinstance(v, str) and v.startswith("data/entities/animals/") and v.endswith(".xml")]
+    return list(dict.fromkeys(out))
+
+
 def has_own_attacks(f):
     return bool(f.get("ranged")) or bool(f.get("dash")) or any(c["component"] in ATTACKERS for c in components(f))
 
@@ -279,6 +290,19 @@ def main():
         if not e["attacks"] and "attacks" in e.get("_unverified", {}) and f.get("components") and not has_own_attacks(f):
             e["_unverified"].pop("attacks")
             e.setdefault("_sources", {})["attacks"] = "%s: no ranged, dash, aura, explosion or script attack" % f["entity"]
+
+        # summons: the creatures its spawn scripts or components name
+        by_file = {x.get("noita_entity"): x["id"] for x in enemies["rows"] if x.get("noita_entity")}
+        for aid in e["attacks"]:
+            a = attack_by_id[aid]
+            if a["kind"] == "summon" and "summons" in a.get("_unverified", {}) and (f.get("components") or f.get("script_entities")):
+                ids = [by_file[x] for x in spawned_files(f) if by_file.get(x) not in (None, e["id"])]
+                if ids:
+                    if a.get("summons") and sorted(a["summons"]) != sorted(ids):
+                        notes.append("%s: summons %s (sheet guessed %s)" % (aid, ids, a["summons"]))
+                    verify(a, "summons", ids)
+                else:
+                    notes.append("%s: no creature named in its scripts/components %s" % (aid, spawned_files(f)))
 
         # melee timing
         for aid in e["attacks"]:

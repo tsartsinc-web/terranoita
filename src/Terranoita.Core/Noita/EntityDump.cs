@@ -69,6 +69,13 @@ namespace Terranoita.Noita
             return n;
         }
 
+        static readonly System.Text.RegularExpressions.Regex EntityFile =
+            new System.Text.RegularExpressions.Regex(@"[""'](data/entities/[^""']+?\.xml)[""']");
+
+        /// <summary>Entity XML paths written as string literals in a script, in order, without repeats.</summary>
+        public static IEnumerable<string> EntityFilesIn(string script) =>
+            EntityFile.Matches(script).Cast<System.Text.RegularExpressions.Match>().Select(m => m.Groups[1].Value).Distinct();
+
         /// <summary>The script files an entity runs (LuaComponent script_* attributes), for reading by hand.</summary>
         public static IEnumerable<string> Scripts(IEnumerable<Item> items) =>
             items.Where(i => i.Component.Name == "LuaComponent")

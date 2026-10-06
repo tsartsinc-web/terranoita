@@ -76,6 +76,7 @@ namespace Terranoita.Game
                 foreach (int b in new[] { BuffID.OnFire, BuffID.OnFire3, BuffID.Burning, BuffID.CursedInferno, BuffID.ShadowFlame })
                     npc.buffImmune[b] = true;
             Table[i] = new NoitaNpc { Def = def, Tier = tier, Brain = new Brain(def), Name = NoitaArt.Name(def) };
+            npc.noTileCollide = Table[i].Brain.PassesTiles;     // ghosts drift and worms burrow through tiles
             Entry.Log("spawned " + def.Id + " (" + Table[i].Name + ") #" + i + " life " + npc.lifeMax + " at tile " + x / 16 + "," + bottom / 16);
             return i;
         }
@@ -106,7 +107,29 @@ namespace Terranoita.Game
                 Collision.SolidCollision(new Vector2(Npc.position.X + Npc.direction * 8, Npc.position.Y - 17), Npc.width, Npc.height);
         }
 
-        sealed class Attacks : IAttackSink
+        /// <summary>Terraria's tiles as the brain's climbers, burrowers and swimmers see them.</summary>
+        sealed class Terrain : ITerrain
+        {
+            static Tile At(V2 p)
+            {
+                int x = (int)(p.X / 16), y = (int)(p.Y / 16);
+                return x >= 0 && y >= 0 && x < Main.maxTilesX && y < Main.maxTilesY ? Main.tile[x, y] : null;
+            }
+
+            public bool Solid(V2 p)
+            {
+                var t = At(p);
+                return t != null && t.active() && !t.inActive() && Main.tileSolid[t.type] && !Main.tileSolidTop[t.type];
+            }
+
+            public bool Liquid(V2 p)
+            {
+                var t = At(p);
+                return t != null && t.liquid > 64;
+            }
+        }
+
+        sealed class Attacks : IAttackSink, ISpecialAttackSink
         {
             public NPC Npc;
             public NoitaNpc Noita;
@@ -115,6 +138,8 @@ namespace Terranoita.Game
             int Roll(AttackDef a)
             {
                 Defs.DamageRange(a, out float min, out float max);
+                if (max <= 0)
+                    return 0;
                 float noita = min + (float)Rng.NextDouble() * (max - min);
                 return Math.Max(1, (int)Math.Round(noita * Noita.Tier.DmgMult));
             }
@@ -124,7 +149,7 @@ namespace Terranoita.Game
 
             void Hit(AttackDef a, int dmg, string how)
             {
-                if (Target == null || !Target.active || Target.dead)
+                if (dmg <= 0 || Target == null || !Target.active || Target.dead)
                     return;
                 int dir = Target.Center.X >= Npc.Center.X ? 1 : -1;
                 double dealt = Target.Hurt(DeathReason(Noita, Target), dmg, dir);
@@ -144,6 +169,77 @@ namespace Terranoita.Game
             {
                 Shots.Fire(Noita, a, p, new Vector2(from.X, from.Y), new Vector2(velocity.X, velocity.Y));
             }
+
+            /// <summary>Auras, summons, heals, support and death explosions (attacks sheet, kind).</summary>
+            public void Special(AttackDef a)
+            {
+                switch (a.Kind)
+                {
+                    case "aura":
+                        if (Target != null && Vector2.Distance(Target.Center, Npc.Center) <= a.RangeTiles * 16f + Target.width / 2f)
+                            Hit(a, Roll(a), "aura");
+                        break;
+                    case "summon":
+                        Summon(a);
+                        break;
+                    case "heal":
+                        HealAllies(a);
+                        break;
+                    case "death_explosion":
+                        Explode(a);
+                        break;
+                    default:
+                        Entry.Warn("special attack " + a.Id + " (" + a.Kind + ") has no effect in Terraria yet");
+                        break;
+                }
+            }
+
+            void Summon(AttackDef a)
+            {
+                if (a.Summons == null || Carriers.CountNear(Npc.Center, 40 * 16) >= 12)
+                    return;
+                int min = a.Count != null && a.Count.Length > 0 ? a.Count[0] : 1;
+                int max = a.Count != null && a.Count.Length > 1 ? a.Count[1] : min;
+                int n = Math.Max(1, min + Rng.Next(Math.Max(1, max - min + 1)));
+                foreach (var id in a.Summons)
+                    if (Defs.Enemy.TryGetValue(id, out var def))
+                        for (int k = 0; k < n; k++)
+                            Carriers.Spawn(def, (int)Npc.Center.X + Rng.Next(-16, 17), (int)(Npc.position.Y + Npc.height));
+            }
+
+            void HealAllies(AttackDef a)
+            {
+                Defs.DamageRange(a, out float min, out float max);
+                int amount = Math.Max(1, (int)Math.Round(max * Noita.Tier.HpMult));
+                float range = Math.Max(a.RangeTiles, 1f) * 16f;
+                for (int i = 0; i < Main.maxNPCs; i++)
+                {
+                    var other = Main.npc[i];
+                    if (other.active && i != Npc.whoAmI && Get(other) != null && other.life < other.lifeMax &&
+                        Vector2.Distance(other.Center, Npc.Center) <= range)
+                    {
+                        int healed = Math.Min(amount, other.lifeMax - other.life);
+                        other.life += healed;
+                        other.HealEffect(healed);
+                        Entry.Log(Noita.Def.Id + " " + a.Id + " heals " + Get(other).Def.Id + " for " + healed);
+                        return;
+                    }
+                }
+            }
+
+            void Explode(AttackDef a)
+            {
+                // radius: the sheet's range (death explosions of data.wak: ExplodeOnDamage/config_explosion, to verify)
+                float radius = Math.Max(a.RangeTiles, 2f) * 16f;
+                for (int k = 0; k < 30; k++)
+                {
+                    var v = Main.rand.NextVector2Circular(radius / 10f, radius / 10f);
+                    Dust.NewDust(Npc.Center - new Vector2(4, 4), 8, 8, DustID.Torch, v.X, v.Y);
+                }
+                SoundEngine.PlaySound(SoundID.Item14, Npc.Center);
+                if (Target != null && Target.active && !Target.dead && Vector2.Distance(Target.Center, Npc.Center) <= radius + Target.width / 2f)
+                    Hit(a, Roll(a), "death explosion");
+            }
         }
 
         public static Terraria.DataStructures.PlayerDeathReason DeathReason(NoitaNpc n, Player p) =>
@@ -151,6 +247,32 @@ namespace Terranoita.Game
 
         static readonly Body TheBody = new Body();
         static readonly Attacks TheAttacks = new Attacks();
+        static readonly Terrain TheTerrain = new Terrain();
+
+        /// <summary>The player an enemy is after (Terraria's own targeting), as the brain sees it.</summary>
+        static Target TargetOf(NPC npc, out Player player)
+        {
+            npc.TargetClosest(false);
+            player = npc.target >= 0 && npc.target < Main.maxPlayers ? Main.player[npc.target] : null;
+            var target = new Target();
+            if (player != null && player.active && !player.dead && !player.ghost)
+            {
+                target.Has = true;
+                target.Center = new V2(player.Center.X, player.Center.Y);
+                target.Width = player.width;
+                target.Height = player.height;
+                target.Visible = Collision.CanHitLine(npc.position, npc.width, npc.height, player.position, player.width, player.height);
+            }
+            return target;
+        }
+
+        static void Bind(NPC npc, NoitaNpc n, Player player)
+        {
+            TheBody.Npc = npc;
+            TheAttacks.Npc = npc;
+            TheAttacks.Noita = n;
+            TheAttacks.Target = player;
+        }
 
         // ---- patches --------------------------------------------------------------------------------------------
 
@@ -170,24 +292,11 @@ namespace Terranoita.Game
 
             static void Think(NPC npc, NoitaNpc n)
             {
-                npc.TargetClosest(false);
-                var player = npc.target >= 0 && npc.target < Main.maxPlayers ? Main.player[npc.target] : null;
-                var target = new Target();
-                if (player != null && player.active && !player.dead && !player.ghost)
-                {
-                    target.Has = true;
-                    target.Center = new V2(player.Center.X, player.Center.Y);
-                    target.Width = player.width;
-                    target.Height = player.height;
-                    target.Visible = Collision.CanHitLine(npc.position, npc.width, npc.height, player.position, player.width, player.height);
-                }
-                TheBody.Npc = npc;
-                TheAttacks.Npc = npc;
-                TheAttacks.Noita = n;
-                TheAttacks.Target = player;
-                n.Brain.Update(TheBody, target, TheAttacks, Rng);
+                var target = TargetOf(npc, out var player);
+                Bind(npc, n, player);
+                n.Brain.Update(TheBody, target, TheAttacks, Rng, TheTerrain);
                 npc.direction = npc.spriteDirection = n.Brain.Direction;
-                if (n.Def.Walks && !n.Def.Flies)
+                if (n.Def.Walks && !n.Def.Flies && !n.Brain.PassesTiles)
                     Collision.StepUp(ref npc.position, ref npc.velocity, npc.width, npc.height, ref npc.stepSpeed, ref npc.gfxOffY);
             }
         }
@@ -269,6 +378,17 @@ namespace Terranoita.Game
                 var n = Get(__instance);
                 if (n == null)
                     return true;
+                try
+                {
+                    // the player who is fighting it: retaliation aims at them, death explosions hurt them
+                    var target = TargetOf(__instance, out var player);
+                    Bind(__instance, n, player);
+                    if (__instance.life > 0)
+                        n.Brain.Hurt(TheBody, target, TheAttacks, Rng);
+                    else
+                        n.Brain.Died(TheAttacks);
+                }
+                catch (Exception ex) { Entry.Error("npc_hiteffect " + n.Def.Id, ex); }
                 if (__instance.life > 0)
                     NoitaSound.PlayFirst(n.Def.Audio, __instance.Center, "damage/projectile", "damage/melee");
                 else
