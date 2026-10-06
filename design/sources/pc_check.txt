@@ -1,14 +1,14 @@
-Terranoita PC step 2026-10-06 15:06, branch claude/dazzling-carson-h8mi9n, stage 1b
+Terranoita PC step 2026-10-06 15:55, branch claude/dazzling-carson-h8mi9n, stage 1b
 dotnet 8.0.425, Python 3.13.1
-commit 41e832e
+commit 4e17e91
 == facts from Noita
    ok
 == apply facts
    ok
 == preflight 1b
    ok
-   Preflight (rows needed for stage 1b: ai_archetypes 20, attacks 218, balance 4, biome_map 28, drops 2, enemies 152, hooks 15, projectiles 99, systems 10, terraria_zones 25)
-     sheets: ai_archetypes, attacks, balance, biome_map, drops, enemies, hooks, projectiles, systems, terraria_zones; 14554 cells in total
+   Preflight (rows needed for stage 1b: ai_archetypes 20, attacks 228, balance 4, biome_map 28, drops 2, enemies 153, hooks 15, projectiles 99, systems 10, terraria_zones 25)
+     sheets: ai_archetypes, attacks, balance, biome_map, drops, enemies, hooks, projectiles, systems, terraria_zones; 16221 cells in total
      problems: 0  (none)
      unfinished rows: 0
    GATE 1b: CLEAN
@@ -22,11 +22,9 @@ commit 41e832e
    ok
 == autotest 1b
    copied next to Terraria.exe: 0Harmony.dll, Terranoita.Core.dll, Terranoita.exe, Terranoita.exe.config, Terranoita.Game.dll
-   140 enemies, 6 s each; waiting up to 19 min
-   spawned 140, hits on the player 256, errors/warnings 3 (log: design/sources/pc_autotest_1b.txt)
-   15:08:27.247 WARN special attack scavenger_invis.turns_other_enemies_link_status_effects_invisible_invisible (support) has no effect in Terraria yet
-   15:11:51.644 WARN special attack scavenger_shield.shield_buff (support) has no effect in Terraria yet
-   15:20:04.745 WARN special attack drone_shield.shield_buff (support) has no effect in Terraria yet
+   141 enemies, 10 s each; waiting up to 29 min
+   spawned 141, hits on the player 470, errors/warnings 1 (log: design/sources/pc_autotest_1b.txt)
+   15:57:00.629 WARN aura berserkspirit.aura: berserk has no Terraria player effect yet
 
 outcome: ok
-took: 15 min
+took: 24 min
