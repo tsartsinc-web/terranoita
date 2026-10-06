@@ -465,3 +465,6 @@ Entry.Stage default 1b, version 0.2.0. Проверить на ПК also: worm l
   draft, one click yes. Before: world load guarded (our files and cave pools can never stop a world loading), cave
   pool tries x80 (small world: 38 pools, 1340 cells; scales with world width), physics autotest clean. Next: the
   author presses Test in the Melty app, then publish.
+- Melty page updated (author: the description must say liquids, effects, gravity): update_mod tagline + description
+  (v0.3: creatures, block physics, liquids and gases, Noita effects, debug keys N/K/L, back up worlds). It describes
+  0.3.0 while 0.2.0 is still the live release, until the author tests and publishes 0.3.0.
