@@ -84,12 +84,12 @@ namespace Terranoita.Noita
         public void FrameRect(int frame, out int x, out int y, out int w, out int h)
         {
             frame = Math.Max(0, Math.Min(FrameCount - 1, frame));
-            int stepX = FrameWidth + (ShrinkByOnePixel ? 1 : 0);
-            int stepY = FrameHeight + (ShrinkByOnePixel ? 1 : 0);
-            x = PosX + (frame % FramesPerRow) * stepX;
-            y = PosY + (frame / FramesPerRow) * stepY;
-            w = FrameWidth;
-            h = FrameHeight;
+            // cells are frame_width x frame_height apart; shrink_by_one_pixel draws one pixel less on the right and bottom
+            // (checked on Noita's miner_weak.png: 18 px cells, 7 per row in a 125 px sheet)
+            x = PosX + (frame % FramesPerRow) * FrameWidth;
+            y = PosY + (frame / FramesPerRow) * FrameHeight;
+            w = FrameWidth - (ShrinkByOnePixel ? 1 : 0);
+            h = FrameHeight - (ShrinkByOnePixel ? 1 : 0);
         }
 
         /// <summary>Frame index after a number of game ticks (60 per second).</summary>

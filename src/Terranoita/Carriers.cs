@@ -50,7 +50,7 @@ namespace Terranoita.Game
                 return -1;
             var npc = Main.npc[i];
             var tier = Defs.Tier[def.Tier];
-            float size = def.Size > 0 ? def.Size : 1f;
+            float size = (def.Size > 0 ? def.Size : 1f) * (def.HitboxMult > 0 ? def.HitboxMult : 1f);
             int w = (int)((def.Hitbox != null && def.Hitbox.Length > 1 ? def.Hitbox[0] : 20) * size);
             int h = (int)((def.Hitbox != null && def.Hitbox.Length > 1 ? def.Hitbox[1] : 20) * size);
             npc.width = Math.Max(8, w);

@@ -312,7 +312,6 @@ namespace Terranoita.Ai
 
         void TryAttacks(IBody body, Target target, IAttackSink sink, Random rng)
         {
-            float gap = EdgeGap(body, target);
             float dist = Distance(body.Center, target.Center);
             foreach (var a in _attacks)
             {
@@ -322,7 +321,8 @@ namespace Terranoita.Ai
                 switch (a.Kind)
                 {
                     case "melee":
-                        if (gap <= range)
+                        // Noita measures melee reach between the two creatures' positions, not their edges
+                        if (dist <= range)
                         {
                             sink.Started(a);
                             sink.Melee(a);
@@ -332,7 +332,7 @@ namespace Terranoita.Ai
                         }
                         break;
                     case "lunge":
-                        if (target.Visible && dist <= range && gap > MeleeRange() && (Flying || body.OnGround))
+                        if (target.Visible && dist <= range && dist > MeleeRange() && (Flying || body.OnGround))
                         {
                             // Noita's dash: flyers dart straight at the target; walkers leap at it in an arc
                             body.Velocity = Flying

@@ -136,6 +136,9 @@ namespace Terranoita.Tests
             Assert.Equal((12, 12, 12, 12), (x, y, w, h));
             Assert.Equal(1, stand.FrameAt(6));
             Assert.Equal(0, stand.FrameAt(36));            // 6 frames x 6 ticks, looped
+            var shrunk = NoitaSprite.Parse(@"<Sprite filename=""m.png""><RectAnimation name=""walk"" pos_x=""0"" pos_y=""33"" frame_count=""6"" frame_width=""18"" frame_height=""16"" frames_per_row=""6"" shrink_by_one_pixel=""1"" /></Sprite>").Animations["walk"];
+            shrunk.FrameRect(2, out x, out y, out w, out h);
+            Assert.Equal((36, 33, 17, 15), (x, y, w, h));   // same 18 px steps, one pixel less drawn
             Assert.Equal(2, s.Find("walk").FrameAt(1000)); // no loop: stays on the last frame
             Assert.Same(stand, s.Find("missing"));
         }

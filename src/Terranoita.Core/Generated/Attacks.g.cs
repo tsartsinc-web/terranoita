@@ -24,7 +24,7 @@ namespace Terranoita.Generated
         public string PerFrames;
         /// <summary>Frames between uses (60 per second).</summary>
         public int CooldownFrames;
-        /// <summary>Max distance to start the attack, in Terraria tiles.</summary>
+        /// <summary>Max distance to start the attack, in Terraria tiles, between the two creatures' centers (as Noita measures it).</summary>
         public float RangeTiles;
         /// <summary>Lunge only: launch speed, Terraria pixels/frame (AnimalAIComponent attack_dash_speed); 0 for other kinds.</summary>
         public float LungeSpeed;
