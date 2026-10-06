@@ -119,10 +119,12 @@ if ($AutoTest) {
         Get-ChildItem (Join-Path $docs "Worlds") -Filter *.wld | Select-Object -First 1 | Copy-Item -Destination (Join-Path $save "Worlds")
         Say "   made a test save folder with a copy of one world"
     }
-    $count = (& $python -c "import json;print(sum(1 for e in json.load(open('design/sheets/enemies.json',encoding='utf-8'))['rows'] if e['stage']=='$AutoTest'))")
+    $count = [int](& $python -c "import json;print(sum(1 for e in json.load(open('design/sheets/enemies.json',encoding='utf-8'))['rows'] if e['stage']=='$AutoTest'))")
     if ($AutoTestMinutes -le 0) { $AutoTestMinutes = [int][math]::Ceiling(($count * 6 + 120) / 60.0) + 3 }
     Say "   $count enemies, 6 s each; waiting up to $AutoTestMinutes min"
 
+    # a stale log from an earlier run must not pass for this one
+    Remove-Item (Join-Path $data "logs/latest.log") -Force -ErrorAction SilentlyContinue
     $env:TERRANOITA_AUTOTEST = "1"
     $env:TERRANOITA_STAGE = $AutoTest
     $env:TERRANOITA_AUTOTEST_STAGE = $AutoTest
