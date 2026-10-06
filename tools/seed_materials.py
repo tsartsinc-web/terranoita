@@ -30,7 +30,14 @@ TREES = ["Trees", "PalmTree", "PineTree", "TreeAsh", "Bamboo"]
 PLANTS = ["LeafBlock", "LivingMahoganyLeaves", "Vines", "JungleVines", "CrimsonVines", "CorruptVines", "HallowedVines",
           "AshVines", "VineFlowers"]
 
-src_powder = "materials.xml: cell_type liquid, liquid_sand 1, no liquid_static (falls and piles)"
+DENSE = ["Obsidian", "ObsidianBrick", "Hellstone", "HellstoneBrick", "Meteorite", "MeteoriteBrick",
+         "Copper", "Tin", "Iron", "Lead", "Silver", "Tungsten", "Gold", "Platinum", "Demonite", "Crimtane",
+         "Cobalt", "Palladium", "Mythril", "Orichalcum", "Adamantite", "Titanium", "Chlorophyte", "LunarOre",
+         "CopperBrick", "TinBrick", "IronBrick", "LeadBrick", "SilverBrick", "TungstenBrick", "GoldBrick",
+         "PlatinumBrick", "DemoniteBrick", "CrimtaneBrick", "CobaltBrick", "MythrilBrick", "PalladiumColumn",
+         "ChlorophyteBrick", "CopperPlating", "TinPlating", "ShroomitePlating", "MartianConduitPlating",
+         "TitanstoneBlock", "LunarBrick", "LihzahrdBrick"]
+src_powder ="materials.xml: cell_type liquid, liquid_sand 1, no liquid_static (falls and piles)"
 ROWS = [
     ("soil", ["Dirt", "ClayBlock"], "soil", "powder", "", False, 0, "none", "none", src_powder),
     ("mud", ["Mud"], "mud", "powder", "", False, 0, "none", "none", src_powder),
@@ -56,6 +63,10 @@ ROWS = [
      "water", "reaction [fire]+ice -> water (40); Terraria ice stays put (author: only loose blocks fall)"),
     ("clouds", ["Cloud", "RainCloud", "SnowCloud"], "-", "weightless", "", False, 0, "none", "none",
      "author: clouds are weightless"),
+    # author: obsidian, metals and the like are not eaten by liquids (acid): Noita's dense rock has no [corrodible]
+    ("dense", DENSE, "rock_hard", "none", "", False, 0, "none", "none",
+     "rock_hard: tags [static],[alchemy],[solid],[earth], no [corrodible]; which tiles: author (obsidian, metals...)"),
+    ("glass", ["Glass"], "glass", "none", "", False, 0, "none", "none", "glass: no [corrodible]"),
 ]
 
 # background walls of the same stuff: they burn like it (burned walls are gone)

@@ -84,6 +84,7 @@ namespace Terranoita.Game.Physics
                 Falling.Clear();
                 Fire.Clear();
                 Status.Clear();
+                Fluids.Clear();
                 if (On)
                     Placed.Load();
             }
@@ -128,6 +129,7 @@ namespace Terranoita.Game.Physics
                 {
                     Falling.Update();
                     Fire.Update();
+                    Fluids.Update();
                 }
                 catch (Exception ex) { Entry.Error("physics update", ex); }
             }
@@ -139,11 +141,11 @@ namespace Terranoita.Game.Physics
         {
             static void Postfix()
             {
-                if (!Live || Falling.Active == 0)
+                if (!Live || (Falling.Active == 0 && Fluids.Count == 0))
                     return;
                 var sb = Main.spriteBatch;
                 sb.Begin(SpriteSortMode.Deferred, BlendState.AlphaBlend, Main.DefaultSamplerState, DepthStencilState.None, Main.Rasterizer, null, Main.Transform);
-                try { Falling.Draw(sb); }
+                try { Fluids.Draw(sb); Falling.Draw(sb); }
                 catch (Exception ex) { Entry.Error("physics draw", ex); }
                 sb.End();
             }

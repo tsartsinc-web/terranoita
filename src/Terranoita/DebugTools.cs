@@ -19,6 +19,7 @@ namespace Terranoita.Game
     public static class DebugTools
     {
         static int _next;
+        static LiquidDef _liquid;
         static readonly bool Auto = Environment.GetEnvironmentVariable("TERRANOITA_AUTOTEST") == "1";
         /// <summary>The autotest is running: natural Noita spawns are off.</summary>
         public static bool Testing => Auto;
@@ -110,6 +111,15 @@ namespace Terranoita.Game
                 return;
             bool ctrl = Main.keyState.IsKeyDown(Keys.LeftControl) || Main.keyState.IsKeyDown(Keys.RightControl);
             bool shift = Main.keyState.IsKeyDown(Keys.LeftShift) || Main.keyState.IsKeyDown(Keys.RightShift);
+            // Ctrl+Shift+K picks the next Noita liquid or gas, Ctrl+Shift+L pours it at the mouse
+            if (ctrl && shift && Main.keyState.IsKeyDown(Keys.K) && !Main.oldKeyState.IsKeyDown(Keys.K))
+            {
+                var all = Liquids.All.Where(l => l.Creative).ToArray();
+                _liquid = all[(Array.IndexOf(all, _liquid) + 1) % all.Length];
+                Main.NewText("Terranoita: " + NoitaArt.Text(_liquid.NameKey, _liquid.Id) + " (" + _liquid.Id + ")", new Color(120, 200, 255));
+            }
+            if (ctrl && shift && Main.keyState.IsKeyDown(Keys.L))
+                Physics.Fluids.Add((int)(Main.MouseWorld.X / 16), (int)(Main.MouseWorld.Y / 16), (_liquid ?? Liquids.All.First(l => l.Id == "acid")).Id, 60);
             if (ctrl && shift && Main.keyState.IsKeyDown(Keys.N) && !Main.oldKeyState.IsKeyDown(Keys.N))
             {
                 var all = Built;

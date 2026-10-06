@@ -445,6 +445,88 @@
    "_sources": {
     "all": "author: clouds are weightless. Which tiles fall: author (loose ones only)."
    }
+  },
+  {
+   "id": "dense",
+   "terraria_tiles": [
+    "Obsidian",
+    "ObsidianBrick",
+    "Hellstone",
+    "HellstoneBrick",
+    "Meteorite",
+    "MeteoriteBrick",
+    "Copper",
+    "Tin",
+    "Iron",
+    "Lead",
+    "Silver",
+    "Tungsten",
+    "Gold",
+    "Platinum",
+    "Demonite",
+    "Crimtane",
+    "Cobalt",
+    "Palladium",
+    "Mythril",
+    "Orichalcum",
+    "Adamantite",
+    "Titanium",
+    "Chlorophyte",
+    "LunarOre",
+    "CopperBrick",
+    "TinBrick",
+    "IronBrick",
+    "LeadBrick",
+    "SilverBrick",
+    "TungstenBrick",
+    "GoldBrick",
+    "PlatinumBrick",
+    "DemoniteBrick",
+    "CrimtaneBrick",
+    "CobaltBrick",
+    "MythrilBrick",
+    "PalladiumColumn",
+    "ChlorophyteBrick",
+    "CopperPlating",
+    "TinPlating",
+    "ShroomitePlating",
+    "MartianConduitPlating",
+    "TitanstoneBlock",
+    "LunarBrick",
+    "LihzahrdBrick"
+   ],
+   "terraria_walls": [],
+   "noita_material": "rock_hard",
+   "falls": "none",
+   "falls_as": "same",
+   "burns": false,
+   "burn_seconds": 0,
+   "burns_to": "none",
+   "melts_to": "none",
+   "stage": "2",
+   "_unverified": {},
+   "_sources": {
+    "all": "rock_hard: tags [static],[alchemy],[solid],[earth], no [corrodible]; which tiles: author (obsidian, metals...). Which tiles fall: author (loose ones only)."
+   }
+  },
+  {
+   "id": "glass",
+   "terraria_tiles": [
+    "Glass"
+   ],
+   "terraria_walls": [],
+   "noita_material": "glass",
+   "falls": "none",
+   "falls_as": "same",
+   "burns": false,
+   "burn_seconds": 0,
+   "burns_to": "none",
+   "melts_to": "none",
+   "stage": "2",
+   "_unverified": {},
+   "_sources": {
+    "all": "glass: no [corrodible]. Which tiles fall: author (loose ones only)."
+   }
   }
  ]
 }

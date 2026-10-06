@@ -498,7 +498,34 @@ namespace Terranoita.Game
                 int count = __instance.life > 0 ? 6 : 30;
                 for (int k = 0; k < count; k++)
                     Dust.NewDust(__instance.position, __instance.width, __instance.height, dust, hitDirection * 2f, -1.5f);
+                Bleed(__instance, n);
                 return false;
+            }
+
+            static System.Collections.Generic.Dictionary<string, string> _blood;
+
+            /// <summary>Noita creatures bleed their own material (enemy_blood.json) as Noita liquids: a little per hit, a pool on death.</summary>
+            static void Bleed(NPC npc, NoitaNpc n)
+            {
+                if (!Physics.Patches.On)
+                    return;
+                if (_blood == null)
+                {
+                    _blood = new System.Collections.Generic.Dictionary<string, string>();
+                    foreach (var b in EnemyBlood.All)
+                        _blood[b.Id] = b.Blood;
+                }
+                if (!_blood.TryGetValue(n.Def.Id, out var material) || material == "none")
+                    return;
+                bool dead = npc.life <= 0;
+                int amount = dead ? 255 : 40;
+                if (material == "lava")
+                {
+                    if (!dead)
+                        return;
+                    amount = 128;
+                }
+                Physics.Fluids.Add((int)(npc.Center.X / 16), (int)(npc.Center.Y / 16), material, amount);
             }
 
             static int BloodDust(string blood)

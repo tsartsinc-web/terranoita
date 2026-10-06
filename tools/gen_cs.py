@@ -36,6 +36,8 @@ NAMES = {
     "liquids": ("LiquidDef", "Liquids"),
     "reactions": ("ReactionDef", "Reactions"),
     "status_effects": ("StatusEffectDef", "StatusEffects"),
+    "noita_solids": ("NoitaSolidDef", "NoitaSolids"),
+    "enemy_blood": ("EnemyBloodDef", "EnemyBlood"),
     "spells": ("SpellDef", "SpellTable"),
     "wands": ("WandDef", "WandTable"),
 }

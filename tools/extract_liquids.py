@@ -69,6 +69,23 @@ def color(a):
     return c if re.fullmatch(r"[0-9a-f]{8}", c) else "ff808080"
 
 
+TILE_BY_NAME = [  # first match wins
+    ("lavarock", "Obsidian"), ("obsidian", "Obsidian"), ("concrete", "GrayBrick"), ("glass", "Glass"),
+    ("ice", "IceBlock"), ("snow", "SnowBlock"), ("mud", "Mud"), ("soil", "Dirt"), ("earth", "Dirt"),
+    ("sand", "Sand"), ("salt", "Sand"), ("gold", "Gold"), ("wood", "WoodBlock"), ("fung", "MushroomBlock"),
+    ("meat", "FleshBlock"), ("coal", "Ash"), ("ash", "Ash"), ("brick", "GrayBrick"), ("rock", "Stone"),
+    ("stone", "Stone"), ("grass", "Grass"), ("plant", "LeafBlock"), ("steel", "IronBrick"), ("metal", "IronBrick"),
+    ("silver", "Silver"), ("copper", "Copper"), ("brass", "Copper"),
+]
+
+
+def terraria_tile(name):
+    for key, tile in TILE_BY_NAME:
+        if key in name:
+            return tile
+    return "none"
+
+
 def main():
     mats, root = load(sys.argv[1])
     rows = []
@@ -119,6 +136,24 @@ def main():
             "stage": "2", "_unverified": {}, "_sources": {"all": "materials.xml Reaction"},
         })
 
+    # solids the reactions and the block physics need: their tags (for [tag] inputs) and the Terraria tile a
+    # reaction that makes them leaves behind
+    mats_sheet = json.load(open(os.path.join(SHEETS, "materials.json"), encoding="utf-8"))
+    wanted = {"rock_static"} | {r["noita_material"] for r in mats_sheet["rows"]}
+    for r in reactions:
+        for c in (r["input1"], r["input2"], r["output1"], r["output2"]):
+            if c and not c.startswith("[") and c in mats and c not in names and c != "air":
+                wanted.add(c)
+    solids = []
+    for n in sorted(wanted):
+        if n not in mats:
+            continue
+        a = mats[n]
+        solids.append({"id": n, "cell_type": a.get("cell_type", "solid"),
+                       "tags": [t.strip("[]") for t in (a.get("tags") or "").split(",") if t.strip()],
+                       "terraria_tile": terraria_tile(n), "stage": "2", "_unverified": {},
+                       "_sources": {"all": "materials.xml; terraria_tile by name (tools/extract_liquids.py terraria_tile)"}})
+
     liquid_cols = {
         "id": {"type": "string", "desc": "Noita material name."},
         "name_key": {"type": "string", "desc": "Translation key in Noita's common.csv."},
@@ -151,7 +186,15 @@ def main():
         "explosion": {"type": "number", "desc": "Explosion radius (0 = none)."},
         "stage": {"type": "enum", "values": ["1a", "1b", "1c", "2", "3", "4"], "desc": "Stage that builds it."},
     }
+    solid_cols = {
+        "id": {"type": "string", "desc": "Noita material name."},
+        "cell_type": {"type": "string", "desc": "Noita cell_type."},
+        "tags": {"type": "string[]", "desc": "Noita tags."},
+        "terraria_tile": {"type": "string", "desc": "TileID a reaction leaves when it makes this ('none' = nothing)."},
+        "stage": {"type": "enum", "values": ["1a", "1b", "1c", "2", "3", "4"], "desc": "Stage that builds it."},
+    }
     for name, desc, cols, data in (
+            ("noita_solids", "Stage 2: Noita solids and powders the reactions and block physics refer to.", solid_cols, solids),
             ("liquids", "Stage 2: Noita liquids and gases (materials.xml), simulated on top of Terraria's tiles.", liquid_cols, rows),
             ("reactions", "Stage 2: Noita reactions involving liquids and gases (materials.xml).", reaction_cols, reactions)):
         with open(os.path.join(SHEETS, name + ".json"), "w", encoding="utf-8", newline="\n") as f:

@@ -1,3 +1,4 @@
+using System.Linq;
 using System;
 using Microsoft.Xna.Framework;
 using Terraria;
@@ -49,6 +50,54 @@ namespace Terranoita.Game.Physics
             }
             else if (frame == 300 + 60 * 14)
                 Log("statuses after 6 s: " + string.Join(", ", Status.Active) + "; hp " + p.statLife + "; move speed " + p.moveSpeed.ToString("0.00") + ", on fire " + p.onFire);
+            if (frame == 340)
+                Pour();
+            else if (frame == 341 || frame == 346 || frame == 360 || frame == 400)
+                Log("smoke at frame " + (frame - 340) + ": " + Fluids.Where("smoke", _x0, _gy));
+            else if (frame == 340 + 60 * 3 || frame == 340 + 60 * 12 || frame == 340 + 60 * 24)
+                Fluid((frame - 340) / 60 + " s");
+        }
+
+        // 6. acid on a dirt block, 7. oil in a stone basin set alight, 8. smoke, 9. slime poured onto oil (sinks)
+        static void Pour()
+        {
+            for (int x = _x0 + 48; x <= _x0 + 53; x++)
+                for (int y = _gy - 3; y <= _gy - 1; y++)
+                    Place(x, y, TileID.Dirt, false);
+            for (int s = 0; s < 4; s++)
+                Fluids.Add(_x0 + 50, _gy - 5 - s, "acid", 255);
+            for (int y = _gy - 3; y <= _gy - 1; y++)
+            {
+                Place(_x0 + 57, y, TileID.Stone, false);
+                Place(_x0 + 63, y, TileID.Stone, false);
+            }
+            for (int s = 0; s < 5; s++)
+                Fluids.Add(_x0 + 58 + s, _gy - 1, "oil", 255);
+            for (int y = _gy - 3; y <= _gy - 1; y++)
+            {
+                Place(_x0 + 66, y, TileID.Stone, false);
+                Place(_x0 + 70, y, TileID.Stone, false);
+            }
+            for (int s = 0; s < 3; s++)
+                Fluids.Add(_x0 + 67 + s, _gy - 1, "oil", 200);
+            for (int s = 0; s < 3; s++)
+                Fluids.Add(_x0 + 68, _gy - 6 - s, "slime", 255);
+            for (int s = 0; s < 3; s++)
+                Fluids.Add(_x0 + 75, _gy - 2 - s, "smoke", 255);
+            Log("poured: cells " + Fluids.Count + ", smoke " + Fluids.Total(_x0 + 70, _x0 + 80, _gy - 10, _gy, "smoke"));
+        }
+
+        static void Fluid(string when)
+        {
+            if (when.StartsWith("3"))
+                Fluids.Ignite(_x0 + 60, _gy - 1);
+            int dirt = Count(_x0 + 48, _x0 + 53, _gy - 3, _gy - 1, t => t.type == TileID.Dirt);
+            Log(when + ": dirt under acid " + dirt + "/18, acid " + Fluids.Total(_x0 + 40, _x0 + 56, _gy - 20, _gy, "acid") +
+                ", acid gas " + Fluids.Total(_x0 + 30, _x0 + 66, _gy - 25, _gy, "acid_gas") +
+                "; oil in the burning basin " + Fluids.Total(_x0 + 58, _x0 + 62, _gy - 4, _gy - 1, "oil") + " (burning " + Fluids.BurningAt(_x0 + 60, _gy - 1) + ")" +
+                "; second basin: bottom row slime " + Fluids.Total(_x0 + 67, _x0 + 69, _gy - 1, _gy - 1, "slime") + ", oil " + Fluids.Total(_x0 + 67, _x0 + 69, _gy - 1, _gy - 1, "oil") +
+                "; smoke anywhere near " + Fluids.Total(_x0 - 40, _x0 + 120, _gy - 150, _gy + 5, "smoke") + ", low " + Fluids.Total(_x0 + 72, _x0 + 78, _gy - 5, _gy - 1, "smoke") + ", high " + Fluids.Total(_x0 + 65, _x0 + 85, _gy - 25, _gy - 6, "smoke") +
+                "; cells " + Fluids.Count + "; reactions: " + string.Join(", ", Fluids.Fired.OrderByDescending(kv => kv.Value).Take(6).Select(kv => kv.Key + " x" + kv.Value)));
         }
 
         static void Setup(Player p)
@@ -61,12 +110,13 @@ namespace Terranoita.Game.Physics
                 gy++;
             _gy = gy;
             // a flat floor of stone and clear air above, so every scene starts the same
-            for (int x = _x0 - 2; x <= _x0 + 44; x++)
+            for (int x = _x0 - 2; x <= _x0 + 80; x++)
             {
                 for (int y = gy - 25; y < gy; y++)
                 {
                     var t = Main.tile[x, y];
                     t.ClearEverything();
+                    t.wall = WallID.Stone;   // author: a background behind the scenes, as in caves
                 }
                 for (int y = gy; y <= gy + 2; y++)
                 {
@@ -106,7 +156,7 @@ namespace Terranoita.Game.Physics
             // with a wooden wall behind it and beyond it
             for (int x = _x0 + 21; x <= _x0 + 27; x++)
                 for (int y = _gy - 7; y <= _gy - 1; y++)
-                    WorldGen.PlaceWall(x, y, WallID.Wood, true);
+                    Main.tile[x, y].wall = WallID.Wood;
             Place(_x0 + 28, _gy - 1, TileID.IceBlock, false);
             Place(_x0 + 28, _gy - 2, TileID.SnowBlock, false);
             // 5. dirt to blow up

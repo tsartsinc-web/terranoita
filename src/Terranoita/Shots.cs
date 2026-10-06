@@ -115,6 +115,9 @@ namespace Terranoita.Game
                 if (s.Def.Effect == "fire" && Physics.Patches.On)
                     Physics.Fire.IgniteArea(s.Pos, 12);
             }
+            // shots of a Noita liquid or gas leave some of it where they land (acid, slime, poison, smoke...)
+            if (Physics.Patches.On && !string.IsNullOrEmpty(s.Def.Particle))
+                Physics.Fluids.Add((int)(s.Pos.X / 16), (int)(s.Pos.Y / 16), s.Def.Particle, 90);
             if (dmg <= 0 || !me.active || me.dead)
                 return;
             int final = Math.Max(1, (int)Math.Round(dmg * mult));

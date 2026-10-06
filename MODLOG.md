@@ -406,3 +406,20 @@ Entry.Stage default 1b, version 0.2.0. Проверить на ПК also: worm l
   language, seconds left), effects by our code (flags in Player.UpdateBuffs postfix, damage/heal over time in
   UpdateLifeRegen prefix). Enemy fire/poison shots and burning tiles now give Noita's ON_FIRE / POISONED. Wet, oiled,
   slimy... put out and keep off fire. Test: 10 effects shown with icons, hp and speed change as expected.
+- Noita liquids and gases simulated (Physics/Fluids.cs): own sparse layer over Terraria tiles (0-255 per tile);
+  liquids fall and level out, heavier sink under lighter, gases rise (~7 tiles/s) and hang as clouds, fading by
+  lifetime as a share of what is there; burnable ones (oil, alcohol) catch fire from burning tiles/liquids and lava
+  and burn down; reactions.json run between cells, Terraria water/lava, blocks (as their Noita material:
+  noita_solids.json, materials.noita_material, other tiles = rock_static) and air, a portion (48) at a time; eating
+  a block uses 24 of an unchanged liquid (acid). Touch: Noita status effects (player), Terraria buffs (NPCs);
+  viscous liquids slow the player. Author: gases reaching space and liquids reaching the underworld vanish.
+- Sources: Noita creatures bleed their material (enemy_blood.json from facts DamageModelComponent; default
+  blood_fading): a little per hit, a pool on death (lava blood only on death, 128). Shots of a liquid/gas material
+  leave 90 where they land. Ctrl+Shift+K picks a liquid, Ctrl+Shift+L pours it at the mouse.
+- Author: obsidian, metals (ores, bars-bricks, plating), lihzahrd brick are not eaten by liquids (materials row
+  dense = Noita rock_hard, no [corrodible]); glass neither (Noita glass). Test scenes now have a background wall.
+- Physics test: acid ate 9 dirt and the stone floor under it and ran down (25-33 blocks per 1020 acid), oil basin
+  burned out in < 12 s, slime sank under oil, smoke hung ~12 s. Fixed: gases jumped a whole column per tick (now a
+  cell moves once per tick), thin gas vanished (fade by share).
+- Author's idea (asked, not done): acid slowly turning what it touches into a block it cannot eat, which poisons
+  on touch. Not in Noita's data (lava + toxic sludge/poison make toxic/poison rock, no touch effect, corrodible).

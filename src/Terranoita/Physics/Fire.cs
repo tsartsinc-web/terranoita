@@ -28,6 +28,7 @@ namespace Terranoita.Game.Physics
         static int _frame;
 
         public static int Count => Burning.Count;
+        public static bool BurningAt(int x, int y) => Burning.ContainsKey(Key(x, y, false)) || Burning.ContainsKey(Key(x, y, true));
         public static void Clear() => Burning.Clear();
 
         static int Key(int x, int y, bool wall) => (x + y * Main.maxTilesX) * 2 + (wall ? 1 : 0);

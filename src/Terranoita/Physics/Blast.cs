@@ -29,7 +29,7 @@ namespace Terranoita.Game.Physics
         }
 
         /// <summary>The checks Terraria's explosives make (Projectile.CanExplodeTile), kept simple.</summary>
-        static bool Breakable(int x, int y)
+        public static bool Breakable(int x, int y)
         {
             var t = Main.tile[x, y];
             if (t == null || !t.active() || Main.tileDungeon[t.type] || TileID.Sets.BasicChest[t.type] || Main.tileContainer[t.type])
