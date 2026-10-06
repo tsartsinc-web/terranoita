@@ -195,11 +195,13 @@ def new_ranged_attack(enemy, r):
     pf = r.get("projectile") or {}
     a = {"id": "%s.%s" % (enemy["id"], basename(r["entity_file"])), "enemy": enemy["id"], "kind": "projectile",
          "projectile": "none", "summons": [], "count": [1, 1],
-         "damage": {"projectile": round((pf.get("damage") or 0) * 25.0, 2)}, "per_frames": "hit",
+         "damage": {"projectile": round(pf["damage"] * 25.0, 2)} if pf.get("damage") is not None else {}, "per_frames": "hit",
          "cooldown_frames": None, "range_tiles": None, "lunge_speed": 0, "sound": None,
          "wiki_text": "From data.wak: %s ranged attack %s (not on the wiki)" % (r.get("source"), r["entity_file"]),
          "stage": enemy["stage"], "_unverified": {}}
-    if (pf.get("explosion_radius_px") or 0) > 0:
+    if pf.get("damage") is None:
+        a["_unverified"]["damage"] = "ProjectileComponent sets no damage: use its default from component_documentation.txt"
+    elif (pf.get("explosion_radius_px") or 0) > 0:
         a["_unverified"]["damage"] = "projectile part from data.wak; its explosion damage is in config_explosion damage"
     return a
 

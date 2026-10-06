@@ -114,9 +114,16 @@ namespace Terranoita.Cli
             foreach (var kv in f.DamageMultipliers)
                 mult[kv.Key] = kv.Value;
             string spriteImage = null;
+            var animations = new JsonArray();
             if (f.Sprite != null)
             {
-                try { spriteImage = NoitaSprite.Load(p => Text(files, p), f.Sprite).Image; }
+                try
+                {
+                    var sprite = NoitaSprite.Load(p => Text(files, p), f.Sprite);
+                    spriteImage = sprite.Image;
+                    foreach (var name in sprite.Animations.Keys.OrderBy(k => k, StringComparer.Ordinal))
+                        animations.Add(name);
+                }
                 catch (Exception) { }
             }
             return new JsonObject
@@ -127,6 +134,7 @@ namespace Terranoita.Cli
                 ["sprite"] = f.Sprite,
                 ["sprite_image"] = spriteImage,
                 ["sprite_image_exists"] = spriteImage != null && files.TryRead(spriteImage, out _),
+                ["sprite_animations"] = animations,
                 ["hitbox_noita_px"] = f.HitboxNoitaPx == null ? null : new JsonArray(f.HitboxNoitaPx[0], f.HitboxNoitaPx[1]),
                 ["melee_frames_between"] = f.MeleeFramesBetween,
                 ["melee_max_distance_px"] = f.MeleeRange,
