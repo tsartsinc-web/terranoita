@@ -178,6 +178,51 @@
    "purpose": "Mark the hit in progress as Noita 'projectile', 'explosion' or 'melee' (melee projectiles) for npc_strike; cleared by a postfix.",
    "stage": "1a",
    "_unverified": {}
+  },
+  {
+   "id": "tile_kill",
+   "target": "Terraria.WorldGen:KillTile(int, int, bool, bool, bool)",
+   "patch": "postfix",
+   "system": "block_physics",
+   "purpose": "A tile was removed: its neighbours are disturbed (loose ones may fall, the player's buildings check support).",
+   "stage": "2",
+   "_unverified": {}
+  },
+  {
+   "id": "tile_place",
+   "target": "Terraria.WorldGen:PlaceTile(int, int, int, bool, bool, int, int)",
+   "patch": "postfix",
+   "system": "block_physics",
+   "purpose": "plr >= 0: the player placed it, so it needs support (author: buildings without support collapse).",
+   "stage": "2",
+   "_unverified": {}
+  },
+  {
+   "id": "world_load",
+   "target": "Terraria.IO.WorldFile:LoadWorld()",
+   "patch": "postfix",
+   "system": "block_physics",
+   "purpose": "Read which tiles the player placed (<world>.terranoita).",
+   "stage": "2",
+   "_unverified": {}
+  },
+  {
+   "id": "world_save",
+   "target": "Terraria.IO.WorldFile:SaveWorld(bool, bool, bool)",
+   "patch": "postfix",
+   "system": "block_physics",
+   "purpose": "Write which tiles the player placed.",
+   "stage": "2",
+   "_unverified": {}
+  },
+  {
+   "id": "projectile_update",
+   "target": "Terraria.Projectile:Update(int)",
+   "patch": "postfix",
+   "system": "block_physics",
+   "purpose": "Fire projectiles (Molotov, flames, hellfire...) set burnable tiles on fire.",
+   "stage": "2",
+   "_unverified": {}
   }
  ]
 }

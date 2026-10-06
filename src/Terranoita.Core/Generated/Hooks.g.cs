@@ -41,6 +41,11 @@ namespace Terranoita.Generated
             new HookDef { Id = "shots_draw", Target = "Terraria.Main:DrawProjectiles()", Patch = "postfix", System = "enemy_projectiles", Purpose = "Draw our enemy shots in the projectile layer (own SpriteBatch Begin/End with Main's transform).", Stage = "1a" },
             new HookDef { Id = "hit_by_item", Target = "Terraria.Player:ProcessHitAgainstNPC(Item, Rectangle, int, float, int)", Patch = "prefix", System = "damage_types", Purpose = "Mark the hit in progress as Noita 'melee' (a swung weapon) for npc_strike; cleared by a postfix.", Stage = "1a" },
             new HookDef { Id = "hit_by_projectile", Target = "Terraria.Projectile:Damage_PVE_Inner(int, NPC, Rectangle, float, int[], ref bool)", Patch = "prefix", System = "damage_types", Purpose = "Mark the hit in progress as Noita 'projectile', 'explosion' or 'melee' (melee projectiles) for npc_strike; cleared by a postfix.", Stage = "1a" },
+            new HookDef { Id = "tile_kill", Target = "Terraria.WorldGen:KillTile(int, int, bool, bool, bool)", Patch = "postfix", System = "block_physics", Purpose = "A tile was removed: its neighbours are disturbed (loose ones may fall, the player's buildings check support).", Stage = "2" },
+            new HookDef { Id = "tile_place", Target = "Terraria.WorldGen:PlaceTile(int, int, int, bool, bool, int, int)", Patch = "postfix", System = "block_physics", Purpose = "plr >= 0: the player placed it, so it needs support (author: buildings without support collapse).", Stage = "2" },
+            new HookDef { Id = "world_load", Target = "Terraria.IO.WorldFile:LoadWorld()", Patch = "postfix", System = "block_physics", Purpose = "Read which tiles the player placed (<world>.terranoita).", Stage = "2" },
+            new HookDef { Id = "world_save", Target = "Terraria.IO.WorldFile:SaveWorld(bool, bool, bool)", Patch = "postfix", System = "block_physics", Purpose = "Write which tiles the player placed.", Stage = "2" },
+            new HookDef { Id = "projectile_update", Target = "Terraria.Projectile:Update(int)", Patch = "postfix", System = "block_physics", Purpose = "Fire projectiles (Molotov, flames, hellfire...) set burnable tiles on fire.", Stage = "2" },
         };
     }
 }

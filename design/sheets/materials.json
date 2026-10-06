@@ -1,0 +1,386 @@
+{
+ "sheet": "materials",
+ "description": "Stage 2 block physics: how Terraria tiles behave as Noita materials.",
+ "key": "id",
+ "columns": {
+  "id": {
+   "type": "string",
+   "desc": "Material group id."
+  },
+  "terraria_tiles": {
+   "type": "string[]",
+   "desc": "Terraria TileID names in this group."
+  },
+  "noita_material": {
+   "type": "string",
+   "desc": "The Noita material (materials.xml) it behaves like."
+  },
+  "falls": {
+   "type": "enum",
+   "values": [
+    "none",
+    "powder",
+    "weightless"
+   ],
+   "desc": "powder: once disturbed, falls when nothing is under it (Noita liquid_sand). weightless: never falls, even when the player placed it, and holds whatever is attached to it. none: stays (Noita static), unless the player placed it (then it needs support, see systems block_physics)."
+  },
+  "falls_as": {
+   "type": "string",
+   "desc": "TileID it lands as ('same' = the same tile; grass lands as its soil)."
+  },
+  "burns": {
+   "type": "bool",
+   "desc": "Catches fire (Noita burnable=1)."
+  },
+  "burn_seconds": {
+   "type": "number",
+   "desc": "How long one tile burns: Noita fire_hp / 100 (0 = does not burn)."
+  },
+  "burns_to": {
+   "type": "string",
+   "desc": "TileID left after burning ('none' = nothing)."
+  },
+  "melts_to": {
+   "type": "enum",
+   "values": [
+    "none",
+    "water"
+   ],
+   "desc": "Next to fire or lava it turns into this liquid."
+  },
+  "stage": {
+   "type": "enum",
+   "values": [
+    "1a",
+    "1b",
+    "1c",
+    "2",
+    "3",
+    "4"
+   ],
+   "desc": "Stage that builds it."
+  }
+ },
+ "rows": [
+  {
+   "id": "soil",
+   "terraria_tiles": [
+    "Dirt",
+    "ClayBlock"
+   ],
+   "noita_material": "soil",
+   "falls": "powder",
+   "falls_as": "same",
+   "burns": false,
+   "burn_seconds": 0,
+   "burns_to": "none",
+   "melts_to": "none",
+   "stage": "2",
+   "_unverified": {},
+   "_sources": {
+    "all": "materials.xml: cell_type liquid, liquid_sand 1, no liquid_static (falls and piles). Which tiles fall: author (loose ones only)."
+   }
+  },
+  {
+   "id": "mud",
+   "terraria_tiles": [
+    "Mud"
+   ],
+   "noita_material": "mud",
+   "falls": "powder",
+   "falls_as": "same",
+   "burns": false,
+   "burn_seconds": 0,
+   "burns_to": "none",
+   "melts_to": "none",
+   "stage": "2",
+   "_unverified": {},
+   "_sources": {
+    "all": "materials.xml: cell_type liquid, liquid_sand 1, no liquid_static (falls and piles). Which tiles fall: author (loose ones only)."
+   }
+  },
+  {
+   "id": "ash",
+   "terraria_tiles": [
+    "Ash"
+   ],
+   "noita_material": "sand",
+   "falls": "powder",
+   "falls_as": "same",
+   "burns": false,
+   "burn_seconds": 0,
+   "burns_to": "none",
+   "melts_to": "none",
+   "stage": "2",
+   "_unverified": {},
+   "_sources": {
+    "all": "materials.xml: cell_type liquid, liquid_sand 1, no liquid_static (falls and piles) (Noita has no ash block: sand). Which tiles fall: author (loose ones only)."
+   }
+  },
+  {
+   "id": "silt",
+   "terraria_tiles": [
+    "Silt",
+    "Slush"
+   ],
+   "noita_material": "sand",
+   "falls": "powder",
+   "falls_as": "same",
+   "burns": false,
+   "burn_seconds": 0,
+   "burns_to": "none",
+   "melts_to": "none",
+   "stage": "2",
+   "_unverified": {},
+   "_sources": {
+    "all": "materials.xml: cell_type liquid, liquid_sand 1, no liquid_static (falls and piles). Which tiles fall: author (loose ones only)."
+   }
+  },
+  {
+   "id": "snow",
+   "terraria_tiles": [
+    "SnowBlock"
+   ],
+   "noita_material": "snow",
+   "falls": "powder",
+   "falls_as": "same",
+   "burns": false,
+   "burn_seconds": 0,
+   "burns_to": "none",
+   "melts_to": "water",
+   "stage": "2",
+   "_unverified": {},
+   "_sources": {
+    "all": "materials.xml: cell_type liquid, liquid_sand 1, no liquid_static (falls and piles); reactions [fire]+snow -> water (80), steam (20). Which tiles fall: author (loose ones only)."
+   }
+  },
+  {
+   "id": "grass",
+   "terraria_tiles": [
+    "Grass",
+    "CorruptGrass",
+    "CrimsonGrass",
+    "HallowedGrass",
+    "GolfGrass",
+    "GolfGrassHallowed"
+   ],
+   "noita_material": "grass",
+   "falls": "powder",
+   "falls_as": "Dirt",
+   "burns": true,
+   "burn_seconds": 1.0,
+   "burns_to": "Dirt",
+   "melts_to": "none",
+   "stage": "2",
+   "_unverified": {},
+   "_sources": {
+    "all": "grass: burnable 1, fire_hp 100; grows on soil. Which tiles fall: author (loose ones only)."
+   }
+  },
+  {
+   "id": "jungle_grass",
+   "terraria_tiles": [
+    "JungleGrass",
+    "CorruptJungleGrass",
+    "CrimsonJungleGrass"
+   ],
+   "noita_material": "grass",
+   "falls": "powder",
+   "falls_as": "Mud",
+   "burns": true,
+   "burn_seconds": 1.0,
+   "burns_to": "Mud",
+   "melts_to": "none",
+   "stage": "2",
+   "_unverified": {},
+   "_sources": {
+    "all": "grass: burnable 1, fire_hp 100; grows on mud. Which tiles fall: author (loose ones only)."
+   }
+  },
+  {
+   "id": "mushroom_grass",
+   "terraria_tiles": [
+    "MushroomGrass"
+   ],
+   "noita_material": "fungi",
+   "falls": "powder",
+   "falls_as": "Mud",
+   "burns": true,
+   "burn_seconds": 0.6,
+   "burns_to": "Mud",
+   "melts_to": "none",
+   "stage": "2",
+   "_unverified": {},
+   "_sources": {
+    "all": "fungi: burnable 1, fire_hp 60. Which tiles fall: author (loose ones only)."
+   }
+  },
+  {
+   "id": "ash_grass",
+   "terraria_tiles": [
+    "AshGrass"
+   ],
+   "noita_material": "grass",
+   "falls": "powder",
+   "falls_as": "Ash",
+   "burns": true,
+   "burn_seconds": 1.0,
+   "burns_to": "Ash",
+   "melts_to": "none",
+   "stage": "2",
+   "_unverified": {},
+   "_sources": {
+    "all": "grass: burnable 1, fire_hp 100. Which tiles fall: author (loose ones only)."
+   }
+  },
+  {
+   "id": "wood",
+   "terraria_tiles": [
+    "WoodBlock",
+    "BorealWood",
+    "PalmWood",
+    "RichMahogany",
+    "Ebonwood",
+    "Shadewood",
+    "Pearlwood",
+    "DynastyWood",
+    "SpookyWood",
+    "AshWood",
+    "PineWoodBlock",
+    "LivingWood",
+    "LivingMahogany",
+    "BambooBlock",
+    "LargeBambooBlock",
+    "Platforms",
+    "WoodenBeam",
+    "BorealBeam",
+    "RichMahoganyBeam",
+    "HayBlock",
+    "Rope",
+    "Cobweb"
+   ],
+   "noita_material": "wood",
+   "falls": "none",
+   "falls_as": "same",
+   "burns": true,
+   "burn_seconds": 6.0,
+   "burns_to": "none",
+   "melts_to": "none",
+   "stage": "2",
+   "_unverified": {},
+   "_sources": {
+    "all": "wood / wood_static / wood_player: burnable 1, fire_hp 600. Which tiles fall: author (loose ones only)."
+   }
+  },
+  {
+   "id": "trees",
+   "terraria_tiles": [
+    "Trees",
+    "PalmTree",
+    "PineTree",
+    "TreeAsh",
+    "Bamboo"
+   ],
+   "noita_material": "wood",
+   "falls": "none",
+   "falls_as": "same",
+   "burns": true,
+   "burn_seconds": 6.0,
+   "burns_to": "none",
+   "melts_to": "none",
+   "stage": "2",
+   "_unverified": {},
+   "_sources": {
+    "all": "wood: burnable 1, fire_hp 600. Which tiles fall: author (loose ones only)."
+   }
+  },
+  {
+   "id": "mushroom_trees",
+   "terraria_tiles": [
+    "MushroomTrees",
+    "MushroomVines",
+    "MushroomBlock"
+   ],
+   "noita_material": "fungi",
+   "falls": "none",
+   "falls_as": "same",
+   "burns": true,
+   "burn_seconds": 0.6,
+   "burns_to": "none",
+   "melts_to": "none",
+   "stage": "2",
+   "_unverified": {},
+   "_sources": {
+    "all": "fungi: burnable 1, fire_hp 60. Which tiles fall: author (loose ones only)."
+   }
+  },
+  {
+   "id": "plants",
+   "terraria_tiles": [
+    "LeafBlock",
+    "LivingMahoganyLeaves",
+    "Vines",
+    "JungleVines",
+    "CrimsonVines",
+    "CorruptVines",
+    "HallowedVines",
+    "AshVines",
+    "VineFlowers"
+   ],
+   "noita_material": "plant_material",
+   "falls": "none",
+   "falls_as": "same",
+   "burns": true,
+   "burn_seconds": 1.0,
+   "burns_to": "none",
+   "melts_to": "none",
+   "stage": "2",
+   "_unverified": {},
+   "_sources": {
+    "all": "plant_material: burnable 1, no fire_hp (grass's 100 used). Which tiles fall: author (loose ones only)."
+   }
+  },
+  {
+   "id": "ice",
+   "terraria_tiles": [
+    "IceBlock",
+    "CorruptIce",
+    "HallowedIce",
+    "FleshIce",
+    "BreakableIce"
+   ],
+   "noita_material": "ice",
+   "falls": "none",
+   "falls_as": "same",
+   "burns": false,
+   "burn_seconds": 0,
+   "burns_to": "none",
+   "melts_to": "water",
+   "stage": "2",
+   "_unverified": {},
+   "_sources": {
+    "all": "reaction [fire]+ice -> water (40); Terraria ice stays put (author: only loose blocks fall). Which tiles fall: author (loose ones only)."
+   }
+  },
+  {
+   "id": "clouds",
+   "terraria_tiles": [
+    "Cloud",
+    "RainCloud",
+    "SnowCloud"
+   ],
+   "noita_material": "-",
+   "falls": "weightless",
+   "falls_as": "same",
+   "burns": false,
+   "burn_seconds": 0,
+   "burns_to": "none",
+   "melts_to": "none",
+   "stage": "2",
+   "_unverified": {},
+   "_sources": {
+    "all": "author: clouds are weightless. Which tiles fall: author (loose ones only)."
+   }
+  }
+ ]
+}

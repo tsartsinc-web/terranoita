@@ -165,6 +165,17 @@ namespace Terranoita.Game
                 if (other.active && !other.friendly && !other.townNPC && Carriers.Get(other) == null)
                     other.active = false;
             }
+            if (Physics.PhysicsTest.Enabled)
+            {
+                Physics.PhysicsTest.Frame(p, _worldFrames);
+                if (_worldFrames == Physics.PhysicsTest.Length)
+                {
+                    Entry.Log("AUTOTEST: done (physics)");
+                    if (ExitWhenDone)
+                        Main.instance.Exit();
+                }
+                return;
+            }
             var all = OnlyStage == null ? Built : Built.Where(e => e.Stage == OnlyStage).ToArray();
             if (Showcase)
             {

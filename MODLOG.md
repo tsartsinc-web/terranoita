@@ -358,3 +358,20 @@ Entry.Stage default 1b, version 0.2.0. Проверить на ПК also: worm l
   (Goblin Scout) everywhere before places/filters; then umbrella slime/nimbus (rain), nymph, Doctor Bones: filtered.
 - Worms (Move burrow, not eels): half of Noita's speed (author), Terraria's worm dig sound (sound 15 style 1, vanilla
   delay 10-20 by distance) while in the ground. To hear/feel: author in game.
+
+## Stage 2 block physics, first part (2026-10-06, local session)
+- Author: physics now (bosses later; laser guns after spells; cloud catalogues spells and wands). Decisions: loose
+  blocks fall (dirt, clay, mud, ash, snow, silt, slush, grass as its soil); wood burns incl. the player's houses; the
+  player's buildings without support collapse; clouds are weightless. After physics: all Noita liquids and gases with
+  their effects.
+- design/sheets/materials.json (tools/seed_materials.py; facts from the author's Noita data/materials.xml: powders =
+  liquid_sand without liquid_static; burn_seconds = fire_hp / 100: wood 6 s, grass 1 s, fungi 0.6 s; [fire]+ice/snow ->
+  water). hooks stage 2: tile_kill, tile_place, world_load, world_save, projectile_update. systems block_physics rule.
+- src/Terranoita/Physics: Mats (tile -> material), Placed (player-placed tiles in <world>.wld.terranoita), Falling
+  (disturbance queue; powders fall and slide down free diagonals; unsupported placed groups fall as one body; crush
+  damage), Fire (spread, melt, lava ignites, water puts out, OnFire on player/NPCs), Blast (Noita explosions break
+  tiles like Terraria bombs could, fiery ones ignite), PhysicsTest (TERRANOITA_AUTOTEST_PHYSICS=1). On by default;
+  TERRANOITA_PHYSICS=0 turns it off. Torches/campfires do not ignite.
+- Physics autotest: loose dirt 14/14 landed and piled (5 wide), hut on a pillar fell as one body and stands, wooden
+  box burned (5/16 left), ice and snow melted to water, blast 18/36. Fixed: grains landing in the same cell vanished.
+- Next: author plays it; then walls burning, Noita liquids and gases (Terraria has only 4 liquid types: needs a plan).

@@ -32,6 +32,7 @@ NAMES = {
     "drops": ("DropDef", "Drops"),
     "systems": ("SystemDef", "Systems"),
     "hooks": ("HookDef", "Hooks"),
+    "materials": ("MaterialDef", "Materials"),
 }
 
 # object columns: C# type and how each value is written

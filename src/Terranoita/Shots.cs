@@ -107,9 +107,14 @@ namespace Terranoita.Game
                 }
                 if (!NoitaSound.Play(s.Def.ExplosionSound, s.Pos) && (s.Def.Effect == "explosive" || radius >= 24))
                     SoundEngine.PlaySound(SoundID.Item14, s.Pos);
+                Physics.Blast.Explode(s.Pos, radius, s.Def.Effect == "fire" || s.Def.Effect == "explosive");
             }
             else
+            {
                 NoitaSound.PlayFirst(s.Def.Audio, s.Pos, "destroy");
+                if (s.Def.Effect == "fire" && Physics.Patches.On)
+                    Physics.Fire.IgniteArea(s.Pos, 12);
+            }
             if (dmg <= 0 || !me.active || me.dead)
                 return;
             int final = Math.Max(1, (int)Math.Round(dmg * mult));

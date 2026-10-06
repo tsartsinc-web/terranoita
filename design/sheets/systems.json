@@ -142,10 +142,18 @@
   },
   {
    "id": "block_physics",
-   "description": "Stage 2: disturbed blocks fall, burn, melt and explode; untouched caves, islands and clouds stay put.",
+   "description": "Stage 2 (sheet materials). Only disturbed tiles act: untouched caves, islands and clouds stay put. Disturbed = a neighbour was removed (dug, exploded, burned, fell away). Loose tiles (falls=powder) with nothing under them fall as Noita powders and pile up (slide down a free diagonal). Tiles the player placed (tracked per world in <world>.terranoita) need support: a connected group of them that touches no natural solid tile and no weightless tile (clouds) falls as one body and lands. Fire: burnable tiles next to lava, Noita fire shots, fire projectiles or burning tiles catch fire, burn burn_seconds, set the player and enemies on fire, spread to burnable neighbours, then vanish (or become burns_to); water next to them puts them out. Torches and campfires do not set things on fire. Ice and snow next to fire or lava melt to water.",
    "stage": "2",
-   "hooks": [],
-   "code": "-",
+   "hooks": [
+    "tile_kill",
+    "tile_place",
+    "world_load",
+    "world_save",
+    "projectile_update",
+    "main_update",
+    "shots_draw"
+   ],
+   "code": "src/Terranoita/Physics/",
    "_unverified": {}
   },
   {
