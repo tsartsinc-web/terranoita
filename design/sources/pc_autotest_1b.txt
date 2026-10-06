@@ -1,0 +1,1571 @@
+15:06:36.485 Terranoita launcher 0.1.0.0, folder D:\steam\steamapps\common\Terraria\
+15:06:36.489 Noita folder: D:\steam\steamapps\common\Noita
+15:06:36.496 Loaded Terraria, Version=1.4.5.8, Culture=neutral, PublicKeyToken=null
+15:06:36.503 Terraria assemblies loaded: 1
+15:06:36.547 Noita data.wak: 14745 files
+15:06:36.583 Terraria save folder: C:\Users\user\AppData\Local\Terranoita\testsave
+15:06:36.602 Resolved ReLogic from Terraria.exe resource Terraria.Libraries.ReLogic.ReLogic.dll
+15:06:36.875 Resolved Newtonsoft.Json from Terraria.exe resource Terraria.Libraries.JSON.NET.Newtonsoft.Json.dll
+15:06:36.880 Starting Terraria
+15:06:37.385 Resolved Steamworks.NET from Terraria.exe resource Terraria.Libraries.Steamworks.NET.Windows.Steamworks.NET.dll
+15:06:39.033 Resolved Ionic.Zip.CF from Terraria.exe resource Terraria.Libraries.DotNetZip.Ionic.Zip.CF.dll
+15:06:39.341 Resolved SteelSeriesEngineWrapper from Terraria.exe resource Terraria.Libraries.SteelSeries.SteelSeriesEngineWrapper.dll
+15:06:39.580 Resolved MP3Sharp from Terraria.exe resource Terraria.Libraries.MP3Sharp.MP3Sharp.dll
+15:06:46.452 Resolved RailSDK.Net from Terraria.exe resource Terraria.Libraries.RailSDK.Windows.RailSDK.Net.dll
+15:06:46.600 Resolved CsvHelper from Terraria.exe resource Terraria.Libraries.CsvHelper.CsvHelper.dll
+15:06:48.555 Resolved NVorbis from Terraria.exe resource Terraria.Libraries.NVorbis.NVorbis.dll
+15:06:53.848 sprite none failed: Not found: none
+15:06:53.922 Noita sprites loaded: 242, failed: 9
+15:06:54.178 Noita sounds ready
+15:06:54.179 hook ok      main_update -> Terraria.Main:DoUpdate(ref GameTime)
+15:06:54.179 hook ok      npc_spawn -> Terraria.NPC:SpawnNPC()
+15:06:54.180 hook ok      npc_ai -> Terraria.NPC:AI()
+15:06:54.180 hook ok      npc_findframe -> Terraria.NPC:FindFrame()
+15:06:54.180 hook ok      npc_draw -> Terraria.Main:DrawNPC(NPC, bool)
+15:06:54.181 hook ok      npc_name -> Terraria.NPC:get_TypeName()
+15:06:54.181 hook ok      npc_hiteffect -> Terraria.NPC:HitEffect(int, double)
+15:06:54.182 hook ok      npc_loot -> Terraria.NPC:NPCLoot()
+15:06:54.183 hook ok      npc_strike -> Terraria.NPC:StrikeNPC(int, float, int, bool, bool, int)
+15:06:54.183 hook ok      shots_update -> Terraria.Main:UpdateWorld_Projectiles()
+15:06:54.183 hook ok      shots_draw -> Terraria.Main:DrawProjectiles()
+15:06:54.184 hook ok      hit_by_item -> Terraria.Player:ProcessHitAgainstNPC(Item, Rectangle, int, float, int)
+15:06:54.184 hook ok      hit_by_projectile -> Terraria.Projectile:Damage_PVE_Inner(int, NPC, Rectangle, float, int[], ref bool)
+15:06:54.188 Terranoita patches applied: 13 methods
+15:06:56.248 AUTOTEST: entering путь свободы as Terranoita Test
+15:06:58.508 AUTOTEST: player hp 100; 
+15:06:59.507 AUTOTEST: player hp 100; 
+15:07:00.507 AUTOTEST: player hp 100; 
+15:07:01.507 AUTOTEST: player hp 100; 
+15:07:02.507 AUTOTEST: spawning weakspirit
+15:07:02.512 spawned weakspirit (Каамо-Ааве) #2 life 900 at tile 2107,251
+15:07:02.512 AUTOTEST: player hp 100; weakspirit@10,0 stand hp900
+15:07:03.508 AUTOTEST: player hp 100; weakspirit@5,0 fly hp900
+15:07:04.508 AUTOTEST: player hp 100; weakspirit@0,0 fly hp900
+15:07:05.508 AUTOTEST: player hp 100; weakspirit@0,0 fly hp900
+15:07:06.508 AUTOTEST: player hp 100; weakspirit@0,0 fly hp900
+15:07:07.508 AUTOTEST: player hp 100; weakspirit@0,0 fly hp900
+15:07:08.509 AUTOTEST: spawning slimespirit
+15:07:08.510 spawned slimespirit (Нева-Ааве) #3 life 300 at tile 2087,253
+15:07:08.511 AUTOTEST: weakspirit #2 gone after 360 brain frames: active=False type=146 life=900/900 timeLeft=749 pos=2097,250
+15:07:08.511 AUTOTEST: player hp 100; slimespirit@-10,1 stand hp300
+15:07:09.508 AUTOTEST: player hp 100; slimespirit@-5,0 fly hp300
+15:07:10.508 AUTOTEST: player hp 100; slimespirit@0,0 fly hp300
+15:07:11.508 AUTOTEST: player hp 100; slimespirit@4,0 fly hp300
+15:07:12.508 AUTOTEST: player hp 100; slimespirit@1,0 fly hp300
+15:07:13.509 AUTOTEST: player hp 100; slimespirit@0,0 fly hp300
+15:07:14.509 AUTOTEST: spawning confusespirit
+15:07:14.509 spawned confusespirit (Уту-Ааве) #2 life 300 at tile 2079,251
+15:07:14.510 AUTOTEST: slimespirit #3 gone after 360 brain frames: active=False type=146 life=300/300 timeLeft=749 pos=2088,251
+15:07:14.510 AUTOTEST: player hp 100; confusespirit@-10,-1 stand hp300
+15:07:15.508 AUTOTEST: player hp 100; confusespirit@-5,0 fly hp300
+15:07:16.508 AUTOTEST: player hp 100; confusespirit@0,0 fly hp300
+15:07:17.525 AUTOTEST: player hp 100; confusespirit@0,0 fly hp300
+15:07:18.542 AUTOTEST: player hp 100; confusespirit@0,0 fly hp300
+15:07:19.542 AUTOTEST: player hp 100; confusespirit@0,0 fly hp300
+15:07:20.542 AUTOTEST: spawning berserkspirit
+15:07:20.542 spawned berserkspirit (Виха-Ааве) #3 life 900 at tile 2079,251
+15:07:20.543 AUTOTEST: confusespirit #2 gone after 360 brain frames: active=False type=146 life=300/300 timeLeft=749 pos=2088,251
+15:07:20.544 AUTOTEST: player hp 100; berserkspirit@-10,-1 stand hp900
+15:07:21.542 AUTOTEST: player hp 100; berserkspirit@-5,0 fly hp900
+15:07:22.608 AUTOTEST: player hp 100; berserkspirit@0,0 fly hp900
+15:07:23.609 AUTOTEST: player hp 100; berserkspirit@0,0 fly hp900
+15:07:24.609 AUTOTEST: player hp 100; berserkspirit@0,0 fly hp900
+15:07:25.609 AUTOTEST: player hp 100; berserkspirit@0,0 fly hp900
+15:07:26.609 AUTOTEST: spawning giantshooter
+15:07:26.610 spawned giantshooter (Эйтинульяска) #2 life 250 at tile 2079,251
+15:07:26.611 AUTOTEST: berserkspirit #3 gone after 360 brain frames: active=False type=146 life=900/900 timeLeft=749 pos=2088,251
+15:07:26.611 AUTOTEST: player hp 100; giantshooter@-10,-2 stand hp250
+15:07:27.609 AUTOTEST: player hp 100; giantshooter@-7,-2 walk hp250
+15:07:28.609 AUTOTEST: player hp 100; giantshooter@-5,-1 stand hp250
+15:07:29.609 AUTOTEST: player hp 100; giantshooter@-5,-1 stand hp250
+15:07:30.610 AUTOTEST: player hp 100; giantshooter@-5,-1 stand hp250
+15:07:31.609 AUTOTEST: player hp 100; giantshooter@-5,-1 stand hp250
+15:07:32.609 AUTOTEST: spawning giantshooter_weak
+15:07:32.610 spawned giantshooter_weak (Хейкко эйтинульяска) #3 life 100 at tile 2079,251
+15:07:32.611 AUTOTEST: giantshooter #2 gone after 360 brain frames: active=False type=146 life=250/250 timeLeft=749 pos=2081,248
+15:07:32.611 AUTOTEST: player hp 100; giantshooter_weak@-10,-2 stand hp100
+15:07:33.609 AUTOTEST: player hp 100; giantshooter_weak@-7,-2 walk hp100
+15:07:34.610 AUTOTEST: player hp 100; giantshooter_weak@-5,-1 stand hp100
+15:07:35.610 AUTOTEST: player hp 100; giantshooter_weak@-5,-1 stand hp100
+15:07:36.609 AUTOTEST: player hp 100; giantshooter_weak@-5,-1 stand hp100
+15:07:37.610 AUTOTEST: player hp 100; giantshooter_weak@-5,-1 stand hp100
+15:07:38.610 AUTOTEST: spawning nest_fly
+15:07:38.610 spawned nest_fly (Amppari Hive) #4 life 500 at tile 2079,251
+15:07:38.612 AUTOTEST: giantshooter_weak #3 gone after 360 brain frames: active=False type=146 life=100/100 timeLeft=749 pos=2081,248
+15:07:38.612 AUTOTEST: player hp 100; nest_fly@-10,-2 stand hp500
+15:07:39.610 AUTOTEST: player hp 100; nest_fly@-10,-2 stand hp500
+15:07:40.611 AUTOTEST: player hp 100; nest_fly@-10,-2 stand hp500
+15:07:41.610 AUTOTEST: player hp 100; nest_fly@-10,-2 stand hp500
+15:07:42.611 AUTOTEST: player hp 100; nest_fly@-10,-2 stand hp500
+15:07:43.611 AUTOTEST: player hp 100; nest_fly@-10,-2 stand hp500
+15:07:44.610 AUTOTEST: spawning duck
+15:07:44.611 spawned duck (Анкка) #2 life 5 at tile 2079,251
+15:07:44.611 AUTOTEST: nest_fly #4 gone after 360 brain frames: active=False type=146 life=500/500 timeLeft=749 pos=2077,247
+15:07:44.612 AUTOTEST: player hp 100; duck@-10,-1 stand hp5
+15:07:45.610 AUTOTEST: player hp 100; duck@-15,-1 walk hp5
+15:07:46.610 AUTOTEST: player hp 100; duck@-20,-1 walk hp5
+15:07:47.611 AUTOTEST: player hp 100; duck@-25,-1 walk hp5
+15:07:48.610 AUTOTEST: player hp 100; duck@-28,-2 walk hp5
+15:07:49.610 AUTOTEST: player hp 100; duck@-31,-2 walk hp5
+15:07:50.610 AUTOTEST: spawning firemage
+15:07:50.611 spawned firemage (Эльдари) #5 life 1500 at tile 2079,251
+15:07:50.612 AUTOTEST: duck #2 gone after 360 brain frames: active=False type=146 life=5/5 timeLeft=749 pos=2054,248
+15:07:50.612 AUTOTEST: player hp 100; firemage@-10,-2 stand hp1500
+15:07:51.611 AUTOTEST: player hp 100; firemage@-10,-2 stand hp1500
+15:07:51.948 firemage shot ghostly_fireball hits for 169
+15:07:52.627 AUTOTEST: player hp 100; firemage@-8,-2 walk hp1500
+15:07:53.628 AUTOTEST: player hp 100; firemage@-7,-1 walk hp1500
+15:07:54.627 AUTOTEST: player hp 100; firemage@-5,-1 walk hp1500
+15:07:55.628 AUTOTEST: player hp 100; firemage@-12,0 attack hp1500
+15:07:56.628 AUTOTEST: spawning hpcrystal
+15:07:56.628 spawned hpcrystal (Элвютюскристалли) #3 life 6000 at tile 2087,253
+15:07:56.630 AUTOTEST: firemage #5 gone after 360 brain frames: active=False type=146 life=1500/1500 timeLeft=749 pos=2084,248
+15:07:56.630 AUTOTEST: player hp 100; hpcrystal@-10,0 stand hp6000
+15:07:57.629 AUTOTEST: player hp 100; hpcrystal@-10,0 stand hp6000
+15:07:58.629 AUTOTEST: player hp 100; hpcrystal@-10,0 stand hp6000
+15:07:59.628 AUTOTEST: player hp 100; hpcrystal@-12,0 stand hp6000
+15:08:00.628 AUTOTEST: player hp 100; hpcrystal@-12,0 stand hp6000
+15:08:01.629 AUTOTEST: player hp 100; hpcrystal@-12,0 stand hp6000
+15:08:02.629 AUTOTEST: spawning failed_alchemist_b
+15:08:02.629 spawned failed_alchemist_b (Эпяалкемисти) #2 life 300 at tile 2109,251
+15:08:02.630 AUTOTEST: hpcrystal #3 gone after 360 brain frames: active=False type=146 life=6000/6000 timeLeft=749 pos=2086,249
+15:08:02.630 AUTOTEST: player hp 100; failed_alchemist_b@9,-1 stand hp300
+15:08:02.646 failed_alchemist_b aura failed_alchemist_b.damage_field hits for 3
+15:08:03.630 AUTOTEST: player hp 97; failed_alchemist_b@15,-2 stand hp300
+15:08:04.629 AUTOTEST: player hp 97; failed_alchemist_b@15,-2 stand hp300
+15:08:05.629 AUTOTEST: player hp 97; failed_alchemist_b@15,-2 stand hp300
+15:08:06.629 AUTOTEST: player hp 97; failed_alchemist_b@15,-2 stand hp300
+15:08:07.629 AUTOTEST: player hp 97; failed_alchemist_b@15,-2 stand hp300
+15:08:08.630 AUTOTEST: spawning fish
+15:08:08.630 spawned fish (Эвякяс) #3 life 5 at tile 2104,252
+15:08:08.631 AUTOTEST: failed_alchemist_b #2 gone after 360 brain frames: active=False type=146 life=300/300 timeLeft=749 pos=2109,246
+15:08:08.631 AUTOTEST: player hp 97; fish@9,0 stand hp5
+15:08:09.630 AUTOTEST: player hp 97; fish@10,0 walk hp5
+15:08:10.629 AUTOTEST: player hp 97; fish@10,0 walk hp5
+15:08:11.629 AUTOTEST: player hp 97; fish@8,0 walk hp5
+15:08:12.628 AUTOTEST: player hp 97; fish@10,0 walk hp5
+15:08:13.629 AUTOTEST: player hp 97; fish@8,0 walk hp5
+15:08:14.630 AUTOTEST: spawning wizard_hearty
+15:08:14.631 spawned wizard_hearty (Хаавойттаяместари) #2 life 1200 at tile 2104,252
+15:08:14.632 AUTOTEST: fish #3 gone after 360 brain frames: active=False type=146 life=5/5 timeLeft=749 pos=2100,250
+15:08:14.632 AUTOTEST: player hp 97; wizard_hearty@9,0 stand hp1200
+15:08:15.630 AUTOTEST: player hp 97; wizard_hearty@9,-5 fly hp1200
+15:08:16.395 wizard_hearty shot wizard_hearty_shot hits for 15
+15:08:16.629 AUTOTEST: player hp 82; wizard_hearty@12,-4 fly hp1200
+15:08:17.630 AUTOTEST: player hp 82; wizard_hearty@8,-4 fly hp1200
+15:08:18.631 AUTOTEST: player hp 82; wizard_hearty@9,-4 attack hp1200
+15:08:18.980 wizard_hearty shot wizard_hearty_shot hits for 15
+15:08:19.630 AUTOTEST: player hp 67; wizard_hearty@11,-4 fly hp1200
+15:08:20.630 AUTOTEST: spawning necromancer
+15:08:20.631 spawned necromancer (Хахмонвайхтая) #3 life 500 at tile 2094,253
+15:08:20.632 AUTOTEST: wizard_hearty #2 gone after 360 brain frames: active=False type=146 life=1200/1200 timeLeft=749 pos=2092,245
+15:08:20.632 AUTOTEST: player hp 67; necromancer@9,0 stand hp500
+15:08:21.629 AUTOTEST: player hp 67; necromancer@9,0 stand hp500
+15:08:22.629 AUTOTEST: player hp 67; necromancer@9,0 stand hp500
+15:08:23.012 necromancer shot chaotic_polymorphine hits for 38
+15:08:23.631 AUTOTEST: player hp 100; necromancer@14,1 stand hp500
+15:08:24.630 AUTOTEST: player hp 98; necromancer@14,1 stand hp500
+15:08:25.629 AUTOTEST: player hp 96; necromancer@14,1 stand hp500
+15:08:26.630 AUTOTEST: spawning scavenger_invis
+15:08:26.630 spawned scavenger_invis (Хяйвехииси) #2 life 150 at tile 2089,253
+15:08:26.632 AUTOTEST: necromancer #3 gone after 360 brain frames: active=False type=146 life=500/500 timeLeft=749 pos=2093,249
+15:08:26.632 AUTOTEST: player hp 94; scavenger_invis@9,1 stand hp150
+15:08:27.247 WARN special attack scavenger_invis.turns_other_enemies_link_status_effects_invisible_invisible (support) has no effect in Terraria yet
+15:08:27.630 AUTOTEST: player hp 92; scavenger_invis@9,1 stand hp150
+15:08:28.630 AUTOTEST: player hp 91; scavenger_invis@9,1 attack hp150
+15:08:29.630 AUTOTEST: player hp 91; scavenger_invis@9,1 stand hp150
+15:08:30.630 AUTOTEST: player hp 91; scavenger_invis@9,1 stand hp150
+15:08:31.631 AUTOTEST: player hp 91; scavenger_invis@9,1 stand hp150
+15:08:32.630 AUTOTEST: spawning lukki
+15:08:32.630 spawned lukki (Хямяхякки) #4 life 650 at tile 2089,253
+15:08:32.631 AUTOTEST: scavenger_invis #2 gone after 360 brain frames: active=False type=146 life=150/150 timeLeft=749 pos=2088,250
+15:08:32.632 AUTOTEST: player hp 91; lukki@9,1 stand hp650
+15:08:32.963 lukki melee lukki.melee hits for 19
+15:08:33.631 lukki melee lukki.melee hits for 19
+15:08:33.632 AUTOTEST: player hp 53; lukki@4,0 attack hp650
+15:08:34.297 lukki melee lukki.melee hits for 19
+15:08:34.630 AUTOTEST: player hp 100; lukki@0,0 walk hp650
+15:08:34.964 lukki melee lukki.melee hits for 19
+15:08:35.630 lukki melee lukki.melee hits for 19
+15:08:35.631 AUTOTEST: player hp 62; lukki@-3,0 attack hp650
+15:08:36.297 lukki melee lukki.melee hits for 19
+15:08:36.632 AUTOTEST: player hp 100; lukki@-1,0 walk hp650
+15:08:36.963 lukki melee lukki.melee hits for 19
+15:08:37.630 lukki melee lukki.melee hits for 19
+15:08:37.631 AUTOTEST: player hp 62; lukki@3,0 attack hp650
+15:08:38.297 lukki melee lukki.melee hits for 19
+15:08:38.630 AUTOTEST: spawning lukki_longleg
+15:08:38.631 spawned lukki_longleg (Лукки) #2 life 800 at tile 2075,251
+15:08:38.632 AUTOTEST: lukki #4 gone after 360 brain frames: active=False type=146 life=650/650 timeLeft=749 pos=2064,247
+15:08:38.632 AUTOTEST: player hp 100; lukki_longleg@9,0 stand hp800
+15:08:38.964 lukki_longleg melee lukki_longleg.melee hits for 19
+15:08:39.631 lukki_longleg melee lukki_longleg.melee hits for 19
+15:08:39.632 AUTOTEST: player hp 62; lukki_longleg@3,0 attack hp800
+15:08:40.297 lukki_longleg melee lukki_longleg.melee hits for 19
+15:08:40.631 AUTOTEST: player hp 100; lukki_longleg@2,0 walk hp800
+15:08:40.964 lukki_longleg melee lukki_longleg.melee hits for 19
+15:08:41.631 lukki_longleg melee lukki_longleg.melee hits for 19
+15:08:41.632 AUTOTEST: player hp 62; lukki_longleg@6,0 attack hp800
+15:08:42.297 lukki_longleg melee lukki_longleg.melee hits for 19
+15:08:42.631 AUTOTEST: player hp 100; lukki_longleg@6,0 walk hp800
+15:08:42.964 lukki_longleg melee lukki_longleg.melee hits for 19
+15:08:43.631 lukki_longleg melee lukki_longleg.melee hits for 19
+15:08:43.631 AUTOTEST: player hp 62; lukki_longleg@0,0 attack hp800
+15:08:44.297 lukki_longleg melee lukki_longleg.melee hits for 19
+15:08:44.631 AUTOTEST: spawning lukki_tiny
+15:08:44.632 spawned lukki_tiny (Пиккухямяхякки) #3 life 350 at tile 2050,249
+15:08:44.633 AUTOTEST: lukki_longleg #2 gone after 360 brain frames: active=False type=146 life=800/800 timeLeft=749 pos=2031,244
+15:08:44.633 AUTOTEST: player hp 100; lukki_tiny@9,1 stand hp350
+15:08:45.514 lukki_tiny melee lukki_tiny.melee hits for 19
+15:08:45.632 AUTOTEST: player hp 81; lukki_tiny@3,0 attack hp350
+15:08:46.197 lukki_tiny melee lukki_tiny.melee hits for 19
+15:08:46.631 AUTOTEST: player hp 62; lukki_tiny@4,0 walk hp350
+15:08:46.914 lukki_tiny melee lukki_tiny.melee hits for 19
+15:08:47.614 lukki_tiny melee lukki_tiny.melee hits for 19
+15:08:47.632 AUTOTEST: player hp 81; lukki_tiny@2,0 attack hp350
+15:08:48.381 lukki_tiny melee lukki_tiny.melee hits for 19
+15:08:48.631 AUTOTEST: player hp 62; lukki_tiny@4,0 attack hp350
+15:08:49.098 lukki_tiny melee lukki_tiny.melee hits for 19
+15:08:49.631 AUTOTEST: player hp 100; lukki_tiny@3,0 walk hp350
+15:08:49.815 lukki_tiny melee lukki_tiny.melee hits for 19
+15:08:50.514 lukki_tiny melee lukki_tiny.melee hits for 19
+15:08:50.631 AUTOTEST: spawning acidshooter
+15:08:50.632 spawned acidshooter (Хаппонульяска) #2 life 50 at tile 2013,249
+15:08:50.633 AUTOTEST: lukki_tiny #3 gone after 360 brain frames: active=False type=146 life=350/350 timeLeft=749 pos=2005,246
+15:08:50.633 AUTOTEST: player hp 62; acidshooter@9,1 stand hp50
+15:08:51.633 AUTOTEST: player hp 62; acidshooter@11,-3 attack hp50
+15:08:52.132 acidshooter shot acid_ball hits for 6
+15:08:52.632 AUTOTEST: player hp 55; acidshooter@13,-5 fly hp50
+15:08:53.633 AUTOTEST: player hp 53; acidshooter@9,-4 attack hp50
+15:08:53.932 acidshooter shot acid_ball hits for 6
+15:08:54.632 AUTOTEST: player hp 98; acidshooter@12,-4 fly hp50
+15:08:55.632 AUTOTEST: player hp 96; acidshooter@9,-4 fly hp50
+15:08:55.798 acidshooter shot acid_ball hits for 6
+15:08:56.632 AUTOTEST: spawning shotgunner
+15:08:56.633 spawned shotgunner (Хауликкохийси) #3 life 45 at tile 1995,248
+15:08:56.633 AUTOTEST: acidshooter #2 gone after 360 brain frames: active=False type=146 life=50/50 timeLeft=749 pos=1995,240
+15:08:56.635 AUTOTEST: player hp 88; shotgunner@9,1 stand hp45
+15:08:57.633 AUTOTEST: player hp 86; shotgunner@9,1 stand hp45
+15:08:57.916 shotgunner shot shotgunner_shot hits for 7
+15:08:58.632 AUTOTEST: player hp 77; shotgunner@5,0 walk hp45
+15:08:59.632 AUTOTEST: player hp 75; shotgunner@8,0 stand hp45
+15:09:00.315 shotgunner shot shotgunner_shot hits for 7
+15:09:00.632 AUTOTEST: player hp 66; shotgunner@4,0 walk hp45
+15:09:01.632 AUTOTEST: player hp 66; shotgunner@7,1 walk hp45
+15:09:02.632 AUTOTEST: spawning shotgunner_hell
+15:09:02.633 spawned shotgunner_hell (Хорнахийси) #2 life 870 at tile 2005,249
+15:09:02.634 AUTOTEST: shotgunner #3 gone after 360 brain frames: active=False type=146 life=45/45 timeLeft=749 pos=2003,247
+15:09:02.634 AUTOTEST: player hp 66; shotgunner_hell@9,1 stand hp870
+15:09:03.632 AUTOTEST: player hp 66; shotgunner_hell@9,1 attack hp870
+15:09:03.666 shotgunner_hell shot shotgunner_hell_shot hits for 20
+15:09:04.633 AUTOTEST: player hp 100; shotgunner_hell@7,0 walk hp870
+15:09:05.566 shotgunner_hell shot shotgunner_hell_shot hits for 20
+15:09:05.632 AUTOTEST: player hp 80; shotgunner_hell@7,1 attack hp870
+15:09:06.633 AUTOTEST: player hp 80; shotgunner_hell@6,0 walk hp870
+15:09:07.483 shotgunner_hell shot shotgunner_hell_shot hits for 20
+15:09:07.632 AUTOTEST: player hp 60; shotgunner_hell@5,1 attack hp870
+15:09:08.633 AUTOTEST: spawning missilecrab
+15:09:08.633 spawned missilecrab (Хейнясиркка) #3 life 3600 at tile 2020,249
+15:09:08.634 AUTOTEST: shotgunner_hell #2 gone after 360 brain frames: active=False type=146 life=870/870 timeLeft=749 pos=2017,247
+15:09:08.634 AUTOTEST: player hp 60; missilecrab@9,0 stand hp3600
+15:09:09.632 AUTOTEST: player hp 60; missilecrab@5,0 walk hp3600
+15:09:10.632 AUTOTEST: player hp 60; missilecrab@2,0 walk hp3600
+15:09:11.283 missilecrab melee missilecrab.melee hits for 33
+15:09:11.633 AUTOTEST: player hp 100; missilecrab@4,0 walk hp3600
+15:09:12.633 AUTOTEST: player hp 100; missilecrab@0,-5 jump_fall hp3600
+15:09:12.849 missilecrab melee missilecrab.melee hits for 49
+15:09:13.634 AUTOTEST: player hp 51; missilecrab@-2,0 walk hp3600
+15:09:14.449 missilecrab melee missilecrab.melee hits for 43
+15:09:14.633 AUTOTEST: spawning spitmonster
+15:09:14.634 spawned spitmonster (Хельветин сюлькийя) #2 life 3000 at tile 2018,249
+15:09:14.635 AUTOTEST: missilecrab #3 gone after 360 brain frames: active=False type=146 life=3600/3600 timeLeft=749 pos=2009,246
+15:09:14.636 AUTOTEST: player hp 100; spitmonster@9,0 stand hp3000
+15:09:15.499 spitmonster shot spitmonster_shot hits for 56
+15:09:15.633 AUTOTEST: player hp 100; spitmonster@14,0 stand hp3000
+15:09:16.583 spitmonster shot spitmonster_shot hits for 56
+15:09:16.633 AUTOTEST: player hp 100; spitmonster@16,0 walk hp3000
+15:09:17.467 spitmonster shot spitmonster_shot hits for 56
+15:09:17.634 AUTOTEST: player hp 100; spitmonster@14,0 walk hp3000
+15:09:18.316 spitmonster shot spitmonster_shot hits for 56
+15:09:18.633 AUTOTEST: player hp 100; spitmonster@13,0 walk hp3000
+15:09:19.183 spitmonster shot spitmonster_shot hits for 56
+15:09:19.634 AUTOTEST: player hp 100; spitmonster@11,0 stand hp3000
+15:09:20.067 spitmonster shot spitmonster_shot hits for 56
+15:09:20.634 AUTOTEST: spawning gazer
+15:09:20.634 spawned gazer (Хельветинкатсе) #3 life 4500 at tile 2010,249
+15:09:20.635 AUTOTEST: spitmonster #2 gone after 360 brain frames: active=False type=146 life=3000/3000 timeLeft=749 pos=2011,246
+15:09:20.635 AUTOTEST: player hp 100; gazer@10,0 stand hp4500
+15:09:20.983 spitmonster shot spitmonster_shot hits for 56
+15:09:21.633 AUTOTEST: player hp 100; gazer@10,-3 attack hp4500
+15:09:21.767 gazer shot lava hits for 169
+15:09:22.635 AUTOTEST: player hp 100; gazer@14,-5 fly hp4500
+15:09:23.635 AUTOTEST: player hp 100; gazer@18,-5 fly hp4500
+15:09:24.633 AUTOTEST: player hp 100; gazer@23,-3 fly hp4500
+15:09:25.634 AUTOTEST: player hp 100; gazer@-68,-8 fly hp4500
+15:09:26.636 AUTOTEST: spawning worm_end
+15:09:26.636 spawned worm_end (Хельветинмато) #2 life 12500 at tile 2107,251
+15:09:26.637 AUTOTEST: gazer #3 gone after 360 brain frames: active=False type=146 life=4500/4500 timeLeft=660 pos=2029,241
+15:09:26.637 AUTOTEST: player hp 100; worm_end@10,-1 stand hp12500
+15:09:27.635 AUTOTEST: player hp 100; worm_end@2,5 walk hp12500
+15:09:28.634 AUTOTEST: player hp 100; worm_end@0,0 walk hp12500
+15:09:28.667 worm_end melee worm_end.worm_bite hits for 112
+15:09:29.636 AUTOTEST: player hp 100; worm_end@-12,16 walk hp12500
+15:09:30.635 AUTOTEST: player hp 100; worm_end@-34,30 walk hp12500
+15:09:31.634 AUTOTEST: player hp 100; worm_end@-71,45 walk hp12500
+15:09:32.635 AUTOTEST: spawning mimic_potion
+15:09:32.636 spawned mimic_potion (Хенкевя поту) #3 life 500 at tile 2078,251
+15:09:32.636 AUTOTEST: worm_end #2 gone after 360 brain frames: active=False type=146 life=12500/12500 timeLeft=672 pos=1989,309
+15:09:32.637 AUTOTEST: player hp 100; mimic_potion@-10,-1 stand hp500
+15:09:33.636 AUTOTEST: player hp 100; mimic_potion@-2,0 stand hp500
+15:09:34.634 AUTOTEST: player hp 100; mimic_potion@-2,0 stand hp500
+15:09:35.635 AUTOTEST: player hp 100; mimic_potion@-2,0 stand hp500
+15:09:36.635 AUTOTEST: player hp 100; mimic_potion@3,0 stand hp500
+15:09:37.634 AUTOTEST: player hp 100; mimic_potion@4,0 stand hp500
+15:09:38.634 AUTOTEST: spawning giant
+15:09:38.635 spawned giant (Хииденкиви) #2 life 600 at tile 2084,252
+15:09:38.636 AUTOTEST: mimic_potion #3 gone after 360 brain frames: active=False type=146 life=500/500 timeLeft=749 pos=2077,249
+15:09:38.636 AUTOTEST: player hp 100; giant@9,0 stand hp600
+15:09:39.634 AUTOTEST: player hp 100; giant@8,0 walk hp600
+15:09:40.635 AUTOTEST: player hp 100; giant@7,0 stand hp600
+15:09:41.635 AUTOTEST: player hp 100; giant@7,0 stand hp600
+15:09:42.635 AUTOTEST: player hp 100; giant@7,0 stand hp600
+15:09:43.636 AUTOTEST: player hp 100; giant@7,0 stand hp600
+15:09:44.637 AUTOTEST: spawning wraith_glowing
+15:09:44.637 spawned wraith_glowing (Хохтава хюпиё) #3 life 1475 at tile 2084,252
+15:09:44.638 AUTOTEST: giant #2 gone after 360 brain frames: active=False type=146 life=600/600 timeLeft=749 pos=2081,248
+15:09:44.639 AUTOTEST: player hp 100; wraith_glowing@9,1 stand hp1475
+15:09:45.636 AUTOTEST: player hp 100; wraith_glowing@5,0 fly hp1475
+15:09:46.635 AUTOTEST: player hp 100; wraith_glowing@0,0 fly hp1475
+15:09:47.652 AUTOTEST: player hp 100; wraith_glowing@0,0 fly hp1475
+15:09:48.652 AUTOTEST: player hp 100; wraith_glowing@2,0 fly hp1475
+15:09:49.652 AUTOTEST: player hp 100; wraith_glowing@0,0 fly hp1475
+15:09:50.654 AUTOTEST: spawning statue_physics
+15:09:50.654 spawned statue_physics (Хохтонамио) #2 life 600 at tile 2058,250
+15:09:50.655 AUTOTEST: wraith_glowing #3 gone after 360 brain frames: active=False type=146 life=1475/1475 timeLeft=749 pos=2067,249
+15:09:50.655 AUTOTEST: player hp 100; statue_physics@-10,-1 stand hp600
+15:09:51.652 AUTOTEST: player hp 100; statue_physics@-9,-4 fly hp600
+15:09:52.653 AUTOTEST: player hp 100; statue_physics@-9,-4 fly hp600
+15:09:53.654 AUTOTEST: player hp 100; statue_physics@-9,-4 fly hp600
+15:09:54.652 AUTOTEST: player hp 100; statue_physics@-9,-4 fly hp600
+15:09:55.653 AUTOTEST: player hp 100; statue_physics@-10,-4 fly hp600
+15:09:56.652 AUTOTEST: spawning ghost
+15:09:56.653 spawned ghost (Хоуре) #3 life 6000 at tile 2057,250
+15:09:56.654 AUTOTEST: statue_physics #2 gone after 360 brain frames: active=False type=146 life=600/600 timeLeft=749 pos=2058,243
+15:09:56.654 AUTOTEST: player hp 100; ghost@-10,-1 stand hp6000
+15:09:57.385 ghost aura ghost.curse hits for 8
+15:09:57.652 AUTOTEST: player hp 92; ghost@-6,0 fly hp6000
+15:09:58.653 AUTOTEST: player hp 92; ghost@-9,0 fly hp6000
+15:09:59.654 AUTOTEST: player hp 92; ghost@-7,0 fly hp6000
+15:10:00.653 AUTOTEST: player hp 92; ghost@-5,0 fly hp6000
+15:10:01.653 AUTOTEST: player hp 92; ghost@-3,0 fly hp6000
+15:10:02.086 ghost aura ghost.curse hits for 10
+15:10:02.653 AUTOTEST: spawning fungus_giga
+15:10:02.653 spawned fungus_giga (Хухтасиени) #2 life 4980 at tile 2064,251
+15:10:02.655 AUTOTEST: ghost #3 gone after 360 brain frames: active=False type=146 life=6000/6000 timeLeft=749 pos=2066,248
+15:10:02.655 AUTOTEST: player hp 82; fungus_giga@-10,-1 stand hp4980
+15:10:02.969 fungus_giga shot pollen_bundle hits for 90
+15:10:03.669 AUTOTEST: player hp 100; fungus_giga@-10,-1 walk hp4980
+15:10:04.670 AUTOTEST: player hp 100; fungus_giga@-11,-2 walk hp4980
+15:10:05.670 AUTOTEST: player hp 100; fungus_giga@-12,-2 walk hp4980
+15:10:06.671 AUTOTEST: player hp 100; fungus_giga@-34,-3 attack hp4980
+15:10:07.670 AUTOTEST: player hp 100; fungus_giga@-31,-4 attack hp4980
+15:10:08.671 AUTOTEST: spawning zombie
+15:10:08.671 spawned zombie (Хуртта) #3 life 25 at tile 2076,251
+15:10:08.672 AUTOTEST: fungus_giga #2 gone after 360 brain frames: active=False type=146 life=4980/4980 timeLeft=749 pos=2060,244
+15:10:08.673 AUTOTEST: player hp 100; zombie@-10,-1 stand hp25
+15:10:08.971 fungus_giga shot pollen_bundle hits for 90
+15:10:09.671 AUTOTEST: player hp 100; zombie@1,0 jump_up hp25
+15:10:09.703 zombie lunge zombie.lunge hits for 6
+15:10:10.670 AUTOTEST: player hp 94; zombie@0,0 walk hp25
+15:10:10.687 zombie melee zombie.melee hits for 7
+15:10:11.670 AUTOTEST: player hp 87; zombie@-2,0 jump_up hp25
+15:10:11.720 zombie lunge zombie.lunge hits for 6
+15:10:12.621 zombie melee zombie.melee hits for 7
+15:10:12.672 AUTOTEST: player hp 74; zombie@0,0 attack hp25
+15:10:13.670 AUTOTEST: player hp 74; zombie@-2,0 walk hp25
+15:10:14.053 zombie melee zombie.melee hits for 8
+15:10:14.671 AUTOTEST: spawning wraith
+15:10:14.672 spawned wraith (Хюпиё) #2 life 4425 at tile 2081,252
+15:10:14.673 AUTOTEST: zombie #3 gone after 360 brain frames: active=False type=146 life=25/25 timeLeft=749 pos=2093,251
+15:10:14.673 AUTOTEST: player hp 66; wraith@-10,0 stand hp4425
+15:10:15.671 AUTOTEST: player hp 66; wraith@-5,0 fly hp4425
+15:10:16.671 AUTOTEST: player hp 66; wraith@0,0 fly hp4425
+15:10:17.822 AUTOTEST: player hp 66; wraith@-2,0 fly hp4425
+15:10:18.820 AUTOTEST: player hp 66; wraith@0,0 fly hp4425
+15:10:19.821 AUTOTEST: player hp 66; wraith@0,0 fly hp4425
+15:10:20.822 AUTOTEST: spawning scavenger_clusterbomb
+15:10:20.822 spawned scavenger_clusterbomb (Исохийси) #3 life 600 at tile 2077,251
+15:10:20.823 AUTOTEST: wraith #2 gone after 360 brain frames: active=False type=146 life=4425/4425 timeLeft=749 pos=2092,250
+15:10:20.823 AUTOTEST: player hp 66; scavenger_clusterbomb@-10,-2 stand hp600
+15:10:21.739 scavenger_clusterbomb shot timed_mines hits for 150
+15:10:21.821 AUTOTEST: player hp 100; scavenger_clusterbomb@-7,-2 attack hp600
+15:10:22.822 AUTOTEST: player hp 100; scavenger_clusterbomb@-8,-2 walk hp600
+15:10:23.821 AUTOTEST: player hp 100; scavenger_clusterbomb@-20,-1 attack hp600
+15:10:24.822 AUTOTEST: player hp 100; scavenger_clusterbomb@-14,-2 walk hp600
+15:10:25.821 AUTOTEST: player hp 100; scavenger_clusterbomb@-10,-2 walk hp600
+15:10:26.755 scavenger_clusterbomb shot firebolt_like hits for 49
+15:10:26.821 AUTOTEST: spawning tank_rocket
+15:10:26.822 spawned tank_rocket (ИТ-Танкки) #4 life 500 at tile 2082,252
+15:10:26.823 AUTOTEST: scavenger_clusterbomb #3 gone after 360 brain frames: active=False type=146 life=600/600 timeLeft=749 pos=2083,248
+15:10:26.823 AUTOTEST: player hp 51; tank_rocket@-10,0 stand hp500
+15:10:27.821 AUTOTEST: player hp 51; tank_rocket@-14,-1 attack hp500
+15:10:28.488 tank_rocket shot homing_rocket hits for 56
+15:10:28.855 AUTOTEST: player hp 100; tank_rocket@-13,0 walk hp500
+15:10:29.855 AUTOTEST: player hp 100; tank_rocket@-12,0 walk hp500
+15:10:30.855 AUTOTEST: player hp 100; tank_rocket@-12,0 attack hp500
+15:10:31.855 AUTOTEST: player hp 100; tank_rocket@-12,0 stand hp500
+15:10:32.890 AUTOTEST: spawning icer
+15:10:32.891 spawned icer (Йяахдютюслайте) #3 life 600 at tile 2082,252
+15:10:32.892 AUTOTEST: tank_rocket #4 gone after 360 brain frames: active=False type=146 life=500/500 timeLeft=749 pos=2083,249
+15:10:32.892 AUTOTEST: player hp 100; icer@-10,-1 stand hp600
+15:10:33.890 AUTOTEST: player hp 100; icer@-8,-1 stand hp600
+15:10:34.405 icer shot icethrower hits for 75
+15:10:34.890 AUTOTEST: player hp 100; icer@-13,0 walk hp600
+15:10:35.388 icer shot icethrower hits for 75
+15:10:35.889 AUTOTEST: player hp 100; icer@-12,0 attack hp600
+15:10:36.223 icer shot icethrower hits for 75
+15:10:36.889 AUTOTEST: player hp 100; icer@-10,0 attack hp600
+15:10:37.005 icer shot icethrower hits for 75
+15:10:37.689 icer shot icethrower hits for 75
+15:10:37.889 AUTOTEST: player hp 100; icer@-7,0 walk hp600
+15:10:38.605 icer shot icethrower hits for 75
+15:10:38.889 AUTOTEST: spawning iceskull
+15:10:38.889 spawned iceskull (Йяатиё) #2 life 75 at tile 2086,253
+15:10:38.890 AUTOTEST: icer #3 gone after 360 brain frames: active=False type=146 life=600/600 timeLeft=749 pos=2086,250
+15:10:38.890 AUTOTEST: player hp 100; iceskull@-10,1 stand hp75
+15:10:39.772 iceskull melee iceskull.melee hits for 8
+15:10:39.889 AUTOTEST: player hp 92; iceskull@-2,0 attack hp75
+15:10:40.655 iceskull melee iceskull.melee hits for 6
+15:10:40.890 AUTOTEST: player hp 86; iceskull@3,0 attack hp75
+15:10:41.907 AUTOTEST: player hp 86; iceskull@9,0 fly hp75
+15:10:42.906 AUTOTEST: player hp 86; iceskull@9,0 fly hp75
+15:10:43.272 iceskull lunge iceskull.lunge hits for 6
+15:10:43.906 AUTOTEST: player hp 80; iceskull@0,-1 attack hp75
+15:10:44.072 iceskull melee iceskull.melee hits for 7
+15:10:44.906 AUTOTEST: spawning frog_big
+15:10:44.907 spawned frog_big (Йяттиконна) #3 life 110 at tile 2076,251
+15:10:44.908 AUTOTEST: iceskull #2 gone after 360 brain frames: active=False type=146 life=75/75 timeLeft=749 pos=2067,247
+15:10:44.908 AUTOTEST: player hp 73; frog_big@9,0 stand hp110
+15:10:45.506 frog_big melee frog_big.tentacle hits for 10
+15:10:45.906 AUTOTEST: player hp 63; frog_big@1,1 attack hp110
+15:10:46.906 AUTOTEST: player hp 63; frog_big@-11,0 stand hp110
+15:10:47.589 frog_big melee frog_big.tentacle hits for 10
+15:10:47.906 AUTOTEST: player hp 53; frog_big@-1,0 jump_up hp110
+15:10:48.907 AUTOTEST: player hp 53; frog_big@7,0 stand hp110
+15:10:49.906 AUTOTEST: player hp 53; frog_big@-4,0 walk hp110
+15:10:50.906 AUTOTEST: spawning drone_lasership
+15:10:50.907 spawned drone_lasership (Йяттилазер-леннокки) #2 life 550 at tile 2077,251
+15:10:50.909 AUTOTEST: frog_big #3 gone after 360 brain frames: active=False type=146 life=110/110 timeLeft=749 pos=2066,242
+15:10:50.909 AUTOTEST: player hp 53; drone_lasership@9,0 stand hp550
+15:10:51.906 AUTOTEST: player hp 53; drone_lasership@8,-2 fly hp550
+15:10:52.939 AUTOTEST: player hp 53; drone_lasership@7,-3 fly hp550
+15:10:53.940 AUTOTEST: player hp 53; drone_lasership@7,-3 fly hp550
+15:10:54.940 AUTOTEST: player hp 53; drone_lasership@8,-3 fly hp550
+15:10:55.941 AUTOTEST: player hp 53; drone_lasership@7,-3 fly hp550
+15:10:56.941 AUTOTEST: spawning worm_big
+15:10:56.941 spawned worm_big (Яттимато) #3 life 14000 at tile 2077,251
+15:10:56.943 AUTOTEST: drone_lasership #2 gone after 360 brain frames: active=False type=146 life=550/550 timeLeft=749 pos=2073,245
+15:10:56.944 AUTOTEST: player hp 53; worm_big@9,0 stand hp14000
+15:10:57.942 AUTOTEST: player hp 53; worm_big@1,7 walk hp14000
+15:10:58.941 AUTOTEST: player hp 53; worm_big@-13,-9 walk hp14000
+15:10:59.942 AUTOTEST: player hp 53; worm_big@-24,-2 walk hp14000
+15:11:00.942 AUTOTEST: player hp 53; worm_big@-4,16 walk hp14000
+15:11:01.942 AUTOTEST: player hp 53; worm_big@14,-21 walk hp14000
+15:11:02.942 AUTOTEST: spawning miner_santa
+15:11:02.942 spawned miner_santa (Йоулухийси) #2 life 200 at tile 2077,251
+15:11:02.943 AUTOTEST: worm_big #3 gone after 360 brain frames: active=False type=146 life=14000/14000 timeLeft=749 pos=2089,211
+15:11:02.943 AUTOTEST: player hp 53; miner_santa@9,0 stand hp200
+15:11:03.941 AUTOTEST: player hp 53; miner_santa@7,0 walk hp200
+15:11:04.941 AUTOTEST: player hp 54; miner_santa@7,0 stand hp200
+15:11:05.940 AUTOTEST: player hp 54; miner_santa@7,0 stand hp200
+15:11:06.857 miner_santa shot present_grenade hits for 50
+15:11:06.941 AUTOTEST: player hp 100; miner_santa@9,0 stand hp200
+15:11:07.941 AUTOTEST: player hp 100; miner_santa@10,0 walk hp200
+15:11:08.941 AUTOTEST: spawning failed_alchemist
+15:11:08.942 spawned failed_alchemist (Кадотетту алкемисти) #3 life 800 at tile 2072,251
+15:11:08.943 AUTOTEST: miner_santa #2 gone after 360 brain frames: active=False type=146 life=200/200 timeLeft=749 pos=2069,248
+15:11:08.943 AUTOTEST: player hp 100; failed_alchemist@9,0 stand hp800
+15:11:09.942 AUTOTEST: player hp 100; failed_alchemist@7,0 walk hp800
+15:11:10.941 AUTOTEST: player hp 100; failed_alchemist@5,0 walk hp800
+15:11:11.757 failed_alchemist melee failed_alchemist.melee hits for 121
+15:11:11.941 AUTOTEST: player hp 100; failed_alchemist@3,0 attack hp800
+15:11:12.941 AUTOTEST: player hp 100; failed_alchemist@4,0 walk hp800
+15:11:13.942 AUTOTEST: player hp 100; failed_alchemist@-29,-2 walk hp800
+15:11:14.941 AUTOTEST: spawning skullfly
+15:11:14.942 spawned skullfly (Каллокярпянен) #2 life 1260 at tile 2082,252
+15:11:14.943 AUTOTEST: failed_alchemist #3 gone after 360 brain frames: active=False type=146 life=800/800 timeLeft=749 pos=2068,246
+15:11:14.943 AUTOTEST: player hp 100; skullfly@-10,-1 stand hp1260
+15:11:15.943 AUTOTEST: player hp 100; skullfly@-8,-3 fly hp1260
+15:11:16.943 AUTOTEST: player hp 100; skullfly@-9,-4 fly hp1260
+15:11:17.942 AUTOTEST: player hp 100; skullfly@-9,-4 fly hp1260
+15:11:18.775 skullfly shot path_of_dark_flame hits for 60
+15:11:18.941 AUTOTEST: player hp 100; skullfly@-11,-3 fly hp1260
+15:11:19.943 AUTOTEST: player hp 100; skullfly@-10,-4 fly hp1260
+15:11:20.941 AUTOTEST: spawning skullrat
+15:11:20.942 spawned skullrat (Каллоротта) #3 life 1110 at tile 2083,252
+15:11:20.943 AUTOTEST: skullfly #2 gone after 360 brain frames: active=False type=146 life=1260/1260 timeLeft=749 pos=2082,245
+15:11:20.943 AUTOTEST: player hp 100; skullrat@-10,0 stand hp1110
+15:11:21.943 AUTOTEST: player hp 100; skullrat@-3,0 jump_up hp1110
+15:11:22.025 skullrat lunge skullrat.lunge hits for 19
+15:11:22.792 skullrat melee skullrat.melee hits for 55
+15:11:22.942 AUTOTEST: player hp 100; skullrat@-1,1 attack hp1110
+15:11:23.943 AUTOTEST: player hp 100; skullrat@3,0 jump_up hp1110
+15:11:24.009 skullrat lunge skullrat.lunge hits for 19
+15:11:24.808 skullrat melee skullrat.melee hits for 58
+15:11:24.943 AUTOTEST: player hp 100; skullrat@3,1 attack hp1110
+15:11:25.943 AUTOTEST: player hp 100; skullrat@1,0 jump_up hp1110
+15:11:25.960 skullrat lunge skullrat.lunge hits for 19
+15:11:26.775 skullrat melee skullrat.melee hits for 46
+15:11:26.942 AUTOTEST: spawning worm_skull
+15:11:26.943 spawned worm_skull (Калмамато) #2 life 7500 at tile 2066,251
+15:11:26.944 AUTOTEST: skullrat #3 gone after 360 brain frames: active=False type=146 life=1110/1110 timeLeft=749 pos=2071,249
+15:11:26.944 AUTOTEST: player hp 100; worm_skull@-10,0 stand hp7500
+15:11:27.943 AUTOTEST: player hp 100; worm_skull@-5,6 walk hp7500
+15:11:28.375 worm_skull aura worm_skull.curse hits for 11
+15:11:28.992 AUTOTEST: player hp 89; worm_skull@0,-2 walk hp7500
+15:11:29.059 worm_skull aura worm_skull.curse hits for 13
+15:11:29.992 AUTOTEST: player hp 76; worm_skull@10,7 walk hp7500
+15:11:30.993 AUTOTEST: player hp 76; worm_skull@21,-9 walk hp7500
+15:11:31.992 AUTOTEST: player hp 76; worm_skull@24,9 walk hp7500
+15:11:32.993 AUTOTEST: spawning lukki_dark
+15:11:32.993 spawned lukki_dark (Каммолукки) #3 life 7200 at tile 2080,251
+15:11:32.994 AUTOTEST: worm_skull #2 gone after 360 brain frames: active=False type=146 life=7500/7500 timeLeft=749 pos=2086,255
+15:11:32.994 AUTOTEST: player hp 76; lukki_dark@-10,-2 stand hp7200
+15:11:33.993 AUTOTEST: player hp 76; lukki_dark@-35,-3 walk hp7200
+15:11:34.994 AUTOTEST: player hp 76; lukki_dark@-36,-4 walk hp7200
+15:11:35.994 AUTOTEST: player hp 76; lukki_dark@-64,-5 walk hp7200
+15:11:36.993 AUTOTEST: player hp 76; lukki_dark@-99,-15 walk hp7200
+15:11:37.994 AUTOTEST: player hp 76; lukki_dark@-94,-13 walk hp7200
+15:11:38.994 AUTOTEST: spawning lukki_creepy_long
+15:11:38.995 spawned lukki_creepy_long (Касвотон Лукки) #2 life 1800 at tile 2080,251
+15:11:38.995 AUTOTEST: lukki_dark #3 gone after 360 brain frames: active=False type=146 life=7200/7200 timeLeft=749 pos=2029,235
+15:11:38.996 AUTOTEST: player hp 76; lukki_creepy_long@-10,-2 stand hp1800
+15:11:39.328 lukki_creepy_long melee lukki_creepy_long.melee hits for 38
+15:11:39.993 lukki_creepy_long melee lukki_creepy_long.melee hits for 38
+15:11:39.994 AUTOTEST: player hp 62; lukki_creepy_long@-5,0 attack hp1800
+15:11:40.660 lukki_creepy_long melee lukki_creepy_long.melee hits for 38
+15:11:40.994 AUTOTEST: player hp 100; lukki_creepy_long@-1,0 walk hp1800
+15:11:41.328 lukki_creepy_long melee lukki_creepy_long.melee hits for 38
+15:11:41.993 lukki_creepy_long melee lukki_creepy_long.melee hits for 38
+15:11:41.994 AUTOTEST: player hp 100; lukki_creepy_long@-1,0 attack hp1800
+15:11:42.660 lukki_creepy_long melee lukki_creepy_long.melee hits for 38
+15:11:42.994 AUTOTEST: player hp 62; lukki_creepy_long@-1,0 walk hp1800
+15:11:43.326 lukki_creepy_long melee lukki_creepy_long.melee hits for 38
+15:11:43.993 lukki_creepy_long melee lukki_creepy_long.melee hits for 38
+15:11:43.994 AUTOTEST: player hp 62; lukki_creepy_long@-1,0 attack hp1800
+15:11:44.660 lukki_creepy_long melee lukki_creepy_long.melee hits for 38
+15:11:44.995 AUTOTEST: spawning ultimate_killer
+15:11:44.996 spawned ultimate_killer (Каухухирвиё) #3 life 1650 at tile 2115,252
+15:11:44.996 AUTOTEST: lukki_creepy_long #2 gone after 360 brain frames: active=False type=146 life=1800/1800 timeLeft=749 pos=2092,248
+15:11:44.997 AUTOTEST: player hp 100; ultimate_killer@9,1 stand hp1650
+15:11:45.995 AUTOTEST: player hp 100; ultimate_killer@7,1 walk hp1650
+15:11:46.994 AUTOTEST: player hp 100; ultimate_killer@5,0 walk hp1650
+15:11:47.996 AUTOTEST: player hp 100; ultimate_killer@2,0 walk hp1650
+15:11:48.477 ultimate_killer melee ultimate_killer.melee hits for 9
+15:11:48.995 AUTOTEST: player hp 91; ultimate_killer@6,0 walk hp1650
+15:11:49.996 AUTOTEST: player hp 91; ultimate_killer@3,0 attack hp1650
+15:11:50.893 ultimate_killer melee ultimate_killer.melee hits for 9
+15:11:50.994 AUTOTEST: spawning scavenger_shield
+15:11:50.995 spawned scavenger_shield (Кильпихииси) #2 life 540 at tile 2108,251
+15:11:50.995 AUTOTEST: ultimate_killer #3 gone after 360 brain frames: active=False type=146 life=1650/1650 timeLeft=749 pos=2101,250
+15:11:50.996 AUTOTEST: player hp 82; scavenger_shield@9,0 stand hp540
+15:11:51.644 WARN special attack scavenger_shield.shield_buff (support) has no effect in Terraria yet
+15:11:52.089 AUTOTEST: player hp 82; scavenger_shield@11,-1 walk hp540
+15:11:53.180 AUTOTEST: player hp 82; scavenger_shield@9,-1 attack hp540
+15:11:54.195 AUTOTEST: player hp 82; scavenger_shield@9,-1 stand hp540
+15:11:55.195 AUTOTEST: player hp 82; scavenger_shield@9,-1 stand hp540
+15:11:56.195 AUTOTEST: player hp 82; scavenger_shield@9,-1 stand hp540
+15:11:57.195 AUTOTEST: spawning crystal_physics
+15:11:57.196 spawned crystal_physics (Киротту кристалли) #3 life 2400 at tile 2105,251
+15:11:57.196 AUTOTEST: scavenger_shield #2 gone after 360 brain frames: active=False type=146 life=540/540 timeLeft=749 pos=2103,248
+15:11:57.198 AUTOTEST: player hp 82; crystal_physics@9,-1 stand hp2400
+15:11:58.196 AUTOTEST: player hp 82; crystal_physics@9,-1 stand hp2400
+15:11:59.196 AUTOTEST: player hp 82; crystal_physics@13,-1 stand hp2400
+15:12:00.195 AUTOTEST: player hp 82; crystal_physics@15,-1 stand hp2400
+15:12:01.195 AUTOTEST: player hp 82; crystal_physics@15,-1 stand hp2400
+15:12:02.194 AUTOTEST: player hp 82; crystal_physics@15,-1 stand hp2400
+15:12:03.196 AUTOTEST: spawning phantom_b
+15:12:03.197 spawned phantom_b (Киуккукалма) #2 life 300 at tile 2099,252
+15:12:03.198 AUTOTEST: crystal_physics #3 gone after 360 brain frames: active=False type=146 life=2400/2400 timeLeft=749 pos=2104,248
+15:12:03.198 AUTOTEST: player hp 82; phantom_b@9,-1 stand hp300
+15:12:04.196 AUTOTEST: player hp 82; phantom_b@10,-3 fly hp300
+15:12:05.195 AUTOTEST: player hp 82; phantom_b@9,-4 fly hp300
+15:12:06.196 AUTOTEST: player hp 82; phantom_b@9,-4 fly hp300
+15:12:06.261 phantom_b shot energy_orb hits for 30
+15:12:07.196 AUTOTEST: player hp 52; phantom_b@11,-3 fly hp300
+15:12:08.197 AUTOTEST: player hp 52; phantom_b@9,-4 fly hp300
+15:12:09.196 AUTOTEST: spawning blob
+15:12:09.196 spawned blob (Киуккумёуккю) #3 life 150 at tile 2094,253
+15:12:09.197 AUTOTEST: phantom_b #2 gone after 360 brain frames: active=False type=146 life=300/300 timeLeft=749 pos=2093,245
+15:12:09.197 AUTOTEST: player hp 52; blob@9,1 stand hp150
+15:12:10.197 AUTOTEST: player hp 52; blob@5,0 jump_up hp150
+15:12:10.346 blob lunge blob.lunge hits for 9
+15:12:11.129 blob melee blob.melee hits for 13
+15:12:11.197 AUTOTEST: player hp 87; blob@1,1 attack hp150
+15:12:12.196 AUTOTEST: player hp 87; blob@2,0 jump_up hp150
+15:12:12.245 blob lunge blob.lunge hits for 9
+15:12:13.163 blob melee blob.melee hits for 12
+15:12:13.197 AUTOTEST: player hp 66; blob@0,0 attack hp150
+15:12:14.196 AUTOTEST: player hp 66; blob@2,0 jump_up hp150
+15:12:14.229 blob lunge blob.lunge hits for 9
+15:12:14.995 blob melee blob.melee hits for 13
+15:12:15.196 AUTOTEST: spawning tank
+15:12:15.197 spawned tank (КК-Танкки) #4 life 450 at tile 2067,251
+15:12:15.197 AUTOTEST: blob #3 gone after 360 brain frames: active=False type=146 life=150/150 timeLeft=749 pos=2059,248
+15:12:15.198 AUTOTEST: player hp 100; tank@9,1 stand hp450
+15:12:15.730 tank shot machine_gun hits for 21
+15:12:16.197 AUTOTEST: player hp 79; tank@7,0 attack hp450
+15:12:16.463 tank shot machine_gun hits for 21
+15:12:17.196 AUTOTEST: player hp 58; tank@12,0 attack hp450
+15:12:17.329 tank shot machine_gun hits for 21
+15:12:18.063 tank shot machine_gun hits for 21
+15:12:18.196 AUTOTEST: player hp 79; tank@9,1 attack hp450
+15:12:18.929 tank shot machine_gun hits for 21
+15:12:19.196 AUTOTEST: player hp 58; tank@8,0 stand hp450
+15:12:19.662 tank shot machine_gun hits for 21
+15:12:20.196 AUTOTEST: player hp 100; tank@12,0 stand hp450
+15:12:20.529 tank shot machine_gun hits for 21
+15:12:21.197 AUTOTEST: spawning wizard_homing
+15:12:21.197 spawned wizard_homing (Кохденнусместари) #2 life 3600 at tile 2070,251
+15:12:21.198 AUTOTEST: tank #4 gone after 360 brain frames: active=False type=146 life=450/450 timeLeft=749 pos=2066,248
+15:12:21.198 AUTOTEST: player hp 79; wizard_homing@9,1 stand hp3600
+15:12:21.263 tank shot machine_gun hits for 21
+15:12:22.196 AUTOTEST: player hp 58; wizard_homing@12,-2 fly hp3600
+15:12:23.096 wizard_homing shot wizard_homing_shot hits for 30
+15:12:23.197 AUTOTEST: player hp 100; wizard_homing@11,-3 fly hp3600
+15:12:24.197 AUTOTEST: player hp 100; wizard_homing@10,-4 fly hp3600
+15:12:25.197 AUTOTEST: player hp 100; wizard_homing@9,-4 fly hp3600
+15:12:25.781 wizard_homing shot wizard_homing_shot hits for 30
+15:12:26.198 AUTOTEST: player hp 70; wizard_homing@13,-3 fly hp3600
+15:12:27.197 AUTOTEST: spawning healerdrone_physics
+15:12:27.198 spawned healerdrone_physics (Корьяусленнокки) #3 life 165 at tile 2056,250
+15:12:27.199 AUTOTEST: wizard_homing #2 gone after 360 brain frames: active=False type=146 life=3600/3600 timeLeft=749 pos=2055,241
+15:12:27.199 AUTOTEST: player hp 70; healerdrone_physics@9,2 stand hp165
+15:12:28.198 AUTOTEST: player hp 70; healerdrone_physics@9,-2 fly hp165
+15:12:29.196 AUTOTEST: player hp 70; healerdrone_physics@7,-2 fly hp165
+15:12:30.197 AUTOTEST: player hp 70; healerdrone_physics@7,-2 fly hp165
+15:12:31.198 AUTOTEST: player hp 70; healerdrone_physics@9,-2 fly hp165
+15:12:32.197 AUTOTEST: player hp 70; healerdrone_physics@6,-2 fly hp165
+15:12:33.197 AUTOTEST: spawning scavenger_grenade
+15:12:33.197 spawned scavenger_grenade (Кранухийси) #2 life 50 at tile 2056,250
+15:12:33.198 AUTOTEST: healerdrone_physics #3 gone after 360 brain frames: active=False type=146 life=165/165 timeLeft=749 pos=2053,242
+15:12:33.199 AUTOTEST: player hp 70; scavenger_grenade@9,1 stand hp50
+15:12:34.197 AUTOTEST: player hp 70; scavenger_grenade@7,1 walk hp50
+15:12:34.813 scavenger_grenade shot firebolt_like hits for 32
+15:12:35.198 AUTOTEST: player hp 100; scavenger_grenade@11,1 walk hp50
+15:12:36.198 AUTOTEST: player hp 100; scavenger_grenade@11,1 stand hp50
+15:12:37.198 AUTOTEST: player hp 100; scavenger_grenade@11,1 stand hp50
+15:12:37.681 scavenger_grenade shot firebolt_like hits for 32
+15:12:38.198 AUTOTEST: player hp 68; scavenger_grenade@16,1 stand hp50
+15:12:39.198 AUTOTEST: spawning playerghost
+15:12:39.198 spawned playerghost (Куммитус) #3 life 500 at tile 2046,248
+15:12:39.199 AUTOTEST: scavenger_grenade #2 gone after 360 brain frames: active=False type=146 life=50/50 timeLeft=749 pos=2052,247
+15:12:39.199 AUTOTEST: player hp 68; playerghost@9,0 stand hp500
+15:12:40.198 AUTOTEST: player hp 68; playerghost@9,0 stand hp500
+15:12:41.198 AUTOTEST: player hp 68; playerghost@9,0 stand hp500
+15:12:42.197 AUTOTEST: player hp 68; playerghost@9,0 stand hp500
+15:12:43.197 AUTOTEST: player hp 68; playerghost@9,0 stand hp500
+15:12:44.198 AUTOTEST: player hp 68; playerghost@9,0 stand hp500
+15:12:45.199 AUTOTEST: spawning roboguard_big
+15:12:45.200 spawned roboguard_big (Кюрмюниска) #2 life 8000 at tile 2046,248
+15:12:45.200 AUTOTEST: playerghost #3 gone after 360 brain frames: active=False type=146 life=500/500 timeLeft=749 pos=2045,244
+15:12:45.201 AUTOTEST: player hp 68; roboguard_big@9,0 stand hp8000
+15:12:45.664 roboguard_big shot roboguard_big_shot hits for 73
+15:12:46.198 AUTOTEST: player hp 100; roboguard_big@9,0 walk hp8000
+15:12:47.199 AUTOTEST: player hp 100; roboguard_big@8,0 walk hp8000
+15:12:48.199 AUTOTEST: player hp 100; roboguard_big@-50,-4 walk hp8000
+15:12:49.199 AUTOTEST: player hp 100; roboguard_big@-37,-5 walk hp8000
+15:12:50.199 AUTOTEST: player hp 100; roboguard_big@-27,-2 walk hp8000
+15:12:51.200 AUTOTEST: spawning fungus
+15:12:51.200 spawned fungus (Лаахустуссиени) #3 life 130 at tile 2067,251
+15:12:51.201 AUTOTEST: roboguard_big #2 gone after 360 brain frames: active=False type=146 life=8000/8000 timeLeft=749 pos=2049,246
+15:12:51.201 AUTOTEST: player hp 100; fungus@-10,0 stand hp130
+15:12:52.199 AUTOTEST: player hp 100; fungus@-7,0 jump_up hp130
+15:12:52.397 fungus lunge fungus.lunge hits for 6
+15:12:53.199 AUTOTEST: player hp 94; fungus@-2,-1 walk hp130
+15:12:54.199 AUTOTEST: player hp 94; fungus@0,0 jump_up hp130
+15:12:54.214 fungus lunge fungus.lunge hits for 6
+15:12:55.199 AUTOTEST: player hp 88; fungus@6,1 walk hp130
+15:12:56.199 AUTOTEST: player hp 88; fungus@4,0 jump_up hp130
+15:12:56.299 fungus lunge fungus.lunge hits for 6
+15:12:57.200 AUTOTEST: spawning sheep
+15:12:57.200 spawned sheep (Ламмас) #2 life 5 at tile 2063,251
+15:12:57.201 AUTOTEST: fungus #3 gone after 360 brain frames: active=False type=146 life=130/130 timeLeft=749 pos=2072,248
+15:12:57.201 AUTOTEST: player hp 82; sheep@-10,0 stand hp5
+15:12:58.200 AUTOTEST: player hp 82; sheep@-11,0 walk hp5
+15:12:59.199 AUTOTEST: player hp 82; sheep@-13,0 walk hp5
+15:13:00.199 AUTOTEST: player hp 82; sheep@-15,0 walk hp5
+15:13:01.199 AUTOTEST: player hp 82; sheep@-17,0 walk hp5
+15:13:02.199 AUTOTEST: player hp 82; sheep@-10,2 walk hp5
+15:13:03.199 AUTOTEST: spawning tank_super
+15:13:03.200 spawned tank_super (КК-Танкки) #3 life 950 at tile 2043,248
+15:13:03.201 AUTOTEST: sheep #2 gone after 360 brain frames: active=False type=146 life=5/5 timeLeft=749 pos=2051,247
+15:13:03.201 AUTOTEST: player hp 82; tank_super@-10,-2 stand hp950
+15:13:04.099 tank_super shot grenade_leader hits for 38
+15:13:04.200 AUTOTEST: player hp 100; tank_super@-5,0 walk hp950
+15:13:05.200 AUTOTEST: player hp 100; tank_super@-9,-2 attack hp950
+15:13:05.265 tank_super shot laser_blasts hits for 13
+15:13:06.199 AUTOTEST: player hp 87; tank_super@-6,-1 walk hp950
+15:13:06.315 tank_super shot laser_blasts hits for 13
+15:13:07.200 AUTOTEST: player hp 74; tank_super@-11,-2 attack hp950
+15:13:08.199 AUTOTEST: player hp 74; tank_super@-11,-2 stand hp950
+15:13:09.200 AUTOTEST: spawning drone_physics
+15:13:09.200 spawned drone_physics (Леннокки) #2 life 40 at tile 2046,248
+15:13:09.201 AUTOTEST: tank_super #3 gone after 360 brain frames: active=False type=146 life=950/950 timeLeft=749 pos=2043,245
+15:13:09.201 AUTOTEST: player hp 74; drone_physics@-10,-1 stand hp40
+15:13:10.201 AUTOTEST: player hp 74; drone_physics@-6,-2 fly hp40
+15:13:10.299 drone_physics shot drone_physics_shot hits for 21
+15:13:11.200 AUTOTEST: player hp 53; drone_physics@-9,-2 fly hp40
+15:13:12.200 AUTOTEST: player hp 53; drone_physics@-7,-2 fly hp40
+15:13:12.383 drone_physics shot drone_physics_shot hits for 21
+15:13:13.200 AUTOTEST: player hp 100; drone_physics@-7,-3 fly hp40
+15:13:14.199 AUTOTEST: player hp 100; drone_physics@-9,-3 fly hp40
+15:13:14.500 drone_physics shot drone_physics_shot hits for 21
+15:13:15.201 AUTOTEST: spawning flamer
+15:13:15.201 spawned flamer (Лиеккари) #3 life 200 at tile 2052,250
+15:13:15.202 AUTOTEST: drone_physics #2 gone after 360 brain frames: active=False type=146 life=40/40 timeLeft=749 pos=2054,243
+15:13:15.202 AUTOTEST: player hp 79; flamer@-10,0 stand hp200
+15:13:15.867 flamer shot flamethrower hits for 36
+15:13:16.201 AUTOTEST: player hp 100; flamer@-13,0 walk hp200
+15:13:17.201 AUTOTEST: player hp 96; flamer@-12,-1 attack hp200
+15:13:17.334 flamer shot flamethrower hits for 36
+15:13:18.200 AUTOTEST: player hp 56; flamer@-14,-1 walk hp200
+15:13:18.983 flamer shot flamethrower hits for 36
+15:13:19.200 AUTOTEST: player hp 100; flamer@-14,0 walk hp200
+15:13:20.200 AUTOTEST: player hp 96; flamer@-13,0 attack hp200
+15:13:20.603 flamer shot flamethrower hits for 36
+15:13:21.200 AUTOTEST: spawning scavenger_glue
+15:13:21.201 spawned scavenger_glue (Лиймахийси) #2 life 220 at tile 2073,251
+15:13:21.202 AUTOTEST: flamer #3 gone after 360 brain frames: active=False type=146 life=200/200 timeLeft=749 pos=2066,248
+15:13:21.202 AUTOTEST: player hp 56; scavenger_glue@-10,-1 stand hp220
+15:13:22.201 AUTOTEST: player hp 52; scavenger_glue@-9,-1 stand hp220
+15:13:22.800 scavenger_glue shot glue_shot hits for 4
+15:13:23.201 AUTOTEST: player hp 95; scavenger_glue@-14,-2 walk hp220
+15:13:24.201 AUTOTEST: player hp 91; scavenger_glue@-12,-2 walk hp220
+15:13:25.201 AUTOTEST: player hp 87; scavenger_glue@-9,-2 walk hp220
+15:13:25.534 scavenger_glue shot glue_shot hits for 4
+15:13:26.201 AUTOTEST: player hp 79; scavenger_glue@-13,-2 walk hp220
+15:13:27.200 AUTOTEST: spawning slimeshooter
+15:13:27.201 spawned slimeshooter (Лиманульяска) #3 life 38 at tile 2083,252
+15:13:27.202 AUTOTEST: scavenger_glue #2 gone after 360 brain frames: active=False type=146 life=220/220 timeLeft=749 pos=2081,249
+15:13:27.202 AUTOTEST: player hp 75; slimeshooter@-10,0 stand hp38
+15:13:28.241 AUTOTEST: player hp 74; slimeshooter@-9,-1 fly hp38
+15:13:29.242 AUTOTEST: player hp 74; slimeshooter@-9,-1 fly hp38
+15:13:30.246 AUTOTEST: player hp 74; slimeshooter@-9,-1 fly hp38
+15:13:31.227 AUTOTEST: player hp 74; slimeshooter@-9,-1 fly hp38
+15:13:32.229 AUTOTEST: player hp 74; slimeshooter@-9,-1 fly hp38
+15:13:33.235 AUTOTEST: spawning wizard_neutral
+15:13:33.235 spawned wizard_neutral (Маадойттаяместари) #2 life 500 at tile 2083,252
+15:13:33.236 AUTOTEST: slimeshooter #3 gone after 4 brain frames: active=False type=146 life=38/38 timeLeft=749 pos=2082,249
+15:13:33.237 AUTOTEST: player hp 74; wizard_neutral@-10,0 stand hp500
+15:13:34.235 AUTOTEST: player hp 74; wizard_neutral@-9,-1 fly hp500
+15:13:35.268 AUTOTEST: player hp 71; wizard_neutral@-9,-4 attack hp500
+15:13:35.701 wizard_neutral shot neutralizing_bolt hits for 15
+15:13:36.268 AUTOTEST: player hp 56; wizard_neutral@-12,-4 fly hp500
+15:13:37.269 AUTOTEST: player hp 56; wizard_neutral@-9,-4 fly hp500
+15:13:37.968 wizard_neutral shot neutralizing_bolt hits for 15
+15:13:38.268 AUTOTEST: player hp 100; wizard_neutral@-12,-4 fly hp500
+15:13:39.268 AUTOTEST: spawning shaman
+15:13:39.269 spawned shaman (Мяркияйнен) #3 life 250 at tile 2113,252
+15:13:39.269 AUTOTEST: wizard_neutral #2 gone after 307 brain frames: active=False type=146 life=500/500 timeLeft=749 pos=2091,245
+15:13:39.271 AUTOTEST: player hp 100; shaman@9,0 stand hp250
+15:13:40.268 AUTOTEST: player hp 100; shaman@9,0 stand hp250
+15:13:41.268 AUTOTEST: player hp 100; shaman@9,0 attack hp250
+15:13:42.269 AUTOTEST: player hp 100; shaman@9,0 stand hp250
+15:13:43.268 AUTOTEST: player hp 100; shaman@9,0 stand hp250
+15:13:44.286 AUTOTEST: player hp 100; shaman@9,0 stand hp250
+15:13:45.286 AUTOTEST: spawning necrobot_super
+15:13:45.286 spawned necrobot_super (Маррасконе) #2 life 8400 at tile 2113,252
+15:13:45.287 AUTOTEST: shaman #3 gone after 360 brain frames: active=False type=146 life=250/250 timeLeft=749 pos=2112,248
+15:13:45.288 AUTOTEST: player hp 100; necrobot_super@9,0 stand hp8400
+15:13:46.285 AUTOTEST: player hp 100; necrobot_super@9,2 stand hp8400
+15:13:47.287 AUTOTEST: player hp 100; necrobot_super@8,0 stand hp8400
+15:13:48.286 AUTOTEST: player hp 100; necrobot_super@8,0 stand hp8400
+15:13:48.686 necrobot_super shot necrobot_super_shot hits for 60
+15:13:49.287 AUTOTEST: player hp 100; necrobot_super@13,-1 walk hp8400
+15:13:50.285 AUTOTEST: player hp 100; necrobot_super@10,-1 walk hp8400
+15:13:50.819 necrobot_super shot necrobot_super_shot hits for 60
+15:13:51.286 AUTOTEST: spawning bigzombie
+15:13:51.287 spawned bigzombie (Мятяневя руумис) #3 life 400 at tile 2104,252
+15:13:51.288 AUTOTEST: necrobot_super #2 gone after 360 brain frames: active=False type=146 life=8400/8400 timeLeft=749 pos=2107,247
+15:13:51.288 AUTOTEST: player hp 100; bigzombie@9,-1 stand hp400
+15:13:52.220 bigzombie shot fireball hits for 84
+15:13:52.287 AUTOTEST: player hp 100; bigzombie@8,0 walk hp400
+15:13:53.288 AUTOTEST: player hp 96; bigzombie@9,-1 walk hp400
+15:13:53.669 bigzombie shot fireball hits for 84
+15:13:54.287 AUTOTEST: player hp 98; bigzombie@11,0 jump_fall hp400
+15:13:55.136 bigzombie shot fireball hits for 84
+15:13:55.286 AUTOTEST: player hp 100; bigzombie@11,1 walk hp400
+15:13:56.286 AUTOTEST: player hp 96; bigzombie@10,2 attack hp400
+15:13:56.569 bigzombie shot fireball hits for 84
+15:13:57.286 AUTOTEST: spawning meatmaggot
+15:13:57.287 spawned meatmaggot (Мятярюомия) #2 life 1050 at tile 2084,252
+15:13:57.288 AUTOTEST: bigzombie #3 gone after 360 brain frames: active=False type=146 life=400/400 timeLeft=749 pos=2086,250
+15:13:57.288 AUTOTEST: player hp 97; meatmaggot@9,1 stand hp1050
+15:13:58.286 AUTOTEST: player hp 93; meatmaggot@4,2 walk hp1050
+15:13:59.287 AUTOTEST: player hp 89; meatmaggot@-4,1 walk hp1050
+15:14:00.288 AUTOTEST: player hp 85; meatmaggot@0,6 walk hp1050
+15:14:00.770 meatmaggot melee meatmaggot.worm_bite hits for 30
+15:14:01.387 AUTOTEST: player hp 51; meatmaggot@1,1 walk hp1050
+15:14:02.386 AUTOTEST: player hp 98; meatmaggot@-8,-2 walk hp1050
+15:14:03.388 AUTOTEST: spawning chest_leggy
+15:14:03.388 spawned chest_leggy (Хямяхякки) #3 life 3000 at tile 2079,251
+15:14:03.389 AUTOTEST: meatmaggot #2 gone after 360 brain frames: active=False type=146 life=1050/1050 timeLeft=749 pos=2063,255
+15:14:03.389 AUTOTEST: player hp 94; chest_leggy@9,0 stand hp3000
+15:14:04.388 AUTOTEST: player hp 91; chest_leggy@9,0 stand hp3000
+15:14:05.386 AUTOTEST: player hp 91; chest_leggy@9,0 stand hp3000
+15:14:06.338 chest_leggy melee chest_leggy.melee hits for 76
+15:14:06.388 AUTOTEST: player hp 100; chest_leggy@3,0 attack hp3000
+15:14:07.104 chest_leggy melee chest_leggy.melee hits for 77
+15:14:07.387 AUTOTEST: player hp 100; chest_leggy@3,0 attack hp3000
+15:14:08.037 chest_leggy melee chest_leggy.melee hits for 82
+15:14:08.388 AUTOTEST: player hp 100; chest_leggy@2,0 attack hp3000
+15:14:08.704 chest_leggy melee chest_leggy.melee hits for 96
+15:14:09.388 AUTOTEST: spawning chest_mimic
+15:14:09.388 spawned chest_mimic (Маткия) #2 life 1500 at tile 2044,248
+15:14:09.389 AUTOTEST: chest_leggy #3 gone after 360 brain frames: active=False type=146 life=3000/3000 timeLeft=749 pos=2056,246
+15:14:09.389 AUTOTEST: player hp 100; chest_mimic@-10,-2 stand hp1500
+15:14:10.388 AUTOTEST: player hp 100; chest_mimic@-10,-2 stand hp1500
+15:14:11.387 AUTOTEST: player hp 100; chest_mimic@-9,-2 stand hp1500
+15:14:12.087 chest_mimic melee chest_mimic.melee hits for 75
+15:14:12.389 AUTOTEST: player hp 100; chest_mimic@-6,0 stand hp1500
+15:14:13.388 AUTOTEST: player hp 100; chest_mimic@-11,-2 stand hp1500
+15:14:14.389 AUTOTEST: player hp 100; chest_mimic@-2,0 stand hp1500
+15:14:14.404 chest_mimic melee chest_mimic.melee hits for 111
+15:14:15.388 AUTOTEST: spawning worm
+15:14:15.389 spawned worm (Мато) #3 life 1000 at tile 2037,248
+15:14:15.390 AUTOTEST: chest_mimic #2 gone after 360 brain frames: active=False type=146 life=1500/1500 timeLeft=749 pos=2042,245
+15:14:15.390 AUTOTEST: player hp 100; worm@-10,0 stand hp1000
+15:14:16.421 AUTOTEST: player hp 100; worm@-57,5 walk hp1000
+15:14:17.421 AUTOTEST: player hp 100; worm@-40,12 walk hp1000
+15:14:18.422 AUTOTEST: player hp 100; worm@-19,5 walk hp1000
+15:14:19.171 worm melee worm.worm_bite hits for 25
+15:14:19.422 AUTOTEST: player hp 75; worm@2,0 attack hp1000
+15:14:20.422 AUTOTEST: player hp 75; worm@13,14 walk hp1000
+15:14:21.222 worm melee worm.worm_bite hits for 25
+15:14:21.423 AUTOTEST: spawning scavenger_mine
+15:14:21.423 spawned scavenger_mine (Миинанкюльвяя) #2 life 150 at tile 2091,253
+15:14:21.424 AUTOTEST: worm #3 gone after 360 brain frames: active=False type=146 life=1000/1000 timeLeft=749 pos=2097,244
+15:14:21.424 AUTOTEST: player hp 50; scavenger_mine@-10,1 stand hp150
+15:14:22.421 AUTOTEST: player hp 50; scavenger_mine@-9,0 walk hp150
+15:14:23.071 scavenger_mine shot scavenger_mine_shot hits for 7
+15:14:23.422 AUTOTEST: player hp 100; scavenger_mine@-3,0 stand hp150
+15:14:24.421 AUTOTEST: player hp 100; scavenger_mine@-5,0 walk hp150
+15:14:25.421 AUTOTEST: player hp 100; scavenger_mine@-7,0 stand hp150
+15:14:26.439 AUTOTEST: player hp 100; scavenger_mine@-7,0 attack hp150
+15:14:27.439 AUTOTEST: spawning lasershooter
+15:14:27.440 spawned lasershooter (Мулккио) #3 life 1800 at tile 2088,253
+15:14:27.441 AUTOTEST: scavenger_mine #2 gone after 360 brain frames: active=False type=146 life=150/150 timeLeft=749 pos=2089,250
+15:14:27.441 AUTOTEST: player hp 100; lasershooter@-10,1 stand hp1800
+15:14:28.439 AUTOTEST: player hp 100; lasershooter@-9,-3 fly hp1800
+15:14:29.273 lasershooter shot laser hits for 26
+15:14:29.439 AUTOTEST: player hp 74; lasershooter@-11,-3 fly hp1800
+15:14:30.440 AUTOTEST: player hp 74; lasershooter@-10,-3 fly hp1800
+15:14:31.439 AUTOTEST: player hp 74; lasershooter@-9,-4 fly hp1800
+15:14:32.205 lasershooter shot laser hits for 26
+15:14:32.439 AUTOTEST: player hp 100; lasershooter@-11,-3 fly hp1800
+15:14:33.440 AUTOTEST: spawning monk
+15:14:33.441 spawned monk (Мункки) #2 life 700 at tile 2095,253
+15:14:33.442 AUTOTEST: lasershooter #3 gone after 360 brain frames: active=False type=146 life=1800/1800 timeLeft=749 pos=2095,244
+15:14:33.443 AUTOTEST: player hp 100; monk@-10,1 stand hp700
+15:14:34.072 monk shot monk_shot hits for 30
+15:14:34.439 AUTOTEST: player hp 70; monk@-14,0 walk hp700
+15:14:35.123 monk shot monk_shot hits for 30
+15:14:35.440 AUTOTEST: player hp 100; monk@-8,0 stand hp700
+15:14:36.039 monk shot monk_shot hits for 30
+15:14:36.440 AUTOTEST: player hp 70; monk@-3,0 walk hp700
+15:14:37.005 monk shot monk_shot hits for 30
+15:14:37.455 AUTOTEST: player hp 100; monk@0,0 walk hp700
+15:14:37.955 monk shot monk_shot hits for 30
+15:14:38.456 AUTOTEST: player hp 70; monk@-7,0 walk hp700
+15:14:39.055 monk shot monk_shot hits for 30
+15:14:39.455 AUTOTEST: spawning wizard_poly
+15:14:39.456 spawned wizard_poly (Муодонмуутосместари) #3 life 400 at tile 2094,253
+15:14:39.457 AUTOTEST: monk #2 gone after 360 brain frames: active=False type=146 life=700/700 timeLeft=749 pos=2091,249
+15:14:39.457 AUTOTEST: player hp 100; wizard_poly@-10,1 stand hp400
+15:14:40.456 AUTOTEST: player hp 100; wizard_poly@-9,-2 fly hp400
+15:14:41.456 AUTOTEST: player hp 100; wizard_poly@-9,-4 attack hp400
+15:14:41.789 wizard_poly shot polymorphing hits for 15
+15:14:42.457 AUTOTEST: player hp 85; wizard_poly@-10,-4 fly hp400
+15:14:43.456 AUTOTEST: player hp 85; wizard_poly@-9,-4 fly hp400
+15:14:44.456 AUTOTEST: player hp 85; wizard_poly@-9,-4 fly hp400
+15:14:45.456 AUTOTEST: spawning ant
+15:14:45.457 spawned ant (Муркку) #2 life 500 at tile 2095,253
+15:14:45.458 AUTOTEST: wizard_poly #3 gone after 360 brain frames: active=False type=146 life=400/400 timeLeft=749 pos=2094,244
+15:14:45.458 AUTOTEST: player hp 85; ant@-10,1 stand hp500
+15:14:45.556 wizard_poly shot polymorphing hits for 15
+15:14:46.457 AUTOTEST: player hp 70; ant@-7,0 walk hp500
+15:14:47.456 AUTOTEST: player hp 70; ant@-6,0 walk hp500
+15:14:48.456 AUTOTEST: player hp 70; ant@-3,0 walk hp500
+15:14:49.289 ant melee ant.melee hits for 23
+15:14:49.456 AUTOTEST: player hp 100; ant@-2,1 attack hp500
+15:14:49.956 ant melee ant.melee hits for 27
+15:14:50.457 AUTOTEST: player hp 73; ant@-2,0 attack hp500
+15:14:50.623 ant melee ant.melee hits for 34
+15:14:51.290 ant melee ant.melee hits for 27
+15:14:51.457 AUTOTEST: spawning scavenger_poison
+15:14:51.457 spawned scavenger_poison (Мюрккюхийси) #3 life 600 at tile 2095,253
+15:14:51.458 AUTOTEST: ant #2 gone after 360 brain frames: active=False type=146 life=500/500 timeLeft=749 pos=2102,249
+15:14:51.458 AUTOTEST: player hp 73; scavenger_poison@-10,1 stand hp600
+15:14:52.457 AUTOTEST: player hp 73; scavenger_poison@-9,1 stand hp600
+15:14:53.456 AUTOTEST: player hp 73; scavenger_poison@-9,1 stand hp600
+15:14:54.457 AUTOTEST: player hp 73; scavenger_poison@-9,1 stand hp600
+15:14:55.457 AUTOTEST: player hp 73; scavenger_poison@-9,1 stand hp600
+15:14:56.457 AUTOTEST: player hp 73; scavenger_poison@-9,1 stand hp600
+15:14:57.458 AUTOTEST: spawning fungus_tiny
+15:14:57.458 spawned fungus_tiny (Мюрккюняпиккя) #2 life 480 at tile 2095,253
+15:14:57.459 AUTOTEST: scavenger_poison #3 gone after 360 brain frames: active=False type=146 life=600/600 timeLeft=749 pos=2095,249
+15:14:57.459 AUTOTEST: player hp 73; fungus_tiny@-10,1 stand hp480
+15:14:58.458 AUTOTEST: player hp 73; fungus_tiny@-7,0 jump_up hp480
+15:14:58.674 fungus_tiny lunge fungus_tiny.lunge hits for 19
+15:14:59.457 AUTOTEST: player hp 54; fungus_tiny@0,0 walk hp480
+15:15:00.457 AUTOTEST: player hp 54; fungus_tiny@0,0 walk hp480
+15:15:00.473 fungus_tiny lunge fungus_tiny.lunge hits for 19
+15:15:01.458 AUTOTEST: player hp 100; fungus_tiny@0,0 walk hp480
+15:15:02.458 AUTOTEST: player hp 100; fungus_tiny@0,0 walk hp480
+15:15:02.474 fungus_tiny lunge fungus_tiny.lunge hits for 19
+15:15:03.457 AUTOTEST: spawning eel
+15:15:03.458 spawned eel (Нахкиайнен) #3 life 1000 at tile 2095,253
+15:15:03.459 AUTOTEST: fungus_tiny #2 gone after 360 brain frames: active=False type=146 life=480/480 timeLeft=749 pos=2104,248
+15:15:03.459 AUTOTEST: player hp 81; eel@-10,1 stand hp1000
+15:15:04.458 AUTOTEST: player hp 81; eel@-10,1 walk hp1000
+15:15:05.458 AUTOTEST: player hp 81; eel@-10,1 walk hp1000
+15:15:06.457 AUTOTEST: player hp 81; eel@-10,1 walk hp1000
+15:15:07.457 AUTOTEST: player hp 81; eel@-10,1 walk hp1000
+15:15:08.458 AUTOTEST: player hp 81; eel@-10,1 walk hp1000
+15:15:09.458 AUTOTEST: spawning deer
+15:15:09.459 spawned deer (Неликойпи) #2 life 40 at tile 2095,253
+15:15:09.459 AUTOTEST: eel #3 gone after 360 brain frames: active=False type=146 life=1000/1000 timeLeft=749 pos=2094,251
+15:15:09.461 AUTOTEST: player hp 81; deer@-10,1 stand hp40
+15:15:10.458 AUTOTEST: player hp 81; deer@-15,1 walk hp40
+15:15:11.458 AUTOTEST: player hp 81; deer@-20,0 walk hp40
+15:15:12.458 AUTOTEST: player hp 81; deer@-25,0 walk hp40
+15:15:13.458 AUTOTEST: player hp 81; deer@-28,0 walk hp40
+15:15:14.458 AUTOTEST: player hp 81; deer@-31,0 walk hp40
+15:15:15.458 AUTOTEST: spawning fungus_big
+15:15:15.459 spawned fungus_big (Нуйямаликка) #3 life 380 at tile 2095,253
+15:15:15.459 AUTOTEST: deer #2 gone after 360 brain frames: active=False type=146 life=40/40 timeLeft=749 pos=2070,248
+15:15:15.460 AUTOTEST: player hp 81; fungus_big@-10,0 stand hp380
+15:15:16.459 AUTOTEST: player hp 81; fungus_big@-6,0 jump_up hp380
+15:15:16.624 fungus_big lunge fungus_big.lunge hits for 10
+15:15:17.459 AUTOTEST: player hp 71; fungus_big@0,-1 stand hp380
+15:15:18.459 AUTOTEST: player hp 71; fungus_big@0,-1 stand hp380
+15:15:18.475 fungus_big lunge fungus_big.lunge hits for 10
+15:15:19.459 AUTOTEST: player hp 61; fungus_big@2,0 walk hp380
+15:15:20.459 AUTOTEST: player hp 61; fungus_big@0,0 walk hp380
+15:15:20.475 fungus_big lunge fungus_big.lunge hits for 10
+15:15:21.459 AUTOTEST: spawning ethereal_being
+15:15:21.460 spawned ethereal_being (Олематон) #2 life 4650 at tile 2095,253
+15:15:21.460 AUTOTEST: fungus_big #3 gone after 360 brain frames: active=False type=146 life=380/380 timeLeft=749 pos=2099,248
+15:15:21.461 AUTOTEST: player hp 51; ethereal_being@-10,0 stand hp4650
+15:15:22.459 AUTOTEST: player hp 51; ethereal_being@-8,0 fly hp4650
+15:15:23.459 AUTOTEST: player hp 51; ethereal_being@-6,0 fly hp4650
+15:15:24.458 AUTOTEST: player hp 51; ethereal_being@-4,0 fly hp4650
+15:15:25.375 ethereal_being aura ethereal_being.curse hits for 20
+15:15:25.459 AUTOTEST: player hp 100; ethereal_being@-2,1 fly hp4650
+15:15:26.059 ethereal_being aura ethereal_being.curse hits for 12
+15:15:26.475 AUTOTEST: player hp 88; ethereal_being@-1,0 fly hp4650
+15:15:26.725 ethereal_being aura ethereal_being.curse hits for 22
+15:15:27.391 ethereal_being aura ethereal_being.curse hits for 17
+15:15:27.476 AUTOTEST: spawning dark_alchemist
+15:15:27.477 spawned dark_alchemist (Пахан муйсто) #3 life 1500 at tile 2095,253
+15:15:27.478 AUTOTEST: ethereal_being #2 gone after 360 brain frames: active=False type=146 life=4650/4650 timeLeft=749 pos=2101,248
+15:15:27.478 AUTOTEST: player hp 100; dark_alchemist@-10,2 stand hp1500
+15:15:28.477 AUTOTEST: player hp 100; dark_alchemist@-10,1 stand hp1500
+15:15:29.477 AUTOTEST: player hp 100; dark_alchemist@-10,1 stand hp1500
+15:15:30.476 AUTOTEST: player hp 100; dark_alchemist@-8,1 stand hp1500
+15:15:31.076 dark_alchemist melee dark_alchemist.melee hits for 145
+15:15:31.493 AUTOTEST: player hp 100; dark_alchemist@-2,1 stand hp1500
+15:15:32.494 AUTOTEST: player hp 100; dark_alchemist@-2,1 stand hp1500
+15:15:33.493 AUTOTEST: spawning icemage
+15:15:33.493 spawned icemage (Паккасукко) #2 life 250 at tile 2087,253
+15:15:33.494 AUTOTEST: dark_alchemist #3 gone after 360 brain frames: active=False type=146 life=1500/1500 timeLeft=749 pos=2094,250
+15:15:33.494 AUTOTEST: player hp 100; icemage@-10,0 stand hp250
+15:15:34.494 AUTOTEST: player hp 100; icemage@-8,0 stand hp250
+15:15:35.510 AUTOTEST: player hp 100; icemage@-8,0 stand hp250
+15:15:36.510 AUTOTEST: player hp 100; icemage@-10,0 stand hp250
+15:15:37.510 AUTOTEST: player hp 100; icemage@-10,0 stand hp250
+15:15:38.343 icemage shot icemage_iceball hits for 59
+15:15:38.510 AUTOTEST: player hp 99; icemage@-12,1 stand hp250
+15:15:39.511 AUTOTEST: spawning wizard_returner
+15:15:39.512 spawned wizard_returner (Палауттаяместари) #3 life 700 at tile 2094,253
+15:15:39.513 AUTOTEST: icemage #2 gone after 360 brain frames: active=False type=146 life=250/250 timeLeft=749 pos=2088,249
+15:15:39.513 AUTOTEST: player hp 97; wizard_returner@-10,1 stand hp700
+15:15:40.276 wizard_returner shot ghostly_fireball hits for 75
+15:15:40.510 AUTOTEST: player hp 98; wizard_returner@-9,-2 fly hp700
+15:15:41.511 AUTOTEST: player hp 92; wizard_returner@-9,-4 attack hp700
+15:15:41.693 wizard_returner shot ghostly_fireball hits for 75
+15:15:42.510 AUTOTEST: player hp 95; wizard_returner@-9,-4 fly hp700
+15:15:42.926 wizard_returner shot ghostly_fireball hits for 75
+15:15:43.511 AUTOTEST: player hp 97; wizard_returner@-9,-4 fly hp700
+15:15:44.193 wizard_returner shot ghostly_fireball hits for 75
+15:15:44.510 AUTOTEST: player hp 99; wizard_returner@-9,-4 fly hp700
+15:15:45.427 wizard_returner shot ghostly_fireball hits for 75
+15:15:45.510 AUTOTEST: spawning scavenger_heal
+15:15:45.511 spawned scavenger_heal (Парантаяхийси) #2 life 70 at tile 2094,253
+15:15:45.512 AUTOTEST: wizard_returner #3 gone after 360 brain frames: active=False type=146 life=700/700 timeLeft=749 pos=2093,245
+15:15:45.512 AUTOTEST: player hp 100; scavenger_heal@-10,1 stand hp70
+15:15:46.510 AUTOTEST: player hp 96; scavenger_heal@-9,0 stand hp70
+15:15:47.528 AUTOTEST: player hp 92; scavenger_heal@-9,0 attack hp70
+15:15:48.527 AUTOTEST: player hp 88; scavenger_heal@-3,0 walk hp70
+15:15:49.529 AUTOTEST: player hp 84; scavenger_heal@-5,0 walk hp70
+15:15:50.528 AUTOTEST: player hp 80; scavenger_heal@-8,0 walk hp70
+15:15:51.528 AUTOTEST: spawning statue
+15:15:51.528 spawned statue (Патсас) #3 life 700 at tile 2086,253
+15:15:51.529 AUTOTEST: scavenger_heal #2 gone after 360 brain frames: active=False type=146 life=70/70 timeLeft=749 pos=2087,250
+15:15:51.530 AUTOTEST: player hp 76; statue@-10,0 stand hp700
+15:15:52.528 AUTOTEST: player hp 72; statue@-7,0 walk hp700
+15:15:53.527 AUTOTEST: player hp 70; statue@-4,0 walk hp700
+15:15:53.877 statue melee statue.melee hits for 16
+15:15:54.528 AUTOTEST: player hp 54; statue@-7,0 walk hp700
+15:15:55.528 AUTOTEST: player hp 54; statue@-6,0 stand hp700
+15:15:56.528 AUTOTEST: player hp 54; statue@-6,0 stand hp700
+15:15:57.528 AUTOTEST: spawning spearbot
+15:15:57.529 spawned spearbot (Пейтсивартия) #2 life 900 at tile 2092,253
+15:15:57.529 AUTOTEST: statue #3 gone after 360 brain frames: active=False type=146 life=700/700 timeLeft=749 pos=2094,249
+15:15:57.530 AUTOTEST: player hp 54; spearbot@-10,0 stand hp900
+15:15:58.461 spearbot shot laser_spear hits for 45
+15:15:58.529 AUTOTEST: player hp 100; spearbot@-9,-2 attack hp900
+15:15:59.528 AUTOTEST: player hp 100; spearbot@-9,-3 fly hp900
+15:16:00.211 spearbot shot laser_spear hits for 45
+15:16:00.528 AUTOTEST: player hp 55; spearbot@-3,-4 fly hp900
+15:16:01.528 AUTOTEST: player hp 55; spearbot@-6,-4 fly hp900
+15:16:01.961 spearbot shot laser_spear hits for 45
+15:16:02.529 AUTOTEST: player hp 100; spearbot@-12,-3 fly hp900
+15:16:03.529 AUTOTEST: spawning worm_tiny
+15:16:03.529 spawned worm_tiny (Пиккумато) #3 life 300 at tile 2096,252
+15:16:03.530 AUTOTEST: spearbot #2 gone after 360 brain frames: active=False type=146 life=900/900 timeLeft=749 pos=2096,243
+15:16:03.531 AUTOTEST: player hp 100; worm_tiny@-10,1 stand hp300
+15:16:04.529 AUTOTEST: player hp 100; worm_tiny@-5,4 walk hp300
+15:16:05.529 AUTOTEST: player hp 100; worm_tiny@2,1 walk hp300
+15:16:06.529 AUTOTEST: player hp 100; worm_tiny@9,5 walk hp300
+15:16:07.529 AUTOTEST: player hp 100; worm_tiny@-2,10 walk hp300
+15:16:08.529 worm_tiny melee worm_tiny.worm_bite hits for 11
+15:16:08.530 AUTOTEST: player hp 89; worm_tiny@0,-1 attack hp300
+15:16:09.529 AUTOTEST: spawning tentacler_small
+15:16:09.530 spawned tentacler_small (Пиккутурсо) #2 life 75 at tile 2101,252
+15:16:09.531 AUTOTEST: worm_tiny #3 gone after 360 brain frames: active=False type=146 life=300/300 timeLeft=749 pos=2119,253
+15:16:09.531 AUTOTEST: player hp 89; tentacler_small@-10,0 stand hp75
+15:16:10.530 AUTOTEST: player hp 89; tentacler_small@-7,0 walk hp75
+15:16:11.529 AUTOTEST: player hp 89; tentacler_small@-7,0 walk hp75
+15:16:12.529 AUTOTEST: player hp 89; tentacler_small@-7,0 walk hp75
+15:16:13.529 AUTOTEST: player hp 89; tentacler_small@-7,0 walk hp75
+15:16:14.529 AUTOTEST: player hp 89; tentacler_small@-7,0 walk hp75
+15:16:15.529 AUTOTEST: spawning shooterflower
+15:16:15.530 spawned shooterflower (Пласмакукка) #3 life 500 at tile 2101,252
+15:16:15.531 AUTOTEST: tentacler_small #2 gone after 360 brain frames: active=False type=146 life=75/75 timeLeft=749 pos=2102,249
+15:16:15.531 AUTOTEST: player hp 89; shooterflower@-10,0 stand hp500
+15:16:16.530 AUTOTEST: player hp 89; shooterflower@-10,0 stand hp500
+15:16:17.530 AUTOTEST: player hp 89; shooterflower@-10,0 stand hp500
+15:16:17.712 shooterflower shot explosive_homing hits for 4
+15:16:18.530 AUTOTEST: player hp 85; shooterflower@-15,0 stand hp500
+15:16:19.530 AUTOTEST: player hp 85; shooterflower@-9,0 attack hp500
+15:16:20.079 shooterflower shot explosive_homing hits for 4
+15:16:20.530 AUTOTEST: player hp 81; shooterflower@-12,0 stand hp500
+15:16:21.531 AUTOTEST: spawning elk
+15:16:21.531 spawned elk (Поро) #2 life 50 at tile 2101,252
+15:16:21.532 AUTOTEST: shooterflower #3 gone after 360 brain frames: active=False type=146 life=500/500 timeLeft=749 pos=2099,249
+15:16:21.532 AUTOTEST: player hp 81; elk@-10,0 stand hp50
+15:16:22.532 AUTOTEST: player hp 81; elk@-11,0 walk hp50
+15:16:23.530 AUTOTEST: player hp 81; elk@-13,0 walk hp50
+15:16:24.613 AUTOTEST: player hp 81; elk@-16,1 jump_fall hp50
+15:16:25.613 AUTOTEST: player hp 81; elk@-18,1 walk hp50
+15:16:26.614 AUTOTEST: player hp 81; elk@-20,1 walk hp50
+15:16:27.613 AUTOTEST: spawning alchemist
+15:16:27.614 spawned alchemist (Алкемисти) #3 life 150 at tile 2101,252
+15:16:27.615 AUTOTEST: elk #2 gone after 360 brain frames: active=False type=146 life=50/50 timeLeft=749 pos=2086,250
+15:16:27.615 AUTOTEST: player hp 81; alchemist@-10,1 stand hp150
+15:16:28.614 AUTOTEST: player hp 81; alchemist@-7,1 walk hp150
+15:16:28.963 alchemist shot thrown_potion hits for 25
+15:16:29.613 AUTOTEST: player hp 53; alchemist@-11,0 walk hp150
+15:16:30.614 AUTOTEST: player hp 100; alchemist@-8,0 walk hp150
+15:16:31.614 AUTOTEST: player hp 96; alchemist@-5,0 walk hp150
+15:16:32.613 AUTOTEST: player hp 92; alchemist@-5,0 walk hp150
+15:16:33.614 AUTOTEST: spawning bloom
+15:16:33.615 spawned bloom (Пуска) #2 life 400 at tile 2106,251
+15:16:33.616 AUTOTEST: alchemist #3 gone after 360 brain frames: active=False type=146 life=150/150 timeLeft=749 pos=2111,249
+15:16:33.616 AUTOTEST: player hp 88; bloom@-10,-1 stand hp400
+15:16:34.614 AUTOTEST: player hp 84; bloom@-8,-1 attack hp400
+15:16:35.614 AUTOTEST: player hp 80; bloom@-6,-1 walk hp400
+15:16:36.615 AUTOTEST: player hp 77; bloom@-5,-1 stand hp400
+15:16:37.615 AUTOTEST: player hp 77; bloom@-5,-1 stand hp400
+15:16:38.614 AUTOTEST: player hp 77; bloom@-5,-1 stand hp400
+15:16:39.615 AUTOTEST: spawning neutralizer
+15:16:39.615 spawned neutralizer (Пюсяйттяйя) #3 life 7250 at tile 2106,251
+15:16:39.616 AUTOTEST: bloom #2 gone after 360 brain frames: active=False type=146 life=400/400 timeLeft=749 pos=2109,248
+15:16:39.616 AUTOTEST: player hp 77; neutralizer@-10,-1 stand hp7250
+15:16:40.013 neutralizer shot roboguard_big_shot hits for 73
+15:16:40.615 AUTOTEST: player hp 98; neutralizer@-5,0 attack hp7250
+15:16:41.615 AUTOTEST: player hp 94; neutralizer@-5,0 stand hp7250
+15:16:42.615 AUTOTEST: player hp 90; neutralizer@-5,0 attack hp7250
+15:16:43.632 AUTOTEST: player hp 86; neutralizer@-5,0 stand hp7250
+15:16:44.632 AUTOTEST: player hp 82; neutralizer@-8,-1 attack hp7250
+15:16:45.631 AUTOTEST: spawning coward
+15:16:45.632 spawned coward (Раукка) #2 life 300 at tile 2136,252
+15:16:45.633 AUTOTEST: neutralizer #3 gone after 360 brain frames: active=False type=146 life=7250/7250 timeLeft=749 pos=2105,248
+15:16:45.633 AUTOTEST: player hp 78; coward@9,4 stand hp300
+15:16:46.632 AUTOTEST: player hp 74; coward@5,0 attack hp300
+15:16:47.631 AUTOTEST: player hp 70; coward@8,-1 walk hp300
+15:16:48.633 AUTOTEST: player hp 70; coward@9,-1 stand hp300
+15:16:49.632 AUTOTEST: player hp 70; coward@10,-1 stand hp300
+15:16:50.631 AUTOTEST: player hp 70; coward@10,3 stand hp300
+15:16:51.631 AUTOTEST: spawning roboguard
+15:16:51.632 spawned roboguard (Роботтикюття) #3 life 500 at tile 2120,253
+15:16:51.633 AUTOTEST: coward #2 gone after 360 brain frames: active=False type=146 life=300/300 timeLeft=749 pos=2140,248
+15:16:51.633 AUTOTEST: player hp 70; roboguard@-10,5 stand hp500
+15:16:52.098 roboguard shot roboguard_shot hits for 21
+15:16:52.631 AUTOTEST: player hp 100; roboguard@-4,0 walk hp500
+15:16:52.899 roboguard shot roboguard_shot hits for 21
+15:16:53.632 roboguard shot roboguard_shot hits for 21
+15:16:53.633 AUTOTEST: player hp 58; roboguard@-1,0 attack hp500
+15:16:54.348 roboguard melee roboguard.melee hits for 25
+15:16:54.633 AUTOTEST: player hp 100; roboguard@-5,0 attack hp500
+15:16:55.465 roboguard shot roboguard_shot hits for 21
+15:16:55.632 AUTOTEST: player hp 79; roboguard@-10,1 jump_fall hp500
+15:16:56.632 AUTOTEST: player hp 79; roboguard@-8,0 stand hp500
+15:16:56.883 roboguard shot roboguard_shot hits for 21
+15:16:57.650 AUTOTEST: spawning scavenger_smg
+15:16:57.652 spawned scavenger_smg (Рюнккюхийси) #2 life 50 at tile 2123,253
+15:16:57.652 AUTOTEST: roboguard #3 gone after 360 brain frames: active=False type=146 life=500/500 timeLeft=749 pos=2119,250
+15:16:57.652 AUTOTEST: player hp 58; scavenger_smg@-10,0 stand hp50
+15:16:58.315 scavenger_smg shot rifle hits for 14
+15:16:58.650 AUTOTEST: player hp 100; scavenger_smg@-14,1 walk hp50
+15:16:59.516 scavenger_smg shot rifle hits for 14
+15:16:59.649 AUTOTEST: player hp 86; scavenger_smg@-10,2 attack hp50
+15:17:00.618 scavenger_smg shot rifle hits for 14
+15:17:00.682 AUTOTEST: player hp 72; scavenger_smg@-5,1 attack hp50
+15:17:01.683 AUTOTEST: player hp 72; scavenger_smg@-3,0 walk hp50
+15:17:02.682 AUTOTEST: player hp 72; scavenger_smg@-5,0 walk hp50
+15:17:02.899 scavenger_smg shot rifle hits for 14
+15:17:03.682 AUTOTEST: spawning goblin_bomb
+15:17:03.683 spawned goblin_bomb (Сяхикяйсменнинкяйнен) #3 life 100 at tile 2123,253
+15:17:03.683 AUTOTEST: scavenger_smg #2 gone after 360 brain frames: active=False type=146 life=50/50 timeLeft=749 pos=2120,250
+15:17:03.684 AUTOTEST: player hp 58; goblin_bomb@-10,1 stand hp100
+15:17:04.683 AUTOTEST: player hp 58; goblin_bomb@-7,1 stand hp100
+15:17:05.682 AUTOTEST: player hp 58; goblin_bomb@-7,1 stand hp100
+15:17:06.583 goblin_bomb shot glitter_bomb hits for 38
+15:17:06.699 AUTOTEST: player hp 100; goblin_bomb@-2,1 attack hp100
+15:17:07.499 goblin_bomb melee goblin_bomb.melee hits for 16
+15:17:07.700 AUTOTEST: player hp 80; goblin_bomb@4,0 attack hp100
+15:17:08.700 AUTOTEST: player hp 76; goblin_bomb@10,1 stand hp100
+15:17:09.734 AUTOTEST: spawning thunderskull
+15:17:09.735 spawned thunderskull (Сяхкиё) #2 life 450 at tile 2106,251
+15:17:09.736 AUTOTEST: goblin_bomb #3 gone after 360 brain frames: active=False type=146 life=100/100 timeLeft=749 pos=2125,250
+15:17:09.736 AUTOTEST: player hp 72; thunderskull@-10,0 stand hp450
+15:17:10.733 AUTOTEST: player hp 68; thunderskull@-11,-4 fly hp450
+15:17:11.733 AUTOTEST: player hp 64; thunderskull@-9,-4 fly hp450
+15:17:12.734 AUTOTEST: player hp 60; thunderskull@-9,-4 fly hp450
+15:17:13.734 AUTOTEST: player hp 56; thunderskull@-2,0 fly hp450
+15:17:14.733 AUTOTEST: player hp 54; thunderskull@-2,-1 fly hp450
+15:17:15.734 AUTOTEST: spawning assassin
+15:17:15.735 spawned assassin (Саламурхааяроботти) #3 life 800 at tile 2086,253
+15:17:15.736 AUTOTEST: thunderskull #2 gone after 360 brain frames: active=False type=146 life=450/450 timeLeft=749 pos=2101,242
+15:17:15.736 AUTOTEST: player hp 54; assassin@-10,1 stand hp800
+15:17:16.735 AUTOTEST: player hp 54; assassin@-5,0 jump_up hp800
+15:17:16.885 assassin lunge assassin.lunge hits for 34
+15:17:17.718 assassin melee assassin.melee hits for 48
+15:17:17.735 AUTOTEST: player hp 52; assassin@1,0 attack hp800
+15:17:18.734 AUTOTEST: player hp 52; assassin@2,0 jump_up hp800
+15:17:18.800 assassin lunge assassin.lunge hits for 34
+15:17:19.734 AUTOTEST: player hp 100; assassin@-5,0 walk hp800
+15:17:20.734 AUTOTEST: player hp 100; assassin@-8,0 jump_up hp800
+15:17:21.100 assassin melee assassin.melee hits for 40
+15:17:21.733 AUTOTEST: spawning wizard_twitchy
+15:17:21.734 spawned wizard_twitchy (Саткиместари) #2 life 500 at tile 2098,252
+15:17:21.735 AUTOTEST: assassin #3 gone after 360 brain frames: active=False type=146 life=800/800 timeLeft=749 pos=2103,249
+15:17:21.735 AUTOTEST: player hp 60; wizard_twitchy@-10,1 stand hp500
+15:17:22.735 AUTOTEST: player hp 60; wizard_twitchy@-12,-5 attack hp500
+15:17:23.335 wizard_twitchy shot twitching_shot hits for 15
+15:17:23.734 AUTOTEST: player hp 100; wizard_twitchy@-11,-5 fly hp500
+15:17:24.734 AUTOTEST: player hp 100; wizard_twitchy@-9,-4 attack hp500
+15:17:25.035 wizard_twitchy shot twitching_shot hits for 15
+15:17:25.735 AUTOTEST: player hp 85; wizard_twitchy@-12,-5 fly hp500
+15:17:26.735 AUTOTEST: player hp 85; wizard_twitchy@-8,-4 attack hp500
+15:17:26.917 wizard_twitchy shot twitching_shot hits for 15
+15:17:27.734 AUTOTEST: spawning wizard_tele
+15:17:27.735 spawned wizard_tele (Сииртяяместари) #3 life 400 at tile 2118,253
+15:17:27.736 AUTOTEST: wizard_twitchy #2 gone after 360 brain frames: active=False type=146 life=500/500 timeLeft=749 pos=2117,245
+15:17:27.736 AUTOTEST: player hp 70; wizard_tele@-10,1 stand hp400
+15:17:28.735 AUTOTEST: player hp 70; wizard_tele@-9,-2 fly hp400
+15:17:29.735 AUTOTEST: player hp 70; wizard_tele@-9,-5 attack hp400
+15:17:30.068 wizard_tele shot teleportation hits for 15
+15:17:30.734 AUTOTEST: player hp 55; wizard_tele@-12,-5 fly hp400
+15:17:31.734 AUTOTEST: player hp 55; wizard_tele@-9,-4 fly hp400
+15:17:32.734 AUTOTEST: player hp 55; wizard_tele@-9,-4 fly hp400
+15:17:33.734 AUTOTEST: spawning scorpion
+15:17:33.735 spawned scorpion (Скорпиони) #2 life 5 at tile 2124,253
+15:17:33.735 AUTOTEST: wizard_tele #3 gone after 360 brain frames: active=False type=146 life=400/400 timeLeft=749 pos=2123,245
+15:17:33.736 AUTOTEST: player hp 55; scorpion@-10,1 stand hp5
+15:17:33.834 wizard_tele shot teleportation hits for 15
+15:17:34.734 AUTOTEST: player hp 100; scorpion@-17,2 walk hp5
+15:17:35.736 AUTOTEST: player hp 100; scorpion@-20,2 walk hp5
+15:17:36.735 AUTOTEST: player hp 100; scorpion@-21,1 walk hp5
+15:17:37.753 AUTOTEST: player hp 100; scorpion@-14,0 walk hp5
+15:17:38.753 AUTOTEST: player hp 100; scorpion@-5,0 walk hp5
+15:17:39.753 AUTOTEST: spawning sniper_hell
+15:17:39.754 spawned sniper_hell (Хорнаснипухийси) #3 life 1440 at tile 2094,253
+15:17:39.755 AUTOTEST: scorpion #2 gone after 360 brain frames: active=False type=146 life=5/5 timeLeft=749 pos=2108,250
+15:17:39.755 AUTOTEST: player hp 100; sniper_hell@-10,1 stand hp1440
+15:17:40.753 AUTOTEST: player hp 100; sniper_hell@-9,0 stand hp1440
+15:17:40.987 sniper_hell shot sniper_hell_shot hits for 165
+15:17:41.752 AUTOTEST: player hp 100; sniper_hell@-7,0 walk hp1440
+15:17:42.752 AUTOTEST: player hp 100; sniper_hell@1,0 attack hp1440
+15:17:43.753 AUTOTEST: player hp 100; sniper_hell@6,0 walk hp1440
+15:17:44.753 AUTOTEST: player hp 100; sniper_hell@15,0 walk hp1440
+15:17:45.752 AUTOTEST: spawning sniper
+15:17:45.753 spawned sniper (Снипухийси) #2 life 180 at tile 2091,253
+15:17:45.753 AUTOTEST: sniper_hell #3 gone after 360 brain frames: active=False type=146 life=1440/1440 timeLeft=749 pos=2093,250
+15:17:45.754 AUTOTEST: player hp 100; sniper@9,1 stand hp180
+15:17:46.752 AUTOTEST: player hp 100; sniper@9,1 stand hp180
+15:17:46.970 sniper shot sniper_shot hits for 52
+15:17:47.752 AUTOTEST: player hp 100; sniper@12,1 walk hp180
+15:17:48.752 AUTOTEST: player hp 100; sniper@9,1 stand hp180
+15:17:49.385 sniper shot sniper_shot hits for 52
+15:17:49.752 AUTOTEST: player hp 100; sniper@14,1 walk hp180
+15:17:50.752 AUTOTEST: player hp 100; sniper@10,0 walk hp180
+15:17:51.752 AUTOTEST: spawning wizard_dark
+15:17:51.753 spawned wizard_dark (Сокайсунместари) #3 life 400 at tile 2081,252
+15:17:51.754 AUTOTEST: sniper #2 gone after 360 brain frames: active=False type=146 life=180/180 timeLeft=749 pos=2080,248
+15:17:51.755 AUTOTEST: player hp 100; wizard_dark@9,1 stand hp400
+15:17:52.752 AUTOTEST: player hp 100; wizard_dark@10,-3 fly hp400
+15:17:53.752 AUTOTEST: player hp 100; wizard_dark@10,-4 attack hp400
+15:17:54.136 wizard_dark shot blinding hits for 15
+15:17:54.753 AUTOTEST: player hp 85; wizard_dark@13,-5 fly hp400
+15:17:55.753 AUTOTEST: player hp 85; wizard_dark@9,-4 fly hp400
+15:17:56.753 AUTOTEST: player hp 85; wizard_dark@9,-4 fly hp400
+15:17:57.753 AUTOTEST: spawning phantom_a
+15:17:57.754 spawned phantom_a (Спирааликалма) #2 life 300 at tile 2076,251
+15:17:57.755 AUTOTEST: wizard_dark #3 gone after 360 brain frames: active=False type=146 life=400/400 timeLeft=749 pos=2075,244
+15:17:57.755 AUTOTEST: player hp 85; phantom_a@9,0 stand hp300
+15:17:57.869 wizard_dark shot blinding hits for 15
+15:17:58.886 AUTOTEST: player hp 70; phantom_a@11,-2 fly hp300
+15:17:59.887 AUTOTEST: player hp 70; phantom_a@9,-4 fly hp300
+15:18:00.803 phantom_a shot orbspawner hits for 30
+15:18:00.887 AUTOTEST: player hp 100; phantom_a@10,-3 fly hp300
+15:18:01.887 AUTOTEST: player hp 100; phantom_a@10,-3 fly hp300
+15:18:02.887 AUTOTEST: player hp 100; phantom_a@9,-4 fly hp300
+15:18:03.887 AUTOTEST: spawning wolf
+15:18:03.888 spawned wolf (Суси) #3 life 30 at tile 2066,251
+15:18:03.888 AUTOTEST: phantom_a #2 gone after 360 brain frames: active=False type=146 life=300/300 timeLeft=749 pos=2065,242
+15:18:03.889 AUTOTEST: player hp 100; wolf@9,1 stand hp30
+15:18:04.453 wolf melee wolf.melee hits for 7
+15:18:04.887 AUTOTEST: player hp 93; wolf@4,1 walk hp30
+15:18:05.421 wolf lunge wolf.lunge hits for 6
+15:18:05.889 AUTOTEST: player hp 87; wolf@-59,-16 attack hp30
+15:18:06.888 AUTOTEST: player hp 87; wolf@-159,1 walk hp30
+15:18:07.887 AUTOTEST: player hp 87; wolf@-152,0 walk hp30
+15:18:08.888 AUTOTEST: player hp 87; wolf@-144,2 walk hp30
+15:18:09.888 AUTOTEST: spawning thundermage_big
+15:18:09.889 spawned thundermage_big (Суур-Укко) #2 life 6000 at tile 2052,250
+15:18:09.890 AUTOTEST: wolf #3 gone after 360 brain frames: active=False type=146 life=30/30 timeLeft=510 pos=1904,248
+15:18:09.890 AUTOTEST: player hp 87; thundermage_big@9,0 stand hp6000
+15:18:10.889 AUTOTEST: player hp 87; thundermage_big@9,0 stand hp6000
+15:18:11.888 AUTOTEST: player hp 87; thundermage_big@9,0 stand hp6000
+15:18:12.604 thundermage_big shot thunder_charge_homing hits for 248
+15:18:12.888 AUTOTEST: player hp 100; thundermage_big@7,0 walk hp6000
+15:18:13.889 AUTOTEST: player hp 100; thundermage_big@7,0 walk hp6000
+15:18:14.889 AUTOTEST: player hp 100; thundermage_big@-43,-3 walk hp6000
+15:18:15.889 AUTOTEST: spawning fish_large
+15:18:15.890 spawned fish_large (Сууревякяс) #3 life 5 at tile 2078,251
+15:18:15.890 AUTOTEST: thundermage_big #2 gone after 360 brain frames: active=False type=146 life=6000/6000 timeLeft=749 pos=2055,245
+15:18:15.891 AUTOTEST: player hp 100; fish_large@-10,-1 stand hp5
+15:18:16.888 AUTOTEST: player hp 100; fish_large@0,0 walk hp5
+15:18:17.888 AUTOTEST: player hp 100; fish_large@0,0 walk hp5
+15:18:18.888 AUTOTEST: player hp 100; fish_large@0,0 walk hp5
+15:18:19.888 AUTOTEST: player hp 100; fish_large@-2,0 walk hp5
+15:18:20.889 AUTOTEST: player hp 100; fish_large@0,0 walk hp5
+15:18:21.888 AUTOTEST: spawning bigbat
+15:18:21.889 spawned bigbat (Суурлепакко) #2 life 350 at tile 2067,251
+15:18:21.889 AUTOTEST: fish_large #3 gone after 360 brain frames: active=False type=146 life=5/5 timeLeft=749 pos=2077,249
+15:18:21.890 AUTOTEST: player hp 100; bigbat@-10,0 stand hp350
+15:18:22.889 AUTOTEST: player hp 100; bigbat@-4,0 fly hp350
+15:18:22.971 bigbat lunge bigbat.lunge hits for 19
+15:18:23.890 AUTOTEST: player hp 81; bigbat@0,0 fly hp350
+15:18:24.340 spawned bat (Лепакко) #3 life 50 at tile 2083,251
+15:18:24.890 AUTOTEST: player hp 81; bigbat@0,0 fly hp350 | bat@0,0 fly hp50
+15:18:24.905 bigbat lunge bigbat.lunge hits for 19
+15:18:25.888 AUTOTEST: player hp 62; bigbat@-7,-1 fly hp350 | bat@-1,0 fly hp50
+15:18:26.889 AUTOTEST: player hp 62; bigbat@-2,0 fly hp350 | bat@0,0 fly hp50
+15:18:26.922 bigbat lunge bigbat.lunge hits for 19
+15:18:27.890 AUTOTEST: spawning skygazer
+15:18:27.891 spawned skygazer (Тайваанкатсе) #4 life 5000 at tile 2088,253
+15:18:27.891 AUTOTEST: bigbat #2 gone after 360 brain frames: active=False type=146 life=350/350 timeLeft=749 pos=2093,248
+15:18:27.892 AUTOTEST: bat #3 gone after 214 brain frames: active=False type=146 life=50/50 timeLeft=749 pos=2101,250
+15:18:27.892 AUTOTEST: player hp 100; skygazer@-10,0 stand hp5000
+15:18:28.889 AUTOTEST: player hp 100; skygazer@-7,-3 fly hp5000
+15:18:29.372 skygazer shot polyshot hits for 169
+15:18:29.888 AUTOTEST: player hp 100; skygazer@-11,-5 fly hp5000
+15:18:30.890 AUTOTEST: player hp 100; skygazer@-16,-6 fly hp5000
+15:18:31.890 AUTOTEST: player hp 100; skygazer@-15,-5 fly hp5000
+15:18:32.889 AUTOTEST: player hp 100; skygazer@-10,-4 fly hp5000
+15:18:33.890 AUTOTEST: spawning skycrystal_physics
+15:18:33.890 spawned skycrystal_physics (Тайваскристалли) #2 life 4800 at tile 2082,252
+15:18:33.891 AUTOTEST: skygazer #4 gone after 360 brain frames: active=False type=146 life=5000/5000 timeLeft=749 pos=2080,245
+15:18:33.892 AUTOTEST: player hp 100; skycrystal_physics@-10,0 stand hp4800
+15:18:34.890 AUTOTEST: player hp 100; skycrystal_physics@-10,0 stand hp4800
+15:18:35.272 skycrystal_physics shot blue_concentrated_light hits for 26
+15:18:35.890 AUTOTEST: player hp 74; skycrystal_physics@-14,0 stand hp4800
+15:18:36.889 AUTOTEST: player hp 74; skycrystal_physics@-14,0 stand hp4800
+15:18:38.040 AUTOTEST: player hp 74; skycrystal_physics@-12,0 stand hp4800
+15:18:39.041 AUTOTEST: player hp 74; skycrystal_physics@-1,0 stand hp4800
+15:18:39.240 skycrystal_physics shot blue_concentrated_light hits for 26
+15:18:40.040 AUTOTEST: spawning miner_hell
+15:18:40.041 spawned miner_hell (Хорнантаппурахийси) #3 life 900 at tile 2066,251
+15:18:40.042 AUTOTEST: skycrystal_physics #2 gone after 360 brain frames: active=False type=146 life=4800/4800 timeLeft=749 pos=2081,249
+15:18:40.042 AUTOTEST: player hp 100; miner_hell@-10,0 stand hp900
+15:18:41.039 AUTOTEST: player hp 100; miner_hell@-7,0 attack hp900
+15:18:41.189 miner_hell shot tnt_hell hits for 188
+15:18:42.040 AUTOTEST: player hp 100; miner_hell@-6,0 walk hp900
+15:18:43.041 AUTOTEST: player hp 100; miner_hell@-26,0 walk hp900
+15:18:44.041 AUTOTEST: player hp 100; miner_hell@-23,0 walk hp900
+15:18:45.039 AUTOTEST: player hp 100; miner_hell@-20,0 walk hp900
+15:18:46.041 AUTOTEST: spawning cook
+15:18:46.041 spawned cook (Коккихииси) #2 life 100 at tile 2087,253
+15:18:46.042 AUTOTEST: miner_hell #3 gone after 360 brain frames: active=False type=146 life=900/900 timeLeft=749 pos=2079,249
+15:18:46.043 AUTOTEST: player hp 100; cook@-10,1 stand hp100
+15:18:47.040 AUTOTEST: player hp 100; cook@-9,1 attack hp100
+15:18:48.040 AUTOTEST: player hp 100; cook@-7,0 stand hp100
+15:18:49.040 AUTOTEST: player hp 100; cook@-6,0 attack hp100
+15:18:50.040 AUTOTEST: player hp 100; cook@-7,0 stand hp100
+15:18:51.041 AUTOTEST: player hp 100; cook@-9,1 attack hp100
+15:18:52.042 AUTOTEST: spawning miner
+15:18:52.042 spawned miner (Таппурахийси) #3 life 50 at tile 2107,251
+15:18:52.043 AUTOTEST: cook #2 gone after 360 brain frames: active=False type=146 life=100/100 timeLeft=749 pos=2087,251
+15:18:52.044 AUTOTEST: player hp 100; miner@9,0 stand hp50
+15:18:53.041 AUTOTEST: player hp 100; miner@7,0 walk hp50
+15:18:53.639 miner shot tnt hits for 50
+15:18:54.041 AUTOTEST: player hp 50; miner@11,-1 walk hp50
+15:18:55.040 AUTOTEST: player hp 50; miner@9,0 walk hp50
+15:18:56.040 AUTOTEST: player hp 50; miner@7,0 walk hp50
+15:18:57.041 AUTOTEST: player hp 50; miner@4,0 walk hp50
+15:18:58.040 AUTOTEST: spawning sentry
+15:18:58.041 spawned sentry (Тарккайлийа) #2 life 7250 at tile 2103,252
+15:18:58.042 AUTOTEST: miner #3 gone after 360 brain frames: active=False type=146 life=50/50 timeLeft=749 pos=2097,250
+15:18:58.042 AUTOTEST: player hp 50; sentry@9,-1 stand hp7250
+15:18:59.041 AUTOTEST: player hp 50; sentry@9,-1 attack hp7250
+15:19:00.041 AUTOTEST: player hp 50; sentry@13,2 stand hp7250
+15:19:01.042 AUTOTEST: player hp 50; sentry@22,0 stand hp7250
+15:19:02.041 AUTOTEST: player hp 50; sentry@22,5 stand hp7250
+15:19:03.041 AUTOTEST: player hp 50; sentry@22,0 stand hp7250
+15:19:04.041 AUTOTEST: spawning soldier
+15:19:04.042 spawned soldier (Телоиттайа) #3 life 10250 at tile 2096,252
+15:19:04.042 AUTOTEST: sentry #2 gone after 360 brain frames: active=False type=146 life=7250/7250 timeLeft=749 pos=2101,249
+15:19:04.043 AUTOTEST: player hp 50; soldier@9,-1 stand hp10250
+15:19:04.858 soldier shot soldier_shot hits for 259
+15:19:05.041 AUTOTEST: player hp 100; soldier@3,-1 walk hp10250
+15:19:06.042 AUTOTEST: player hp 100; soldier@2,-1 walk hp10250
+15:19:07.042 AUTOTEST: player hp 100; soldier@0,0 walk hp10250
+15:19:08.041 AUTOTEST: player hp 100; soldier@-5,0 walk hp10250
+15:19:09.042 AUTOTEST: player hp 100; soldier@-8,0 attack hp10250
+15:19:10.042 AUTOTEST: spawning scavenger_leader
+15:19:10.043 spawned scavenger_leader (Тоймари) #2 life 400 at tile 2087,253
+15:19:10.043 AUTOTEST: soldier #3 gone after 360 brain frames: active=False type=146 life=10250/10250 timeLeft=749 pos=2087,250
+15:19:10.044 AUTOTEST: player hp 100; scavenger_leader@-10,0 stand hp400
+15:19:11.043 AUTOTEST: player hp 100; scavenger_leader@-8,0 attack hp400
+15:19:11.158 scavenger_leader shot grenades hits for 38
+15:19:12.043 AUTOTEST: player hp 62; scavenger_leader@-12,0 walk hp400
+15:19:12.775 scavenger_leader shot grenades hits for 38
+15:19:13.043 AUTOTEST: player hp 100; scavenger_leader@-14,1 walk hp400
+15:19:14.042 AUTOTEST: player hp 100; scavenger_leader@-14,1 attack hp400
+15:19:14.408 scavenger_leader shot grenades hits for 38
+15:19:15.042 AUTOTEST: player hp 62; scavenger_leader@-18,1 walk hp400
+15:19:16.025 scavenger_leader shot grenades hits for 38
+15:19:16.042 AUTOTEST: spawning turret
+15:19:16.043 spawned turret (Торьюнталайте) #3 life 300 at tile 2102,252
+15:19:16.043 AUTOTEST: scavenger_leader #2 gone after 360 brain frames: active=False type=146 life=400/400 timeLeft=749 pos=2094,249
+15:19:16.044 AUTOTEST: player hp 100; turret@-10,1 stand hp300
+15:19:17.042 AUTOTEST: player hp 100; turret@-15,0 stand hp300
+15:19:18.043 AUTOTEST: player hp 100; turret@-15,0 stand hp300
+15:19:19.043 AUTOTEST: player hp 100; turret@-15,0 stand hp300
+15:19:20.042 AUTOTEST: player hp 100; turret@-13,0 stand hp300
+15:19:20.392 turret shot laser_turret hits for 47
+15:19:21.042 AUTOTEST: player hp 53; turret@-15,0 stand hp300
+15:19:22.044 AUTOTEST: spawning maggot
+15:19:22.044 spawned maggot (Тоукка) #2 life 350 at tile 2107,251
+15:19:22.045 AUTOTEST: turret #3 gone after 360 brain frames: active=False type=146 life=300/300 timeLeft=749 pos=2101,249
+15:19:22.045 AUTOTEST: player hp 53; maggot@-10,-1 stand hp350
+15:19:23.043 AUTOTEST: player hp 53; maggot@-7,-1 walk hp350
+15:19:23.509 maggot shot maggot_blob hits for 2
+15:19:24.042 AUTOTEST: player hp 51; maggot@-6,-1 walk hp350
+15:19:25.043 AUTOTEST: player hp 51; maggot@-3,-1 stand hp350
+15:19:26.043 AUTOTEST: player hp 51; maggot@-3,-1 attack hp350
+15:19:26.109 maggot shot maggot_blob hits for 2
+15:19:26.927 maggot melee maggot.melee hits for 18
+15:19:27.044 AUTOTEST: player hp 82; maggot@2,0 attack hp344
+15:19:28.044 AUTOTEST: spawning miner_fire
+15:19:28.045 spawned miner_fire (Тулихийси) #3 life 100 at tile 2116,252
+15:19:28.045 AUTOTEST: maggot #2 gone after 360 brain frames: active=False type=146 life=344/350 timeLeft=749 pos=2110,248
+15:19:28.046 AUTOTEST: player hp 82; miner_fire@9,1 stand hp100
+15:19:29.043 AUTOTEST: player hp 82; miner_fire@7,1 walk hp100
+15:19:30.043 AUTOTEST: player hp 82; miner_fire@7,1 stand hp100
+15:19:31.044 AUTOTEST: player hp 82; miner_fire@4,1 stand hp100
+15:19:32.043 AUTOTEST: player hp 82; miner_fire@4,2 jump_up hp100
+15:19:33.044 AUTOTEST: player hp 82; miner_fire@4,1 stand hp100
+15:19:34.044 AUTOTEST: spawning nest_firebug
+15:19:34.044 spawned nest_firebug (Firefly Hive) #2 life 500 at tile 2118,253
+15:19:34.045 AUTOTEST: miner_fire #3 gone after 360 brain frames: active=False type=146 life=100/100 timeLeft=749 pos=2112,250
+15:19:34.045 AUTOTEST: player hp 82; nest_firebug@9,1 stand hp500
+15:19:35.043 AUTOTEST: player hp 82; nest_firebug@9,1 stand hp500
+15:19:36.045 AUTOTEST: player hp 82; nest_firebug@9,1 stand hp500
+15:19:37.043 AUTOTEST: player hp 82; nest_firebug@9,1 stand hp500
+15:19:38.043 AUTOTEST: player hp 82; nest_firebug@9,1 stand hp500
+15:19:39.044 AUTOTEST: player hp 82; nest_firebug@9,1 stand hp500
+15:19:40.044 AUTOTEST: spawning firebug
+15:19:40.044 spawned firebug (Пиккутуликярпянен) #3 life 20 at tile 2118,253
+15:19:40.045 AUTOTEST: nest_firebug #2 gone after 360 brain frames: active=False type=146 life=500/500 timeLeft=749 pos=2116,249
+15:19:40.045 AUTOTEST: player hp 82; firebug@9,2 stand hp20
+15:19:41.044 AUTOTEST: player hp 82; firebug@8,1 fly hp20
+15:19:41.178 firebug shot firebomb hits for 8
+15:19:42.045 AUTOTEST: player hp 71; firebug@0,-1 fly hp20
+15:19:42.160 firebug shot firebomb hits for 8
+15:19:43.045 AUTOTEST: player hp 59; firebug@1,0 fly hp20
+15:19:43.061 firebug lunge firebug.lunge hits for 9
+15:19:44.044 AUTOTEST: player hp 97; firebug@0,0 fly hp20
+15:19:44.994 firebug shot firebomb hits for 8
+15:19:45.045 AUTOTEST: player hp 85; firebug@0,0 attack hp20
+15:19:46.044 AUTOTEST: spawning bigfirebug
+15:19:46.045 spawned bigfirebug (Сууртуликярпянен) #2 life 100 at tile 2097,252
+15:19:46.045 AUTOTEST: firebug #3 gone after 360 brain frames: active=False type=146 life=20/20 timeLeft=749 pos=2086,250
+15:19:46.046 AUTOTEST: player hp 81; bigfirebug@9,0 stand hp100
+15:19:46.910 bigfirebug shot fireball_bigfirebug hits for 19
+15:19:47.044 AUTOTEST: player hp 58; bigfirebug@6,0 fly hp100
+15:19:48.044 AUTOTEST: player hp 54; bigfirebug@0,0 fly hp100
+15:19:48.160 bigfirebug shot fireball_bigfirebug hits for 19
+15:19:49.044 AUTOTEST: player hp 97; bigfirebug@0,0 fly hp100
+15:19:49.060 bigfirebug lunge bigfirebug.lunge hits for 9
+15:19:50.044 AUTOTEST: player hp 84; bigfirebug@0,0 fly hp100
+15:19:50.994 bigfirebug shot fireball_bigfirebug hits for 19
+15:19:51.044 AUTOTEST: player hp 61; bigfirebug@0,0 attack hp100
+15:19:52.044 AUTOTEST: spawning necrobot
+15:19:52.045 spawned necrobot (Туонеланконе) #3 life 4800 at tile 2078,251
+15:19:52.046 AUTOTEST: bigfirebug #2 gone after 360 brain frames: active=False type=146 life=100/100 timeLeft=749 pos=2067,248
+15:19:52.046 AUTOTEST: player hp 57; necrobot@9,0 stand hp4800
+15:19:53.045 AUTOTEST: player hp 53; necrobot@9,0 stand hp4800
+15:19:53.411 necrobot shot necrobot_shot hits for 60
+15:19:54.044 AUTOTEST: player hp 100; necrobot@10,0 walk hp4800
+15:19:55.044 AUTOTEST: player hp 100; necrobot@12,0 walk hp4800
+15:19:56.045 AUTOTEST: player hp 100; necrobot@-14,0 walk hp4800
+15:19:57.045 AUTOTEST: player hp 100; necrobot@-11,0 walk hp4800
+15:19:58.045 AUTOTEST: spawning tentacler
+15:19:58.045 spawned tentacler (Турсо) #2 life 500 at tile 2107,251
+15:19:58.046 AUTOTEST: necrobot #3 gone after 360 brain frames: active=False type=146 life=4800/4800 timeLeft=749 pos=2087,249
+15:19:58.046 AUTOTEST: player hp 100; tentacler@10,-1 stand hp500
+15:19:59.045 AUTOTEST: player hp 100; tentacler@7,-1 walk hp500
+15:20:00.044 AUTOTEST: player hp 100; tentacler@5,0 walk hp500
+15:20:01.045 AUTOTEST: player hp 100; tentacler@5,0 stand hp500
+15:20:02.045 AUTOTEST: player hp 100; tentacler@5,0 stand hp500
+15:20:02.878 tentacler melee tentacler.tentacle hits for 38
+15:20:03.046 AUTOTEST: player hp 62; tentacler@3,0 attack hp500
+15:20:04.046 AUTOTEST: spawning drone_shield
+15:20:04.046 spawned drone_shield (Турваленнокки) #3 life 2520 at tile 2109,251
+15:20:04.047 AUTOTEST: tentacler #2 gone after 360 brain frames: active=False type=146 life=500/500 timeLeft=749 pos=2102,248
+15:20:04.047 AUTOTEST: player hp 62; drone_shield@9,0 stand hp2520
+15:20:04.745 WARN special attack drone_shield.shield_buff (support) has no effect in Terraria yet
+15:20:05.045 AUTOTEST: player hp 62; drone_shield@8,-2 fly hp2520
+15:20:06.046 AUTOTEST: player hp 62; drone_shield@5,-3 fly hp2520
+15:20:07.046 AUTOTEST: player hp 62; drone_shield@7,-2 fly hp2520
+15:20:08.045 AUTOTEST: player hp 62; drone_shield@9,-2 fly hp2520
+15:20:09.045 AUTOTEST: player hp 62; drone_shield@5,-4 attack hp2520
+15:20:10.045 AUTOTEST: spawning wizard_weaken
+15:20:10.046 spawned wizard_weaken (Турваттомуусместари) #2 life 3600 at tile 2131,252
+15:20:10.047 AUTOTEST: drone_shield #3 gone after 360 brain frames: active=False type=146 life=2520/2520 timeLeft=749 pos=2128,247
+15:20:10.047 AUTOTEST: player hp 62; wizard_weaken@9,0 stand hp3600
+15:20:11.047 AUTOTEST: player hp 62; wizard_weaken@10,-4 fly hp3600
+15:20:11.896 wizard_weaken shot wizard_weaken_shot hits for 30
+15:20:12.046 AUTOTEST: player hp 100; wizard_weaken@12,-3 fly hp3600
+15:20:13.046 AUTOTEST: player hp 100; wizard_weaken@10,-4 fly hp3600
+15:20:14.046 AUTOTEST: player hp 100; wizard_weaken@9,-4 fly hp3600
+15:20:14.630 wizard_weaken shot wizard_weaken_shot hits for 30
+15:20:15.047 AUTOTEST: player hp 70; wizard_weaken@13,-3 fly hp3600
+15:20:16.047 AUTOTEST: spawning barfer
+15:20:16.047 spawned barfer (Турвонну вельхо) #3 life 1200 at tile 2121,253
+15:20:16.049 AUTOTEST: wizard_weaken #2 gone after 360 brain frames: active=False type=146 life=3600/3600 timeLeft=749 pos=2120,244
+15:20:16.049 AUTOTEST: player hp 70; barfer@9,2 stand hp1200
+15:20:17.048 AUTOTEST: player hp 70; barfer@9,2 stand hp1200
+15:20:18.046 AUTOTEST: player hp 70; barfer@9,2 stand hp1200
+15:20:19.047 AUTOTEST: player hp 70; barfer@8,5 stand hp1200
+15:20:20.047 AUTOTEST: player hp 70; barfer@6,1 stand hp1200
+15:20:21.063 AUTOTEST: player hp 70; barfer@6,1 stand hp1200
+15:20:22.063 AUTOTEST: spawning thundermage
+15:20:22.065 spawned thundermage (Укко) #2 life 250 at tile 2124,253
+15:20:22.065 AUTOTEST: barfer #3 gone after 360 brain frames: active=False type=146 life=1200/1200 timeLeft=749 pos=2120,250
+15:20:22.066 AUTOTEST: player hp 70; thundermage@9,0 stand hp250
+15:20:23.063 AUTOTEST: player hp 70; thundermage@9,0 stand hp250
+15:20:24.046 thundermage shot thunder_charge hits for 82
+15:20:24.064 AUTOTEST: player hp 100; thundermage@9,0 walk hp250
+15:20:25.064 AUTOTEST: player hp 100; thundermage@8,0 walk hp250
+15:20:26.063 AUTOTEST: player hp 100; thundermage@6,0 walk hp250
+15:20:27.063 AUTOTEST: player hp 100; thundermage@21,0 walk hp250
+15:20:28.063 AUTOTEST: spawning wraith_storm
+15:20:28.064 spawned wraith_storm (Уккосхюпиё) #3 life 5625 at tile 2107,251
+15:20:28.065 AUTOTEST: thundermage #2 gone after 360 brain frames: active=False type=146 life=250/250 timeLeft=749 pos=2118,249
+15:20:28.065 AUTOTEST: player hp 100; wraith_storm@10,-1 stand hp5625
+15:20:29.064 AUTOTEST: player hp 100; wraith_storm@3,-1 fly hp5625
+15:20:30.065 AUTOTEST: player hp 100; wraith_storm@0,0 fly hp5625
+15:20:31.064 AUTOTEST: player hp 100; wraith_storm@0,0 fly hp5625
+15:20:32.064 AUTOTEST: player hp 100; wraith_storm@4,0 fly hp5625
+15:20:33.064 AUTOTEST: player hp 100; wraith_storm@10,4 fly hp5625
+15:20:34.064 AUTOTEST: spawning wizard_swapper
+15:20:34.065 spawned wizard_swapper (Вайхдосместари) #2 life 400 at tile 2081,252
+15:20:34.066 AUTOTEST: wraith_storm #3 gone after 360 brain frames: active=False type=146 life=5625/5625 timeLeft=749 pos=2086,249
+15:20:34.066 AUTOTEST: player hp 100; wizard_swapper@9,1 stand hp400
+15:20:35.065 AUTOTEST: player hp 100; wizard_swapper@10,-3 fly hp400
+15:20:36.065 AUTOTEST: player hp 100; wizard_swapper@9,-5 attack hp400
+15:20:37.065 AUTOTEST: player hp 100; wizard_swapper@9,-4 fly hp400
+15:20:38.065 AUTOTEST: player hp 100; wizard_swapper@17,-3 fly hp400
+15:20:39.065 AUTOTEST: player hp 100; wizard_swapper@15,-4 fly hp400
+15:20:40.065 AUTOTEST: spawning hidden
+15:20:40.065 spawned hidden (Вакоилийа) #3 life 7250 at tile 2066,251
+15:20:40.066 AUTOTEST: wizard_swapper #2 gone after 360 brain frames: active=False type=146 life=400/400 timeLeft=749 pos=2066,242
+15:20:40.066 AUTOTEST: player hp 100; hidden@9,0 stand hp7250
+15:20:41.065 AUTOTEST: player hp 100; hidden@9,0 stand hp7250
+15:20:42.064 AUTOTEST: player hp 100; hidden@9,2 stand hp7250
+15:20:43.065 AUTOTEST: player hp 100; hidden@9,0 stand hp7250
+15:20:44.065 AUTOTEST: player hp 100; hidden@9,0 stand hp7250
+15:20:45.065 AUTOTEST: player hp 100; hidden@9,0 stand hp7250
+15:20:46.065 AUTOTEST: spawning shaman_wind
+15:20:46.066 spawned shaman_wind (Валхе) #2 life 1500 at tile 2067,251
+15:20:46.066 AUTOTEST: hidden #3 gone after 360 brain frames: active=False type=146 life=7250/7250 timeLeft=749 pos=2065,248
+15:20:46.067 AUTOTEST: player hp 100; shaman_wind@9,1 stand hp1500
+15:20:46.815 shaman_wind melee shaman_wind.melee hits for 137
+15:20:47.066 AUTOTEST: player hp 100; shaman_wind@2,0 attack hp1500
+15:20:48.065 AUTOTEST: player hp 100; shaman_wind@2,0 stand hp1500
+15:20:49.065 AUTOTEST: player hp 100; shaman_wind@2,0 stand hp1500
+15:20:50.065 AUTOTEST: player hp 100; shaman_wind@2,0 stand hp1500
+15:20:51.066 AUTOTEST: player hp 100; shaman_wind@2,0 stand hp1500
+15:20:52.067 AUTOTEST: spawning lurker
+15:20:52.067 spawned lurker (Варьокупла) #3 life 2025 at tile 2086,253
+15:20:52.068 AUTOTEST: shaman_wind #2 gone after 360 brain frames: active=False type=146 life=1500/1500 timeLeft=749 pos=2066,248
+15:20:52.068 AUTOTEST: player hp 100; lurker@-10,1 stand hp2025
+15:20:53.065 AUTOTEST: player hp 100; lurker@2,0 attack hp2025
+15:20:54.066 AUTOTEST: player hp 100; lurker@1,1 fly hp2025
+15:20:55.067 AUTOTEST: player hp 100; lurker@4,0 attack hp2025
+15:20:55.100 lurker shot lurkershot hits for 38
+15:20:56.066 AUTOTEST: player hp 62; lurker@4,0 fly hp2025
+15:20:57.067 AUTOTEST: player hp 62; lurker@5,0 attack hp2025
+15:20:57.083 lurker shot lurkershot hits for 38
+15:20:58.065 AUTOTEST: spawning bloodcrystal_physics
+15:20:58.066 spawned bloodcrystal_physics (Верикристалли) #5 life 1200 at tile 2043,248
+15:20:58.067 AUTOTEST: lurker #3 gone after 360 brain frames: active=False type=146 life=2025/2025 timeLeft=749 pos=2064,248
+15:20:58.067 AUTOTEST: player hp 100; bloodcrystal_physics@-10,-2 stand hp1200
+15:20:59.067 AUTOTEST: player hp 100; bloodcrystal_physics@1,0 stand hp1200
+15:21:00.067 AUTOTEST: player hp 100; bloodcrystal_physics@3,0 stand hp1200
+15:21:01.066 AUTOTEST: player hp 100; bloodcrystal_physics@10,0 stand hp1200
+15:21:02.068 AUTOTEST: player hp 100; bloodcrystal_physics@1,0 stand hp1200
+15:21:02.567 bloodcrystal_physics shot bloodcrystal_physics_shot hits for 60
+15:21:03.066 AUTOTEST: player hp 100; bloodcrystal_physics@4,0 stand hp1199
+15:21:04.066 AUTOTEST: player hp 100; bloodcrystal_physics@6,0 stand hp1199
+15:21:04.433 bloodcrystal_physics shot bloodcrystal_physics_shot hits for 60
+15:21:05.068 AUTOTEST: player hp 100; bloodcrystal_physics@8,0 stand hp1198
+15:21:06.068 AUTOTEST: player hp 100; bloodcrystal_physics@6,0 stand hp1198
+15:21:06.450 bloodcrystal_physics shot bloodcrystal_physics_shot hits for 60
+15:21:07.068 AUTOTEST: player hp 100; bloodcrystal_physics@8,0 stand hp1197
+15:21:08.066 AUTOTEST: player hp 100; bloodcrystal_physics@6,5 stand hp1197
+15:21:09.068 AUTOTEST: player hp 100; bloodcrystal_physics@-4,0 stand hp1197
+15:21:10.067 AUTOTEST: player hp 100; bloodcrystal_physics@-15,-2 stand hp1197
+15:21:11.066 AUTOTEST: player hp 100; bloodcrystal_physics@-15,-2 stand hp1197
+15:21:12.068 AUTOTEST: player hp 100; bloodcrystal_physics@-5,-1 stand hp1197
+15:21:13.068 AUTOTEST: player hp 100; bloodcrystal_physics@-5,-1 stand hp1197
+15:21:14.068 AUTOTEST: player hp 100; bloodcrystal_physics@-4,0 stand hp1196
+15:21:14.068 AUTOTEST: done; Noita enemies alive: 1
+15:21:14.336 Terraria exited
