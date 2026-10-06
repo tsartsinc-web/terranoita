@@ -18,6 +18,10 @@ namespace Terranoita.Game
         public BalanceDef Tier;
         public Brain Brain;
         public string Name;
+        /// <summary>A shield from a shield drone or hiisi: the next hit does nothing.</summary>
+        public bool Shield;
+        /// <summary>Frames it stays (nearly) invisible, from an invisibility hiisi.</summary>
+        public int Invisible;
     }
 
     /// <summary>
@@ -159,6 +163,8 @@ namespace Terranoita.Game
 
             public void Started(AttackDef a)
             {
+                if (DebugTools.Testing)
+                    Entry.Log(Noita.Def.Id + " starts " + a.Id + " at " + (int)(Vector2.Distance(Npc.Center, Target?.Center ?? Npc.Center) / 16) + " tiles");
                 if (!NoitaSound.Play(a.Sound, Npc.Center))
                     SoundEngine.PlaySound(SoundID.Item1, Npc.Center);
             }
@@ -177,7 +183,18 @@ namespace Terranoita.Game
                 {
                     case "aura":
                         if (Target != null && Vector2.Distance(Target.Center, Npc.Center) <= a.RangeTiles * 16f + Target.width / 2f)
+                        {
                             Hit(a, Roll(a), "aura");
+                            int buff = a.Effect == "weak" ? BuffID.Weak : a.Effect == "slime" ? BuffID.Slimed :
+                                       a.Effect == "confuse" ? BuffID.Confused : -1;
+                            if (buff >= 0 && Target.active && !Target.dead)
+                                Target.AddBuff(buff, 180);
+                            else if (a.Effect == "berserk")
+                                Entry.Warn("aura " + a.Id + ": berserk has no Terraria player effect yet");
+                        }
+                        break;
+                    case "support":
+                        Support(a);
                         break;
                     case "summon":
                         Summon(a);
@@ -205,6 +222,26 @@ namespace Terranoita.Game
                     if (Defs.Enemy.TryGetValue(id, out var def))
                         for (int k = 0; k < n; k++)
                             Carriers.Spawn(def, (int)Npc.Center.X + Rng.Next(-16, 17), (int)(Npc.position.Y + Npc.height));
+            }
+
+            /// <summary>Shield (next hit does nothing) or invisibility for the nearest other Noita creature.</summary>
+            void Support(AttackDef a)
+            {
+                float range = Math.Max(a.RangeTiles, 1f) * 16f;
+                bool invisible = a.Id.Contains("invisib");
+                for (int i = 0; i < Main.maxNPCs; i++)
+                {
+                    var other = Main.npc[i];
+                    var o = other.active && i != Npc.whoAmI ? Get(other) : null;
+                    if (o == null || Vector2.Distance(other.Center, Npc.Center) > range || (invisible ? o.Invisible > 0 : o.Shield))
+                        continue;
+                    if (invisible)
+                        o.Invisible = 600;
+                    else
+                        o.Shield = true;
+                    Entry.Log(Noita.Def.Id + " " + a.Id + " gives " + o.Def.Id + (invisible ? " invisibility" : " a shield"));
+                    return;
+                }
             }
 
             void HealAllies(AttackDef a)
@@ -344,6 +381,8 @@ namespace Terranoita.Game
                 int fx = 0, fy = 0, fw = art.Texture.Width, fh = art.Texture.Height;
                 if (anim != null)
                     anim.FrameRect(anim.FrameAt(n.Brain.AnimTicks), out fx, out fy, out fw, out fh);
+                if (n.Invisible > 0)
+                    n.Invisible--;
                 var light = Lighting.GetColor((int)(npc.Center.X / 16), (int)(npc.Center.Y / 16));
                 // fully opaque; a little self-lit, since Noita sprites have no dark outline and vanish into night scenes
                 const int floor = 70;
@@ -353,7 +392,51 @@ namespace Terranoita.Game
                 var pivot = new Vector2(npc.Center.X, npc.position.Y + npc.height - art.Foot * scale + npc.gfxOffY) - Main.screenPosition;
                 var fx2 = n.Brain.Direction < 0 ? SpriteEffects.FlipHorizontally : SpriteEffects.None;
                 var origin = new Vector2(n.Brain.Direction < 0 ? fw - art.Sprite.OffsetX : art.Sprite.OffsetX, art.Sprite.OffsetY);
+                if (n.Invisible > 0)
+                    color *= 0.15f;
+                if (n.Brain.Burrowing)
+                {
+                    // worms: body and tail along the head's trail, then the head turned to where it is going
+                    DrawSegments(npc, n, color, scale);
+                    float rot = (float)Math.Atan2(npc.velocity.Y, npc.velocity.X);
+                    var flip = npc.velocity.X < 0 ? SpriteEffects.FlipVertically : SpriteEffects.None;
+                    Main.spriteBatch.Draw(art.Texture, npc.Center - Main.screenPosition, new Rectangle(fx, fy, fw, fh), color,
+                                          rot, new Vector2(fw / 2f, fh / 2f), scale, flip, 0f);
+                    return;
+                }
                 Main.spriteBatch.Draw(art.Texture, pivot, new Rectangle(fx, fy, fw, fh), color, 0f, origin, scale, fx2, 0f);
+            }
+
+            static void DrawSegments(NPC npc, NoitaNpc n, Color color, float scale)
+            {
+                var trail = n.Brain.Trail;
+                float spacing = n.Def.SegmentSpacing > 0 ? n.Def.SegmentSpacing : 24f;
+                if (n.Def.Segments <= 0 || trail.Count < 2)
+                    return;
+                float walked = 0;
+                int k = 1;
+                for (int i = n.Def.Segments; i >= 1; i--)   // tail first, so the head is drawn on top
+                {
+                    float want = i * spacing;
+                    walked = 0;
+                    for (k = 1; k < trail.Count && walked < want; k++)
+                        walked += (trail[k] - trail[k - 1]).Length;
+                    if (walked < want)
+                        continue;   // the worm has not travelled that far yet
+                    var at = trail[k - 1];
+                    var ahead = trail[Math.Max(0, k - 2)];
+                    var art = NoitaArt.Get(i == n.Def.Segments ? n.Def.TailSprite : n.Def.BodySprite);
+                    if (art?.Texture == null)
+                        continue;
+                    var anim = art.Sprite.Find("stand", "walk", "default");
+                    int fx = 0, fy = 0, fw = art.Texture.Width, fh = art.Texture.Height;
+                    if (anim != null)
+                        anim.FrameRect(anim.FrameAt(n.Brain.AnimTicks), out fx, out fy, out fw, out fh);
+                    float rot = (float)Math.Atan2(ahead.Y - at.Y, ahead.X - at.X);
+                    var flip = ahead.X < at.X ? SpriteEffects.FlipVertically : SpriteEffects.None;
+                    Main.spriteBatch.Draw(art.Texture, new Vector2(at.X, at.Y) - Main.screenPosition, new Rectangle(fx, fy, fw, fh),
+                                          color, rot, new Vector2(fw / 2f, fh / 2f), scale, flip, 0f);
+                }
             }
 
             static string[] AnimNames(string anim)

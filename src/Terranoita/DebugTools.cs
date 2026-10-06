@@ -25,12 +25,21 @@ namespace Terranoita.Game
         static readonly bool Showcase = Environment.GetEnvironmentVariable("TERRANOITA_SHOWCASE") == "1";
         static readonly string OnlyStage = Environment.GetEnvironmentVariable("TERRANOITA_AUTOTEST_STAGE");
         static readonly bool ExitWhenDone = Environment.GetEnvironmentVariable("TERRANOITA_AUTOTEST_EXIT") == "1";
+        /// <summary>TERRANOITA_AUTOTEST_SECONDS: how long each enemy is watched (default 6).</summary>
+        static readonly int Each = 60 * (int.TryParse(Environment.GetEnvironmentVariable("TERRANOITA_AUTOTEST_SECONDS"), out int sec) && sec > 0 ? sec : 6);
         static int _menuFrames, _worldFrames, _autoIndex;
         static bool _entering;
         const string TestPlayer = "Terranoita Test";
         static readonly NoitaNpc[] _seen = new NoitaNpc[Main.maxNPCs];
 
         static EnemyDef[] Built => Enemies.All.Where(e => Defs.InStage(e.Stage, Entry.Stage)).ToArray();
+
+        /// <summary>Within the visible screen and not inside solid tiles (a worm underground, a ghost in a wall).</summary>
+        static bool OnScreen(NPC n)
+        {
+            var screen = new Rectangle((int)Main.screenPosition.X, (int)Main.screenPosition.Y, Main.screenWidth, Main.screenHeight);
+            return screen.Intersects(n.Hitbox) && !Collision.SolidCollision(n.position + new Vector2(n.width / 4f, n.height / 4f), n.width / 2, n.height / 2);
+        }
 
         static void SpawnInFront(EnemyDef e, int tiles)
         {
@@ -127,7 +136,7 @@ namespace Terranoita.Game
                 return;
             }
             // one enemy every 6 seconds, starting 5 seconds in; then a natural-spawn check
-            if (_worldFrames >= 300 && (_worldFrames - 300) % 360 == 0 && _autoIndex < all.Length)
+            if (_worldFrames >= 300 && (_worldFrames - 300) % Each == 0 && _autoIndex < all.Length)
             {
                 var e = all[_autoIndex++];
                 // one enemy at a time: remove the previous ones
@@ -157,10 +166,10 @@ namespace Terranoita.Game
                 var live = Enumerable.Range(0, Main.maxNPCs).Select(i => Main.npc[i])
                     .Where(n => n.active && Carriers.Get(n) != null)
                     .Select(n => Carriers.Get(n).Def.Id + "@" + (int)((n.Center.X - p.Center.X) / 16) + "," + (int)((n.Center.Y - p.Center.Y) / 16) +
-                                 " " + Carriers.Get(n).Brain.Anim + " hp" + n.life);
+                                 " " + Carriers.Get(n).Brain.Anim + " hp" + n.life + (OnScreen(n) ? "" : " OFFSCREEN"));
                 Entry.Log("AUTOTEST: player hp " + p.statLife + "; " + string.Join(" | ", live));
             }
-            if (_worldFrames == 300 + 360 * all.Length + 600)
+            if (_worldFrames == 300 + Each * all.Length + 600)
             {
                 Entry.Log("AUTOTEST: done; Noita enemies alive: " + Carriers.CountNear(p.Center, 99999));
                 if (ExitWhenDone)

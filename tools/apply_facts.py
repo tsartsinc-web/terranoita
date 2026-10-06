@@ -297,7 +297,7 @@ def script_shots(f):
 def new_ranged_attack(enemy, r):
     pf = r.get("projectile") or {}
     a = {"id": "%s.%s" % (enemy["id"], basename(r["entity_file"])), "enemy": enemy["id"], "kind": "projectile",
-         "projectile": "none", "summons": [], "count": [1, 1],
+         "projectile": "none", "summons": [], "effect": "none", "count": [1, 1],
          "damage": {"projectile": round((pf["damage"] if pf.get("damage") is not None else
                                          num(DOCS.get("ProjectileComponent", {}).get("damage"), 1)) * 25.0, 2)}, "per_frames": "hit",
          "cooldown_frames": None, "range_tiles": None, "lunge_speed": 0, "sound": None,
@@ -427,6 +427,14 @@ def main():
         hi = pf.get("speed_max") if pf.get("speed_max") is not None else num(DOCS.get("ProjectileComponent", {}).get("speed_max"), lo)
         verify(p, "speed", round((lo + hi) / 2.0 * PIXEL_SCALE / FPS, 3))
         verify(p, "gravity", round((pf.get("gravity_y") or 0.0) * PIXEL_SCALE / (FPS * FPS), 4))
+        vel = next((c for c in pf.get("components") or [] if c["component"] == "VelocityComponent"), None)
+        docs = DOCS.get("VelocityComponent", {})
+        va = vel["attrs"] if vel else {}
+        verify(p, "drag", num(va.get("air_friction"), num(docs.get("air_friction"), 0.55)) if vel else 0.0)
+        verify(p, "max_speed", round(num(va.get("terminal_velocity"), num(docs.get("terminal_velocity"), 1000)) * PIXEL_SCALE / FPS, 3))
+        mats = [c["attrs"].get("emitted_material_name") for c in pf.get("components") or []
+                if c["component"] == "ParticleEmitterComponent" and c["attrs"].get("emitted_material_name")]
+        verify(p, "particle", mats[0] if mats else "none")
         life = pf.get("lifetime_frames")
         verify(p, "lifetime_frames", int(life if life is not None else num(DOCS.get("ProjectileComponent", {}).get("lifetime"), -1)))
         verify(p, "explosion_radius", round((pf.get("explosion_radius_px") or 0.0) * PIXEL_SCALE / TILE, 2))
@@ -503,6 +511,14 @@ def main():
             if not f.get("hitbox_noita_px"):
                 d = int(round(2 * attr(f, "WormComponent", "hitbox_radius") * PIXEL_SCALE))
                 verify(e, "hitbox", [d, d])
+            # head, body x n, tail: the creature's own SpriteComponents in order (ui health bars left out)
+            parts = [c["attrs"]["image_file"] for c in components(f, "SpriteComponent", top=True)
+                     if c["attrs"].get("image_file") and "/ui_gfx/" not in c["attrs"]["image_file"]]
+            if len(parts) >= 2:
+                verify(e, "body_sprite", parts[1] if len(parts) > 2 else "none")
+                verify(e, "tail_sprite", parts[-1])
+                verify(e, "segments", len(parts) - 1)
+                verify(e, "segment_spacing", round(attr(f, "WormComponent", "part_distance") * PIXEL_SCALE, 2))
         elif has(f, "PhysicsAIComponent") and has(f, "PhysicsBodyComponent") and not f.get("movement"):
             # lukki and the leggy chest: a physics body pushed toward its path by PhysicsAIComponent. The push is
             # force_coeff x (target vector, at most target_vec_max_len), capped at force_max, against a damping of
@@ -595,14 +611,38 @@ def main():
                 lua = [c for c in components(f, "LuaComponent")
                        if any(by_file.get(x) in a["summons"] for k, v in c["attrs"].items() if k.startswith("script_")
                               for x in (f.get("script_entities") or {}).get(v) or [])]
-                if lua and "_sources" not in a or lua and "cooldown_frames" not in a.get("_sources", {}):
+                if lua:
                     every = int(num(lua[0]["attrs"].get("execute_every_n_frame"), 1))
                     placeholder(a, "cooldown_frames", max(1, every), "its spawn script runs every %d frames and may not release each time" % every)
                     placeholder(a, "count", a.get("count") or [1, 1], "the spawn script decides how many")
-                    placeholder(a, "range_tiles", e.get("sight_tiles") or 9.4, "the spawn script decides when; its sight")
+                    placeholder(a, "range_tiles", 15, "the spawn script decides when (design: 15 tiles, inside a Terraria screen)")
                     if "attacks" in e.get("_unverified", {}):
                         e["_unverified"].pop("attacks")
                         e.setdefault("_sources", {})["attacks"] = "its spawn script releases %s" % ", ".join(a["summons"])
+
+        # spirit auras: a LuaComponent running data/scripts/animals/spirit_aura_<effect>.lua every N frames
+        for c in components(f, "LuaComponent", top=True):
+            m = re.search(r"spirit_aura_(\w+)\.lua$", c["attrs"].get("script_source_file") or "")
+            if not m:
+                continue
+            aid = "%s.aura" % e["id"]
+            a = attack_by_id.get(aid)
+            if a is None:
+                a = {"id": aid, "enemy": e["id"], "kind": "aura", "projectile": "none", "summons": [], "count": [1, 1],
+                     "damage": {}, "effect": "none", "per_frames": None, "cooldown_frames": None, "range_tiles": None,
+                     "lunge_speed": 0, "sound": None, "stage": e["stage"], "_unverified": {},
+                     "wiki_text": "From data.wak: %s (aura script, not on the wiki)" % c["attrs"]["script_source_file"]}
+                attacks["rows"].append(a)
+                attack_by_id[aid] = a
+                e["attacks"].append(aid)
+                notes.append("%s: added %s from %s" % (e["id"], aid, c["attrs"]["script_source_file"]))
+            every = int(num(c["attrs"].get("execute_every_n_frame"), 1))
+            verify(a, "effect", m.group(1) if m.group(1) in ("weak", "slime", "confuse", "berserk") else "none")
+            verify(a, "cooldown_frames", max(1, every))
+            verify(a, "per_frames", "%dF" % max(1, every))
+            placeholder(a, "range_tiles", 6, "the aura script decides its reach")
+            a.setdefault("_sources", {})["effect"] = "%s runs %s every %d frames" % (f["entity"], c["attrs"]["script_source_file"], every)
+            e.get("_unverified", {}).pop("attacks", None)
 
         # death explosions: ExplodeOnDamageComponent on death (radius and damage from its config_explosion), or the
         # explosion entity a death script loads (its numbers come with script_projectiles in the next facts run)
@@ -641,7 +681,7 @@ def main():
             if i < len(auras):
                 a = auras[i]
             else:
-                a = {"id": "%s.touch" % e["id"], "enemy": e["id"], "kind": "aura", "projectile": "none", "summons": [],
+                a = {"id": "%s.touch" % e["id"], "enemy": e["id"], "kind": "aura", "projectile": "none", "summons": [], "effect": "none",
                      "count": [1, 1], "damage": {}, "per_frames": None, "cooldown_frames": None, "range_tiles": None,
                      "lunge_speed": 0, "sound": None, "stage": e["stage"], "_unverified": {},
                      "wiki_text": "From data.wak: %s (not on the wiki)" % c["component"]}
@@ -844,6 +884,27 @@ def main():
         for p, pf, file, a in pairs_script:
             fill_projectile(p, pf, file)
             fill_damage(a, pf)
+
+    # projectile rows no attack reached this run (filled by hand or shared): motion and look from any facts of their file
+    by_file = {}
+    for v in facts.values():
+        if isinstance(v, dict):
+            for r in (v.get("ranged") or []) + (v.get("ranged_disabled") or []):
+                if r.get("projectile"):
+                    by_file.setdefault(r["entity_file"], r["projectile"])
+            for file, pf in (v.get("script_projectiles") or {}).items():
+                by_file.setdefault(file, pf)
+    for p in projectiles["rows"]:
+        if STAGES.index(p["stage"]) <= limit and p.get("drag") is None and p.get("noita_file") in by_file:
+            pf = by_file[p["noita_file"]]
+            vel = next((c for c in pf.get("components") or [] if c["component"] == "VelocityComponent"), None)
+            docs = DOCS.get("VelocityComponent", {})
+            va = vel["attrs"] if vel else {}
+            verify(p, "drag", num(va.get("air_friction"), num(docs.get("air_friction"), 0.55)) if vel else 0.0)
+            verify(p, "max_speed", round(num(va.get("terminal_velocity"), num(docs.get("terminal_velocity"), 1000)) * PIXEL_SCALE / FPS, 3))
+            mats = [c["attrs"].get("emitted_material_name") for c in pf.get("components") or []
+                    if c["component"] == "ParticleEmitterComponent" and c["attrs"].get("emitted_material_name")]
+            verify(p, "particle", mats[0] if mats else "none")
 
     for s in (enemies, attacks, projectiles):
         save(args.sheets, s)

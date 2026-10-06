@@ -39,6 +39,22 @@
    "type": "string",
    "desc": "Sprite XML inside data.wak (from the entity's SpriteComponent image_file)."
   },
+  "body_sprite": {
+   "type": "string",
+   "desc": "Worms: sprite of the body segments (SpriteComponents after the head), or 'none'."
+  },
+  "tail_sprite": {
+   "type": "string",
+   "desc": "Worms: sprite of the last segment, or 'none'."
+  },
+  "segments": {
+   "type": "int",
+   "desc": "Worms: number of body segments behind the head (body + tail SpriteComponents); 0 for others."
+  },
+  "segment_spacing": {
+   "type": "number",
+   "desc": "Worms: Terraria px between segments (WormComponent part_distance x 3); 0 for others."
+  },
   "hitbox": {
    "type": "int[]",
    "desc": "[width, height] in Terraria pixels (Noita pixels x 3)."
@@ -178,6 +194,10 @@
    "noita_hp": 75,
    "noita_entity": "data/entities/animals/weakspirit.xml",
    "sprite": "data/enemies_gfx/weakspirit.xml",
+   "body_sprite": "none",
+   "tail_sprite": "none",
+   "segments": 0,
+   "segment_spacing": 0.0,
    "hitbox": [
     21,
     21
@@ -199,7 +219,9 @@
    "turn_rate": 0.0,
    "roam_turn_rate": 0.0,
    "audio": "animals/ghost",
-   "attacks": [],
+   "attacks": [
+    "weakspirit.aura"
+   ],
    "spawn_in": [
     "Pyramid"
    ],
@@ -242,6 +264,10 @@
    "noita_hp": 75,
    "noita_entity": "data/entities/animals/slimespirit.xml",
    "sprite": "data/enemies_gfx/slimespirit.xml",
+   "body_sprite": "none",
+   "tail_sprite": "none",
+   "segments": 0,
+   "segment_spacing": 0.0,
    "hitbox": [
     21,
     21
@@ -263,7 +289,9 @@
    "turn_rate": 0.0,
    "roam_turn_rate": 0.0,
    "audio": "animals/ghost",
-   "attacks": [],
+   "attacks": [
+    "slimespirit.aura"
+   ],
    "spawn_in": [
     "Coal Pits",
     "Fungal Caverns",
@@ -308,6 +336,10 @@
    "noita_hp": 75,
    "noita_entity": "data/entities/animals/confusespirit.xml",
    "sprite": "data/enemies_gfx/confusespirit.xml",
+   "body_sprite": "none",
+   "tail_sprite": "none",
+   "segments": 0,
+   "segment_spacing": 0.0,
    "hitbox": [
     21,
     21
@@ -329,7 +361,9 @@
    "turn_rate": 0.0,
    "roam_turn_rate": 0.0,
    "audio": "animals/ghost",
-   "attacks": [],
+   "attacks": [
+    "confusespirit.aura"
+   ],
    "spawn_in": [
     "Fungal Caverns",
     "Overgrown Cavern",
@@ -374,6 +408,10 @@
    "noita_hp": 75,
    "noita_entity": "data/entities/animals/berserkspirit.xml",
    "sprite": "data/enemies_gfx/berserkspirit.xml",
+   "body_sprite": "none",
+   "tail_sprite": "none",
+   "segments": 0,
+   "segment_spacing": 0.0,
    "hitbox": [
     21,
     21
@@ -395,7 +433,9 @@
    "turn_rate": 0.0,
    "roam_turn_rate": 0.0,
    "audio": "animals/ghost",
-   "attacks": [],
+   "attacks": [
+    "berserkspirit.aura"
+   ],
    "spawn_in": [
     "Pyramid"
    ],
@@ -438,6 +478,10 @@
    "noita_hp": 125,
    "noita_entity": "data/entities/animals/giantshooter.xml",
    "sprite": "data/enemies_gfx/giantshooter.xml",
+   "body_sprite": "none",
+   "tail_sprite": "none",
+   "segments": 0,
+   "segment_spacing": 0.0,
    "hitbox": [
     48,
     54
@@ -497,6 +541,10 @@
    "noita_hp": 50,
    "noita_entity": "data/entities/animals/giantshooter_weak.xml",
    "sprite": "data/enemies_gfx/giantshooter_weak.xml",
+   "body_sprite": "none",
+   "tail_sprite": "none",
+   "segments": 0,
+   "segment_spacing": 0.0,
    "hitbox": [
     48,
     54
@@ -555,6 +603,10 @@
    "noita_hp": 37.5,
    "noita_entity": "data/entities/animals/fly.xml",
    "sprite": "data/enemies_gfx/fly.xml",
+   "body_sprite": "none",
+   "tail_sprite": "none",
+   "segments": 0,
+   "segment_spacing": 0.0,
    "hitbox": [
     36,
     42
@@ -616,6 +668,10 @@
    "noita_hp": 125,
    "noita_entity": "data/entities/buildings/flynest.xml",
    "sprite": "data/buildings_gfx/flynest.xml",
+   "body_sprite": "none",
+   "tail_sprite": "none",
+   "segments": 0,
+   "segment_spacing": 0.0,
    "hitbox": [
     60,
     60
@@ -679,6 +735,10 @@
    "noita_hp": 2.5,
    "noita_entity": "data/entities/animals/duck.xml",
    "sprite": "data/enemies_gfx/duck.xml",
+   "body_sprite": "none",
+   "tail_sprite": "none",
+   "segments": 0,
+   "segment_spacing": 0.0,
    "hitbox": [
     27,
     24
@@ -734,6 +794,10 @@
    "noita_hp": 125,
    "noita_entity": "data/entities/animals/firemage.xml",
    "sprite": "data/enemies_gfx/firemage.xml",
+   "body_sprite": "none",
+   "tail_sprite": "none",
+   "segments": 0,
+   "segment_spacing": 0.0,
    "hitbox": [
     27,
     51
@@ -797,6 +861,10 @@
    "noita_hp": 500,
    "noita_entity": "data/entities/buildings/hpcrystal.xml",
    "sprite": "data/buildings_gfx/hpcrystal.xml",
+   "body_sprite": "none",
+   "tail_sprite": "none",
+   "segments": 0,
+   "segment_spacing": 0.0,
    "hitbox": [
     36,
     60
@@ -860,6 +928,10 @@
    "noita_hp": 62.5,
    "noita_entity": "data/entities/animals/death_orb_lab.xml",
    "sprite": null,
+   "body_sprite": "none",
+   "tail_sprite": "none",
+   "segments": 0,
+   "segment_spacing": 0.0,
    "hitbox": null,
    "size": 1.0,
    "hitbox_mult": 1.0,
@@ -925,6 +997,10 @@
    "noita_hp": 75,
    "noita_entity": "data/entities/animals/failed_alchemist_b.xml",
    "sprite": "data/enemies_gfx/failed_alchemist_b.xml",
+   "body_sprite": "none",
+   "tail_sprite": "none",
+   "segments": 0,
+   "segment_spacing": 0.0,
    "hitbox": [
     18,
     66
@@ -985,6 +1061,10 @@
    "noita_hp": 2.5,
    "noita_entity": "data/entities/animals/fish.xml",
    "sprite": "data/enemies_gfx/fish_01.xml",
+   "body_sprite": "none",
+   "tail_sprite": "none",
+   "segments": 0,
+   "segment_spacing": 0.0,
    "hitbox": [
     21,
     21
@@ -1044,6 +1124,10 @@
    "noita_hp": 2000.0,
    "noita_entity": "data/entities/animals/gate_monster_c.xml",
    "sprite": null,
+   "body_sprite": "none",
+   "tail_sprite": "none",
+   "segments": 0,
+   "segment_spacing": 0.0,
    "hitbox": null,
    "size": 1.0,
    "hitbox_mult": 1.0,
@@ -1105,6 +1189,10 @@
    "noita_hp": 2000.0,
    "noita_entity": "data/entities/animals/gate_monster_b.xml",
    "sprite": null,
+   "body_sprite": "none",
+   "tail_sprite": "none",
+   "segments": 0,
+   "segment_spacing": 0.0,
    "hitbox": null,
    "size": 1.0,
    "hitbox_mult": 1.0,
@@ -1166,6 +1254,10 @@
    "noita_hp": 2000.0,
    "noita_entity": "data/entities/animals/gate_monster_d.xml",
    "sprite": null,
+   "body_sprite": "none",
+   "tail_sprite": "none",
+   "segments": 0,
+   "segment_spacing": 0.0,
    "hitbox": null,
    "size": 1.0,
    "hitbox_mult": 1.0,
@@ -1227,6 +1319,10 @@
    "noita_hp": 2000.0,
    "noita_entity": "data/entities/animals/gate_monster_a.xml",
    "sprite": null,
+   "body_sprite": "none",
+   "tail_sprite": "none",
+   "segments": 0,
+   "segment_spacing": 0.0,
    "hitbox": null,
    "size": 1.0,
    "hitbox_mult": 1.0,
@@ -1288,6 +1384,10 @@
    "noita_hp": null,
    "noita_entity": "data/entities/animals/darkghost.xml",
    "sprite": null,
+   "body_sprite": "none",
+   "tail_sprite": "none",
+   "segments": 0,
+   "segment_spacing": 0.0,
    "hitbox": null,
    "size": 1.0,
    "hitbox_mult": 1.0,
@@ -1341,6 +1441,10 @@
    "noita_hp": 500,
    "noita_entity": "data/entities/buildings/snowcrystal.xml",
    "sprite": "data/buildings_gfx/snowcrystal.xml",
+   "body_sprite": "none",
+   "tail_sprite": "none",
+   "segments": 0,
+   "segment_spacing": 0.0,
    "hitbox": [
     36,
     60
@@ -1404,6 +1508,10 @@
    "noita_hp": 300,
    "noita_entity": "data/entities/animals/wizard_hearty.xml",
    "sprite": "data/enemies_gfx/wizard_hearty.xml",
+   "body_sprite": "none",
+   "tail_sprite": "none",
+   "segments": 0,
+   "segment_spacing": 0.0,
    "hitbox": [
     27,
     39
@@ -1469,6 +1577,10 @@
    "noita_hp": 125,
    "noita_entity": "data/entities/animals/necromancer.xml",
    "sprite": "data/enemies_gfx/necromancer.xml",
+   "body_sprite": "none",
+   "tail_sprite": "none",
+   "segments": 0,
+   "segment_spacing": 0.0,
    "hitbox": [
     39,
     57
@@ -1533,6 +1645,10 @@
    "noita_hp": 37.5,
    "noita_entity": "data/entities/animals/scavenger_invis.xml",
    "sprite": "data/enemies_gfx/scavenger_invis.xml",
+   "body_sprite": "none",
+   "tail_sprite": "none",
+   "segments": 0,
+   "segment_spacing": 0.0,
    "hitbox": [
     30,
     45
@@ -1592,6 +1708,10 @@
    "noita_hp": 162.5,
    "noita_entity": "data/entities/animals/lukki/lukki.xml",
    "sprite": "data/entities/animals/lukki/lukki_feet/lukki_sprite_b.xml",
+   "body_sprite": "none",
+   "tail_sprite": "none",
+   "segments": 0,
+   "segment_spacing": 0.0,
    "hitbox": [
     60,
     60
@@ -1653,6 +1773,10 @@
    "noita_hp": 200,
    "noita_entity": "data/entities/animals/lukki/lukki_longleg.xml",
    "sprite": "data/entities/animals/lukki/lukki_feet/lukki_sprite.xml",
+   "body_sprite": "none",
+   "tail_sprite": "none",
+   "segments": 0,
+   "segment_spacing": 0.0,
    "hitbox": [
     60,
     60
@@ -1716,6 +1840,10 @@
    "noita_hp": 87.5,
    "noita_entity": "data/entities/animals/lukki/lukki_tiny.xml",
    "sprite": "data/entities/animals/lukki/lukki_feet/lukki_sprite_tiny.xml",
+   "body_sprite": "none",
+   "tail_sprite": "none",
+   "segments": 0,
+   "segment_spacing": 0.0,
    "hitbox": [
     36,
     36
@@ -1778,6 +1906,10 @@
    "noita_hp": 2.75,
    "noita_entity": "data/entities/animals/longleg.xml",
    "sprite": "data/enemies_gfx/longleg.xml",
+   "body_sprite": "none",
+   "tail_sprite": "none",
+   "segments": 0,
+   "segment_spacing": 0.0,
    "hitbox": [
     30,
     36
@@ -1838,6 +1970,10 @@
    "noita_hp": 125.0,
    "noita_entity": "data/entities/animals/nest_longleg.xml",
    "sprite": null,
+   "body_sprite": "none",
+   "tail_sprite": "none",
+   "segments": 0,
+   "segment_spacing": 0.0,
    "hitbox": null,
    "size": 1.0,
    "hitbox_mult": 1.0,
@@ -1900,6 +2036,10 @@
    "noita_hp": 25,
    "noita_entity": "data/entities/animals/acidshooter.xml",
    "sprite": "data/enemies_gfx/acidshooter.xml",
+   "body_sprite": "none",
+   "tail_sprite": "none",
+   "segments": 0,
+   "segment_spacing": 0.0,
    "hitbox": [
     27,
     33
@@ -1962,6 +2102,10 @@
    "noita_hp": 10,
    "noita_entity": "data/entities/animals/acidshooter_weak.xml",
    "sprite": "data/enemies_gfx/acidshooter_weak.xml",
+   "body_sprite": "none",
+   "tail_sprite": "none",
+   "segments": 0,
+   "segment_spacing": 0.0,
    "hitbox": [
     27,
     33
@@ -2020,6 +2164,10 @@
    "noita_hp": 22.5,
    "noita_entity": "data/entities/animals/shotgunner.xml",
    "sprite": "data/enemies_gfx/shotgunner.xml",
+   "body_sprite": "none",
+   "tail_sprite": "none",
+   "segments": 0,
+   "segment_spacing": 0.0,
    "hitbox": [
     18,
     27
@@ -2083,6 +2231,10 @@
    "noita_hp": 9,
    "noita_entity": "data/entities/animals/shotgunner_weak.xml",
    "sprite": "data/enemies_gfx/shotgunner_weak.xml",
+   "body_sprite": "none",
+   "tail_sprite": "none",
+   "segments": 0,
+   "segment_spacing": 0.0,
    "hitbox": [
     18,
     27
@@ -2141,6 +2293,10 @@
    "noita_hp": 72.5,
    "noita_entity": "data/entities/animals/shotgunner_hell.xml",
    "sprite": "data/enemies_gfx/shotgunner_hell.xml",
+   "body_sprite": "none",
+   "tail_sprite": "none",
+   "segments": 0,
+   "segment_spacing": 0.0,
    "hitbox": [
     18,
     27
@@ -2201,6 +2357,10 @@
    "noita_hp": 300,
    "noita_entity": "data/entities/animals/missilecrab.xml",
    "sprite": "data/enemies_gfx/missilecrab.xml",
+   "body_sprite": "none",
+   "tail_sprite": "none",
+   "segments": 0,
+   "segment_spacing": 0.0,
    "hitbox": [
     48,
     36
@@ -2264,6 +2424,10 @@
    "noita_hp": 150,
    "noita_entity": "data/entities/animals/spitmonster.xml",
    "sprite": "data/enemies_gfx/spitmonster.xml",
+   "body_sprite": "none",
+   "tail_sprite": "none",
+   "segments": 0,
+   "segment_spacing": 0.0,
    "hitbox": [
     48,
     48
@@ -2323,6 +2487,10 @@
    "noita_hp": 225,
    "noita_entity": "data/entities/animals/gazer.xml",
    "sprite": "data/enemies_gfx/gazer.xml",
+   "body_sprite": "none",
+   "tail_sprite": "none",
+   "segments": 0,
+   "segment_spacing": 0.0,
    "hitbox": [
     63,
     72
@@ -2382,6 +2550,10 @@
    "noita_hp": 625,
    "noita_entity": "data/entities/animals/worm_end.xml",
    "sprite": "data/enemies_gfx/endworm_head.xml",
+   "body_sprite": "data/enemies_gfx/endworm_middle.xml",
+   "tail_sprite": "data/enemies_gfx/endworm_tail.xml",
+   "segments": 14,
+   "segment_spacing": 36.0,
    "hitbox": [
     54,
     54
@@ -2442,6 +2614,10 @@
    "noita_hp": 25,
    "noita_entity": "data/entities/animals/mimic_potion.xml",
    "sprite": "data/items_gfx/potion.png",
+   "body_sprite": "none",
+   "tail_sprite": "none",
+   "segments": 0,
+   "segment_spacing": 0.0,
    "hitbox": [
     18,
     18
@@ -2502,6 +2678,10 @@
    "noita_hp": 150,
    "noita_entity": "data/entities/animals/giant.xml",
    "sprite": "data/enemies_gfx/giant.xml",
+   "body_sprite": "none",
+   "tail_sprite": "none",
+   "segments": 0,
+   "segment_spacing": 0.0,
    "hitbox": [
     30,
     63
@@ -2560,6 +2740,10 @@
    "noita_hp": 368.75,
    "noita_entity": "data/entities/animals/wraith_glowing.xml",
    "sprite": "data/enemies_gfx/wraith_glowing.xml",
+   "body_sprite": "none",
+   "tail_sprite": "none",
+   "segments": 0,
+   "segment_spacing": 0.0,
    "hitbox": [
     42,
     42
@@ -2623,6 +2807,10 @@
    "noita_hp": 150,
    "noita_entity": "data/entities/animals/statue_physics.xml",
    "sprite": "data/enemies_gfx/statue_physics_emissive.xml",
+   "body_sprite": "none",
+   "tail_sprite": "none",
+   "segments": 0,
+   "segment_spacing": 0.0,
    "hitbox": [
     30,
     63
@@ -2685,6 +2873,10 @@
    "noita_hp": 500,
    "noita_entity": "data/entities/buildings/ghost_crystal.xml",
    "sprite": "data/buildings_gfx/ghost_crystal.xml",
+   "body_sprite": "none",
+   "tail_sprite": "none",
+   "segments": 0,
+   "segment_spacing": 0.0,
    "hitbox": [
     36,
     60
@@ -2751,6 +2943,10 @@
    "noita_hp": 500,
    "noita_entity": "data/entities/animals/ghost.xml",
    "sprite": "data/enemies_gfx/ghost.xml",
+   "body_sprite": "none",
+   "tail_sprite": "none",
+   "segments": 0,
+   "segment_spacing": 0.0,
    "hitbox": [
     48,
     48
@@ -2814,6 +3010,10 @@
    "noita_hp": 415,
    "noita_entity": "data/entities/animals/fungus_giga.xml",
    "sprite": "data/enemies_gfx/fungus_giga.xml",
+   "body_sprite": "none",
+   "tail_sprite": "none",
+   "segments": 0,
+   "segment_spacing": 0.0,
    "hitbox": [
     36,
     84
@@ -2877,6 +3077,10 @@
    "noita_hp": 5,
    "noita_entity": "data/entities/animals/zombie_weak.xml",
    "sprite": "data/enemies_gfx/zombie_weak.xml",
+   "body_sprite": "none",
+   "tail_sprite": "none",
+   "segments": 0,
+   "segment_spacing": 0.0,
    "hitbox": [
     27,
     30
@@ -2935,6 +3139,10 @@
    "noita_hp": 12.5,
    "noita_entity": "data/entities/animals/zombie.xml",
    "sprite": "data/enemies_gfx/zombie.xml",
+   "body_sprite": "none",
+   "tail_sprite": "none",
+   "segments": 0,
+   "segment_spacing": 0.0,
    "hitbox": [
     27,
     30
@@ -2997,6 +3205,10 @@
    "noita_hp": 368.75,
    "noita_entity": "data/entities/animals/wraith.xml",
    "sprite": "data/enemies_gfx/wraith.xml",
+   "body_sprite": "none",
+   "tail_sprite": "none",
+   "segments": 0,
+   "segment_spacing": 0.0,
    "hitbox": [
     24,
     24
@@ -3057,6 +3269,10 @@
    "noita_hp": 150,
    "noita_entity": "data/entities/animals/scavenger_clusterbomb.xml",
    "sprite": "data/enemies_gfx/scavenger_clusterbomb.xml",
+   "body_sprite": "none",
+   "tail_sprite": "none",
+   "segments": 0,
+   "segment_spacing": 0.0,
    "hitbox": [
     30,
     57
@@ -3119,6 +3335,10 @@
    "noita_hp": 125,
    "noita_entity": "data/entities/animals/tank_rocket.xml",
    "sprite": "data/enemies_gfx/tank_rocket.xml",
+   "body_sprite": "none",
+   "tail_sprite": "none",
+   "segments": 0,
+   "segment_spacing": 0.0,
    "hitbox": [
     48,
     48
@@ -3185,6 +3405,10 @@
    "noita_hp": 50,
    "noita_entity": "data/entities/animals/icer.xml",
    "sprite": "data/enemies_gfx/icer.xml",
+   "body_sprite": "none",
+   "tail_sprite": "none",
+   "segments": 0,
+   "segment_spacing": 0.0,
    "hitbox": [
     30,
     45
@@ -3247,6 +3471,10 @@
    "noita_hp": 37.5,
    "noita_entity": "data/entities/animals/iceskull.xml",
    "sprite": "data/enemies_gfx/iceskull.xml",
+   "body_sprite": "none",
+   "tail_sprite": "none",
+   "segments": 0,
+   "segment_spacing": 0.0,
    "hitbox": [
     27,
     39
@@ -3308,6 +3536,10 @@
    "noita_hp": 55,
    "noita_entity": "data/entities/animals/frog_big.xml",
    "sprite": "data/enemies_gfx/frog_big.xml",
+   "body_sprite": "none",
+   "tail_sprite": "none",
+   "segments": 0,
+   "segment_spacing": 0.0,
    "hitbox": [
     27,
     24
@@ -3369,6 +3601,10 @@
    "noita_hp": 137.5,
    "noita_entity": "data/entities/animals/drone_lasership.xml",
    "sprite": "data/enemies_gfx/drone_lasership.xml",
+   "body_sprite": "none",
+   "tail_sprite": "none",
+   "segments": 0,
+   "segment_spacing": 0.0,
    "hitbox": [
     48,
     42
@@ -3433,6 +3669,10 @@
    "noita_hp": 3500,
    "noita_entity": "data/entities/animals/worm_big.xml",
    "sprite": "data/enemies_gfx/worm_big_head.xml",
+   "body_sprite": "data/enemies_gfx/worm_big_body.xml",
+   "tail_sprite": "data/enemies_gfx/worm_big_tail.xml",
+   "segments": 6,
+   "segment_spacing": 48.0,
    "hitbox": [
     54,
     54
@@ -3495,6 +3735,10 @@
    "noita_hp": 100,
    "noita_entity": "data/entities/animals/miner_santa.xml",
    "sprite": "data/enemies_gfx/miner_santa.xml",
+   "body_sprite": "none",
+   "tail_sprite": "none",
+   "segments": 0,
+   "segment_spacing": 0.0,
    "hitbox": [
     30,
     45
@@ -3555,6 +3799,10 @@
    "noita_hp": 200,
    "noita_entity": "data/entities/animals/failed_alchemist.xml",
    "sprite": "data/enemies_gfx/failed_alchemist.xml",
+   "body_sprite": "none",
+   "tail_sprite": "none",
+   "segments": 0,
+   "segment_spacing": 0.0,
    "hitbox": [
     48,
     78
@@ -3619,6 +3867,10 @@
    "noita_hp": 105,
    "noita_entity": "data/entities/animals/skullfly.xml",
    "sprite": "data/enemies_gfx/skullfly.xml",
+   "body_sprite": "none",
+   "tail_sprite": "none",
+   "segments": 0,
+   "segment_spacing": 0.0,
    "hitbox": [
     42,
     51
@@ -3679,6 +3931,10 @@
    "noita_hp": 92.5,
    "noita_entity": "data/entities/animals/skullrat.xml",
    "sprite": "data/enemies_gfx/skullrat.xml",
+   "body_sprite": "none",
+   "tail_sprite": "none",
+   "segments": 0,
+   "segment_spacing": 0.0,
    "hitbox": [
     33,
     30
@@ -3738,6 +3994,10 @@
    "noita_hp": 625,
    "noita_entity": "data/entities/animals/worm_skull.xml",
    "sprite": "data/enemies_gfx/worm_skull_head.xml",
+   "body_sprite": "data/enemies_gfx/worm_skull_body.xml",
+   "tail_sprite": "data/enemies_gfx/worm_skull_tail.xml",
+   "segments": 14,
+   "segment_spacing": 36.0,
    "hitbox": [
     54,
     54
@@ -3800,6 +4060,10 @@
    "noita_hp": 600,
    "noita_entity": "data/entities/animals/lukki/lukki_dark.xml",
    "sprite": "data/entities/animals/lukki/lukki_feet/lukki_dark_sprite.xml",
+   "body_sprite": "none",
+   "tail_sprite": "none",
+   "segments": 0,
+   "segment_spacing": 0.0,
    "hitbox": [
     60,
     60
@@ -3861,6 +4125,10 @@
    "noita_hp": 150,
    "noita_entity": "data/entities/animals/lukki/lukki_creepy_long.xml",
    "sprite": "data/entities/animals/lukki/lukki_feet/lukki_sprite_creepy2.xml",
+   "body_sprite": "none",
+   "tail_sprite": "none",
+   "segments": 0,
+   "segment_spacing": 0.0,
    "hitbox": [
     60,
     60
@@ -3921,6 +4189,10 @@
    "noita_hp": 137.5,
    "noita_entity": "data/entities/animals/ultimate_killer.xml",
    "sprite": "data/enemies_gfx/ultimate_killer.xml",
+   "body_sprite": "none",
+   "tail_sprite": "none",
+   "segments": 0,
+   "segment_spacing": 0.0,
    "hitbox": [
     18,
     24
@@ -3981,6 +4253,10 @@
    "noita_hp": 45,
    "noita_entity": "data/entities/animals/scavenger_shield.xml",
    "sprite": "data/enemies_gfx/scavenger_shield.xml",
+   "body_sprite": "none",
+   "tail_sprite": "none",
+   "segments": 0,
+   "segment_spacing": 0.0,
    "hitbox": [
     30,
     45
@@ -4039,6 +4315,10 @@
    "noita_hp": 200,
    "noita_entity": "data/entities/animals/crystal_physics.xml",
    "sprite": "data/enemies_gfx/crystal_physics.png",
+   "body_sprite": "none",
+   "tail_sprite": "none",
+   "segments": 0,
+   "segment_spacing": 0.0,
    "hitbox": [
     30,
     36
@@ -4099,6 +4379,10 @@
    "noita_hp": 75,
    "noita_entity": "data/entities/animals/phantom_b.xml",
    "sprite": "data/enemies_gfx/phantom_b.xml",
+   "body_sprite": "none",
+   "tail_sprite": "none",
+   "segments": 0,
+   "segment_spacing": 0.0,
    "hitbox": [
     27,
     51
@@ -4165,6 +4449,10 @@
    "noita_hp": 37.5,
    "noita_entity": "data/entities/animals/blob.xml",
    "sprite": "data/enemies_gfx/blob.xml",
+   "body_sprite": "none",
+   "tail_sprite": "none",
+   "segments": 0,
+   "segment_spacing": 0.0,
    "hitbox": [
     30,
     30
@@ -4228,6 +4516,10 @@
    "noita_hp": null,
    "noita_entity": "data/entities/animals/boss_sky.xml",
    "sprite": null,
+   "body_sprite": "none",
+   "tail_sprite": "none",
+   "segments": 0,
+   "segment_spacing": 0.0,
    "hitbox": null,
    "size": 1.0,
    "hitbox_mult": 1.0,
@@ -4289,6 +4581,10 @@
    "noita_hp": 112.5,
    "noita_entity": "data/entities/animals/tank.xml",
    "sprite": "data/enemies_gfx/tank.xml",
+   "body_sprite": "none",
+   "tail_sprite": "none",
+   "segments": 0,
+   "segment_spacing": 0.0,
    "hitbox": [
     48,
     48
@@ -4357,6 +4653,10 @@
    "noita_hp": 300,
    "noita_entity": "data/entities/animals/wizard_homing.xml",
    "sprite": "data/enemies_gfx/wizard_wither.xml",
+   "body_sprite": "none",
+   "tail_sprite": "none",
+   "segments": 0,
+   "segment_spacing": 0.0,
    "hitbox": [
     27,
     39
@@ -4417,6 +4717,10 @@
    "noita_hp": 1211.0,
    "noita_entity": "data/entities/animals/boss_centipede.xml",
    "sprite": null,
+   "body_sprite": "none",
+   "tail_sprite": "none",
+   "segments": 0,
+   "segment_spacing": 0.0,
    "hitbox": null,
    "size": 1.0,
    "hitbox_mult": 1.0,
@@ -4483,6 +4787,10 @@
    "noita_hp": 200.0,
    "noita_entity": "data/entities/animals/boss_centipede_minion.xml",
    "sprite": null,
+   "body_sprite": "none",
+   "tail_sprite": "none",
+   "segments": 0,
+   "segment_spacing": 0.0,
    "hitbox": null,
    "size": 1.0,
    "hitbox_mult": 1.0,
@@ -4541,6 +4849,10 @@
    "noita_hp": 142.5,
    "noita_entity": "data/entities/animals/slimeshooter_boss_limbs.xml",
    "sprite": null,
+   "body_sprite": "none",
+   "tail_sprite": "none",
+   "segments": 0,
+   "segment_spacing": 0.0,
    "hitbox": null,
    "size": 1.0,
    "hitbox_mult": 1.0,
@@ -4596,6 +4908,10 @@
    "noita_hp": 750.0,
    "noita_entity": "data/entities/animals/boss_limbs.xml",
    "sprite": null,
+   "body_sprite": "none",
+   "tail_sprite": "none",
+   "segments": 0,
+   "segment_spacing": 0.0,
    "hitbox": null,
    "size": 1.0,
    "hitbox_mult": 1.0,
@@ -4659,6 +4975,10 @@
    "noita_hp": 1250.0,
    "noita_entity": "data/entities/animals/boss_robot.xml",
    "sprite": null,
+   "body_sprite": "none",
+   "tail_sprite": "none",
+   "segments": 0,
+   "segment_spacing": 0.0,
    "hitbox": null,
    "size": 1.0,
    "hitbox_mult": 1.0,
@@ -4722,6 +5042,10 @@
    "noita_hp": 1000.0,
    "noita_entity": "data/entities/animals/boss_meat.xml",
    "sprite": null,
+   "body_sprite": "none",
+   "tail_sprite": "none",
+   "segments": 0,
+   "segment_spacing": 0.0,
    "hitbox": null,
    "size": 1.0,
    "hitbox_mult": 1.0,
@@ -4785,6 +5109,10 @@
    "noita_hp": 7.5,
    "noita_entity": "data/entities/animals/frog.xml",
    "sprite": "data/enemies_gfx/frog.xml",
+   "body_sprite": "none",
+   "tail_sprite": "none",
+   "segments": 0,
+   "segment_spacing": 0.0,
    "hitbox": [
     9,
     18
@@ -4843,6 +5171,10 @@
    "noita_hp": 13.75,
    "noita_entity": "data/entities/animals/healerdrone_physics.xml",
    "sprite": "data/enemies_gfx/healerdrone_emissive.xml",
+   "body_sprite": "none",
+   "tail_sprite": "none",
+   "segments": 0,
+   "segment_spacing": 0.0,
    "hitbox": [
     36,
     27
@@ -4908,6 +5240,10 @@
    "noita_hp": 25,
    "noita_entity": "data/entities/animals/scavenger_grenade.xml",
    "sprite": "data/enemies_gfx/scavenger_grenade.xml",
+   "body_sprite": "none",
+   "tail_sprite": "none",
+   "segments": 0,
+   "segment_spacing": 0.0,
    "hitbox": [
     30,
     45
@@ -4975,6 +5311,10 @@
    "noita_hp": 250,
    "noita_entity": "data/entities/animals/playerghost.xml",
    "sprite": "data/enemies_gfx/playerghost.xml",
+   "body_sprite": "none",
+   "tail_sprite": "none",
+   "segments": 0,
+   "segment_spacing": 0.0,
    "hitbox": [
     18,
     51
@@ -5048,6 +5388,10 @@
    "noita_hp": 400,
    "noita_entity": "data/entities/animals/roboguard_big.xml",
    "sprite": "data/enemies_gfx/roboguard_big.xml",
+   "body_sprite": "none",
+   "tail_sprite": "none",
+   "segments": 0,
+   "segment_spacing": 0.0,
    "hitbox": [
     48,
     48
@@ -5111,6 +5455,10 @@
    "noita_hp": 65,
    "noita_entity": "data/entities/animals/fungus.xml",
    "sprite": "data/enemies_gfx/fungus.xml",
+   "body_sprite": "none",
+   "tail_sprite": "none",
+   "segments": 0,
+   "segment_spacing": 0.0,
    "hitbox": [
     36,
     42
@@ -5173,6 +5521,10 @@
    "noita_hp": 2.5,
    "noita_entity": "data/entities/animals/sheep.xml",
    "sprite": "data/enemies_gfx/sheep.xml",
+   "body_sprite": "none",
+   "tail_sprite": "none",
+   "segments": 0,
+   "segment_spacing": 0.0,
    "hitbox": [
     36,
     33
@@ -5228,6 +5580,10 @@
    "noita_hp": 7.5,
    "noita_entity": "data/entities/animals/sheep_bat.xml",
    "sprite": null,
+   "body_sprite": "none",
+   "tail_sprite": "none",
+   "segments": 0,
+   "segment_spacing": 0.0,
    "hitbox": null,
    "size": 1.0,
    "hitbox_mult": 1.0,
@@ -5280,6 +5636,10 @@
    "noita_hp": 5.0,
    "noita_entity": "data/entities/animals/sheep_fly.xml",
    "sprite": null,
+   "body_sprite": "none",
+   "tail_sprite": "none",
+   "segments": 0,
+   "segment_spacing": 0.0,
    "hitbox": null,
    "size": 1.0,
    "hitbox_mult": 1.0,
@@ -5332,6 +5692,10 @@
    "noita_hp": 237.5,
    "noita_entity": "data/entities/animals/tank_super.xml",
    "sprite": "data/enemies_gfx/tank_super.xml",
+   "body_sprite": "none",
+   "tail_sprite": "none",
+   "segments": 0,
+   "segment_spacing": 0.0,
    "hitbox": [
     48,
     48
@@ -5400,6 +5764,10 @@
    "noita_hp": 10,
    "noita_entity": "data/entities/animals/drone_physics.xml",
    "sprite": "data/enemies_gfx/drone_emissive.xml",
+   "body_sprite": "none",
+   "tail_sprite": "none",
+   "segments": 0,
+   "segment_spacing": 0.0,
    "hitbox": [
     36,
     27
@@ -5466,6 +5834,10 @@
    "noita_hp": 12.5,
    "noita_entity": "data/entities/animals/bat.xml",
    "sprite": "data/enemies_gfx/bat.xml",
+   "body_sprite": "none",
+   "tail_sprite": "none",
+   "segments": 0,
+   "segment_spacing": 0.0,
    "hitbox": [
     24,
     30
@@ -5523,6 +5895,10 @@
    "noita_hp": 50,
    "noita_entity": "data/entities/animals/flamer.xml",
    "sprite": "data/enemies_gfx/flamer.xml",
+   "body_sprite": "none",
+   "tail_sprite": "none",
+   "segments": 0,
+   "segment_spacing": 0.0,
    "hitbox": [
     30,
     45
@@ -5584,6 +5960,10 @@
    "noita_hp": 35,
    "noita_entity": "data/entities/animals/fireskull.xml",
    "sprite": "data/enemies_gfx/fireskull.xml",
+   "body_sprite": "none",
+   "tail_sprite": "none",
+   "segments": 0,
+   "segment_spacing": 0.0,
    "hitbox": [
     27,
     42
@@ -5645,6 +6025,10 @@
    "noita_hp": 55,
    "noita_entity": "data/entities/animals/scavenger_glue.xml",
    "sprite": "data/enemies_gfx/scavenger_glue.xml",
+   "body_sprite": "none",
+   "tail_sprite": "none",
+   "segments": 0,
+   "segment_spacing": 0.0,
    "hitbox": [
     30,
     45
@@ -5706,6 +6090,10 @@
    "noita_hp": 7.5,
    "noita_entity": "data/entities/animals/slimeshooter_weak.xml",
    "sprite": "data/enemies_gfx/slimeshooter_weak.xml",
+   "body_sprite": "none",
+   "tail_sprite": "none",
+   "segments": 0,
+   "segment_spacing": 0.0,
    "hitbox": [
     24,
     39
@@ -5763,6 +6151,10 @@
    "noita_hp": 18.75,
    "noita_entity": "data/entities/animals/slimeshooter.xml",
    "sprite": "data/enemies_gfx/slimeshooter.xml",
+   "body_sprite": "none",
+   "tail_sprite": "none",
+   "segments": 0,
+   "segment_spacing": 0.0,
    "hitbox": [
     24,
     39
@@ -5823,6 +6215,10 @@
    "noita_hp": 6000.0,
    "noita_entity": "data/entities/animals/maggot_tiny.xml",
    "sprite": null,
+   "body_sprite": "none",
+   "tail_sprite": "none",
+   "segments": 0,
+   "segment_spacing": 0.0,
    "hitbox": null,
    "size": 1.0,
    "hitbox_mult": 1.0,
@@ -5890,6 +6286,10 @@
    "noita_hp": 2.5,
    "noita_entity": "data/entities/animals/pebble_physics.xml",
    "sprite": "data/enemies_gfx/pebble_physics.png",
+   "body_sprite": "none",
+   "tail_sprite": "none",
+   "segments": 0,
+   "segment_spacing": 0.0,
    "hitbox": null,
    "size": 1.0,
    "hitbox_mult": 1.0,
@@ -5949,6 +6349,10 @@
    "noita_hp": 125,
    "noita_entity": "data/entities/animals/wizard_neutral.xml",
    "sprite": "data/enemies_gfx/wizard_neutral.xml",
+   "body_sprite": "none",
+   "tail_sprite": "none",
+   "segments": 0,
+   "segment_spacing": 0.0,
    "hitbox": [
     27,
     39
@@ -6018,6 +6422,10 @@
    "noita_hp": 125,
    "noita_entity": "data/entities/animals/shaman.xml",
    "sprite": "data/enemies_gfx/shaman.xml",
+   "body_sprite": "none",
+   "tail_sprite": "none",
+   "segments": 0,
+   "segment_spacing": 0.0,
    "hitbox": [
     27,
     39
@@ -6080,6 +6488,10 @@
    "noita_hp": 700,
    "noita_entity": "data/entities/animals/necrobot_super.xml",
    "sprite": "data/enemies_gfx/necrobot_super.xml",
+   "body_sprite": "none",
+   "tail_sprite": "none",
+   "segments": 0,
+   "segment_spacing": 0.0,
    "hitbox": [
     24,
     54
@@ -6143,6 +6555,10 @@
    "noita_hp": 400.0,
    "noita_entity": "data/entities/animals/minipit.xml",
    "sprite": null,
+   "body_sprite": "none",
+   "tail_sprite": "none",
+   "segments": 0,
+   "segment_spacing": 0.0,
    "hitbox": null,
    "size": 1.0,
    "hitbox_mult": 1.0,
@@ -6201,6 +6617,10 @@
    "noita_hp": 150.0,
    "noita_entity": "data/entities/animals/bigzombietorso.xml",
    "sprite": null,
+   "body_sprite": "none",
+   "tail_sprite": "none",
+   "segments": 0,
+   "segment_spacing": 0.0,
    "hitbox": null,
    "size": 1.0,
    "hitbox_mult": 1.0,
@@ -6256,6 +6676,10 @@
    "noita_hp": 100.0,
    "noita_entity": "data/entities/animals/bigzombiehead.xml",
    "sprite": null,
+   "body_sprite": "none",
+   "tail_sprite": "none",
+   "segments": 0,
+   "segment_spacing": 0.0,
    "hitbox": null,
    "size": 1.0,
    "hitbox_mult": 1.0,
@@ -6312,6 +6736,10 @@
    "noita_hp": 100,
    "noita_entity": "data/entities/animals/bigzombie.xml",
    "sprite": "data/enemies_gfx/bigzombie.xml",
+   "body_sprite": "none",
+   "tail_sprite": "none",
+   "segments": 0,
+   "segment_spacing": 0.0,
    "hitbox": [
     27,
     42
@@ -6372,6 +6800,10 @@
    "noita_hp": 87.5,
    "noita_entity": "data/entities/animals/meatmaggot.xml",
    "sprite": "data/enemies_gfx/meatmaggot_head.xml",
+   "body_sprite": "data/enemies_gfx/meatmaggot_body.xml",
+   "tail_sprite": "data/enemies_gfx/meatmaggot_tail.xml",
+   "segments": 8,
+   "segment_spacing": 18.0,
    "hitbox": [
     12,
     12
@@ -6434,6 +6866,10 @@
    "noita_hp": 150,
    "noita_entity": "data/entities/animals/chest_leggy.xml",
    "sprite": "data/enemies_gfx/chest_mimic.xml",
+   "body_sprite": "none",
+   "tail_sprite": "none",
+   "segments": 0,
+   "segment_spacing": 0.0,
    "hitbox": [
     60,
     60
@@ -6492,6 +6928,10 @@
    "noita_hp": 75,
    "noita_entity": "data/entities/animals/chest_mimic.xml",
    "sprite": "data/enemies_gfx/chest_mimic.xml",
+   "body_sprite": "none",
+   "tail_sprite": "none",
+   "segments": 0,
+   "segment_spacing": 0.0,
    "hitbox": [
     48,
     45
@@ -6547,6 +6987,10 @@
    "noita_hp": 500,
    "noita_entity": "data/entities/animals/worm.xml",
    "sprite": "data/enemies_gfx/worm_head.xml",
+   "body_sprite": "data/enemies_gfx/worm_body.xml",
+   "tail_sprite": "data/enemies_gfx/worm_tail.xml",
+   "segments": 5,
+   "segment_spacing": 30.0,
    "hitbox": [
     30,
     30
@@ -6612,6 +7056,10 @@
    "noita_hp": 150000.0,
    "noita_entity": "data/entities/animals/blood_orb.xml",
    "sprite": null,
+   "body_sprite": "none",
+   "tail_sprite": "none",
+   "segments": 0,
+   "segment_spacing": 0.0,
    "hitbox": null,
    "size": 1.0,
    "hitbox_mult": 1.0,
@@ -6673,6 +7121,10 @@
    "noita_hp": 500.0,
    "noita_entity": "data/entities/animals/death_orb_throne.xml",
    "sprite": null,
+   "body_sprite": "none",
+   "tail_sprite": "none",
+   "segments": 0,
+   "segment_spacing": 0.0,
    "hitbox": null,
    "size": 1.0,
    "hitbox_mult": 1.0,
@@ -6734,6 +7186,10 @@
    "noita_hp": 1500.0,
    "noita_entity": "data/entities/animals/boss_wizard.xml",
    "sprite": null,
+   "body_sprite": "none",
+   "tail_sprite": "none",
+   "segments": 0,
+   "segment_spacing": 0.0,
    "hitbox": null,
    "size": 1.0,
    "hitbox_mult": 1.0,
@@ -6798,6 +7254,10 @@
    "noita_hp": 75,
    "noita_entity": "data/entities/animals/scavenger_mine.xml",
    "sprite": "data/enemies_gfx/scavenger_mine.xml",
+   "body_sprite": "none",
+   "tail_sprite": "none",
+   "segments": 0,
+   "segment_spacing": 0.0,
    "hitbox": [
     30,
     45
@@ -6864,6 +7324,10 @@
    "noita_hp": 100.0,
    "noita_entity": "data/entities/animals/player.xml",
    "sprite": null,
+   "body_sprite": "none",
+   "tail_sprite": "none",
+   "segments": 0,
+   "segment_spacing": 0.0,
    "hitbox": null,
    "size": 1.0,
    "hitbox_mult": 1.0,
@@ -6918,6 +7382,10 @@
    "noita_hp": 8.75,
    "noita_entity": "data/entities/animals/miniblob.xml",
    "sprite": null,
+   "body_sprite": "none",
+   "tail_sprite": "none",
+   "segments": 0,
+   "segment_spacing": 0.0,
    "hitbox": null,
    "size": 1.0,
    "hitbox_mult": 1.0,
@@ -6975,6 +7443,10 @@
    "noita_hp": 150,
    "noita_entity": "data/entities/animals/lasershooter.xml",
    "sprite": "data/enemies_gfx/lasershooter.xml",
+   "body_sprite": "none",
+   "tail_sprite": "none",
+   "segments": 0,
+   "segment_spacing": 0.0,
    "hitbox": [
     27,
     33
@@ -7034,6 +7506,10 @@
    "noita_hp": 175,
    "noita_entity": "data/entities/animals/monk.xml",
    "sprite": "data/enemies_gfx/monk.xml",
+   "body_sprite": "none",
+   "tail_sprite": "none",
+   "segments": 0,
+   "segment_spacing": 0.0,
    "hitbox": [
     27,
     57
@@ -7097,6 +7573,10 @@
    "noita_hp": 100,
    "noita_entity": "data/entities/animals/wizard_poly.xml",
    "sprite": "data/enemies_gfx/wizard_poly.xml",
+   "body_sprite": "none",
+   "tail_sprite": "none",
+   "segments": 0,
+   "segment_spacing": 0.0,
    "hitbox": [
     27,
     39
@@ -7158,6 +7638,10 @@
    "noita_hp": 125,
    "noita_entity": "data/entities/animals/ant.xml",
    "sprite": "data/enemies_gfx/ant.xml",
+   "body_sprite": "none",
+   "tail_sprite": "none",
+   "segments": 0,
+   "segment_spacing": 0.0,
    "hitbox": [
     39,
     42
@@ -7217,6 +7701,10 @@
    "noita_hp": 150,
    "noita_entity": "data/entities/animals/scavenger_poison.xml",
    "sprite": "data/enemies_gfx/scavenger_poison.xml",
+   "body_sprite": "none",
+   "tail_sprite": "none",
+   "segments": 0,
+   "segment_spacing": 0.0,
    "hitbox": [
     30,
     57
@@ -7277,6 +7765,10 @@
    "noita_hp": 40,
    "noita_entity": "data/entities/animals/fungus_tiny.xml",
    "sprite": "data/enemies_gfx/fungus_tiny_b.xml",
+   "body_sprite": "none",
+   "tail_sprite": "none",
+   "segments": 0,
+   "segment_spacing": 0.0,
    "hitbox": [
     24,
     36
@@ -7335,6 +7827,10 @@
    "noita_hp": 500,
    "noita_entity": "data/entities/animals/eel.xml",
    "sprite": "data/enemies_gfx/eel_head.png",
+   "body_sprite": "data/enemies_gfx/eel_body.png",
+   "tail_sprite": "data/enemies_gfx/eel_tail.png",
+   "segments": 4,
+   "segment_spacing": 42.0,
    "hitbox": [
     30,
     30
@@ -7395,6 +7891,10 @@
    "noita_hp": 20,
    "noita_entity": "data/entities/animals/deer.xml",
    "sprite": "data/enemies_gfx/deer.xml",
+   "body_sprite": "none",
+   "tail_sprite": "none",
+   "segments": 0,
+   "segment_spacing": 0.0,
    "hitbox": [
     39,
     39
@@ -7450,6 +7950,10 @@
    "noita_hp": 190,
    "noita_entity": "data/entities/animals/fungus_big.xml",
    "sprite": "data/enemies_gfx/fungus_big.xml",
+   "body_sprite": "none",
+   "tail_sprite": "none",
+   "segments": 0,
+   "segment_spacing": 0.0,
    "hitbox": [
     36,
     60
@@ -7511,6 +8015,10 @@
    "noita_hp": 387.5,
    "noita_entity": "data/entities/animals/ethereal_being.xml",
    "sprite": "data/enemies_gfx/ethereal_being.xml",
+   "body_sprite": "none",
+   "tail_sprite": "none",
+   "segments": 0,
+   "segment_spacing": 0.0,
    "hitbox": [
     96,
     96
@@ -7577,6 +8085,10 @@
    "noita_hp": 75,
    "noita_entity": "data/entities/animals/illusions/dark_alchemist.xml",
    "sprite": "data/enemies_gfx/coward_alt.xml",
+   "body_sprite": "none",
+   "tail_sprite": "none",
+   "segments": 0,
+   "segment_spacing": 0.0,
    "hitbox": [
     36,
     36
@@ -7632,6 +8144,10 @@
    "noita_hp": 125,
    "noita_entity": "data/entities/animals/icemage.xml",
    "sprite": "data/enemies_gfx/skullmage.xml",
+   "body_sprite": "none",
+   "tail_sprite": "none",
+   "segments": 0,
+   "segment_spacing": 0.0,
    "hitbox": [
     27,
     51
@@ -7697,6 +8213,10 @@
    "noita_hp": 175,
    "noita_entity": "data/entities/animals/wizard_returner.xml",
    "sprite": "data/enemies_gfx/wizard_returner.xml",
+   "body_sprite": "none",
+   "tail_sprite": "none",
+   "segments": 0,
+   "segment_spacing": 0.0,
    "hitbox": [
     27,
     39
@@ -7760,6 +8280,10 @@
    "noita_hp": 17.5,
    "noita_entity": "data/entities/animals/scavenger_heal.xml",
    "sprite": "data/enemies_gfx/scavenger_heal.xml",
+   "body_sprite": "none",
+   "tail_sprite": "none",
+   "segments": 0,
+   "segment_spacing": 0.0,
    "hitbox": [
     30,
     45
@@ -7821,6 +8345,10 @@
    "noita_hp": 175,
    "noita_entity": "data/entities/animals/statue.xml",
    "sprite": "data/enemies_gfx/statue.xml",
+   "body_sprite": "none",
+   "tail_sprite": "none",
+   "segments": 0,
+   "segment_spacing": 0.0,
    "hitbox": [
     18,
     51
@@ -7882,6 +8410,10 @@
    "noita_hp": 225,
    "noita_entity": "data/entities/animals/spearbot.xml",
    "sprite": "data/enemies_gfx/spearbot.xml",
+   "body_sprite": "none",
+   "tail_sprite": "none",
+   "segments": 0,
+   "segment_spacing": 0.0,
    "hitbox": [
     36,
     90
@@ -7948,6 +8480,10 @@
    "noita_hp": 37.5,
    "noita_entity": "data/entities/animals/wand_ghost_charmed.xml",
    "sprite": null,
+   "body_sprite": "none",
+   "tail_sprite": "none",
+   "segments": 0,
+   "segment_spacing": 0.0,
    "hitbox": null,
    "size": 1.0,
    "hitbox_mult": 1.0,
@@ -8004,6 +8540,10 @@
    "noita_hp": 75,
    "noita_entity": "data/entities/animals/worm_tiny.xml",
    "sprite": "data/enemies_gfx/worm_tiny_head.xml",
+   "body_sprite": "data/enemies_gfx/worm_tiny_body.xml",
+   "tail_sprite": "data/enemies_gfx/worm_tiny_tail.xml",
+   "segments": 6,
+   "segment_spacing": 18.0,
    "hitbox": [
     12,
     12
@@ -8064,6 +8604,10 @@
    "noita_hp": 18.75,
    "noita_entity": "data/entities/animals/tentacler_small.xml",
    "sprite": "data/enemies_gfx/tentacler_small.xml",
+   "body_sprite": "none",
+   "tail_sprite": "none",
+   "segments": 0,
+   "segment_spacing": 0.0,
    "hitbox": [
     36,
     45
@@ -8124,6 +8668,10 @@
    "noita_hp": 125,
    "noita_entity": "data/entities/animals/shooterflower.xml",
    "sprite": "data/enemies_gfx/shooterflower.xml",
+   "body_sprite": "none",
+   "tail_sprite": "none",
+   "segments": 0,
+   "segment_spacing": 0.0,
    "hitbox": [
     48,
     48
@@ -8184,6 +8732,10 @@
    "noita_hp": 25,
    "noita_entity": "data/entities/animals/elk.xml",
    "sprite": "data/enemies_gfx/elk.xml",
+   "body_sprite": "none",
+   "tail_sprite": "none",
+   "segments": 0,
+   "segment_spacing": 0.0,
    "hitbox": [
     51,
     45
@@ -8239,6 +8791,10 @@
    "noita_hp": 75,
    "noita_entity": "data/entities/animals/alchemist.xml",
    "sprite": "data/enemies_gfx/alchemist.xml",
+   "body_sprite": "none",
+   "tail_sprite": "none",
+   "segments": 0,
+   "segment_spacing": 0.0,
    "hitbox": [
     18,
     27
@@ -8300,6 +8856,10 @@
    "noita_hp": 100,
    "noita_entity": "data/entities/animals/bloom.xml",
    "sprite": "data/enemies_gfx/bloom.xml",
+   "body_sprite": "none",
+   "tail_sprite": "none",
+   "segments": 0,
+   "segment_spacing": 0.0,
    "hitbox": [
     48,
     48
@@ -8357,6 +8917,10 @@
    "noita_hp": 362.5,
    "noita_entity": "data/entities/animals/basebot_neutralizer.xml",
    "sprite": "data/enemies_gfx/basebot_neutralizer.xml",
+   "body_sprite": "none",
+   "tail_sprite": "none",
+   "segments": 0,
+   "segment_spacing": 0.0,
    "hitbox": [
     48,
     45
@@ -8420,6 +8984,10 @@
    "noita_hp": 75,
    "noita_entity": "data/entities/animals/coward.xml",
    "sprite": "data/enemies_gfx/coward.xml",
+   "body_sprite": "none",
+   "tail_sprite": "none",
+   "segments": 0,
+   "segment_spacing": 0.0,
    "hitbox": [
     30,
     45
@@ -8480,6 +9048,10 @@
    "noita_hp": 125,
    "noita_entity": "data/entities/animals/roboguard.xml",
    "sprite": "data/enemies_gfx/roboguard.xml",
+   "body_sprite": "none",
+   "tail_sprite": "none",
+   "segments": 0,
+   "segment_spacing": 0.0,
    "hitbox": [
     48,
     48
@@ -8544,6 +9116,10 @@
    "noita_hp": 5,
    "noita_entity": "data/entities/animals/rat.xml",
    "sprite": "data/enemies_gfx/rat.xml",
+   "body_sprite": "none",
+   "tail_sprite": "none",
+   "segments": 0,
+   "segment_spacing": 0.0,
    "hitbox": [
     33,
     15
@@ -8606,6 +9182,10 @@
    "noita_hp": 17.5,
    "noita_entity": "data/entities/animals/plague_rats_rat.xml",
    "sprite": null,
+   "body_sprite": "none",
+   "tail_sprite": "none",
+   "segments": 0,
+   "segment_spacing": 0.0,
    "hitbox": null,
    "size": 1.0,
    "hitbox_mult": 1.0,
@@ -8661,6 +9241,10 @@
    "noita_hp": 25,
    "noita_entity": "data/entities/animals/scavenger_smg.xml",
    "sprite": "data/enemies_gfx/scavenger_smg.xml",
+   "body_sprite": "none",
+   "tail_sprite": "none",
+   "segments": 0,
+   "segment_spacing": 0.0,
    "hitbox": [
     30,
     45
@@ -8729,6 +9313,10 @@
    "noita_hp": 25,
    "noita_entity": "data/entities/animals/goblin_bomb.xml",
    "sprite": "data/enemies_gfx/goblin_bomb.xml",
+   "body_sprite": "none",
+   "tail_sprite": "none",
+   "segments": 0,
+   "segment_spacing": 0.0,
    "hitbox": [
     24,
     39
@@ -8787,6 +9375,10 @@
    "noita_hp": 112.5,
    "noita_entity": "data/entities/animals/thunderskull.xml",
    "sprite": "data/enemies_gfx/thunderskull.xml",
+   "body_sprite": "none",
+   "tail_sprite": "none",
+   "segments": 0,
+   "segment_spacing": 0.0,
    "hitbox": [
     27,
     39
@@ -8853,6 +9445,10 @@
    "noita_hp": 200,
    "noita_entity": "data/entities/animals/assassin.xml",
    "sprite": "data/enemies_gfx/assassin.xml",
+   "body_sprite": "none",
+   "tail_sprite": "none",
+   "segments": 0,
+   "segment_spacing": 0.0,
    "hitbox": [
     24,
     39
@@ -8917,6 +9513,10 @@
    "noita_hp": 125,
    "noita_entity": "data/entities/animals/wizard_twitchy.xml",
    "sprite": "data/enemies_gfx/wizard_twitchy.xml",
+   "body_sprite": "none",
+   "tail_sprite": "none",
+   "segments": 0,
+   "segment_spacing": 0.0,
    "hitbox": [
     27,
     39
@@ -8981,6 +9581,10 @@
    "noita_hp": 800.0,
    "noita_entity": "data/entities/animals/parallel_tentacles.xml",
    "sprite": null,
+   "body_sprite": "none",
+   "tail_sprite": "none",
+   "segments": 0,
+   "segment_spacing": 0.0,
    "hitbox": null,
    "size": 1.0,
    "hitbox_mult": 1.0,
@@ -9055,6 +9659,10 @@
    "noita_hp": 800.0,
    "noita_entity": "data/entities/animals/boss_pit.xml",
    "sprite": null,
+   "body_sprite": "none",
+   "tail_sprite": "none",
+   "segments": 0,
+   "segment_spacing": 0.0,
    "hitbox": null,
    "size": 1.0,
    "hitbox_mult": 1.0,
@@ -9131,6 +9739,10 @@
    "noita_hp": 100,
    "noita_entity": "data/entities/animals/wizard_tele.xml",
    "sprite": "data/enemies_gfx/wizard_tele.xml",
+   "body_sprite": "none",
+   "tail_sprite": "none",
+   "segments": 0,
+   "segment_spacing": 0.0,
    "hitbox": [
     27,
     39
@@ -9194,6 +9806,10 @@
    "noita_hp": 2.5,
    "noita_entity": "data/entities/animals/scorpion.xml",
    "sprite": "data/enemies_gfx/scorpion.xml",
+   "body_sprite": "none",
+   "tail_sprite": "none",
+   "segments": 0,
+   "segment_spacing": 0.0,
    "hitbox": [
     15,
     12
@@ -9252,6 +9868,10 @@
    "noita_hp": 900.0,
    "noita_entity": "data/entities/animals/necromancer_super.xml",
    "sprite": null,
+   "body_sprite": "none",
+   "tail_sprite": "none",
+   "segments": 0,
+   "segment_spacing": 0.0,
    "hitbox": null,
    "size": 1.0,
    "hitbox_mult": 1.0,
@@ -9313,6 +9933,10 @@
    "noita_hp": 120,
    "noita_entity": "data/entities/animals/sniper_hell.xml",
    "sprite": "data/enemies_gfx/sniper_hell.xml",
+   "body_sprite": "none",
+   "tail_sprite": "none",
+   "segments": 0,
+   "segment_spacing": 0.0,
    "hitbox": [
     30,
     45
@@ -9373,6 +9997,10 @@
    "noita_hp": 45,
    "noita_entity": "data/entities/animals/sniper.xml",
    "sprite": "data/enemies_gfx/sniper.xml",
+   "body_sprite": "none",
+   "tail_sprite": "none",
+   "segments": 0,
+   "segment_spacing": 0.0,
    "hitbox": [
     30,
     45
@@ -9433,6 +10061,10 @@
    "noita_hp": 100,
    "noita_entity": "data/entities/animals/wizard_dark.xml",
    "sprite": "data/enemies_gfx/wizard_dark.xml",
+   "body_sprite": "none",
+   "tail_sprite": "none",
+   "segments": 0,
+   "segment_spacing": 0.0,
    "hitbox": [
     27,
     39
@@ -9496,6 +10128,10 @@
    "noita_hp": 75,
    "noita_entity": "data/entities/animals/phantom_a.xml",
    "sprite": "data/enemies_gfx/phantom_a.xml",
+   "body_sprite": "none",
+   "tail_sprite": "none",
+   "segments": 0,
+   "segment_spacing": 0.0,
    "hitbox": [
     27,
     51
@@ -9562,6 +10198,10 @@
    "noita_hp": 80,
    "noita_entity": "data/entities/animals/firemage_weak.xml",
    "sprite": "data/enemies_gfx/firemage_weak.xml",
+   "body_sprite": "none",
+   "tail_sprite": "none",
+   "segments": 0,
+   "segment_spacing": 0.0,
    "hitbox": [
     27,
     51
@@ -9625,6 +10265,10 @@
    "noita_hp": 600.0,
    "noita_entity": "data/entities/animals/necromancer_shop.xml",
    "sprite": null,
+   "body_sprite": "none",
+   "tail_sprite": "none",
+   "segments": 0,
+   "segment_spacing": 0.0,
    "hitbox": null,
    "size": 1.0,
    "hitbox_mult": 1.0,
@@ -9683,6 +10327,10 @@
    "noita_hp": 3000.0,
    "noita_entity": "data/entities/animals/boss_dragon.xml",
    "sprite": null,
+   "body_sprite": "none",
+   "tail_sprite": "none",
+   "segments": 0,
+   "segment_spacing": 0.0,
    "hitbox": null,
    "size": 1.0,
    "hitbox_mult": 1.0,
@@ -9746,6 +10394,10 @@
    "noita_hp": 15,
    "noita_entity": "data/entities/animals/wolf.xml",
    "sprite": "data/enemies_gfx/wolf.xml",
+   "body_sprite": "none",
+   "tail_sprite": "none",
+   "segments": 0,
+   "segment_spacing": 0.0,
    "hitbox": [
     27,
     24
@@ -9804,6 +10456,10 @@
    "noita_hp": 500,
    "noita_entity": "data/entities/animals/thundermage_big.xml",
    "sprite": "data/enemies_gfx/thundermage_big.xml",
+   "body_sprite": "none",
+   "tail_sprite": "none",
+   "segments": 0,
+   "segment_spacing": 0.0,
    "hitbox": [
     39,
     75
@@ -9873,6 +10529,10 @@
    "noita_hp": 2.5,
    "noita_entity": "data/entities/animals/fish_large.xml",
    "sprite": "data/enemies_gfx/fish_02.xml",
+   "body_sprite": "none",
+   "tail_sprite": "none",
+   "segments": 0,
+   "segment_spacing": 0.0,
    "hitbox": [
     21,
     21
@@ -9931,6 +10591,10 @@
    "noita_hp": 87.5,
    "noita_entity": "data/entities/animals/bigbat.xml",
    "sprite": "data/enemies_gfx/bigbat.xml",
+   "body_sprite": "none",
+   "tail_sprite": "none",
+   "segments": 0,
+   "segment_spacing": 0.0,
    "hitbox": [
     48,
     60
@@ -9989,6 +10653,10 @@
    "noita_hp": 75.0,
    "noita_entity": "data/entities/animals/ghoul.xml",
    "sprite": null,
+   "body_sprite": "none",
+   "tail_sprite": "none",
+   "segments": 0,
+   "segment_spacing": 0.0,
    "hitbox": null,
    "size": 1.0,
    "hitbox_mult": 1.0,
@@ -10043,6 +10711,10 @@
    "noita_hp": 7500.0,
    "noita_entity": "data/entities/animals/fish_giga.xml",
    "sprite": null,
+   "body_sprite": "none",
+   "tail_sprite": "none",
+   "segments": 0,
+   "segment_spacing": 0.0,
    "hitbox": null,
    "size": 1.0,
    "hitbox_mult": 1.0,
@@ -10109,6 +10781,10 @@
    "noita_hp": 37.5,
    "noita_entity": "data/entities/animals/wand_ghost.xml",
    "sprite": null,
+   "body_sprite": "none",
+   "tail_sprite": "none",
+   "segments": 0,
+   "segment_spacing": 0.0,
    "hitbox": [
     30,
     36
@@ -10171,6 +10847,10 @@
    "noita_hp": 250,
    "noita_entity": "data/entities/animals/skygazer.xml",
    "sprite": "data/enemies_gfx/skygazer.xml",
+   "body_sprite": "none",
+   "tail_sprite": "none",
+   "segments": 0,
+   "segment_spacing": 0.0,
    "hitbox": [
     63,
     72
@@ -10231,6 +10911,10 @@
    "noita_hp": 400,
    "noita_entity": "data/entities/animals/skycrystal_physics.xml",
    "sprite": "data/enemies_gfx/skycrystal_physics.png",
+   "body_sprite": "none",
+   "tail_sprite": "none",
+   "segments": 0,
+   "segment_spacing": 0.0,
    "hitbox": [
     30,
     36
@@ -10293,6 +10977,10 @@
    "noita_hp": 500,
    "noita_entity": "data/entities/animals/boss_spirit/wisp.xml",
    "sprite": "data/projectiles_gfx/death_ghost.xml",
+   "body_sprite": "none",
+   "tail_sprite": "none",
+   "segments": 0,
+   "segment_spacing": 0.0,
    "hitbox": [
     24,
     24
@@ -10359,6 +11047,10 @@
    "noita_hp": 500.0,
    "noita_entity": "data/entities/animals/islandspirit.xml",
    "sprite": null,
+   "body_sprite": "none",
+   "tail_sprite": "none",
+   "segments": 0,
+   "segment_spacing": 0.0,
    "hitbox": null,
    "size": 1.0,
    "hitbox_mult": 1.0,
@@ -10425,6 +11117,10 @@
    "noita_hp": 75,
    "noita_entity": "data/entities/animals/miner_hell.xml",
    "sprite": "data/enemies_gfx/miner_hell.xml",
+   "body_sprite": "none",
+   "tail_sprite": "none",
+   "segments": 0,
+   "segment_spacing": 0.0,
    "hitbox": [
     18,
     27
@@ -10485,6 +11181,10 @@
    "noita_hp": 25,
    "noita_entity": "data/entities/animals/miner_chef.xml",
    "sprite": "data/enemies_gfx/miner_chef.xml",
+   "body_sprite": "none",
+   "tail_sprite": "none",
+   "segments": 0,
+   "segment_spacing": 0.0,
    "hitbox": [
     18,
     27
@@ -10543,6 +11243,10 @@
    "noita_hp": 25,
    "noita_entity": "data/entities/animals/miner.xml",
    "sprite": "data/enemies_gfx/miner.xml",
+   "body_sprite": "none",
+   "tail_sprite": "none",
+   "segments": 0,
+   "segment_spacing": 0.0,
    "hitbox": [
     18,
     27
@@ -10606,6 +11310,10 @@
    "noita_hp": 11,
    "noita_entity": "data/entities/animals/miner_weak.xml",
    "sprite": "data/enemies_gfx/miner_weak.xml",
+   "body_sprite": "none",
+   "tail_sprite": "none",
+   "segments": 0,
+   "segment_spacing": 0.0,
    "hitbox": [
     18,
     27
@@ -10665,6 +11373,10 @@
    "noita_hp": 362.5,
    "noita_entity": "data/entities/animals/basebot_sentry.xml",
    "sprite": "data/enemies_gfx/basebot_sentry.xml",
+   "body_sprite": "none",
+   "tail_sprite": "none",
+   "segments": 0,
+   "segment_spacing": 0.0,
    "hitbox": [
     48,
     45
@@ -10727,6 +11439,10 @@
    "noita_hp": 512.5,
    "noita_entity": "data/entities/animals/basebot_soldier.xml",
    "sprite": "data/enemies_gfx/basebot_soldier.xml",
+   "body_sprite": "none",
+   "tail_sprite": "none",
+   "segments": 0,
+   "segment_spacing": 0.0,
    "hitbox": [
     48,
     45
@@ -10790,6 +11506,10 @@
    "noita_hp": 100,
    "noita_entity": "data/entities/animals/scavenger_leader.xml",
    "sprite": "data/enemies_gfx/scavenger_leader.xml",
+   "body_sprite": "none",
+   "tail_sprite": "none",
+   "segments": 0,
+   "segment_spacing": 0.0,
    "hitbox": [
     30,
     57
@@ -10855,6 +11575,10 @@
    "noita_hp": 75,
    "noita_entity": "data/entities/animals/turret_left.xml",
    "sprite": "data/enemies_gfx/turret.xml",
+   "body_sprite": "none",
+   "tail_sprite": "none",
+   "segments": 0,
+   "segment_spacing": 0.0,
    "hitbox": [
     30,
     45
@@ -10920,6 +11644,10 @@
    "noita_hp": 87.5,
    "noita_entity": "data/entities/animals/maggot.xml",
    "sprite": "data/enemies_gfx/maggot.xml",
+   "body_sprite": "none",
+   "tail_sprite": "none",
+   "segments": 0,
+   "segment_spacing": 0.0,
    "hitbox": [
     48,
     48
@@ -10981,6 +11709,10 @@
    "noita_hp": 762.5,
    "noita_entity": "data/entities/animals/friend.xml",
    "sprite": null,
+   "body_sprite": "none",
+   "tail_sprite": "none",
+   "segments": 0,
+   "segment_spacing": 0.0,
    "hitbox": null,
    "size": 1.0,
    "hitbox_mult": 1.0,
@@ -11039,6 +11771,10 @@
    "noita_hp": 762.5,
    "noita_entity": "data/entities/animals/friend_hostile.xml",
    "sprite": null,
+   "body_sprite": "none",
+   "tail_sprite": "none",
+   "segments": 0,
+   "segment_spacing": 0.0,
    "hitbox": null,
    "size": 1.0,
    "hitbox_mult": 1.0,
@@ -11108,6 +11844,10 @@
    "noita_hp": 750,
    "noita_entity": null,
    "sprite": "data/props_gfx/trap_acid.png",
+   "body_sprite": "none",
+   "tail_sprite": "none",
+   "segments": 0,
+   "segment_spacing": 0.0,
    "hitbox": null,
    "size": 1.0,
    "hitbox_mult": 1.0,
@@ -11173,6 +11913,10 @@
    "noita_hp": 37.5,
    "noita_entity": "data/entities/buildings/arrowtrap_left.xml",
    "sprite": "data/buildings_gfx/arrowtrap_left.xml",
+   "body_sprite": "none",
+   "tail_sprite": "none",
+   "segments": 0,
+   "segment_spacing": 0.0,
    "hitbox": [
     15,
     30
@@ -11241,6 +11985,10 @@
    "noita_hp": 112.5,
    "noita_entity": null,
    "sprite": null,
+   "body_sprite": "none",
+   "tail_sprite": "none",
+   "segments": 0,
+   "segment_spacing": 0.0,
    "hitbox": null,
    "size": 1.0,
    "hitbox_mult": 1.0,
@@ -11305,6 +12053,10 @@
    "noita_hp": 137.5,
    "noita_entity": null,
    "sprite": null,
+   "body_sprite": "none",
+   "tail_sprite": "none",
+   "segments": 0,
+   "segment_spacing": 0.0,
    "hitbox": null,
    "size": 1.0,
    "hitbox_mult": 1.0,
@@ -11369,6 +12121,10 @@
    "noita_hp": 50,
    "noita_entity": "data/entities/animals/miner_fire.xml",
    "sprite": "data/enemies_gfx/miner_fire.xml",
+   "body_sprite": "none",
+   "tail_sprite": "none",
+   "segments": 0,
+   "segment_spacing": 0.0,
    "hitbox": [
     18,
     27
@@ -11429,6 +12185,10 @@
    "noita_hp": 125,
    "noita_entity": "data/entities/buildings/firebugnest.xml",
    "sprite": "data/buildings_gfx/nest_yellow.xml",
+   "body_sprite": "none",
+   "tail_sprite": "none",
+   "segments": 0,
+   "segment_spacing": 0.0,
    "hitbox": [
     60,
     63
@@ -11491,6 +12251,10 @@
    "noita_hp": 5,
    "noita_entity": "data/entities/animals/firebug.xml",
    "sprite": "data/enemies_gfx/firebug.xml",
+   "body_sprite": "none",
+   "tail_sprite": "none",
+   "segments": 0,
+   "segment_spacing": 0.0,
    "hitbox": [
     33,
     18
@@ -11551,6 +12315,10 @@
    "noita_hp": 25,
    "noita_entity": "data/entities/animals/bigfirebug.xml",
    "sprite": "data/enemies_gfx/bigfirebug.xml",
+   "body_sprite": "none",
+   "tail_sprite": "none",
+   "segments": 0,
+   "segment_spacing": 0.0,
    "hitbox": [
     42,
     27
@@ -11611,6 +12379,10 @@
    "noita_hp": 400,
    "noita_entity": "data/entities/animals/necrobot.xml",
    "sprite": "data/enemies_gfx/necrobot.xml",
+   "body_sprite": "none",
+   "tail_sprite": "none",
+   "segments": 0,
+   "segment_spacing": 0.0,
    "hitbox": [
     24,
     54
@@ -11674,6 +12446,10 @@
    "noita_hp": 125,
    "noita_entity": "data/entities/animals/tentacler.xml",
    "sprite": "data/enemies_gfx/tentacler.xml",
+   "body_sprite": "none",
+   "tail_sprite": "none",
+   "segments": 0,
+   "segment_spacing": 0.0,
    "hitbox": [
     42,
     57
@@ -11736,6 +12512,10 @@
    "noita_hp": 210,
    "noita_entity": "data/entities/animals/drone_shield.xml",
    "sprite": "data/enemies_gfx/drone_shield.xml",
+   "body_sprite": "none",
+   "tail_sprite": "none",
+   "segments": 0,
+   "segment_spacing": 0.0,
    "hitbox": [
     36,
     36
@@ -11799,6 +12579,10 @@
    "noita_hp": 300,
    "noita_entity": "data/entities/animals/wizard_weaken.xml",
    "sprite": "data/enemies_gfx/wizard_weaken.xml",
+   "body_sprite": "none",
+   "tail_sprite": "none",
+   "segments": 0,
+   "segment_spacing": 0.0,
    "hitbox": [
     27,
     39
@@ -11863,6 +12647,10 @@
    "noita_hp": 100,
    "noita_entity": "data/entities/animals/barfer.xml",
    "sprite": "data/enemies_gfx/barfer.xml",
+   "body_sprite": "none",
+   "tail_sprite": "none",
+   "segments": 0,
+   "segment_spacing": 0.0,
    "hitbox": [
     27,
     39
@@ -11921,6 +12709,10 @@
    "noita_hp": 125,
    "noita_entity": "data/entities/animals/thundermage.xml",
    "sprite": "data/enemies_gfx/thundermage.xml",
+   "body_sprite": "none",
+   "tail_sprite": "none",
+   "segments": 0,
+   "segment_spacing": 0.0,
    "hitbox": [
     27,
     51
@@ -11990,6 +12782,10 @@
    "noita_hp": 468.75,
    "noita_entity": "data/entities/animals/wraith_storm.xml",
    "sprite": "data/enemies_gfx/wraith_storm.xml",
+   "body_sprite": "none",
+   "tail_sprite": "none",
+   "segments": 0,
+   "segment_spacing": 0.0,
    "hitbox": [
     42,
     42
@@ -12050,6 +12846,10 @@
    "noita_hp": 37.5,
    "noita_entity": "data/entities/animals/boss_ghost_polyp.xml",
    "sprite": null,
+   "body_sprite": "none",
+   "tail_sprite": "none",
+   "segments": 0,
+   "segment_spacing": 0.0,
    "hitbox": null,
    "size": 1.0,
    "hitbox_mult": 1.0,
@@ -12104,6 +12904,10 @@
    "noita_hp": 1012.0,
    "noita_entity": "data/entities/animals/boss_ghost.xml",
    "sprite": null,
+   "body_sprite": "none",
+   "tail_sprite": "none",
+   "segments": 0,
+   "segment_spacing": 0.0,
    "hitbox": null,
    "size": 1.0,
    "hitbox_mult": 1.0,
@@ -12168,6 +12972,10 @@
    "noita_hp": 100,
    "noita_entity": "data/entities/animals/wizard_swapper.xml",
    "sprite": "data/enemies_gfx/wizard_swapper.xml",
+   "body_sprite": "none",
+   "tail_sprite": "none",
+   "segments": 0,
+   "segment_spacing": 0.0,
    "hitbox": [
     27,
     39
@@ -12229,6 +13037,10 @@
    "noita_hp": 362.5,
    "noita_entity": "data/entities/animals/basebot_hidden.xml",
    "sprite": "data/enemies_gfx/basebot_hidden.xml",
+   "body_sprite": "none",
+   "tail_sprite": "none",
+   "segments": 0,
+   "segment_spacing": 0.0,
    "hitbox": [
     48,
     45
@@ -12291,6 +13103,10 @@
    "noita_hp": 200,
    "noita_entity": "data/entities/animals/enlightened_alchemist.xml",
    "sprite": "data/enemies_gfx/enlightened_alchemist.xml",
+   "body_sprite": "none",
+   "tail_sprite": "none",
+   "segments": 0,
+   "segment_spacing": 0.0,
    "hitbox": [
     48,
     78
@@ -12359,6 +13175,10 @@
    "noita_hp": 75,
    "noita_entity": "data/entities/animals/illusions/shaman_wind.xml",
    "sprite": "data/enemies_gfx/shaman_alt.xml",
+   "body_sprite": "none",
+   "tail_sprite": "none",
+   "segments": 0,
+   "segment_spacing": 0.0,
    "hitbox": [
     36,
     36
@@ -12414,6 +13234,10 @@
    "noita_hp": 168.75,
    "noita_entity": "data/entities/animals/lurker.xml",
    "sprite": "data/enemies_gfx/lurker.xml",
+   "body_sprite": "none",
+   "tail_sprite": "none",
+   "segments": 0,
+   "segment_spacing": 0.0,
    "hitbox": [
     36,
     42
@@ -12475,6 +13299,10 @@
    "noita_hp": 100,
    "noita_entity": "data/entities/animals/bloodcrystal_physics.xml",
    "sprite": "data/enemies_gfx/bloodcrystal_physics.png",
+   "body_sprite": "none",
+   "tail_sprite": "none",
+   "segments": 0,
+   "segment_spacing": 0.0,
    "hitbox": [
     60,
     60
@@ -12537,6 +13365,10 @@
    "noita_hp": 1000.0,
    "noita_entity": "data/entities/animals/parallel_alchemist.xml",
    "sprite": null,
+   "body_sprite": "none",
+   "tail_sprite": "none",
+   "segments": 0,
+   "segment_spacing": 0.0,
    "hitbox": null,
    "size": 1.0,
    "hitbox_mult": 1.0,
@@ -12601,6 +13433,10 @@
    "noita_hp": 1000.0,
    "noita_entity": "data/entities/animals/boss_alchemist.xml",
    "sprite": null,
+   "body_sprite": "none",
+   "tail_sprite": "none",
+   "segments": 0,
+   "segment_spacing": 0.0,
    "hitbox": null,
    "size": 1.0,
    "hitbox_mult": 1.0,

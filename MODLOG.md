@@ -285,3 +285,25 @@ Entry.Stage default 1b, version 0.2.0. Проверить на ПК also: worm l
    the player. Sheet has attacks = []. Noita weakspirit.xml: GameEffectComponent PROTECTION_FREEZE, LuaComponent
    data/scripts/animals/spirit_aura_weak.lua (the aura is in Lua), AudioLoopComponent, audio animals/ghost.
 4. Author: not all creatures were seen on screen (140 spawned per the log) — check spawn spots/visibility.
+
+## Cloud: fixes after the author watched the 1b autotest
+- Lasers: Noita's laser shots are ordinary projectiles drawn only by particles and sped up by negative air_friction
+  (laserbeam -10, laser_spear -0.4, wraith laser -1). New projectiles columns drag / max_speed / particle (from
+  VelocityComponent air_friction, terminal_velocity, first ParticleEmitter material). Shots.cs: negative drag speeds a
+  shot up to max_speed (positive drag not applied yet: Brain.Aim ignores it, so 1a shots are unchanged); shots without an
+  image leave a dust trail in their material's colour; NoitaArt ignores sprite "none" (the 9 "sprite none failed").
+  Not fixed: drone_lasership's megalaser_blue.xml is a spawner (megalaser_blue_spawn.lua), its beam is not in the facts.
+- Worms: enemies columns body_sprite / tail_sprite / segments / segment_spacing (the worm's own SpriteComponents and
+  WormComponent part_distance); Carriers draws tail and body along Brain.Trail and the head turned to its velocity;
+  Brain: a burrower's melee bites on contact (bodies overlap), not only within target_kill_radius.
+- Spirits: aura rows <id>.aura from their LuaComponent spirit_aura_<effect>.lua (every 101 frames, data); attacks
+  column effect (weak/slime/confuse -> BuffID.Weak/Slimed/Confused 3 s; berserk has no player effect yet, WARN);
+  aura reach 6 tiles is a placeholder. Their movement_loop sound (AudioLoopComponent) is not played yet.
+- Nests released nothing: spawned 10.2 tiles away, they noticed the player only at 9.4. Brain: a creature notices the
+  player at least as far as its attacks reach; nest release range placeholder 15 tiles. Test added.
+- Support: shield_buff gives the nearest Noita creature a shield (its next hit does nothing, Damage.cs); invisibility
+  (scavenger_invis) makes it nearly invisible for 10 s.
+- Autotest: TERRANOITA_AUTOTEST_SECONDS / pc_step -AutoTestSeconds (default 6); status lines mark OFFSCREEN (off the
+  screen or inside tiles); "<id> starts <attack> at N tiles" lines show attacks that start but miss.
+- Next (PC): `tools\pc_step.ps1 -AutoTest 1b -AutoTestSeconds 10`; then look at the 32 no-hit creatures with the new
+  "starts" and OFFSCREEN lines.

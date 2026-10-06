@@ -55,8 +55,8 @@ namespace Terranoita.Game
         /// <summary>The sprite (xml or png) with its texture, or null when it cannot be read. Game thread only.</summary>
         public static Art Get(string spritePath)
         {
-            if (_files == null || string.IsNullOrEmpty(spritePath))
-                return null;
+            if (_files == null || string.IsNullOrEmpty(spritePath) || spritePath == "none")
+                return null;     // "none": the thing has no image of its own (particle shots)
             if (Cache.TryGetValue(spritePath, out var art))
                 return art;
             try

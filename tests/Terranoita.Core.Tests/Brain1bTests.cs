@@ -333,6 +333,21 @@ namespace Terranoita.Tests
         }
 
         [Fact]
+        public void NestNoticesThePlayerAsFarAsItReleasesEvenBeyondItsSight()
+        {
+            var row = Defs.Enemy["nest_fly"];
+            var release = Defs.Attack["nest_fly.release"];
+            Assert.True(release.RangeTiles > row.SightTiles, "the case the autotest hit: spawned 10 tiles away, sight 9.4");
+            var brain = new Brain(row);
+            var sink = new Sink();
+            var rng = new Random(1);
+            float d = (release.RangeTiles - 1) * Brain.Tile;
+            for (int i = 0; i < release.CooldownFrames + 10; i++)
+                brain.Update(new FreeBody(), At(d, 0), sink, rng);
+            Assert.Contains("nest_fly.release", sink.Special);
+        }
+
+        [Fact]
         public void WraithRetaliatesWhenHurt()
         {
             var brain = new Brain(Row("wraith_glowing", fly: 1f, gravity: 0));

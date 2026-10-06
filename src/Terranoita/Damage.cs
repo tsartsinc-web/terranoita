@@ -33,6 +33,12 @@ namespace Terranoita.Game
             static void Prefix(NPC __instance, ref int Damage)
             {
                 var n = Carriers.Get(__instance);
+                if (n != null && n.Shield)
+                {
+                    n.Shield = false;     // a support shield takes the whole hit
+                    Damage = 0;
+                    return;
+                }
                 if (n?.Def.DmgMult == null)
                     return;
                 string kind = _kind ?? "melee";

@@ -111,6 +111,7 @@ namespace Terranoita.Ai
         bool _awake;
         V2 _heading;
         float _speed;
+        readonly float _notice;
         readonly List<V2> _trail = new List<V2>();
 
         public bool Dashing => _dashLeft > 0;
@@ -119,6 +120,8 @@ namespace Terranoita.Ai
         /// <summary>Ghosts and worms move through tiles: the game turns tile collision off for them.</summary>
         public bool PassesTiles => Move == "phase" || Move == "burrow";
         bool Burrows => Move == "burrow" || Move == "burrow_liquid";
+        /// <summary>Worms: drawn as a head with its body along Trail, turned to its velocity.</summary>
+        public bool Burrowing => Burrows;
         /// <summary>A disguised creature (mimic) that has not noticed the player yet.</summary>
         public bool Dormant => !_awake;
         /// <summary>Burrowers: where the head has been, newest first, one point per frame (for drawing the body).</summary>
@@ -137,6 +140,9 @@ namespace Terranoita.Ai
             foreach (var at in _attacks)
                 _cooldown[at.Id] = at.CooldownFrames / 2;   // first attack comes a little sooner than the full wait
             _awake = (archetype?.WakeTiles ?? 0) <= 0;
+            // it notices the player at least as far as its own attacks reach (turrets, nests)
+            float reach = _attacks.Where(a => a.Kind != "death_explosion" && a.Kind != "retaliate").Select(a => a.RangeTiles).DefaultIfEmpty(0).Max();
+            _notice = Math.Max(Math.Max(enemy.SightTiles, reach), 4f) * Tile;
         }
 
         string Move => Archetype?.Move ?? "ground";
@@ -171,7 +177,7 @@ namespace Terranoita.Ai
                 }
             }
 
-            bool engaged = target.Has && Distance(body.Center, target.Center) <= Math.Max(Enemy.SightTiles, 4f) * Tile;
+            bool engaged = target.Has && Distance(body.Center, target.Center) <= _notice;
             if (engaged)
                 Direction = (target.Center.X >= body.Center.X ? 1 : -1) * (Flees ? -1 : 1);
 
@@ -571,8 +577,9 @@ namespace Terranoita.Ai
                         }
                         break;
                     case "melee":
-                        // Noita measures melee reach between the two creatures' positions, not their edges
-                        if (dist <= range)
+                        // Noita measures melee reach between the two creatures' positions, not their edges;
+                        // a worm bites whatever its head touches
+                        if (dist <= range || (Burrows && Overlaps(body, target)))
                         {
                             sink.Started(a);
                             sink.Melee(a);

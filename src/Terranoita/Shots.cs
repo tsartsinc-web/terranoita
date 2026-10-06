@@ -58,6 +58,15 @@ namespace Terranoita.Game
             {
                 var s = Live[i];
                 s.Vel.Y += s.Def.Gravity;
+                if (s.Def.Drag < 0)
+                {
+                    // Noita lasers: negative air friction speeds them up, to the terminal velocity
+                    // (positive friction is not applied yet: Brain.Aim does not allow for it)
+                    s.Vel *= 1f - s.Def.Drag / 60f;
+                    float max = s.Def.MaxSpeed > 0 ? s.Def.MaxSpeed : 50f;
+                    if (s.Vel.Length() > max)
+                        s.Vel = Vector2.Normalize(s.Vel) * max;
+                }
                 s.Pos += s.Vel;
                 s.Life--;
                 bool hitPlayer = me.active && !me.dead && me.Hitbox.Contains((int)s.Pos.X, (int)s.Pos.Y);
@@ -126,7 +135,13 @@ namespace Terranoita.Game
             {
                 var art = NoitaArt.Get(s.Def.Sprite);
                 if (art?.Texture == null)
+                {
+                    // no image of its own: Noita draws it with particles; a trail of dust in that material's colour
+                    if (!Main.gamePaused)
+                        Dust.NewDustPerfect(s.Pos, ParticleDust(s.Def.Particle), Vector2.Zero, 0, default(Color), 1.2f).noGravity = true;
+                    Lighting.AddLight(s.Pos, 0.3f, 0.3f, 0.5f);
                     continue;
+                }
                 var anim = art.Sprite.Find("fireball", "default", "stand");
                 int fx = 0, fy = 0, fw = art.Texture.Width, fh = art.Texture.Height;
                 if (anim != null)
@@ -137,6 +152,17 @@ namespace Terranoita.Game
                 sb.Draw(art.Texture, s.Pos - Main.screenPosition, new Rectangle(fx, fy, fw, fh), light, rot, origin, Terranoita.Noita.Units.PixelScale, SpriteEffects.None, 0f);
             }
             sb.End();
+        }
+
+        static int ParticleDust(string material)
+        {
+            string m = (material ?? "").ToLowerInvariant();
+            if (m.Contains("blue") || m == "plasma_fading" || m.Contains("electric")) return DustID.BlueTorch;
+            if (m.Contains("purple") || m.Contains("pink")) return DustID.PurpleTorch;
+            if (m.Contains("green") || m.Contains("acid") || m.Contains("radioactive") || m.Contains("poison")) return DustID.GreenTorch;
+            if (m.Contains("fire") || m.Contains("lava") || m.Contains("red") || m.Contains("orange")) return DustID.Torch;
+            if (m.Contains("blood")) return DustID.Blood;
+            return DustID.WhiteTorch;
         }
 
         [Hook("shots_update")]
