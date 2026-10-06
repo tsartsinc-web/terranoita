@@ -85,13 +85,18 @@ namespace Terranoita.Game.Physics
                 Fire.Clear();
                 Status.Clear();
                 Fluids.Clear();
-                if (On)
+                if (!On)
+                    return;
+                // never let our files or pools stop a world from loading
+                try { Placed.Load(); }
+                catch (Exception ex) { Entry.Error("placed load", ex); }
+                try
                 {
-                    Placed.Load();
                     // a world without our liquids yet (new or old) gets its cave pools once
                     if (!Fluids.Load())
                         CavePools.Generate();
                 }
+                catch (Exception ex) { Entry.Error("cave pools", ex); }
             }
         }
 
@@ -101,11 +106,10 @@ namespace Terranoita.Game.Physics
         {
             static void Postfix()
             {
-                if (On)
-                {
-                    Placed.Save();
-                    Fluids.Save();
-                }
+                if (!On)
+                    return;
+                try { Placed.Save(); Fluids.Save(); }
+                catch (Exception ex) { Entry.Error("physics save", ex); }
             }
         }
 

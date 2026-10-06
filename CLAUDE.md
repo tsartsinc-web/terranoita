@@ -1,8 +1,9 @@
 # Terranoita — brief for agents
 
 Terraria 1.4.5 mod (own launcher + Harmony, no tModLoader) that brings Noita's creatures into the player's Terraria,
-read from the player's Noita at runtime. On Melty as a DRAFT "Terranoita: Invasion" (modId
-c68ad4c6-f9db-40f5-802c-a4f9d7713e69): release 0.1.0 submitted, NOT published; no players have it yet. Author writes Russian: reply in simple Russian, short,
+read from the player's Noita at runtime. On Melty as "Terranoita: Invasion" (modId
+c68ad4c6-f9db-40f5-802c-a4f9d7713e69): 0.2.0 LIVE (creatures 1a+1b; ~40 players), 0.3.0 (stage 2 physics, liquids)
+submitted as a draft 2026-10-06, to be tested in the Melty app and then published. Author writes Russian: reply in simple Russian, short,
 answer questions immediately (yes/no first). Decisions in README are final: do not ask again. Nothing on Melty without
 the author's explicit permission.
 

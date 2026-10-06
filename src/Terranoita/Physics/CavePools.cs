@@ -20,7 +20,7 @@ namespace Terranoita.Game.Physics
             int deepFrom = (int)((Main.rockLayer + Main.UnderworldLayer) / 2);
             foreach (var row in CavePools_All())
             {
-                int tries = (int)(row.Per1000Tiles * Main.maxTilesX / 1000f) * 6;   // most spots are no hollow
+                int tries = (int)(row.Per1000Tiles * Main.maxTilesX / 1000f) * 80;   // most random spots are no hollow
                 int want = (int)Math.Ceiling(row.Per1000Tiles * Main.maxTilesX / 1000f);
                 int got = 0;
                 for (int t = 0; t < tries && got < want; t++)

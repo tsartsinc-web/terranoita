@@ -460,3 +460,8 @@ Entry.Stage default 1b, version 0.2.0. Проверить на ПК also: worm l
   depth dirt/cavern/deep -> liquids, pools per 1000 tiles of width); Physics/CavePools.cs fills a hollow's floor wall
   to wall, up to 4 rows. Done once per world: the first load without <world>.wld.fluids (new or old worlds). Our
   liquids are now kept with the world in that file (material names). Not run in game yet.
+- Release 0.3.0 (author: post the update): 0.2.0 turned out to be live already (published by the author; 53 gets,
+  40 players), so this is 0.3.0: terranoita-0.3.0.zip (Release builds, README), sha256 2d3706c5...; submitted as a
+  draft, one click yes. Before: world load guarded (our files and cave pools can never stop a world loading), cave
+  pool tries x80 (small world: 38 pools, 1340 cells; scales with world width), physics autotest clean. Next: the
+  author presses Test in the Melty app, then publish.
