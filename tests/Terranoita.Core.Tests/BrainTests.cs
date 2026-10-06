@@ -181,6 +181,28 @@ namespace Terranoita.Tests
         }
 
         [Fact]
+        public void ThrowerWalksSmoothly()
+        {
+            var brain = new Brain(Defs.Enemy["miner_weak"]);
+            var body = new Box { Pos = new V2(0, -10) };
+            var sink = new Sink();
+            var rng = new Random(5);
+            int flips = 0, stops = 0;
+            float last = 0;
+            for (int i = 0; i < 900; i++)
+            {
+                brain.Update(body, PlayerAt(500), sink, rng);
+                body.Step();
+                float vx = body.Velocity.X;
+                bool moving = Math.Abs(vx) > 0.05f, wasMoving = Math.Abs(last) > 0.05f;
+                if (moving && wasMoving && Math.Sign(vx) != Math.Sign(last)) flips++;
+                if (!moving && wasMoving) stops++;
+                last = vx;
+            }
+            Assert.True(flips <= 2 && stops <= 12, "direction flips " + flips + ", stops " + stops);
+        }
+
+        [Fact]
         public void WalkerJumpsAWall()
         {
             var (body, _, _) = Run("zombie_weak", PlayerAt(400), 400, wall: 60);

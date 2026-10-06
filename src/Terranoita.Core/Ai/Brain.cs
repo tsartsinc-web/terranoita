@@ -80,6 +80,7 @@ namespace Terranoita.Ai
         int _dashAge;
         int _pose;
         int _hopTimer;
+        int _range = 1;     // ground shooters: 1 approach, 0 hold, -1 back off
         int _wanderTimer;
         float _wobble;
         int _age;
@@ -186,12 +187,17 @@ namespace Terranoita.Ai
                 float dx = target.Center.X - body.Center.X;
                 float adx = Math.Abs(dx);
                 float keep = KeepDistance;
-                if (keep > 0 && adx < keep * 0.7f)
-                    want = -Math.Sign(dx) * Enemy.RunSpeed;          // too close: back off
-                else if (keep > 0 && adx < keep * 1.1f && target.Visible)
-                    want = 0;                                       // in range: hold and shoot
-                else
+                if (keep <= 0)
                     want = Math.Sign(dx) * Enemy.RunSpeed;
+                else
+                {
+                    // approach / hold / back off, with hysteresis so it does not stutter at the edges
+                    if (adx < keep * 0.5f) _range = -1;
+                    else if (_range == -1 && adx > keep * 0.8f) _range = 0;
+                    else if (_range == 1 && adx < keep && target.Visible) _range = 0;
+                    else if (_range == 0 && (adx > keep * 1.3f || !target.Visible)) _range = 1;
+                    want = _range * Math.Sign(dx) * Enemy.RunSpeed;
+                }
             }
             else
             {

@@ -18,6 +18,7 @@ namespace Terranoita.Game
     {
         static int _next;
         static readonly bool Auto = Environment.GetEnvironmentVariable("TERRANOITA_AUTOTEST") == "1";
+        static readonly bool Showcase = Environment.GetEnvironmentVariable("TERRANOITA_SHOWCASE") == "1";
         static int _menuFrames, _worldFrames, _autoIndex;
         static bool _entering;
         const string TestPlayer = "Terranoita Test";
@@ -94,6 +95,24 @@ namespace Terranoita.Game
                 p.statLife = p.statLifeMax2;
             _worldFrames++;
             var all = Built;
+            if (Showcase)
+            {
+                // TERRANOITA_SHOWCASE=1: noon, and a group of Noita enemies around the player, for the listing's screenshots
+                if (_worldFrames == 120)
+                {
+                    Main.dayTime = true;
+                    Main.time = 27000;
+                    foreach (var (id, tiles) in new[] { ("shotgunner_weak", 9), ("miner_weak", 14), ("zombie_weak", -6), ("firemage_weak", -11), ("bat", 5) })
+                    {
+                        int dir = p.direction;
+                        p.direction = Math.Sign(tiles);
+                        SpawnInFront(Defs.Enemy[id], Math.Abs(tiles));
+                        p.direction = dir;
+                    }
+                    Entry.Log("AUTOTEST: showcase ready");
+                }
+                return;
+            }
             // one enemy every 6 seconds, starting 5 seconds in; then a natural-spawn check
             if (_worldFrames >= 300 && (_worldFrames - 300) % 360 == 0 && _autoIndex < all.Length)
             {

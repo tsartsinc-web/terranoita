@@ -74,3 +74,14 @@ Window capture without focus: scratchpad `grab.ps1` (PrintWindow) — fails when
 **Open**: check foot alignment + size in game; author said enemies looked "semi-transparent" (added a brightness floor of 70,
 not yet confirmed); licence + remix choice (ask); Melty packaging (step 8). Mod files currently copied into the
 Terraria folder for testing: Terranoita.exe, Terranoita.Game.dll, Terranoita.Core.dll, 0Harmony.dll.
+
+### Melty (same day)
+- Draft **"Terranoita: Invasion"**, modId `c68ad4c6-f9db-40f5-802c-a4f9d7713e69`, slug `terranoita-invasion`,
+  Studio https://melty.gg/studio/c68ad4c6-f9db-40f5-802c-a4f9d7713e69 , linked to GitHub tsartsinc-web/terranoita.
+- Author: title "Terranoita: Invasion", English description, licence **All rights reserved**, remix **allowed** (allowRemix default true).
+- Release 0.1.0 submitted (draft, publishable, one click: yes; review findings: unverified-game-integration, executable-code).
+  Package = build/package (Release build) zipped; recipe = design/melty.recipe.draft.json with exact fileName.
+- Screenshot uploaded (showcase capture: TERRANOITA_AUTOTEST=1 + TERRANOITA_SHOWCASE=1, noon + 5 enemies).
+- **Waiting for the author**: press Test on the mashup's page in the Melty app; publish only with the author's permission.
+- Local commits not pushed: `git push` needs the author's GitHub login. melty.json at repo root not added yet (needs consent).
+- Since the screenshot: thrower/shooter range hysteresis (author: "moves in jerks") — check in game.
