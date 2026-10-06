@@ -316,3 +316,13 @@ Entry.Stage default 1b, version 0.2.0. Проверить на ПК also: worm l
 - Sounds: 10 1b creatures have no sound folder in data.wak (duck, deer, elk, fish, fish_large, eel, hpcrystal,
   ethereal_being, nests) — silent in Noita too. Not done yet: looping sounds (AudioLoopComponent movement_loop of
   spirits, wraiths, drones, worms, tanks) — next.
+
+## Handoff to a new cloud session (state at 7a1a880)
+- Gate 1b CLEAN, gate 1a CLEAN; 46 Core + 7 tools tests pass; tables generated for 1b. Game side not compiled since
+  the last fixes (lasers, worm drawing, auras, support, lunge end, splits) — the next PC run builds it.
+- Waiting for the PC: `tools\pc_step.ps1 -AutoTest 1b -AutoTestSeconds 10`, then read pc_check.txt and
+  pc_autotest_1b.txt (new lines: "<id> starts <attack> at N tiles", OFFSCREEN).
+- Open: the 32 creatures that hit nothing in the last run; drone_lasership megalaser (spawn script, not in facts);
+  looping sounds (AudioLoopComponent) not played; berserk aura has no player effect; 50 design placeholders listed in
+  design/sources/placeholders_to_check.md (author decides what to do with them); 13 rows moved to 1c need facts.
+- Melty: draft only, nothing to publish without the author.
