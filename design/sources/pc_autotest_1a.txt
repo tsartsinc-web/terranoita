@@ -1,234 +1,218 @@
-12:59:43.028 Terranoita launcher 0.1.0.0, folder D:\steam\steamapps\common\Terraria\
-12:59:43.029 Noita folder: D:\steam\steamapps\common\Noita
-12:59:43.035 Loaded Terraria, Version=1.4.5.8, Culture=neutral, PublicKeyToken=null
-12:59:43.042 Terraria assemblies loaded: 1
-12:59:43.077 Noita data.wak: 14745 files
-12:59:43.119 Terraria save folder: C:\Users\user\AppData\Local\Terranoita\testsave
-12:59:43.137 Resolved ReLogic from Terraria.exe resource Terraria.Libraries.ReLogic.ReLogic.dll
-12:59:43.292 Resolved Newtonsoft.Json from Terraria.exe resource Terraria.Libraries.JSON.NET.Newtonsoft.Json.dll
-12:59:43.297 Starting Terraria
-12:59:43.827 Resolved Steamworks.NET from Terraria.exe resource Terraria.Libraries.Steamworks.NET.Windows.Steamworks.NET.dll
-12:59:45.468 Resolved Ionic.Zip.CF from Terraria.exe resource Terraria.Libraries.DotNetZip.Ionic.Zip.CF.dll
-12:59:46.002 Resolved SteelSeriesEngineWrapper from Terraria.exe resource Terraria.Libraries.SteelSeries.SteelSeriesEngineWrapper.dll
-12:59:46.240 Resolved MP3Sharp from Terraria.exe resource Terraria.Libraries.MP3Sharp.MP3Sharp.dll
-12:59:53.208 Resolved RailSDK.Net from Terraria.exe resource Terraria.Libraries.RailSDK.Windows.RailSDK.Net.dll
-12:59:53.355 Resolved CsvHelper from Terraria.exe resource Terraria.Libraries.CsvHelper.CsvHelper.dll
-12:59:55.323 Resolved NVorbis from Terraria.exe resource Terraria.Libraries.NVorbis.NVorbis.dll
-13:00:00.458 Noita sprites loaded: 17, failed: 0
-13:00:00.708 Noita sounds ready
-13:00:00.709 hook ok      main_update -> Terraria.Main:DoUpdate(ref GameTime)
-13:00:00.709 hook ok      npc_spawn -> Terraria.NPC:SpawnNPC()
-13:00:00.710 hook ok      npc_ai -> Terraria.NPC:AI()
-13:00:00.710 hook ok      npc_findframe -> Terraria.NPC:FindFrame()
-13:00:00.711 hook ok      npc_draw -> Terraria.Main:DrawNPC(NPC, bool)
-13:00:00.711 hook ok      npc_name -> Terraria.NPC:get_TypeName()
-13:00:00.712 hook ok      npc_hiteffect -> Terraria.NPC:HitEffect(int, double)
-13:00:00.712 hook ok      npc_loot -> Terraria.NPC:NPCLoot()
-13:00:00.712 hook ok      npc_strike -> Terraria.NPC:StrikeNPC(int, float, int, bool, bool, int)
-13:00:00.713 hook ok      shots_update -> Terraria.Main:UpdateWorld_Projectiles()
-13:00:00.713 hook ok      shots_draw -> Terraria.Main:DrawProjectiles()
-13:00:00.713 hook ok      hit_by_item -> Terraria.Player:ProcessHitAgainstNPC(Item, Rectangle, int, float, int)
-13:00:00.714 hook ok      hit_by_projectile -> Terraria.Projectile:Damage_PVE_Inner(int, NPC, Rectangle, float, int[], ref bool)
-13:00:00.718 Terranoita patches applied: 13 methods
-13:00:02.744 AUTOTEST: entering путь свободы as Terranoita Test
-13:00:04.008 spawn pool: fly, longleg, acidshooter_weak, shotgunner_weak, zombie_weak, frog, bat, fireskull, slimeshooter_weak, rat, firemage_weak, miner_weak
-13:00:04.992 AUTOTEST: player hp 100; 
-13:00:05.991 AUTOTEST: player hp 100; 
-13:00:06.991 AUTOTEST: player hp 100; 
-13:00:07.991 AUTOTEST: player hp 100; 
-13:00:08.991 AUTOTEST: spawning fly
-13:00:08.994 spawned fly (Амппари) #2 life 150 at tile 2107,251
-13:00:08.995 AUTOTEST: player hp 100; fly@10,-1 stand hp150
-13:00:10.044 AUTOTEST: player hp 100; fly@2,0 fly hp150
-13:00:10.092 fly lunge fly.lunge hits for 9
-13:00:11.041 fly melee fly.melee hits for 22
-13:00:11.075 AUTOTEST: player hp 69; fly@1,0 attack hp150
-13:00:11.792 fly melee fly.melee hits for 16
-13:00:12.076 AUTOTEST: player hp 53; fly@2,0 attack hp150
-13:00:12.841 fly melee fly.melee hits for 21
-13:00:13.075 AUTOTEST: player hp 100; fly@-3,0 attack hp150
-13:00:13.658 fly melee fly.melee hits for 20
-13:00:14.075 AUTOTEST: player hp 80; fly@-3,-1 fly hp150
-13:00:14.625 fly melee fly.melee hits for 22
-13:00:15.075 AUTOTEST: spawning longleg
-13:00:15.076 spawned longleg (Хямис) #3 life 6 at tile 2107,251
-13:00:15.077 AUTOTEST: fly #2 gone after 360 brain frames: active=False type=146 life=150/150 timeLeft=749 pos=2093,249
-13:00:15.077 AUTOTEST: player hp 58; longleg@9,0 stand hp6
-13:00:16.076 AUTOTEST: player hp 58; longleg@4,0 jump_up hp6
-13:00:16.175 longleg lunge longleg.lunge hits for 6
-13:00:16.958 longleg melee longleg.melee hits for 9
-13:00:17.075 AUTOTEST: player hp 100; longleg@3,1 attack hp6
-13:00:18.075 AUTOTEST: player hp 100; longleg@1,0 jump_up hp6
-13:00:18.108 longleg lunge longleg.lunge hits for 6
-13:00:18.875 longleg melee longleg.melee hits for 7
-13:00:19.075 AUTOTEST: player hp 87; longleg@3,1 attack hp6
-13:00:20.092 AUTOTEST: player hp 87; longleg@0,-6 jump_fall hp6
-13:00:20.342 longleg melee longleg.melee hits for 8
-13:00:21.092 AUTOTEST: spawning acidshooter_weak
-13:00:21.093 spawned acidshooter_weak (Хаппонульяска) #4 life 20 at tile 2094,253
-13:00:21.094 AUTOTEST: longleg #3 gone after 360 brain frames: active=False type=146 life=6/6 timeLeft=749 pos=2093,250
-13:00:21.094 AUTOTEST: player hp 79; acidshooter_weak@9,1 stand hp20
-13:00:22.092 AUTOTEST: player hp 79; acidshooter_weak@10,-3 attack hp20
-13:00:22.527 acidshooter_weak shot acid_ball hits for 6
-13:00:23.092 AUTOTEST: player hp 72; acidshooter_weak@12,-4 fly hp20
-13:00:24.092 AUTOTEST: player hp 70; acidshooter_weak@9,-4 attack hp20
-13:00:24.392 acidshooter_weak shot acid_ball hits for 6
-13:00:25.092 AUTOTEST: player hp 62; acidshooter_weak@12,-4 fly hp20
-13:00:26.092 AUTOTEST: player hp 60; acidshooter_weak@9,-4 fly hp20
-13:00:26.259 acidshooter_weak shot acid_ball hits for 6
-13:00:26.500 spawned rat (Ротта) #5 life 10 at tile 2147,252
-13:00:27.092 AUTOTEST: spawning shotgunner_weak
-13:00:27.093 spawned shotgunner_weak (Хауликкохийси) #6 life 18 at tile 2079,251
-13:00:27.093 AUTOTEST: acidshooter_weak #4 gone after 360 brain frames: active=False type=146 life=20/20 timeLeft=749 pos=2080,243
-13:00:27.095 AUTOTEST: rat #5 gone after 37 brain frames: active=False type=146 life=10/10 timeLeft=713 pos=2149,251
-13:00:27.095 AUTOTEST: player hp 52; shotgunner_weak@9,0 stand hp18
-13:00:28.093 AUTOTEST: player hp 50; shotgunner_weak@9,0 stand hp18
-13:00:28.375 shotgunner_weak shot shotgunner_weak_shot hits for 7
-13:00:29.093 AUTOTEST: player hp 98; shotgunner_weak@5,0 walk hp18
-13:00:30.092 AUTOTEST: player hp 96; shotgunner_weak@6,1 walk hp18
-13:00:30.576 spawned rat (Ротта) #4 life 10 at tile 1990,248
-13:00:30.759 shotgunner_weak shot shotgunner_weak_shot hits for 7
-13:00:31.092 AUTOTEST: player hp 87; rat@-81,-1 walk hp10 | shotgunner_weak@11,1 stand hp18
-13:00:32.093 AUTOTEST: player hp 87; rat@-84,-2 walk hp10 | shotgunner_weak@11,1 stand hp18
-13:00:32.110 spawned rat (Ротта) #7 life 10 at tile 1998,248
-13:00:33.093 AUTOTEST: spawning zombie_weak
-13:00:33.093 spawned zombie_weak (Хуртта) #8 life 10 at tile 2079,251
-13:00:33.095 AUTOTEST: rat #4 gone after 152 brain frames: active=False type=146 life=10/10 timeLeft=598 pos=1980,246
-13:00:33.095 AUTOTEST: shotgunner_weak #6 gone after 360 brain frames: active=False type=146 life=18/18 timeLeft=749 pos=2080,250
-13:00:33.095 AUTOTEST: rat #7 gone after 60 brain frames: active=False type=146 life=10/10 timeLeft=690 pos=2001,248
-13:00:33.096 AUTOTEST: player hp 87; zombie_weak@9,0 stand hp10
-13:00:34.093 AUTOTEST: player hp 87; zombie_weak@6,0 jump_up hp10
-13:00:34.243 zombie_weak lunge zombie_weak.lunge hits for 6
-13:00:35.026 zombie_weak melee zombie_weak.melee hits for 7
-13:00:35.093 AUTOTEST: player hp 74; zombie_weak@1,1 attack hp10
-13:00:35.293 spawned rat (Ротта) #4 life 10 at tile 2132,252
-13:00:36.093 AUTOTEST: player hp 74; rat@75,3 walk hp10 | zombie_weak@2,0 jump_up hp10
-13:00:36.126 zombie_weak lunge zombie_weak.lunge hits for 6
-13:00:37.076 zombie_weak melee zombie_weak.melee hits for 10
-13:00:37.093 AUTOTEST: player hp 58; rat@83,2 walk hp10 | zombie_weak@0,0 attack hp10
-13:00:38.093 AUTOTEST: player hp 58; rat@82,2 walk hp10 | zombie_weak@-2,0 jump_up hp10
-13:00:38.143 zombie_weak lunge zombie_weak.lunge hits for 6
-13:00:39.076 zombie_weak melee zombie_weak.melee hits for 5
-13:00:39.093 AUTOTEST: spawning frog
-13:00:39.094 spawned frog (Конна) #6 life 15 at tile 2075,251
-13:00:39.094 AUTOTEST: rat #4 gone after 229 brain frames: active=False type=146 life=10/10 timeLeft=521 pos=2146,251
-13:00:39.094 AUTOTEST: zombie_weak #8 gone after 360 brain frames: active=False type=146 life=10/10 timeLeft=749 pos=2064,249
-13:00:39.095 AUTOTEST: player hp 100; frog@9,0 stand hp15
-13:00:40.093 AUTOTEST: player hp 100; frog@-6,0 stand hp15
-13:00:41.093 AUTOTEST: player hp 100; frog@4,0 jump_fall hp15
-13:00:41.210 frog lunge frog.lunge hits for 10
-13:00:42.094 AUTOTEST: player hp 90; frog@-2,0 stand hp15
-13:00:43.094 AUTOTEST: player hp 90; frog@9,0 walk hp15
-13:00:43.410 spawned rat (Ротта) #4 life 10 at tile 2134,252
-13:00:44.094 AUTOTEST: player hp 90; rat@71,2 walk hp10 | frog@1,-3 jump_fall hp15
-13:00:44.260 frog lunge frog.lunge hits for 10
-13:00:45.094 AUTOTEST: spawning bat
-13:00:45.095 spawned bat (Лепакко) #7 life 50 at tile 2080,251
-13:00:45.095 AUTOTEST: rat #4 gone after 102 brain frames: active=False type=146 life=10/10 timeLeft=648 pos=2140,250
-13:00:45.096 AUTOTEST: frog #6 gone after 360 brain frames: active=False type=146 life=15/15 timeLeft=749 pos=2078,249
-13:00:45.096 AUTOTEST: player hp 80; bat@9,0 stand hp50
-13:00:45.710 spawned rat (Ротта) #4 life 10 at tile 2151,252
-13:00:46.094 AUTOTEST: player hp 80; rat@82,2 walk hp10 | bat@4,0 fly hp50
-13:00:46.194 bat lunge bat.lunge hits for 9
-13:00:46.327 spawned rat (Ротта) #6 life 10 at tile 2003,249
-13:00:47.094 AUTOTEST: player hp 71; rat@91,2 walk hp10 | rat@-59,0 walk hp10 | bat@0,0 fly hp50
-13:00:48.095 AUTOTEST: player hp 71; rat@95,2 walk hp10 | rat@-54,0 walk hp10 | bat@0,0 fly hp50
-13:00:48.110 bat lunge bat.lunge hits for 9
-13:00:49.094 AUTOTEST: player hp 62; rat@96,3 walk hp10 | rat@-42,0 walk hp10 | bat@2,0 fly hp50
-13:00:50.094 AUTOTEST: player hp 62; rat@92,3 walk hp10 | rat@-35,0 walk hp10 | bat@0,0 fly hp50
-13:00:50.111 bat lunge bat.lunge hits for 9
-13:00:51.094 AUTOTEST: spawning fireskull
-13:00:51.095 spawned fireskull (Лиеккиё) #8 life 70 at tile 2065,251
-13:00:51.095 AUTOTEST: rat #4 gone after 324 brain frames: active=False type=146 life=10/10 timeLeft=426 pos=2149,251
-13:00:51.096 AUTOTEST: rat #6 gone after 287 brain frames: active=False type=146 life=10/10 timeLeft=749 pos=2032,247
-13:00:51.097 AUTOTEST: bat #7 gone after 360 brain frames: active=False type=146 life=50/50 timeLeft=749 pos=2055,247
-13:00:51.097 AUTOTEST: player hp 53; fireskull@9,1 stand hp70
-13:00:52.094 AUTOTEST: player hp 53; fireskull@4,0 fly hp70
-13:00:52.194 fireskull lunge fireskull.lunge hits for 6
-13:00:53.011 fireskull melee fireskull.melee hits for 7
-13:00:53.094 AUTOTEST: player hp 93; fireskull@2,0 attack hp70
-13:00:53.961 fireskull melee fireskull.melee hits for 9
-13:00:54.094 AUTOTEST: player hp 84; fireskull@2,0 attack hp70
-13:00:55.094 AUTOTEST: player hp 100; fireskull@-4,-1 fly hp70
-13:00:55.828 fireskull melee fireskull.melee hits for 5
-13:00:56.095 AUTOTEST: player hp 95; fireskull@-3,0 attack hp70
-13:00:56.811 fireskull melee fireskull.melee hits for 9
-13:00:57.094 AUTOTEST: spawning slimeshooter_weak
-13:00:57.095 spawned slimeshooter_weak (Лиманульяска) #4 life 15 at tile 2058,250
-13:00:57.096 AUTOTEST: fireskull #8 gone after 360 brain frames: active=False type=146 life=70/70 timeLeft=749 pos=2052,246
-13:00:57.096 AUTOTEST: player hp 86; slimeshooter_weak@9,1 stand hp15
-13:00:58.095 AUTOTEST: player hp 86; slimeshooter_weak@10,-2 fly hp15
-13:00:58.294 slimeshooter_weak shot slimeball hits for 14
-13:00:59.095 AUTOTEST: player hp 70; slimeshooter_weak@11,-4 attack hp15
-13:00:59.727 slimeshooter_weak shot slimeball hits for 14
-13:01:00.095 AUTOTEST: player hp 54; slimeshooter_weak@13,-5 fly hp15
-13:01:01.095 slimeshooter_weak shot slimeball hits for 14
-13:01:01.096 AUTOTEST: player hp 100; slimeshooter_weak@10,-3 fly hp15
-13:01:02.096 AUTOTEST: player hp 98; slimeshooter_weak@11,-4 fly hp15
-13:01:02.461 slimeshooter_weak shot slimeball hits for 14
-13:01:03.096 AUTOTEST: spawning rat
-13:01:03.096 spawned rat (Ротта) #10 life 10 at tile 2037,248
-13:01:03.097 AUTOTEST: slimeshooter_weak #4 gone after 360 brain frames: active=False type=146 life=15/15 timeLeft=749 pos=2039,240
-13:01:03.097 AUTOTEST: player hp 82; rat@9,1 stand hp10
-13:01:03.812 slimeshooter_weak shot slimeball hits for 14
-13:01:04.096 AUTOTEST: player hp 66; rat@6,1 walk hp10
-13:01:04.912 rat melee rat.melee hits for 9
-13:01:05.095 AUTOTEST: player hp 55; rat@4,0 attack hp10
-13:01:05.912 rat melee rat.melee hits for 9
-13:01:06.096 AUTOTEST: player hp 99; rat@3,1 attack hp10
-13:01:06.861 rat melee rat.melee hits for 6
-13:01:07.095 AUTOTEST: player hp 91; rat@4,1 attack hp10
-13:01:07.828 rat melee rat.melee hits for 7
-13:01:08.095 AUTOTEST: player hp 82; rat@4,1 attack hp10
-13:01:08.778 rat melee rat.melee hits for 6
-13:01:08.945 spawned rat (Ротта) #11 life 10 at tile 2076,251
-13:01:09.095 AUTOTEST: spawning firemage_weak
-13:01:09.096 spawned firemage_weak (Стендари) #12 life 160 at tile 2010,249
-13:01:09.097 AUTOTEST: rat #10 gone after 360 brain frames: active=False type=146 life=10/10 timeLeft=749 pos=2002,248
-13:01:09.098 AUTOTEST: rat #11 gone after 10 brain frames: active=False type=146 life=10/10 timeLeft=740 pos=2076,250
-13:01:09.098 AUTOTEST: player hp 74; firemage_weak@10,0 stand hp160
-13:01:10.095 AUTOTEST: player hp 72; firemage_weak@10,0 stand hp160
-13:01:10.429 firemage_weak shot weaker_fireball hits for 56
-13:01:11.096 AUTOTEST: player hp 100; firemage_weak@10,0 stand hp160
-13:01:12.095 AUTOTEST: player hp 98; firemage_weak@10,0 stand hp160
-13:01:13.096 AUTOTEST: player hp 100; firemage_weak@10,0 stand hp160
-13:01:14.099 AUTOTEST: player hp 98; firemage_weak@10,0 stand hp160
-13:01:15.097 AUTOTEST: spawning miner_weak
-13:01:15.098 spawned miner_weak (Таппурахийси) #11 life 22 at tile 1983,247
-13:01:15.099 AUTOTEST: firemage_weak #12 gone after 360 brain frames: active=False type=146 life=160/160 timeLeft=749 pos=2009,245
-13:01:15.099 AUTOTEST: player hp 92; miner_weak@-10,0 stand hp22
-13:01:16.098 AUTOTEST: player hp 86; miner_weak@-3,0 walk hp22
-13:01:17.097 AUTOTEST: player hp 81; miner_weak@6,0 walk hp22
-13:01:18.096 AUTOTEST: player hp 78; miner_weak@6,0 stand hp22
-13:01:19.062 miner_weak shot tnt hits for 50
-13:01:19.097 AUTOTEST: player hp 100; miner_weak@10,0 walk hp22
-13:01:20.096 AUTOTEST: player hp 100; miner_weak@20,3 walk hp22
-13:01:21.098 AUTOTEST: player hp 100; miner_weak@20,0 walk hp22
-13:01:21.647 miner_weak shot tnt hits for 50
-13:01:21.879 spawned rat (Ротта) #13 life 10 at tile 1873,250
-13:01:22.047 spawned rat (Ротта) #14 life 10 at tile 1889,248
-13:01:22.096 AUTOTEST: player hp 50; miner_weak@24,0 walk hp22 | rat@-79,4 walk hp10 | rat@-64,2 walk hp10
-13:01:23.164 AUTOTEST: player hp 50; miner_weak@23,0 walk hp22 | rat@-78,3 walk hp10 | rat@-63,2 walk hp10
-13:01:24.178 AUTOTEST: player hp 50; miner_weak@23,0 walk hp22 | rat@-78,3 walk hp10 | rat@-63,2 walk hp10
-13:01:25.172 AUTOTEST: player hp 50; miner_weak@23,0 walk hp22 | rat@-78,3 walk hp10 | rat@-63,2 walk hp10
-13:01:26.155 AUTOTEST: player hp 50; miner_weak@23,0 walk hp22 | rat@-78,3 walk hp10 | rat@-63,2 walk hp10
-13:01:27.160 AUTOTEST: player hp 50; miner_weak@23,0 walk hp22 | rat@-78,3 walk hp10 | rat@-63,2 walk hp10
-13:01:28.197 AUTOTEST: player hp 50; miner_weak@23,0 walk hp22 | rat@-78,3 walk hp10 | rat@-63,2 walk hp10
-13:01:29.175 AUTOTEST: player hp 50; miner_weak@23,0 walk hp22 | rat@-78,3 walk hp10 | rat@-63,2 walk hp10
-13:01:30.172 AUTOTEST: player hp 50; miner_weak@23,0 walk hp22 | rat@-78,3 walk hp10 | rat@-63,2 walk hp10
-13:01:31.167 AUTOTEST: player hp 50; miner_weak@23,0 walk hp22 | rat@-78,3 walk hp10 | rat@-63,2 walk hp10
-13:01:31.167 AUTOTEST: done; Noita enemies alive: 3
-13:01:32.164 AUTOTEST: player hp 50; miner_weak@23,0 walk hp22 | rat@-78,3 walk hp10 | rat@-63,2 walk hp10
-13:01:33.162 AUTOTEST: player hp 50; miner_weak@23,0 walk hp22 | rat@-78,3 walk hp10 | rat@-63,2 walk hp10
-13:01:34.177 AUTOTEST: player hp 50; miner_weak@23,0 walk hp22 | rat@-78,3 walk hp10 | rat@-63,2 walk hp10
-13:01:35.176 AUTOTEST: player hp 50; miner_weak@23,0 walk hp22 | rat@-78,3 walk hp10 | rat@-63,2 walk hp10
-13:01:36.179 AUTOTEST: player hp 50; miner_weak@23,0 walk hp22 | rat@-78,3 walk hp10 | rat@-63,2 walk hp10
-13:01:37.170 AUTOTEST: player hp 50; miner_weak@23,0 walk hp22 | rat@-78,3 walk hp10 | rat@-63,2 walk hp10
-13:01:38.172 AUTOTEST: player hp 50; miner_weak@23,0 walk hp22 | rat@-78,3 walk hp10 | rat@-63,2 walk hp10
-13:01:39.156 AUTOTEST: player hp 50; miner_weak@23,0 walk hp22 | rat@-78,3 walk hp10 | rat@-63,2 walk hp10
-13:01:40.171 AUTOTEST: player hp 50; miner_weak@23,0 walk hp22 | rat@-78,3 walk hp10 | rat@-63,2 walk hp10
-13:01:41.155 AUTOTEST: player hp 50; miner_weak@23,0 walk hp22 | rat@-78,3 walk hp10 | rat@-63,2 walk hp10
-13:01:42.150 AUTOTEST: player hp 50; miner_weak@23,0 walk hp22 | rat@-78,3 walk hp10 | rat@-62,2 walk hp10
-13:01:43.165 AUTOTEST: player hp 50; miner_weak@21,0 walk hp22 | rat@-74,3 walk hp10 | rat@-59,2 jump_fall hp10
-13:01:44.165 AUTOTEST: player hp 100; miner_weak@21,1 walk hp22 | rat@-71,3 walk hp10 | rat@-56,4 walk hp10
-13:01:45.822 Terraria exited
+14:02:34.757 Terranoita launcher 0.1.0.0, folder D:\steam\steamapps\common\Terraria\
+14:02:34.761 Noita folder: D:\steam\steamapps\common\Noita
+14:02:34.768 Loaded Terraria, Version=1.4.5.8, Culture=neutral, PublicKeyToken=null
+14:02:34.831 Terraria assemblies loaded: 1
+14:02:34.862 Noita data.wak: 14745 files
+14:02:34.891 Terraria save folder: C:\Users\user\AppData\Local\Terranoita\testsave
+14:02:34.907 Resolved ReLogic from Terraria.exe resource Terraria.Libraries.ReLogic.ReLogic.dll
+14:02:35.054 Resolved Newtonsoft.Json from Terraria.exe resource Terraria.Libraries.JSON.NET.Newtonsoft.Json.dll
+14:02:35.061 Starting Terraria
+14:02:35.634 Resolved Steamworks.NET from Terraria.exe resource Terraria.Libraries.Steamworks.NET.Windows.Steamworks.NET.dll
+14:02:37.333 Resolved Ionic.Zip.CF from Terraria.exe resource Terraria.Libraries.DotNetZip.Ionic.Zip.CF.dll
+14:02:37.649 Resolved SteelSeriesEngineWrapper from Terraria.exe resource Terraria.Libraries.SteelSeries.SteelSeriesEngineWrapper.dll
+14:02:37.884 Resolved MP3Sharp from Terraria.exe resource Terraria.Libraries.MP3Sharp.MP3Sharp.dll
+14:02:44.866 Resolved RailSDK.Net from Terraria.exe resource Terraria.Libraries.RailSDK.Windows.RailSDK.Net.dll
+14:02:45.010 Resolved CsvHelper from Terraria.exe resource Terraria.Libraries.CsvHelper.CsvHelper.dll
+14:02:46.980 Resolved NVorbis from Terraria.exe resource Terraria.Libraries.NVorbis.NVorbis.dll
+14:02:52.153 Noita sprites loaded: 17, failed: 0
+14:02:52.405 Noita sounds ready
+14:02:52.406 hook ok      main_update -> Terraria.Main:DoUpdate(ref GameTime)
+14:02:52.407 hook ok      npc_spawn -> Terraria.NPC:SpawnNPC()
+14:02:52.407 hook ok      npc_ai -> Terraria.NPC:AI()
+14:02:52.407 hook ok      npc_findframe -> Terraria.NPC:FindFrame()
+14:02:52.408 hook ok      npc_draw -> Terraria.Main:DrawNPC(NPC, bool)
+14:02:52.408 hook ok      npc_name -> Terraria.NPC:get_TypeName()
+14:02:52.409 hook ok      npc_hiteffect -> Terraria.NPC:HitEffect(int, double)
+14:02:52.409 hook ok      npc_loot -> Terraria.NPC:NPCLoot()
+14:02:52.409 hook ok      npc_strike -> Terraria.NPC:StrikeNPC(int, float, int, bool, bool, int)
+14:02:52.410 hook ok      shots_update -> Terraria.Main:UpdateWorld_Projectiles()
+14:02:52.411 hook ok      shots_draw -> Terraria.Main:DrawProjectiles()
+14:02:52.411 hook ok      hit_by_item -> Terraria.Player:ProcessHitAgainstNPC(Item, Rectangle, int, float, int)
+14:02:52.411 hook ok      hit_by_projectile -> Terraria.Projectile:Damage_PVE_Inner(int, NPC, Rectangle, float, int[], ref bool)
+14:02:52.416 Terranoita patches applied: 13 methods
+14:02:54.466 AUTOTEST: entering путь свободы as Terranoita Test
+14:02:55.771 spawn pool: fly, longleg, acidshooter_weak, shotgunner_weak, zombie_weak, frog, bat, fireskull, slimeshooter_weak, rat, firemage_weak, miner_weak
+14:02:56.764 AUTOTEST: player hp 100; 
+14:02:57.763 AUTOTEST: player hp 100; 
+14:02:58.763 AUTOTEST: player hp 100; 
+14:02:59.763 AUTOTEST: player hp 100; 
+14:03:00.763 AUTOTEST: spawning fly
+14:03:00.768 spawned fly (Амппари) #2 life 150 at tile 2107,251
+14:03:00.769 AUTOTEST: player hp 100; fly@10,-1 stand hp150
+14:03:01.767 AUTOTEST: player hp 100; fly@2,0 fly hp150
+14:03:01.814 fly lunge fly.lunge hits for 9
+14:03:02.729 fly melee fly.melee hits for 16
+14:03:02.764 AUTOTEST: player hp 75; fly@1,0 attack hp150
+14:03:03.447 fly melee fly.melee hits for 16
+14:03:03.763 AUTOTEST: player hp 59; fly@2,0 fly hp150
+14:03:04.630 fly melee fly.melee hits for 19
+14:03:04.780 AUTOTEST: player hp 100; fly@-2,0 attack hp150
+14:03:05.463 fly melee fly.melee hits for 17
+14:03:05.780 AUTOTEST: player hp 83; fly@-2,0 fly hp150
+14:03:06.313 fly melee fly.melee hits for 20
+14:03:06.780 AUTOTEST: spawning longleg
+14:03:06.781 spawned longleg (Хямис) #3 life 6 at tile 2107,251
+14:03:06.782 AUTOTEST: fly #2 gone after 360 brain frames: active=False type=146 life=150/150 timeLeft=749 pos=2094,249
+14:03:06.782 AUTOTEST: player hp 63; longleg@9,0 stand hp6
+14:03:07.781 AUTOTEST: player hp 63; longleg@4,0 jump_up hp6
+14:03:07.879 longleg lunge longleg.lunge hits for 6
+14:03:08.663 longleg melee longleg.melee hits for 7
+14:03:08.780 AUTOTEST: player hp 50; longleg@3,1 attack hp6
+14:03:09.780 AUTOTEST: player hp 50; longleg@2,-4 jump_fall hp6
+14:03:09.947 longleg melee longleg.melee hits for 7
+14:03:10.614 longleg melee longleg.melee hits for 8
+14:03:10.780 AUTOTEST: player hp 92; longleg@2,1 attack hp6
+14:03:11.447 longleg melee longleg.melee hits for 9
+14:03:11.781 AUTOTEST: player hp 83; longleg@5,-4 jump_up hp6
+14:03:12.380 longleg lunge longleg.lunge hits for 6
+14:03:12.780 AUTOTEST: spawning acidshooter_weak
+14:03:12.781 spawned acidshooter_weak (Хаппонульяска) #4 life 20 at tile 2079,251
+14:03:12.782 AUTOTEST: longleg #3 gone after 360 brain frames: active=False type=146 life=6/6 timeLeft=749 pos=2069,248
+14:03:12.782 AUTOTEST: player hp 77; acidshooter_weak@9,0 stand hp20
+14:03:13.705 spawned rat (Ротта) #3 life 10 at tile 2004,249
+14:03:13.781 AUTOTEST: player hp 77; rat@-64,0 walk hp10 | acidshooter_weak@10,-3 attack hp20
+14:03:14.232 acidshooter_weak shot acid_ball hits for 6
+14:03:14.514 spawned rat (Ротта) #5 life 10 at tile 1994,248
+14:03:14.781 AUTOTEST: player hp 70; rat@-63,0 walk hp10 | acidshooter_weak@12,-5 fly hp20 | rat@-68,-1 walk hp10
+14:03:15.797 AUTOTEST: player hp 68; rat@-66,-1 walk hp10 | acidshooter_weak@9,-4 attack hp20 | rat@-64,-1 walk hp10
+14:03:16.141 acidshooter_weak shot acid_ball hits for 6
+14:03:16.848 AUTOTEST: player hp 60; rat@-65,0 walk hp10 | acidshooter_weak@11,-4 fly hp20 | rat@-57,0 walk hp10
+14:03:17.848 AUTOTEST: player hp 58; rat@-69,0 walk hp10 | acidshooter_weak@9,-4 fly hp20 | rat@-61,0 walk hp10
+14:03:18.014 acidshooter_weak shot acid_ball hits for 6
+14:03:18.848 AUTOTEST: spawning shotgunner_weak
+14:03:18.849 spawned shotgunner_weak (Хауликкохийси) #6 life 18 at tile 2063,251
+14:03:18.850 AUTOTEST: rat #3 gone after 306 brain frames: active=False type=146 life=10/10 timeLeft=444 pos=1985,246
+14:03:18.851 AUTOTEST: acidshooter_weak #4 gone after 360 brain frames: active=False type=146 life=20/20 timeLeft=749 pos=2064,242
+14:03:18.852 AUTOTEST: rat #5 gone after 257 brain frames: active=False type=146 life=10/10 timeLeft=749 pos=1993,247
+14:03:18.852 AUTOTEST: player hp 50; shotgunner_weak@9,1 stand hp18
+14:03:19.849 AUTOTEST: player hp 99; shotgunner_weak@9,1 stand hp18
+14:03:20.849 AUTOTEST: player hp 97; shotgunner_weak@9,1 stand hp18
+14:03:21.849 AUTOTEST: player hp 95; shotgunner_weak@9,1 stand hp18
+14:03:22.849 AUTOTEST: player hp 93; shotgunner_weak@9,1 stand hp18
+14:03:23.849 AUTOTEST: player hp 93; shotgunner_weak@9,1 stand hp18
+14:03:24.415 spawned rat (Ротта) #5 life 10 at tile 1982,247
+14:03:24.848 AUTOTEST: spawning zombie_weak
+14:03:24.849 spawned zombie_weak (Хуртта) #7 life 10 at tile 2063,251
+14:03:24.850 AUTOTEST: rat #5 gone after 27 brain frames: active=False type=146 life=10/10 timeLeft=723 pos=1980,246
+14:03:24.850 AUTOTEST: shotgunner_weak #6 gone after 360 brain frames: active=False type=146 life=18/18 timeLeft=749 pos=2062,249
+14:03:24.851 AUTOTEST: player hp 93; zombie_weak@9,1 stand hp10
+14:03:25.848 AUTOTEST: player hp 93; zombie_weak@6,0 jump_up hp10
+14:03:25.998 zombie_weak lunge zombie_weak.lunge hits for 6
+14:03:26.764 zombie_weak melee zombie_weak.melee hits for 7
+14:03:26.848 AUTOTEST: player hp 80; zombie_weak@1,1 attack hp10
+14:03:27.848 AUTOTEST: player hp 80; zombie_weak@1,0 jump_up hp10
+14:03:27.881 zombie_weak lunge zombie_weak.lunge hits for 6
+14:03:28.849 AUTOTEST: player hp 74; zombie_weak@0,0 walk hp10
+14:03:28.866 zombie_weak melee zombie_weak.melee hits for 9
+14:03:29.849 AUTOTEST: player hp 65; zombie_weak@-2,0 jump_up hp10
+14:03:29.899 zombie_weak lunge zombie_weak.lunge hits for 6
+14:03:30.731 zombie_weak melee zombie_weak.melee hits for 10
+14:03:30.849 AUTOTEST: spawning frog
+14:03:30.850 spawned frog (Конна) #5 life 15 at tile 2059,250
+14:03:30.850 AUTOTEST: zombie_weak #7 gone after 360 brain frames: active=False type=146 life=10/10 timeLeft=749 pos=2051,247
+14:03:30.851 AUTOTEST: player hp 100; frog@9,2 stand hp15
+14:03:31.849 AUTOTEST: player hp 100; frog@0,0 jump_up hp15
+14:03:31.867 frog lunge frog.lunge hits for 10
+14:03:32.849 AUTOTEST: player hp 90; frog@-9,0 stand hp15
+14:03:33.849 AUTOTEST: player hp 90; frog@2,0 jump_up hp15
+14:03:33.916 frog lunge frog.lunge hits for 10
+14:03:34.849 AUTOTEST: player hp 80; frog@-4,0 stand hp15
+14:03:35.850 AUTOTEST: player hp 80; frog@6,0 jump_up hp15
+14:03:36.049 frog lunge frog.lunge hits for 10
+14:03:36.716 spawned rat (Ротта) #7 life 10 at tile 2100,252
+14:03:36.849 AUTOTEST: spawning bat
+14:03:36.850 spawned bat (Лепакко) #8 life 50 at tile 2041,248
+14:03:36.851 AUTOTEST: frog #5 gone after 360 brain frames: active=False type=146 life=15/15 timeLeft=749 pos=2031,245
+14:03:36.851 AUTOTEST: rat #7 gone after 9 brain frames: active=False type=146 life=10/10 timeLeft=741 pos=2100,251
+14:03:36.852 AUTOTEST: player hp 70; bat@9,0 stand hp50
+14:03:37.850 AUTOTEST: player hp 70; bat@4,0 fly hp50
+14:03:37.949 bat lunge bat.lunge hits for 9
+14:03:38.867 AUTOTEST: player hp 61; bat@0,0 fly hp50
+14:03:39.132 spawned rat (Ротта) #3 life 10 at tile 2107,251
+14:03:39.749 spawned rat (Ротта) #4 life 10 at tile 1944,246
+14:03:39.866 AUTOTEST: player hp 61; rat@84,4 walk hp10 | rat@-81,0 walk hp10 | bat@0,0 fly hp50
+14:03:39.883 bat lunge bat.lunge hits for 9
+14:03:40.866 AUTOTEST: player hp 52; rat@93,4 walk hp10 | rat@-80,0 walk hp10 | bat@1,0 fly hp50
+14:03:41.867 AUTOTEST: player hp 52; rat@96,4 jump_fall hp10 | rat@-84,0 walk hp10 | bat@0,0 fly hp50
+14:03:41.885 bat lunge bat.lunge hits for 9
+14:03:42.866 AUTOTEST: spawning fireskull
+14:03:42.867 spawned fireskull (Лиеккиё) #5 life 70 at tile 2025,248
+14:03:42.867 AUTOTEST: rat #3 gone after 225 brain frames: active=False type=146 life=10/10 timeLeft=525 pos=2120,252
+14:03:42.869 AUTOTEST: rat #4 gone after 188 brain frames: active=False type=146 life=10/10 timeLeft=562 pos=1932,248
+14:03:42.869 AUTOTEST: bat #8 gone after 360 brain frames: active=False type=146 life=50/50 timeLeft=749 pos=2015,246
+14:03:42.869 AUTOTEST: player hp 100; fireskull@9,-1 stand hp70
+14:03:43.867 AUTOTEST: player hp 100; fireskull@4,0 fly hp70
+14:03:43.966 fireskull lunge fireskull.lunge hits for 6
+14:03:44.867 AUTOTEST: player hp 94; fireskull@0,0 fly hp70
+14:03:44.900 fireskull melee fireskull.melee hits for 9
+14:03:45.867 AUTOTEST: player hp 100; fireskull@-1,0 attack hp70
+14:03:46.566 fireskull melee fireskull.melee hits for 6
+14:03:46.867 AUTOTEST: player hp 94; fireskull@4,0 fly hp70
+14:03:47.866 AUTOTEST: player hp 100; fireskull@5,0 fly hp70
+14:03:47.983 fireskull lunge fireskull.lunge hits for 6
+14:03:48.799 fireskull melee fireskull.melee hits for 8
+14:03:48.866 AUTOTEST: spawning slimeshooter_weak
+14:03:48.867 spawned slimeshooter_weak (Лиманульяска) #3 life 15 at tile 2006,249
+14:03:48.868 AUTOTEST: fireskull #5 gone after 360 brain frames: active=False type=146 life=70/70 timeLeft=749 pos=1994,244
+14:03:48.868 AUTOTEST: player hp 86; slimeshooter_weak@9,1 stand hp15
+14:03:49.867 AUTOTEST: player hp 100; slimeshooter_weak@11,-3 fly hp15
+14:03:50.183 slimeshooter_weak shot slimeball hits for 14
+14:03:50.866 AUTOTEST: player hp 85; slimeshooter_weak@12,-4 attack hp15
+14:03:51.550 slimeshooter_weak shot slimeball hits for 14
+14:03:51.867 AUTOTEST: player hp 69; slimeshooter_weak@12,-4 fly hp15
+14:03:52.850 slimeshooter_weak shot slimeball hits for 14
+14:03:52.867 AUTOTEST: player hp 53; slimeshooter_weak@10,-3 fly hp15
+14:03:53.867 AUTOTEST: player hp 51; slimeshooter_weak@10,-4 fly hp15
+14:03:54.217 slimeshooter_weak shot slimeball hits for 14
+14:03:54.867 AUTOTEST: spawning rat
+14:03:54.868 spawned rat (Ротта) #4 life 10 at tile 1985,247
+14:03:54.869 AUTOTEST: slimeshooter_weak #3 gone after 360 brain frames: active=False type=146 life=15/15 timeLeft=749 pos=1987,239
+14:03:54.869 AUTOTEST: player hp 99; rat@9,1 stand hp10
+14:03:55.567 slimeshooter_weak shot slimeball hits for 14
+14:03:55.767 spawned rat (Ротта) #3 life 10 at tile 1900,250
+14:03:55.868 AUTOTEST: player hp 83; rat@-70,4 walk hp10 | rat@6,1 walk hp10
+14:03:56.733 rat melee rat.melee hits for 7
+14:03:56.867 AUTOTEST: player hp 74; rat@-71,4 walk hp10 | rat@3,1 attack hp10
+14:03:57.683 rat melee rat.melee hits for 7
+14:03:57.867 AUTOTEST: player hp 65; rat@-69,2 walk hp10 | rat@3,1 attack hp10
+14:03:58.633 rat melee rat.melee hits for 6
+14:03:58.868 AUTOTEST: player hp 57; rat@-64,2 walk hp10 | rat@4,1 attack hp10
+14:03:59.600 rat melee rat.melee hits for 8
+14:03:59.867 AUTOTEST: player hp 100; rat@-55,3 jump_fall hp10 | rat@4,1 attack hp10
+14:04:00.550 rat melee rat.melee hits for 8
+14:04:00.867 AUTOTEST: spawning firemage_weak
+14:04:00.868 spawned firemage_weak (Стендари) #7 life 160 at tile 1955,247
+14:04:00.869 AUTOTEST: rat #3 gone after 307 brain frames: active=False type=146 life=10/10 timeLeft=749 pos=1902,249
+14:04:00.870 AUTOTEST: rat #4 gone after 360 brain frames: active=False type=146 life=10/10 timeLeft=749 pos=1950,246
+14:04:00.870 AUTOTEST: player hp 90; firemage_weak@9,0 stand hp160
+14:04:01.867 AUTOTEST: player hp 88; firemage_weak@10,0 stand hp160
+14:04:02.234 firemage_weak shot weaker_fireball hits for 56
+14:04:02.867 AUTOTEST: player hp 96; firemage_weak@15,-1 walk hp160
+14:04:03.868 AUTOTEST: player hp 90; firemage_weak@11,-1 walk hp160
+14:04:04.867 AUTOTEST: player hp 96; firemage_weak@6,0 walk hp160
+14:04:05.867 AUTOTEST: player hp 52; firemage_weak@10,0 walk hp160
+14:04:06.868 AUTOTEST: spawning miner_weak
+14:04:06.869 spawned miner_weak (Таппурахийси) #2 life 22 at tile 1946,247
+14:04:06.869 AUTOTEST: firemage_weak #7 gone after 360 brain frames: active=False type=146 life=160/160 timeLeft=749 pos=1949,243
+14:04:06.869 AUTOTEST: player hp 97; miner_weak@9,0 stand hp22
+14:04:07.886 AUTOTEST: player hp 95; miner_weak@17,-2 walk hp22
+14:04:08.885 AUTOTEST: player hp 91; miner_weak@27,-1 walk hp22
+14:04:09.935 AUTOTEST: player hp 98; miner_weak@33,-1 walk hp22
+14:04:10.937 AUTOTEST: player hp 98; miner_weak@24,0 walk hp22
+14:04:11.935 AUTOTEST: player hp 98; miner_weak@22,0 walk hp22
+14:04:12.935 AUTOTEST: player hp 98; miner_weak@20,0 walk hp22
+14:04:13.936 AUTOTEST: player hp 100; miner_weak@21,5 walk hp22
+14:04:14.153 spawned rat (Ротта) #7 life 10 at tile 1979,247
+14:04:14.935 AUTOTEST: player hp 100; miner_weak@16,1 attack hp22 | rat@68,0 walk hp10
+14:04:15.936 AUTOTEST: player hp 100; miner_weak@4,0 stand hp22 | rat@61,0 walk hp10
+14:04:16.936 AUTOTEST: player hp 100; miner_weak@-6,1 walk hp22 | rat@50,1 walk hp10
+14:04:17.936 AUTOTEST: player hp 100; miner_weak@-15,2 walk hp22 | rat@33,1 walk hp10
+14:04:18.936 AUTOTEST: player hp 100; miner_weak@-13,2 walk hp22 | rat@26,1 walk hp10
+14:04:19.946 AUTOTEST: player hp 100; miner_weak@-11,2 walk hp22 | rat@18,1 walk hp10
+14:04:20.936 AUTOTEST: player hp 100; miner_weak@-9,1 walk hp22 | rat@11,1 walk hp10
+14:04:21.936 AUTOTEST: player hp 100; miner_weak@-6,1 walk hp22 | rat@3,1 walk hp10
+14:04:22.218 rat melee rat.melee hits for 6
+14:04:22.885 rat melee rat.melee hits for 10
+14:04:22.936 AUTOTEST: player hp 84; miner_weak@-5,1 walk hp22 | rat@0,1 attack hp10
+14:04:22.936 AUTOTEST: done; Noita enemies alive: 2
+14:04:23.105 Terraria exited
