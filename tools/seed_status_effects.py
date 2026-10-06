@@ -51,6 +51,18 @@ ROWS = {
     "JARATE": ("yellow drips", 15),
 }
 
+# author: only opposite effects replace each other, the rest stay together. Pairs (both ways):
+OPPOSITES = [
+    ("ON_FIRE", "WET"), ("ON_FIRE", "CHILLED"), ("ON_FIRE", "INGESTION_FREEZING"), ("INGESTION_ON_FIRE", "WET"),
+    ("INGESTION_ON_FIRE", "CHILLED"), ("INGESTION_ON_FIRE", "INGESTION_FREEZING"),
+    ("WET", "OILED"), ("WET", "BLOODY"), ("WET", "SLIMY"), ("WET", "JARATE"),   # water washes stains off
+    ("MOVEMENT_FASTER_2X", "SLIMY"), ("MOVEMENT_FASTER_2X", "CHILLED"), ("MOVEMENT_FASTER_2X", "FOOD_POISONING"),
+    ("HP_REGENERATION", "POISONED"), ("HP_REGENERATION", "RADIOACTIVE"), ("HP_REGENERATION", "FOOD_POISONING"),
+    ("PROTECTION_ALL", "WEAKNESS"), ("BERSERK", "WEAKNESS"),
+    ("POLYMORPH", "POLYMORPH_RANDOM"), ("POLYMORPH", "POLYMORPH_UNSTABLE"), ("POLYMORPH_RANDOM", "POLYMORPH_UNSTABLE"),
+    ("TELEPORTATION", "UNSTABLE_TELEPORTATION"),
+]
+
 COLUMNS = {
     "id": {"type": "string", "desc": "Noita status effect id (status_list.lua)."},
     "name_key": {"type": "string", "desc": "Name in Noita's common.csv."},
@@ -60,6 +72,7 @@ COLUMNS = {
     "protects_from_fire": {"type": "bool", "desc": "Noita protects_from_fire: puts out and keeps off fire."},
     "removes_cause": {"type": "bool", "desc": "Noita remove_cells_that_cause_when_activated: the liquid that caused it is used up."},
     "mechanic": {"type": "string", "desc": "What our code does while it lasts."},
+    "cancels": {"type": "string[]", "desc": "Opposite effects it ends when it starts (author: the rest stay together)."},
     "seconds": {"type": "number", "desc": "How long one touch lasts (refreshed while touching)."},
     "stage": {"type": "enum", "values": ["1a", "1b", "1c", "2", "3", "4"], "desc": "Stage that builds it."},
 }
@@ -89,7 +102,8 @@ for k, (mech, secs) in ROWS.items():
                  "desc_key": n.get("ui_description", "").lstrip("$") or "none",
                  "icon": n.get("ui_icon") or "none", "harmful": bool(n.get("is_harmful", False)),
                  "protects_from_fire": bool(n.get("protects_from_fire", False)),
-                 "removes_cause": bool(n.get("remove_cells_that_cause_when_activated", False)), "mechanic": mech, "seconds": secs,
+                 "removes_cause": bool(n.get("remove_cells_that_cause_when_activated", False)),
+                 "cancels": sorted({b for a, b in OPPOSITES if a == k} | {a for a, b in OPPOSITES if b == k}), "mechanic": mech, "seconds": secs,
                  "stage": "2", "_unverified": {},
                  "_sources": {"all": "status_list.lua" + ("" if lua.get(k) else " (" + (k.replace("INGESTION_", "") if n else "not listed") + ")")}})
 with open(OUT, "w", encoding="utf-8", newline="\n") as f:

@@ -1,0 +1,138 @@
+18:21:43.065 Terranoita launcher 0.1.0.0, folder D:\steam\steamapps\common\Terraria\
+18:21:43.067 Noita folder: D:\steam\steamapps\common\Noita
+18:21:43.072 Loaded Terraria, Version=1.4.5.8, Culture=neutral, PublicKeyToken=null
+18:21:43.080 Terraria assemblies loaded: 1
+18:21:43.114 Noita data.wak: 14745 files
+18:21:43.145 Terraria save folder: C:\Users\user\AppData\Local\Terranoita\testsave
+18:21:43.163 Resolved ReLogic from Terraria.exe resource Terraria.Libraries.ReLogic.ReLogic.dll
+18:21:43.309 Resolved Newtonsoft.Json from Terraria.exe resource Terraria.Libraries.JSON.NET.Newtonsoft.Json.dll
+18:21:43.315 Starting Terraria
+18:21:43.807 Resolved Steamworks.NET from Terraria.exe resource Terraria.Libraries.Steamworks.NET.Windows.Steamworks.NET.dll
+18:21:45.641 Resolved Ionic.Zip.CF from Terraria.exe resource Terraria.Libraries.DotNetZip.Ionic.Zip.CF.dll
+18:21:45.982 Resolved SteelSeriesEngineWrapper from Terraria.exe resource Terraria.Libraries.SteelSeries.SteelSeriesEngineWrapper.dll
+18:21:46.220 Resolved MP3Sharp from Terraria.exe resource Terraria.Libraries.MP3Sharp.MP3Sharp.dll
+18:21:54.064 Resolved RailSDK.Net from Terraria.exe resource Terraria.Libraries.RailSDK.Windows.RailSDK.Net.dll
+18:21:54.223 Resolved CsvHelper from Terraria.exe resource Terraria.Libraries.CsvHelper.CsvHelper.dll
+18:21:56.475 Resolved NVorbis from Terraria.exe resource Terraria.Libraries.NVorbis.NVorbis.dll
+18:22:03.108 Noita sprites loaded: 243, failed: 9
+18:22:03.362 Noita sounds ready
+18:22:03.363 hook ok      main_update -> Terraria.Main:DoUpdate(ref GameTime)
+18:22:03.363 hook ok      npc_spawn -> Terraria.NPC:SpawnNPC()
+18:22:03.363 hook ok      npc_ai -> Terraria.NPC:AI()
+18:22:03.364 hook ok      npc_findframe -> Terraria.NPC:FindFrame()
+18:22:03.364 hook ok      npc_draw -> Terraria.Main:DrawNPC(NPC, bool)
+18:22:03.364 hook ok      npc_name -> Terraria.NPC:get_TypeName()
+18:22:03.364 hook ok      npc_hiteffect -> Terraria.NPC:HitEffect(int, double)
+18:22:03.365 hook ok      npc_loot -> Terraria.NPC:NPCLoot()
+18:22:03.365 hook ok      npc_strike -> Terraria.NPC:StrikeNPC(int, float, int, bool, bool, int)
+18:22:03.365 hook ok      shots_update -> Terraria.Main:UpdateWorld_Projectiles()
+18:22:03.366 hook ok      shots_draw -> Terraria.Main:DrawProjectiles()
+18:22:03.366 hook ok      hit_by_item -> Terraria.Player:ProcessHitAgainstNPC(Item, Rectangle, int, float, int)
+18:22:03.366 hook ok      hit_by_projectile -> Terraria.Projectile:Damage_PVE_Inner(int, NPC, Rectangle, float, int[], ref bool)
+18:22:03.369 Terranoita patches applied: 23 methods
+18:22:05.383 AUTOTEST: entering путь свободы as Terranoita Test
+18:22:06.680 physics: 2 placed tiles read from путь_свободы.wld.terranoita
+18:22:12.112 WARN materials: no TileID.TitanstoneBlock
+18:22:12.177 LIQUID GALLERY: 99 boxes in 9 rows at 2052,487; cells 1164
+18:22:15.531 AUDIT water | liquid | effects WET | hp -0 in 1.2 s | in box 0
+18:22:17.080 AUDIT lava | liquid | effects - | hp -164 in 1.2 s | in box 0
+18:22:18.580 AUDIT acid | liquid | effects - | hp -14 in 1.2 s | in box 3060
+18:22:20.080 AUDIT acid_gas | gas | effects - | hp -5 in 1.2 s | in box 1308
+18:22:21.580 AUDIT alcohol | liquid | effects ALCOHOLIC | hp -5 in 1.2 s | in box 3060
+18:22:23.081 AUDIT aluminium_molten | liquid | effects ON_FIRE | hp -5 in 1.2 s | in box 580
+18:22:24.581 AUDIT aluminium_oxide_molten | liquid | effects ON_FIRE | hp -5 in 1.2 s | in box 400
+18:22:26.080 AUDIT aluminium_robot_molten | liquid | effects ON_FIRE | hp -5 in 1.2 s | in box 220
+18:22:27.580 AUDIT beer | liquid | effects WET | hp -0 in 1.2 s | in box 3060
+18:22:29.142 AUDIT blood | liquid | effects BLOODY | hp -0 in 1.2 s | in box 3060
+18:22:30.655 AUDIT blood_cold | liquid | effects - | hp -0 in 1.2 s | in box 3060
+18:22:32.148 AUDIT blood_cold_vapour | gas | effects - | hp -0 in 1.2 s | in box 2714
+18:22:33.645 AUDIT blood_fading_slow | liquid | effects - | hp -0 in 1.2 s | in box 122
+18:22:35.163 AUDIT blood_fungi | liquid | effects - | hp -0 in 1.2 s | in box 3060
+18:22:36.661 AUDIT blood_worm | liquid | effects - | hp -0 in 1.2 s | in box 3060
+18:22:38.146 AUDIT brass_molten | liquid | effects - | hp -0 in 1.2 s | in box 2844
+18:22:39.641 AUDIT cement | liquid | effects - | hp -0 in 1.2 s | in box 3060
+18:22:41.152 AUDIT copper_molten | liquid | effects - | hp -0 in 1.2 s | in box 2844
+18:22:42.653 AUDIT cursed_liquid | liquid | effects - | hp -0 in 1.2 s | in box 3060
+18:22:44.182 AUDIT fungal_gas | gas | effects - | hp -0 in 1.2 s | in box 2825
+18:22:45.716 AUDIT gold_molten | liquid | effects ON_FIRE | hp -5 in 1.2 s | in box 2256
+18:22:47.255 AUDIT juhannussima | liquid | effects WET | hp -0 in 1.2 s | in box 3060
+18:22:48.789 AUDIT just_death | liquid | effects WET | hp -0 in 1.2 s | DIED | in box 1173
+18:22:50.338 AUDIT liquid_fire | liquid | effects ON_FIRE | hp -5 in 1.2 s | in box 3060
+18:22:51.839 AUDIT liquid_fire_weak | liquid | effects ON_FIRE | hp -5 in 1.2 s | in box 1376
+18:22:53.338 AUDIT magic_gas_fungus | gas | effects TRIP | hp -0 in 1.2 s | in box 773
+18:22:54.838 AUDIT magic_gas_hp_regeneration | gas | effects HP_REGENERATION | hp -0 in 1.2 s | in box 564
+18:22:56.338 AUDIT magic_gas_midas | gas | effects - | hp -0 in 1.2 s | in box 863
+18:22:57.840 AUDIT magic_gas_polymorph | gas | effects POLYMORPH | hp -0 in 1.2 s | form sheep.xml | in box 726
+18:22:59.339 AUDIT magic_gas_teleport | gas | effects TELEPORTATION | hp -0 in 1.2 s | in box 2170
+18:23:00.839 AUDIT magic_gas_weakness | gas | effects WEAKNESS | hp -0 in 1.2 s | in box 1617
+18:23:02.339 AUDIT magic_gas_worm_blood | gas | effects NIGHTVISION | hp -0 in 1.2 s | in box 1741
+18:23:03.840 AUDIT magic_liquid_berserk | liquid | effects BERSERK | hp -0 in 1.2 s | in box 3060
+18:23:05.339 AUDIT magic_liquid_charm | liquid | effects CHARM | hp -0 in 1.2 s | in box 3060
+18:23:06.840 AUDIT magic_liquid_faster_levitation | liquid | effects FASTER_LEVITATION | hp -0 in 1.2 s | in box 3060
+18:23:08.340 AUDIT magic_liquid_faster_levitation_and_movement | liquid | effects FASTER_LEVITATION,MOVEMENT_FASTER_2X | hp -0 in 1.2 s | in box 3060
+18:23:09.841 AUDIT magic_liquid_hp_regeneration | liquid | effects HP_REGENERATION | hp -0 in 1.2 s | in box 3060
+18:23:11.341 AUDIT magic_liquid_hp_regeneration_unstable | liquid | effects HP_REGENERATION | hp -0 in 1.2 s | in box 1255
+18:23:12.840 AUDIT magic_liquid_invisibility | liquid | effects INVISIBILITY | hp -0 in 1.2 s | in box 3060
+18:23:14.341 AUDIT magic_liquid_mana_regeneration | liquid | effects MANA_REGENERATION | hp -0 in 1.2 s | in box 3060
+18:23:15.839 AUDIT magic_liquid_movement_faster | liquid | effects MOVEMENT_FASTER_2X | hp -0 in 1.2 s | in box 3060
+18:23:17.374 AUDIT magic_liquid_polymorph | liquid | effects POLYMORPH | hp -0 in 1.2 s | form sheep.xml | in box 101
+18:23:18.860 AUDIT magic_liquid_protection_all | liquid | effects - | hp -0 in 1.2 s | in box 3060
+18:23:20.351 AUDIT magic_liquid_random_polymorph | liquid | effects POLYMORPH_RANDOM | hp -0 in 1.2 s | form scavenger_glue.xml | in box 101
+18:23:21.851 AUDIT magic_liquid_teleportation | liquid | effects TELEPORTATION | hp -0 in 1.2 s | TELEPORTED | in box 3060
+18:23:23.400 AUDIT magic_liquid_unstable_polymorph | liquid | effects POLYMORPH_UNSTABLE | hp -0 in 1.2 s | form statue_physics_emissive.xml | in box 202
+18:23:24.923 AUDIT magic_liquid_unstable_teleportation | liquid | effects - | hp -0 in 1.2 s | in box 3060
+18:23:26.395 AUDIT magic_liquid_weakness | liquid | effects - | hp -0 in 1.2 s | in box 3060
+18:23:27.903 AUDIT magic_liquid_worm_attractor | liquid | effects - | hp -0 in 1.2 s | in box 3060
+18:23:29.384 AUDIT material_confusion | liquid | effects - | hp -0 in 1.2 s | in box 3060
+18:23:30.893 AUDIT material_darkness | liquid | effects - | hp -0 in 1.2 s | in box 3060
+18:23:32.401 AUDIT material_rainbow | liquid | effects - | hp -0 in 1.2 s | in box 1397
+18:23:33.885 AUDIT metal_molten | liquid | effects - | hp -0 in 1.2 s | in box 1976
+18:23:35.396 AUDIT metal_nohit_molten | liquid | effects - | hp -0 in 1.2 s | in box 1976
+18:23:36.906 AUDIT metal_prop_molten | liquid | effects - | hp -0 in 1.2 s | in box 1976
+18:23:38.404 AUDIT metal_rust_molten | liquid | effects - | hp -0 in 1.2 s | in box 1976
+18:23:39.894 AUDIT metal_sand_molten | liquid | effects - | hp -0 in 1.2 s | in box 1976
+18:23:41.404 AUDIT midas | liquid | effects - | hp -0 in 1.2 s | in box 3060
+18:23:42.886 AUDIT midas_precursor | liquid | effects - | hp -0 in 1.2 s | in box 3060
+18:23:44.391 AUDIT milk | liquid | effects - | hp -0 in 1.2 s | in box 3060
+18:23:45.896 AUDIT mimic_liquid | liquid | effects - | hp -0 in 1.2 s | in box 3060
+18:23:47.402 AUDIT molut | liquid | effects - | hp -0 in 1.2 s | in box 3060
+18:23:48.902 AUDIT oil | liquid | effects - | hp -0 in 1.2 s | in box 3060
+18:23:50.390 AUDIT pea_soup | liquid | effects - | hp -0 in 1.2 s | in box 3060
+18:23:51.885 AUDIT peat | liquid | effects - | hp -0 in 1.2 s | in box 3060
+18:23:53.402 AUDIT poison | liquid | effects - | hp -0 in 1.2 s | in box 3060
+18:23:54.891 AUDIT poison_gas | gas | effects - | hp -0 in 1.2 s | in box 2190
+18:23:56.394 AUDIT poo_gas | gas | effects - | hp -0 in 1.2 s | in box 1991
+18:23:57.881 AUDIT porridge | liquid | effects - | hp -0 in 1.2 s | in box 3060
+18:23:59.392 AUDIT pus | liquid | effects - | hp -0 in 1.2 s | in box 3060
+18:24:00.908 AUDIT radioactive_gas | gas | effects - | hp -0 in 1.2 s | in box 2182
+18:24:02.403 AUDIT radioactive_liquid | liquid | effects - | hp -0 in 1.2 s | in box 3060
+18:24:03.890 AUDIT radioactive_liquid_yellow | liquid | effects - | hp -0 in 1.2 s | in box 3060
+18:24:05.387 AUDIT rainbow_gas | gas | effects - | hp -0 in 1.2 s | in box 3060
+18:24:06.905 AUDIT sand_herb_vapour | gas | effects - | hp -0 in 1.2 s | in box 3060
+18:24:08.399 AUDIT silver_molten | liquid | effects - | hp -0 in 1.2 s | in box 3060
+18:24:09.897 AUDIT sima | liquid | effects - | hp -0 in 1.2 s | in box 3060
+18:24:11.406 AUDIT slime | liquid | effects - | hp -0 in 1.2 s | in box 3060
+18:24:12.891 AUDIT slime_green | liquid | effects - | hp -0 in 1.2 s | in box 3060
+18:24:14.386 AUDIT slime_yellow | liquid | effects - | hp -0 in 1.2 s | in box 3060
+18:24:15.895 AUDIT slush | liquid | effects - | hp -0 in 1.2 s | in box 3060
+18:24:17.401 AUDIT smoke | gas | effects - | hp -0 in 1.2 s | in box 3060
+18:24:18.883 AUDIT smoke_magic | gas | effects - | hp -0 in 1.2 s | in box 3060
+18:24:20.395 AUDIT steam | gas | effects - | hp -0 in 1.2 s | in box 2919
+18:24:21.912 AUDIT steam_trailer | gas | effects - | hp -0 in 1.2 s | in box 2738
+18:24:23.412 AUDIT steel_molten | liquid | effects ON_FIRE | hp -4 in 1.2 s | in box 1792
+18:24:24.912 AUDIT steel_rust_molten | liquid | effects ON_FIRE | hp -5 in 1.2 s | in box 1432
+18:24:26.432 AUDIT steel_static_molten | liquid | effects - | hp -0 in 1.2 s | in box 1424
+18:24:27.925 AUDIT steelmoss_slanted_molten | liquid | effects - | hp -0 in 1.2 s | in box 1424
+18:24:29.422 AUDIT steelmoss_static_molten | liquid | effects - | hp -0 in 1.2 s | in box 1424
+18:24:30.925 AUDIT steelsmoke_static_molten | liquid | effects - | hp -0 in 1.2 s | in box 1424
+18:24:32.435 AUDIT swamp | liquid | effects - | hp -0 in 1.2 s | in box 3060
+18:24:33.927 AUDIT void_liquid | liquid | effects - | hp -0 in 1.2 s | in box 3060
+18:24:35.437 AUDIT vomit | liquid | effects - | hp -0 in 1.2 s | in box 3060
+18:24:36.922 AUDIT water_fading | liquid | effects - | hp -0 in 1.2 s | in box 2166
+18:24:38.442 AUDIT water_ice | liquid | effects - | hp -0 in 1.2 s | in box 3060
+18:24:39.934 AUDIT water_salt | liquid | effects - | hp -0 in 1.2 s | in box 3060
+18:24:41.432 AUDIT water_swamp | liquid | effects - | hp -0 in 1.2 s | in box 3060
+18:24:42.929 AUDIT wax_molten | liquid | effects ON_FIRE | hp -3 in 1.2 s | in box 1280
+18:24:43.177 AUDIT: 99 boxes, 0 leaked or changed their walls; cells inside solid blocks: 0; names learned by touching: 39
+18:24:43.178 AUTOTEST: done (audit)
+18:24:43.324 Terraria exited

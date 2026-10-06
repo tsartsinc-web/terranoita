@@ -183,6 +183,12 @@ namespace Terranoita.Game
             if (Physics.LiquidGallery.Enabled)
             {
                 Physics.LiquidGallery.Frame(p, _worldFrames);
+                if (Physics.LiquidAudit.Enabled)
+                {
+                    Physics.LiquidAudit.Frame(p, _worldFrames);
+                    if (Physics.LiquidAudit.Done && ExitWhenDone)
+                        Main.instance.Exit();
+                }
                 return;
             }
             if (Physics.PhysicsTest.Enabled)

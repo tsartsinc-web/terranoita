@@ -44,6 +44,8 @@ namespace Terranoita.Game.Physics
         static Dictionary<string, ushort> _tileOfSolid;
         static List<ReactionDef>[] _reactions;
         static int _frame;
+        static readonly List<int> KeysBuffer = new List<int>();
+        static readonly Comparison<int> Descending = (a, b) => b.CompareTo(a);
         static byte _stamp;
         static Texture2D _pixel;
 
@@ -59,7 +61,7 @@ namespace Terranoita.Game.Physics
             for (int i = 0; i < _defs.Length; i++)
             {
                 _index[_defs[i].Id] = i + 1;
-                _tags[i + 1] = new HashSet<string>(_defs[i].Tags ?? new string[0]) { _defs[i].Id };
+                _tags[i + 1] = new HashSet<string>(_defs[i].Tags ?? new string[0]) { "=" + _defs[i].Id };
                 _colors[i + 1] = ParseColor(_defs[i].Color);
             }
             _solids = NoitaSolids.All.ToDictionary(s => s.Id);
@@ -86,7 +88,9 @@ namespace Terranoita.Game.Physics
         {
             if (string.IsNullOrEmpty(input) || tags == null)
                 return false;
-            return input[0] == '[' ? tags.Contains(input.Trim('[', ']')) : tags.Contains(input);
+            // [tag] matches a tag; a bare name only that material ("=name"): magic liquids carry the [water] tag
+            // and must not pass for the material water
+            return input[0] == '[' ? tags.Contains(input.Trim('[', ']')) : tags.Contains("=" + input);
         }
 
         public static int KindOf(string material)
@@ -110,23 +114,31 @@ namespace Terranoita.Game.Physics
             int kind = KindOf(material);
             if (kind == 0 || amount <= 0)
                 return;
-            for (int ring = 0; ring < 4 && amount > 0; ring++)
-                for (int dx = -ring; dx <= ring && amount > 0; dx++)
-                    for (int dy = -ring; dy <= ring && amount > 0; dy++)
+            // spread over the open tiles connected to x,y (never through a wall)
+            var open = new Queue<(int, int)>();
+            var seen = new HashSet<int>();
+            open.Enqueue((x, y));
+            seen.Add(Key(x, y));
+            while (open.Count > 0 && amount > 0 && seen.Count < 64)
+            {
+                var (cx, cy) = open.Dequeue();
+                if (!Open(cx, cy))
+                    continue;
+                int k = Key(cx, cy);
+                Cells.TryGetValue(k, out var c);
+                if (c.Amount == 0 || c.Kind == kind)
+                {
+                    int put = Math.Min(255 - c.Amount, amount);
+                    if (put > 0 && (c.Amount > 0 || Cells.Count < MaxCells))
                     {
-                        int cx = x + dx, cy = y + dy;
-                        if (!Open(cx, cy) || Cells.Count >= MaxCells)
-                            continue;
-                        int k = Key(cx, cy);
-                        Cells.TryGetValue(k, out var c);
-                        if (c.Amount > 0 && c.Kind != kind)
-                            continue;
-                        int put = Math.Min(255 - c.Amount, amount);
-                        if (put <= 0)
-                            continue;
                         Cells[k] = new Cell { Kind = (byte)kind, Amount = (byte)(c.Amount + put), Burn = c.Burn };
                         amount -= put;
                     }
+                }
+                foreach (var (nx, ny) in new[] { (cx, cy - 1), (cx - 1, cy), (cx + 1, cy), (cx, cy + 1) })
+                    if (seen.Add(Key(nx, ny)) && Open(nx, ny))
+                        open.Enqueue((nx, ny));
+            }
         }
 
         static void AddTerraria(int x, int y, int type, int amount)
@@ -154,6 +166,9 @@ namespace Terranoita.Game.Physics
 
         // ---- simulation ----
 
+        /// <summary>World updates run so far (Terraria pauses the world when its window is not active).</summary>
+        public static int Ticks => _frame;
+
         public static void Update()
         {
             if (_defs == null)
@@ -163,9 +178,12 @@ namespace Terranoita.Game.Physics
                 return;
             if (_frame % 2 == 0)
             {
-                var keys = Cells.Keys.ToList();
+                // one list kept and reused (author: no garbage every tick)
+                var keys = KeysBuffer;
+                keys.Clear();
+                keys.AddRange(Cells.Keys);
                 // bottom cells first for liquids, so a column falls together
-                keys.Sort((a, b) => b.CompareTo(a));
+                keys.Sort(Descending);
                 _stamp = (byte)(_stamp % 255 + 1);
                 foreach (int k in keys)
                     if (Cells.ContainsKey(k))
@@ -356,6 +374,73 @@ namespace Terranoita.Game.Physics
                 .Select(kv => (kv.Key % Main.maxTilesX - x0) + "," + (kv.Key / Main.maxTilesX - y0) + ":" + kv.Value.Amount));
         }
 
+        // ---- names the player knows (author: shown under the mouse once touched, as in Noita) ----
+
+        static HashSet<string> _known;
+        static string _knownFor;
+
+        static string KnownFile(string player) =>
+            System.IO.Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData), "Terranoita",
+                                   "known_" + string.Concat((player ?? "player").Split(System.IO.Path.GetInvalidFileNameChars())) + ".txt");
+
+        static HashSet<string> Known()
+        {
+            string who = Main.LocalPlayer?.name;
+            if (_known != null && _knownFor == who)
+                return _known;
+            _knownFor = who;
+            _known = new HashSet<string>();
+            try
+            {
+                if (System.IO.File.Exists(KnownFile(who)))
+                    _known.UnionWith(System.IO.File.ReadAllLines(KnownFile(who)));
+            }
+            catch (Exception ex) { Entry.Error("known load", ex); }
+            return _known;
+        }
+
+        public static int KnownCount => Known().Count;
+
+        /// <summary>Forget every name (the audit's character must not leave the author's tester knowing all).</summary>
+        public static void ForgetAll()
+        {
+            Known().Clear();
+            try { System.IO.File.Delete(KnownFile(_knownFor)); } catch (Exception ex) { Entry.Error("known forget", ex); }
+        }
+
+        /// <summary>The player touched (or drank) this material: from now on its name shows under the mouse.</summary>
+        public static void Learn(string id)
+        {
+            if (!Known().Add(id))
+                return;
+            try
+            {
+                var f = KnownFile(_knownFor);
+                System.IO.Directory.CreateDirectory(System.IO.Path.GetDirectoryName(f));
+                System.IO.File.WriteAllLines(f, _known);
+            }
+            catch (Exception ex) { Entry.Error("known save", ex); }
+        }
+
+        /// <summary>The name of the liquid or gas under the mouse, if the player knows it (interface drawing).</summary>
+        public static void HoverName()
+        {
+            if (Cells.Count == 0 || Main.LocalPlayer.mouseInterface || Main.gameMenu)
+                return;
+            int x = (int)(Main.MouseWorld.X / 16), y = (int)(Main.MouseWorld.Y / 16);
+            if (!Cells.TryGetValue(Key(x, y), out var c) || c.Amount < 8)
+                return;
+            var d = _defs[c.Kind - 1];
+            // author: an unknown one shows as ???
+            Main.instance.MouseText(!Known().Contains(d.Id) ? "???" : NoitaArt.Text(d.NameKey, d.Id) + (c.Burn > 0 && !d.OnFire ? " (" + NoitaArt.Text("mat_fire", "fire") + ")" : ""));
+        }
+
+        /// <summary>How many liquids or gases the box touches (tests).</summary>
+        public static int UnderCount(Rectangle box) => Under(box).Count();
+
+        /// <summary>Cells sitting inside solid blocks: should be none (tests).</summary>
+        public static int InsideBlocks() => Cells.Keys.Count(k => !Open(k % Main.maxTilesX, k / Main.maxTilesX));
+
         /// <summary>How much of a material is in the area (tests).</summary>
         public static int Total(int x1, int x2, int y1, int y2, string material)
         {
@@ -429,8 +514,8 @@ namespace Terranoita.Game.Physics
 
         enum What { Cell, Terraria, Tile, Air }
 
-        static readonly HashSet<string> Air = new HashSet<string> { "air" };
-        static readonly HashSet<string> FireTags = new HashSet<string> { "fire" };
+        static readonly HashSet<string> Air = new HashSet<string> { "=air" };
+        static readonly HashSet<string> FireTags = new HashSet<string> { "fire", "=fire" };
 
         /// <summary>What is at x,y as Noita sees it: our cell, Terraria's water or lava, a block's material, or air.</summary>
         static HashSet<string> TagsAt(int x, int y, out What what)
@@ -439,7 +524,7 @@ namespace Terranoita.Game.Physics
             {
                 what = What.Cell;
                 if (c.Burn > 0)
-                    return new HashSet<string>(_tags[c.Kind]) { "fire" };
+                    return new HashSet<string>(_tags[c.Kind]) { "fire", "=fire" };
                 return _tags[c.Kind];
             }
             var t = Main.tile[x, y];
@@ -468,7 +553,7 @@ namespace Terranoita.Game.Physics
             string name = m != null && m.NoitaMaterial != "-" ? m.NoitaMaterial : "rock_static";
             if (!_solids.TryGetValue(name, out var s))
                 return null;
-            var tags = new HashSet<string>(s.Tags ?? new string[0]) { s.Id };
+            var tags = new HashSet<string>(s.Tags ?? new string[0]) { "=" + s.Id };
             return tags;
         }
 
@@ -582,9 +667,12 @@ namespace Terranoita.Game.Physics
         static void Touch()
         {
             var me = Main.LocalPlayer;
+            if (me.active && !me.dead && me.wet && !me.lavaWet && !me.honeyWet && !me.shimmerWet)
+                Status.Stain(new[] { "WET" });   // Terraria's water is Noita's water
             if (me.active && !me.dead)
                 foreach (var (d, burning) in Under(me.Hitbox))
                 {
+                    Learn(d.Id);
                     if (d.TouchEffects != null && d.TouchEffects.Length > 0)
                     {
                         Status.Stain(d.TouchEffects);
@@ -594,6 +682,11 @@ namespace Terranoita.Game.Physics
                     }
                     if (burning)
                         Status.Apply("ON_FIRE");
+                    // Noita's player_base.xml materials_that_damage: hp units per frame, 1 unit = 25 hp
+                    if (d.TouchDamage >= 100)
+                        me.KillMe(Terraria.DataStructures.PlayerDeathReason.ByCustomReason(me.name + " touched " + NoitaArt.Text(d.NameKey, d.Id) + "."), 9999, 0);
+                    else if (d.TouchDamage != 0)
+                        Status.TouchHurt(d.TouchDamage * 25f * 60f);
                     if (d.Kind == "liquid" && d.Viscosity > 0 && _frame % 2 == 0)
                         me.velocity *= 1f - Math.Min(0.15f, d.Viscosity / 400f);
                 }

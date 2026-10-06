@@ -35,6 +35,10 @@
    "type": "string",
    "desc": "What our code does while it lasts."
   },
+  "cancels": {
+   "type": "string[]",
+   "desc": "Opposite effects it ends when it starts (author: the rest stay together)."
+  },
   "seconds": {
    "type": "number",
    "desc": "How long one touch lasts (refreshed while touching)."
@@ -61,6 +65,14 @@
    "harmful": false,
    "protects_from_fire": true,
    "removes_cause": false,
+   "cancels": [
+    "BLOODY",
+    "INGESTION_ON_FIRE",
+    "JARATE",
+    "OILED",
+    "ON_FIRE",
+    "SLIMY"
+   ],
    "mechanic": "puts out fire and keeps it off",
    "seconds": 10,
    "stage": "2",
@@ -77,6 +89,9 @@
    "harmful": false,
    "protects_from_fire": true,
    "removes_cause": false,
+   "cancels": [
+    "WET"
+   ],
    "mechanic": "drips oil; puts out fire (Noita protects_from_fire)",
    "seconds": 15,
    "stage": "2",
@@ -93,6 +108,9 @@
    "harmful": false,
    "protects_from_fire": true,
    "removes_cause": false,
+   "cancels": [
+    "WET"
+   ],
    "mechanic": "drips blood; puts out fire",
    "seconds": 10,
    "stage": "2",
@@ -109,6 +127,10 @@
    "harmful": false,
    "protects_from_fire": true,
    "removes_cause": false,
+   "cancels": [
+    "MOVEMENT_FASTER_2X",
+    "WET"
+   ],
    "mechanic": "70% movement speed; puts out fire",
    "seconds": 10,
    "stage": "2",
@@ -125,6 +147,9 @@
    "harmful": true,
    "protects_from_fire": true,
    "removes_cause": false,
+   "cancels": [
+    "HP_REGENERATION"
+   ],
    "mechanic": "loses 6 hp/s; puts out fire",
    "seconds": 6,
    "stage": "2",
@@ -141,6 +166,7 @@
    "harmful": true,
    "protects_from_fire": false,
    "removes_cause": false,
+   "cancels": [],
    "mechanic": "stumbles (random sideways push)",
    "seconds": 20,
    "stage": "2",
@@ -157,6 +183,7 @@
    "harmful": true,
    "protects_from_fire": false,
    "removes_cause": false,
+   "cancels": [],
    "mechanic": "stumbles (random sideways push)",
    "seconds": 20,
    "stage": "2",
@@ -173,6 +200,9 @@
    "harmful": true,
    "protects_from_fire": false,
    "removes_cause": false,
+   "cancels": [
+    "HP_REGENERATION"
+   ],
    "mechanic": "loses 2 hp/s",
    "seconds": 5,
    "stage": "2",
@@ -189,6 +219,10 @@
    "harmful": true,
    "protects_from_fire": false,
    "removes_cause": false,
+   "cancels": [
+    "HP_REGENERATION",
+    "MOVEMENT_FASTER_2X"
+   ],
    "mechanic": "loses 2 hp/s, 80% movement speed",
    "seconds": 8,
    "stage": "2",
@@ -205,6 +239,11 @@
    "harmful": true,
    "protects_from_fire": false,
    "removes_cause": false,
+   "cancels": [
+    "CHILLED",
+    "INGESTION_FREEZING",
+    "WET"
+   ],
    "mechanic": "burns: Terraria's on-fire damage and flames; lights what it touches",
    "seconds": 4,
    "stage": "2",
@@ -221,6 +260,11 @@
    "harmful": true,
    "protects_from_fire": false,
    "removes_cause": false,
+   "cancels": [
+    "CHILLED",
+    "INGESTION_FREEZING",
+    "WET"
+   ],
    "mechanic": "burns: Terraria's on-fire damage and flames; lights what it touches",
    "seconds": 4,
    "stage": "2",
@@ -237,6 +281,7 @@
    "harmful": false,
    "protects_from_fire": false,
    "removes_cause": false,
+   "cancels": [],
    "mechanic": "sparkles of every colour around the player",
    "seconds": 10,
    "stage": "2",
@@ -253,6 +298,7 @@
    "harmful": true,
    "protects_from_fire": false,
    "removes_cause": false,
+   "cancels": [],
    "mechanic": "left and right swapped (Terraria confused)",
    "seconds": 6,
    "stage": "2",
@@ -269,6 +315,10 @@
    "harmful": false,
    "protects_from_fire": false,
    "removes_cause": false,
+   "cancels": [
+    "BERSERK",
+    "PROTECTION_ALL"
+   ],
    "mechanic": "takes double damage",
    "seconds": 15,
    "stage": "2",
@@ -285,6 +335,11 @@
    "harmful": false,
    "protects_from_fire": false,
    "removes_cause": false,
+   "cancels": [
+    "FOOD_POISONING",
+    "POISONED",
+    "RADIOACTIVE"
+   ],
    "mechanic": "heals 10 hp/s",
    "seconds": 6,
    "stage": "2",
@@ -301,6 +356,7 @@
    "harmful": false,
    "protects_from_fire": false,
    "removes_cause": false,
+   "cancels": [],
    "mechanic": "mana refills fast",
    "seconds": 15,
    "stage": "2",
@@ -317,6 +373,11 @@
    "harmful": false,
    "protects_from_fire": false,
    "removes_cause": false,
+   "cancels": [
+    "CHILLED",
+    "FOOD_POISONING",
+    "SLIMY"
+   ],
    "mechanic": "double movement speed",
    "seconds": 15,
    "stage": "2",
@@ -333,6 +394,7 @@
    "harmful": false,
    "protects_from_fire": false,
    "removes_cause": false,
+   "cancels": [],
    "mechanic": "holding jump lifts the player",
    "seconds": 15,
    "stage": "2",
@@ -349,6 +411,7 @@
    "harmful": false,
    "protects_from_fire": false,
    "removes_cause": false,
+   "cancels": [],
    "mechanic": "sees in the dark (Terraria night owl)",
    "seconds": 30,
    "stage": "2",
@@ -365,6 +428,7 @@
    "harmful": false,
    "protects_from_fire": false,
    "removes_cause": false,
+   "cancels": [],
    "mechanic": "invisible; Noita enemies lose sight of the player",
    "seconds": 15,
    "stage": "2",
@@ -381,6 +445,9 @@
    "harmful": false,
    "protects_from_fire": false,
    "removes_cause": false,
+   "cancels": [
+    "WEAKNESS"
+   ],
    "mechanic": "takes no damage",
    "seconds": 15,
    "stage": "2",
@@ -397,6 +464,9 @@
    "harmful": true,
    "protects_from_fire": false,
    "removes_cause": false,
+   "cancels": [
+    "WEAKNESS"
+   ],
    "mechanic": "deals double damage",
    "seconds": 15,
    "stage": "2",
@@ -413,6 +483,7 @@
    "harmful": false,
    "protects_from_fire": false,
    "removes_cause": false,
+   "cancels": [],
    "mechanic": "Noita enemies that touch it fight for the player",
    "seconds": 30,
    "stage": "2",
@@ -429,6 +500,10 @@
    "harmful": true,
    "protects_from_fire": false,
    "removes_cause": true,
+   "cancels": [
+    "POLYMORPH_RANDOM",
+    "POLYMORPH_UNSTABLE"
+   ],
    "mechanic": "cannot use items, 60% movement speed",
    "seconds": 8,
    "stage": "2",
@@ -445,6 +520,10 @@
    "harmful": true,
    "protects_from_fire": false,
    "removes_cause": true,
+   "cancels": [
+    "POLYMORPH",
+    "POLYMORPH_UNSTABLE"
+   ],
    "mechanic": "cannot use items, 60% movement speed",
    "seconds": 8,
    "stage": "2",
@@ -461,6 +540,10 @@
    "harmful": true,
    "protects_from_fire": false,
    "removes_cause": true,
+   "cancels": [
+    "POLYMORPH",
+    "POLYMORPH_RANDOM"
+   ],
    "mechanic": "cannot use items, 60% movement speed",
    "seconds": 8,
    "stage": "2",
@@ -477,6 +560,9 @@
    "harmful": true,
    "protects_from_fire": false,
    "removes_cause": false,
+   "cancels": [
+    "UNSTABLE_TELEPORTATION"
+   ],
    "mechanic": "every 2 s teleports 10-25 tiles to a free spot",
    "seconds": 6,
    "stage": "2",
@@ -493,6 +579,9 @@
    "harmful": true,
    "protects_from_fire": false,
    "removes_cause": false,
+   "cancels": [
+    "TELEPORTATION"
+   ],
    "mechanic": "every 2 s teleports 40-80 tiles to a free spot",
    "seconds": 6,
    "stage": "2",
@@ -509,6 +598,7 @@
    "harmful": true,
    "protects_from_fire": false,
    "removes_cause": false,
+   "cancels": [],
    "mechanic": "Noita worms hunt the player from twice as far",
    "seconds": 30,
    "stage": "2",
@@ -525,6 +615,10 @@
    "harmful": true,
    "protects_from_fire": false,
    "removes_cause": false,
+   "cancels": [
+    "INGESTION_ON_FIRE",
+    "ON_FIRE"
+   ],
    "mechanic": "frozen in place (Terraria frozen)",
    "seconds": 3,
    "stage": "2",
@@ -541,6 +635,11 @@
    "harmful": true,
    "protects_from_fire": false,
    "removes_cause": false,
+   "cancels": [
+    "INGESTION_ON_FIRE",
+    "MOVEMENT_FASTER_2X",
+    "ON_FIRE"
+   ],
    "mechanic": "half movement speed (author: freezing liquid slows on touch; Noita icon and name of freezing)",
    "seconds": 4,
    "stage": "2",
@@ -557,6 +656,7 @@
    "harmful": true,
    "protects_from_fire": false,
    "removes_cause": false,
+   "cancels": [],
    "mechanic": "green puffs (Terraria stinky)",
    "seconds": 15,
    "stage": "2",
@@ -573,6 +673,7 @@
    "harmful": false,
    "protects_from_fire": false,
    "removes_cause": false,
+   "cancels": [],
    "mechanic": "rainbow puffs",
    "seconds": 15,
    "stage": "2",
@@ -589,6 +690,9 @@
    "harmful": false,
    "protects_from_fire": false,
    "removes_cause": false,
+   "cancels": [
+    "WET"
+   ],
    "mechanic": "yellow drips",
    "seconds": 15,
    "stage": "2",

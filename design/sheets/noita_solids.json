@@ -19,6 +19,10 @@
    "type": "string",
    "desc": "TileID a reaction leaves when it makes this ('none' = nothing)."
   },
+  "touch_damage": {
+   "type": "number",
+   "desc": "Noita hp units per frame while touching (player_base.xml)."
+  },
   "stage": {
    "type": "enum",
    "values": [
@@ -46,6 +50,7 @@
     "earth"
    ],
    "terraria_tile": "none",
+   "touch_damage": 0.0,
    "stage": "2",
    "_unverified": {},
    "_sources": {
@@ -63,6 +68,7 @@
     "chaotic_transmutation"
    ],
    "terraria_tile": "none",
+   "touch_damage": 0.0,
    "stage": "2",
    "_unverified": {},
    "_sources": {
@@ -78,6 +84,7 @@
     "alchemy"
    ],
    "terraria_tile": "Gold",
+   "touch_damage": 0.0,
    "stage": "2",
    "_unverified": {},
    "_sources": {
@@ -95,6 +102,7 @@
     "chaotic_transmutation"
    ],
    "terraria_tile": "none",
+   "touch_damage": 0.0,
    "stage": "2",
    "_unverified": {},
    "_sources": {
@@ -113,6 +121,7 @@
     "earth"
    ],
    "terraria_tile": "none",
+   "touch_damage": 0.0,
    "stage": "2",
    "_unverified": {},
    "_sources": {
@@ -130,6 +139,7 @@
     "earth"
    ],
    "terraria_tile": "none",
+   "touch_damage": 0.0,
    "stage": "2",
    "_unverified": {},
    "_sources": {
@@ -148,6 +158,7 @@
     "earth"
    ],
    "terraria_tile": "Copper",
+   "touch_damage": 0.0,
    "stage": "2",
    "_unverified": {},
    "_sources": {
@@ -165,6 +176,7 @@
     "earth"
    ],
    "terraria_tile": "none",
+   "touch_damage": 0.0,
    "stage": "2",
    "_unverified": {},
    "_sources": {
@@ -182,6 +194,7 @@
     "chaotic_transmutation"
    ],
    "terraria_tile": "Ash",
+   "touch_damage": 0.0,
    "stage": "2",
    "_unverified": {},
    "_sources": {
@@ -200,6 +213,7 @@
     "earth"
    ],
    "terraria_tile": "Ash",
+   "touch_damage": 0.0,
    "stage": "2",
    "_unverified": {},
    "_sources": {
@@ -218,6 +232,7 @@
     "earth"
    ],
    "terraria_tile": "GrayBrick",
+   "touch_damage": 0.0,
    "stage": "2",
    "_unverified": {},
    "_sources": {
@@ -236,6 +251,7 @@
     "earth"
    ],
    "terraria_tile": "Copper",
+   "touch_damage": 0.0,
    "stage": "2",
    "_unverified": {},
    "_sources": {
@@ -253,6 +269,7 @@
     "earth"
    ],
    "terraria_tile": "none",
+   "touch_damage": 0.0,
    "stage": "2",
    "_unverified": {},
    "_sources": {
@@ -269,6 +286,7 @@
     "earth"
    ],
    "terraria_tile": "none",
+   "touch_damage": 0.0,
    "stage": "2",
    "_unverified": {},
    "_sources": {
@@ -286,6 +304,7 @@
     "chaotic_transmutation"
    ],
    "terraria_tile": "none",
+   "touch_damage": 0.0,
    "stage": "2",
    "_unverified": {},
    "_sources": {
@@ -300,6 +319,7 @@
     "hot"
    ],
    "terraria_tile": "none",
+   "touch_damage": 0.0,
    "stage": "2",
    "_unverified": {},
    "_sources": {
@@ -314,6 +334,7 @@
     "hot"
    ],
    "terraria_tile": "none",
+   "touch_damage": 0.0,
    "stage": "2",
    "_unverified": {},
    "_sources": {
@@ -332,6 +353,7 @@
     "fungus"
    ],
    "terraria_tile": "MushroomBlock",
+   "touch_damage": 0.0,
    "stage": "2",
    "_unverified": {},
    "_sources": {
@@ -347,6 +369,7 @@
     "burnable"
    ],
    "terraria_tile": "MushroomBlock",
+   "touch_damage": 0.0,
    "stage": "2",
    "_unverified": {},
    "_sources": {
@@ -365,6 +388,7 @@
     "fungus"
    ],
    "terraria_tile": "MushroomBlock",
+   "touch_damage": 0.0,
    "stage": "2",
    "_unverified": {},
    "_sources": {
@@ -383,6 +407,7 @@
     "fungus"
    ],
    "terraria_tile": "MushroomBlock",
+   "touch_damage": 0.0,
    "stage": "2",
    "_unverified": {},
    "_sources": {
@@ -403,6 +428,7 @@
     "fungus"
    ],
    "terraria_tile": "Dirt",
+   "touch_damage": 0.0,
    "stage": "2",
    "_unverified": {},
    "_sources": {
@@ -420,6 +446,7 @@
     "earth"
    ],
    "terraria_tile": "Glass",
+   "touch_damage": 0.0,
    "stage": "2",
    "_unverified": {},
    "_sources": {
@@ -436,6 +463,7 @@
     "impure"
    ],
    "terraria_tile": "none",
+   "touch_damage": 0.0,
    "stage": "2",
    "_unverified": {},
    "_sources": {
@@ -455,6 +483,7 @@
     "earth"
    ],
    "terraria_tile": "Gold",
+   "touch_damage": 0.0,
    "stage": "2",
    "_unverified": {},
    "_sources": {
@@ -470,6 +499,7 @@
     "alchemy"
    ],
    "terraria_tile": "Gold",
+   "touch_damage": 0.0,
    "stage": "2",
    "_unverified": {},
    "_sources": {
@@ -488,6 +518,7 @@
     "impure"
    ],
    "terraria_tile": "Grass",
+   "touch_damage": 0.0,
    "stage": "2",
    "_unverified": {},
    "_sources": {
@@ -505,6 +536,7 @@
     "alchemy"
    ],
    "terraria_tile": "Grass",
+   "touch_damage": 0.0,
    "stage": "2",
    "_unverified": {},
    "_sources": {
@@ -522,6 +554,7 @@
     "chaotic_transmutation"
    ],
    "terraria_tile": "none",
+   "touch_damage": 0.0,
    "stage": "2",
    "_unverified": {},
    "_sources": {
@@ -539,6 +572,7 @@
     "chaotic_transmutation"
    ],
    "terraria_tile": "none",
+   "touch_damage": 0.0,
    "stage": "2",
    "_unverified": {},
    "_sources": {
@@ -557,6 +591,7 @@
     "solid"
    ],
    "terraria_tile": "IceBlock",
+   "touch_damage": 0.0,
    "stage": "2",
    "_unverified": {},
    "_sources": {
@@ -573,6 +608,7 @@
     "ice"
    ],
    "terraria_tile": "IceBlock",
+   "touch_damage": 0.0,
    "stage": "2",
    "_unverified": {},
    "_sources": {
@@ -591,6 +627,7 @@
     "solid"
    ],
    "terraria_tile": "IceBlock",
+   "touch_damage": 0.0,
    "stage": "2",
    "_unverified": {},
    "_sources": {
@@ -608,6 +645,7 @@
     "earth"
    ],
    "terraria_tile": "Obsidian",
+   "touch_damage": 0.0,
    "stage": "2",
    "_unverified": {},
    "_sources": {
@@ -627,6 +665,7 @@
     "food"
    ],
    "terraria_tile": "FleshBlock",
+   "touch_damage": 0.0,
    "stage": "2",
    "_unverified": {},
    "_sources": {
@@ -646,6 +685,7 @@
     "food"
    ],
    "terraria_tile": "FleshBlock",
+   "touch_damage": 0.0,
    "stage": "2",
    "_unverified": {},
    "_sources": {
@@ -662,6 +702,7 @@
     "meltable_metal"
    ],
    "terraria_tile": "Sand",
+   "touch_damage": 0.0,
    "stage": "2",
    "_unverified": {},
    "_sources": {
@@ -678,6 +719,7 @@
     "impure"
    ],
    "terraria_tile": "Mud",
+   "touch_damage": 0.0,
    "stage": "2",
    "_unverified": {},
    "_sources": {
@@ -693,6 +735,7 @@
     "burnable"
    ],
    "terraria_tile": "none",
+   "touch_damage": 0.0,
    "stage": "2",
    "_unverified": {},
    "_sources": {
@@ -709,6 +752,7 @@
     "burnable"
    ],
    "terraria_tile": "none",
+   "touch_damage": 0.0,
    "stage": "2",
    "_unverified": {},
    "_sources": {
@@ -725,6 +769,7 @@
     "burnable"
    ],
    "terraria_tile": "none",
+   "touch_damage": 0.0,
    "stage": "2",
    "_unverified": {},
    "_sources": {
@@ -740,6 +785,7 @@
     "burnable"
    ],
    "terraria_tile": "none",
+   "touch_damage": 0.0,
    "stage": "2",
    "_unverified": {},
    "_sources": {
@@ -753,6 +799,7 @@
     "NO_FUNGAL_SHIFT"
    ],
    "terraria_tile": "none",
+   "touch_damage": 0.0,
    "stage": "2",
    "_unverified": {},
    "_sources": {
@@ -769,6 +816,7 @@
     "burnable"
    ],
    "terraria_tile": "LeafBlock",
+   "touch_damage": 0.0,
    "stage": "2",
    "_unverified": {},
    "_sources": {
@@ -784,6 +832,7 @@
     "burnable"
    ],
    "terraria_tile": "LeafBlock",
+   "touch_damage": 0.0,
    "stage": "2",
    "_unverified": {},
    "_sources": {
@@ -799,6 +848,7 @@
     "alchemy"
    ],
    "terraria_tile": "none",
+   "touch_damage": 0.0,
    "stage": "2",
    "_unverified": {},
    "_sources": {
@@ -814,6 +864,7 @@
     "soluble"
    ],
    "terraria_tile": "none",
+   "touch_damage": 0.0,
    "stage": "2",
    "_unverified": {},
    "_sources": {
@@ -830,6 +881,7 @@
     "chaotic_transmutation"
    ],
    "terraria_tile": "none",
+   "touch_damage": 0.0,
    "stage": "2",
    "_unverified": {},
    "_sources": {
@@ -846,6 +898,7 @@
     "earth"
    ],
    "terraria_tile": "Stone",
+   "touch_damage": 0.0,
    "stage": "2",
    "_unverified": {},
    "_sources": {
@@ -864,6 +917,7 @@
     "earth"
    ],
    "terraria_tile": "Stone",
+   "touch_damage": 0.0,
    "stage": "2",
    "_unverified": {},
    "_sources": {
@@ -882,6 +936,7 @@
     "earth"
    ],
    "terraria_tile": "Stone",
+   "touch_damage": 0.0,
    "stage": "2",
    "_unverified": {},
    "_sources": {
@@ -900,6 +955,7 @@
     "earth"
    ],
    "terraria_tile": "Stone",
+   "touch_damage": 0.004,
    "stage": "2",
    "_unverified": {},
    "_sources": {
@@ -918,6 +974,7 @@
     "earth"
    ],
    "terraria_tile": "Stone",
+   "touch_damage": 0.0,
    "stage": "2",
    "_unverified": {},
    "_sources": {
@@ -936,6 +993,7 @@
     "earth"
    ],
    "terraria_tile": "Stone",
+   "touch_damage": 0.0,
    "stage": "2",
    "_unverified": {},
    "_sources": {
@@ -954,6 +1012,7 @@
     "earth"
    ],
    "terraria_tile": "Stone",
+   "touch_damage": 0.001,
    "stage": "2",
    "_unverified": {},
    "_sources": {
@@ -972,6 +1031,7 @@
     "earth"
    ],
    "terraria_tile": "Stone",
+   "touch_damage": 0.001,
    "stage": "2",
    "_unverified": {},
    "_sources": {
@@ -990,6 +1050,7 @@
     "earth"
    ],
    "terraria_tile": "Stone",
+   "touch_damage": 0.0,
    "stage": "2",
    "_unverified": {},
    "_sources": {
@@ -1008,6 +1069,7 @@
     "food"
    ],
    "terraria_tile": "FleshBlock",
+   "touch_damage": 0.0,
    "stage": "2",
    "_unverified": {},
    "_sources": {
@@ -1024,6 +1086,7 @@
     "chaotic_transmutation"
    ],
    "terraria_tile": "Sand",
+   "touch_damage": 0.0,
    "stage": "2",
    "_unverified": {},
    "_sources": {
@@ -1041,6 +1104,7 @@
     "chaotic_transmutation"
    ],
    "terraria_tile": "Sand",
+   "touch_damage": 0.0,
    "stage": "2",
    "_unverified": {},
    "_sources": {
@@ -1058,6 +1122,7 @@
     "earth"
    ],
    "terraria_tile": "Sand",
+   "touch_damage": 0.0,
    "stage": "2",
    "_unverified": {},
    "_sources": {
@@ -1075,6 +1140,7 @@
     "earth"
    ],
    "terraria_tile": "Sand",
+   "touch_damage": 0.0,
    "stage": "2",
    "_unverified": {},
    "_sources": {
@@ -1092,6 +1158,7 @@
     "earth"
    ],
    "terraria_tile": "Sand",
+   "touch_damage": 0.0,
    "stage": "2",
    "_unverified": {},
    "_sources": {
@@ -1110,6 +1177,7 @@
     "earth"
    ],
    "terraria_tile": "Silver",
+   "touch_damage": 0.0,
    "stage": "2",
    "_unverified": {},
    "_sources": {
@@ -1129,6 +1197,7 @@
     "chaotic_transmutation"
    ],
    "terraria_tile": "SnowBlock",
+   "touch_damage": 0.0,
    "stage": "2",
    "_unverified": {},
    "_sources": {
@@ -1147,6 +1216,7 @@
     "solid"
    ],
    "terraria_tile": "SnowBlock",
+   "touch_damage": 0.0,
    "stage": "2",
    "_unverified": {},
    "_sources": {
@@ -1164,6 +1234,7 @@
     "alchemy"
    ],
    "terraria_tile": "SnowBlock",
+   "touch_damage": 0.0,
    "stage": "2",
    "_unverified": {},
    "_sources": {
@@ -1181,6 +1252,7 @@
     "earth"
    ],
    "terraria_tile": "SnowBlock",
+   "touch_damage": 0.0,
    "stage": "2",
    "_unverified": {},
    "_sources": {
@@ -1197,6 +1269,7 @@
     "chaotic_transmutation"
    ],
    "terraria_tile": "none",
+   "touch_damage": 0.0,
    "stage": "2",
    "_unverified": {},
    "_sources": {
@@ -1215,6 +1288,7 @@
     "solid"
    ],
    "terraria_tile": "Dirt",
+   "touch_damage": 0.0,
    "stage": "2",
    "_unverified": {},
    "_sources": {
@@ -1233,6 +1307,7 @@
     "solid"
    ],
    "terraria_tile": "Dirt",
+   "touch_damage": 0.0,
    "stage": "2",
    "_unverified": {},
    "_sources": {
@@ -1251,6 +1326,7 @@
     "solid"
    ],
    "terraria_tile": "Dirt",
+   "touch_damage": 0.0,
    "stage": "2",
    "_unverified": {},
    "_sources": {
@@ -1267,6 +1343,7 @@
     "solid"
    ],
    "terraria_tile": "none",
+   "touch_damage": 0.0,
    "stage": "2",
    "_unverified": {},
    "_sources": {
@@ -1282,6 +1359,7 @@
     "alchemy"
    ],
    "terraria_tile": "Sand",
+   "touch_damage": 0.0,
    "stage": "2",
    "_unverified": {},
    "_sources": {
@@ -1301,6 +1379,7 @@
     "earth"
    ],
    "terraria_tile": "IronBrick",
+   "touch_damage": 0.0,
    "stage": "2",
    "_unverified": {},
    "_sources": {
@@ -1320,6 +1399,7 @@
     "earth"
    ],
    "terraria_tile": "IronBrick",
+   "touch_damage": 0.0,
    "stage": "2",
    "_unverified": {},
    "_sources": {
@@ -1339,6 +1419,7 @@
     "earth"
    ],
    "terraria_tile": "IronBrick",
+   "touch_damage": 0.0,
    "stage": "2",
    "_unverified": {},
    "_sources": {
@@ -1356,6 +1437,7 @@
     "earth"
    ],
    "terraria_tile": "Gold",
+   "touch_damage": 0.0,
    "stage": "2",
    "_unverified": {},
    "_sources": {
@@ -1372,6 +1454,7 @@
     "earth"
    ],
    "terraria_tile": "Stone",
+   "touch_damage": 0.0,
    "stage": "2",
    "_unverified": {},
    "_sources": {
@@ -1390,6 +1473,7 @@
     "earth"
    ],
    "terraria_tile": "none",
+   "touch_damage": 0.0,
    "stage": "2",
    "_unverified": {},
    "_sources": {
@@ -1407,6 +1491,7 @@
     "earth"
    ],
    "terraria_tile": "Stone",
+   "touch_damage": 0.0,
    "stage": "2",
    "_unverified": {},
    "_sources": {
@@ -1425,6 +1510,7 @@
     "earth"
    ],
    "terraria_tile": "WoodBlock",
+   "touch_damage": 0.0,
    "stage": "2",
    "_unverified": {},
    "_sources": {
@@ -1442,6 +1528,7 @@
     "earth"
    ],
    "terraria_tile": "WoodBlock",
+   "touch_damage": 0.0,
    "stage": "2",
    "_unverified": {},
    "_sources": {
@@ -1459,6 +1546,7 @@
     "earth"
    ],
    "terraria_tile": "WoodBlock",
+   "touch_damage": 0.0,
    "stage": "2",
    "_unverified": {},
    "_sources": {

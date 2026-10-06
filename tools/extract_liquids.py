@@ -1,7 +1,9 @@
 """Noita liquids and gases -> design/sheets/liquids.json and design/sheets/reactions.json (stage 2).
 
   tncli wak-cat <noita> data/materials.xml > build/materials.xml      (PC only: needs the player's Noita)
-  python tools/extract_liquids.py build/materials.xml
+  python tools/extract_liquids.py build/materials.xml [build/player_base.xml]
+  (tncli wak-cat <noita> data/entities/player_base.xml: the player's DamageModelComponent says which materials hurt
+  on touch and how much, materials_that_damage / materials_how_much_damage, Noita hp units per frame)
 
 Everything is read from Noita's materials.xml: every material whose cell_type is liquid without liquid_sand
 (liquid_sand ones are powders: materials.json) or gas, with CellDataChild inheritance resolved; and every reaction
@@ -70,6 +72,8 @@ def color(a):
 
 
 # author: freezing liquid (and its vapour) slows whoever touches it; in Noita it only acts when drunk
+# author: instant deathium kills on touch (Noita's player list does not name it)
+AUTHOR_DAMAGE = {"just_death": 1000.0}
 AUTHOR_TOUCH = {"blood_cold": ["CHILLED"], "blood_cold_vapour": ["CHILLED"]}
 
 TILE_BY_NAME = [  # first match wins
@@ -104,8 +108,21 @@ def touch(n, a):
     return out
 
 
+def touch_damage(path):
+    if not path or not os.path.exists(path):
+        return {}
+    b = open(path, encoding="utf-8", errors="replace").read()
+    m = re.search(r'materials_that_damage="([^"]*)"', b)
+    h = re.search(r'materials_how_much_damage="([^"]*)"', b)
+    if not m or not h:
+        return {}
+    return dict(zip(m.group(1).split(","), (float(v) for v in h.group(1).split(","))))
+
+
 def main():
     mats, root = load(sys.argv[1])
+    damage = touch_damage(sys.argv[2] if len(sys.argv) > 2 else None)
+    damage.update(AUTHOR_DAMAGE)
     rows = []
     for n, a in sorted(mats.items()):
         kind = a.get("cell_type")
@@ -128,6 +145,7 @@ def main():
             "glow": num(a.get("gfx_glow"), 0.0),
             "lifetime": num(a.get("lifetime"), 0.0),
             "touch_effects": touch(n, a),
+            "touch_damage": damage.get(n, 0.0),
             "ingestion": ["%s:%g" % (t, v) for t, v in a.get("ingestion", [])],
             "freezes_to": a.get("cold_freezes_to_material") or "none",
             "melts_to": a.get("warmth_melts_to_material") or "none",
@@ -169,7 +187,7 @@ def main():
         a = mats[n]
         solids.append({"id": n, "cell_type": a.get("cell_type", "solid"),
                        "tags": [t.strip("[]") for t in (a.get("tags") or "").split(",") if t.strip()],
-                       "terraria_tile": terraria_tile(n), "stage": "2", "_unverified": {},
+                       "terraria_tile": terraria_tile(n), "touch_damage": damage.get(n, 0.0), "stage": "2", "_unverified": {},
                        "_sources": {"all": "materials.xml; terraria_tile by name (tools/extract_liquids.py terraria_tile)"}})
 
     liquid_cols = {
@@ -186,6 +204,7 @@ def main():
         "glow": {"type": "number", "desc": "Noita gfx_glow (0 = none)."},
         "lifetime": {"type": "number", "desc": "Gas lifetime in Noita frames (0 = forever)."},
         "touch_effects": {"type": "string[]", "desc": "Noita status effects on touch (status_effects + stains)."},
+        "touch_damage": {"type": "number", "desc": "Noita hp units per frame while touching (player_base.xml; 1 unit = 25 hp; < 0 heals)."},
         "ingestion": {"type": "string[]", "desc": "Noita status effects when drunk, TYPE:amount."},
         "freezes_to": {"type": "string", "desc": "Material it freezes into ('none')."},
         "melts_to": {"type": "string", "desc": "Material it melts into ('none')."},
@@ -209,6 +228,7 @@ def main():
         "cell_type": {"type": "string", "desc": "Noita cell_type."},
         "tags": {"type": "string[]", "desc": "Noita tags."},
         "terraria_tile": {"type": "string", "desc": "TileID a reaction leaves when it makes this ('none' = nothing)."},
+        "touch_damage": {"type": "number", "desc": "Noita hp units per frame while touching (player_base.xml)."},
         "stage": {"type": "enum", "values": ["1a", "1b", "1c", "2", "3", "4"], "desc": "Stage that builds it."},
     }
     for name, desc, cols, data in (

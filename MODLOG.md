@@ -440,3 +440,17 @@ Entry.Stage default 1b, version 0.2.0. Проверить на ПК also: worm l
   remove_cells_that_cause_when_activated, sheet column removes_cause). Empty boxes were gases and fading liquids
   (Noita lifetimes): the gallery tops boxes up every 10 s. Teleportatium took the author out of the gallery:
   Ctrl+Shift+H brings them back.
+- Liquid audit (TERRANOITA_AUTOTEST_AUDIT=1, design/sources/pc_liquid_audit.txt): the player sits 1.2 s in each of
+  the 99 gallery boxes; one AUDIT line per material (effects, hp, teleported, form, died, position, touching), then
+  leaks. Found and fixed: pouring into a full cell spread through walls (gases "through blocks"): now a flood fill
+  over connected open tiles; reactions took a bare material name for a tag (magic liquids carry [water] and reacted
+  as water: invisibility vanished): names now match only the material; Terraria's water gives WET; the audit
+  clock counts world updates (Terraria pauses an inactive window) and fills each box just before going in.
+- Noita touch damage (player_base.xml materials_that_damage, units/frame x 25 hp): acid, lava, cursed liquid,
+  poison, freezing liquid, toxic gas hurt, healing gas heals; toxic/poison/cursed rocks have it too (noita_solids).
+  Author: instant deathium kills. Hurt sound (Terraria's) when effects or liquids take hp, at most twice a second.
+- Author: only opposite effects replace each other, the rest stay together (status_effects.cancels: fire vs
+  wet/cold, water washes oil/blood/slime/urine, speed vs slow, healing vs poison, berserk/protection vs weakness,
+  one polymorph, one teleportitis). Hovering a liquid shows its Noita name if the player touched it, else ???
+  (known list per character in %LOCALAPPDATA%/Terranoita/known_<name>.txt). Random polymorph: walking/flying
+  creatures only. Fluid update reuses one key list (no garbage per tick).

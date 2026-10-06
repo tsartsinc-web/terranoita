@@ -36,43 +36,25 @@ namespace Terranoita.Game.Physics
             int frames = (int)((seconds > 0 ? seconds : d.Seconds) * 60);
             if (!Left.TryGetValue(id, out int now) || now < frames)
                 Left[id] = frames;
-            if (d.ProtectsFromFire)
-            {
-                Left.Remove("ON_FIRE");
-                Left.Remove("INGESTION_ON_FIRE");
+            // author: only opposite effects replace each other (status_effects.json cancels); the rest stay together
+            foreach (var other in d.Cancels ?? new string[0])
+                Left.Remove(other);
+            if (d.ProtectsFromFire || Array.IndexOf(d.Cancels ?? new string[0], "ON_FIRE") >= 0)
                 Main.LocalPlayer.ClearBuff(BuffID.OnFire);
-            }
         }
 
-        static readonly HashSet<string> Stains = new HashSet<string>();
-
         /// <summary>
-        /// A liquid's touch effect. Noita keeps stains as pixels of material on the creature's sprite, and a new
-        /// liquid covers the old ones: stepping into water washes off oil, slime or toxic sludge. So a new stain
-        /// ends the other stains (not burning: that is fire, not a stain).
+        /// A liquid's touch effects. Only opposite effects replace each other (sheet column cancels: water washes
+        /// off oil and blood, fire and cold, healing and poison...); a burning liquid burns off fire-proof stains.
         /// </summary>
         public static void Stain(IEnumerable<string> ids)
         {
-            var stains = new HashSet<string>(ids.Where(i => i != "ON_FIRE"));
             if (ids.Contains("ON_FIRE"))
-                // a burning liquid (Noita's "fire", lava) burns off the stains that would keep fire away
+                // a burning liquid (Noita's "fire", molten metal) burns off the stains that would keep fire away
                 foreach (var old in Left.Keys.Where(k => Defs.TryGetValue(k, out var d) && d.ProtectsFromFire).ToList())
-                {
                     Left.Remove(old);
-                    Stains.Remove(old);
-                }
-            if (stains.Any(s => !Stains.Contains(s)))
-                foreach (var old in Stains.Where(s => !stains.Contains(s)).ToList())
-                {
-                    Left.Remove(old);
-                    Stains.Remove(old);
-                }
             foreach (var id in ids)
-            {
                 Apply(id);
-                if (id != "ON_FIRE" && Left.ContainsKey(id))
-                    Stains.Add(id);
-            }
         }
 
         /// <summary>Noita remove_cells_that_cause_when_activated: the liquid that caused it is used up.</summary>
@@ -98,7 +80,7 @@ namespace Terranoita.Game.Physics
                 Form = "data/enemies_gfx/sheep.xml";
                 return;
             }
-            var all = Enemies.All.Where(e => Terranoita.Generated.Defs.InStage(e.Stage, Entry.Stage) && e.Sprite != null && e.Sprite.EndsWith(".xml")).ToArray();
+            var all = Enemies.All.Where(e => Terranoita.Generated.Defs.InStage(e.Stage, Entry.Stage) && e.Sprite != null && e.Sprite.EndsWith(".xml") && (e.Walks || e.Flies)).ToArray();   // creatures, not nests or turrets
             Form = all.Length > 0 ? all[Main.rand.Next(all.Length)].Sprite : "data/enemies_gfx/sheep.xml";
         }
 
@@ -106,7 +88,6 @@ namespace Terranoita.Game.Physics
         {
             Form = null;
             Left.Clear();
-            Stains.Clear();
         }
 
         static bool FireProof => Left.Keys.Any(k => Defs.TryGetValue(k, out var d) && d.ProtectsFromFire);
@@ -116,8 +97,9 @@ namespace Terranoita.Game.Physics
         {
             foreach (var id in Left.Keys.ToList())
                 if (--Left[id] <= 0)
-                    { Left.Remove(id); Stains.Remove(id); }
+                    Left.Remove(id);
             UpdateForm();
+            HurtSound(p);
             if (Left.Count == 0)
                 return;
             if (FireProof)
@@ -209,6 +191,25 @@ namespace Terranoita.Game.Physics
             }
         }
 
+        static float _touchHps;
+        static bool _hurting;
+        static int _lastLife;
+        static uint _lastHurtSound;
+
+        /// <summary>Losing hp to an effect or a liquid makes the player's hurt sound (twice a second at most).</summary>
+        static void HurtSound(Player p)
+        {
+            if (_hurting && p.statLife < _lastLife && Main.GameUpdateCount - _lastHurtSound >= 30)
+            {
+                Terraria.Audio.SoundEngine.PlaySound(p.Male ? SoundID.PlayerHit : SoundID.FemaleHit, p.position);
+                _lastHurtSound = Main.GameUpdateCount;
+            }
+            _lastLife = p.statLife;
+        }
+
+        /// <summary>A liquid hurting (or healing, &lt; 0) whoever touches it this frame, in hp per second.</summary>
+        public static void TouchHurt(float hpPerSecond) => _touchHps += hpPerSecond;
+
         /// <summary>Damage and healing over time, the way Terraria's own debuffs do it (lifeRegen is half hp per second).</summary>
         static void Regen(Player p)
         {
@@ -216,6 +217,7 @@ namespace Terranoita.Game.Physics
             if (Has("RADIOACTIVE")) loss += 12;
             if (Has("POISONED")) loss += 4;
             if (Has("FOOD_POISONING")) loss += 4;
+            _hurting = loss > 0 || _touchHps > 0;
             if (loss > 0)
             {
                 if (p.lifeRegen > 0)
@@ -225,6 +227,16 @@ namespace Terranoita.Game.Physics
             }
             if (Has("HP_REGENERATION"))
                 p.lifeRegen += 20;
+            if (_touchHps > 0)
+            {
+                if (p.lifeRegen > 0)
+                    p.lifeRegen = 0;
+                p.lifeRegenTime = 0;
+                p.lifeRegen -= (int)Math.Ceiling(_touchHps * 2);
+            }
+            else if (_touchHps < 0)
+                p.lifeRegen += (int)Math.Ceiling(-_touchHps * 2);
+            _touchHps = 0;
         }
 
         // ---- icons after Terraria's buff icons ----
@@ -277,7 +289,7 @@ namespace Terranoita.Game.Physics
         {
             static void Prefix(Player __instance)
             {
-                if (__instance.whoAmI == Main.myPlayer && Left.Count > 0)
+                if (__instance.whoAmI == Main.myPlayer && (Left.Count > 0 || _touchHps != 0))
                     Regen(__instance);
             }
         }
@@ -288,7 +300,7 @@ namespace Terranoita.Game.Physics
         {
             static void Postfix()
             {
-                try { DrawIcons(); }
+                try { DrawIcons(); Fluids.HoverName(); }
                 catch (Exception ex) { Entry.Error("status icons", ex); }
             }
         }

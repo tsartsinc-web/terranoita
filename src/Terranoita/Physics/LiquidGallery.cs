@@ -15,13 +15,14 @@ namespace Terranoita.Game.Physics
     /// </summary>
     public static class LiquidGallery
     {
-        public static readonly bool Enabled = Environment.GetEnvironmentVariable("TERRANOITA_AUTOTEST_LIQUIDS") == "1";
-        const int PerRow = 12, Inner = 4, InnerH = 3;   // box inside 4 x 3, walls 1
+        public static readonly bool Enabled = Environment.GetEnvironmentVariable("TERRANOITA_AUTOTEST_LIQUIDS") == "1" || LiquidAudit.Enabled;
+        const int PerRow = 12;
+        public const int Inner = 4, InnerH = 3;   // box inside 4 x 3, walls 1
         const int PitchX = Inner + 3, PitchY = InnerH + 2 + 5;   // a gap between boxes, a walkway above each row
 
         /// <summary>Where the gallery starts: Ctrl+Shift+H brings the player back (teleportatium).</summary>
         public static Vector2? Home;
-        static readonly System.Collections.Generic.List<(int left, int top, string name)> Boxes =
+        public static readonly System.Collections.Generic.List<(int left, int top, string name)> Boxes =
             new System.Collections.Generic.List<(int, int, string)>();
 
         public static void Frame(Player p, int frame)
@@ -31,11 +32,13 @@ namespace Terranoita.Game.Physics
             // gases and fading liquids go, as in Noita: top the boxes up every 10 seconds so they can be seen
             else if (frame > 300 && frame % 600 == 0)
                 foreach (var (left, top, name) in Boxes)
-                    if (Fluids.Total(left + 1, left + Inner, top + 1, top + InnerH, name) < Inner * InnerH * 255 / 3)
+                    // only the boxes near the player (author: keep the work down)
+                    if (Math.Abs(left * 16 - p.Center.X) < 40 * 16 && Math.Abs(top * 16 - p.Center.Y) < 25 * 16 &&
+                        Fluids.Total(left + 1, left + Inner, top + 1, top + InnerH, name) < Inner * InnerH * 255 / 3)
                         Fill(left, top, name);
         }
 
-        static void Fill(int left, int top, string name)
+        public static void Fill(int left, int top, string name)
         {
             for (int x = left + 1; x <= left + Inner; x++)
                 for (int y = top + 1; y <= top + InnerH; y++)
