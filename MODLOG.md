@@ -307,3 +307,12 @@ Entry.Stage default 1b, version 0.2.0. Проверить на ПК also: worm l
   screen or inside tiles); "<id> starts <attack> at N tiles" lines show attacks that start but miss.
 - Next (PC): `tools\pc_step.ps1 -AutoTest 1b -AutoTestSeconds 10`; then look at the 32 no-hit creatures with the new
   "starts" and OFFSCREEN lines.
+- Wolf flew 150 tiles after a lunge: Noita's dash is 40 px/frame and in Terraria the leap never registered a landing.
+  Brain: a lunge ends after its distance (the attack's range) or a few frames after it hits, then slows down. Test
+  reproduces it (242 tiles before the fix).
+- Creatures a hurt script releases (LuaComponent script_damage_received naming animals): giantshooter(_weak) ->
+  slimeshooter, blob -> miniblob (miniblob moved to 1b), scavenger_leader -> its helpers. Rows <id>.split (retaliate
+  with summons; cooldown 60 / count 1 are placeholders); Brain.Hurt releases them, Carriers.Summon spawns them.
+- Sounds: 10 1b creatures have no sound folder in data.wak (duck, deer, elk, fish, fish_large, eel, hpcrystal,
+  ethereal_being, nests) — silent in Noita too. Not done yet: looping sounds (AudioLoopComponent movement_loop of
+  spirits, wraiths, drones, worms, tanks) — next.

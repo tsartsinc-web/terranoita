@@ -348,6 +348,27 @@ namespace Terranoita.Tests
         }
 
         [Fact]
+        public void WolfLungeStopsAfterItsDistanceInsteadOfFlyingOff()
+        {
+            // in Terraria the leap at 40 px/frame did not register a landing and the wolf sailed 150 tiles away
+            var brain = new Brain(Defs.Enemy["wolf"]);
+            var body = new FreeBody { Pos = new V2(0, 0), OnGround = true };
+            var rng = new Random(1);
+            float far = 0;
+            for (int i = 0; i < 300; i++)
+            {
+                brain.Update(body, At(300, 0), new Sink(), rng);
+                body.OnGround = !brain.Dashing;          // never "lands" while dashing
+                if (body.OnGround)
+                    body.Velocity = new V2(body.Velocity.X, 0);
+                body.Step();
+                far = Math.Max(far, Math.Abs(body.Pos.X - 300));
+            }
+            float reach = Defs.Attack["wolf.lunge"].RangeTiles * Brain.Tile;
+            Assert.True(far < reach * 2 + 100, "went " + far / Brain.Tile + " tiles");
+        }
+
+        [Fact]
         public void WraithRetaliatesWhenHurt()
         {
             var brain = new Brain(Row("wraith_glowing", fly: 1f, gravity: 0));

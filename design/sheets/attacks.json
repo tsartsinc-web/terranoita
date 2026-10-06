@@ -3986,16 +3986,13 @@
    },
    "effect": "none",
    "per_frames": "hit",
-   "cooldown_frames": 90,
-   "range_tiles": 6,
-   "lunge_speed": null,
-   "sound": null,
+   "cooldown_frames": 120,
+   "range_tiles": 22.5,
+   "lunge_speed": 10.0,
+   "sound": "animals/generic/attack_dash",
    "wiki_text": "Lunge/Dash/6.25",
-   "stage": "1c",
-   "_unverified": {
-    "cooldown_frames": "default for kind 'lunge'; read AnimalAIComponent attack_*_frames_between check in the player's data.wak (tools: Terranoita.Cli wak-cat)",
-    "range_tiles": "default for kind; read AnimalAIComponent attack_*_range check in the player's data.wak (tools: Terranoita.Cli wak-cat)"
-   }
+   "stage": "1b",
+   "_unverified": {}
   },
   {
    "id": "miniblob.melee",
@@ -4015,16 +4012,13 @@
    },
    "effect": "none",
    "per_frames": "hit",
-   "cooldown_frames": 40,
-   "range_tiles": 1.5,
+   "cooldown_frames": 20,
+   "range_tiles": 1.88,
    "lunge_speed": 0,
-   "sound": null,
+   "sound": "animals/generic/attack_melee",
    "wiki_text": "Melee/Melee/1.25-2.5",
-   "stage": "1c",
-   "_unverified": {
-    "cooldown_frames": "default for kind 'melee'; read AnimalAIComponent attack_*_frames_between check in the player's data.wak (tools: Terranoita.Cli wak-cat)",
-    "range_tiles": "default for kind; read AnimalAIComponent attack_*_range check in the player's data.wak (tools: Terranoita.Cli wak-cat)"
-   }
+   "stage": "1b",
+   "_unverified": {}
   },
   {
    "id": "lasershooter.laser",
@@ -8346,6 +8340,118 @@
    "_sources": {
     "range_tiles": "design placeholder, no data in data.wak (engine-private); confirm in the PC autotest: the aura script decides its reach",
     "effect": "data/entities/animals/berserkspirit.xml runs data/scripts/animals/spirit_aura_berserk.lua every 101 frames"
+   }
+  },
+  {
+   "id": "giantshooter.split",
+   "enemy": "giantshooter",
+   "kind": "retaliate",
+   "projectile": "none",
+   "summons": [
+    "slimeshooter"
+   ],
+   "effect": "none",
+   "count": [
+    1,
+    1
+   ],
+   "damage": {},
+   "per_frames": "hit",
+   "cooldown_frames": 60,
+   "range_tiles": 0,
+   "lunge_speed": 0,
+   "sound": "none",
+   "stage": "1b",
+   "_unverified": {},
+   "wiki_text": "From data.wak: data/scripts/animals/giantshooter_death.lua releases slimeshooter when hurt",
+   "_sources": {
+    "cooldown_frames": "design placeholder, no data in data.wak (engine-private); confirm in the PC autotest: the hurt script decides how often; at most one a second",
+    "count": "design placeholder, no data in data.wak (engine-private); confirm in the PC autotest: the hurt script decides how many",
+    "summons": "data/entities/animals/giantshooter.xml data/scripts/animals/giantshooter_death.lua"
+   }
+  },
+  {
+   "id": "giantshooter_weak.split",
+   "enemy": "giantshooter_weak",
+   "kind": "retaliate",
+   "projectile": "none",
+   "summons": [
+    "slimeshooter"
+   ],
+   "effect": "none",
+   "count": [
+    1,
+    1
+   ],
+   "damage": {},
+   "per_frames": "hit",
+   "cooldown_frames": 60,
+   "range_tiles": 0,
+   "lunge_speed": 0,
+   "sound": "none",
+   "stage": "1b",
+   "_unverified": {},
+   "wiki_text": "From data.wak: data/scripts/animals/giantshooter_death.lua releases slimeshooter when hurt",
+   "_sources": {
+    "cooldown_frames": "design placeholder, no data in data.wak (engine-private); confirm in the PC autotest: the hurt script decides how often; at most one a second",
+    "count": "design placeholder, no data in data.wak (engine-private); confirm in the PC autotest: the hurt script decides how many",
+    "summons": "data/entities/animals/giantshooter_weak.xml data/scripts/animals/giantshooter_death.lua"
+   }
+  },
+  {
+   "id": "blob.split",
+   "enemy": "blob",
+   "kind": "retaliate",
+   "projectile": "none",
+   "summons": [
+    "miniblob"
+   ],
+   "effect": "none",
+   "count": [
+    1,
+    1
+   ],
+   "damage": {},
+   "per_frames": "hit",
+   "cooldown_frames": 60,
+   "range_tiles": 0,
+   "lunge_speed": 0,
+   "sound": "none",
+   "stage": "1b",
+   "_unverified": {},
+   "wiki_text": "From data.wak: data/scripts/animals/blob_damage.lua releases miniblob when hurt",
+   "_sources": {
+    "cooldown_frames": "design placeholder, no data in data.wak (engine-private); confirm in the PC autotest: the hurt script decides how often; at most one a second",
+    "count": "design placeholder, no data in data.wak (engine-private); confirm in the PC autotest: the hurt script decides how many",
+    "summons": "data/entities/animals/blob.xml data/scripts/animals/blob_damage.lua"
+   }
+  },
+  {
+   "id": "scavenger_leader.split",
+   "enemy": "scavenger_leader",
+   "kind": "retaliate",
+   "projectile": "none",
+   "summons": [
+    "scavenger_grenade"
+   ],
+   "effect": "none",
+   "count": [
+    1,
+    1
+   ],
+   "damage": {},
+   "per_frames": "hit",
+   "cooldown_frames": 60,
+   "range_tiles": 0,
+   "lunge_speed": 0,
+   "sound": "none",
+   "stage": "1b",
+   "_unverified": {},
+   "wiki_text": "From data.wak: data/scripts/animals/leader_damage.lua releases scavenger_grenade when hurt",
+   "_sources": {
+    "cooldown_frames": "design placeholder, no data in data.wak (engine-private); confirm in the PC autotest: the hurt script decides how often; at most one a second",
+    "count": "design placeholder, no data in data.wak (engine-private); confirm in the PC autotest: the hurt script decides how many",
+    "summons": "data/entities/animals/scavenger_leader.xml data/scripts/animals/leader_damage.lua"
    }
   }
  ]

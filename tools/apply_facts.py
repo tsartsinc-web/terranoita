@@ -596,7 +596,6 @@ def main():
         f["ranged"] = [r for r in f.get("ranged") or [] if not r.pop("_summon", False)]
 
         # summons: the creatures its spawn scripts or components name
-        by_file = {x.get("noita_entity"): x["id"] for x in enemies["rows"] if x.get("noita_entity")}
         for aid in e["attacks"]:
             a = attack_by_id[aid]
             if a["kind"] == "summon" and "summons" in a.get("_unverified", {}) and (f.get("components") or f.get("script_entities")):
@@ -619,6 +618,8 @@ def main():
                     if "attacks" in e.get("_unverified", {}):
                         e["_unverified"].pop("attacks")
                         e.setdefault("_sources", {})["attacks"] = "its spawn script releases %s" % ", ".join(a["summons"])
+
+        by_file = {x.get("noita_entity"): x["id"] for x in enemies["rows"] if x.get("noita_entity")}
 
         # spirit auras: a LuaComponent running data/scripts/animals/spirit_aura_<effect>.lua every N frames
         for c in components(f, "LuaComponent", top=True):
@@ -643,6 +644,30 @@ def main():
             placeholder(a, "range_tiles", 6, "the aura script decides its reach")
             a.setdefault("_sources", {})["effect"] = "%s runs %s every %d frames" % (f["entity"], c["attrs"]["script_source_file"], every)
             e.get("_unverified", {}).pop("attacks", None)
+
+        # creatures a hurt script releases (giantshooter_death.lua on damage received -> slimeshooters): a retaliate
+        # attack with summons
+        for c in components(f, "LuaComponent", top=True):
+            script = c["attrs"].get("script_damage_received")
+            ids = [by_file[x] for x in (f.get("script_entities") or {}).get(script) or [] if by_file.get(x) not in (None, e["id"])]
+            if not script or not ids:
+                continue
+            aid = "%s.split" % e["id"]
+            a = attack_by_id.get(aid)
+            if a is None:
+                a = {"id": aid, "enemy": e["id"], "kind": "retaliate", "projectile": "none", "summons": [], "effect": "none",
+                     "count": [1, 1], "damage": {}, "per_frames": "hit", "cooldown_frames": None, "range_tiles": None,
+                     "lunge_speed": 0, "sound": None, "stage": e["stage"], "_unverified": {},
+                     "wiki_text": "From data.wak: %s releases %s when hurt" % (script, ", ".join(ids))}
+                attacks["rows"].append(a)
+                attack_by_id[aid] = a
+                e["attacks"].append(aid)
+                notes.append("%s: added %s (%s)" % (e["id"], aid, script))
+            verify(a, "summons", ids)
+            verify(a, "range_tiles", 0)
+            placeholder(a, "cooldown_frames", 60, "the hurt script decides how often; at most one a second")
+            placeholder(a, "count", [1, 1], "the hurt script decides how many")
+            a.setdefault("_sources", {})["summons"] = "%s %s" % (f["entity"], script)
 
         # death explosions: ExplodeOnDamageComponent on death (radius and damage from its config_explosion), or the
         # explosion entity a death script loads (its numbers come with script_projectiles in the next facts run)
@@ -759,7 +784,8 @@ def main():
             # creatures with their own AIAttackComponents: AnimalAIComponent's built-in shot (the base files' acidshot)
             # is not what they fire
             ranged = [r for r in ranged if r.get("source") != "animal_ai"]
-        proj_attacks = [attack_by_id[a] for a in e["attacks"] if attack_by_id[a]["kind"] in SHOOTING_KINDS]
+        proj_attacks = [attack_by_id[a] for a in e["attacks"] if attack_by_id[a]["kind"] in SHOOTING_KINDS
+                        and not attack_by_id[a].get("summons")]
         pairs = []
         if len(ranged) == 1 and len(proj_attacks) == 1:
             pairs = [(proj_attacks[0], ranged[0])]
@@ -777,7 +803,8 @@ def main():
             unmatched = [a for a in proj_attacks if a not in [p[0] for p in pairs]]
             # a harmless data.wak shot (damage 0) belongs to the one attack the wiki gives no damage
             harmless = [r for r in free if (r.get("projectile") or {}).get("damage") == 0]
-            undamaged = [a for a in unmatched if not (a.get("damage") or {})]
+            undamaged = [a for a in unmatched if not any(v for v in (a.get("damage") or {}).values() if not isinstance(v, list))
+                         and not any(x for v in (a.get("damage") or {}).values() if isinstance(v, list) for x in v)]
             if len(harmless) == 1 and len(undamaged) == 1:
                 pairs.append((undamaged[0], harmless[0]))
                 unmatched.remove(undamaged[0])

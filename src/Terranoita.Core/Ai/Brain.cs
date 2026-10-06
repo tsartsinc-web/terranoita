@@ -102,6 +102,7 @@ namespace Terranoita.Ai
         AttackDef _dash;
         bool _dashHit;
         int _dashAge;
+        V2 _dashFrom;
         int _pose;
         int _hopTimer;
         int _range = 1;     // ground shooters: 1 approach, 0 hold, -1 back off
@@ -191,6 +192,15 @@ namespace Terranoita.Ai
                 {
                     _dashHit = true;
                     sink.DashHit(_dash);
+                    _dashLeft = Math.Min(_dashLeft, 4);     // a few frames on, then it is over
+                }
+                // Noita's dash covers attack_dash_distance (the attack's range) and stops
+                if ((body.Center - _dashFrom).Length >= _dash.RangeTiles * Tile + body.Width)
+                    _dashLeft = 0;
+                if (_dashLeft == 0)
+                {
+                    var v = body.Velocity;
+                    body.Velocity = new V2(v.X * 0.2f, Flying ? v.Y * 0.2f : Math.Max(v.Y, 0));
                 }
                 if (!Flying)
                     Fall(body);
@@ -596,6 +606,7 @@ namespace Terranoita.Ai
                                 ? (target.Center - body.Center).Normalized * a.LungeSpeed
                                 : Aim(body.Center, target.Center, a.LungeSpeed, Enemy.Gravity);
                             _dashAge = 0;
+                            _dashFrom = body.Center;
                             sink.Started(a);
                             _dash = a;
                             _dashLeft = Flying ? (int)(dist / Math.Max(a.LungeSpeed, 0.5f)) + 6 : 90;
@@ -633,8 +644,16 @@ namespace Terranoita.Ai
             _awake = true;
             if (!attacker.Has)
                 return;
+            var special = sink as ISpecialAttackSink;
             foreach (var a in _attacks)
-                if (a.Kind == "retaliate" && _cooldown[a.Id] <= 0 && a.Projectile != null &&
+                if (a.Kind == "retaliate" && _cooldown[a.Id] <= 0 && a.Summons != null && a.Summons.Length > 0)
+                {
+                    // it splits or calls for help when hurt (giantshooter -> slimeshooters)
+                    sink.Started(a);
+                    special?.Special(a);
+                    _cooldown[a.Id] = Math.Max(1, a.CooldownFrames);
+                }
+                else if (a.Kind == "retaliate" && _cooldown[a.Id] <= 0 && a.Projectile != null &&
                     Defs.Projectile.TryGetValue(a.Projectile, out var p))
                 {
                     sink.Started(a);

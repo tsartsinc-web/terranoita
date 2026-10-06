@@ -505,7 +505,8 @@
    "audio": "animals/giantshooter",
    "attacks": [
     "giantshooter.explodes_into_acid_on_death",
-    "giantshooter.melee"
+    "giantshooter.melee",
+    "giantshooter.split"
    ],
    "spawn_in": [
     "Collapsed Mines",
@@ -568,7 +569,8 @@
    "audio": "animals/giantshooter",
    "attacks": [
     "giantshooter_weak.explodes_into_acid_on_death",
-    "giantshooter_weak.melee"
+    "giantshooter_weak.melee",
+    "giantshooter_weak.split"
    ],
    "spawn_in": [
     "Mines"
@@ -4476,7 +4478,8 @@
    "audio": "animals/blob",
    "attacks": [
     "blob.lunge",
-    "blob.melee"
+    "blob.melee",
+    "blob.split"
    ],
    "spawn_in": [
     "Fungal Caverns",
@@ -7381,29 +7384,32 @@
    "faction": "slimes",
    "noita_hp": 8.75,
    "noita_entity": "data/entities/animals/miniblob.xml",
-   "sprite": null,
+   "sprite": "data/enemies_gfx/miniblob.xml",
    "body_sprite": "none",
    "tail_sprite": "none",
    "segments": 0,
    "segment_spacing": 0.0,
-   "hitbox": null,
+   "hitbox": [
+    18,
+    21
+   ],
    "size": 1.0,
    "hitbox_mult": 1.0,
    "ai": "hopper",
-   "walks": null,
-   "flies": null,
-   "jumps": null,
-   "run_speed": null,
-   "fly_speed": null,
-   "fly_up_speed": null,
-   "accel": null,
-   "gravity": null,
-   "jump_speed": null,
-   "sight_tiles": null,
+   "walks": true,
+   "flies": true,
+   "jumps": true,
+   "run_speed": 1.25,
+   "fly_speed": 1.4,
+   "fly_up_speed": 4.5,
+   "accel": 0.3,
+   "gravity": 0.5,
+   "jump_speed": 5.0,
+   "sight_tiles": 56.2,
    "roam_speed": 0.0,
    "turn_rate": 0.0,
    "roam_turn_rate": 0.0,
-   "audio": null,
+   "audio": "animals/blob_small",
    "attacks": [
     "miniblob.lunge",
     "miniblob.melee"
@@ -7428,10 +7434,8 @@
    ],
    "blood": "None",
    "drops": "noita_gold",
-   "stage": "1c",
-   "_unverified": {
-    "noita_entity": "path guessed from the id; check in the player's data.wak (tools: Terranoita.Cli wak-cat)"
-   }
+   "stage": "1b",
+   "_unverified": {}
   },
   {
    "id": "lasershooter",
@@ -11533,7 +11537,8 @@
    "audio": "animals/scavenger_leader",
    "attacks": [
     "scavenger_leader.grenades",
-    "scavenger_leader.melee"
+    "scavenger_leader.melee",
+    "scavenger_leader.split"
    ],
    "spawn_in": [
     "Snowy Depths",

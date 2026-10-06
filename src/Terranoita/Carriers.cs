@@ -197,6 +197,7 @@ namespace Terranoita.Game
                         Support(a);
                         break;
                     case "summon":
+                    case "retaliate":       // a retaliation that releases creatures (the projectile kind fires as a shot)
                         Summon(a);
                         break;
                     case "heal":
