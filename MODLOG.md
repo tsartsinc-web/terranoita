@@ -201,3 +201,14 @@ does), walks without sliding, attacks only when close/in range, log shows its at
 4. Cloud: fix what the log shows; set Entry.Stage default to 1b; version 0.2.0.
 5. PC: the author watches a few creatures (list above), screenshot; Melty: package, Test in the Melty app, publish
    only with the author's "yes".
+
+## PC step (2026-10-06, author's PC, branch claude/dazzling-carson-h8mi9n)
+- Ran tools/pc_step.ps1 on 3dc58db (+ fixes below). Facts re-read from Noita, apply_facts 1b, Core tests ok,
+  Terranoita.exe and Terranoita.Game.dll **build against Terraria 1.4.5.8 with no compile errors** (cloud code compiled as is).
+- Fixes: tncli JSON output needs `TypeInfoResolver = DefaultJsonTypeInfoResolver()` (.NET 8 refused, facts step failed);
+  pc_step.ps1 read the enemy count as a string (autotest wait became 0 min, game killed at once, a stale log passed) —
+  now [int], and the old latest.log is deleted before the run.
+- preflight --gate 1b: 576 open items (attacks 147, enemies 268, projectiles 161) — for the cloud.
+- Autotest 1a (real run, 2 min, game exited by itself): 12 spawned, 45 hits on the player, 0 ERROR/WARN
+  (design/sources/pc_autotest_1a.txt). shotgunner_weak and miner_weak landed no hits in their 6 s — check on PC
+  (cooldown 145 frames + Terraria immunity frames may be enough to explain it).
