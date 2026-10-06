@@ -20,6 +20,8 @@ namespace Terranoita.Game
     {
         static int _next;
         static readonly bool Auto = Environment.GetEnvironmentVariable("TERRANOITA_AUTOTEST") == "1";
+        /// <summary>The autotest is running: natural Noita spawns are off.</summary>
+        public static bool Testing => Auto;
         static readonly bool Showcase = Environment.GetEnvironmentVariable("TERRANOITA_SHOWCASE") == "1";
         static readonly string OnlyStage = Environment.GetEnvironmentVariable("TERRANOITA_AUTOTEST_STAGE");
         static readonly bool ExitWhenDone = Environment.GetEnvironmentVariable("TERRANOITA_AUTOTEST_EXIT") == "1";
@@ -98,6 +100,13 @@ namespace Terranoita.Game
             if (p.statLife < p.statLifeMax2 / 2)
                 p.statLife = p.statLifeMax2;
             _worldFrames++;
+            // only the enemy under test: Terraria's own hostile NPCs are removed as soon as they appear
+            for (int i = 0; i < Main.maxNPCs; i++)
+            {
+                var other = Main.npc[i];
+                if (other.active && !other.friendly && !other.townNPC && Carriers.Get(other) == null)
+                    other.active = false;
+            }
             var all = OnlyStage == null ? Built : Built.Where(e => e.Stage == OnlyStage).ToArray();
             if (Showcase)
             {

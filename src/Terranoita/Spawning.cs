@@ -56,7 +56,7 @@ namespace Terranoita.Game
 
         static void Roll()
         {
-            if (Main.netMode != 0 || Main.gameMenu || !NoitaArt.Ready)
+            if (Main.netMode != 0 || Main.gameMenu || !NoitaArt.Ready || DebugTools.Testing)
                 return;
             if (_pool == null)
                 Build();
