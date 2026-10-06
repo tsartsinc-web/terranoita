@@ -158,10 +158,10 @@
   },
   {
    "id": "spells",
-   "description": "Stage 3: Noita spells cast from wands; reuses the projectiles sheet.",
+   "description": "Stage 3: Noita spells cast from wands. spells.json and wands.json come from the player's gun_actions.lua and wand entities (tncli spells, tools/apply_spells.py); Spells/Gun.cs is Noita's deck/hand/discard cast loop (mana, multicast, modifiers, triggers, wrap, recharge), tested without the game.",
    "stage": "3",
    "hooks": [],
-   "code": "-",
+   "code": "src/Terranoita.Core/Spells/",
    "_unverified": {}
   },
   {

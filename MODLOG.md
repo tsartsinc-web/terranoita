@@ -358,3 +358,24 @@ Entry.Stage default 1b, version 0.2.0. Проверить на ПК also: worm l
   (Goblin Scout) everywhere before places/filters; then umbrella slime/nimbus (rain), nymph, Doctor Bones: filtered.
 - Worms (Move burrow, not eels): half of Noita's speed (author), Terraria's worm dig sound (sound 15 style 1, vanilla
   delay 10-20 by distance) while in the ground. To hear/feel: author in game.
+
+## Cloud: stage 3 groundwork (spells and wands), while the local session does stage 2 physics
+- `tncli spells <noitaDir> <out.json>`: reads data/scripts/gun/gun_actions.lua (`Noita/GunActions.cs`, small Lua table
+  reader) -> every spell's static fields + what its action function does (add_projectile, add_projectile_trigger_*,
+  draw_actions, c.x +=/*= n, current_reload_time, extra_entities); anything else -> `unparsed`/`calls` (hand work).
+  Also the projectile facts of every file the spells fire, and wand entities under data/entities/items/ (AbilityComponent
+  + gun_config + gunaction_config + LuaComponent scripts). Checked here only on a made-up data.wak.
+- `tools/apply_spells.py` -> new sheets `spells.json` / `wands.json` (stage 3, empty until the PC run). Spells whose
+  function does more get `port = hand` + `_unverified` (gate 3 stays open for them). Wand stats missing from the entity
+  (set by a script) stay unfilled with the script named.
+- `Spells/Gun.cs`: Noita's deck/hand/discard cast loop, pure logic: spells per cast, mana (skip if not enough), uses,
+  modifiers/multicast share one shot, triggers carry a payload shot, wrap mid-cast + recharge, shuffle (seeded),
+  always-cast free, cast delay = max(cast delay, recharge). `Spells/FromSheets.cs`: sheet rows -> Spell/Wand.
+  Tests: SpellTests (8), test_apply_spells (5). 55 Core + 12 tools tests pass; gate 1a/1b CLEAN.
+- pc_step.ps1: new non-fatal step "spell facts from Noita" + "apply spells"; commits design/sources/noita_spells.json.
+- проверить на ПК (next pc_step): spell facts run on the real gun_actions.lua; then the cloud reads noita_spells.json:
+  how many spells are `data` vs `hand`, which wands have fixed stats.
+- To check against the player's gun.lua (`tncli wak-cat <noita> data/scripts/gun/gun.lua`, not copied into the repo):
+  skipped-card redraw rule, payload cast delay adding to the wand, wrap order, cast delay vs recharge.
+- Not done (needs author decisions): wand slots UI, how Terraria gets wands (drops/shops/start), Noita projectiles as
+  Terraria projectiles for the player.

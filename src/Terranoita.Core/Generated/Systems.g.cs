@@ -36,7 +36,7 @@ namespace Terranoita.Generated
             new SystemDef { Id = "test_tools", Description = "Debug keys to spawn any Noita enemy near the player and log what happens, for repeatable in-game tests and screenshots. TERRANOITA_STAGE=1b runs a test build with the next stage's enemies before it ships.", Stage = "1a", Hooks = new[] { "main_update" }, Code = "src/Terranoita/Debug.cs" },
             new SystemDef { Id = "block_physics", Description = "Stage 2: disturbed blocks fall, burn, melt and explode; untouched caves, islands and clouds stay put.", Stage = "2", Hooks = new string[0], Code = "-" },
             new SystemDef { Id = "wand_slots", Description = "Stage 3: four wand slots next to the Terraria inventory, Noita spell editing.", Stage = "3", Hooks = new string[0], Code = "-" },
-            new SystemDef { Id = "spells", Description = "Stage 3: Noita spells cast from wands; reuses the projectiles sheet.", Stage = "3", Hooks = new string[0], Code = "-" },
+            new SystemDef { Id = "spells", Description = "Stage 3: Noita spells cast from wands. spells.json and wands.json come from the player's gun_actions.lua and wand entities (tncli spells, tools/apply_spells.py); Spells/Gun.cs is Noita's deck/hand/discard cast loop (mana, multicast, modifiers, triggers, wrap, recharge), tested without the game.", Stage = "3", Hooks = new string[0], Code = "src/Terranoita.Core/Spells/" },
             new SystemDef { Id = "flasks_items", Description = "Stage 4: four flask/item slots, flasks and Noita items.", Stage = "4", Hooks = new string[0], Code = "-" },
         };
     }
