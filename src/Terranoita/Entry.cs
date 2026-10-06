@@ -1,4 +1,4 @@
-using System;
+﻿using System;
 using System.Linq;
 using System.Reflection;
 using HarmonyLib;
@@ -21,7 +21,7 @@ namespace Terranoita.Game
         /// The latest stage this build contains. TERRANOITA_STAGE=1b tries the next stage's enemies in a test run
         /// before it ships (its sheet rows must be complete: preflight --gate 1b).
         /// </summary>
-        public static readonly string Stage = Environment.GetEnvironmentVariable("TERRANOITA_STAGE") ?? "1a";
+        public static readonly string Stage = Environment.GetEnvironmentVariable("TERRANOITA_STAGE") ?? "1b";
 
         public static Action<string> Log = _ => { };
         public static string NoitaDir;
