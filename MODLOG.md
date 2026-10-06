@@ -210,5 +210,7 @@ does), walks without sliding, attacks only when close/in range, log shows its at
   now [int], and the old latest.log is deleted before the run.
 - preflight --gate 1b: 576 open items (attacks 147, enemies 268, projectiles 161) — for the cloud.
 - Autotest 1a (real run, 2 min, game exited by itself): 12 spawned, 45 hits on the player, 0 ERROR/WARN
-  (design/sources/pc_autotest_1a.txt). shotgunner_weak and miner_weak landed no hits in their 6 s — check on PC
-  (cooldown 145 frames + Terraria immunity frames may be enough to explain it).
+  (design/sources/pc_autotest_1a.txt).
+- Author: the autotest now removes Terraria's own hostile NPCs and stops natural Noita spawns while it runs.
+  Rerun: 12 spawned, 50 hits, **all 12 enemies hit the player** (shotgunner and miner too: vanilla mobs had been
+  eating the player's immunity frames), 0 errors.
