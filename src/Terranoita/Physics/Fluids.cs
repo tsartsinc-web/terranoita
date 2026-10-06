@@ -431,8 +431,11 @@ namespace Terranoita.Game.Physics
             if (!Cells.TryGetValue(Key(x, y), out var c) || c.Amount < 8)
                 return;
             var d = _defs[c.Kind - 1];
-            // author: an unknown one shows as ???
-            Main.instance.MouseText(!Known().Contains(d.Id) ? "???" : NoitaArt.Text(d.NameKey, d.Id) + (c.Burn > 0 && !d.OnFire ? " (" + NoitaArt.Text("mat_fire", "fire") + ")" : ""));
+            // author: an unknown one shows as ???; drawn by us next to the cursor (Terraria's mouse text gets
+            // replaced by its own later in the frame)
+            string text = !Known().Contains(d.Id) ? "???" :
+                NoitaArt.Text(d.NameKey, d.Id) + (c.Burn > 0 && !d.OnFire ? " (" + NoitaArt.Text("mat_fire", "fire") + ")" : "");
+            Utils.DrawBorderString(Main.spriteBatch, text, new Vector2(Main.mouseX + 18, Main.mouseY + 18), Color.White);
         }
 
         /// <summary>How many liquids or gases the box touches (tests).</summary>
