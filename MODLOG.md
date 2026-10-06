@@ -249,3 +249,11 @@ animation for attacks. 44 Core + 7 tools tests pass; gate 1a clean.
 **Next:** PC: `tools\pc_step.ps1 -AutoTest 1b` (facts -> apply -> preflight; if clean: gen_cs --gate 1b, build,
 autotest 1b; else it stops and lists the open cells). Cloud: read pc_check.txt / pc_autotest_1b.txt, fix, set
 Entry.Stage default 1b, version 0.2.0. Проверить на ПК also: worm leap heights and lukki speeds (unit inferences above).
+
+## PC step 2 (2026-10-06, author's PC, 6f0ae5c)
+- pc_step.ps1 -AutoTest 1b: facts ok, apply_facts ok, Core tests ok, both builds ok (no compile fixes needed).
+- outcome **gate not clean**: one cell left, projectiles.neutralizer_shot.effect (UNVERIFIED). Autotest 1b skipped by the script.
+- Fact from data.wak for that cell (not edited here, per instructions): neutralizershot.xml has ProjectileComponent damage 0;
+  HitEffectComponent effect_hit=LOAD_CHILD_ENTITY -> data/entities/misc/neutralizer_target.xml, which has
+  GameEffectComponent effect=MOVEMENT_SLOWER_2X frames=-1 (a slow on the target, no damage).
+- Fixed CLAUDE.md: the mashup is a Melty DRAFT (0.1.0 submitted, not published), not "players have 0.1.0".
