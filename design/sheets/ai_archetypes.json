@@ -112,7 +112,7 @@
   },
   {
    "id": "walker_thrower",
-   "description": "Walks to throwing distance and lobs arcing explosives (TNT, grenades, flasks).",
+   "description": "Walks to throwing distance and lobs arcing explosives (TNT, grenades, flasks); a throw gets the speed it needs to reach the target (Noita's physics throws are not limited by the projectile's speed).",
    "move": "ground",
    "keep_distance_tiles": 8,
    "used_by": [

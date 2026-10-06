@@ -1895,7 +1895,7 @@
     18,
     27
    ],
-   "size": 2.0,
+   "size": 1.0,
    "ai": "walker_shooter",
    "walks": true,
    "flies": false,

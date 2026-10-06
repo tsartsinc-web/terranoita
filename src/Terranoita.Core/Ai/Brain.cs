@@ -388,6 +388,10 @@ namespace Terranoita.Ai
             if (gravity <= 1e-5f || speed <= 0)
                 return d.Normalized * speed;
             float x = Math.Abs(d.X), y = -d.Y;            // y up
+            // thrown things (Noita's physics throws) get the speed they need to reach: the 45-degree minimum, plus a margin
+            float needed = (float)Math.Sqrt(gravity * (y + Math.Sqrt(x * x + y * y))) * 1.1f;
+            if (needed > speed)
+                speed = needed;
             float v2 = speed * speed;
             float disc = v2 * v2 - gravity * (gravity * x * x + 2 * y * v2);
             double angle = disc < 0 ? Math.PI / 4 : Math.Atan((v2 - Math.Sqrt(disc)) / (gravity * Math.Max(x, 1e-3f)));

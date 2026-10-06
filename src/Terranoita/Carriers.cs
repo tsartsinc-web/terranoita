@@ -101,7 +101,9 @@ namespace Terranoita.Game
             public int Height => Npc.height;
             public bool OnGround => Npc.velocity.Y >= 0 &&
                 Collision.SolidCollision(new Vector2(Npc.position.X, Npc.position.Y + Npc.height), Npc.width, 2, true);
-            public bool HitWall => Npc.collideX;
+            // a real wall: still blocked one tile higher (a one-tile step is walked over by Collision.StepUp, no jump)
+            public bool HitWall => Npc.collideX &&
+                Collision.SolidCollision(new Vector2(Npc.position.X + Npc.direction * 8, Npc.position.Y - 17), Npc.width, Npc.height);
         }
 
         sealed class Attacks : IAttackSink

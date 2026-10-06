@@ -110,7 +110,7 @@ namespace Terranoita.Game
             {
                 case "fire": me.AddBuff(BuffID.OnFire, 180); break;
                 case "poison": me.AddBuff(BuffID.Poisoned, 300); break;
-                case "acid": me.AddBuff(BuffID.Venom, 120); break;
+                case "acid": me.AddBuff(BuffID.Poisoned, 120); break;   // early-game strength, not Venom
             }
             Entry.Log(s.From.Def.Id + " shot " + s.Def.Id + " hits for " + final + (direct ? "" : " (blast)"));
         }
