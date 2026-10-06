@@ -1,27 +1,25 @@
-Terranoita PC step 2026-10-06 14:05, branch claude/dazzling-carson-h8mi9n, stage 1b
+Terranoita PC step 2026-10-06 15:04, branch claude/dazzling-carson-h8mi9n, stage 1b
 dotnet 8.0.425, Python 3.13.1
-commit 516ebb4
+commit 6f0ae5c
 == facts from Noita
    ok
 == apply facts
    ok
 == preflight 1b
    FAILED (exit 1), output: build/pc_preflight.log
-     sheets: ai_archetypes, attacks, balance, biome_map, drops, enemies, hooks, projectiles, systems, terraria_zones; 13803 cells in total
-     problems: 576  (UNFILLED 405, UNVERIFIED 171)
-     by sheet: attacks 147, enemies 268, projectiles 161
-     unfinished rows: 130
+     sheets: ai_archetypes, attacks, balance, biome_map, drops, enemies, hooks, projectiles, systems, terraria_zones; 14554 cells in total
+     problems: 1  (UNVERIFIED 1)
+     by sheet: projectiles 1
+     unfinished rows: 1
    GATE 1b: NOT CLEAN - fix these before building
+   UNVERIFIED projectiles    neutralizer_shot                       effect             guessed from the name; con
 == Core tests
    ok
 == build Terranoita.exe
    ok
 == build Terranoita.Game.dll
    ok
-== autotest 1a
-   copied next to Terraria.exe: 0Harmony.dll, Terranoita.Core.dll, Terranoita.exe, Terranoita.exe.config, Terranoita.Game.dll
-   12 enemies, 6 s each; waiting up to 7 min
-   spawned 12, hits on the player 50, errors/warnings 0 (log: design/sources/pc_autotest_1a.txt)
+== autotest 1b skipped: preflight --gate 1b is not clean (open cells listed above)
 
-outcome: ok
-took: 2 min
+outcome: gate not clean
+took: 0 min

@@ -1270,7 +1270,7 @@
    },
    "per_frames": "hit",
    "cooldown_frames": 0,
-   "range_tiles": 2,
+   "range_tiles": 11.25,
    "lunge_speed": 0,
    "sound": "animals/fungus/death_buildup",
    "wiki_text": "Explodes on death/Explosion/125",
@@ -2846,7 +2846,7 @@
    },
    "per_frames": "hit",
    "cooldown_frames": 0,
-   "range_tiles": 2,
+   "range_tiles": 9.38,
    "lunge_speed": 0,
    "sound": "animals/fungus/death_buildup",
    "wiki_text": "Explodes on death/Explosion/125",
@@ -4066,7 +4066,7 @@
    },
    "per_frames": "hit",
    "cooldown_frames": 0,
-   "range_tiles": 2,
+   "range_tiles": 9.38,
    "lunge_speed": 0,
    "sound": "animals/fungus/death_buildup",
    "wiki_text": "Explodes on death/Explosion/125",
@@ -4138,7 +4138,7 @@
    },
    "per_frames": "hit",
    "cooldown_frames": 0,
-   "range_tiles": 2,
+   "range_tiles": 11.25,
    "lunge_speed": 0,
    "sound": "animals/fungus/death_buildup",
    "wiki_text": "Explodes on death/Explosion/125",
@@ -4569,24 +4569,26 @@
    "id": "coward.teleportation",
    "enemy": "coward",
    "kind": "projectile",
-   "projectile": "teleportation",
+   "projectile": "coward_bullet",
    "summons": [],
    "count": [
     1,
     1
    ],
-   "damage": null,
+   "damage": {
+    "projectile": 0
+   },
    "per_frames": "hit",
-   "cooldown_frames": 90,
-   "range_tiles": 25,
+   "cooldown_frames": 105,
+   "range_tiles": 47.81,
    "lunge_speed": 0,
    "sound": "none",
    "wiki_text": "Teleportation Projectile",
    "stage": "1b",
-   "_unverified": {
-    "cooldown_frames": "default for kind 'projectile'; read AnimalAIComponent attack_*_frames_between check in the player's data.wak (tools: Terranoita.Cli wak-cat)",
-    "range_tiles": "default for kind; read AnimalAIComponent attack_*_range check in the player's data.wak (tools: Terranoita.Cli wak-cat)",
-    "count": "wiki shows no count; read attack_ranged_entity_count check in the player's data.wak (tools: Terranoita.Cli wak-cat)"
+   "_unverified": {},
+   "_sources": {
+    "cooldown_frames": "AnimalAIComponent ranged attack, enabled by a script",
+    "damage": "its projectile's ProjectileComponent (data.wak); not on the wiki"
    }
   },
   {

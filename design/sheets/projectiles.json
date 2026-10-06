@@ -252,18 +252,19 @@
     "bloodcrystal_physics"
    ],
    "noita_file": "data/entities/projectiles/orb_pink.xml",
-   "sprite": null,
-   "speed": null,
-   "gravity": null,
-   "lifetime_frames": null,
-   "explosion_radius": null,
-   "audio": null,
-   "explosion_sound": null,
-   "effect": "none",
+   "sprite": "data/projectiles_gfx/orb_pink.xml",
+   "speed": 5.5,
+   "gravity": 0.0,
+   "lifetime_frames": 25,
+   "explosion_radius": 1.12,
+   "audio": "projectiles/orb_c",
+   "explosion_sound": "none",
+   "effect": "explosive",
    "terrain": "none",
    "stage": "1b",
-   "_unverified": {
-    "effect": "guessed from the name; confirm in the projectile's entity XML"
+   "_unverified": {},
+   "_sources": {
+    "effect": "orb_pink.xml: explodes, radius 6"
    }
   },
   {
@@ -1011,18 +1012,19 @@
     "statue_physics"
    ],
    "noita_file": "data/entities/projectiles/orb_green_spin.xml",
-   "sprite": null,
-   "speed": null,
-   "gravity": null,
-   "lifetime_frames": null,
-   "explosion_radius": null,
-   "audio": null,
-   "explosion_sound": null,
-   "effect": "none",
+   "sprite": "data/projectiles_gfx/orb_green.xml",
+   "speed": 17.5,
+   "gravity": 0.0,
+   "lifetime_frames": 100,
+   "explosion_radius": 1.88,
+   "audio": "projectiles/orb_a",
+   "explosion_sound": "none",
+   "effect": "explosive",
    "terrain": "none",
    "stage": "1b",
-   "_unverified": {
-    "effect": "guessed from the name; confirm in the projectile's entity XML"
+   "_unverified": {},
+   "_sources": {
+    "effect": "orb_green_spin.xml: explodes, radius 10"
    }
   },
   {
@@ -1366,18 +1368,19 @@
     "boss_alchemist"
    ],
    "noita_file": "data/entities/projectiles/deck/projectile_thunder_lightning.xml",
-   "sprite": null,
-   "speed": null,
-   "gravity": null,
-   "lifetime_frames": null,
-   "explosion_radius": null,
-   "audio": null,
-   "explosion_sound": null,
+   "sprite": "none",
+   "speed": 3.0,
+   "gravity": 0.3333,
+   "lifetime_frames": 2,
+   "explosion_radius": 0.0,
+   "audio": "player_projectiles/bullet_lightning",
+   "explosion_sound": "none",
    "effect": "electric",
    "terrain": "none",
    "stage": "1b",
-   "_unverified": {
-    "effect": "guessed from the name; confirm in the projectile's entity XML"
+   "_unverified": {},
+   "_sources": {
+    "effect": "projectile_thunder_lightning.xml: material spark_electric"
    }
   },
   {
@@ -1540,18 +1543,19 @@
     "monk"
    ],
    "noita_file": "data/entities/projectiles/orb_green_accelerating.xml",
-   "sprite": null,
-   "speed": null,
-   "gravity": null,
-   "lifetime_frames": null,
-   "explosion_radius": null,
-   "audio": null,
-   "explosion_sound": null,
-   "effect": "none",
+   "sprite": "data/projectiles_gfx/orb_green.xml",
+   "speed": 17.5,
+   "gravity": 0.0,
+   "lifetime_frames": 150,
+   "explosion_radius": 1.88,
+   "audio": "projectiles/orb_a",
+   "explosion_sound": "none",
+   "effect": "explosive",
    "terrain": "none",
    "stage": "1b",
-   "_unverified": {
-    "effect": "guessed from the name; confirm in the projectile's entity XML"
+   "_unverified": {},
+   "_sources": {
+    "effect": "orb_green_accelerating.xml: explodes, radius 10"
    }
   },
   {
@@ -1715,18 +1719,19 @@
     "boss_alchemist"
    ],
    "noita_file": "data/entities/projectiles/wraith_glowing_laser.xml",
-   "sprite": null,
-   "speed": null,
-   "gravity": null,
-   "lifetime_frames": null,
-   "explosion_radius": null,
-   "audio": null,
-   "explosion_sound": null,
-   "effect": "light",
+   "sprite": "none",
+   "speed": 42.5,
+   "gravity": 0.0,
+   "lifetime_frames": 90,
+   "explosion_radius": 3.75,
+   "audio": "projectiles/laser_wraith",
+   "explosion_sound": "none",
+   "effect": "explosive",
    "terrain": "none",
    "stage": "1b",
-   "_unverified": {
-    "effect": "guessed from the name; confirm in the projectile's entity XML"
+   "_unverified": {},
+   "_sources": {
+    "effect": "wraith_glowing_laser.xml: explodes, radius 20"
    }
   },
   {
@@ -1801,18 +1806,19 @@
     "fungus_giga"
    ],
    "noita_file": "data/entities/projectiles/pollen.xml",
-   "sprite": null,
-   "speed": null,
-   "gravity": null,
-   "lifetime_frames": null,
-   "explosion_radius": null,
-   "audio": null,
-   "explosion_sound": null,
-   "effect": "poison",
+   "sprite": "data/projectiles_gfx/pollen.xml",
+   "speed": 10.0,
+   "gravity": 0.0083,
+   "lifetime_frames": 750,
+   "explosion_radius": 0.19,
+   "audio": "projectiles/bullet_arrow",
+   "explosion_sound": "none",
+   "effect": "explosive",
    "terrain": "none",
    "stage": "1b",
-   "_unverified": {
-    "effect": "guessed from the name; confirm in the projectile's entity XML"
+   "_unverified": {},
+   "_sources": {
+    "effect": "pollen.xml: explodes, radius 1"
    }
   },
   {
@@ -2388,7 +2394,6 @@
    "id": "teleportation",
    "name_en": "Teleportation Projectile",
    "used_by": [
-    "coward",
     "parallel_tentacles",
     "boss_pit",
     "wizard_tele"
@@ -3111,6 +3116,28 @@
    "_unverified": {},
    "_sources": {
     "effect": "smalltentacle_melee.xml: plain damage, no effect, material or damage_by_type"
+   }
+  },
+  {
+   "id": "coward_bullet",
+   "name_en": "Teleportation Projectile (coward_bullet)",
+   "used_by": [
+    "coward"
+   ],
+   "noita_file": "data/entities/projectiles/coward_bullet.xml",
+   "sprite": "data/projectiles_gfx/orb_green_big.xml",
+   "speed": 17.5,
+   "gravity": 0.0417,
+   "lifetime_frames": 20,
+   "explosion_radius": 2.25,
+   "audio": "projectiles/orb_b",
+   "explosion_sound": "none",
+   "effect": "explosive",
+   "terrain": "none",
+   "stage": "1b",
+   "_unverified": {},
+   "_sources": {
+    "effect": "coward_bullet.xml: explodes, radius 12"
    }
   }
  ]
