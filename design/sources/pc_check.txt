@@ -1,6 +1,6 @@
-Terranoita PC step 2026-10-06 14:02, branch claude/dazzling-carson-h8mi9n, stage 1b
+Terranoita PC step 2026-10-06 14:05, branch claude/dazzling-carson-h8mi9n, stage 1b
 dotnet 8.0.425, Python 3.13.1
-commit b0654ba
+commit 516ebb4
 == facts from Noita
    ok
 == apply facts
@@ -21,7 +21,7 @@ commit b0654ba
 == autotest 1a
    copied next to Terraria.exe: 0Harmony.dll, Terranoita.Core.dll, Terranoita.exe, Terranoita.exe.config, Terranoita.Game.dll
    12 enemies, 6 s each; waiting up to 7 min
-   spawned 12, hits on the player 45, errors/warnings 0 (log: design/sources/pc_autotest_1a.txt)
+   spawned 12, hits on the player 50, errors/warnings 0 (log: design/sources/pc_autotest_1a.txt)
 
 outcome: ok
 took: 2 min
