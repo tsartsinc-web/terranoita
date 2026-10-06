@@ -97,6 +97,8 @@ namespace Terranoita.Game.Physics
             }
             if (_frame % Tick == 0 && Burning.Count > 0)
                 BurnTick();
+            if (_frame % Tick == 0)
+                BurningCreatures(me);
             if (_frame % 60 == 0)
                 LavaScan(me);
         }
@@ -141,6 +143,28 @@ namespace Terranoita.Game.Physics
                 Burning.Remove(k);
                 BurnOut(k % Main.maxTilesX, k / Main.maxTilesX);
             }
+        }
+
+        /// <summary>Like in Noita, whoever is on fire lights the burnable tiles they touch.</summary>
+        static void BurningCreatures(Player me)
+        {
+            if (me.active && !me.dead && me.onFire)
+                IgniteTouching(me.Hitbox);
+            for (int i = 0; i < Main.maxNPCs; i++)
+            {
+                var n = Main.npc[i];
+                if (n.active && n.onFire)
+                    IgniteTouching(n.Hitbox);
+            }
+        }
+
+        static void IgniteTouching(Rectangle box)
+        {
+            box.Inflate(2, 2);
+            for (int x = box.Left / 16; x <= box.Right / 16; x++)
+                for (int y = box.Top / 16; y <= box.Bottom / 16; y++)
+                    if (Main.rand.NextFloat() < SpreadChance * 2)
+                        Ignite(x, y);
         }
 
         static void HurtNpcs(int x, int y)

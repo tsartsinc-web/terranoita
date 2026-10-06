@@ -33,12 +33,16 @@ NAMES = {
     "systems": ("SystemDef", "Systems"),
     "hooks": ("HookDef", "Hooks"),
     "materials": ("MaterialDef", "Materials"),
+    "spells": ("SpellDef", "SpellTable"),
+    "wands": ("WandDef", "WandTable"),
 }
 
 # object columns: C# type and how each value is written
 OBJECT_COLUMNS = {
     ("enemies", "dmg_mult"): "Dictionary<string, float>",
     ("attacks", "damage"): "Dictionary<string, float[]>",
+    ("spells", "config_add"): "Dictionary<string, float>",
+    ("spells", "config_mul"): "Dictionary<string, float>",
 }
 
 

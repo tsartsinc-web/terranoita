@@ -15,6 +15,8 @@ namespace Terranoita.Cli
     ///   tncli entity    &lt;noitaDir&gt; &lt;id|path&gt;        facts the sheets need, for one enemy
     ///   tncli facts     &lt;noitaDir&gt; &lt;enemies.json&gt; &lt;out.json&gt;
     ///                   facts for every enemy row and the projectiles they fire, for tools/apply_facts.py
+    ///   tncli spells    &lt;noitaDir&gt; &lt;out.json&gt;
+    ///                   every spell of gun_actions.lua, the projectiles they fire and the wand entities (stage 3)
     /// </summary>
     static class Program
     {
@@ -22,7 +24,7 @@ namespace Terranoita.Cli
         {
             if (args.Length < 2)
             {
-                Console.Error.WriteLine("usage: tncli wak-list|wak-cat|entity|facts <noitaDir> ...");
+                Console.Error.WriteLine("usage: tncli wak-list|wak-cat|entity|facts|spells <noitaDir> ...");
                 return 2;
             }
             try
@@ -51,6 +53,8 @@ namespace Terranoita.Cli
                         }
                         case "facts":
                             return Facts(files, args[2], args[3]);
+                        case "spells":
+                            return SpellFacts(files, args[2]);
                     }
                 }
             }
@@ -301,5 +305,81 @@ namespace Terranoita.Cli
             Console.WriteLine($"facts: {ok} read, {missing} without an entity file, {failed} failed -> {outPath}");
             return 0;
         }
+
+        /// <summary>Stage 3 facts: spells (gun_actions.lua), their projectiles, wand entities; for tools/apply_spells.py.</summary>
+        static int SpellFacts(NoitaFiles files, string outPath)
+        {
+            var translations = files.TryReadText("data/translations/common.csv", out var csv) ? NoitaTranslations.Parse(csv) : null;
+            string En(string key) => key != null && key.StartsWith("$") ? translations?.Get(key.Substring(1), "en") : null;
+            var lua = Text(files, GunActions.Path) ?? throw new FileNotFoundException(GunActions.Path);
+            var actions = GunActions.Parse(lua);
+            var spells = new JsonObject();
+            var projectileFiles = new SortedSet<string>(StringComparer.Ordinal);
+            foreach (var a in actions)
+            {
+                if (a.Id == null || spells.ContainsKey(a.Id))
+                    continue;
+                var fields = new JsonObject();
+                foreach (var kv in a.Fields)
+                    fields[kv.Key] = kv.Value;
+                var o = new JsonObject
+                {
+                    ["name_key"] = a.Name, ["name_en"] = En(a.Name), ["description_key"] = a.Description, ["description_en"] = En(a.Description),
+                    ["sprite"] = a.Sprite, ["type"] = a.Type,
+                    ["spawn_level"] = a.SpawnLevel == null ? null : new JsonArray(a.SpawnLevel.Select(x => (JsonNode)x).ToArray()),
+                    ["spawn_probability"] = a.SpawnProbability == null ? null : new JsonArray(a.SpawnProbability.Select(x => (JsonNode)x).ToArray()),
+                    ["price"] = a.Price, ["mana"] = a.Mana, ["max_uses"] = a.MaxUses,
+                    ["related_projectiles"] = new JsonArray(a.RelatedProjectiles.Select(x => (JsonNode)x).ToArray()),
+                    ["projectiles"] = new JsonArray(a.Projectiles.Select(x => (JsonNode)x).ToArray()),
+                    ["triggers"] = new JsonArray(a.Triggers.Select(t => (JsonNode)new JsonObject { ["kind"] = t.Kind, ["file"] = t.File, ["draws"] = t.Draws, ["frames"] = t.Frames }).ToArray()),
+                    ["draws"] = a.Draws,
+                    ["config_add"] = Dict(a.ConfigAdd), ["config_mul"] = Dict(a.ConfigMul),
+                    ["config_set"] = new JsonObject(a.ConfigSet.Select(kv => new KeyValuePair<string, JsonNode>(kv.Key, kv.Value))),
+                    ["reload_add"] = a.ReloadAdd,
+                    ["conditional"] = a.Conditional,
+                    ["calls"] = new JsonArray(a.Calls.Select(x => (JsonNode)x).ToArray()),
+                    ["unparsed"] = new JsonArray(a.Unparsed.Select(x => (JsonNode)x).ToArray()),
+                    ["fields"] = fields,
+                };
+                spells[a.Id] = o;
+                foreach (var f in a.RelatedProjectiles.Concat(a.Projectiles).Concat(a.Triggers.Select(t => t.File)))
+                    projectileFiles.Add(f);
+            }
+            var projectiles = new JsonObject();
+            foreach (var f in projectileFiles)
+            {
+                try { projectiles[f] = ProjectileJson(files, f); }
+                catch (Exception ex) { projectiles[f] = new JsonObject { ["error"] = ex.Message }; }
+            }
+            // wands: item entities with an AbilityComponent that has a gun_config (fixed and template wands)
+            var wands = new JsonObject();
+            foreach (var path in files.Archive.Entries.Select(e => e.Path).Where(p => p.StartsWith("data/entities/items/") && p.EndsWith(".xml")).OrderBy(p => p, StringComparer.Ordinal))
+            {
+                var text = Text(files, path);
+                if (text == null || text.IndexOf("gun_config", StringComparison.Ordinal) < 0)
+                    continue;
+                try
+                {
+                    var e = NoitaEntity.Load(x => Text(files, x), path);
+                    var ab = e.Component("AbilityComponent");
+                    if (ab == null || ab.Child("gun_config") == null)
+                        continue;
+                    wands[path] = new JsonObject
+                    {
+                        ["ability"] = NodeJson(ab),
+                        ["scripts"] = new JsonArray(e.ComponentsNamed("LuaComponent").SelectMany(l => l.Attributes.Where(kv => kv.Key.StartsWith("script_")).Select(kv => kv.Value)).Distinct().Select(x => (JsonNode)x).ToArray()),
+                    };
+                }
+                catch (Exception ex) { wands[path] = new JsonObject { ["error"] = ex.Message }; }
+            }
+            var result = new JsonObject { ["spells"] = spells, ["projectiles"] = projectiles, ["wands"] = wands };
+            File.WriteAllText(outPath, result.ToJsonString(new JsonSerializerOptions { TypeInfoResolver = new System.Text.Json.Serialization.Metadata.DefaultJsonTypeInfoResolver(), WriteIndented = true, Encoder = System.Text.Encodings.Web.JavaScriptEncoder.UnsafeRelaxedJsonEscaping }));
+            int unparsed = actions.Count(a => a.Unparsed.Count > 0);
+            Console.WriteLine($"spells: {spells.Count} ({unparsed} need hand work), {projectiles.Count} projectile files, {wands.Count} wand entities -> {outPath}");
+            return 0;
+        }
+
+        static JsonObject Dict(Dictionary<string, float> d) =>
+            new JsonObject(d.Select(kv => new KeyValuePair<string, JsonNode>(kv.Key, kv.Value)));
     }
 }

@@ -61,6 +61,7 @@ function Finish([string]$outcome) {
     if ($NoPush) { exit 0 }
     $paths = @("design/sources/noita_facts.json", "design/sources/pc_check.txt", "design/sheets", "src/Terranoita.Core/Generated", "src/Terranoita/Generated") +
              @(Get-ChildItem design/sources -Filter "pc_autotest_*.txt" | ForEach-Object { "design/sources/" + $_.Name })
+    if (Test-Path design/sources/noita_spells.json) { $paths += "design/sources/noita_spells.json" }
     git add -- $paths
     git commit -m "PC step ($outcome): facts from Noita, build check$(if ($AutoTest) { ", autotest $AutoTest" })" | Out-Host
     for ($i = 0; $i -lt 4; $i++) {
@@ -89,6 +90,10 @@ Say "commit $head"
 
 if ((Run "facts from Noita" "pc_facts" { dotnet run --project src/Terranoita.Cli -c Release -- facts $Noita design/sheets/enemies.json design/sources/noita_facts.json }) -ne 0) { Finish "facts failed" }
 if ((Run "apply facts" "pc_apply" { & $python tools/apply_facts.py design/sources/noita_facts.json --stage $Stage --sounds design/sources/noita_sounds.txt }) -ne 0) { Finish "apply_facts failed" }
+# stage 3 groundwork: spells and wands from the player's Noita (a failure here does not stop the step)
+if ((Run "spell facts from Noita" "pc_spells" { dotnet run --project src/Terranoita.Cli -c Release -- spells $Noita design/sources/noita_spells.json }) -eq 0) {
+    Run "apply spells" "pc_apply_spells" { & $python tools/apply_spells.py design/sources/noita_spells.json } | Out-Null
+}
 $gate = Run "preflight $Stage" "pc_preflight" { & $python tools/preflight.py --gate $Stage -q }
 Get-Content build/pc_preflight.log | Select-Object -Last 5 | ForEach-Object { $report.Add("   " + $_) | Out-Null }
 if ($gate -eq 0) {

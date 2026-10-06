@@ -1,0 +1,71 @@
+{
+ "sheet": "wands",
+ "description": "Noita wand entities (stage 3): stats from their AbilityComponent.",
+ "key": "id",
+ "columns": {
+  "id": {
+   "type": "string",
+   "desc": "Entity file name without .xml."
+  },
+  "entity": {
+   "type": "string",
+   "desc": "Entity file in data.wak."
+  },
+  "name_key": {
+   "type": "string",
+   "desc": "AbilityComponent ui_name."
+  },
+  "sprite": {
+   "type": "string",
+   "desc": "AbilityComponent sprite_file."
+  },
+  "shuffle": {
+   "type": "bool",
+   "desc": "gun_config shuffle_deck_when_empty."
+  },
+  "spells_per_cast": {
+   "type": "int",
+   "desc": "gun_config actions_per_round."
+  },
+  "cast_delay": {
+   "type": "number",
+   "desc": "gunaction_config fire_rate_wait, frames."
+  },
+  "recharge_time": {
+   "type": "number",
+   "desc": "gun_config reload_time, frames."
+  },
+  "mana_max": {
+   "type": "number",
+   "desc": "AbilityComponent mana_max."
+  },
+  "mana_charge_speed": {
+   "type": "number",
+   "desc": "AbilityComponent mana_charge_speed, per second."
+  },
+  "capacity": {
+   "type": "int",
+   "desc": "gun_config deck_capacity."
+  },
+  "spread": {
+   "type": "number",
+   "desc": "gunaction_config spread_degrees."
+  },
+  "speed_multiplier": {
+   "type": "number",
+   "desc": "gunaction_config speed_multiplier."
+  },
+  "scripts": {
+   "type": "string[]",
+   "desc": "LuaComponent scripts (wands whose stats a script generates)."
+  },
+  "stage": {
+   "type": "enum",
+   "values": [
+    "3"
+   ],
+   "desc": "Wands come with stage 3."
+  }
+ },
+ "rows": []
+}
