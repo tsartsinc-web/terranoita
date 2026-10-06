@@ -1,8 +1,28 @@
 Terranoita PC step 2026-10-06 14:01, branch claude/dazzling-carson-h8mi9n, stage 1b
 dotnet 8.0.425, Python 3.13.1
-commit 3dc58db
+commit 9db273f
 == facts from Noita
-   FAILED (exit 1), output: build/pc_facts.log
+   ok
+== apply facts
+   ok
+== preflight 1b
+   FAILED (exit 1), output: build/pc_preflight.log
+     sheets: ai_archetypes, attacks, balance, biome_map, drops, enemies, hooks, projectiles, systems, terraria_zones; 13803 cells in total
+     problems: 576  (UNFILLED 405, UNVERIFIED 171)
+     by sheet: attacks 147, enemies 268, projectiles 161
+     unfinished rows: 130
+   GATE 1b: NOT CLEAN - fix these before building
+== Core tests
+   ok
+== build Terranoita.exe
+   ok
+== build Terranoita.Game.dll
+   ok
+== autotest 1a
+   copied next to Terraria.exe: 0Harmony.dll, Terranoita.Core.dll, Terranoita.exe, Terranoita.exe.config, Terranoita.Game.dll
+   12 enemies, 6 s each; waiting up to 0 min
+   stopped after 0 min (did not finish)
+   spawned 12, hits on the player 45, errors/warnings 0 (log: design/sources/pc_autotest_1a.txt)
 
-outcome: facts failed
+outcome: ok
 took: 0 min

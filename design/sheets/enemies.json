@@ -573,27 +573,30 @@
    "id": "nest_fly",
    "name_en": "Amppari Hive",
    "name_fi": "Nest",
-   "name_key": "$animal_nest_fly",
+   "name_key": "unknown",
    "category": "Uncategorised",
    "faction": "nest",
-   "noita_hp": 125.0,
-   "noita_entity": "data/entities/animals/nest_fly.xml",
-   "sprite": null,
-   "hitbox": null,
+   "noita_hp": 125,
+   "noita_entity": "data/entities/buildings/flynest.xml",
+   "sprite": "data/buildings_gfx/flynest.xml",
+   "hitbox": [
+    60,
+    60
+   ],
    "size": 1.0,
    "hitbox_mult": 1.0,
    "ai": "spawner_nest",
-   "walks": null,
-   "flies": null,
-   "jumps": null,
-   "run_speed": null,
-   "fly_speed": null,
-   "fly_up_speed": null,
-   "accel": null,
-   "gravity": null,
-   "jump_speed": null,
-   "sight_tiles": null,
-   "audio": null,
+   "walks": false,
+   "flies": false,
+   "jumps": false,
+   "run_speed": 0.0,
+   "fly_speed": 0.0,
+   "fly_up_speed": 0.0,
+   "accel": 0.0,
+   "gravity": 0.0,
+   "jump_speed": 0.0,
+   "sight_tiles": 9.4,
+   "audio": "none",
    "attacks": [
     "nest_fly.release"
    ],
@@ -620,9 +623,11 @@
    "drops": "noita_gold",
    "stage": "1b",
    "_unverified": {
-    "id": "synthetic id; find the real entity file name in data.wak",
-    "noita_entity": "path guessed from the id; check in the player's data.wak (tools: Terranoita.Cli wak-cat)",
     "attacks": "a nest releases its creatures: confirm in its spawn script"
+   },
+   "_sources": {
+    "id": "sheet id kept; Noita file data/entities/buildings/flynest.xml (found by file_words)",
+    "walks": "no movement component of any kind in data/entities/buildings/flynest.xml: does not move"
    }
   },
   {
@@ -2570,8 +2575,9 @@
    "blood": "Blue Sand",
    "drops": "noita_gold",
    "stage": "1b",
-   "_unverified": {
-    "id": "synthetic id; find the real entity file name in data.wak"
+   "_unverified": {},
+   "_sources": {
+    "id": "sheet id kept; Noita file data/entities/buildings/ghost_crystal.xml (found by guess)"
    }
   },
   {
@@ -2588,16 +2594,16 @@
    "size": 1.0,
    "hitbox_mult": 1.0,
    "ai": "ghost_phase",
-   "walks": null,
-   "flies": null,
-   "jumps": null,
-   "run_speed": null,
-   "fly_speed": null,
-   "fly_up_speed": null,
-   "accel": null,
-   "gravity": null,
-   "jump_speed": null,
-   "sight_tiles": null,
+   "walks": false,
+   "flies": false,
+   "jumps": false,
+   "run_speed": 0.0,
+   "fly_speed": 0.0,
+   "fly_up_speed": 0.0,
+   "accel": 0.0,
+   "gravity": 0.0,
+   "jump_speed": 0.0,
+   "sight_tiles": 9.4,
    "audio": "animals/ghost",
    "attacks": [
     "ghost.curse"
@@ -2625,7 +2631,10 @@
    "blood": "Worm Blood",
    "drops": "noita_gold",
    "stage": "1b",
-   "_unverified": {}
+   "_unverified": {},
+   "_sources": {
+    "walks": "no movement component of any kind in data/entities/animals/ghost.xml: does not move"
+   }
   },
   {
    "id": "fungus_giga",
@@ -3795,7 +3804,7 @@
    "faction": "ghost",
    "noita_hp": 200,
    "noita_entity": "data/entities/animals/crystal_physics.xml",
-   "sprite": null,
+   "sprite": "data/enemies_gfx/crystal_physics.png",
    "hitbox": [
     30,
     36
@@ -7880,23 +7889,26 @@
    "category": "Robots",
    "faction": "robot",
    "noita_hp": 362.5,
-   "noita_entity": "data/entities/animals/neutralizer.xml",
-   "sprite": null,
-   "hitbox": null,
+   "noita_entity": "data/entities/animals/basebot_neutralizer.xml",
+   "sprite": "data/enemies_gfx/basebot_neutralizer.xml",
+   "hitbox": [
+    48,
+    45
+   ],
    "size": 1.0,
    "hitbox_mult": 1.0,
    "ai": "static_turret",
-   "walks": null,
-   "flies": null,
-   "jumps": null,
-   "run_speed": null,
-   "fly_speed": null,
-   "fly_up_speed": null,
-   "accel": null,
-   "gravity": null,
-   "jump_speed": null,
-   "sight_tiles": null,
-   "audio": null,
+   "walks": false,
+   "flies": true,
+   "jumps": false,
+   "run_speed": 1.0,
+   "fly_speed": 2.0,
+   "fly_up_speed": 2.0,
+   "accel": 4,
+   "gravity": 0.5,
+   "jump_speed": 10.0,
+   "sight_tiles": 46.9,
+   "audio": "animals/drone_lasership",
    "attacks": [
     "neutralizer.neutralize_shot",
     "neutralizer.projectile"
@@ -7908,14 +7920,14 @@
    "tier": "t4",
    "dmg_mult": {
     "melee": 0.3,
-    "projectile": 0.0,
+    "projectile": 0,
     "slice": 0.1,
-    "explosion": 1.0,
-    "electricity": 2.0,
-    "fire": 0.0,
+    "explosion": 1,
+    "electricity": 2,
+    "fire": 0,
     "ice": 1.0,
     "drill": 0.1,
-    "radioactive": 0.0,
+    "radioactive": 0,
     "holy": 1.0
    },
    "immunities": [
@@ -7927,9 +7939,7 @@
    "blood": "Oil",
    "drops": "noita_gold",
    "stage": "1b",
-   "_unverified": {
-    "noita_entity": "path guessed from the id; check in the player's data.wak (tools: Terranoita.Cli wak-cat)"
-   }
+   "_unverified": {}
   },
   {
    "id": "coward",
@@ -9661,7 +9671,7 @@
    "faction": "ghost",
    "noita_hp": 400,
    "noita_entity": "data/entities/animals/skycrystal_physics.xml",
-   "sprite": null,
+   "sprite": "data/enemies_gfx/skycrystal_physics.png",
    "hitbox": [
     30,
     36
@@ -9898,24 +9908,27 @@
    "name_key": "$animal_cook",
    "category": "Hiisi",
    "faction": "orcs",
-   "noita_hp": 25.0,
-   "noita_entity": "data/entities/animals/cook.xml",
-   "sprite": null,
-   "hitbox": null,
+   "noita_hp": 25,
+   "noita_entity": "data/entities/animals/miner_chef.xml",
+   "sprite": "data/enemies_gfx/miner_chef.xml",
+   "hitbox": [
+    18,
+    27
+   ],
    "size": 1.0,
    "hitbox_mult": 1.0,
    "ai": "walker_shooter",
-   "walks": null,
-   "flies": null,
-   "jumps": null,
-   "run_speed": null,
-   "fly_speed": null,
-   "fly_up_speed": null,
-   "accel": null,
-   "gravity": null,
-   "jump_speed": null,
-   "sight_tiles": null,
-   "audio": null,
+   "walks": true,
+   "flies": false,
+   "jumps": true,
+   "run_speed": 0.6,
+   "fly_speed": 1.4,
+   "fly_up_speed": 4.5,
+   "accel": 0.3,
+   "gravity": 0.5,
+   "jump_speed": 5.0,
+   "sight_tiles": 56.2,
+   "audio": "animals/miner",
    "attacks": [
     "cook.sausages",
     "cook.melee"
@@ -9941,9 +9954,7 @@
    "blood": "Blood",
    "drops": "noita_gold",
    "stage": "1b",
-   "_unverified": {
-    "noita_entity": "path guessed from the id; check in the player's data.wak (tools: Terranoita.Cli wak-cat)"
-   }
+   "_unverified": {}
   },
   {
    "id": "miner",
@@ -10069,23 +10080,26 @@
    "category": "Robots",
    "faction": "robot",
    "noita_hp": 362.5,
-   "noita_entity": "data/entities/animals/sentry.xml",
-   "sprite": null,
-   "hitbox": null,
+   "noita_entity": "data/entities/animals/basebot_sentry.xml",
+   "sprite": "data/enemies_gfx/basebot_sentry.xml",
+   "hitbox": [
+    48,
+    45
+   ],
    "size": 1.0,
    "hitbox_mult": 1.0,
    "ai": "static_turret",
-   "walks": null,
-   "flies": null,
-   "jumps": null,
-   "run_speed": null,
-   "fly_speed": null,
-   "fly_up_speed": null,
-   "accel": null,
-   "gravity": null,
-   "jump_speed": null,
-   "sight_tiles": null,
-   "audio": null,
+   "walks": false,
+   "flies": true,
+   "jumps": false,
+   "run_speed": 1.0,
+   "fly_speed": 2.0,
+   "fly_up_speed": 2.0,
+   "accel": 4,
+   "gravity": 0.5,
+   "jump_speed": 10.0,
+   "sight_tiles": 46.9,
+   "audio": "animals/drone_lasership",
    "attacks": [
     "sentry.targeting"
    ],
@@ -10096,14 +10110,14 @@
    "tier": "t4",
    "dmg_mult": {
     "melee": 0.3,
-    "projectile": 0.0,
+    "projectile": 0,
     "slice": 0.1,
-    "explosion": 1.0,
-    "electricity": 2.0,
-    "fire": 0.0,
+    "explosion": 1,
+    "electricity": 2,
+    "fire": 0,
     "ice": 1.0,
     "drill": 0.1,
-    "radioactive": 0.0,
+    "radioactive": 0,
     "holy": 1.0
    },
    "immunities": [
@@ -10115,9 +10129,7 @@
    "blood": "Oil",
    "drops": "noita_gold",
    "stage": "1b",
-   "_unverified": {
-    "noita_entity": "path guessed from the id; check in the player's data.wak (tools: Terranoita.Cli wak-cat)"
-   }
+   "_unverified": {}
   },
   {
    "id": "soldier",
@@ -10127,23 +10139,26 @@
    "category": "Robots",
    "faction": "robot",
    "noita_hp": 512.5,
-   "noita_entity": "data/entities/animals/soldier.xml",
-   "sprite": null,
-   "hitbox": null,
+   "noita_entity": "data/entities/animals/basebot_soldier.xml",
+   "sprite": "data/enemies_gfx/basebot_soldier.xml",
+   "hitbox": [
+    48,
+    45
+   ],
    "size": 1.0,
    "hitbox_mult": 1.0,
    "ai": "walker_shooter",
-   "walks": null,
-   "flies": null,
-   "jumps": null,
-   "run_speed": null,
-   "fly_speed": null,
-   "fly_up_speed": null,
-   "accel": null,
-   "gravity": null,
-   "jump_speed": null,
-   "sight_tiles": null,
-   "audio": null,
+   "walks": false,
+   "flies": true,
+   "jumps": false,
+   "run_speed": 1.0,
+   "fly_speed": 2.0,
+   "fly_up_speed": 2.0,
+   "accel": 4,
+   "gravity": 0.5,
+   "jump_speed": 10.0,
+   "sight_tiles": 46.9,
+   "audio": "animals/drone_lasership",
    "attacks": [
     "soldier.projectile"
    ],
@@ -10154,14 +10169,14 @@
    "tier": "t4",
    "dmg_mult": {
     "melee": 0.3,
-    "projectile": 0.0,
+    "projectile": 0,
     "slice": 0.1,
-    "explosion": 0.0,
-    "electricity": 2.0,
-    "fire": 0.0,
+    "explosion": 0,
+    "electricity": 2,
+    "fire": 0,
     "ice": 1.0,
     "drill": 0.1,
-    "radioactive": 0.0,
+    "radioactive": 0,
     "holy": 1.0
    },
    "immunities": [
@@ -10174,9 +10189,7 @@
    "blood": "Oil",
    "drops": "noita_gold",
    "stage": "1b",
-   "_unverified": {
-    "noita_entity": "path guessed from the id; check in the player's data.wak (tools: Terranoita.Cli wak-cat)"
-   }
+   "_unverified": {}
   },
   {
    "id": "scavenger_leader",
@@ -10247,24 +10260,27 @@
    "name_key": "$animal_turret",
    "category": "Hiisi",
    "faction": "orcs",
-   "noita_hp": 75.0,
-   "noita_entity": "data/entities/animals/turret.xml",
-   "sprite": null,
-   "hitbox": null,
+   "noita_hp": 75,
+   "noita_entity": "data/entities/animals/turret_left.xml",
+   "sprite": "data/enemies_gfx/turret.xml",
+   "hitbox": [
+    30,
+    45
+   ],
    "size": 1.0,
    "hitbox_mult": 1.0,
    "ai": "static_turret",
-   "walks": null,
-   "flies": null,
-   "jumps": null,
-   "run_speed": null,
-   "fly_speed": null,
-   "fly_up_speed": null,
-   "accel": null,
-   "gravity": null,
-   "jump_speed": null,
-   "sight_tiles": null,
-   "audio": null,
+   "walks": true,
+   "flies": false,
+   "jumps": false,
+   "run_speed": 0.0,
+   "fly_speed": 1.4,
+   "fly_up_speed": 4.5,
+   "accel": 4,
+   "gravity": 0.5,
+   "jump_speed": 10.0,
+   "sight_tiles": 131.2,
+   "audio": "animals/robot",
    "attacks": [
     "turret.laser",
     "turret.explodes_on_death"
@@ -10286,7 +10302,7 @@
     "fire": 0.1,
     "ice": 1.0,
     "drill": 0.1,
-    "radioactive": 0.0,
+    "radioactive": 0,
     "holy": 1.0
    },
    "immunities": [
@@ -10297,9 +10313,7 @@
    "blood": "Oil",
    "drops": "noita_gold",
    "stage": "1b",
-   "_unverified": {
-    "noita_entity": "path guessed from the id; check in the player's data.wak (tools: Terranoita.Cli wak-cat)"
-   }
+   "_unverified": {}
   },
   {
    "id": "maggot",
@@ -10487,24 +10501,24 @@
    "name_key": "$animal_trap_acid",
    "category": "Uncategorised",
    "faction": "trap",
-   "noita_hp": 87.5,
-   "noita_entity": "data/entities/animals/trap_acid.xml",
-   "sprite": null,
+   "noita_hp": 750,
+   "noita_entity": "data/entities/props/physics/trap_circle_acid.xml",
+   "sprite": "data/props_gfx/trap_acid.png",
    "hitbox": null,
    "size": 1.0,
    "hitbox_mult": 1.0,
    "ai": "static_turret",
-   "walks": null,
-   "flies": null,
-   "jumps": null,
-   "run_speed": null,
-   "fly_speed": null,
-   "fly_up_speed": null,
-   "accel": null,
-   "gravity": null,
-   "jump_speed": null,
-   "sight_tiles": null,
-   "audio": null,
+   "walks": false,
+   "flies": false,
+   "jumps": false,
+   "run_speed": 0.0,
+   "fly_speed": 0.0,
+   "fly_up_speed": 0.0,
+   "accel": 0.0,
+   "gravity": 0.0,
+   "jump_speed": 0.0,
+   "sight_tiles": 9.4,
+   "audio": "none",
    "attacks": [
     "trap_acid.acid_spit"
    ],
@@ -10515,11 +10529,11 @@
    "spawn_rule": "natural",
    "tier": "t3",
    "dmg_mult": {
-    "melee": 1.0,
+    "melee": 0.1,
     "projectile": 1.0,
     "slice": 1.0,
     "explosion": 0.2,
-    "electricity": 0.0,
+    "electricity": 0,
     "fire": 0.0,
     "ice": 1.0,
     "drill": 0.4,
@@ -10533,9 +10547,10 @@
    "blood": "Sand",
    "drops": "noita_gold",
    "stage": "1b",
-   "_unverified": {
-    "id": "synthetic id; find the real entity file name in data.wak",
-    "noita_entity": "path guessed from the id; check in the player's data.wak (tools: Terranoita.Cli wak-cat)"
+   "_unverified": {},
+   "_sources": {
+    "id": "sheet id kept; Noita file data/entities/props/physics/trap_circle_acid.xml (found by file_words)",
+    "walks": "no movement component of any kind in data/entities/props/physics/trap_circle_acid.xml: does not move"
    }
   },
   {
@@ -10546,23 +10561,26 @@
    "category": "Uncategorised",
    "faction": "trap",
    "noita_hp": 37.5,
-   "noita_entity": "data/entities/animals/trap_arrow.xml",
-   "sprite": null,
-   "hitbox": null,
+   "noita_entity": "data/entities/buildings/arrowtrap_left.xml",
+   "sprite": "data/buildings_gfx/arrowtrap_left.xml",
+   "hitbox": [
+    15,
+    30
+   ],
    "size": 1.0,
    "hitbox_mult": 1.0,
    "ai": "static_turret",
-   "walks": null,
-   "flies": null,
-   "jumps": null,
-   "run_speed": null,
-   "fly_speed": null,
-   "fly_up_speed": null,
-   "accel": null,
-   "gravity": null,
-   "jump_speed": null,
-   "sight_tiles": null,
-   "audio": null,
+   "walks": true,
+   "flies": false,
+   "jumps": false,
+   "run_speed": 0.0,
+   "fly_speed": 0.0,
+   "fly_up_speed": 0.0,
+   "accel": 1,
+   "gravity": 0.0,
+   "jump_speed": 0.0,
+   "sight_tiles": 56.2,
+   "audio": "none",
    "attacks": [
     "trap_arrow.arrow"
    ],
@@ -10581,7 +10599,7 @@
     "slice": 1.0,
     "explosion": 0.3,
     "electricity": 1.0,
-    "fire": 0.0,
+    "fire": 0,
     "ice": 1.0,
     "drill": 0.4,
     "radioactive": 1.0,
@@ -10594,20 +10612,20 @@
    "blood": "Sand",
    "drops": "noita_gold",
    "stage": "1b",
-   "_unverified": {
-    "id": "synthetic id; find the real entity file name in data.wak",
-    "noita_entity": "path guessed from the id; check in the player's data.wak (tools: Terranoita.Cli wak-cat)"
+   "_unverified": {},
+   "_sources": {
+    "id": "sheet id kept; Noita file data/entities/buildings/arrowtrap_left.xml (found by file_words)"
    }
   },
   {
    "id": "trap_fire",
    "name_en": "Fire Trap",
    "name_fi": "Fire Trap",
-   "name_key": "$animal_trap_fire",
+   "name_key": "$projectile_default",
    "category": "Uncategorised",
    "faction": "trap",
    "noita_hp": 112.5,
-   "noita_entity": "data/entities/animals/trap_fire.xml",
+   "noita_entity": "data/entities/projectiles/fire_trap.xml",
    "sprite": null,
    "hitbox": null,
    "size": 1.0,
@@ -10623,7 +10641,7 @@
    "gravity": null,
    "jump_speed": null,
    "sight_tiles": null,
-   "audio": null,
+   "audio": "projectiles/trap_fire",
    "attacks": [
     "trap_fire.fire"
    ],
@@ -10652,20 +10670,20 @@
    "blood": "Sand",
    "drops": "noita_gold",
    "stage": "1b",
-   "_unverified": {
-    "id": "synthetic id; find the real entity file name in data.wak",
-    "noita_entity": "path guessed from the id; check in the player's data.wak (tools: Terranoita.Cli wak-cat)"
+   "_unverified": {},
+   "_sources": {
+    "id": "sheet id kept; Noita file data/entities/projectiles/fire_trap.xml (found by file_words)"
    }
   },
   {
    "id": "trap_thunder",
    "name_en": "Thunder Trap",
    "name_fi": "Thunder Trap",
-   "name_key": "$animal_trap_thunder",
+   "name_key": "$projectile_default",
    "category": "Uncategorised",
    "faction": "trap",
    "noita_hp": 137.5,
-   "noita_entity": "data/entities/animals/trap_thunder.xml",
+   "noita_entity": "data/entities/projectiles/thunder_trap.xml",
    "sprite": null,
    "hitbox": null,
    "size": 1.0,
@@ -10681,7 +10699,7 @@
    "gravity": null,
    "jump_speed": null,
    "sight_tiles": null,
-   "audio": null,
+   "audio": "none",
    "attacks": [
     "trap_thunder.electric_spark"
    ],
@@ -10710,9 +10728,9 @@
    "blood": "Sand",
    "drops": "noita_gold",
    "stage": "1b",
-   "_unverified": {
-    "id": "synthetic id; find the real entity file name in data.wak",
-    "noita_entity": "path guessed from the id; check in the player's data.wak (tools: Terranoita.Cli wak-cat)"
+   "_unverified": {},
+   "_sources": {
+    "id": "sheet id kept; Noita file data/entities/projectiles/thunder_trap.xml (found by file_words)"
    }
   },
   {
@@ -10776,27 +10794,30 @@
    "id": "nest_firebug",
    "name_en": "Firefly Hive",
    "name_fi": "Nest",
-   "name_key": "$animal_nest_firebug",
+   "name_key": "unknown",
    "category": "Uncategorised",
    "faction": "nest",
-   "noita_hp": 125.0,
-   "noita_entity": "data/entities/animals/nest_firebug.xml",
-   "sprite": null,
-   "hitbox": null,
+   "noita_hp": 125,
+   "noita_entity": "data/entities/buildings/firebugnest.xml",
+   "sprite": "data/buildings_gfx/nest_yellow.xml",
+   "hitbox": [
+    60,
+    63
+   ],
    "size": 1.0,
    "hitbox_mult": 1.0,
    "ai": "spawner_nest",
-   "walks": null,
-   "flies": null,
-   "jumps": null,
-   "run_speed": null,
-   "fly_speed": null,
-   "fly_up_speed": null,
-   "accel": null,
-   "gravity": null,
-   "jump_speed": null,
-   "sight_tiles": null,
-   "audio": null,
+   "walks": false,
+   "flies": false,
+   "jumps": false,
+   "run_speed": 0.0,
+   "fly_speed": 0.0,
+   "fly_up_speed": 0.0,
+   "accel": 0.0,
+   "gravity": 0.0,
+   "jump_speed": 0.0,
+   "sight_tiles": 9.4,
+   "audio": "none",
    "attacks": [
     "nest_firebug.release"
    ],
@@ -10822,9 +10843,11 @@
    "drops": "noita_gold",
    "stage": "1b",
    "_unverified": {
-    "id": "synthetic id; find the real entity file name in data.wak",
-    "noita_entity": "path guessed from the id; check in the player's data.wak (tools: Terranoita.Cli wak-cat)",
     "attacks": "a nest releases its creatures: confirm in its spawn script"
+   },
+   "_sources": {
+    "id": "sheet id kept; Noita file data/entities/buildings/firebugnest.xml (found by file_words)",
+    "walks": "no movement component of any kind in data/entities/buildings/firebugnest.xml: does not move"
    }
   },
   {
@@ -11536,23 +11559,26 @@
    "category": "Robots",
    "faction": "robot",
    "noita_hp": 362.5,
-   "noita_entity": "data/entities/animals/hidden.xml",
-   "sprite": null,
-   "hitbox": null,
+   "noita_entity": "data/entities/animals/basebot_hidden.xml",
+   "sprite": "data/enemies_gfx/basebot_hidden.xml",
+   "hitbox": [
+    48,
+    45
+   ],
    "size": 1.0,
    "hitbox_mult": 1.0,
    "ai": "walker_shooter",
-   "walks": null,
-   "flies": null,
-   "jumps": null,
-   "run_speed": null,
-   "fly_speed": null,
-   "fly_up_speed": null,
-   "accel": null,
-   "gravity": null,
-   "jump_speed": null,
-   "sight_tiles": null,
-   "audio": null,
+   "walks": false,
+   "flies": true,
+   "jumps": false,
+   "run_speed": 2.0,
+   "fly_speed": 3.0,
+   "fly_up_speed": 3.0,
+   "accel": 4,
+   "gravity": 0.5,
+   "jump_speed": 10.0,
+   "sight_tiles": 46.9,
+   "audio": "animals/drone_lasership",
    "attacks": [
     "hidden.projectile"
    ],
@@ -11563,14 +11589,14 @@
    "tier": "t4",
    "dmg_mult": {
     "melee": 0.3,
-    "projectile": 0.0,
+    "projectile": 0,
     "slice": 0.1,
-    "explosion": 1.0,
-    "electricity": -1.0,
-    "fire": 0.0,
+    "explosion": 1,
+    "electricity": -1,
+    "fire": 0,
     "ice": 1.0,
     "drill": 0.1,
-    "radioactive": 0.0,
+    "radioactive": 0,
     "holy": 1.0
    },
    "immunities": [
@@ -11582,9 +11608,7 @@
    "blood": "Oil",
    "drops": "noita_gold",
    "stage": "1b",
-   "_unverified": {
-    "noita_entity": "path guessed from the id; check in the player's data.wak (tools: Terranoita.Cli wak-cat)"
-   }
+   "_unverified": {}
   },
   {
    "id": "enlightened_alchemist",
@@ -11767,7 +11791,7 @@
    "faction": "ghost",
    "noita_hp": 100,
    "noita_entity": "data/entities/animals/bloodcrystal_physics.xml",
-   "sprite": null,
+   "sprite": "data/enemies_gfx/bloodcrystal_physics.png",
    "hitbox": [
     60,
     60

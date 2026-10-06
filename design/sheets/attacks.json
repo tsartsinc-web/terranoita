@@ -4489,7 +4489,7 @@
    "cooldown_frames": 90,
    "range_tiles": 25,
    "lunge_speed": 0,
-   "sound": null,
+   "sound": "none",
    "wiki_text": "Neutralize shot",
    "stage": "1b",
    "_unverified": {
@@ -4513,17 +4513,13 @@
     "fire": 5.0
    },
    "per_frames": "hit",
-   "cooldown_frames": 90,
-   "range_tiles": 25,
+   "cooldown_frames": 105,
+   "range_tiles": 37.5,
    "lunge_speed": 0,
-   "sound": null,
+   "sound": "none",
    "wiki_text": "Projectile/Projectile/11.25; Projectile/Fire/5",
    "stage": "1b",
-   "_unverified": {
-    "cooldown_frames": "default for kind 'projectile'; read AnimalAIComponent attack_*_frames_between check in the player's data.wak (tools: Terranoita.Cli wak-cat)",
-    "range_tiles": "default for kind; read AnimalAIComponent attack_*_range check in the player's data.wak (tools: Terranoita.Cli wak-cat)",
-    "count": "wiki shows no count; read attack_ranged_entity_count check in the player's data.wak (tools: Terranoita.Cli wak-cat)"
-   }
+   "_unverified": {}
   },
   {
    "id": "coward.teleportation",
@@ -6242,17 +6238,13 @@
     "projectile": 0.0
    },
    "per_frames": "hit",
-   "cooldown_frames": 90,
-   "range_tiles": 25,
+   "cooldown_frames": 115,
+   "range_tiles": 30.0,
    "lunge_speed": 0,
-   "sound": null,
+   "sound": "animals/miner/_throw",
    "wiki_text": "Sausages/Projectile/0",
    "stage": "1b",
-   "_unverified": {
-    "cooldown_frames": "default for kind 'projectile'; read AnimalAIComponent attack_*_frames_between check in the player's data.wak (tools: Terranoita.Cli wak-cat)",
-    "range_tiles": "default for kind; read AnimalAIComponent attack_*_range check in the player's data.wak (tools: Terranoita.Cli wak-cat)",
-    "count": "wiki shows no count; read attack_ranged_entity_count check in the player's data.wak (tools: Terranoita.Cli wak-cat)"
-   }
+   "_unverified": {}
   },
   {
    "id": "cook.melee",
@@ -6271,16 +6263,13 @@
     ]
    },
    "per_frames": "hit",
-   "cooldown_frames": 40,
-   "range_tiles": 1.5,
+   "cooldown_frames": 20,
+   "range_tiles": 1.88,
    "lunge_speed": 0,
-   "sound": null,
+   "sound": "animals/miner/_voc_attack",
    "wiki_text": "Melee/Melee/10-17.5",
    "stage": "1b",
-   "_unverified": {
-    "cooldown_frames": "default for kind 'melee'; read AnimalAIComponent attack_*_frames_between check in the player's data.wak (tools: Terranoita.Cli wak-cat)",
-    "range_tiles": "default for kind; read AnimalAIComponent attack_*_range check in the player's data.wak (tools: Terranoita.Cli wak-cat)"
-   }
+   "_unverified": {}
   },
   {
    "id": "miner.tnt",
@@ -6388,17 +6377,13 @@
    ],
    "damage": null,
    "per_frames": "hit",
-   "cooldown_frames": 90,
-   "range_tiles": 25,
+   "cooldown_frames": 105,
+   "range_tiles": 37.5,
    "lunge_speed": 0,
-   "sound": null,
+   "sound": "none",
    "wiki_text": "Targeting Projectile",
    "stage": "1b",
-   "_unverified": {
-    "cooldown_frames": "default for kind 'projectile'; read AnimalAIComponent attack_*_frames_between check in the player's data.wak (tools: Terranoita.Cli wak-cat)",
-    "range_tiles": "default for kind; read AnimalAIComponent attack_*_range check in the player's data.wak (tools: Terranoita.Cli wak-cat)",
-    "count": "wiki shows no count; read attack_ranged_entity_count check in the player's data.wak (tools: Terranoita.Cli wak-cat)"
-   }
+   "_unverified": {}
   },
   {
    "id": "soldier.projectile",
@@ -6418,17 +6403,13 @@
     "radioactive": 10.0
    },
    "per_frames": "hit",
-   "cooldown_frames": 90,
-   "range_tiles": 25,
+   "cooldown_frames": 85,
+   "range_tiles": 37.5,
    "lunge_speed": 0,
-   "sound": null,
+   "sound": "none",
    "wiki_text": "Projectile/Projectile/15; Projectile/Explosion/12.5; Projectile/Fire/10; Projectile/Slice/10; Projectile/Radioactive/10",
    "stage": "1b",
-   "_unverified": {
-    "cooldown_frames": "default for kind 'projectile'; read AnimalAIComponent attack_*_frames_between check in the player's data.wak (tools: Terranoita.Cli wak-cat)",
-    "range_tiles": "default for kind; read AnimalAIComponent attack_*_range check in the player's data.wak (tools: Terranoita.Cli wak-cat)",
-    "count": "wiki shows no count; read attack_ranged_entity_count check in the player's data.wak (tools: Terranoita.Cli wak-cat)"
-   }
+   "_unverified": {}
   },
   {
    "id": "scavenger_leader.grenades",
@@ -6482,7 +6463,7 @@
    "id": "turret.laser",
    "enemy": "turret",
    "kind": "projectile",
-   "projectile": "laser",
+   "projectile": "laser_turret",
    "summons": [],
    "count": [
     2,
@@ -6493,16 +6474,13 @@
     "explosion": 6.25
    },
    "per_frames": "hit",
-   "cooldown_frames": 90,
-   "range_tiles": 25,
+   "cooldown_frames": 145,
+   "range_tiles": 138.75,
    "lunge_speed": 0,
-   "sound": null,
+   "sound": "none",
    "wiki_text": "Laser projectile x 2/Projectile/25; Laser projectile x 2/Explosion/6.25",
    "stage": "1b",
-   "_unverified": {
-    "cooldown_frames": "default for kind 'projectile'; read AnimalAIComponent attack_*_frames_between check in the player's data.wak (tools: Terranoita.Cli wak-cat)",
-    "range_tiles": "default for kind; read AnimalAIComponent attack_*_range check in the player's data.wak (tools: Terranoita.Cli wak-cat)"
-   }
+   "_unverified": {}
   },
   {
    "id": "turret.explodes_on_death",
@@ -6521,7 +6499,7 @@
    "cooldown_frames": 0,
    "range_tiles": 0,
    "lunge_speed": 0,
-   "sound": null,
+   "sound": "none",
    "wiki_text": "Explodes on death/Explosion/50",
    "stage": "1b",
    "_unverified": {
@@ -6700,7 +6678,7 @@
    "cooldown_frames": 90,
    "range_tiles": 25,
    "lunge_speed": 0,
-   "sound": null,
+   "sound": "none",
    "wiki_text": "[[Acid]] spit/Projectile/5",
    "stage": "1b",
    "_unverified": {
@@ -6726,7 +6704,7 @@
    "cooldown_frames": 90,
    "range_tiles": 25,
    "lunge_speed": 0,
-   "sound": null,
+   "sound": "none",
    "wiki_text": "[[Arrow]]/Projectile/12.5",
    "stage": "1b",
    "_unverified": {
@@ -6752,7 +6730,7 @@
    "cooldown_frames": 90,
    "range_tiles": 25,
    "lunge_speed": 0,
-   "sound": null,
+   "sound": "none",
    "wiki_text": "[[Fire]]/Fire/12.5",
    "stage": "1b",
    "_unverified": {
@@ -6778,7 +6756,7 @@
    "cooldown_frames": 90,
    "range_tiles": 25,
    "lunge_speed": 0,
-   "sound": null,
+   "sound": "none",
    "wiki_text": "Electric spark/Electricity/25",
    "stage": "1b",
    "_unverified": {
@@ -7170,17 +7148,13 @@
     "ice": 7.5
    },
    "per_frames": "hit",
-   "cooldown_frames": 90,
-   "range_tiles": 25,
+   "cooldown_frames": 165,
+   "range_tiles": 7.5,
    "lunge_speed": 0,
-   "sound": null,
+   "sound": "none",
    "wiki_text": "Projectile/Projectile/7.5; Projectile/Fire/7.5; Projectile/Slice/7.5; Projectile/Ice/7.5",
    "stage": "1b",
-   "_unverified": {
-    "cooldown_frames": "default for kind 'projectile'; read AnimalAIComponent attack_*_frames_between check in the player's data.wak (tools: Terranoita.Cli wak-cat)",
-    "range_tiles": "default for kind; read AnimalAIComponent attack_*_range check in the player's data.wak (tools: Terranoita.Cli wak-cat)",
-    "count": "wiki shows no count; read attack_ranged_entity_count check in the player's data.wak (tools: Terranoita.Cli wak-cat)"
-   }
+   "_unverified": {}
   },
   {
    "id": "enlightened_alchemist.meteor",
@@ -7644,11 +7618,10 @@
    "cooldown_frames": 600,
    "range_tiles": 15,
    "lunge_speed": 0,
-   "sound": null,
+   "sound": "none",
    "wiki_text": "Releases its creatures when the player is near (archetype spawner_nest)",
    "stage": "1b",
    "_unverified": {
-    "summons": "from the nest's name; confirm in its spawn script (facts script_entities)",
     "count": "design guess; read the nest's spawn script",
     "cooldown_frames": "design guess; read the nest's spawn script",
     "range_tiles": "design guess; read the nest's spawn script"
@@ -7687,7 +7660,8 @@
    "kind": "summon",
    "projectile": "none",
    "summons": [
-    "firebug"
+    "firebug",
+    "bigfirebug"
    ],
    "count": [
     1,
@@ -7698,11 +7672,10 @@
    "cooldown_frames": 600,
    "range_tiles": 15,
    "lunge_speed": 0,
-   "sound": null,
+   "sound": "none",
    "wiki_text": "Releases its creatures when the player is near (archetype spawner_nest)",
    "stage": "1b",
    "_unverified": {
-    "summons": "from the nest's name; confirm in its spawn script (facts script_entities)",
     "count": "design guess; read the nest's spawn script",
     "cooldown_frames": "design guess; read the nest's spawn script",
     "range_tiles": "design guess; read the nest's spawn script"

@@ -152,8 +152,9 @@
    "effect": "acid",
    "terrain": "none",
    "stage": "1b",
-   "_unverified": {
-    "effect": "guessed from the name; confirm in the projectile's entity XML"
+   "_unverified": {},
+   "_sources": {
+    "effect": "acidburst.xml: material acid"
    }
   },
   {
@@ -194,8 +195,9 @@
    "effect": "electric",
    "terrain": "none",
    "stage": "1b",
-   "_unverified": {
-    "effect": "guessed from the name; confirm in the projectile's entity XML"
+   "_unverified": {},
+   "_sources": {
+    "effect": "lightning_thunderskull.xml: material spark_electric"
    }
   },
   {
@@ -235,11 +237,12 @@
    "explosion_radius": 0.19,
    "audio": "projectiles/orb_dark",
    "explosion_sound": "none",
-   "effect": "blind",
+   "effect": "explosive",
    "terrain": "none",
    "stage": "1b",
-   "_unverified": {
-    "effect": "guessed from the name; confirm in the projectile's entity XML"
+   "_unverified": {},
+   "_sources": {
+    "effect": "orb_dark.xml: explodes, radius 1"
    }
   },
   {
@@ -277,11 +280,12 @@
    "explosion_radius": 0.56,
    "audio": "projectiles/laser",
    "explosion_sound": "none",
-   "effect": "light",
+   "effect": "explosive",
    "terrain": "none",
    "stage": "1b",
-   "_unverified": {
-    "effect": "guessed from the name; confirm in the projectile's entity XML"
+   "_unverified": {},
+   "_sources": {
+    "effect": "laser_bouncy.xml: explodes, radius 3"
    }
   },
   {
@@ -383,11 +387,12 @@
    "explosion_radius": 0.0,
    "audio": "projectiles/polymorph_bubble",
    "explosion_sound": "none",
-   "effect": "polymorph",
+   "effect": "acid",
    "terrain": "none",
    "stage": "1b",
-   "_unverified": {
-    "effect": "guessed from the name; confirm in the projectile's entity XML"
+   "_unverified": {},
+   "_sources": {
+    "effect": "polyorb.xml: material acid,lava,poison,blood_cold,blood_cold_vapour,radioactive_gas,radioactive_gas_static,rock_static_radioactive,rock_static_poison,ice_radioactive_static,ice_radioactive_glass,ice_acid_static,ice_acid_glass,rock_static_cursed,poo_gas"
    }
   },
   {
@@ -428,8 +433,9 @@
    "effect": "fire",
    "terrain": "none",
    "stage": "1b",
-   "_unverified": {
-    "effect": "guessed from the name; confirm in the projectile's entity XML"
+   "_unverified": {},
+   "_sources": {
+    "effect": "cocktail.xml: material lava"
    }
   },
   {
@@ -446,11 +452,12 @@
    "explosion_radius": 1.12,
    "audio": "projectiles/orb_c",
    "explosion_sound": "none",
-   "effect": "none",
+   "effect": "explosive",
    "terrain": "none",
    "stage": "1b",
-   "_unverified": {
-    "effect": "guessed from the name; confirm in the projectile's entity XML"
+   "_unverified": {},
+   "_sources": {
+    "effect": "orb_pink.xml: explodes, radius 6"
    }
   },
   {
@@ -488,11 +495,12 @@
    "explosion_radius": 0.38,
    "audio": "projectiles/bullet_smg_enemy",
    "explosion_sound": "none",
-   "effect": "none",
+   "effect": "explosive",
    "terrain": "none",
    "stage": "1b",
-   "_unverified": {
-    "effect": "guessed from the name; confirm in the projectile's entity XML"
+   "_unverified": {},
+   "_sources": {
+    "effect": "machinegun_bullet_slower.xml: explodes, radius 2"
    }
   },
   {
@@ -530,11 +538,12 @@
    "explosion_radius": 4.69,
    "audio": "projectiles/orb_b",
    "explosion_sound": "explosions/magic_small",
-   "effect": "none",
+   "effect": "explosive",
    "terrain": "none",
    "stage": "1b",
-   "_unverified": {
-    "effect": "guessed from the name; confirm in the projectile's entity XML"
+   "_unverified": {},
+   "_sources": {
+    "effect": "orbspawner_green.xml: explodes, radius 25"
    }
   },
   {
@@ -573,11 +582,12 @@
    "explosion_radius": 1.12,
    "audio": "none",
    "explosion_sound": "none",
-   "effect": "none",
+   "effect": "explosive",
    "terrain": "none",
    "stage": "1b",
-   "_unverified": {
-    "effect": "guessed from the name; confirm in the projectile's entity XML"
+   "_unverified": {},
+   "_sources": {
+    "effect": "orb_tiny.xml: explodes, radius 6"
    }
   },
   {
@@ -682,8 +692,9 @@
    "effect": "fire",
    "terrain": "none",
    "stage": "1b",
-   "_unverified": {
-    "effect": "guessed from the name; confirm in the projectile's entity XML"
+   "_unverified": {},
+   "_sources": {
+    "effect": "fireball.xml: material fire"
    }
   },
   {
@@ -722,11 +733,12 @@
    "explosion_radius": 1.88,
    "audio": "projectiles/bullet_launcher",
    "explosion_sound": "explosions/grenade_small",
-   "effect": "fire",
+   "effect": "explosive",
    "terrain": "none",
    "stage": "1b",
-   "_unverified": {
-    "effect": "guessed from the name; confirm in the projectile's entity XML"
+   "_unverified": {},
+   "_sources": {
+    "effect": "grenade_scavenger.xml: explodes, radius 10"
    }
   },
   {
@@ -746,8 +758,9 @@
    "effect": "fire",
    "terrain": "none",
    "stage": "1b",
-   "_unverified": {
-    "effect": "guessed from the name; confirm in the projectile's entity XML"
+   "_unverified": {},
+   "_sources": {
+    "effect": "fireball_firebug.xml: material fire"
    }
   },
   {
@@ -767,8 +780,9 @@
    "effect": "fire",
    "terrain": "none",
    "stage": "1b",
-   "_unverified": {
-    "effect": "guessed from the name; confirm in the projectile's entity XML"
+   "_unverified": {},
+   "_sources": {
+    "effect": "flamethrower.xml: material fire"
    }
   },
   {
@@ -831,8 +845,9 @@
    "effect": "fire",
    "terrain": "none",
    "stage": "1b",
-   "_unverified": {
-    "effect": "guessed from the name; confirm in the projectile's entity XML"
+   "_unverified": {},
+   "_sources": {
+    "effect": "fireball_ghostly.xml: material fire_blue"
    }
   },
   {
@@ -893,11 +908,12 @@
    "explosion_radius": 3.0,
    "audio": "projectiles/bomb_glitter",
    "explosion_sound": "none",
-   "effect": "explosive",
+   "effect": "fire",
    "terrain": "none",
    "stage": "1b",
-   "_unverified": {
-    "effect": "guessed from the name; confirm in the projectile's entity XML"
+   "_unverified": {},
+   "_sources": {
+    "effect": "glitter_bomb.xml: material lava"
    }
   },
   {
@@ -917,8 +933,9 @@
    "effect": "glue",
    "terrain": "none",
    "stage": "1b",
-   "_unverified": {
-    "effect": "guessed from the name; confirm in the projectile's entity XML"
+   "_unverified": {},
+   "_sources": {
+    "effect": "glue_shot.xml: material glue"
    }
   },
   {
@@ -1023,8 +1040,9 @@
    "effect": "explosive",
    "terrain": "none",
    "stage": "1b",
-   "_unverified": {
-    "effect": "guessed from the name; confirm in the projectile's entity XML"
+   "_unverified": {},
+   "_sources": {
+    "effect": "grenade_scavenger.xml: explodes, radius 10"
    }
   },
   {
@@ -1044,8 +1062,9 @@
    "effect": "explosive",
    "terrain": "none",
    "stage": "1b",
-   "_unverified": {
-    "effect": "guessed from the name; confirm in the projectile's entity XML"
+   "_unverified": {},
+   "_sources": {
+    "effect": "grenade_leader.xml: explodes, radius 10"
    }
   },
   {
@@ -1054,19 +1073,20 @@
    "used_by": [
     "hidden"
    ],
-   "noita_file": null,
-   "sprite": null,
-   "speed": null,
-   "gravity": null,
-   "lifetime_frames": null,
-   "explosion_radius": null,
-   "audio": null,
-   "explosion_sound": null,
-   "effect": "none",
+   "noita_file": "data/entities/projectiles/hiddenshot.xml",
+   "sprite": "data/projectiles_gfx/orb_blue.xml",
+   "speed": 25.0,
+   "gravity": 0.0,
+   "lifetime_frames": 8,
+   "explosion_radius": 2.25,
+   "audio": "projectiles/orb_c",
+   "explosion_sound": "none",
+   "effect": "fire",
    "terrain": "none",
    "stage": "1b",
-   "_unverified": {
-    "effect": "guessed from the name; confirm in the projectile's entity XML"
+   "_unverified": {},
+   "_sources": {
+    "effect": "hiddenshot.xml: damage_by_type fire"
    }
   },
   {
@@ -1105,11 +1125,12 @@
    "explosion_radius": 1.88,
    "audio": "projectiles/rocket",
    "explosion_sound": "explosions/tnt",
-   "effect": "explosive",
+   "effect": "fire",
    "terrain": "none",
    "stage": "1b",
-   "_unverified": {
-    "effect": "guessed from the name; confirm in the projectile's entity XML"
+   "_unverified": {},
+   "_sources": {
+    "effect": "rocket_tank.xml: material fire"
    }
   },
   {
@@ -1129,8 +1150,9 @@
    "effect": "ice",
    "terrain": "none",
    "stage": "1b",
-   "_unverified": {
-    "effect": "guessed from the name; confirm in the projectile's entity XML"
+   "_unverified": {},
+   "_sources": {
+    "effect": "ice.xml: material blood_cold"
    }
   },
   {
@@ -1150,8 +1172,9 @@
    "effect": "ice",
    "terrain": "none",
    "stage": "1b",
-   "_unverified": {
-    "effect": "guessed from the name; confirm in the projectile's entity XML"
+   "_unverified": {},
+   "_sources": {
+    "effect": "icethrower.xml: material blood_cold_vapour"
    }
   },
   {
@@ -1246,8 +1269,7 @@
    "id": "laser",
    "name_en": "Laser projectile",
    "used_by": [
-    "lasershooter",
-    "turret"
+    "lasershooter"
    ],
    "noita_file": "data/entities/projectiles/laserbeam.xml",
    "sprite": "data/projectiles_gfx/laser.xml",
@@ -1257,11 +1279,12 @@
    "explosion_radius": 0.56,
    "audio": "projectiles/laser",
    "explosion_sound": "none",
-   "effect": "light",
+   "effect": "explosive",
    "terrain": "none",
    "stage": "1b",
-   "_unverified": {
-    "effect": "guessed from the name; confirm in the projectile's entity XML"
+   "_unverified": {},
+   "_sources": {
+    "effect": "laserbeam.xml: explodes, radius 3"
    }
   },
   {
@@ -1278,11 +1301,12 @@
    "explosion_radius": 1.12,
    "audio": "projectiles/laser",
    "explosion_sound": "none",
-   "effect": "light",
+   "effect": "explosive",
    "terrain": "none",
    "stage": "1b",
-   "_unverified": {
-    "effect": "guessed from the name; confirm in the projectile's entity XML"
+   "_unverified": {},
+   "_sources": {
+    "effect": "machinegun_bullet_tank_super.xml: explodes, radius 6"
    }
   },
   {
@@ -1299,11 +1323,12 @@
    "explosion_radius": 0.19,
    "audio": "player_projectiles/bullet_arrow",
    "explosion_sound": "none",
-   "effect": "light",
+   "effect": "explosive",
    "terrain": "none",
    "stage": "1b",
-   "_unverified": {
-    "effect": "guessed from the name; confirm in the projectile's entity XML"
+   "_unverified": {},
+   "_sources": {
+    "effect": "laser_spear.xml: explodes, radius 1"
    }
   },
   {
@@ -1323,8 +1348,9 @@
    "effect": "fire",
    "terrain": "none",
    "stage": "1b",
-   "_unverified": {
-    "effect": "guessed from the name; confirm in the projectile's entity XML"
+   "_unverified": {},
+   "_sources": {
+    "effect": "lavashot.xml: material lava"
    }
   },
   {
@@ -1386,11 +1412,12 @@
    "explosion_radius": 0.38,
    "audio": "projectiles/minigun",
    "explosion_sound": "none",
-   "effect": "none",
+   "effect": "explosive",
    "terrain": "none",
    "stage": "1b",
-   "_unverified": {
-    "effect": "guessed from the name; confirm in the projectile's entity XML"
+   "_unverified": {},
+   "_sources": {
+    "effect": "machinegun_bullet_tank.xml: explodes, radius 2"
    }
   },
   {
@@ -1407,11 +1434,12 @@
    "explosion_radius": 0.0,
    "audio": "none",
    "explosion_sound": "none",
-   "effect": "none",
+   "effect": "glue",
    "terrain": "none",
    "stage": "1b",
-   "_unverified": {
-    "effect": "guessed from the name; confirm in the projectile's entity XML"
+   "_unverified": {},
+   "_sources": {
+    "effect": "slimetrail.xml: material slime_green"
    }
   },
   {
@@ -1494,11 +1522,12 @@
    "explosion_radius": 0.0,
    "audio": "projectiles/rocket_tiny_roll",
    "explosion_sound": "none",
-   "effect": "explosive",
+   "effect": "none",
    "terrain": "none",
    "stage": "1b",
-   "_unverified": {
-    "effect": "guessed from the name; confirm in the projectile's entity XML"
+   "_unverified": {},
+   "_sources": {
+    "effect": "rocket_tiny_roll.xml: plain damage, no effect, material or damage_by_type"
    }
   },
   {
@@ -1536,11 +1565,12 @@
    "explosion_radius": 1.88,
    "audio": "projectiles/orb_b",
    "explosion_sound": "none",
-   "effect": "none",
+   "effect": "explosive",
    "terrain": "none",
    "stage": "1b",
-   "_unverified": {
-    "effect": "guessed from the name; confirm in the projectile's entity XML"
+   "_unverified": {},
+   "_sources": {
+    "effect": "dotshot.xml: explodes, radius 10"
    }
   },
   {
@@ -1557,11 +1587,12 @@
    "explosion_radius": 1.88,
    "audio": "projectiles/orb_b",
    "explosion_sound": "none",
-   "effect": "none",
+   "effect": "explosive",
    "terrain": "none",
    "stage": "1b",
-   "_unverified": {
-    "effect": "guessed from the name; confirm in the projectile's entity XML"
+   "_unverified": {},
+   "_sources": {
+    "effect": "dotshot_strong.xml: explodes, radius 10"
    }
   },
   {
@@ -1591,14 +1622,14 @@
    "used_by": [
     "neutralizer"
    ],
-   "noita_file": null,
-   "sprite": null,
-   "speed": null,
-   "gravity": null,
-   "lifetime_frames": null,
-   "explosion_radius": null,
-   "audio": null,
-   "explosion_sound": null,
+   "noita_file": "data/entities/projectiles/neutralizershot.xml",
+   "sprite": "data/projectiles_gfx/target2.xml",
+   "speed": 17.5,
+   "gravity": 0.0,
+   "lifetime_frames": 100,
+   "explosion_radius": 0.0,
+   "audio": "projectiles/laser",
+   "explosion_sound": "none",
    "effect": "neutralize",
    "terrain": "none",
    "stage": "1b",
@@ -1620,11 +1651,12 @@
    "explosion_radius": 0.19,
    "audio": "projectiles/magic",
    "explosion_sound": "none",
-   "effect": "neutralize",
+   "effect": "explosive",
    "terrain": "none",
    "stage": "1b",
-   "_unverified": {
-    "effect": "guessed from the name; confirm in the projectile's entity XML"
+   "_unverified": {},
+   "_sources": {
+    "effect": "orb_neutral.xml: explodes, radius 1"
    }
   },
   {
@@ -1663,11 +1695,12 @@
    "explosion_radius": 0.19,
    "audio": "projectiles/rocket",
    "explosion_sound": "none",
-   "effect": "fire",
+   "effect": "explosive",
    "terrain": "none",
    "stage": "1b",
-   "_unverified": {
-    "effect": "guessed from the name; confirm in the projectile's entity XML"
+   "_unverified": {},
+   "_sources": {
+    "effect": "darkflame.xml: explodes, radius 1"
    }
   },
   {
@@ -1732,8 +1765,9 @@
    "effect": "poison",
    "terrain": "none",
    "stage": "1b",
-   "_unverified": {
-    "effect": "guessed from the name; confirm in the projectile's entity XML"
+   "_unverified": {},
+   "_sources": {
+    "effect": "bullet_poison.xml: material poison"
    }
   },
   {
@@ -1750,11 +1784,12 @@
    "explosion_radius": 0.75,
    "audio": "projectiles/bullet_arrow",
    "explosion_sound": "explosions/grenade_small",
-   "effect": "poison",
+   "effect": "acid",
    "terrain": "none",
    "stage": "1b",
-   "_unverified": {
-    "effect": "guessed from the name; confirm in the projectile's entity XML"
+   "_unverified": {},
+   "_sources": {
+    "effect": "pollen_ball.xml: material acid_gas"
    }
   },
   {
@@ -1794,11 +1829,12 @@
    "explosion_radius": 0.19,
    "audio": "projectiles/orb_poly",
    "explosion_sound": "none",
-   "effect": "polymorph",
+   "effect": "explosive",
    "terrain": "none",
    "stage": "1b",
-   "_unverified": {
-    "effect": "guessed from the name; confirm in the projectile's entity XML"
+   "_unverified": {},
+   "_sources": {
+    "effect": "orb_poly.xml: explodes, radius 1"
    }
   },
   {
@@ -1839,8 +1875,9 @@
    "effect": "explosive",
    "terrain": "none",
    "stage": "1b",
-   "_unverified": {
-    "effect": "guessed from the name; confirm in the projectile's entity XML"
+   "_unverified": {},
+   "_sources": {
+    "effect": "present.xml: explodes, radius 25"
    }
   },
   {
@@ -1857,11 +1894,12 @@
    "explosion_radius": 0.0,
    "audio": "none",
    "explosion_sound": "none",
-   "effect": "explosive",
+   "effect": "none",
    "terrain": "none",
    "stage": "1b",
-   "_unverified": {
-    "effect": "guessed from the name; confirm in the projectile's entity XML"
+   "_unverified": {},
+   "_sources": {
+    "effect": "mine.xml: plain damage, no effect, material or damage_by_type"
    }
   },
   {
@@ -1878,11 +1916,12 @@
    "explosion_radius": 0.38,
    "audio": "projectiles/bullet_smg_enemy",
    "explosion_sound": "none",
-   "effect": "none",
+   "effect": "explosive",
    "terrain": "none",
    "stage": "1b",
-   "_unverified": {
-    "effect": "guessed from the name; confirm in the projectile's entity XML"
+   "_unverified": {},
+   "_sources": {
+    "effect": "machinegun_bullet_slower.xml: explodes, radius 2"
    }
   },
   {
@@ -1899,11 +1938,12 @@
    "explosion_radius": 1.12,
    "audio": "projectiles/laser",
    "explosion_sound": "none",
-   "effect": "none",
+   "effect": "fire",
    "terrain": "none",
    "stage": "1b",
-   "_unverified": {
-    "effect": "guessed from the name; confirm in the projectile's entity XML"
+   "_unverified": {},
+   "_sources": {
+    "effect": "machinegun_bullet_roboguard_big.xml: damage_by_type fire"
    }
   },
   {
@@ -1920,11 +1960,12 @@
    "explosion_radius": 0.38,
    "audio": "projectiles/minigun",
    "explosion_sound": "none",
-   "effect": "none",
+   "effect": "explosive",
    "terrain": "none",
    "stage": "1b",
-   "_unverified": {
-    "effect": "guessed from the name; confirm in the projectile's entity XML"
+   "_unverified": {},
+   "_sources": {
+    "effect": "machinegun_bullet_slow.xml: explodes, radius 2"
    }
   },
   {
@@ -1954,14 +1995,14 @@
    "used_by": [
     "cook"
    ],
-   "noita_file": null,
-   "sprite": null,
-   "speed": null,
-   "gravity": null,
-   "lifetime_frames": null,
-   "explosion_radius": null,
-   "audio": null,
-   "explosion_sound": null,
+   "noita_file": "data/entities/projectiles/deck/sausage.xml",
+   "sprite": "data/projectiles_gfx/sosig.png",
+   "speed": 3.0,
+   "gravity": 0.3333,
+   "lifetime_frames": -1,
+   "explosion_radius": 0.0,
+   "audio": "player_projectiles/throwable",
+   "explosion_sound": "none",
    "effect": "none",
    "terrain": "none",
    "stage": "1b",
@@ -1986,8 +2027,9 @@
    "effect": "explosive",
    "terrain": "none",
    "stage": "1b",
-   "_unverified": {
-    "effect": "guessed from the name; confirm in the projectile's entity XML"
+   "_unverified": {},
+   "_sources": {
+    "effect": "clusterbomb.xml: explodes, radius 20"
    }
   },
   {
@@ -2026,11 +2068,12 @@
    "explosion_radius": 0.19,
    "audio": "projectiles/bullet_shield",
    "explosion_sound": "none",
-   "effect": "none",
+   "effect": "explosive",
    "terrain": "none",
    "stage": "1b",
-   "_unverified": {
-    "effect": "guessed from the name; confirm in the projectile's entity XML"
+   "_unverified": {},
+   "_sources": {
+    "effect": "shieldshot.xml: explodes, radius 1"
    }
   },
   {
@@ -2068,11 +2111,12 @@
    "explosion_radius": 0.75,
    "audio": "projectiles/shotgun",
    "explosion_sound": "none",
-   "effect": "none",
+   "effect": "explosive",
    "terrain": "none",
    "stage": "1b",
-   "_unverified": {
-    "effect": "guessed from the name; confirm in the projectile's entity XML"
+   "_unverified": {},
+   "_sources": {
+    "effect": "buckshot.xml: explodes, radius 4"
    }
   },
   {
@@ -2089,11 +2133,12 @@
    "explosion_radius": 0.75,
    "audio": "projectiles/shotgun",
    "explosion_sound": "none",
-   "effect": "none",
+   "effect": "explosive",
    "terrain": "none",
    "stage": "1b",
-   "_unverified": {
-    "effect": "guessed from the name; confirm in the projectile's entity XML"
+   "_unverified": {},
+   "_sources": {
+    "effect": "buckshot.xml: explodes, radius 4"
    }
   },
   {
@@ -2157,8 +2202,9 @@
    "effect": "poison",
    "terrain": "none",
    "stage": "1b",
-   "_unverified": {
-    "effect": "guessed from the name; confirm in the projectile's entity XML"
+   "_unverified": {},
+   "_sources": {
+    "effect": "radioactive_blob_trail.xml: material radioactive_liquid_fading"
    }
   },
   {
@@ -2217,11 +2263,12 @@
    "explosion_radius": 0.56,
    "audio": "projectiles/bullet_sniper_enemy",
    "explosion_sound": "none",
-   "effect": "none",
+   "effect": "explosive",
    "terrain": "none",
    "stage": "1b",
-   "_unverified": {
-    "effect": "guessed from the name; confirm in the projectile's entity XML"
+   "_unverified": {},
+   "_sources": {
+    "effect": "sniperbullet_hell.xml: explodes, radius 3"
    }
   },
   {
@@ -2238,11 +2285,12 @@
    "explosion_radius": 0.56,
    "audio": "projectiles/bullet_sniper_enemy",
    "explosion_sound": "none",
-   "effect": "none",
+   "effect": "explosive",
    "terrain": "none",
    "stage": "1b",
-   "_unverified": {
-    "effect": "guessed from the name; confirm in the projectile's entity XML"
+   "_unverified": {},
+   "_sources": {
+    "effect": "sniperbullet.xml: explodes, radius 3"
    }
   },
   {
@@ -2251,19 +2299,20 @@
    "used_by": [
     "soldier"
    ],
-   "noita_file": null,
-   "sprite": null,
-   "speed": null,
-   "gravity": null,
-   "lifetime_frames": null,
-   "explosion_radius": null,
-   "audio": null,
-   "explosion_sound": null,
-   "effect": "none",
+   "noita_file": "data/entities/projectiles/soldiershot.xml",
+   "sprite": "data/projectiles_gfx/fireball_smaller_blue.xml",
+   "speed": 7.5,
+   "gravity": 0.0,
+   "lifetime_frames": 100,
+   "explosion_radius": 3.75,
+   "audio": "projectiles/laser",
+   "explosion_sound": "none",
+   "effect": "fire",
    "terrain": "none",
    "stage": "1b",
-   "_unverified": {
-    "effect": "guessed from the name; confirm in the projectile's entity XML"
+   "_unverified": {},
+   "_sources": {
+    "effect": "soldiershot.xml: damage_by_type fire"
    }
   },
   {
@@ -2280,11 +2329,12 @@
    "explosion_radius": 1.88,
    "audio": "projectiles/orb_pink_fast",
    "explosion_sound": "none",
-   "effect": "none",
+   "effect": "explosive",
    "terrain": "none",
    "stage": "1b",
-   "_unverified": {
-    "effect": "guessed from the name; confirm in the projectile's entity XML"
+   "_unverified": {},
+   "_sources": {
+    "effect": "orb_pink_fast.xml: explodes, radius 10"
    }
   },
   {
@@ -2301,11 +2351,12 @@
    "explosion_radius": 0.19,
    "audio": "projectiles/orb_swapper",
    "explosion_sound": "none",
-   "effect": "swap",
+   "effect": "explosive",
    "terrain": "none",
    "stage": "1b",
-   "_unverified": {
-    "effect": "guessed from the name; confirm in the projectile's entity XML"
+   "_unverified": {},
+   "_sources": {
+    "effect": "orb_swapper.xml: explodes, radius 1"
    }
   },
   {
@@ -2314,14 +2365,14 @@
    "used_by": [
     "sentry"
    ],
-   "noita_file": null,
-   "sprite": null,
-   "speed": null,
-   "gravity": null,
-   "lifetime_frames": null,
-   "explosion_radius": null,
-   "audio": null,
-   "explosion_sound": null,
+   "noita_file": "data/entities/projectiles/sentryshot.xml",
+   "sprite": "data/projectiles_gfx/target.xml",
+   "speed": 17.5,
+   "gravity": 0.0,
+   "lifetime_frames": 100,
+   "explosion_radius": 0.0,
+   "audio": "projectiles/laser",
+   "explosion_sound": "none",
    "effect": "none",
    "terrain": "none",
    "stage": "1b",
@@ -2346,11 +2397,12 @@
    "explosion_radius": 0.19,
    "audio": "projectiles/magic",
    "explosion_sound": "none",
-   "effect": "teleport",
+   "effect": "explosive",
    "terrain": "none",
    "stage": "1b",
-   "_unverified": {
-    "effect": "guessed from the name; confirm in the projectile's entity XML"
+   "_unverified": {},
+   "_sources": {
+    "effect": "orb_tele.xml: explodes, radius 1"
    }
   },
   {
@@ -2367,11 +2419,12 @@
    "explosion_radius": 0.0,
    "audio": "none",
    "explosion_sound": "none",
-   "effect": "none",
+   "effect": "fire",
    "terrain": "none",
    "stage": "1b",
-   "_unverified": {
-    "effect": "guessed from the name; confirm in the projectile's entity XML"
+   "_unverified": {},
+   "_sources": {
+    "effect": "potion_aggressive.xml: material lava"
    }
   },
   {
@@ -2391,8 +2444,9 @@
    "effect": "electric",
    "terrain": "none",
    "stage": "1b",
-   "_unverified": {
-    "effect": "guessed from the name; confirm in the projectile's entity XML"
+   "_unverified": {},
+   "_sources": {
+    "effect": "thunderball.xml: damage_by_type electricity"
    }
   },
   {
@@ -2412,8 +2466,9 @@
    "effect": "electric",
    "terrain": "none",
    "stage": "1b",
-   "_unverified": {
-    "effect": "guessed from the name; confirm in the projectile's entity XML"
+   "_unverified": {},
+   "_sources": {
+    "effect": "thunderball_line.xml: damage_by_type electricity"
    }
   },
   {
@@ -2477,8 +2532,9 @@
    "effect": "poison",
    "terrain": "none",
    "stage": "1b",
-   "_unverified": {
-    "effect": "guessed from the name; confirm in the projectile's entity XML"
+   "_unverified": {},
+   "_sources": {
+    "effect": "radioactive_liquid.xml: material radioactive_liquid"
    }
   },
   {
@@ -2495,11 +2551,12 @@
    "explosion_radius": 0.19,
    "audio": "projectiles/magic",
    "explosion_sound": "none",
-   "effect": "none",
+   "effect": "explosive",
    "terrain": "none",
    "stage": "1b",
-   "_unverified": {
-    "effect": "guessed from the name; confirm in the projectile's entity XML"
+   "_unverified": {},
+   "_sources": {
+    "effect": "orb_twitchy.xml: explodes, radius 1"
    }
   },
   {
@@ -2558,11 +2615,12 @@
    "explosion_radius": 1.12,
    "audio": "projectiles/orb_c",
    "explosion_sound": "none",
-   "effect": "none",
+   "effect": "explosive",
    "terrain": "none",
    "stage": "1b",
-   "_unverified": {
-    "effect": "guessed from the name; confirm in the projectile's entity XML"
+   "_unverified": {},
+   "_sources": {
+    "effect": "orb_pink.xml: explodes, radius 6"
    }
   },
   {
@@ -2601,11 +2659,12 @@
    "explosion_radius": 0.19,
    "audio": "projectiles/magic",
    "explosion_sound": "none",
-   "effect": "none",
+   "effect": "explosive",
    "terrain": "none",
    "stage": "1b",
-   "_unverified": {
-    "effect": "guessed from the name; confirm in the projectile's entity XML"
+   "_unverified": {},
+   "_sources": {
+    "effect": "orb_hearty.xml: explodes, radius 1"
    }
   },
   {
@@ -2622,11 +2681,12 @@
    "explosion_radius": 0.19,
    "audio": "projectiles/magic",
    "explosion_sound": "none",
-   "effect": "none",
+   "effect": "explosive",
    "terrain": "none",
    "stage": "1b",
-   "_unverified": {
-    "effect": "guessed from the name; confirm in the projectile's entity XML"
+   "_unverified": {},
+   "_sources": {
+    "effect": "orb_homing.xml: explodes, radius 1"
    }
   },
   {
@@ -2643,11 +2703,12 @@
    "explosion_radius": 0.19,
    "audio": "projectiles/magic",
    "explosion_sound": "none",
-   "effect": "none",
+   "effect": "explosive",
    "terrain": "none",
    "stage": "1b",
-   "_unverified": {
-    "effect": "guessed from the name; confirm in the projectile's entity XML"
+   "_unverified": {},
+   "_sources": {
+    "effect": "orb_weaken.xml: explodes, radius 1"
    }
   },
   {
@@ -2667,8 +2728,9 @@
    "effect": "explosive",
    "terrain": "none",
    "stage": "1b",
-   "_unverified": {
-    "effect": "copied from grenade; confirm in data/entities/projectiles/grenade_leader.xml"
+   "_unverified": {},
+   "_sources": {
+    "effect": "grenade_leader.xml: explodes, radius 10"
    }
   },
   {
@@ -2685,11 +2747,12 @@
    "explosion_radius": 2.81,
    "audio": "projectiles/icethrower",
    "explosion_sound": "none",
-   "effect": "ice",
+   "effect": "acid",
    "terrain": "none",
    "stage": "1b",
-   "_unverified": {
-    "effect": "copied from iceball; confirm in data/entities/projectiles/iceball.xml"
+   "_unverified": {},
+   "_sources": {
+    "effect": "iceball.xml: material acid"
    }
   },
   {
@@ -2706,11 +2769,12 @@
    "explosion_radius": 0.0,
    "audio": "none",
    "explosion_sound": "none",
-   "effect": "poison",
+   "effect": "none",
    "terrain": "none",
    "stage": "1b",
-   "_unverified": {
-    "effect": "copied from slimeball; confirm in data/entities/projectiles/dummy.xml"
+   "_unverified": {},
+   "_sources": {
+    "effect": "dummy.xml: plain damage, no effect, material or damage_by_type"
    }
   },
   {
@@ -2727,11 +2791,12 @@
    "explosion_radius": 1.88,
    "audio": "projectiles/orb_a",
    "explosion_sound": "explosions/magic_small",
-   "effect": "none",
+   "effect": "explosive",
    "terrain": "none",
    "stage": "1b",
-   "_unverified": {
-    "effect": "copied from energy_orb; confirm in data/entities/projectiles/orbspawner.xml"
+   "_unverified": {},
+   "_sources": {
+    "effect": "orbspawner.xml: explodes, radius 10"
    }
   },
   {
@@ -2751,8 +2816,9 @@
    "effect": "polymorph",
    "terrain": "none",
    "stage": "1b",
-   "_unverified": {
-    "effect": "copied from chaotic_polymorphine; confirm in data/entities/projectiles/polyshot.xml"
+   "_unverified": {},
+   "_sources": {
+    "effect": "polyshot.xml: material magic_liquid_random_polymorph"
    }
   },
   {
@@ -2769,11 +2835,12 @@
    "explosion_radius": 5.62,
    "audio": "projectiles/tnt",
    "explosion_sound": "explosions/tnt",
-   "effect": "explosive",
+   "effect": "fire",
    "terrain": "none",
    "stage": "1b",
-   "_unverified": {
-    "effect": "copied from tnt; confirm in data/entities/projectiles/tnt_hell.xml"
+   "_unverified": {},
+   "_sources": {
+    "effect": "tnt_hell.xml: material lava"
    }
   },
   {
@@ -2793,14 +2860,15 @@
    "effect": "fire",
    "terrain": "none",
    "stage": "1b",
-   "_unverified": {
-    "effect": "copied from firebomb; confirm in data/entities/projectiles/fireball_bigfirebug.xml"
+   "_unverified": {},
+   "_sources": {
+    "effect": "fireball_bigfirebug.xml: material fire"
    }
   },
   {
    "id": "invisshot",
    "name_en": "Invisshot projectile",
-   "effect": "none",
+   "effect": "explosive",
    "terrain": "none",
    "used_by": [
     "scavenger_invis"
@@ -2814,8 +2882,9 @@
    "audio": "projectiles/bullet_invis",
    "explosion_sound": "none",
    "stage": "1b",
-   "_unverified": {
-    "effect": "copied from none; confirm in data/entities/projectiles/invisshot.xml"
+   "_unverified": {},
+   "_sources": {
+    "effect": "invisshot.xml: explodes, radius 1"
    }
   },
   {
@@ -2842,7 +2911,7 @@
   {
    "id": "healshot_slow",
    "name_en": "Healshot slow projectile",
-   "effect": "heal",
+   "effect": "explosive",
    "terrain": "none",
    "used_by": [
     "healerdrone_physics"
@@ -2856,14 +2925,15 @@
    "audio": "projectiles/bullet_heal",
    "explosion_sound": "none",
    "stage": "1b",
-   "_unverified": {
-    "effect": "copied from none; confirm in data/entities/projectiles/healshot_slow.xml"
+   "_unverified": {},
+   "_sources": {
+    "effect": "healshot_slow.xml: explodes, radius 1"
    }
   },
   {
    "id": "orb_cursed",
    "name_en": "Orb cursed projectile",
-   "effect": "none",
+   "effect": "explosive",
    "terrain": "none",
    "used_by": [
     "shaman"
@@ -2877,14 +2947,15 @@
    "audio": "projectiles/orb_cursed",
    "explosion_sound": "none",
    "stage": "1b",
-   "_unverified": {
-    "effect": "copied from none; confirm in data/entities/projectiles/orb_cursed.xml"
+   "_unverified": {},
+   "_sources": {
+    "effect": "orb_cursed.xml: explodes, radius 1"
    }
   },
   {
    "id": "healshot",
    "name_en": "Healshot projectile",
-   "effect": "heal",
+   "effect": "explosive",
    "terrain": "none",
    "used_by": [
     "scavenger_heal"
@@ -2898,14 +2969,15 @@
    "audio": "projectiles/bullet_heal_robot",
    "explosion_sound": "none",
    "stage": "1b",
-   "_unverified": {
-    "effect": "copied from none; confirm in data/entities/projectiles/healshot.xml"
+   "_unverified": {},
+   "_sources": {
+    "effect": "healshot.xml: explodes, radius 1"
    }
   },
   {
    "id": "freeze_circle",
    "name_en": "Freeze circle projectile",
-   "effect": "none",
+   "effect": "ice",
    "terrain": "none",
    "used_by": [
     "tentacler_small"
@@ -2919,8 +2991,9 @@
    "audio": "projectiles/freeze_circle",
    "explosion_sound": "none",
    "stage": "1b",
-   "_unverified": {
-    "effect": "copied from none; confirm in data/entities/projectiles/freeze_circle.xml"
+   "_unverified": {},
+   "_sources": {
+    "effect": "freeze_circle.xml: material ice_static"
    }
   },
   {
@@ -2942,6 +3015,28 @@
    "stage": "1b",
    "_unverified": {
     "effect": "copied from none; confirm in data/entities/projectiles/lurkershot.xml"
+   }
+  },
+  {
+   "id": "laser_turret",
+   "name_en": "Laser projectile (laser_turret)",
+   "used_by": [
+    "turret"
+   ],
+   "noita_file": "data/entities/projectiles/laser_turret.xml",
+   "sprite": "data/projectiles_gfx/laser.xml",
+   "speed": 82.5,
+   "gravity": 0.0,
+   "lifetime_frames": 20,
+   "explosion_radius": 0.56,
+   "audio": "projectiles/laser_turret",
+   "explosion_sound": "none",
+   "effect": "explosive",
+   "terrain": "none",
+   "stage": "1b",
+   "_unverified": {},
+   "_sources": {
+    "effect": "laser_turret.xml: explodes, radius 3"
    }
   }
  ]
