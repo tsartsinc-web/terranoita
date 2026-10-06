@@ -13,12 +13,16 @@ namespace Terranoita.Game
     ///   Ctrl+Shift+N  spawn the next built Noita enemy 12 tiles in front of the player
     ///   TERRANOITA_AUTOTEST=1  enter the first player/world of the save folder, make the player unkillable, spawn
     ///                          every built enemy in turn and log what happens (use with -savedirectory on a copy).
+    ///   TERRANOITA_AUTOTEST_STAGE=1b  only that stage's enemies;  TERRANOITA_AUTOTEST_EXIT=1  close the game when done
+    ///                          (tools/pc_step.ps1 -AutoTest runs both and keeps the log).
     /// </summary>
     public static class DebugTools
     {
         static int _next;
         static readonly bool Auto = Environment.GetEnvironmentVariable("TERRANOITA_AUTOTEST") == "1";
         static readonly bool Showcase = Environment.GetEnvironmentVariable("TERRANOITA_SHOWCASE") == "1";
+        static readonly string OnlyStage = Environment.GetEnvironmentVariable("TERRANOITA_AUTOTEST_STAGE");
+        static readonly bool ExitWhenDone = Environment.GetEnvironmentVariable("TERRANOITA_AUTOTEST_EXIT") == "1";
         static int _menuFrames, _worldFrames, _autoIndex;
         static bool _entering;
         const string TestPlayer = "Terranoita Test";
@@ -94,7 +98,7 @@ namespace Terranoita.Game
             if (p.statLife < p.statLifeMax2 / 2)
                 p.statLife = p.statLifeMax2;
             _worldFrames++;
-            var all = Built;
+            var all = OnlyStage == null ? Built : Built.Where(e => e.Stage == OnlyStage).ToArray();
             if (Showcase)
             {
                 // TERRANOITA_SHOWCASE=1: noon, and a group of Noita enemies around the player, for the listing's screenshots
@@ -148,7 +152,11 @@ namespace Terranoita.Game
                 Entry.Log("AUTOTEST: player hp " + p.statLife + "; " + string.Join(" | ", live));
             }
             if (_worldFrames == 300 + 360 * all.Length + 600)
+            {
                 Entry.Log("AUTOTEST: done; Noita enemies alive: " + Carriers.CountNear(p.Center, 99999));
+                if (ExitWhenDone)
+                    Main.instance.Exit();
+            }
         }
 
         [Hook("main_update")]
