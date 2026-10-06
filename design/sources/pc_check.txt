@@ -1,0 +1,8 @@
+Terranoita PC step 2026-10-06 14:01, branch claude/dazzling-carson-h8mi9n, stage 1b
+dotnet 8.0.425, Python 3.13.1
+commit 3dc58db
+== facts from Noita
+   FAILED (exit 1), output: build/pc_facts.log
+
+outcome: facts failed
+took: 0 min
