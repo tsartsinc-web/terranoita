@@ -257,3 +257,17 @@ Entry.Stage default 1b, version 0.2.0. Проверить на ПК also: worm l
   HitEffectComponent effect_hit=LOAD_CHILD_ENTITY -> data/entities/misc/neutralizer_target.xml, which has
   GameEffectComponent effect=MOVEMENT_SLOWER_2X frames=-1 (a slow on the target, no damage).
 - Fixed CLAUDE.md: the mashup is a Melty DRAFT (0.1.0 submitted, not published), not "players have 0.1.0".
+
+## PC step 3 (2026-10-06, author's PC) — stage 1b plays
+- Author: "you are the local session" -> filled the last 1b cell here: neutralizer_shot.effect verified from data.wak
+  (same file as neutralize_shot); Shots.cs: effect "neutralize" = BuffID.Slow 300 frames (MOVEMENT_SLOWER_2X).
+- pc_step -AutoTest 1b: gate 1b CLEAN, tables generated, tests + both builds ok, **140 creatures spawned in Terraria**,
+  256 hits on the player, 0 ERROR. 3 WARN: support attacks with no Terraria effect yet (scavenger_invis invisibility,
+  scavenger_shield / drone_shield shield_buff).
+- 94 creatures hit the player within their 6 s. 32 armed ones did not (some expected: nests, healers, shields, support):
+  giantshooter giantshooter_weak nest_fly scavenger_invis giant wraith_glowing statue_physics drone_lasership worm_big
+  lukki_dark scavenger_shield crystal_physics healerdrone_physics playerghost slimeshooter shaman scavenger_poison eel
+  scavenger_heal tentacler_small bloom coward thunderskull cook sentry miner_fire nest_firebug drone_shield barfer
+  wraith_storm wizard_swapper hidden — next: look at these (range/cooldown/LOS), maybe a longer autotest per creature.
+- ("gone after 360 brain frames" lines are the autotest removing the previous creature — expected.)
+- Not visually checked by a person yet (sprites, feet, sizes of the 140): ask the author to watch a run.
