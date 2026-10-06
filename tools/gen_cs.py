@@ -1,4 +1,4 @@
-"""Generate C# from the design sheets: one class per sheet, one initializer per row.
+﻿"""Generate C# from the design sheets: one class per sheet, one initializer per row.
 
   python tools/gen_cs.py --gate 1a     # build: runs preflight for stage 1a first, refuses if not clean
   python tools/gen_cs.py --draft       # generate anyway (marked DRAFT) so code can compile before the
@@ -129,7 +129,7 @@ def gen_zone_checks(s, draft):
              "// From design/sheets/terraria_zones.json (terraria_check) by tools/gen_cs.py. Do not edit."]
     if draft:
         lines.append("// DRAFT: zones without a verified check are null and never spawn.")
-    lines += ["// </auto-generated>", "using System;", "using System.Collections.Generic;", "using Terraria;", "",
+    lines += ["// </auto-generated>", "using System;", "using System.Collections.Generic;", "using Terraria;", "using Terraria.ID;", "",
               "namespace Terranoita.Generated", "{", "    public static class ZoneChecks", "    {",
               "        /// <summary>zone id -> check(player, spawn tile x, spawn tile y)</summary>",
               "        public static readonly Dictionary<string, Func<Player, int, int, bool>> All =",

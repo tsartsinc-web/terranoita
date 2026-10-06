@@ -89,6 +89,11 @@ namespace Terranoita.Noita
         public readonly List<RangedAttackFacts> Ranged = new List<RangedAttackFacts>();
         public int? MeleeFramesBetween;
         public float? MeleeRange;
+        public bool DashEnabled;
+        public int? DashFramesBetween;
+        public float? DashDistance, DashSpeed, DashDamage;
+        public MovementFacts Movement;
+        public readonly List<string> AudioRoots = new List<string>();   // AudioComponent event_root, e.g. animals/zombie
         public readonly Dictionary<string, float> DamageMultipliers = new Dictionary<string, float>();
         public readonly Dictionary<string, string> AnimalAi = new Dictionary<string, string>();
 
@@ -123,13 +128,30 @@ namespace Terranoita.Noita
                     f.AnimalAi[kv.Key] = kv.Value;
                 if (ai.Attr("attack_ranged_enabled", "0") == "1" && !string.IsNullOrEmpty(ai.Attr("attack_ranged_entity_file")))
                     f.Ranged.Add(RangedAttackFacts.From(ai, "animal_ai"));
-                f.MeleeFramesBetween = ai.Int("attack_melee_frames_between");
-                f.MeleeRange = ai.Float("attack_melee_max_distance");
+                f.MeleeFramesBetween = ai.Int("attack_melee_frames_between") ?? AnimalAiDefaults.MeleeFramesBetween;
+                f.MeleeRange = ai.Float("attack_melee_max_distance") ?? AnimalAiDefaults.MeleeMaxDistance;
+                f.DashEnabled = ai.Attr("attack_dash_enabled", "0") == "1";
+                if (f.DashEnabled)
+                {
+                    f.DashFramesBetween = ai.Int("attack_dash_frames_between") ?? AnimalAiDefaults.DashFramesBetween;
+                    f.DashDistance = ai.Float("attack_dash_distance") ?? AnimalAiDefaults.DashDistance;
+                    f.DashSpeed = ai.Float("attack_dash_speed") ?? AnimalAiDefaults.DashSpeed;
+                    f.DashDamage = ai.Float("attack_dash_damage") ?? AnimalAiDefaults.DashDamage;
+                }
             }
             foreach (var atk in e.ComponentsNamed("AIAttackComponent"))
                 if (!string.IsNullOrEmpty(atk.Attr("attack_ranged_entity_file")))
                     f.Ranged.Add(RangedAttackFacts.From(atk, "ai_attack"));
+            f.Movement = MovementFacts.From(e);
+            f.AudioRoots.AddRange(AudioRootsOf(e));
             return f;
+        }
+
+        public static IEnumerable<string> AudioRootsOf(NoitaEntity e)
+        {
+            foreach (var a in e.ComponentsNamed("AudioComponent"))
+                if (!string.IsNullOrEmpty(a.Attr("event_root")))
+                    yield return a.Attr("event_root");
         }
 
         static int[] Box(NxmlNode n, string minX, string maxX, string minY, string maxY) => new[]
@@ -156,6 +178,40 @@ namespace Terranoita.Noita
         }
     }
 
+    /// <summary>
+    /// How an enemy moves, in Noita units (px/s, px/sВІ): AnimalAIComponent says whether it may walk or fly and how far
+    /// it sees, CharacterPlatformingComponent its speeds and gravity, PathFindingComponent whether and how it jumps.
+    /// </summary>
+    public sealed class MovementFacts
+    {
+        public bool CanWalk, CanFly, CanJump;
+        public float? RunVelocity, FlyVelocityX, FlySpeedMaxUp;
+        public float AccelX, PixelGravity, JumpSpeed;
+        public float? DetectionRange;
+
+        public static MovementFacts From(NoitaEntity e)
+        {
+            var ai = e.Component("AnimalAIComponent");
+            var cp = e.Component("CharacterPlatformingComponent");
+            var pf = e.Component("PathFindingComponent");
+            if (cp == null)
+                return null;
+            return new MovementFacts
+            {
+                CanWalk = (ai?.Attr("can_walk") ?? "1") == "1",
+                CanFly = (ai?.Attr("can_fly") ?? "1") == "1",
+                CanJump = (pf?.Attr("can_jump") ?? "0") == "1",
+                RunVelocity = cp.Float("run_velocity"),
+                FlyVelocityX = cp.Float("fly_velocity_x"),
+                FlySpeedMaxUp = cp.Float("fly_speed_max_up"),
+                AccelX = cp.Float("accel_x") ?? MovementDefaults.AccelX,
+                PixelGravity = cp.Float("pixel_gravity") ?? MovementDefaults.PixelGravity,
+                JumpSpeed = pf?.Float("jump_speed") ?? MovementDefaults.JumpSpeed,
+                DetectionRange = ai?.Float("creature_detection_range_x"),
+            };
+        }
+    }
+
     public sealed class RangedAttackFacts
     {
         public string Source;               // animal_ai | ai_attack
@@ -163,17 +219,59 @@ namespace Terranoita.Noita
         public int? FramesBetween;
         public float? MinDistance, MaxDistance;
         public int? CountMin, CountMax;
+        public int StateFrames;             // frames the creature stays in its attack state after shooting
 
-        public static RangedAttackFacts From(NxmlNode n, string source) => new RangedAttackFacts
+        public static RangedAttackFacts From(NxmlNode n, string source)
         {
-            Source = source,
-            EntityFile = n.Attr("attack_ranged_entity_file"),
-            FramesBetween = n.Int("attack_ranged_frames_between") ?? n.Int("frames_between"),
-            MinDistance = n.Float("attack_ranged_min_distance"),
-            MaxDistance = n.Float("attack_ranged_max_distance"),
-            CountMin = n.Int("attack_ranged_entity_count_min"),
-            CountMax = n.Int("attack_ranged_entity_count_max"),
-        };
+            // AnimalAIComponent prefixes its ranged attributes with attack_ranged_; AIAttackComponent does not.
+            bool animal = source == "animal_ai";
+            return new RangedAttackFacts
+            {
+                Source = source,
+                EntityFile = n.Attr("attack_ranged_entity_file"),
+                FramesBetween = animal ? n.Int("attack_ranged_frames_between")
+                                       : n.Int("frames_between") ?? AnimalAiDefaults.AttackFramesBetween,
+                MinDistance = n.Float(animal ? "attack_ranged_min_distance" : "min_distance") ?? AnimalAiDefaults.RangedMinDistance,
+                MaxDistance = n.Float(animal ? "attack_ranged_max_distance" : "max_distance") ?? AnimalAiDefaults.RangedMaxDistance,
+                CountMin = n.Int("attack_ranged_entity_count_min") ?? AnimalAiDefaults.RangedCount,
+                CountMax = n.Int("attack_ranged_entity_count_max") ?? AnimalAiDefaults.RangedCount,
+                StateFrames = n.Int(animal ? "attack_ranged_state_duration_frames" : "state_duration_frames") ?? AnimalAiDefaults.RangedStateFrames,
+            };
+        }
+    }
+
+    /// <summary>
+    /// Values Noita uses when an AnimalAIComponent / AIAttackComponent leaves an attribute out, as listed in
+    /// Noita's tools_modding/component_documentation.txt.
+    /// </summary>
+    public static class AnimalAiDefaults
+    {
+        public const int MeleeFramesBetween = 10;
+        public const float MeleeMaxDistance = 20f;
+        public const int DashFramesBetween = 120;
+        public const float DashDistance = 50f;
+        public const float DashSpeed = 200f;
+        public const float DashDamage = 0.25f;
+        public const float RangedMinDistance = 10f;
+        public const float RangedMaxDistance = 160f;
+        public const int RangedCount = 1;
+        public const int AttackFramesBetween = 180;     // AIAttackComponent.frames_between
+        public const int RangedStateFrames = 45;        // attack_ranged_state_duration_frames / state_duration_frames
+    }
+
+    /// <summary>CharacterPlatformingComponent / PathFindingComponent defaults from component_documentation.txt.</summary>
+    public static class MovementDefaults
+    {
+        public const float AccelX = 1f;
+        public const float PixelGravity = 600f;
+        public const float JumpSpeed = 200f;
+    }
+
+    /// <summary>ProjectileComponent / VelocityComponent defaults from component_documentation.txt.</summary>
+    public static class ProjectileDefaults
+    {
+        public const float Speed = 60f;                 // ProjectileComponent.speed_min / speed_max
+        public const float GravityY = 400f;             // VelocityComponent.gravity_y
     }
 
     /// <summary>The facts the projectiles sheet needs from a projectile entity XML.</summary>
@@ -186,6 +284,8 @@ namespace Terranoita.Noita
         public int? LifetimeFrames;
         public float? ExplosionRadius;      // Noita px
         public float? Damage;               // Noita internal (x25 = displayed)
+        public string AudioRoot;            // AudioComponent event_root, e.g. projectiles/acid
+        public string ExplosionSound;       // config_explosion audio_event_name, e.g. explosions/tnt
 
         public static ProjectileFacts From(NoitaEntity e)
         {
@@ -193,27 +293,41 @@ namespace Terranoita.Noita
             var p = e.Component("ProjectileComponent");
             if (p != null)
             {
-                f.SpeedMin = p.Float("speed_min");
-                f.SpeedMax = p.Float("speed_max");
+                f.SpeedMin = p.Float("speed_min") ?? ProjectileDefaults.Speed;
+                f.SpeedMax = p.Float("speed_max") ?? ProjectileDefaults.Speed;
                 f.LifetimeFrames = p.Int("lifetime");
                 f.Damage = p.Float("damage");
                 f.ExplosionRadius = p.Child("config_explosion")?.Float("explosion_radius");
+                f.ExplosionSound = p.Child("config_explosion")?.Attr("audio_event_name");
             }
-            f.GravityY = e.Component("VelocityComponent")?.Float("gravity_y");
+            foreach (var root in EnemyFacts.AudioRootsOf(e))
+                if (f.AudioRoot == null || root.Length > f.AudioRoot.Length)   // the most specific folder
+                    f.AudioRoot = root;
+            var v = e.Component("VelocityComponent");
+            if (v != null)
+                f.GravityY = v.Float("gravity_y") ?? ProjectileDefaults.GravityY;
             foreach (var s in e.ComponentsNamed("SpriteComponent"))
                 if (!string.IsNullOrEmpty(s.Attr("image_file")))
                 {
                     f.Sprite = s.Attr("image_file");
                     break;
                 }
+            // Thrown physics objects (tnt) have no SpriteComponent: their look is the physics body's image.
+            if (f.Sprite == null)
+                foreach (var s in e.ComponentsNamed("PhysicsImageShapeComponent"))
+                    if (!string.IsNullOrEmpty(s.Attr("image_file")))
+                    {
+                        f.Sprite = s.Attr("image_file");
+                        break;
+                    }
             return f;
         }
     }
 
-    /// <summary>Unit conversions between Noita and Terraria (Noita art is drawn at 2x, like Terraria's).</summary>
+    /// <summary>Unit conversions between Noita and Terraria (Noita art is drawn at 3x).</summary>
     public static class Units
     {
-        public const float PixelScale = 2f;          // 1 Noita pixel = 2 Terraria world pixels
+        public const float PixelScale = 3f;          // 1 Noita pixel = 3 Terraria world pixels (author's choice: normal size)
         public const float TerrariaTile = 16f;       // Terraria world pixels per tile
         public const float FramesPerSecond = 60f;
 

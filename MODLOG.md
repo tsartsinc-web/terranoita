@@ -39,3 +39,38 @@ proves the approach on 1.4.5. New NPC types: vanilla has fixed NPC arrays, so No
 compiles), Core (8 tests pass), tncli + apply_facts tested end-to-end on a synthetic data.wak, launcher builds.
 
 **Next**: README "Продолжение на ПК".
+
+## 2026-10-06 — author's PC (Terraria 1.4.5.8 x86, Noita main; both in D:\steam\steamapps\common)
+
+Installed: Git, .NET 8 SDK 8.0.425, ilspycmd 8.2.0.7535 (needs `DOTNET_ROLL_FORWARD=Major`). Decompile in
+`%USERPROFILE%\terraria-decomp` (outside the repo).
+
+**Stage 1a runs in the real game** (autotest + author watching): all 12 enemies spawn (also naturally), walk/fly/hop,
+melee, lunge, shoot; Noita sprites, names (player's language, from Noita's common.csv) and **Noita's own sounds**.
+`preflight --gate 1a` is CLEAN, 18 Core tests pass.
+
+Facts confirmed: x86 + LAA Terraria.exe; `WindowsLaunch.Main` + embedded-resource resolver; Steam start works (steam_appid.txt);
+data.wak layout; component defaults from Noita's `tools_modding/component_documentation.txt`.
+
+Hard-won launcher lessons (all in systems/hooks sheets):
+- Load Terraria with `Assembly.Load("Terraria")` (default context), not LoadFrom, or the mod patches a second copy.
+- Patching JIT-compiles Terraria methods, which runs beforefieldinit static ctors (Main → SavePath, CaptureManager →
+  Main.instance). So: set `Program.SavePath` exactly like LaunchGame, then patch from `Main.OnEngineLoad`.
+- Carrier NPC = type 146 (NPCID.None3, unused, hidden in bestiary). `aiStyle` must be 0, never -1 (UpdateNPC indexes
+  NoMultiplayerSmoothingByAI[aiStyle]; the exception is swallowed and the NPC silently reset).
+- Enemy shots are the mod's own list (no unused projectile type).
+- Noita sounds: FMOD Studio 2.1.5 x86 dlls + banks loaded from the player's Noita (`NoitaFmod`); event list via
+  `Terranoita.exe --list-noita-sounds "<Noita>" build/noita_sounds.txt`, used by apply_facts.
+
+Author decisions today: Noita px → **3** Terraria px (was 2; "normal size"); per-enemy `size` column (hiisi shotgunner ×2);
+Noita sounds, not Terraria's; ranged cooldown = frames_between + attack state duration (author: "1 shot per 2 s").
+Balance set from hits-to-kill reasoning (balance.json `_sources`), first autotest only — tune with the author.
+
+Testing: `TERRANOITA_AUTOTEST=1` + `-savedirectory %LOCALAPPDATA%\Terranoita\testsave` (copy of one world, fresh
+"Terranoita Test" character) — enters the world, spawns each enemy in turn (removing the previous), logs status every
+second to `%LOCALAPPDATA%\Terranoita\logs\latest.log`. Ctrl+Shift+N spawns the next enemy in normal play.
+Window capture without focus: scratchpad `grab.ps1` (PrintWindow) — fails when the window is minimized.
+
+**Open**: check foot alignment + size in game; author said enemies looked "semi-transparent" (added a brightness floor of 70,
+not yet confirmed); licence + remix choice (ask); Melty packaging (step 8). Mod files currently copied into the
+Terraria folder for testing: Terranoita.exe, Terranoita.Game.dll, Terranoita.Core.dll, 0Harmony.dll.

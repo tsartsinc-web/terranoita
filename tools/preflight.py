@@ -90,7 +90,7 @@ def check(sheets):
                 if c not in cols:
                     problems.append((n, rid, c, "BADTYPE", "_unverified names an unknown column"))
             for c in r:
-                if c not in cols and c != "_unverified":
+                if c not in cols and not c.startswith("_"):  # _unverified, _sources: bookkeeping
                     problems.append((n, rid, c, "BADTYPE", "cell in a column the sheet does not declare"))
     return problems
 

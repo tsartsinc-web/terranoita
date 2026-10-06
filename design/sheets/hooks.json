@@ -51,20 +51,16 @@
    "system": "launcher",
    "purpose": "Terraria's normal start, called after our patches are in.",
    "stage": "1a",
-   "_unverified": {
-    "target": "check the exact type, method and signature in the Terraria 1.4.5.8 decompile (ilspycmd)"
-   }
+   "_unverified": {}
   },
   {
    "id": "load_content",
-   "target": "Terraria.Main:LoadContent()",
-   "patch": "postfix",
+   "target": "Terraria.Main.OnEngineLoad (static event)",
+   "patch": "call",
    "system": "noita_assets",
-   "purpose": "GraphicsDevice exists: turn Noita PNGs into textures.",
+   "purpose": "Fired on the first menu frame, once the engine and graphics device are up: apply all our patches then (patching JIT-compiles Terraria methods, which runs static constructors such as CaptureManager's that need the game set up) and make the Noita textures.",
    "stage": "1a",
-   "_unverified": {
-    "target": "check the exact type, method and signature in the Terraria 1.4.5.8 decompile (ilspycmd)"
-   }
+   "_unverified": {}
   },
   {
    "id": "main_update",
@@ -73,9 +69,7 @@
    "system": "test_tools",
    "purpose": "Per-frame debug keys.",
    "stage": "1a",
-   "_unverified": {
-    "target": "check the exact type, method and signature in the Terraria 1.4.5.8 decompile (ilspycmd)"
-   }
+   "_unverified": {}
   },
   {
    "id": "npc_spawn",
@@ -84,9 +78,7 @@
    "system": "enemy_spawning",
    "purpose": "Our extra spawn roll after vanilla's.",
    "stage": "1a",
-   "_unverified": {
-    "target": "check the exact type, method and signature in the Terraria 1.4.5.8 decompile (ilspycmd)"
-   }
+   "_unverified": {}
   },
   {
    "id": "npc_ai",
@@ -95,9 +87,7 @@
    "system": "carrier_npc",
    "purpose": "Run our archetype AI for carrier NPCs and skip vanilla AI.",
    "stage": "1a",
-   "_unverified": {
-    "target": "check the exact type, method and signature in the Terraria 1.4.5.8 decompile (ilspycmd)"
-   }
+   "_unverified": {}
   },
   {
    "id": "npc_findframe",
@@ -106,20 +96,16 @@
    "system": "carrier_npc",
    "purpose": "Skip vanilla animation for carriers (we animate from Noita sprite XML).",
    "stage": "1a",
-   "_unverified": {
-    "target": "check the exact type, method and signature in the Terraria 1.4.5.8 decompile (ilspycmd)"
-   }
+   "_unverified": {}
   },
   {
    "id": "npc_draw",
-   "target": "Terraria.Main:DrawNPC(int, bool)",
+   "target": "Terraria.Main:DrawNPC(NPC, bool)",
    "patch": "prefix",
    "system": "carrier_npc",
    "purpose": "Draw the Noita sprite instead of the carrier's.",
    "stage": "1a",
-   "_unverified": {
-    "target": "check the exact type, method and signature in the Terraria 1.4.5.8 decompile (ilspycmd)"
-   }
+   "_unverified": {}
   },
   {
    "id": "npc_name",
@@ -128,20 +114,16 @@
    "system": "carrier_npc",
    "purpose": "Show the Noita name (from Noita's translation file) on hover and in death messages.",
    "stage": "1a",
-   "_unverified": {
-    "target": "check the exact type, method and signature in the Terraria 1.4.5.8 decompile (ilspycmd)"
-   }
+   "_unverified": {}
   },
   {
    "id": "npc_hiteffect",
-   "target": "Terraria.NPC:HitEffect(NPC.HitInfo)",
+   "target": "Terraria.NPC:HitEffect(int, double)",
    "patch": "prefix",
    "system": "carrier_npc",
    "purpose": "No carrier gore; Noita blood particles instead.",
    "stage": "1a",
-   "_unverified": {
-    "target": "check the exact type, method and signature in the Terraria 1.4.5.8 decompile (ilspycmd)"
-   }
+   "_unverified": {}
   },
   {
    "id": "npc_loot",
@@ -150,64 +132,52 @@
    "system": "loot",
    "purpose": "Our loot for carriers, skip the carrier's vanilla drops.",
    "stage": "1a",
-   "_unverified": {
-    "target": "check the exact type, method and signature in the Terraria 1.4.5.8 decompile (ilspycmd)"
-   }
-  },
-  {
-   "id": "npc_bestiary_kill",
-   "target": "Terraria.NPC:CountKillForBannersAndDropThem(int)",
-   "patch": "prefix",
-   "system": "carrier_npc",
-   "purpose": "Kills of Noita enemies must not count as the carrier's banner/bestiary kills.",
-   "stage": "1a",
-   "_unverified": {
-    "target": "check the exact type, method and signature in the Terraria 1.4.5.8 decompile (ilspycmd)"
-   }
+   "_unverified": {}
   },
   {
    "id": "npc_strike",
-   "target": "Terraria.NPC:StrikeNPC(NPC.HitInfo, bool, bool)",
+   "target": "Terraria.NPC:StrikeNPC(int, float, int, bool, bool, int)",
    "patch": "prefix",
    "system": "damage_types",
    "purpose": "Apply the enemy's Noita damage multipliers.",
    "stage": "1a",
-   "_unverified": {
-    "target": "check the exact type, method and signature in the Terraria 1.4.5.8 decompile (ilspycmd)"
-   }
+   "_unverified": {}
   },
   {
-   "id": "proj_ai",
-   "target": "Terraria.Projectile:AI()",
-   "patch": "prefix",
+   "id": "shots_update",
+   "target": "Terraria.Main:UpdateWorld_Projectiles()",
+   "patch": "postfix",
    "system": "enemy_projectiles",
-   "purpose": "Our projectile behaviour for carrier projectiles.",
+   "purpose": "Move our enemy shots once per world update, right after Terraria's projectiles (not while paused or in menus).",
    "stage": "1a",
-   "_unverified": {
-    "target": "check the exact type, method and signature in the Terraria 1.4.5.8 decompile (ilspycmd)"
-   }
+   "_unverified": {}
   },
   {
-   "id": "proj_draw",
-   "target": "Terraria.Main:DrawProj(int)",
-   "patch": "prefix",
+   "id": "shots_draw",
+   "target": "Terraria.Main:DrawProjectiles()",
+   "patch": "postfix",
    "system": "enemy_projectiles",
-   "purpose": "Draw the Noita projectile sprite.",
+   "purpose": "Draw our enemy shots in the projectile layer (own SpriteBatch Begin/End with Main's transform).",
    "stage": "1a",
-   "_unverified": {
-    "target": "check the exact type, method and signature in the Terraria 1.4.5.8 decompile (ilspycmd)"
-   }
+   "_unverified": {}
   },
   {
-   "id": "proj_kill",
-   "target": "Terraria.Projectile:Kill()",
+   "id": "hit_by_item",
+   "target": "Terraria.Player:ProcessHitAgainstNPC(Item, Rectangle, int, float, int)",
    "patch": "prefix",
-   "system": "enemy_projectiles",
-   "purpose": "Our explosion/impact effect; skip the carrier's.",
+   "system": "damage_types",
+   "purpose": "Mark the hit in progress as Noita 'melee' (a swung weapon) for npc_strike; cleared by a postfix.",
    "stage": "1a",
-   "_unverified": {
-    "target": "check the exact type, method and signature in the Terraria 1.4.5.8 decompile (ilspycmd)"
-   }
+   "_unverified": {}
+  },
+  {
+   "id": "hit_by_projectile",
+   "target": "Terraria.Projectile:Damage_PVE_Inner(int, NPC, Rectangle, float, int[], ref bool)",
+   "patch": "prefix",
+   "system": "damage_types",
+   "purpose": "Mark the hit in progress as Noita 'projectile', 'explosion' or 'melee' (melee projectiles) for npc_strike; cleared by a postfix.",
+   "stage": "1a",
+   "_unverified": {}
   }
  ]
 }

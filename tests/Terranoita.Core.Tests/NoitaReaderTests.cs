@@ -119,8 +119,8 @@ namespace Terranoita.Tests
             Assert.Equal(90, f.LifetimeFrames);
             Assert.Equal(8f, f.ExplosionRadius);
             Assert.Equal(400f, f.GravityY);
-            Assert.Equal(10f, Units.SpeedToTerraria(300f), 3);
-            Assert.Equal(1f, Units.PxToTiles(8f), 3);
+            Assert.Equal(15f, Units.SpeedToTerraria(300f), 3);
+            Assert.Equal(1.5f, Units.PxToTiles(8f), 3);
         }
 
         [Fact]

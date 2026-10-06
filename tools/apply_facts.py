@@ -16,7 +16,7 @@ import sys
 
 ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 STAGES = ["1a", "1b", "1c"]
-PIXEL_SCALE = 2.0      # 1 Noita pixel = 2 Terraria world pixels
+PIXEL_SCALE = 3.0      # 1 Noita pixel = 3 Terraria world pixels (author: Noita enemies at a normal size next to the player)
 TILE = 16.0
 FPS = 60.0
 
@@ -50,7 +50,19 @@ def main():
     ap.add_argument("facts")
     ap.add_argument("--stage", choices=STAGES, default="1c", help="apply to rows up to this stage (default: all)")
     ap.add_argument("--sheets", default=os.path.join(ROOT, "design", "sheets"))
+    ap.add_argument("--sounds", default=os.path.join(ROOT, "build", "noita_sounds.txt"),
+                    help="FMOD event list from the player's Noita (Terranoita.exe --list-noita-sounds)")
     args = ap.parse_args()
+    sounds = set()
+    if os.path.exists(args.sounds):
+        sounds = set(l.strip()[len("event:/"):] for l in open(args.sounds, encoding="utf-8") if l.startswith("event:/"))
+
+    def first_sound(roots, names):
+        for r in roots:
+            for n in names:
+                if r + "/" + n in sounds:
+                    return r + "/" + n
+        return "none"
     limit = STAGES.index(args.stage)
 
     facts = json.load(open(args.facts, encoding="utf-8"))
@@ -79,6 +91,27 @@ def main():
             verify(e, "noita_hp", f["display_hp"])
         if f.get("name_key"):
             verify(e, "name_key", f["name_key"])
+        m = f.get("movement")
+        if m:
+            px = lambda v: round((v or 0.0) * PIXEL_SCALE / FPS, 3)  # Noita px/s -> Terraria px/frame
+            verify(e, "walks", m["can_walk"])
+            verify(e, "flies", m["can_fly"])
+            verify(e, "jumps", m["can_jump"])
+            verify(e, "run_speed", px(m["run_velocity"]))
+            verify(e, "fly_speed", px(m["fly_velocity_x"]))
+            verify(e, "fly_up_speed", px(m["fly_speed_max_up"]))
+            verify(e, "accel", m["accel_x"])
+            verify(e, "gravity", round(m["pixel_gravity"] * PIXEL_SCALE / (FPS * FPS), 4))
+            verify(e, "jump_speed", px(m["jump_speed"]))
+            # 50 px: AnimalAIComponent's default when the entity does not set it
+            verify(e, "sight_tiles", round((m["detection_range_px"] or 50.0) * PIXEL_SCALE / TILE, 1))
+        else:
+            notes.append("%s: no CharacterPlatformingComponent; movement columns need filling by hand" % e["id"])
+        # most specific folder first (animals/zombie before animals/generic before animals)
+        roots = [r for r in (f.get("audio_roots") or []) if any(x.startswith(r + "/") for x in sounds)]
+        roots.sort(key=lambda r: (r + "/death" not in sounds, r.endswith("/generic") or "/" not in r, -len(r)))
+        if sounds:
+            verify(e, "audio", roots[0] if roots else "none")
         dm = f.get("damage_multipliers") or {}
         if dm and e.get("dmg_mult"):
             for k in e["dmg_mult"]:
@@ -94,6 +127,22 @@ def main():
                 verify(a, "cooldown_frames", int(f["melee_frames_between"]))
                 if f.get("melee_max_distance_px"):
                     verify(a, "range_tiles", round(f["melee_max_distance_px"] * PIXEL_SCALE / TILE, 2))
+                if sounds:
+                    verify(a, "sound", first_sound(roots, ["attack_melee", "_voc_attack", "voc_attack"]))
+            elif a["kind"] == "lunge":
+                dash = f.get("dash")
+                if not dash:
+                    notes.append("%s: sheet has %s but data.wak has no dash attack" % (e["id"], aid))
+                    continue
+                verify(a, "cooldown_frames", int(dash["frames_between"]))
+                verify(a, "range_tiles", round(dash["distance_px"] * PIXEL_SCALE / TILE, 2))
+                verify(a, "lunge_speed", round(dash["speed"] * PIXEL_SCALE / FPS, 3))
+                if sounds:
+                    verify(a, "sound", first_sound(roots, ["attack_dash", "voc_attack", "_voc_attack"]))
+                shown = round(dash["damage"] * 25.0, 2)
+                if a["damage"].get("melee") != shown:
+                    notes.append("%s: dash damage wiki %s, data.wak %s (using data.wak)" % (aid, a["damage"].get("melee"), shown))
+                verify(a, "damage", {"melee": shown})
 
         # ranged: match sheet projectile attacks to data.wak ranged attacks
         ranged = list(f.get("ranged") or [])
@@ -118,7 +167,10 @@ def main():
                     e["id"], unmatched, [r["entity_file"] for r in free]))
         for a, r in pairs:
             if r.get("frames_between"):
-                verify(a, "cooldown_frames", int(r["frames_between"]))
+                # Noita also keeps the creature in its attack state for state_frames before it can act again
+                verify(a, "cooldown_frames", int(r["frames_between"]) + int(r.get("state_frames") or 0))
+            if sounds:
+                verify(a, "sound", first_sound(roots, ["attack_shoot", "voc_shoot", "_throw", "_voc_attack", "voc_attack"]))
             if r.get("max_distance_px"):
                 verify(a, "range_tiles", round(r["max_distance_px"] * PIXEL_SCALE / TILE, 2))
             if r.get("count_min") and r.get("count_max"):
@@ -140,6 +192,11 @@ def main():
             if pf.get("lifetime_frames") is not None:
                 verify(p, "lifetime_frames", int(pf["lifetime_frames"]))
             verify(p, "explosion_radius", round((pf.get("explosion_radius_px") or 0.0) * PIXEL_SCALE / TILE, 2))
+            if sounds:
+                root = pf.get("audio_root")
+                verify(p, "audio", root if root and any(x.startswith(root + "/") for x in sounds) else "none")
+                ex = pf.get("explosion_sound")
+                verify(p, "explosion_sound", ex if ex in sounds else "none")
 
     for s in (enemies, attacks, projectiles):
         save(args.sheets, s)

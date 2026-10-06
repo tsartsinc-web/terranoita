@@ -91,6 +91,7 @@ namespace Terranoita.Cli
                     ["max_distance_px"] = r.MaxDistance,
                     ["count_min"] = r.CountMin,
                     ["count_max"] = r.CountMax,
+                    ["state_frames"] = r.StateFrames,
                 };
                 if (r.EntityFile != null && files.TryReadText(r.EntityFile, out _))
                 {
@@ -106,6 +107,8 @@ namespace Terranoita.Cli
                             ["lifetime_frames"] = p.LifetimeFrames,
                             ["explosion_radius_px"] = p.ExplosionRadius,
                             ["damage"] = p.Damage,
+                            ["audio_root"] = p.AudioRoot,
+                            ["explosion_sound"] = p.ExplosionSound,
                         };
                     }
                     catch (Exception ex)
@@ -135,6 +138,27 @@ namespace Terranoita.Cli
                 ["hitbox_noita_px"] = f.HitboxNoitaPx == null ? null : new JsonArray(f.HitboxNoitaPx[0], f.HitboxNoitaPx[1]),
                 ["melee_frames_between"] = f.MeleeFramesBetween,
                 ["melee_max_distance_px"] = f.MeleeRange,
+                ["dash"] = !f.DashEnabled ? null : new JsonObject
+                {
+                    ["frames_between"] = f.DashFramesBetween,
+                    ["distance_px"] = f.DashDistance,
+                    ["speed"] = f.DashSpeed,
+                    ["damage"] = f.DashDamage,
+                },
+                ["movement"] = f.Movement == null ? null : new JsonObject
+                {
+                    ["can_walk"] = f.Movement.CanWalk,
+                    ["can_fly"] = f.Movement.CanFly,
+                    ["can_jump"] = f.Movement.CanJump,
+                    ["run_velocity"] = f.Movement.RunVelocity,
+                    ["fly_velocity_x"] = f.Movement.FlyVelocityX,
+                    ["fly_speed_max_up"] = f.Movement.FlySpeedMaxUp,
+                    ["accel_x"] = f.Movement.AccelX,
+                    ["pixel_gravity"] = f.Movement.PixelGravity,
+                    ["jump_speed"] = f.Movement.JumpSpeed,
+                    ["detection_range_px"] = f.Movement.DetectionRange,
+                },
+                ["audio_roots"] = new JsonArray(f.AudioRoots.Select(a => (JsonNode)a).ToArray()),
                 ["damage_multipliers"] = mult,
                 ["ranged"] = ranged,
             };

@@ -26,7 +26,7 @@
   },
   "terraria_check": {
    "type": "string",
-   "desc": "C# expression over Player p / spawn tile x,y, checked against the 1.4.5 decompile."
+   "desc": "C# expression over Player p and spawn tile x,y (Player.Zone* fields and Terranoita.Game.Zones helpers, Terraria 1.4.5.8). Hardmode and after_boss are checked separately by the spawner."
   }
  },
  "rows": [
@@ -35,7 +35,7 @@
    "condition": "Overworld height, no other surface biome",
    "hardmode": false,
    "after_boss": "none",
-   "terraria_check": null,
+   "terraria_check": "p.ZoneOverworldHeight && Terranoita.Game.Zones.NoBiome(p) && !p.ZoneBeach",
    "_unverified": {}
   },
   {
@@ -43,7 +43,7 @@
    "condition": "Overworld height, NPC spawn tile in water",
    "hardmode": false,
    "after_boss": "none",
-   "terraria_check": null,
+   "terraria_check": "p.ZoneOverworldHeight && Terranoita.Game.Zones.Water(x, y)",
    "_unverified": {}
   },
   {
@@ -51,7 +51,7 @@
    "condition": "Overworld height, desert",
    "hardmode": false,
    "after_boss": "none",
-   "terraria_check": null,
+   "terraria_check": "p.ZoneOverworldHeight && p.ZoneDesert",
    "_unverified": {}
   },
   {
@@ -59,7 +59,7 @@
    "condition": "Overworld height, snow",
    "hardmode": false,
    "after_boss": "none",
-   "terraria_check": null,
+   "terraria_check": "p.ZoneOverworldHeight && p.ZoneSnow",
    "_unverified": {}
   },
   {
@@ -67,7 +67,7 @@
    "condition": "Dirt layer height, no special biome",
    "hardmode": false,
    "after_boss": "none",
-   "terraria_check": null,
+   "terraria_check": "p.ZoneDirtLayerHeight && Terranoita.Game.Zones.NoBiome(p)",
    "_unverified": {}
   },
   {
@@ -75,7 +75,7 @@
    "condition": "Rock layer height, no special biome",
    "hardmode": false,
    "after_boss": "none",
-   "terraria_check": null,
+   "terraria_check": "p.ZoneRockLayerHeight && Terranoita.Game.Zones.NoBiome(p)",
    "_unverified": {}
   },
   {
@@ -83,7 +83,7 @@
    "condition": "Lower half of the rock layer, no special biome",
    "hardmode": false,
    "after_boss": "none",
-   "terraria_check": null,
+   "terraria_check": "p.ZoneRockLayerHeight && Terranoita.Game.Zones.NoBiome(p) && y > (Main.rockLayer + Main.UnderworldLayer) / 2",
    "_unverified": {}
   },
   {
@@ -91,7 +91,7 @@
    "condition": "Below surface, snow",
    "hardmode": false,
    "after_boss": "none",
-   "terraria_check": null,
+   "terraria_check": "(p.ZoneDirtLayerHeight || p.ZoneRockLayerHeight) && p.ZoneSnow",
    "_unverified": {}
   },
   {
@@ -99,7 +99,7 @@
    "condition": "Below surface, jungle",
    "hardmode": false,
    "after_boss": "none",
-   "terraria_check": null,
+   "terraria_check": "(p.ZoneDirtLayerHeight || p.ZoneRockLayerHeight) && p.ZoneJungle && !p.ZoneLihzhardTemple && !p.ZoneHive",
    "_unverified": {}
   },
   {
@@ -107,7 +107,7 @@
    "condition": "Glowing mushroom biome",
    "hardmode": false,
    "after_boss": "none",
-   "terraria_check": null,
+   "terraria_check": "p.ZoneGlowshroom",
    "_unverified": {}
   },
   {
@@ -115,7 +115,7 @@
    "condition": "Underground desert",
    "hardmode": false,
    "after_boss": "none",
-   "terraria_check": null,
+   "terraria_check": "p.ZoneUndergroundDesert",
    "_unverified": {}
   },
   {
@@ -123,7 +123,7 @@
    "condition": "Marble cave",
    "hardmode": false,
    "after_boss": "none",
-   "terraria_check": null,
+   "terraria_check": "p.ZoneMarble && Terranoita.Game.Zones.Wall(x, y, WallID.MarbleUnsafe)",
    "_unverified": {}
   },
   {
@@ -131,7 +131,7 @@
    "condition": "Granite cave",
    "hardmode": false,
    "after_boss": "none",
-   "terraria_check": null,
+   "terraria_check": "p.ZoneGranite && Terranoita.Game.Zones.Wall(x, y, WallID.GraniteUnsafe)",
    "_unverified": {}
   },
   {
@@ -139,7 +139,7 @@
    "condition": "Underground desert",
    "hardmode": true,
    "after_boss": "none",
-   "terraria_check": null,
+   "terraria_check": "p.ZoneUndergroundDesert",
    "_unverified": {}
   },
   {
@@ -147,7 +147,7 @@
    "condition": "Rock layer height, no special biome",
    "hardmode": true,
    "after_boss": "none",
-   "terraria_check": null,
+   "terraria_check": "p.ZoneRockLayerHeight && Terranoita.Game.Zones.NoBiome(p)",
    "_unverified": {}
   },
   {
@@ -155,7 +155,7 @@
    "condition": "Below surface, snow",
    "hardmode": true,
    "after_boss": "none",
-   "terraria_check": null,
+   "terraria_check": "(p.ZoneDirtLayerHeight || p.ZoneRockLayerHeight) && p.ZoneSnow",
    "_unverified": {}
   },
   {
@@ -163,7 +163,7 @@
    "condition": "Dungeon",
    "hardmode": false,
    "after_boss": "skeletron",
-   "terraria_check": null,
+   "terraria_check": "p.ZoneDungeon",
    "_unverified": {}
   },
   {
@@ -171,7 +171,7 @@
    "condition": "Below surface, hallow",
    "hardmode": true,
    "after_boss": "none",
-   "terraria_check": null,
+   "terraria_check": "(p.ZoneDirtLayerHeight || p.ZoneRockLayerHeight) && p.ZoneHallow",
    "_unverified": {}
   },
   {
@@ -179,7 +179,7 @@
    "condition": "Below surface, jungle",
    "hardmode": true,
    "after_boss": "none",
-   "terraria_check": null,
+   "terraria_check": "(p.ZoneDirtLayerHeight || p.ZoneRockLayerHeight) && p.ZoneJungle && !p.ZoneLihzhardTemple && !p.ZoneHive",
    "_unverified": {}
   },
   {
@@ -187,7 +187,7 @@
    "condition": "Spider cave walls behind the spawn tile",
    "hardmode": true,
    "after_boss": "none",
-   "terraria_check": null,
+   "terraria_check": "Terranoita.Game.Zones.Wall(x, y, WallID.SpiderUnsafe)",
    "_unverified": {}
   },
   {
@@ -195,7 +195,7 @@
    "condition": "Below surface, crimson or corruption",
    "hardmode": true,
    "after_boss": "none",
-   "terraria_check": null,
+   "terraria_check": "(p.ZoneDirtLayerHeight || p.ZoneRockLayerHeight) && (p.ZoneCrimson || p.ZoneCorrupt)",
    "_unverified": {}
   },
   {
@@ -203,7 +203,7 @@
    "condition": "Sky height",
    "hardmode": true,
    "after_boss": "none",
-   "terraria_check": null,
+   "terraria_check": "p.ZoneSkyHeight",
    "_unverified": {}
   },
   {
@@ -211,7 +211,7 @@
    "condition": "Inside the Jungle Temple",
    "hardmode": true,
    "after_boss": "plantera",
-   "terraria_check": null,
+   "terraria_check": "p.ZoneLihzhardTemple && Terranoita.Game.Zones.Wall(x, y, WallID.LihzahrdBrickUnsafe)",
    "_unverified": {}
   },
   {
@@ -219,7 +219,7 @@
    "condition": "Underworld height",
    "hardmode": true,
    "after_boss": "plantera",
-   "terraria_check": null,
+   "terraria_check": "p.ZoneUnderworldHeight",
    "_unverified": {}
   },
   {
@@ -227,7 +227,7 @@
    "condition": "Sky height",
    "hardmode": true,
    "after_boss": "plantera",
-   "terraria_check": null,
+   "terraria_check": "p.ZoneSkyHeight",
    "_unverified": {}
   },
   {

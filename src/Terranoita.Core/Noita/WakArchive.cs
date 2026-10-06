@@ -7,7 +7,7 @@ namespace Terranoita.Noita
 {
     /// <summary>
     /// Read-only access to Noita's data/data.wak, read from the player's own Noita install.
-    /// Layout (community-documented, to be confirmed on a real file):
+    /// Layout (community-documented; confirmed on Noita's main branch, 2026-10, 14745 files):
     ///   u32 0, u32 fileCount, u32 tocEnd, u32 0,
     ///   then fileCount entries of { u32 offset, u32 size, u32 nameLength, name bytes (UTF-8, '/' separators) }.
     /// Offsets are absolute from the start of the file.

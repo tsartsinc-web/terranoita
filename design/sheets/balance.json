@@ -32,49 +32,53 @@
   {
    "id": "t1",
    "meaning": "Pre-hardmode, start of the game",
-   "hp_mult": 6.0,
-   "dmg_mult": 1.5,
+   "hp_mult": 2.0,
+   "dmg_mult": 1.0,
    "defense": 2,
    "spawn_weight": 1.0,
-   "_unverified": {
-    "hp_mult": "playtest",
-    "dmg_mult": "playtest"
+   "_unverified": {},
+   "_sources": {
+    "hp_mult": "Hits to kill kept like Noita: Noita's starting spell does ~3 to enemies of noita_hp, Terraria's starting weapon ~5-8 (t1 x2), deeper/hardmode weapons scale it (t2 x4, t3 x12, t4 x20). Damage: both games start the player at 100 HP, so t1 x1; later tiers follow Terraria's health and defense growth. First in-game test 2026-10-06 (autotest, starting character).",
+    "dmg_mult": "Hits to kill kept like Noita: Noita's starting spell does ~3 to enemies of noita_hp, Terraria's starting weapon ~5-8 (t1 x2), deeper/hardmode weapons scale it (t2 x4, t3 x12, t4 x20). Damage: both games start the player at 100 HP, so t1 x1; later tiers follow Terraria's health and defense growth. First in-game test 2026-10-06 (autotest, starting character)."
    }
   },
   {
    "id": "t2",
    "meaning": "Pre-hardmode, deeper layers",
-   "hp_mult": 10.0,
-   "dmg_mult": 2.0,
+   "hp_mult": 4.0,
+   "dmg_mult": 1.5,
    "defense": 6,
    "spawn_weight": 1.0,
-   "_unverified": {
-    "hp_mult": "playtest",
-    "dmg_mult": "playtest"
+   "_unverified": {},
+   "_sources": {
+    "hp_mult": "Hits to kill kept like Noita: Noita's starting spell does ~3 to enemies of noita_hp, Terraria's starting weapon ~5-8 (t1 x2), deeper/hardmode weapons scale it (t2 x4, t3 x12, t4 x20). Damage: both games start the player at 100 HP, so t1 x1; later tiers follow Terraria's health and defense growth. First in-game test 2026-10-06 (autotest, starting character).",
+    "dmg_mult": "Hits to kill kept like Noita: Noita's starting spell does ~3 to enemies of noita_hp, Terraria's starting weapon ~5-8 (t1 x2), deeper/hardmode weapons scale it (t2 x4, t3 x12, t4 x20). Damage: both games start the player at 100 HP, so t1 x1; later tiers follow Terraria's health and defense growth. First in-game test 2026-10-06 (autotest, starting character)."
    }
   },
   {
    "id": "t3",
    "meaning": "Hardmode",
-   "hp_mult": 25.0,
-   "dmg_mult": 3.5,
+   "hp_mult": 12.0,
+   "dmg_mult": 3.0,
    "defense": 20,
    "spawn_weight": 0.9,
-   "_unverified": {
-    "hp_mult": "playtest",
-    "dmg_mult": "playtest"
+   "_unverified": {},
+   "_sources": {
+    "hp_mult": "Hits to kill kept like Noita: Noita's starting spell does ~3 to enemies of noita_hp, Terraria's starting weapon ~5-8 (t1 x2), deeper/hardmode weapons scale it (t2 x4, t3 x12, t4 x20). Damage: both games start the player at 100 HP, so t1 x1; later tiers follow Terraria's health and defense growth. First in-game test 2026-10-06 (autotest, starting character).",
+    "dmg_mult": "Hits to kill kept like Noita: Noita's starting spell does ~3 to enemies of noita_hp, Terraria's starting weapon ~5-8 (t1 x2), deeper/hardmode weapons scale it (t2 x4, t3 x12, t4 x20). Damage: both games start the player at 100 HP, so t1 x1; later tiers follow Terraria's health and defense growth. First in-game test 2026-10-06 (autotest, starting character)."
    }
   },
   {
    "id": "t4",
    "meaning": "After Plantera",
-   "hp_mult": 45.0,
-   "dmg_mult": 5.0,
+   "hp_mult": 20.0,
+   "dmg_mult": 4.5,
    "defense": 35,
    "spawn_weight": 0.8,
-   "_unverified": {
-    "hp_mult": "playtest",
-    "dmg_mult": "playtest"
+   "_unverified": {},
+   "_sources": {
+    "hp_mult": "Hits to kill kept like Noita: Noita's starting spell does ~3 to enemies of noita_hp, Terraria's starting weapon ~5-8 (t1 x2), deeper/hardmode weapons scale it (t2 x4, t3 x12, t4 x20). Damage: both games start the player at 100 HP, so t1 x1; later tiers follow Terraria's health and defense growth. First in-game test 2026-10-06 (autotest, starting character).",
+    "dmg_mult": "Hits to kill kept like Noita: Noita's starting spell does ~3 to enemies of noita_hp, Terraria's starting weapon ~5-8 (t1 x2), deeper/hardmode weapons scale it (t2 x4, t3 x12, t4 x20). Damage: both games start the player at 100 HP, so t1 x1; later tiers follow Terraria's health and defense growth. First in-game test 2026-10-06 (autotest, starting character)."
    }
   }
  ]

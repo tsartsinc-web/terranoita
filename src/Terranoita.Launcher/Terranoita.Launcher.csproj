@@ -14,4 +14,33 @@
     <!-- lets the .NET Framework target build on any machine (including Linux CI) -->
     <PackageReference Include="Microsoft.NETFramework.ReferenceAssemblies" Version="1.0.3" PrivateAssets="all" />
   </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\Terranoita.Core\Terranoita.Core.csproj" />
+  </ItemGroup>
+
+  <!-- Terraria.exe is a 32-bit exe marked large-address-aware (up to 4 GB); the process we start it in must be too. -->
+  <UsingTask TaskName="SetLargeAddressAware" TaskFactory="RoslynCodeTaskFactory" AssemblyFile="$(MSBuildToolsPath)\Microsoft.Build.Tasks.Core.dll">
+    <ParameterGroup>
+      <File ParameterType="System.String" Required="true" />
+    </ParameterGroup>
+    <Task>
+      <Code Type="Fragment" Language="cs"><![CDATA[
+        var b = System.IO.File.ReadAllBytes(File);
+        int pe = System.BitConverter.ToInt32(b, 0x3C);
+        int at = pe + 4 + 18;   // IMAGE_FILE_HEADER.Characteristics
+        ushort ch = System.BitConverter.ToUInt16(b, at);
+        if ((ch & 0x20) == 0)
+        {
+            ch |= 0x20;
+            b[at] = (byte)(ch & 0xFF);
+            b[at + 1] = (byte)(ch >> 8);
+            System.IO.File.WriteAllBytes(File, b);
+            Log.LogMessage(MessageImportance.High, "Marked large-address-aware: " + File);
+        }
+      ]]></Code>
+    </Task>
+  </UsingTask>
+  <Target Name="MarkLargeAddressAware" AfterTargets="Build">
+    <SetLargeAddressAware File="$(TargetPath)" />
+  </Target>
 </Project>

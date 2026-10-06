@@ -24,6 +24,14 @@ namespace Terranoita.Launcher
         [STAThread]
         static int Main(string[] args)
         {
+            // developer tool: Terranoita.exe --list-noita-sounds "<Noita folder>" out.txt
+            if (args.Length >= 3 && args[0] == "--list-noita-sounds")
+            {
+                using (var fmod = Terranoita.Noita.NoitaFmod.Open(args[1],
+                    new[] { "animals.bank", "projectiles.bank", "explosion.bank", "player.bank", "items.bank", "misc.bank" }, Console.WriteLine))
+                    File.WriteAllLines(args[2], fmod.EventPaths());
+                return 0;
+            }
             string here = AppDomain.CurrentDomain.BaseDirectory;
             Log.Open();
             Log.Write("Terranoita launcher " + typeof(Program).Assembly.GetName().Version + ", folder " + here);
@@ -52,7 +60,9 @@ namespace Terranoita.Launcher
                     Environment.SetEnvironmentVariable("SteamGameId", TerrariaSteamAppId);
                 Environment.CurrentDirectory = here;
 
-                Assembly terraria = Assembly.LoadFrom(terrariaExe);
+                // Load it by name (the default load context, Terraria.exe is in our folder) so that Terranoita.Game.dll's
+                // reference to Terraria binds to this same copy. LoadFrom would leave a second copy for the mod to patch.
+                Assembly terraria = Assembly.Load(new AssemblyName("Terraria"));
                 AppDomain.CurrentDomain.AssemblyResolve += (s, e) => ResolveEmbedded(terraria, e.Name);
                 Log.Write("Loaded " + terraria.FullName);
 
@@ -87,7 +97,9 @@ namespace Terranoita.Launcher
                 Log.Write("Terranoita.Game.dll missing: starting plain Terraria");
                 return;
             }
-            Assembly mod = Assembly.LoadFrom(gameDll);
+            Assembly mod = Assembly.Load(new AssemblyName("Terranoita.Game"));
+            int copies = AppDomain.CurrentDomain.GetAssemblies().Count(a => a.GetName().Name == "Terraria");
+            Log.Write("Terraria assemblies loaded: " + copies);
             MethodInfo start = mod.GetType("Terranoita.Game.Entry", true).GetMethod("Start", BindingFlags.Static | BindingFlags.Public);
             start.Invoke(null, new object[] { terraria, noitaDir, (Action<string>)Log.Write });
         }

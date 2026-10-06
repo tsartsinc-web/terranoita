@@ -55,6 +55,14 @@
    "type": "number",
    "desc": "Max distance to start the attack, in Terraria tiles."
   },
+  "lunge_speed": {
+   "type": "number",
+   "desc": "Lunge only: launch speed, Terraria pixels/frame (AnimalAIComponent attack_dash_speed); 0 for other kinds."
+  },
+  "sound": {
+   "type": "string",
+   "desc": "Noita sound event played when the attack starts (from the creature's audio folder, played through the player's Noita FMOD); 'none' if Noita has none."
+  },
   "wiki_text": {
    "type": "string",
    "desc": "Original wiki text, for reference."
@@ -85,6 +93,8 @@
    "per_frames": "hit",
    "cooldown_frames": 0,
    "range_tiles": 0,
+   "lunge_speed": 0,
+   "sound": null,
    "wiki_text": "Explodes into acid on death/Explosion/75",
    "stage": "1b",
    "_unverified": {
@@ -110,6 +120,8 @@
    "per_frames": "hit",
    "cooldown_frames": 40,
    "range_tiles": 1.5,
+   "lunge_speed": 0,
+   "sound": null,
    "wiki_text": "Melee/Melee/5-10",
    "stage": "1b",
    "_unverified": {
@@ -132,6 +144,8 @@
    "per_frames": "hit",
    "cooldown_frames": 0,
    "range_tiles": 0,
+   "lunge_speed": 0,
+   "sound": null,
    "wiki_text": "Explodes into acid on death/Explosion/75",
    "stage": "1b",
    "_unverified": {
@@ -157,6 +171,8 @@
    "per_frames": "hit",
    "cooldown_frames": 40,
    "range_tiles": 1.5,
+   "lunge_speed": 0,
+   "sound": null,
    "wiki_text": "Melee/Melee/5-10",
    "stage": "1b",
    "_unverified": {
@@ -177,14 +193,13 @@
     "melee": 6.25
    },
    "per_frames": "hit",
-   "cooldown_frames": 90,
-   "range_tiles": 6,
+   "cooldown_frames": 120,
+   "range_tiles": 16.88,
+   "lunge_speed": 10.0,
+   "sound": "animals/generic/attack_dash",
    "wiki_text": "Lunge/Dash/6.25",
    "stage": "1a",
-   "_unverified": {
-    "cooldown_frames": "default for kind 'lunge'; read AnimalAIComponent attack_*_frames_between check in the player's data.wak (tools: Terranoita.Cli wak-cat)",
-    "range_tiles": "default for kind; read AnimalAIComponent attack_*_range check in the player's data.wak (tools: Terranoita.Cli wak-cat)"
-   }
+   "_unverified": {}
   },
   {
    "id": "fly.melee",
@@ -202,14 +217,13 @@
     ]
    },
    "per_frames": "hit",
-   "cooldown_frames": 40,
-   "range_tiles": 1.5,
+   "cooldown_frames": 20,
+   "range_tiles": 1.88,
+   "lunge_speed": 0,
+   "sound": "animals/generic/attack_melee",
    "wiki_text": "Melee/Melee/10-15",
    "stage": "1a",
-   "_unverified": {
-    "cooldown_frames": "default for kind 'melee'; read AnimalAIComponent attack_*_frames_between check in the player's data.wak (tools: Terranoita.Cli wak-cat)",
-    "range_tiles": "default for kind; read AnimalAIComponent attack_*_range check in the player's data.wak (tools: Terranoita.Cli wak-cat)"
-   }
+   "_unverified": {}
   },
   {
    "id": "firemage.ghostly_fireball",
@@ -227,6 +241,8 @@
    "per_frames": "hit",
    "cooldown_frames": 90,
    "range_tiles": 25,
+   "lunge_speed": 0,
+   "sound": null,
    "wiki_text": "Ghostly Fireball/Explosion/50; Ghostly Fireball/Fire/6.25",
    "stage": "1b",
    "_unverified": {
@@ -253,6 +269,8 @@
    "per_frames": "hit",
    "cooldown_frames": 40,
    "range_tiles": 1.5,
+   "lunge_speed": 0,
+   "sound": null,
    "wiki_text": "Melee/Melee/10-17.5",
    "stage": "1b",
    "_unverified": {
@@ -275,6 +293,8 @@
    "per_frames": "40F",
    "cooldown_frames": 1,
    "range_tiles": 6,
+   "lunge_speed": 0,
+   "sound": null,
    "wiki_text": "Damage Field:/Curse/2.25/40F",
    "stage": "1b",
    "_unverified": {
@@ -297,6 +317,8 @@
    "per_frames": "1F",
    "cooldown_frames": 1,
    "range_tiles": 6,
+   "lunge_speed": 0,
+   "sound": null,
    "wiki_text": "Curse/Curse/2.5/1F",
    "stage": "1c",
    "_unverified": {
@@ -319,6 +341,8 @@
    "per_frames": "1F",
    "cooldown_frames": 1,
    "range_tiles": 6,
+   "lunge_speed": 0,
+   "sound": null,
    "wiki_text": "Curse/Curse/2.5/1F",
    "stage": "1c",
    "_unverified": {
@@ -341,6 +365,8 @@
    "per_frames": "1F",
    "cooldown_frames": 1,
    "range_tiles": 6,
+   "lunge_speed": 0,
+   "sound": null,
    "wiki_text": "Curse/Curse/2.5/1F",
    "stage": "1c",
    "_unverified": {
@@ -363,6 +389,8 @@
    "per_frames": "1F",
    "cooldown_frames": 1,
    "range_tiles": 6,
+   "lunge_speed": 0,
+   "sound": null,
    "wiki_text": "Curse/Curse/2.5/1F",
    "stage": "1c",
    "_unverified": {
@@ -383,6 +411,8 @@
    "per_frames": "hit",
    "cooldown_frames": 600,
    "range_tiles": 30,
+   "lunge_speed": 0,
+   "sound": null,
    "wiki_text": "Summons ghosts periodically",
    "stage": "1b",
    "_unverified": {
@@ -406,6 +436,8 @@
    "per_frames": "hit",
    "cooldown_frames": 90,
    "range_tiles": 25,
+   "lunge_speed": 0,
+   "sound": null,
    "wiki_text": "Projectile/Projectile/7.5; Projectile/Explosion/2.5",
    "stage": "1b",
    "_unverified": {
@@ -427,6 +459,8 @@
    "per_frames": "hit",
    "cooldown_frames": 90,
    "range_tiles": 25,
+   "lunge_speed": 0,
+   "sound": null,
    "wiki_text": "[[Chaotic Polymorphine]] projectile",
    "stage": "1b",
    "_unverified": {
@@ -453,6 +487,8 @@
    "per_frames": "hit",
    "cooldown_frames": 40,
    "range_tiles": 1.5,
+   "lunge_speed": 0,
+   "sound": null,
    "wiki_text": "Melee/Melee/20-35",
    "stage": "1b",
    "_unverified": {
@@ -473,6 +509,8 @@
    "per_frames": "hit",
    "cooldown_frames": 240,
    "range_tiles": 20,
+   "lunge_speed": 0,
+   "sound": null,
    "wiki_text": "Turns other enemies <span class=\"status-effect\"><span class=\"notranslate setChildImgSize\">[[File:Effect invisibility.png|link=Status Effects#Invisible|Invisible]]</span> [[Status Effects#Invisible|Invisible]]</span>",
    "stage": "1b",
    "_unverified": {
@@ -495,6 +533,8 @@
    "per_frames": "10F",
    "cooldown_frames": 40,
    "range_tiles": 1.5,
+   "lunge_speed": 0,
+   "sound": null,
    "wiki_text": "Melee/Melee/12.5; Melee/Melee/2.5/10F",
    "stage": "1b",
    "_unverified": {
@@ -517,6 +557,8 @@
    "per_frames": "hit",
    "cooldown_frames": 40,
    "range_tiles": 1.5,
+   "lunge_speed": 0,
+   "sound": null,
    "wiki_text": "Melee/Melee/12.5",
    "stage": "1b",
    "_unverified": {
@@ -539,6 +581,8 @@
    "per_frames": "hit",
    "cooldown_frames": 40,
    "range_tiles": 1.5,
+   "lunge_speed": 0,
+   "sound": null,
    "wiki_text": "Melee/Melee/12.5",
    "stage": "1b",
    "_unverified": {
@@ -556,17 +600,16 @@
     1
    ],
    "damage": {
-    "melee": 6.0
+    "melee": 6.25
    },
    "per_frames": "hit",
-   "cooldown_frames": 90,
-   "range_tiles": 6,
+   "cooldown_frames": 120,
+   "range_tiles": 9.38,
+   "lunge_speed": 10.0,
+   "sound": "animals/longleg/voc_attack",
    "wiki_text": "Lunge/dash/6",
    "stage": "1a",
-   "_unverified": {
-    "cooldown_frames": "default for kind 'lunge'; read AnimalAIComponent attack_*_frames_between check in the player's data.wak (tools: Terranoita.Cli wak-cat)",
-    "range_tiles": "default for kind; read AnimalAIComponent attack_*_range check in the player's data.wak (tools: Terranoita.Cli wak-cat)"
-   }
+   "_unverified": {}
   },
   {
    "id": "longleg.melee",
@@ -584,14 +627,13 @@
     ]
    },
    "per_frames": "hit",
-   "cooldown_frames": 40,
-   "range_tiles": 1.5,
+   "cooldown_frames": 20,
+   "range_tiles": 1.88,
+   "lunge_speed": 0,
+   "sound": "animals/longleg/voc_attack",
    "wiki_text": "Melee/Melee/5-10",
    "stage": "1a",
-   "_unverified": {
-    "cooldown_frames": "default for kind 'melee'; read AnimalAIComponent attack_*_frames_between check in the player's data.wak (tools: Terranoita.Cli wak-cat)",
-    "range_tiles": "default for kind; read AnimalAIComponent attack_*_range check in the player's data.wak (tools: Terranoita.Cli wak-cat)"
-   }
+   "_unverified": {}
   },
   {
    "id": "acidshooter.acid_ball",
@@ -608,6 +650,8 @@
    "per_frames": "hit",
    "cooldown_frames": 90,
    "range_tiles": 25,
+   "lunge_speed": 0,
+   "sound": null,
    "wiki_text": "[[Acid Ball]] projectile/Projectile/6",
    "stage": "1b",
    "_unverified": {
@@ -634,6 +678,8 @@
    "per_frames": "hit",
    "cooldown_frames": 40,
    "range_tiles": 1.5,
+   "lunge_speed": 0,
+   "sound": null,
    "wiki_text": "Melee/Melee/5-10",
    "stage": "1b",
    "_unverified": {
@@ -654,15 +700,13 @@
     "projectile": 6.0
    },
    "per_frames": "hit",
-   "cooldown_frames": 90,
-   "range_tiles": 25,
+   "cooldown_frames": 110,
+   "range_tiles": 30.0,
+   "lunge_speed": 0,
+   "sound": "animals/acidshooter/voc_shoot",
    "wiki_text": "[[Acid Ball]] projectile/Projectile/6",
    "stage": "1a",
-   "_unverified": {
-    "cooldown_frames": "default for kind 'projectile'; read AnimalAIComponent attack_*_frames_between check in the player's data.wak (tools: Terranoita.Cli wak-cat)",
-    "range_tiles": "default for kind; read AnimalAIComponent attack_*_range check in the player's data.wak (tools: Terranoita.Cli wak-cat)",
-    "count": "wiki shows no count; read attack_ranged_entity_count check in the player's data.wak (tools: Terranoita.Cli wak-cat)"
-   }
+   "_unverified": {}
   },
   {
    "id": "acidshooter_weak.melee",
@@ -680,14 +724,13 @@
     ]
    },
    "per_frames": "hit",
-   "cooldown_frames": 40,
-   "range_tiles": 1.5,
+   "cooldown_frames": 20,
+   "range_tiles": 1.88,
+   "lunge_speed": 0,
+   "sound": "animals/generic/attack_melee",
    "wiki_text": "Melee/Melee/5-10",
    "stage": "1a",
-   "_unverified": {
-    "cooldown_frames": "default for kind 'melee'; read AnimalAIComponent attack_*_frames_between check in the player's data.wak (tools: Terranoita.Cli wak-cat)",
-    "range_tiles": "default for kind; read AnimalAIComponent attack_*_range check in the player's data.wak (tools: Terranoita.Cli wak-cat)"
-   }
+   "_unverified": {}
   },
   {
    "id": "shotgunner.projectile",
@@ -704,6 +747,8 @@
    "per_frames": "hit",
    "cooldown_frames": 90,
    "range_tiles": 25,
+   "lunge_speed": 0,
+   "sound": null,
    "wiki_text": "Projectile x 3-4/Projectile/6.75",
    "stage": "1b",
    "_unverified": {
@@ -729,6 +774,8 @@
    "per_frames": "hit",
    "cooldown_frames": 40,
    "range_tiles": 1.5,
+   "lunge_speed": 0,
+   "sound": null,
    "wiki_text": "Melee/Melee/10-17.5",
    "stage": "1b",
    "_unverified": {
@@ -749,14 +796,13 @@
     "projectile": 6.75
    },
    "per_frames": "hit",
-   "cooldown_frames": 90,
-   "range_tiles": 25,
+   "cooldown_frames": 145,
+   "range_tiles": 33.75,
+   "lunge_speed": 0,
+   "sound": "animals/shotgunner/_throw",
    "wiki_text": "Projectile x 3-4/Projectile/6.75",
    "stage": "1a",
-   "_unverified": {
-    "cooldown_frames": "default for kind 'projectile'; read AnimalAIComponent attack_*_frames_between check in the player's data.wak (tools: Terranoita.Cli wak-cat)",
-    "range_tiles": "default for kind; read AnimalAIComponent attack_*_range check in the player's data.wak (tools: Terranoita.Cli wak-cat)"
-   }
+   "_unverified": {}
   },
   {
    "id": "shotgunner_weak.melee",
@@ -774,14 +820,13 @@
     ]
    },
    "per_frames": "hit",
-   "cooldown_frames": 40,
-   "range_tiles": 1.5,
+   "cooldown_frames": 20,
+   "range_tiles": 2.25,
+   "lunge_speed": 0,
+   "sound": "animals/shotgunner/_voc_attack",
    "wiki_text": "Melee/Melee/10-17.5",
    "stage": "1a",
-   "_unverified": {
-    "cooldown_frames": "default for kind 'melee'; read AnimalAIComponent attack_*_frames_between check in the player's data.wak (tools: Terranoita.Cli wak-cat)",
-    "range_tiles": "default for kind; read AnimalAIComponent attack_*_range check in the player's data.wak (tools: Terranoita.Cli wak-cat)"
-   }
+   "_unverified": {}
   },
   {
    "id": "shotgunner_hell.projectile",
@@ -798,6 +843,8 @@
    "per_frames": "hit",
    "cooldown_frames": 90,
    "range_tiles": 25,
+   "lunge_speed": 0,
+   "sound": null,
    "wiki_text": "Projectile x 12-16/Projectile/6.75",
    "stage": "1b",
    "_unverified": {
@@ -823,6 +870,8 @@
    "per_frames": "hit",
    "cooldown_frames": 40,
    "range_tiles": 1.5,
+   "lunge_speed": 0,
+   "sound": null,
    "wiki_text": "Melee/Melee/35-42.5",
    "stage": "1b",
    "_unverified": {
@@ -845,6 +894,8 @@
    "per_frames": "hit",
    "cooldown_frames": 90,
    "range_tiles": 25,
+   "lunge_speed": 0,
+   "sound": null,
    "wiki_text": "Missiles x 3-4/Explosion/20",
    "stage": "1b",
    "_unverified": {
@@ -870,6 +921,8 @@
    "per_frames": "hit",
    "cooldown_frames": 40,
    "range_tiles": 1.5,
+   "lunge_speed": 0,
+   "sound": null,
    "wiki_text": "Melee/Melee/10-17.5",
    "stage": "1b",
    "_unverified": {
@@ -892,6 +945,8 @@
    "per_frames": "hit",
    "cooldown_frames": 90,
    "range_tiles": 25,
+   "lunge_speed": 0,
+   "sound": null,
    "wiki_text": "Projectile/Projectile/12.5",
    "stage": "1b",
    "_unverified": {
@@ -915,6 +970,8 @@
    "per_frames": "hit",
    "cooldown_frames": 90,
    "range_tiles": 25,
+   "lunge_speed": 0,
+   "sound": null,
    "wiki_text": "[[Lava]] projectile/Projectile/37.5",
    "stage": "1b",
    "_unverified": {
@@ -938,6 +995,8 @@
    "per_frames": "hit",
    "cooldown_frames": 40,
    "range_tiles": 1.5,
+   "lunge_speed": 0,
+   "sound": null,
    "wiki_text": "worm bite/Melee/25",
    "stage": "1b",
    "_unverified": {
@@ -958,6 +1017,8 @@
    "per_frames": "hit",
    "cooldown_frames": 600,
    "range_tiles": 30,
+   "lunge_speed": 0,
+   "sound": null,
    "wiki_text": "Throws [[Lohkare|Rock Spirits]]",
    "stage": "1b",
    "_unverified": {
@@ -983,6 +1044,8 @@
    "per_frames": "hit",
    "cooldown_frames": 40,
    "range_tiles": 1.5,
+   "lunge_speed": 0,
+   "sound": null,
    "wiki_text": "Melee/Melee/10-17.5",
    "stage": "1b",
    "_unverified": {
@@ -1006,6 +1069,8 @@
    "per_frames": "hit",
    "cooldown_frames": 0,
    "range_tiles": 30,
+   "lunge_speed": 0,
+   "sound": null,
    "wiki_text": "Retaliates with [[Pinpoint of Light]] when hit/Explosion/14.5; Retaliates with [[Pinpoint of Light]] when hit/Holy/8.75",
    "stage": "1b",
    "_unverified": {
@@ -1028,6 +1093,8 @@
    "per_frames": "hit",
    "cooldown_frames": 90,
    "range_tiles": 25,
+   "lunge_speed": 0,
+   "sound": null,
    "wiki_text": "Green radial orb projectile/Projectile/20",
    "stage": "1b",
    "_unverified": {
@@ -1054,6 +1121,8 @@
    "per_frames": "hit",
    "cooldown_frames": 40,
    "range_tiles": 1.5,
+   "lunge_speed": 0,
+   "sound": null,
    "wiki_text": "Melee/Melee/5-10",
    "stage": "1b",
    "_unverified": {
@@ -1074,6 +1143,8 @@
    "per_frames": "hit",
    "cooldown_frames": 90,
    "range_tiles": 25,
+   "lunge_speed": 0,
+   "sound": null,
    "wiki_text": "Freezing projectile",
    "stage": "1b",
    "_unverified": {
@@ -1100,6 +1171,8 @@
    "per_frames": "3F",
    "cooldown_frames": 1,
    "range_tiles": 6,
+   "lunge_speed": 0,
+   "sound": null,
    "wiki_text": "Curse/Curse/2.5-5/3F",
    "stage": "1b",
    "_unverified": {
@@ -1123,6 +1196,8 @@
    "per_frames": "hit",
    "cooldown_frames": 90,
    "range_tiles": 25,
+   "lunge_speed": 0,
+   "sound": null,
    "wiki_text": "[[Pollen]] projectile/Explosion/12.5; [[Pollen]] projectile/Projectile/12.5",
    "stage": "1b",
    "_unverified": {
@@ -1146,6 +1221,8 @@
    "per_frames": "hit",
    "cooldown_frames": 90,
    "range_tiles": 25,
+   "lunge_speed": 0,
+   "sound": null,
    "wiki_text": "[[Pollen]] bundle projectile/Projectile/30",
    "stage": "1b",
    "_unverified": {
@@ -1169,6 +1246,8 @@
    "per_frames": "hit",
    "cooldown_frames": 90,
    "range_tiles": 6,
+   "lunge_speed": null,
+   "sound": null,
    "wiki_text": "Lunge/Dash/35",
    "stage": "1b",
    "_unverified": {
@@ -1191,6 +1270,8 @@
    "per_frames": "hit",
    "cooldown_frames": 0,
    "range_tiles": 0,
+   "lunge_speed": 0,
+   "sound": null,
    "wiki_text": "Explodes on death/Explosion/125",
    "stage": "1b",
    "_unverified": {
@@ -1211,14 +1292,13 @@
     "melee": 6.25
    },
    "per_frames": "hit",
-   "cooldown_frames": 90,
-   "range_tiles": 6,
+   "cooldown_frames": 120,
+   "range_tiles": 9.38,
+   "lunge_speed": 10.0,
+   "sound": "animals/zombie/attack_dash",
    "wiki_text": "Lunge/dash/6.25",
    "stage": "1a",
-   "_unverified": {
-    "cooldown_frames": "default for kind 'lunge'; read AnimalAIComponent attack_*_frames_between check in the player's data.wak (tools: Terranoita.Cli wak-cat)",
-    "range_tiles": "default for kind; read AnimalAIComponent attack_*_range check in the player's data.wak (tools: Terranoita.Cli wak-cat)"
-   }
+   "_unverified": {}
   },
   {
    "id": "zombie_weak.melee",
@@ -1236,14 +1316,13 @@
     ]
    },
    "per_frames": "hit",
-   "cooldown_frames": 40,
-   "range_tiles": 1.5,
+   "cooldown_frames": 20,
+   "range_tiles": 1.88,
+   "lunge_speed": 0,
+   "sound": "animals/zombie/attack_melee",
    "wiki_text": "Melee/Melee/5-10",
    "stage": "1a",
-   "_unverified": {
-    "cooldown_frames": "default for kind 'melee'; read AnimalAIComponent attack_*_frames_between check in the player's data.wak (tools: Terranoita.Cli wak-cat)",
-    "range_tiles": "default for kind; read AnimalAIComponent attack_*_range check in the player's data.wak (tools: Terranoita.Cli wak-cat)"
-   }
+   "_unverified": {}
   },
   {
    "id": "zombie.lunge",
@@ -1260,6 +1339,8 @@
    "per_frames": "hit",
    "cooldown_frames": 90,
    "range_tiles": 6,
+   "lunge_speed": null,
+   "sound": null,
    "wiki_text": "Lunge/dash/6.25",
    "stage": "1b",
    "_unverified": {
@@ -1285,6 +1366,8 @@
    "per_frames": "hit",
    "cooldown_frames": 40,
    "range_tiles": 1.5,
+   "lunge_speed": 0,
+   "sound": null,
    "wiki_text": "Melee/Melee/5-10",
    "stage": "1b",
    "_unverified": {
@@ -1307,6 +1390,8 @@
    "per_frames": "hit",
    "cooldown_frames": 90,
    "range_tiles": 25,
+   "lunge_speed": 0,
+   "sound": null,
    "wiki_text": "Timed Mines/Explosion/100",
    "stage": "1b",
    "_unverified": {
@@ -1330,6 +1415,8 @@
    "per_frames": "hit",
    "cooldown_frames": 90,
    "range_tiles": 25,
+   "lunge_speed": 0,
+   "sound": null,
    "wiki_text": "Projectile/Projectile/32.5",
    "stage": "1b",
    "_unverified": {
@@ -1356,6 +1443,8 @@
    "per_frames": "hit",
    "cooldown_frames": 40,
    "range_tiles": 1.5,
+   "lunge_speed": 0,
+   "sound": null,
    "wiki_text": "Melee/Melee/10-17.5",
    "stage": "1b",
    "_unverified": {
@@ -1379,6 +1468,8 @@
    "per_frames": "hit",
    "cooldown_frames": 90,
    "range_tiles": 25,
+   "lunge_speed": 0,
+   "sound": null,
    "wiki_text": "Homing rocket/Projectile/25; Homing rocket/Explosion/12.5",
    "stage": "1b",
    "_unverified": {
@@ -1402,6 +1493,8 @@
    "per_frames": "hit",
    "cooldown_frames": 0,
    "range_tiles": 0,
+   "lunge_speed": 0,
+   "sound": null,
    "wiki_text": "Explodes on death/Explosion/75",
    "stage": "1b",
    "_unverified": {
@@ -1424,6 +1517,8 @@
    "per_frames": "hit",
    "cooldown_frames": 90,
    "range_tiles": 25,
+   "lunge_speed": 0,
+   "sound": null,
    "wiki_text": "Icethrower/Explosion/25",
    "stage": "1b",
    "_unverified": {
@@ -1448,6 +1543,8 @@
    "per_frames": "hit",
    "cooldown_frames": 90,
    "range_tiles": 25,
+   "lunge_speed": 0,
+   "sound": null,
    "wiki_text": "[[Iceball]]/Explosion/25; [[Iceball]]/Ice/7.5",
    "stage": "1b",
    "_unverified": {
@@ -1471,6 +1568,8 @@
    "per_frames": "hit",
    "cooldown_frames": 90,
    "range_tiles": 6,
+   "lunge_speed": null,
+   "sound": null,
    "wiki_text": "Lunge/Dash/6.25",
    "stage": "1b",
    "_unverified": {
@@ -1496,6 +1595,8 @@
    "per_frames": "hit",
    "cooldown_frames": 40,
    "range_tiles": 1.5,
+   "lunge_speed": 0,
+   "sound": null,
    "wiki_text": "Melee/Melee/5-10",
    "stage": "1b",
    "_unverified": {
@@ -1518,6 +1619,8 @@
    "per_frames": "hit",
    "cooldown_frames": 40,
    "range_tiles": 1.5,
+   "lunge_speed": 0,
+   "sound": null,
    "wiki_text": "Tentacle/Melee/10",
    "stage": "1b",
    "_unverified": {
@@ -1540,6 +1643,8 @@
    "per_frames": "hit",
    "cooldown_frames": 90,
    "range_tiles": 6,
+   "lunge_speed": null,
+   "sound": null,
    "wiki_text": "Lunge/Dash/10",
    "stage": "1b",
    "_unverified": {
@@ -1563,6 +1668,8 @@
    "per_frames": "hit",
    "cooldown_frames": 90,
    "range_tiles": 25,
+   "lunge_speed": 0,
+   "sound": null,
    "wiki_text": "[[Intense Concentrated Light]] variant x 7/Projectile/2.5; [[Intense Concentrated Light]] variant x 7/Explosion/1.25",
    "stage": "1b",
    "_unverified": {
@@ -1585,6 +1692,8 @@
    "per_frames": "hit",
    "cooldown_frames": 40,
    "range_tiles": 1.5,
+   "lunge_speed": 0,
+   "sound": null,
    "wiki_text": "worm bite/Melee/25",
    "stage": "1b",
    "_unverified": {
@@ -1607,6 +1716,8 @@
    "per_frames": "hit",
    "cooldown_frames": 90,
    "range_tiles": 25,
+   "lunge_speed": 0,
+   "sound": null,
    "wiki_text": "Present grenade/Explosion/50",
    "stage": "1b",
    "_unverified": {
@@ -1633,6 +1744,8 @@
    "per_frames": "hit",
    "cooldown_frames": 40,
    "range_tiles": 1.5,
+   "lunge_speed": 0,
+   "sound": null,
    "wiki_text": "Melee/Melee/10-17.5",
    "stage": "1b",
    "_unverified": {
@@ -1658,6 +1771,8 @@
    "per_frames": "hit",
    "cooldown_frames": 40,
    "range_tiles": 1.5,
+   "lunge_speed": 0,
+   "sound": null,
    "wiki_text": "Melee/Melee/50-90",
    "stage": "1b",
    "_unverified": {
@@ -1680,6 +1795,8 @@
    "per_frames": "hit",
    "cooldown_frames": 90,
    "range_tiles": 25,
+   "lunge_speed": 0,
+   "sound": null,
    "wiki_text": "[[Path of Dark Flame]]/Projectile/20",
    "stage": "1b",
    "_unverified": {
@@ -1706,6 +1823,8 @@
    "per_frames": "hit",
    "cooldown_frames": 40,
    "range_tiles": 1.5,
+   "lunge_speed": 0,
+   "sound": null,
    "wiki_text": "Melee/Melee/5-10",
    "stage": "1b",
    "_unverified": {
@@ -1728,6 +1847,8 @@
    "per_frames": "hit",
    "cooldown_frames": 90,
    "range_tiles": 6,
+   "lunge_speed": null,
+   "sound": null,
    "wiki_text": "Lunge/Dash/6.25",
    "stage": "1b",
    "_unverified": {
@@ -1753,6 +1874,8 @@
    "per_frames": "hit",
    "cooldown_frames": 40,
    "range_tiles": 1.5,
+   "lunge_speed": 0,
+   "sound": null,
    "wiki_text": "Melee/Melee/15-20",
    "stage": "1b",
    "_unverified": {
@@ -1775,6 +1898,8 @@
    "per_frames": "hit",
    "cooldown_frames": 40,
    "range_tiles": 1.5,
+   "lunge_speed": 0,
+   "sound": null,
    "wiki_text": "worm bite/Melee/25",
    "stage": "1b",
    "_unverified": {
@@ -1800,6 +1925,8 @@
    "per_frames": "4F",
    "cooldown_frames": 1,
    "range_tiles": 6,
+   "lunge_speed": 0,
+   "sound": null,
    "wiki_text": "Curse/Curse/2.5-5/4F",
    "stage": "1b",
    "_unverified": {
@@ -1822,6 +1949,8 @@
    "per_frames": "4F",
    "cooldown_frames": 40,
    "range_tiles": 1.5,
+   "lunge_speed": 0,
+   "sound": null,
    "wiki_text": "Melee/Melee/3.5/4F",
    "stage": "1b",
    "_unverified": {
@@ -1844,6 +1973,8 @@
    "per_frames": "hit",
    "cooldown_frames": 40,
    "range_tiles": 1.5,
+   "lunge_speed": 0,
+   "sound": null,
    "wiki_text": "Melee/Melee/12.5",
    "stage": "1b",
    "_unverified": {
@@ -1866,6 +1997,8 @@
    "per_frames": "hit",
    "cooldown_frames": 90,
    "range_tiles": 25,
+   "lunge_speed": 0,
+   "sound": null,
    "wiki_text": "[[Evergreen Seed]] projectile/Projectile/0",
    "stage": "1b",
    "_unverified": {
@@ -1892,6 +2025,8 @@
    "per_frames": "hit",
    "cooldown_frames": 40,
    "range_tiles": 1.5,
+   "lunge_speed": 0,
+   "sound": null,
    "wiki_text": "Melee/Melee/2.5-5",
    "stage": "1b",
    "_unverified": {
@@ -1912,6 +2047,8 @@
    "per_frames": "hit",
    "cooldown_frames": 240,
    "range_tiles": 20,
+   "lunge_speed": 0,
+   "sound": null,
    "wiki_text": "Shield Gun",
    "stage": "1b",
    "_unverified": {
@@ -1934,6 +2071,8 @@
    "per_frames": "hit",
    "cooldown_frames": 90,
    "range_tiles": 25,
+   "lunge_speed": 0,
+   "sound": null,
    "wiki_text": "Projectile/Projectile/20",
    "stage": "1b",
    "_unverified": {
@@ -1957,6 +2096,8 @@
    "per_frames": "hit",
    "cooldown_frames": 90,
    "range_tiles": 25,
+   "lunge_speed": 0,
+   "sound": null,
    "wiki_text": "[[Energy Orb]](first projectile)/Projectile/2.5; [[Energy Orb]]/Projectile/20",
    "stage": "1b",
    "_unverified": {
@@ -1980,6 +2121,8 @@
    "per_frames": "hit",
    "cooldown_frames": 90,
    "range_tiles": 6,
+   "lunge_speed": null,
+   "sound": null,
    "wiki_text": "Lunge/Dash/7.5",
    "stage": "1b",
    "_unverified": {
@@ -2005,6 +2148,8 @@
    "per_frames": "hit",
    "cooldown_frames": 40,
    "range_tiles": 1.5,
+   "lunge_speed": 0,
+   "sound": null,
    "wiki_text": "Melee/Melee/7.5-12.5",
    "stage": "1b",
    "_unverified": {
@@ -2028,6 +2173,8 @@
    "per_frames": "hit",
    "cooldown_frames": 90,
    "range_tiles": 25,
+   "lunge_speed": 0,
+   "sound": null,
    "wiki_text": "Machine Gun/Projectile/3.75; Machine Gun/Explosion/10",
    "stage": "1b",
    "_unverified": {
@@ -2051,6 +2198,8 @@
    "per_frames": "hit",
    "cooldown_frames": 90,
    "range_tiles": 25,
+   "lunge_speed": 0,
+   "sound": null,
    "wiki_text": "Grenade when close-range/Projectile/32.5",
    "stage": "1b",
    "_unverified": {
@@ -2074,6 +2223,8 @@
    "per_frames": "hit",
    "cooldown_frames": 0,
    "range_tiles": 0,
+   "lunge_speed": 0,
+   "sound": null,
    "wiki_text": "Explodes on death/Explosion/75",
    "stage": "1b",
    "_unverified": {
@@ -2097,6 +2248,8 @@
    "per_frames": "hit",
    "cooldown_frames": 90,
    "range_tiles": 25,
+   "lunge_speed": 0,
+   "sound": null,
    "wiki_text": "Projectile/Projectile/7.5; Projectile/Explosion/2.5",
    "stage": "1b",
    "_unverified": {
@@ -2120,6 +2273,8 @@
    "per_frames": "hit",
    "cooldown_frames": 90,
    "range_tiles": 25,
+   "lunge_speed": 0,
+   "sound": null,
    "wiki_text": "Circular orb/Holy/17.5",
    "stage": "1c",
    "_unverified": {
@@ -2144,6 +2299,8 @@
    "per_frames": "hit",
    "cooldown_frames": 90,
    "range_tiles": 25,
+   "lunge_speed": 0,
+   "sound": null,
    "wiki_text": "Polymorphing orb/Projectile/7.5; Polymorphing orb/Explosion/2.5",
    "stage": "1c",
    "_unverified": {
@@ -2168,6 +2325,8 @@
    "per_frames": "hit",
    "cooldown_frames": 90,
    "range_tiles": 25,
+   "lunge_speed": 0,
+   "sound": null,
    "wiki_text": "Homing orb/Electricity/3.75; Homing orb/Explosion/5",
    "stage": "1c",
    "_unverified": {
@@ -2191,6 +2350,8 @@
    "per_frames": "hit",
    "cooldown_frames": 90,
    "range_tiles": 25,
+   "lunge_speed": 0,
+   "sound": null,
    "wiki_text": "Fire pillar/Fire/20",
    "stage": "1c",
    "_unverified": {
@@ -2214,6 +2375,8 @@
    "per_frames": "hit",
    "cooldown_frames": 90,
    "range_tiles": 25,
+   "lunge_speed": 0,
+   "sound": null,
    "wiki_text": "Explosive orb/Explosion/30; Explosive orb (large)/Explosion/40",
    "stage": "1c",
    "_unverified": {
@@ -2237,6 +2400,8 @@
    "per_frames": "hit",
    "cooldown_frames": 0,
    "range_tiles": 0,
+   "lunge_speed": 0,
+   "sound": null,
    "wiki_text": "Explosion/Explosion/200",
    "stage": "1c",
    "_unverified": {
@@ -2259,6 +2424,8 @@
    "per_frames": "hit",
    "cooldown_frames": 90,
    "range_tiles": 25,
+   "lunge_speed": 0,
+   "sound": null,
    "wiki_text": "Projectile/Projectile/20",
    "stage": "1c",
    "_unverified": {
@@ -2283,6 +2450,8 @@
    "per_frames": "hit",
    "cooldown_frames": 90,
    "range_tiles": 25,
+   "lunge_speed": 0,
+   "sound": null,
    "wiki_text": "Projectile/Projectile/20; Projectile/Explosion/13.75",
    "stage": "1c",
    "_unverified": {
@@ -2309,6 +2478,8 @@
    "per_frames": "hit",
    "cooldown_frames": 40,
    "range_tiles": 1.5,
+   "lunge_speed": 0,
+   "sound": null,
    "wiki_text": "Melee/Melee/5-10",
    "stage": "1c",
    "_unverified": {
@@ -2332,6 +2503,8 @@
    "per_frames": "hit",
    "cooldown_frames": 90,
    "range_tiles": 25,
+   "lunge_speed": 0,
+   "sound": null,
    "wiki_text": "Projectile/Projectile/27.5; Projectile/Projectile/45; Projectile/Explosion/30",
    "stage": "1c",
    "_unverified": {
@@ -2353,6 +2526,8 @@
    "per_frames": "hit",
    "cooldown_frames": 40,
    "range_tiles": 1.5,
+   "lunge_speed": 0,
+   "sound": null,
    "wiki_text": "Melee/Melee/12.5,Summons minion",
    "stage": "1c",
    "_unverified": {
@@ -2376,6 +2551,8 @@
    "per_frames": "hit",
    "cooldown_frames": 90,
    "range_tiles": 25,
+   "lunge_speed": 0,
+   "sound": null,
    "wiki_text": "Rocket Barrage x 10/Explosion/137.5; Rocket Barrage x 10/Projectile/150",
    "stage": "1c",
    "_unverified": {
@@ -2398,6 +2575,8 @@
    "per_frames": "hit",
    "cooldown_frames": 90,
    "range_tiles": 25,
+   "lunge_speed": 0,
+   "sound": null,
    "wiki_text": "Plasma Beam/Projectile/15/1F,Summons healer drone",
    "stage": "1c",
    "_unverified": {
@@ -2422,6 +2601,8 @@
    "per_frames": "hit",
    "cooldown_frames": 90,
    "range_tiles": 25,
+   "lunge_speed": 0,
+   "sound": null,
    "wiki_text": "Homing orb/Projectile/45; Homing orb/Explosion/30",
    "stage": "1c",
    "_unverified": {
@@ -2446,6 +2627,8 @@
    "per_frames": "hit",
    "cooldown_frames": 90,
    "range_tiles": 25,
+   "lunge_speed": 0,
+   "sound": null,
    "wiki_text": "Slow orb/Projectile/10; Slow orb/Explosion/7.5",
    "stage": "1c",
    "_unverified": {
@@ -2469,6 +2652,8 @@
    "per_frames": "1F",
    "cooldown_frames": 40,
    "range_tiles": 1.5,
+   "lunge_speed": 0,
+   "sound": null,
    "wiki_text": "Melee/Melee/3.75/1F",
    "stage": "1c",
    "_unverified": {
@@ -2489,14 +2674,13 @@
     "melee": 10.0
    },
    "per_frames": "hit",
-   "cooldown_frames": 90,
-   "range_tiles": 6,
+   "cooldown_frames": 120,
+   "range_tiles": 9.38,
+   "lunge_speed": 10.0,
+   "sound": "animals/frog/attack_dash",
    "wiki_text": "Lunge/Dash/10",
    "stage": "1a",
-   "_unverified": {
-    "cooldown_frames": "default for kind 'lunge'; read AnimalAIComponent attack_*_frames_between check in the player's data.wak (tools: Terranoita.Cli wak-cat)",
-    "range_tiles": "default for kind; read AnimalAIComponent attack_*_range check in the player's data.wak (tools: Terranoita.Cli wak-cat)"
-   }
+   "_unverified": {}
   },
   {
    "id": "healerdrone_physics.heal",
@@ -2513,6 +2697,8 @@
    "per_frames": "hit",
    "cooldown_frames": 120,
    "range_tiles": 20,
+   "lunge_speed": 0,
+   "sound": null,
    "wiki_text": "Heal projectile/Heal/5",
    "stage": "1b",
    "_unverified": {
@@ -2535,6 +2721,8 @@
    "per_frames": "hit",
    "cooldown_frames": 0,
    "range_tiles": 0,
+   "lunge_speed": 0,
+   "sound": null,
    "wiki_text": "Explodes on death/Explosion/37.5",
    "stage": "1b",
    "_unverified": {
@@ -2557,6 +2745,8 @@
    "per_frames": "hit",
    "cooldown_frames": 90,
    "range_tiles": 25,
+   "lunge_speed": 0,
+   "sound": null,
    "wiki_text": "[[Firebolt]]-like projectile/Projectile/32.5",
    "stage": "1b",
    "_unverified": {
@@ -2583,6 +2773,8 @@
    "per_frames": "hit",
    "cooldown_frames": 40,
    "range_tiles": 1.5,
+   "lunge_speed": 0,
+   "sound": null,
    "wiki_text": "Melee/Melee/10-17.5",
    "stage": "1b",
    "_unverified": {
@@ -2603,6 +2795,8 @@
    "per_frames": "hit",
    "cooldown_frames": 40,
    "range_tiles": 1.5,
+   "lunge_speed": 0,
+   "sound": null,
    "wiki_text": "Melee/Melee/10-17.5,Random wand",
    "stage": "1b",
    "_unverified": {
@@ -2626,6 +2820,8 @@
    "per_frames": "hit",
    "cooldown_frames": 90,
    "range_tiles": 25,
+   "lunge_speed": 0,
+   "sound": null,
    "wiki_text": "Projectile/Projectile/11.25; Projectile/Fire/5",
    "stage": "1b",
    "_unverified": {
@@ -2652,6 +2848,8 @@
    "per_frames": "hit",
    "cooldown_frames": 40,
    "range_tiles": 1.5,
+   "lunge_speed": 0,
+   "sound": null,
    "wiki_text": "Melee/Melee/10-17.5",
    "stage": "1b",
    "_unverified": {
@@ -2677,6 +2875,8 @@
    "per_frames": "hit",
    "cooldown_frames": 90,
    "range_tiles": 6,
+   "lunge_speed": null,
+   "sound": null,
    "wiki_text": "Lunge/Dash/5-10",
    "stage": "1b",
    "_unverified": {
@@ -2699,6 +2899,8 @@
    "per_frames": "hit",
    "cooldown_frames": 0,
    "range_tiles": 0,
+   "lunge_speed": 0,
+   "sound": null,
    "wiki_text": "Explodes on death/Explosion/125",
    "stage": "1b",
    "_unverified": {
@@ -2721,6 +2923,8 @@
    "per_frames": "hit",
    "cooldown_frames": 90,
    "range_tiles": 25,
+   "lunge_speed": 0,
+   "sound": null,
    "wiki_text": "Laser blasts/Projectile/8.75",
    "stage": "1b",
    "_unverified": {
@@ -2745,6 +2949,8 @@
    "per_frames": "hit",
    "cooldown_frames": 90,
    "range_tiles": 25,
+   "lunge_speed": 0,
+   "sound": null,
    "wiki_text": "Grenade when close-range/Projectile/12.5; Grenade when close-range/Explosion/12.5",
    "stage": "1b",
    "_unverified": {
@@ -2768,6 +2974,8 @@
    "per_frames": "hit",
    "cooldown_frames": 0,
    "range_tiles": 0,
+   "lunge_speed": 0,
+   "sound": null,
    "wiki_text": "Explodes on death/Explosion/75",
    "stage": "1b",
    "_unverified": {
@@ -2791,6 +2999,8 @@
    "per_frames": "hit",
    "cooldown_frames": 90,
    "range_tiles": 25,
+   "lunge_speed": 0,
+   "sound": null,
    "wiki_text": "Projectile/Projectile/3.75; Projectile/Explosion/10",
    "stage": "1b",
    "_unverified": {
@@ -2817,6 +3027,8 @@
    "per_frames": "hit",
    "cooldown_frames": 40,
    "range_tiles": 1.5,
+   "lunge_speed": 0,
+   "sound": null,
    "wiki_text": "Melee/Melee/5-10",
    "stage": "1b",
    "_unverified": {
@@ -2839,6 +3051,8 @@
    "per_frames": "hit",
    "cooldown_frames": 0,
    "range_tiles": 0,
+   "lunge_speed": 0,
+   "sound": null,
    "wiki_text": "Explodes on death/Explosion/62.5",
    "stage": "1b",
    "_unverified": {
@@ -2859,14 +3073,13 @@
     "melee": 6.25
    },
    "per_frames": "hit",
-   "cooldown_frames": 90,
-   "range_tiles": 6,
+   "cooldown_frames": 120,
+   "range_tiles": 9.38,
+   "lunge_speed": 10.0,
+   "sound": "animals/bat/attack_dash",
    "wiki_text": "Lunge/Dash/6.25",
    "stage": "1a",
-   "_unverified": {
-    "cooldown_frames": "default for kind 'lunge'; read AnimalAIComponent attack_*_frames_between check in the player's data.wak (tools: Terranoita.Cli wak-cat)",
-    "range_tiles": "default for kind; read AnimalAIComponent attack_*_range check in the player's data.wak (tools: Terranoita.Cli wak-cat)"
-   }
+   "_unverified": {}
   },
   {
    "id": "flamer.flamethrower",
@@ -2884,6 +3097,8 @@
    "per_frames": "hit",
    "cooldown_frames": 90,
    "range_tiles": 25,
+   "lunge_speed": 0,
+   "sound": null,
    "wiki_text": "[[Flamethrower]]/Explosion/12.5; [[Flamethrower]]/Fire/11.25",
    "stage": "1b",
    "_unverified": {
@@ -2905,14 +3120,13 @@
     "melee": 6.25
    },
    "per_frames": "hit",
-   "cooldown_frames": 90,
-   "range_tiles": 6,
+   "cooldown_frames": 120,
+   "range_tiles": 9.38,
+   "lunge_speed": 10.0,
+   "sound": "animals/generic/attack_dash",
    "wiki_text": "Lunge/Dash/6.25",
    "stage": "1a",
-   "_unverified": {
-    "cooldown_frames": "default for kind 'lunge'; read AnimalAIComponent attack_*_frames_between check in the player's data.wak (tools: Terranoita.Cli wak-cat)",
-    "range_tiles": "default for kind; read AnimalAIComponent attack_*_range check in the player's data.wak (tools: Terranoita.Cli wak-cat)"
-   }
+   "_unverified": {}
   },
   {
    "id": "fireskull.melee",
@@ -2930,14 +3144,13 @@
     ]
    },
    "per_frames": "hit",
-   "cooldown_frames": 40,
-   "range_tiles": 1.5,
+   "cooldown_frames": 20,
+   "range_tiles": 1.88,
+   "lunge_speed": 0,
+   "sound": "animals/generic/attack_melee",
    "wiki_text": "Melee/Melee/5-10",
    "stage": "1a",
-   "_unverified": {
-    "cooldown_frames": "default for kind 'melee'; read AnimalAIComponent attack_*_frames_between check in the player's data.wak (tools: Terranoita.Cli wak-cat)",
-    "range_tiles": "default for kind; read AnimalAIComponent attack_*_range check in the player's data.wak (tools: Terranoita.Cli wak-cat)"
-   }
+   "_unverified": {}
   },
   {
    "id": "scavenger_glue.glue_shot",
@@ -2954,6 +3167,8 @@
    "per_frames": "hit",
    "cooldown_frames": 90,
    "range_tiles": 25,
+   "lunge_speed": 0,
+   "sound": null,
    "wiki_text": "Glue Shot/Projectile/2.5",
    "stage": "1b",
    "_unverified": {
@@ -2980,6 +3195,8 @@
    "per_frames": "hit",
    "cooldown_frames": 40,
    "range_tiles": 1.5,
+   "lunge_speed": 0,
+   "sound": null,
    "wiki_text": "Melee/Melee/10-17.5",
    "stage": "1b",
    "_unverified": {
@@ -3001,15 +3218,13 @@
     "explosion": 7.5
    },
    "per_frames": "hit",
-   "cooldown_frames": 90,
-   "range_tiles": 25,
+   "cooldown_frames": 80,
+   "range_tiles": 30.0,
+   "lunge_speed": 0,
+   "sound": "animals/slimeshooter/voc_shoot",
    "wiki_text": "[[Slimeball]] projectile very similar to the player spell/Projectile/6.25; [[Slimeball]] projectile very similar to the player spell/Explosion/7.5",
    "stage": "1a",
-   "_unverified": {
-    "cooldown_frames": "default for kind 'projectile'; read AnimalAIComponent attack_*_frames_between check in the player's data.wak (tools: Terranoita.Cli wak-cat)",
-    "range_tiles": "default for kind; read AnimalAIComponent attack_*_range check in the player's data.wak (tools: Terranoita.Cli wak-cat)",
-    "count": "wiki shows no count; read attack_ranged_entity_count check in the player's data.wak (tools: Terranoita.Cli wak-cat)"
-   }
+   "_unverified": {}
   },
   {
    "id": "slimeshooter.slimeball_sludge",
@@ -3027,6 +3242,8 @@
    "per_frames": "hit",
    "cooldown_frames": 90,
    "range_tiles": 25,
+   "lunge_speed": 0,
+   "sound": null,
    "wiki_text": "[[Slimeball]] projectile but with a physical [[Toxic Sludge]] trail/Projectile/6.25; [[Slimeball]] projectile but with a physical [[Toxic Sludge]] trail/Explosion/7.5",
    "stage": "1b",
    "_unverified": {
@@ -3051,6 +3268,8 @@
    "per_frames": "hit",
    "cooldown_frames": 90,
    "range_tiles": 25,
+   "lunge_speed": 0,
+   "sound": null,
    "wiki_text": "Green Orb/Projectile/70; Green Orb/Explosion/37.5",
    "stage": "1c",
    "_unverified": {
@@ -3074,6 +3293,8 @@
    "per_frames": "1F",
    "cooldown_frames": 40,
    "range_tiles": 1.5,
+   "lunge_speed": 0,
+   "sound": null,
    "wiki_text": "Bite/Bite/50/1F",
    "stage": "1c",
    "_unverified": {
@@ -3096,6 +3317,8 @@
    "per_frames": "hit",
    "cooldown_frames": 1,
    "range_tiles": 6,
+   "lunge_speed": 0,
+   "sound": null,
    "wiki_text": "Curse/Curse/6/4F,Applies an [[Ominous Liquid]] stain on contact",
    "stage": "1c",
    "_unverified": {
@@ -3118,6 +3341,8 @@
    "per_frames": "hit",
    "cooldown_frames": 0,
    "range_tiles": 0,
+   "lunge_speed": 0,
+   "sound": null,
    "wiki_text": "Explodes on death/Explosion/62.5",
    "stage": "1c",
    "_unverified": {
@@ -3141,6 +3366,8 @@
    "per_frames": "hit",
    "cooldown_frames": 90,
    "range_tiles": 25,
+   "lunge_speed": 0,
+   "sound": null,
    "wiki_text": "Neutralizing bolt/Projectile/7.5; Neutralizing bolt/Explosion/2.5",
    "stage": "1b",
    "_unverified": {
@@ -3164,6 +3391,8 @@
    "per_frames": "hit",
    "cooldown_frames": 1,
    "range_tiles": 6,
+   "lunge_speed": 0,
+   "sound": null,
    "wiki_text": "[[Cursed Sphere]] x 2/Projectile/15",
    "stage": "1b",
    "_unverified": {
@@ -3184,6 +3413,8 @@
    "per_frames": "hit",
    "cooldown_frames": 90,
    "range_tiles": 25,
+   "lunge_speed": 0,
+   "sound": null,
    "wiki_text": "Projectile/Projectile/20,Summons Pienkätyri",
    "stage": "1b",
    "_unverified": {
@@ -3207,6 +3438,8 @@
    "per_frames": "hit",
    "cooldown_frames": 90,
    "range_tiles": 25,
+   "lunge_speed": 0,
+   "sound": null,
    "wiki_text": "Projectile/Projectile/30",
    "stage": "1c",
    "_unverified": {
@@ -3231,6 +3464,8 @@
    "per_frames": "hit",
    "cooldown_frames": 90,
    "range_tiles": 25,
+   "lunge_speed": 0,
+   "sound": null,
    "wiki_text": "[[Fireball]]/Explosion/50; [[Fireball]]/Fire/6.25",
    "stage": "1c",
    "_unverified": {
@@ -3257,6 +3492,8 @@
    "per_frames": "hit",
    "cooldown_frames": 40,
    "range_tiles": 1.5,
+   "lunge_speed": 0,
+   "sound": null,
    "wiki_text": "Melee/Melee/15-20",
    "stage": "1c",
    "_unverified": {
@@ -3282,6 +3519,8 @@
    "per_frames": "hit",
    "cooldown_frames": 40,
    "range_tiles": 1.5,
+   "lunge_speed": 0,
+   "sound": null,
    "wiki_text": "Melee/Melee/12.5-15",
    "stage": "1c",
    "_unverified": {
@@ -3305,6 +3544,8 @@
    "per_frames": "hit",
    "cooldown_frames": 90,
    "range_tiles": 25,
+   "lunge_speed": 0,
+   "sound": null,
    "wiki_text": "[[Fireball]]/Explosion/50; [[Fireball]]/Fire/6.25",
    "stage": "1b",
    "_unverified": {
@@ -3331,6 +3572,8 @@
    "per_frames": "hit",
    "cooldown_frames": 40,
    "range_tiles": 1.5,
+   "lunge_speed": 0,
+   "sound": null,
    "wiki_text": "Melee/Melee/15-20",
    "stage": "1b",
    "_unverified": {
@@ -3353,6 +3596,8 @@
    "per_frames": "hit",
    "cooldown_frames": 40,
    "range_tiles": 1.5,
+   "lunge_speed": 0,
+   "sound": null,
    "wiki_text": "worm bite/Melee/10",
    "stage": "1b",
    "_unverified": {
@@ -3378,6 +3623,8 @@
    "per_frames": "hit",
    "cooldown_frames": 40,
    "range_tiles": 1.5,
+   "lunge_speed": 0,
+   "sound": null,
    "wiki_text": "Melee/Melee/15-25",
    "stage": "1b",
    "_unverified": {
@@ -3403,6 +3650,8 @@
    "per_frames": "hit",
    "cooldown_frames": 40,
    "range_tiles": 1.5,
+   "lunge_speed": 0,
+   "sound": null,
    "wiki_text": "Melee/Melee/15-25",
    "stage": "1b",
    "_unverified": {
@@ -3425,6 +3674,8 @@
    "per_frames": "hit",
    "cooldown_frames": 40,
    "range_tiles": 1.5,
+   "lunge_speed": 0,
+   "sound": null,
    "wiki_text": "worm bite/Melee/25",
    "stage": "1b",
    "_unverified": {
@@ -3445,6 +3696,8 @@
    "per_frames": "hit",
    "cooldown_frames": 240,
    "range_tiles": 20,
+   "lunge_speed": 0,
+   "sound": null,
    "wiki_text": "Blood Link",
    "stage": "1c",
    "_unverified": {
@@ -3465,6 +3718,8 @@
    "per_frames": "hit",
    "cooldown_frames": 1,
    "range_tiles": 6,
+   "lunge_speed": 0,
+   "sound": null,
    "wiki_text": "Curse",
    "stage": "1c",
    "_unverified": {
@@ -3488,6 +3743,8 @@
    "per_frames": "hit",
    "cooldown_frames": 90,
    "range_tiles": 25,
+   "lunge_speed": 0,
+   "sound": null,
    "wiki_text": "Green [[Meteor]]/Projectile/50; Green [[Meteor]]/Explosion/75",
    "stage": "1c",
    "_unverified": {
@@ -3511,6 +3768,8 @@
    "per_frames": "hit",
    "cooldown_frames": 40,
    "range_tiles": 1.5,
+   "lunge_speed": 0,
+   "sound": null,
    "wiki_text": "Tentacle/Melee/25",
    "stage": "1c",
    "_unverified": {
@@ -3533,6 +3792,8 @@
    "per_frames": "hit",
    "cooldown_frames": 90,
    "range_tiles": 25,
+   "lunge_speed": 0,
+   "sound": null,
    "wiki_text": "Shoots player-sensitive mines/Explosion/100",
    "stage": "1b",
    "_unverified": {
@@ -3556,6 +3817,8 @@
    "per_frames": "hit",
    "cooldown_frames": 90,
    "range_tiles": 25,
+   "lunge_speed": 0,
+   "sound": null,
    "wiki_text": "Projectile/Projectile/6.75",
    "stage": "1b",
    "_unverified": {
@@ -3582,6 +3845,8 @@
    "per_frames": "hit",
    "cooldown_frames": 40,
    "range_tiles": 1.5,
+   "lunge_speed": 0,
+   "sound": null,
    "wiki_text": "Melee/Melee/10-17.5",
    "stage": "1b",
    "_unverified": {
@@ -3602,6 +3867,8 @@
    "per_frames": "hit",
    "cooldown_frames": 40,
    "range_tiles": 1.5,
+   "lunge_speed": 0,
+   "sound": null,
    "wiki_text": "Melee",
    "stage": "1c",
    "_unverified": {
@@ -3624,6 +3891,8 @@
    "per_frames": "hit",
    "cooldown_frames": 90,
    "range_tiles": 6,
+   "lunge_speed": null,
+   "sound": null,
    "wiki_text": "Lunge/Dash/6.25",
    "stage": "1c",
    "_unverified": {
@@ -3649,6 +3918,8 @@
    "per_frames": "hit",
    "cooldown_frames": 40,
    "range_tiles": 1.5,
+   "lunge_speed": 0,
+   "sound": null,
    "wiki_text": "Melee/Melee/1.25-2.5",
    "stage": "1c",
    "_unverified": {
@@ -3671,6 +3942,8 @@
    "per_frames": "hit",
    "cooldown_frames": 90,
    "range_tiles": 25,
+   "lunge_speed": 0,
+   "sound": null,
    "wiki_text": "Laser projectile/Projectile/8.75",
    "stage": "1b",
    "_unverified": {
@@ -3694,6 +3967,8 @@
    "per_frames": "hit",
    "cooldown_frames": 90,
    "range_tiles": 25,
+   "lunge_speed": 0,
+   "sound": null,
    "wiki_text": "Projectile/Projectile/20",
    "stage": "1b",
    "_unverified": {
@@ -3718,6 +3993,8 @@
    "per_frames": "hit",
    "cooldown_frames": 90,
    "range_tiles": 25,
+   "lunge_speed": 0,
+   "sound": null,
    "wiki_text": "Polymorphing projectile/Projectile/7.5; Polymorphing projectile/Explosion/2.5",
    "stage": "1b",
    "_unverified": {
@@ -3739,6 +4016,8 @@
    "per_frames": "hit",
    "cooldown_frames": 90,
    "range_tiles": 25,
+   "lunge_speed": 0,
+   "sound": null,
    "wiki_text": "Spits a small spray of [[Acid]]",
    "stage": "1b",
    "_unverified": {
@@ -3765,6 +4044,8 @@
    "per_frames": "hit",
    "cooldown_frames": 40,
    "range_tiles": 1.5,
+   "lunge_speed": 0,
+   "sound": null,
    "wiki_text": "Melee/Melee/15-25",
    "stage": "1b",
    "_unverified": {
@@ -3788,6 +4069,8 @@
    "per_frames": "hit",
    "cooldown_frames": 90,
    "range_tiles": 25,
+   "lunge_speed": 0,
+   "sound": null,
    "wiki_text": "Projectile with [[Poison Trail]]/Projectile/8.25; Projectile with [[Poison Trail]]/Explosion/6.25",
    "stage": "1b",
    "_unverified": {
@@ -3814,6 +4097,8 @@
    "per_frames": "hit",
    "cooldown_frames": 40,
    "range_tiles": 1.5,
+   "lunge_speed": 0,
+   "sound": null,
    "wiki_text": "Melee/Melee/10-17.5",
    "stage": "1b",
    "_unverified": {
@@ -3839,6 +4124,8 @@
    "per_frames": "hit",
    "cooldown_frames": 90,
    "range_tiles": 6,
+   "lunge_speed": null,
+   "sound": null,
    "wiki_text": "Lunge/Dash/5-10",
    "stage": "1b",
    "_unverified": {
@@ -3861,6 +4148,8 @@
    "per_frames": "hit",
    "cooldown_frames": 0,
    "range_tiles": 0,
+   "lunge_speed": 0,
+   "sound": null,
    "wiki_text": "Explodes on death/Explosion/125",
    "stage": "1b",
    "_unverified": {
@@ -3883,6 +4172,8 @@
    "per_frames": "hit",
    "cooldown_frames": 40,
    "range_tiles": 1.5,
+   "lunge_speed": 0,
+   "sound": null,
    "wiki_text": "worm bite/Melee/25",
    "stage": "1b",
    "_unverified": {
@@ -3905,6 +4196,8 @@
    "per_frames": "hit",
    "cooldown_frames": 90,
    "range_tiles": 6,
+   "lunge_speed": null,
+   "sound": null,
    "wiki_text": "Lunge/Dash/10",
    "stage": "1b",
    "_unverified": {
@@ -3927,6 +4220,8 @@
    "per_frames": "hit",
    "cooldown_frames": 0,
    "range_tiles": 0,
+   "lunge_speed": 0,
+   "sound": null,
    "wiki_text": "Explodes on death/Explosion/125",
    "stage": "1b",
    "_unverified": {
@@ -3952,6 +4247,8 @@
    "per_frames": "40F",
    "cooldown_frames": 1,
    "range_tiles": 6,
+   "lunge_speed": 0,
+   "sound": null,
    "wiki_text": "Curse/Curse/4-8/40F",
    "stage": "1b",
    "_unverified": {
@@ -3977,6 +4274,8 @@
    "per_frames": "hit",
    "cooldown_frames": 40,
    "range_tiles": 1.5,
+   "lunge_speed": 0,
+   "sound": null,
    "wiki_text": "Melee/Melee/30-40",
    "stage": "1b",
    "_unverified": {
@@ -4000,6 +4299,8 @@
    "per_frames": "hit",
    "cooldown_frames": 90,
    "range_tiles": 25,
+   "lunge_speed": 0,
+   "sound": null,
    "wiki_text": "[[Iceball]]/Explosion/50; [[Iceball]]/Ice/8.75",
    "stage": "1b",
    "_unverified": {
@@ -4026,6 +4327,8 @@
    "per_frames": "hit",
    "cooldown_frames": 40,
    "range_tiles": 1.5,
+   "lunge_speed": 0,
+   "sound": null,
    "wiki_text": "Melee/Melee/10-17.5",
    "stage": "1b",
    "_unverified": {
@@ -4048,6 +4351,8 @@
    "per_frames": "hit",
    "cooldown_frames": 90,
    "range_tiles": 25,
+   "lunge_speed": 0,
+   "sound": null,
    "wiki_text": "[[Iceball]]/Explosion/50; [[Iceball]]/Ice/6.25,Copies projectiles",
    "stage": "1b",
    "_unverified": {
@@ -4071,6 +4376,8 @@
    "per_frames": "hit",
    "cooldown_frames": 120,
    "range_tiles": 20,
+   "lunge_speed": 0,
+   "sound": null,
    "wiki_text": "[[Healing Bolt]]/Healing/5",
    "stage": "1b",
    "_unverified": {
@@ -4096,6 +4403,8 @@
    "per_frames": "hit",
    "cooldown_frames": 40,
    "range_tiles": 1.5,
+   "lunge_speed": 0,
+   "sound": null,
    "wiki_text": "Melee/Melee/10-17.5",
    "stage": "1b",
    "_unverified": {
@@ -4118,6 +4427,8 @@
    "per_frames": "hit",
    "cooldown_frames": 90,
    "range_tiles": 25,
+   "lunge_speed": 0,
+   "sound": null,
    "wiki_text": "Laser Spear/Holy/30",
    "stage": "1b",
    "_unverified": {
@@ -4141,6 +4452,8 @@
    "per_frames": "hit",
    "cooldown_frames": 90,
    "range_tiles": 25,
+   "lunge_speed": 0,
+   "sound": null,
    "wiki_text": "Projectile/Projectile/20",
    "stage": "1c",
    "_unverified": {
@@ -4164,6 +4477,8 @@
    "per_frames": "hit",
    "cooldown_frames": 40,
    "range_tiles": 1.5,
+   "lunge_speed": 0,
+   "sound": null,
    "wiki_text": "worm bite/Melee/7.5",
    "stage": "1b",
    "_unverified": {
@@ -4184,6 +4499,8 @@
    "per_frames": "hit",
    "cooldown_frames": 1,
    "range_tiles": 6,
+   "lunge_speed": 0,
+   "sound": null,
    "wiki_text": "Creates a [[Circle of Stillness]] around itself for a short time",
    "stage": "1b",
    "_unverified": {
@@ -4209,6 +4526,8 @@
    "per_frames": "hit",
    "cooldown_frames": 40,
    "range_tiles": 1.5,
+   "lunge_speed": 0,
+   "sound": null,
    "wiki_text": "Melee/Melee/5-10",
    "stage": "1b",
    "_unverified": {
@@ -4231,6 +4550,8 @@
    "per_frames": "hit",
    "cooldown_frames": 90,
    "range_tiles": 25,
+   "lunge_speed": 0,
+   "sound": null,
    "wiki_text": "Explosive homing projectile x 10/Projectile/3",
    "stage": "1b",
    "_unverified": {
@@ -4251,6 +4572,8 @@
    "per_frames": "hit",
    "cooldown_frames": 90,
    "range_tiles": 25,
+   "lunge_speed": 0,
+   "sound": null,
    "wiki_text": "Throws [[Potions]].",
    "stage": "1b",
    "_unverified": {
@@ -4275,6 +4598,8 @@
    "per_frames": "hit",
    "cooldown_frames": 90,
    "range_tiles": 25,
+   "lunge_speed": 0,
+   "sound": null,
    "wiki_text": "[[Slimeball]] Projectile/Projectile/6.5; [[Slimeball]] Projectile/Explosion/5",
    "stage": "1b",
    "_unverified": {
@@ -4296,6 +4621,8 @@
    "per_frames": "hit",
    "cooldown_frames": 90,
    "range_tiles": 25,
+   "lunge_speed": 0,
+   "sound": null,
    "wiki_text": "Neutralize shot",
    "stage": "1b",
    "_unverified": {
@@ -4320,6 +4647,8 @@
    "per_frames": "hit",
    "cooldown_frames": 90,
    "range_tiles": 25,
+   "lunge_speed": 0,
+   "sound": null,
    "wiki_text": "Projectile/Projectile/11.25; Projectile/Fire/5",
    "stage": "1b",
    "_unverified": {
@@ -4341,6 +4670,8 @@
    "per_frames": "hit",
    "cooldown_frames": 90,
    "range_tiles": 25,
+   "lunge_speed": 0,
+   "sound": null,
    "wiki_text": "Teleportation Projectile",
    "stage": "1b",
    "_unverified": {
@@ -4365,6 +4696,8 @@
    "per_frames": "hit",
    "cooldown_frames": 90,
    "range_tiles": 25,
+   "lunge_speed": 0,
+   "sound": null,
    "wiki_text": "Projectile/Projectile/3.75; Projectile/Explosion/10",
    "stage": "1b",
    "_unverified": {
@@ -4391,6 +4724,8 @@
    "per_frames": "hit",
    "cooldown_frames": 40,
    "range_tiles": 1.5,
+   "lunge_speed": 0,
+   "sound": null,
    "wiki_text": "Melee/Melee/10-17.5",
    "stage": "1b",
    "_unverified": {
@@ -4414,14 +4749,13 @@
     ]
    },
    "per_frames": "hit",
-   "cooldown_frames": 40,
-   "range_tiles": 1.5,
+   "cooldown_frames": 20,
+   "range_tiles": 1.88,
+   "lunge_speed": 0,
+   "sound": "animals/generic/attack_melee",
    "wiki_text": "Melee/Melee/5-10",
    "stage": "1a",
-   "_unverified": {
-    "cooldown_frames": "default for kind 'melee'; read AnimalAIComponent attack_*_frames_between check in the player's data.wak (tools: Terranoita.Cli wak-cat)",
-    "range_tiles": "default for kind; read AnimalAIComponent attack_*_range check in the player's data.wak (tools: Terranoita.Cli wak-cat)"
-   }
+   "_unverified": {}
   },
   {
    "id": "plague_rats_rat.lunge",
@@ -4438,6 +4772,8 @@
    "per_frames": "hit",
    "cooldown_frames": 90,
    "range_tiles": 6,
+   "lunge_speed": null,
+   "sound": null,
    "wiki_text": "Lunge/Dash/8.75",
    "stage": "1c",
    "_unverified": {
@@ -4463,6 +4799,8 @@
    "per_frames": "hit",
    "cooldown_frames": 40,
    "range_tiles": 1.5,
+   "lunge_speed": 0,
+   "sound": null,
    "wiki_text": "Melee/Melee/8.75-11.25",
    "stage": "1c",
    "_unverified": {
@@ -4486,6 +4824,8 @@
    "per_frames": "hit",
    "cooldown_frames": 90,
    "range_tiles": 25,
+   "lunge_speed": 0,
+   "sound": null,
    "wiki_text": "Rifle/Projectile/3.75; Rifle/Explosion/10",
    "stage": "1b",
    "_unverified": {
@@ -4512,6 +4852,8 @@
    "per_frames": "hit",
    "cooldown_frames": 40,
    "range_tiles": 1.5,
+   "lunge_speed": 0,
+   "sound": null,
    "wiki_text": "Melee/Melee/10-17.5",
    "stage": "1b",
    "_unverified": {
@@ -4534,6 +4876,8 @@
    "per_frames": "hit",
    "cooldown_frames": 90,
    "range_tiles": 25,
+   "lunge_speed": 0,
+   "sound": null,
    "wiki_text": "Throws [[Glitter Bombs]]/Explosion/25",
    "stage": "1b",
    "_unverified": {
@@ -4560,6 +4904,8 @@
    "per_frames": "hit",
    "cooldown_frames": 40,
    "range_tiles": 1.5,
+   "lunge_speed": 0,
+   "sound": null,
    "wiki_text": "Melee/Melee/10-17.5",
    "stage": "1b",
    "_unverified": {
@@ -4583,6 +4929,8 @@
    "per_frames": "hit",
    "cooldown_frames": 90,
    "range_tiles": 25,
+   "lunge_speed": 0,
+   "sound": null,
    "wiki_text": "Ball Lightning/Explosion/5.25; Ball Lightning/Electricity/15",
    "stage": "1b",
    "_unverified": {
@@ -4606,6 +4954,8 @@
    "per_frames": "hit",
    "cooldown_frames": 90,
    "range_tiles": 6,
+   "lunge_speed": null,
+   "sound": null,
    "wiki_text": "Lunge/Dash/22.5",
    "stage": "1b",
    "_unverified": {
@@ -4631,6 +4981,8 @@
    "per_frames": "hit",
    "cooldown_frames": 40,
    "range_tiles": 1.5,
+   "lunge_speed": 0,
+   "sound": null,
    "wiki_text": "Melee/Melee/25-40",
    "stage": "1b",
    "_unverified": {
@@ -4654,6 +5006,8 @@
    "per_frames": "hit",
    "cooldown_frames": 90,
    "range_tiles": 25,
+   "lunge_speed": 0,
+   "sound": null,
    "wiki_text": "Twitching projectiles/Projectile/7.5; Twitching projectiles/Explosion/2.5",
    "stage": "1b",
    "_unverified": {
@@ -4678,6 +5032,8 @@
    "per_frames": "hit",
    "cooldown_frames": 90,
    "range_tiles": 25,
+   "lunge_speed": 0,
+   "sound": null,
    "wiki_text": "Polymorphing projectile/Projectile/7.5; Polymorphing projectile/Explosion/2.5",
    "stage": "1c",
    "_unverified": {
@@ -4702,6 +5058,8 @@
    "per_frames": "hit",
    "cooldown_frames": 90,
    "range_tiles": 25,
+   "lunge_speed": 0,
+   "sound": null,
    "wiki_text": "Neutralizing projectiles/Projectile/7.5; Neutralizing projectiles/Explosion/2.5",
    "stage": "1c",
    "_unverified": {
@@ -4726,6 +5084,8 @@
    "per_frames": "hit",
    "cooldown_frames": 90,
    "range_tiles": 25,
+   "lunge_speed": 0,
+   "sound": null,
    "wiki_text": "Teleportation projectile/Projectile/7.5; Teleportation projectile/Explosion/2.5",
    "stage": "1c",
    "_unverified": {
@@ -4749,6 +5109,8 @@
    "per_frames": "hit",
    "cooldown_frames": 90,
    "range_tiles": 25,
+   "lunge_speed": 0,
+   "sound": null,
    "wiki_text": "Blinding projectile/Projectile/7.5; Blinding projectile/Explosion/2.5,Summon wands (projectile list below)",
    "stage": "1c",
    "_unverified": {
@@ -4773,6 +5135,8 @@
    "per_frames": "hit",
    "cooldown_frames": 90,
    "range_tiles": 25,
+   "lunge_speed": 0,
+   "sound": null,
    "wiki_text": "[[Magic Missile]]/Projectile/75; [[Magic Missile]]/Explosion/105",
    "stage": "1c",
    "_unverified": {
@@ -4797,6 +5161,8 @@
    "per_frames": "hit",
    "cooldown_frames": 90,
    "range_tiles": 25,
+   "lunge_speed": 0,
+   "sound": null,
    "wiki_text": "[[Large Magic Missile]]/Projectile/100; [[Large Magic Missile]]/Explosion/117.5",
    "stage": "1c",
    "_unverified": {
@@ -4821,6 +5187,8 @@
    "per_frames": "hit",
    "cooldown_frames": 90,
    "range_tiles": 25,
+   "lunge_speed": 0,
+   "sound": null,
    "wiki_text": "[[Giant Magic Missile]]/Projectile/125; [[Giant Magic Missile]]/Explosion/130",
    "stage": "1c",
    "_unverified": {
@@ -4846,6 +5214,8 @@
    "per_frames": "hit",
    "cooldown_frames": 90,
    "range_tiles": 25,
+   "lunge_speed": 0,
+   "sound": null,
    "wiki_text": "[[Firebolt]]/Fire/12.5; [[Firebolt]]/Projectile/32.5; [[Firebolt]]/Explosion/47.5",
    "stage": "1c",
    "_unverified": {
@@ -4871,6 +5241,8 @@
    "per_frames": "hit",
    "cooldown_frames": 90,
    "range_tiles": 25,
+   "lunge_speed": 0,
+   "sound": null,
    "wiki_text": "[[Large Firebolt]]/Fire/30; [[Large Firebolt]]/Projectile/40; [[Large Firebolt]]/Explosion/60",
    "stage": "1c",
    "_unverified": {
@@ -4895,6 +5267,8 @@
    "per_frames": "hit",
    "cooldown_frames": 90,
    "range_tiles": 25,
+   "lunge_speed": 0,
+   "sound": null,
    "wiki_text": "[[Giant Firebolt]]/Projectile/50; [[Giant Firebolt]]/Explosion/145",
    "stage": "1c",
    "_unverified": {
@@ -4916,6 +5290,8 @@
    "per_frames": "hit",
    "cooldown_frames": 90,
    "range_tiles": 25,
+   "lunge_speed": 0,
+   "sound": null,
    "wiki_text": "[[Bouncing Burst]]/Projectile/3,Copied spells",
    "stage": "1c",
    "_unverified": {
@@ -4940,6 +5316,8 @@
    "per_frames": "hit",
    "cooldown_frames": 90,
    "range_tiles": 25,
+   "lunge_speed": 0,
+   "sound": null,
    "wiki_text": "Polymorphing projectile/Projectile/7.5; Polymorphing projectile/Explosion/2.5",
    "stage": "1c",
    "_unverified": {
@@ -4964,6 +5342,8 @@
    "per_frames": "hit",
    "cooldown_frames": 90,
    "range_tiles": 25,
+   "lunge_speed": 0,
+   "sound": null,
    "wiki_text": "Neutralizing projectiles/Projectile/7.5; Neutralizing projectiles/Explosion/2.5",
    "stage": "1c",
    "_unverified": {
@@ -4988,6 +5368,8 @@
    "per_frames": "hit",
    "cooldown_frames": 90,
    "range_tiles": 25,
+   "lunge_speed": 0,
+   "sound": null,
    "wiki_text": "Teleportation projectile/Projectile/7.5; Teleportation projectile/Explosion/2.5",
    "stage": "1c",
    "_unverified": {
@@ -5011,6 +5393,8 @@
    "per_frames": "hit",
    "cooldown_frames": 90,
    "range_tiles": 25,
+   "lunge_speed": 0,
+   "sound": null,
    "wiki_text": "Blinding projectile/Projectile/7.5; Blinding projectile/Explosion/2.5,Summon wands (projectile list below)",
    "stage": "1c",
    "_unverified": {
@@ -5035,6 +5419,8 @@
    "per_frames": "hit",
    "cooldown_frames": 90,
    "range_tiles": 25,
+   "lunge_speed": 0,
+   "sound": null,
    "wiki_text": "[[Magic Missile]]/Projectile/75; [[Magic Missile]]/Explosion/105",
    "stage": "1c",
    "_unverified": {
@@ -5059,6 +5445,8 @@
    "per_frames": "hit",
    "cooldown_frames": 90,
    "range_tiles": 25,
+   "lunge_speed": 0,
+   "sound": null,
    "wiki_text": "[[Large Magic Missile]]/Projectile/100; [[Large Magic Missile]]/Explosion/117.5",
    "stage": "1c",
    "_unverified": {
@@ -5083,6 +5471,8 @@
    "per_frames": "hit",
    "cooldown_frames": 90,
    "range_tiles": 25,
+   "lunge_speed": 0,
+   "sound": null,
    "wiki_text": "[[Giant Magic Missile]]/Projectile/125; [[Giant Magic Missile]]/Explosion/130",
    "stage": "1c",
    "_unverified": {
@@ -5108,6 +5498,8 @@
    "per_frames": "hit",
    "cooldown_frames": 90,
    "range_tiles": 25,
+   "lunge_speed": 0,
+   "sound": null,
    "wiki_text": "[[Firebolt]]/Fire/12.5; [[Firebolt]]/Projectile/32.5; [[Firebolt]]/Explosion/47.5",
    "stage": "1c",
    "_unverified": {
@@ -5133,6 +5525,8 @@
    "per_frames": "hit",
    "cooldown_frames": 90,
    "range_tiles": 25,
+   "lunge_speed": 0,
+   "sound": null,
    "wiki_text": "[[Large Firebolt]]/Fire/30; [[Large Firebolt]]/Projectile/40; [[Large Firebolt]]/Explosion/60",
    "stage": "1c",
    "_unverified": {
@@ -5157,6 +5551,8 @@
    "per_frames": "hit",
    "cooldown_frames": 90,
    "range_tiles": 25,
+   "lunge_speed": 0,
+   "sound": null,
    "wiki_text": "[[Giant Firebolt]]/Projectile/50; [[Giant Firebolt]]/Explosion/145",
    "stage": "1c",
    "_unverified": {
@@ -5178,6 +5574,8 @@
    "per_frames": "hit",
    "cooldown_frames": 90,
    "range_tiles": 25,
+   "lunge_speed": 0,
+   "sound": null,
    "wiki_text": "[[Bouncing Burst]]/Projectile/3,Copied projectiles",
    "stage": "1c",
    "_unverified": {
@@ -5202,6 +5600,8 @@
    "per_frames": "hit",
    "cooldown_frames": 90,
    "range_tiles": 25,
+   "lunge_speed": 0,
+   "sound": null,
    "wiki_text": "Teleportation projectile/Projectile/7.5; Teleportation projectile/Explosion/2.5",
    "stage": "1b",
    "_unverified": {
@@ -5226,6 +5626,8 @@
    "per_frames": "hit",
    "cooldown_frames": 90,
    "range_tiles": 25,
+   "lunge_speed": 0,
+   "sound": null,
    "wiki_text": "Double accelerating bolts x 2/Projectile/25; Double accelerating bolts x 2/Explosion/37.5",
    "stage": "1c",
    "_unverified": {
@@ -5248,6 +5650,8 @@
    "per_frames": "hit",
    "cooldown_frames": 90,
    "range_tiles": 25,
+   "lunge_speed": 0,
+   "sound": null,
    "wiki_text": "Greater short bubble/Projectile/47.5",
    "stage": "1c",
    "_unverified": {
@@ -5272,6 +5676,8 @@
    "per_frames": "hit",
    "cooldown_frames": 90,
    "range_tiles": 25,
+   "lunge_speed": 0,
+   "sound": null,
    "wiki_text": "Projectile x 4-8/Projectile/35; Projectile x 4-8/Explosion/20",
    "stage": "1b",
    "_unverified": {
@@ -5297,6 +5703,8 @@
    "per_frames": "hit",
    "cooldown_frames": 40,
    "range_tiles": 1.5,
+   "lunge_speed": 0,
+   "sound": null,
    "wiki_text": "Melee/Melee/35-42.5",
    "stage": "1b",
    "_unverified": {
@@ -5320,6 +5728,8 @@
    "per_frames": "hit",
    "cooldown_frames": 90,
    "range_tiles": 25,
+   "lunge_speed": 0,
+   "sound": null,
    "wiki_text": "Projectile/Projectile/25; Projectile/Explosion/10",
    "stage": "1b",
    "_unverified": {
@@ -5346,6 +5756,8 @@
    "per_frames": "hit",
    "cooldown_frames": 40,
    "range_tiles": 1.5,
+   "lunge_speed": 0,
+   "sound": null,
    "wiki_text": "Melee/Melee/10-17.5",
    "stage": "1b",
    "_unverified": {
@@ -5369,6 +5781,8 @@
    "per_frames": "hit",
    "cooldown_frames": 90,
    "range_tiles": 25,
+   "lunge_speed": 0,
+   "sound": null,
    "wiki_text": "Blinding projectile/Projectile/7.5; Blinding projectile/Explosion/2.5",
    "stage": "1b",
    "_unverified": {
@@ -5392,6 +5806,8 @@
    "per_frames": "hit",
    "cooldown_frames": 90,
    "range_tiles": 25,
+   "lunge_speed": 0,
+   "sound": null,
    "wiki_text": "[[Energy Orb]](first projectile)/Projectile/2.5; [[Energy Orb]]/Projectile/20",
    "stage": "1b",
    "_unverified": {
@@ -5414,15 +5830,13 @@
     "fire": 6.25
    },
    "per_frames": "hit",
-   "cooldown_frames": 90,
-   "range_tiles": 25,
+   "cooldown_frames": 125,
+   "range_tiles": 30.0,
+   "lunge_speed": 0,
+   "sound": "animals/firemage/attack_shoot",
    "wiki_text": "Weaker [[Fireball]]/Explosion/50; Weaker [[Fireball]]/Fire/6.25",
    "stage": "1a",
-   "_unverified": {
-    "cooldown_frames": "default for kind 'projectile'; read AnimalAIComponent attack_*_frames_between check in the player's data.wak (tools: Terranoita.Cli wak-cat)",
-    "range_tiles": "default for kind; read AnimalAIComponent attack_*_range check in the player's data.wak (tools: Terranoita.Cli wak-cat)",
-    "count": "wiki shows no count; read attack_ranged_entity_count check in the player's data.wak (tools: Terranoita.Cli wak-cat)"
-   }
+   "_unverified": {}
   },
   {
    "id": "firemage_weak.melee",
@@ -5440,14 +5854,13 @@
     ]
    },
    "per_frames": "hit",
-   "cooldown_frames": 40,
-   "range_tiles": 1.5,
+   "cooldown_frames": 20,
+   "range_tiles": 1.88,
+   "lunge_speed": 0,
+   "sound": "animals/firemage/attack_melee",
    "wiki_text": "Melee/Melee/10-17.5",
    "stage": "1a",
-   "_unverified": {
-    "cooldown_frames": "default for kind 'melee'; read AnimalAIComponent attack_*_frames_between check in the player's data.wak (tools: Terranoita.Cli wak-cat)",
-    "range_tiles": "default for kind; read AnimalAIComponent attack_*_range check in the player's data.wak (tools: Terranoita.Cli wak-cat)"
-   }
+   "_unverified": {}
   },
   {
    "id": "necromancer_shop.long_range_accelerating_orb",
@@ -5465,6 +5878,8 @@
    "per_frames": "hit",
    "cooldown_frames": 90,
    "range_tiles": 25,
+   "lunge_speed": 0,
+   "sound": null,
    "wiki_text": "Long-range accelerating orb x 2/Projectile/20; Long-range accelerating orb x 2/Explosion/25",
    "stage": "1c",
    "_unverified": {
@@ -5487,6 +5902,8 @@
    "per_frames": "hit",
    "cooldown_frames": 90,
    "range_tiles": 25,
+   "lunge_speed": 0,
+   "sound": null,
    "wiki_text": "Short-range sparks/Projectile/20",
    "stage": "1c",
    "_unverified": {
@@ -5510,6 +5927,8 @@
    "per_frames": "hit",
    "cooldown_frames": 90,
    "range_tiles": 25,
+   "lunge_speed": 0,
+   "sound": null,
    "wiki_text": "Green Orb/Projectile/18.75",
    "stage": "1c",
    "_unverified": {
@@ -5533,6 +5952,8 @@
    "per_frames": "1F",
    "cooldown_frames": 40,
    "range_tiles": 1.5,
+   "lunge_speed": 0,
+   "sound": null,
    "wiki_text": "Worm Bite/Melee-Bite/50/1F",
    "stage": "1c",
    "_unverified": {
@@ -5555,6 +5976,8 @@
    "per_frames": "hit",
    "cooldown_frames": 90,
    "range_tiles": 25,
+   "lunge_speed": 0,
+   "sound": null,
    "wiki_text": "Fire Breath/Projectile/2.5",
    "stage": "1c",
    "_unverified": {
@@ -5578,6 +6001,8 @@
    "per_frames": "hit",
    "cooldown_frames": 90,
    "range_tiles": 6,
+   "lunge_speed": null,
+   "sound": null,
    "wiki_text": "Lunge/dash/6.25",
    "stage": "1b",
    "_unverified": {
@@ -5603,6 +6028,8 @@
    "per_frames": "hit",
    "cooldown_frames": 40,
    "range_tiles": 1.5,
+   "lunge_speed": 0,
+   "sound": null,
    "wiki_text": "Melee/Melee/5-10",
    "stage": "1b",
    "_unverified": {
@@ -5626,6 +6053,8 @@
    "per_frames": "hit",
    "cooldown_frames": 90,
    "range_tiles": 25,
+   "lunge_speed": 0,
+   "sound": null,
    "wiki_text": "[[Thunder Charge]] with [[Copy Trail]] and a slow [[Homing]]/Explosion/45; [[Thunder Charge]] with [[Copy Trail]] and a slow [[Homing]]/Electricity/37.5",
    "stage": "1b",
    "_unverified": {
@@ -5652,6 +6081,8 @@
    "per_frames": "hit",
    "cooldown_frames": 40,
    "range_tiles": 1.5,
+   "lunge_speed": 0,
+   "sound": null,
    "wiki_text": "Melee/Melee/10-17.5",
    "stage": "1b",
    "_unverified": {
@@ -5672,6 +6103,8 @@
    "per_frames": "hit",
    "cooldown_frames": 600,
    "range_tiles": 30,
+   "lunge_speed": 0,
+   "sound": null,
    "wiki_text": "Summon [[Lepakko]]",
    "stage": "1b",
    "_unverified": {
@@ -5694,6 +6127,8 @@
    "per_frames": "hit",
    "cooldown_frames": 90,
    "range_tiles": 6,
+   "lunge_speed": null,
+   "sound": null,
    "wiki_text": "Lunge/Dash/12.5",
    "stage": "1b",
    "_unverified": {
@@ -5716,6 +6151,8 @@
    "per_frames": "hit",
    "cooldown_frames": 90,
    "range_tiles": 25,
+   "lunge_speed": 0,
+   "sound": null,
    "wiki_text": "Two small acid balls x 2/Projectile/6",
    "stage": "1c",
    "_unverified": {
@@ -5738,6 +6175,8 @@
    "per_frames": "1F",
    "cooldown_frames": 90,
    "range_tiles": 25,
+   "lunge_speed": 0,
+   "sound": null,
    "wiki_text": "Big green orb/Projectile/6/1F",
    "stage": "1c",
    "_unverified": {
@@ -5759,6 +6198,8 @@
    "per_frames": "hit",
    "cooldown_frames": 90,
    "range_tiles": 25,
+   "lunge_speed": 0,
+   "sound": null,
    "wiki_text": "Projectile/Projectile/20,Wand (random spells)",
    "stage": "1b",
    "_unverified": {
@@ -5782,6 +6223,8 @@
    "per_frames": "hit",
    "cooldown_frames": 90,
    "range_tiles": 25,
+   "lunge_speed": 0,
+   "sound": null,
    "wiki_text": "[[Chaotic Polymorphine]] projectile/Holy/37.5",
    "stage": "1b",
    "_unverified": {
@@ -5805,6 +6248,8 @@
    "per_frames": "hit",
    "cooldown_frames": 90,
    "range_tiles": 25,
+   "lunge_speed": 0,
+   "sound": null,
    "wiki_text": "Blue [[Concentrated Light]]/Projectile/8.75",
    "stage": "1b",
    "_unverified": {
@@ -5828,6 +6273,8 @@
    "per_frames": "1F",
    "cooldown_frames": 1,
    "range_tiles": 6,
+   "lunge_speed": 0,
+   "sound": null,
    "wiki_text": "Holy Aura/Holy/7.5/1F",
    "stage": "1b",
    "_unverified": {
@@ -5851,6 +6298,8 @@
    "per_frames": "hit",
    "cooldown_frames": 90,
    "range_tiles": 25,
+   "lunge_speed": 0,
+   "sound": null,
    "wiki_text": "Blue orb/Projectile/7.5; Blue orb/Explosion/9",
    "stage": "1c",
    "_unverified": {
@@ -5874,6 +6323,8 @@
    "per_frames": "1F",
    "cooldown_frames": 1,
    "range_tiles": 6,
+   "lunge_speed": 0,
+   "sound": null,
    "wiki_text": "Innocent Spirit/Holy/7.5/1F",
    "stage": "1c",
    "_unverified": {
@@ -5896,6 +6347,8 @@
    "per_frames": "hit",
    "cooldown_frames": 90,
    "range_tiles": 25,
+   "lunge_speed": 0,
+   "sound": null,
    "wiki_text": "[[TNT]] x 6-14/Explosion/62.5",
    "stage": "1b",
    "_unverified": {
@@ -5921,6 +6374,8 @@
    "per_frames": "hit",
    "cooldown_frames": 40,
    "range_tiles": 1.5,
+   "lunge_speed": 0,
+   "sound": null,
    "wiki_text": "Melee/Melee/10-17.5",
    "stage": "1b",
    "_unverified": {
@@ -5943,6 +6398,8 @@
    "per_frames": "hit",
    "cooldown_frames": 90,
    "range_tiles": 25,
+   "lunge_speed": 0,
+   "sound": null,
    "wiki_text": "Sausages/Projectile/0",
    "stage": "1b",
    "_unverified": {
@@ -5969,6 +6426,8 @@
    "per_frames": "hit",
    "cooldown_frames": 40,
    "range_tiles": 1.5,
+   "lunge_speed": 0,
+   "sound": null,
    "wiki_text": "Melee/Melee/10-17.5",
    "stage": "1b",
    "_unverified": {
@@ -5991,6 +6450,8 @@
    "per_frames": "hit",
    "cooldown_frames": 90,
    "range_tiles": 25,
+   "lunge_speed": 0,
+   "sound": null,
    "wiki_text": "[[TNT]]/Explosion/50",
    "stage": "1b",
    "_unverified": {
@@ -6017,6 +6478,8 @@
    "per_frames": "hit",
    "cooldown_frames": 40,
    "range_tiles": 1.5,
+   "lunge_speed": 0,
+   "sound": null,
    "wiki_text": "Melee/Melee/10-17.5",
    "stage": "1b",
    "_unverified": {
@@ -6037,15 +6500,13 @@
     "explosion": 50.0
    },
    "per_frames": "hit",
-   "cooldown_frames": 90,
-   "range_tiles": 25,
+   "cooldown_frames": 145,
+   "range_tiles": 30.0,
+   "lunge_speed": 0,
+   "sound": "animals/miner/_throw",
    "wiki_text": "[[TNT]]/Explosion/50",
    "stage": "1a",
-   "_unverified": {
-    "cooldown_frames": "default for kind 'projectile'; read AnimalAIComponent attack_*_frames_between check in the player's data.wak (tools: Terranoita.Cli wak-cat)",
-    "range_tiles": "default for kind; read AnimalAIComponent attack_*_range check in the player's data.wak (tools: Terranoita.Cli wak-cat)",
-    "count": "wiki shows no count; read attack_ranged_entity_count check in the player's data.wak (tools: Terranoita.Cli wak-cat)"
-   }
+   "_unverified": {}
   },
   {
    "id": "miner_weak.melee",
@@ -6063,14 +6524,13 @@
     ]
    },
    "per_frames": "hit",
-   "cooldown_frames": 40,
-   "range_tiles": 1.5,
+   "cooldown_frames": 20,
+   "range_tiles": 1.88,
+   "lunge_speed": 0,
+   "sound": "animals/miner/_voc_attack",
    "wiki_text": "Melee/Melee/10-17.5",
    "stage": "1a",
-   "_unverified": {
-    "cooldown_frames": "default for kind 'melee'; read AnimalAIComponent attack_*_frames_between check in the player's data.wak (tools: Terranoita.Cli wak-cat)",
-    "range_tiles": "default for kind; read AnimalAIComponent attack_*_range check in the player's data.wak (tools: Terranoita.Cli wak-cat)"
-   }
+   "_unverified": {}
   },
   {
    "id": "sentry.targeting",
@@ -6085,6 +6545,8 @@
    "per_frames": "hit",
    "cooldown_frames": 90,
    "range_tiles": 25,
+   "lunge_speed": 0,
+   "sound": null,
    "wiki_text": "Targeting Projectile",
    "stage": "1b",
    "_unverified": {
@@ -6112,6 +6574,8 @@
    "per_frames": "hit",
    "cooldown_frames": 90,
    "range_tiles": 25,
+   "lunge_speed": 0,
+   "sound": null,
    "wiki_text": "Projectile/Projectile/15; Projectile/Explosion/12.5; Projectile/Fire/10; Projectile/Slice/10; Projectile/Radioactive/10",
    "stage": "1b",
    "_unverified": {
@@ -6136,6 +6600,8 @@
    "per_frames": "hit",
    "cooldown_frames": 90,
    "range_tiles": 25,
+   "lunge_speed": 0,
+   "sound": null,
    "wiki_text": "Grenades x 2/Projectile/12.5; Grenades x 2/Explosion/12.5",
    "stage": "1b",
    "_unverified": {
@@ -6161,6 +6627,8 @@
    "per_frames": "hit",
    "cooldown_frames": 40,
    "range_tiles": 1.5,
+   "lunge_speed": 0,
+   "sound": null,
    "wiki_text": "Melee/Melee/10-17.5",
    "stage": "1b",
    "_unverified": {
@@ -6184,6 +6652,8 @@
    "per_frames": "hit",
    "cooldown_frames": 90,
    "range_tiles": 25,
+   "lunge_speed": 0,
+   "sound": null,
    "wiki_text": "Laser projectile x 2/Projectile/25; Laser projectile x 2/Explosion/6.25",
    "stage": "1b",
    "_unverified": {
@@ -6206,6 +6676,8 @@
    "per_frames": "hit",
    "cooldown_frames": 0,
    "range_tiles": 0,
+   "lunge_speed": 0,
+   "sound": null,
    "wiki_text": "Explodes on death/Explosion/50",
    "stage": "1b",
    "_unverified": {
@@ -6229,6 +6701,8 @@
    "per_frames": "hit",
    "cooldown_frames": 90,
    "range_tiles": 25,
+   "lunge_speed": 0,
+   "sound": null,
    "wiki_text": "Shoots a bright green projectile that drops little blobs,that will pop and deal/Projectile/1.25/Explosion/30",
    "stage": "1b",
    "_unverified": {
@@ -6255,6 +6729,8 @@
    "per_frames": "hit",
    "cooldown_frames": 40,
    "range_tiles": 1.5,
+   "lunge_speed": 0,
+   "sound": null,
    "wiki_text": "Melee/Melee/10-17.5",
    "stage": "1b",
    "_unverified": {
@@ -6277,6 +6753,8 @@
    "per_frames": "hit",
    "cooldown_frames": 90,
    "range_tiles": 25,
+   "lunge_speed": 0,
+   "sound": null,
    "wiki_text": "[[Evergreen Seed]] projectile/Projectile/0",
    "stage": "1c",
    "_unverified": {
@@ -6303,6 +6781,8 @@
    "per_frames": "hit",
    "cooldown_frames": 40,
    "range_tiles": 1.5,
+   "lunge_speed": 0,
+   "sound": null,
    "wiki_text": "Melee/Melee/2.5-5",
    "stage": "1c",
    "_unverified": {
@@ -6323,6 +6803,8 @@
    "per_frames": "hit",
    "cooldown_frames": 90,
    "range_tiles": 25,
+   "lunge_speed": 0,
+   "sound": null,
    "wiki_text": "[[Kyrmyniska|Projectile]]/Projectile/11.25 + 6.25 × N; [[Kyrmyniska|Projectile]]/Fire/5,(where N = Number of Kauhuhirviö killed)",
    "stage": "1c",
    "_unverified": {
@@ -6349,6 +6831,8 @@
    "per_frames": "hit",
    "cooldown_frames": 40,
    "range_tiles": 1.5,
+   "lunge_speed": 0,
+   "sound": null,
    "wiki_text": "Melee/Melee/2.5-5",
    "stage": "1c",
    "_unverified": {
@@ -6371,6 +6855,8 @@
    "per_frames": "hit",
    "cooldown_frames": 90,
    "range_tiles": 25,
+   "lunge_speed": 0,
+   "sound": null,
    "wiki_text": "[[Acid]] spit/Projectile/5",
    "stage": "1b",
    "_unverified": {
@@ -6394,6 +6880,8 @@
    "per_frames": "hit",
    "cooldown_frames": 90,
    "range_tiles": 25,
+   "lunge_speed": 0,
+   "sound": null,
    "wiki_text": "[[Arrow]]/Projectile/12.5",
    "stage": "1b",
    "_unverified": {
@@ -6417,6 +6905,8 @@
    "per_frames": "hit",
    "cooldown_frames": 90,
    "range_tiles": 25,
+   "lunge_speed": 0,
+   "sound": null,
    "wiki_text": "[[Fire]]/Fire/12.5",
    "stage": "1b",
    "_unverified": {
@@ -6440,6 +6930,8 @@
    "per_frames": "hit",
    "cooldown_frames": 90,
    "range_tiles": 25,
+   "lunge_speed": 0,
+   "sound": null,
    "wiki_text": "Electric spark/Electricity/25",
    "stage": "1b",
    "_unverified": {
@@ -6463,6 +6955,8 @@
    "per_frames": "hit",
    "cooldown_frames": 90,
    "range_tiles": 25,
+   "lunge_speed": 0,
+   "sound": null,
    "wiki_text": "[[Cocktail]] Projectile/Explosion/62.5",
    "stage": "1b",
    "_unverified": {
@@ -6486,6 +6980,8 @@
    "per_frames": "hit",
    "cooldown_frames": 90,
    "range_tiles": 25,
+   "lunge_speed": 0,
+   "sound": null,
    "wiki_text": "[[Firebomb]]/fire/5",
    "stage": "1b",
    "_unverified": {
@@ -6509,6 +7005,8 @@
    "per_frames": "hit",
    "cooldown_frames": 90,
    "range_tiles": 6,
+   "lunge_speed": null,
+   "sound": null,
    "wiki_text": "Lunge/Dash/6.25",
    "stage": "1b",
    "_unverified": {
@@ -6532,6 +7030,8 @@
    "per_frames": "hit",
    "cooldown_frames": 90,
    "range_tiles": 25,
+   "lunge_speed": 0,
+   "sound": null,
    "wiki_text": "[[Firebomb]]/fire/7.5; [[Firebomb]]/Projectile/5",
    "stage": "1b",
    "_unverified": {
@@ -6555,6 +7055,8 @@
    "per_frames": "hit",
    "cooldown_frames": 90,
    "range_tiles": 6,
+   "lunge_speed": null,
+   "sound": null,
    "wiki_text": "Lunge/Dash/7.5",
    "stage": "1b",
    "_unverified": {
@@ -6577,6 +7079,8 @@
    "per_frames": "hit",
    "cooldown_frames": 90,
    "range_tiles": 25,
+   "lunge_speed": 0,
+   "sound": null,
    "wiki_text": "Projectile/Projectile/20",
    "stage": "1b",
    "_unverified": {
@@ -6600,6 +7104,8 @@
    "per_frames": "hit",
    "cooldown_frames": 40,
    "range_tiles": 1.5,
+   "lunge_speed": 0,
+   "sound": null,
    "wiki_text": "Tentacle/Melee/25",
    "stage": "1b",
    "_unverified": {
@@ -6620,6 +7126,8 @@
    "per_frames": "hit",
    "cooldown_frames": 240,
    "range_tiles": 20,
+   "lunge_speed": 0,
+   "sound": null,
    "wiki_text": "Fires shield buff projectiles at allies,granting them a one-off shield",
    "stage": "1b",
    "_unverified": {
@@ -6643,6 +7151,8 @@
    "per_frames": "hit",
    "cooldown_frames": 90,
    "range_tiles": 25,
+   "lunge_speed": 0,
+   "sound": null,
    "wiki_text": "Projectile/Projectile/7.5; Projectile/Explosion/2.5",
    "stage": "1b",
    "_unverified": {
@@ -6664,6 +7174,8 @@
    "per_frames": "hit",
    "cooldown_frames": 90,
    "range_tiles": 25,
+   "lunge_speed": 0,
+   "sound": null,
    "wiki_text": "Spits [[Toxic Sludge]]",
    "stage": "1b",
    "_unverified": {
@@ -6688,6 +7200,8 @@
    "per_frames": "hit",
    "cooldown_frames": 90,
    "range_tiles": 25,
+   "lunge_speed": 0,
+   "sound": null,
    "wiki_text": "[[Thunder Charge]]/Explosion/45; [[Thunder Charge]]/Electricity/37.5",
    "stage": "1b",
    "_unverified": {
@@ -6714,6 +7228,8 @@
    "per_frames": "hit",
    "cooldown_frames": 40,
    "range_tiles": 1.5,
+   "lunge_speed": 0,
+   "sound": null,
    "wiki_text": "Melee/Melee/10-17.5",
    "stage": "1b",
    "_unverified": {
@@ -6737,6 +7253,8 @@
    "per_frames": "hit",
    "cooldown_frames": 0,
    "range_tiles": 30,
+   "lunge_speed": 0,
+   "sound": null,
    "wiki_text": "Retaliates with [[Lightning Bolt]]/Explosion/35; Retaliates with [[Lightning Bolt]]/Electricity/12.5",
    "stage": "1b",
    "_unverified": {
@@ -6760,6 +7278,8 @@
    "per_frames": "hit",
    "cooldown_frames": 0,
    "range_tiles": 0,
+   "lunge_speed": 0,
+   "sound": null,
    "wiki_text": "Explosion/Explosion/75; Explosion/Holy/75",
    "stage": "1c",
    "_unverified": {
@@ -6785,6 +7305,8 @@
    "per_frames": "3F",
    "cooldown_frames": 1,
    "range_tiles": 6,
+   "lunge_speed": 0,
+   "sound": null,
    "wiki_text": "Curse/Curse/2.5-5/3F",
    "stage": "1c",
    "_unverified": {
@@ -6805,6 +7327,8 @@
    "per_frames": "hit",
    "cooldown_frames": 90,
    "range_tiles": 25,
+   "lunge_speed": 0,
+   "sound": null,
    "wiki_text": "[[Swapper]] bolt",
    "stage": "1b",
    "_unverified": {
@@ -6831,6 +7355,8 @@
    "per_frames": "hit",
    "cooldown_frames": 90,
    "range_tiles": 25,
+   "lunge_speed": 0,
+   "sound": null,
    "wiki_text": "Projectile/Projectile/7.5; Projectile/Fire/7.5; Projectile/Slice/7.5; Projectile/Ice/7.5",
    "stage": "1b",
    "_unverified": {
@@ -6855,6 +7381,8 @@
    "per_frames": "hit",
    "cooldown_frames": 90,
    "range_tiles": 25,
+   "lunge_speed": 0,
+   "sound": null,
    "wiki_text": "[[Meteor]] (red halo)/Fire/56.25; [[Meteor]] (red halo)/Explosion/125",
    "stage": "1b",
    "_unverified": {
@@ -6879,6 +7407,8 @@
    "per_frames": "hit",
    "cooldown_frames": 90,
    "range_tiles": 25,
+   "lunge_speed": 0,
+   "sound": null,
    "wiki_text": "[[Lightning Bolt]] x 3 (blue halo)/Electricity/25; [[Lightning Bolt]] x 3 (blue halo)/Explosion/125",
    "stage": "1b",
    "_unverified": {
@@ -6902,6 +7432,8 @@
    "per_frames": "hit",
    "cooldown_frames": 90,
    "range_tiles": 25,
+   "lunge_speed": 0,
+   "sound": null,
    "wiki_text": "[[Pinpoint of Light]] x 5 (white halo)/Projectile/11.25; [[Pinpoint of Light]] x 5 (white halo)/Explosion/9.5",
    "stage": "1b",
    "_unverified": {
@@ -6925,6 +7457,8 @@
    "per_frames": "hit",
    "cooldown_frames": 90,
    "range_tiles": 25,
+   "lunge_speed": 0,
+   "sound": null,
    "wiki_text": "[[Intense Concentrated Light]] x 5 (purple halo)/Projectile/25; [[Intense Concentrated Light]] x 5 (purple halo)/Explosion/5.5",
    "stage": "1b",
    "_unverified": {
@@ -6950,6 +7484,8 @@
    "per_frames": "hit",
    "cooldown_frames": 40,
    "range_tiles": 1.5,
+   "lunge_speed": 0,
+   "sound": null,
    "wiki_text": "Melee/Melee/30-40",
    "stage": "1b",
    "_unverified": {
@@ -6972,6 +7508,8 @@
    "per_frames": "hit",
    "cooldown_frames": 90,
    "range_tiles": 6,
+   "lunge_speed": null,
+   "sound": null,
    "wiki_text": "Launches itself as a projectile at you/Projectile/12.5",
    "stage": "1b",
    "_unverified": {
@@ -6994,6 +7532,8 @@
    "per_frames": "6F",
    "cooldown_frames": 1,
    "range_tiles": 6,
+   "lunge_speed": 0,
+   "sound": null,
    "wiki_text": "Curse/Curse/2.5/6F",
    "stage": "1b",
    "_unverified": {
@@ -7016,6 +7556,8 @@
    "per_frames": "hit",
    "cooldown_frames": 90,
    "range_tiles": 25,
+   "lunge_speed": 0,
+   "sound": null,
    "wiki_text": "Projectile/Projectile/20",
    "stage": "1b",
    "_unverified": {
@@ -7039,6 +7581,8 @@
    "per_frames": "hit",
    "cooldown_frames": 600,
    "range_tiles": 30,
+   "lunge_speed": 0,
+   "sound": null,
    "wiki_text": "Orb which summons 3 wands/Projectile/7.5",
    "stage": "1c",
    "_unverified": {
@@ -7062,6 +7606,8 @@
    "per_frames": "hit",
    "cooldown_frames": 90,
    "range_tiles": 25,
+   "lunge_speed": 0,
+   "sound": null,
    "wiki_text": "[[Intense Concentrated Light]] x 5/Projectile/25; [[Intense Concentrated Light]] x 5/Explosion/5.5",
    "stage": "1c",
    "_unverified": {
@@ -7085,6 +7631,8 @@
    "per_frames": "hit",
    "cooldown_frames": 90,
    "range_tiles": 25,
+   "lunge_speed": 0,
+   "sound": null,
    "wiki_text": "[[Pinpoint of Light]] x 5/Projectile/11.25; [[Pinpoint of Light]] x 5/Explosion/9.5",
    "stage": "1c",
    "_unverified": {
@@ -7108,6 +7656,8 @@
    "per_frames": "hit",
    "cooldown_frames": 90,
    "range_tiles": 25,
+   "lunge_speed": 0,
+   "sound": null,
    "wiki_text": "[[Meteor]]/Fire/56.25; [[Meteor]]/Explosion/125",
    "stage": "1c",
    "_unverified": {
@@ -7133,6 +7683,8 @@
    "per_frames": "hit",
    "cooldown_frames": 90,
    "range_tiles": 25,
+   "lunge_speed": 0,
+   "sound": null,
    "wiki_text": "[[Lightning Bolt]] x 3/Projectile/25; [[Lightning Bolt]] x 3/Explosion/125; [[Lightning Bolt]] x 3/Electricity/25",
    "stage": "1c",
    "_unverified": {
@@ -7155,6 +7707,8 @@
    "per_frames": "hit",
    "cooldown_frames": 600,
    "range_tiles": 30,
+   "lunge_speed": 0,
+   "sound": null,
    "wiki_text": "Orb which summons 3 wands/Projectile/7.5",
    "stage": "1c",
    "_unverified": {
@@ -7178,6 +7732,8 @@
    "per_frames": "hit",
    "cooldown_frames": 90,
    "range_tiles": 25,
+   "lunge_speed": 0,
+   "sound": null,
    "wiki_text": "[[Intense Concentrated Light]] x 5/Projectile/25; [[Intense Concentrated Light]] x 5/Explosion/5.5",
    "stage": "1c",
    "_unverified": {
@@ -7201,6 +7757,8 @@
    "per_frames": "hit",
    "cooldown_frames": 90,
    "range_tiles": 25,
+   "lunge_speed": 0,
+   "sound": null,
    "wiki_text": "[[Pinpoint of Light]] x 5/Projectile/11.25; [[Pinpoint of Light]] x 5/Explosion/9.5",
    "stage": "1c",
    "_unverified": {
@@ -7224,6 +7782,8 @@
    "per_frames": "hit",
    "cooldown_frames": 90,
    "range_tiles": 25,
+   "lunge_speed": 0,
+   "sound": null,
    "wiki_text": "[[Meteor]]/Fire/56.25; [[Meteor]]/Explosion/125",
    "stage": "1c",
    "_unverified": {
@@ -7249,6 +7809,8 @@
    "per_frames": "hit",
    "cooldown_frames": 90,
    "range_tiles": 25,
+   "lunge_speed": 0,
+   "sound": null,
    "wiki_text": "[[Lightning Bolt]] x 3/Projectile/25; [[Lightning Bolt]] x 3/Explosion/125; [[Lightning Bolt]] x 3/Electricity/25",
    "stage": "1c",
    "_unverified": {

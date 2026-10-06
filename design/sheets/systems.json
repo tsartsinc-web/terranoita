@@ -36,15 +36,13 @@
  "rows": [
   {
    "id": "launcher",
-   "description": "Start the player's own Terraria.exe from {game} inside our process, apply our Harmony patches, then run Terraria's normal entry point. Game files are never changed.",
+   "description": "Start the player's own Terraria.exe from {game} inside our process (x86, large-address-aware like Terraria.exe), apply our Harmony patches, then run Terraria.WindowsLaunch.Main. Steam: steam_appid.txt next to Terraria.exe stops SteamAPI.RestartAppIfNecessary; Steam must be running. Game files are never changed. Before patching, Program.SavePath is set exactly as LaunchGame will set it (-savedirectory or the platform storage path): patching JIT-compiles Terraria methods, which runs Main's static constructor, which reads SavePath.",
    "stage": "1a",
    "hooks": [
     "terraria_entry"
    ],
    "code": "src/Terranoita.Launcher/Program.cs",
-   "_unverified": {
-    "description": "confirm Terraria.exe is x86 .NET Framework 4 + XNA, its entry point, and Steam start-up when launched by us"
-   }
+   "_unverified": {}
   },
   {
    "id": "noita_assets",
@@ -54,9 +52,7 @@
     "load_content"
    ],
    "code": "src/Terranoita.Core/Noita/",
-   "_unverified": {
-    "description": "data.wak layout is from community docs; confirm on the player's file"
-   }
+   "_unverified": {}
   },
   {
    "id": "enemy_registry",
@@ -68,7 +64,7 @@
   },
   {
    "id": "carrier_npc",
-   "description": "Vanilla Terraria has a fixed list of NPC types, so each Noita enemy rides on one vanilla 'carrier' NPC slot; a side table keyed by NPC index says which Noita enemy it is, and our patches replace that slot's AI, drawing, name, hit effects and loot.",
+   "description": "Vanilla Terraria has a fixed list of NPC types, so every Noita enemy rides on NPC type 146 (NPCID.None3): an unused slot with no SetDefaults case, no AI, no drops, no banner and hidden from the Bestiary. A side table keyed by NPC index says which Noita enemy it is; our patches replace its AI, frames, drawing, name, hit effects and loot.",
    "stage": "1a",
    "hooks": [
     "npc_ai",
@@ -76,13 +72,10 @@
     "npc_draw",
     "npc_name",
     "npc_hiteffect",
-    "npc_loot",
-    "npc_bestiary_kill"
+    "npc_loot"
    ],
    "code": "src/Terranoita/Carriers.cs",
-   "_unverified": {
-    "description": "pick the carrier NPC/projectile types from the decompile: types with the fewest special cases"
-   }
+   "_unverified": {}
   },
   {
    "id": "enemy_spawning",
@@ -106,22 +99,23 @@
   },
   {
    "id": "enemy_projectiles",
-   "description": "Enemy shots ride on a vanilla carrier projectile the same way NPCs do.",
+   "description": "Enemy shots are the mod's own small list (position, velocity, gravity, lifetime, tile collision, hit on the player), not Terraria projectiles: Terraria has no unused projectile type, and a carrier would inherit a vanilla projectile's special cases. Single player.",
    "stage": "1a",
    "hooks": [
-    "proj_ai",
-    "proj_draw",
-    "proj_kill"
+    "shots_update",
+    "shots_draw"
    ],
-   "code": "src/Terranoita/Projectiles.cs",
+   "code": "src/Terranoita/Shots.cs",
    "_unverified": {}
   },
   {
    "id": "damage_types",
-   "description": "Noita damage types and per-enemy multipliers applied to hits on our enemies.",
+   "description": "Hits on our enemies are scaled by the enemy's Noita damage multiplier for the hit's type: swung weapons = melee, projectiles = projectile (melee projectiles = melee, explosives = explosion). Noita fire immunity becomes immunity to Terraria's burning debuffs.",
    "stage": "1a",
    "hooks": [
-    "npc_strike"
+    "npc_strike",
+    "hit_by_item",
+    "hit_by_projectile"
    ],
    "code": "src/Terranoita/Damage.cs",
    "_unverified": {}

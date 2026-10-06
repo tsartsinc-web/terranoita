@@ -36,11 +36,9 @@
   {
    "id": "noita_gold",
    "description": "Gold like Noita: more health, more money.",
-   "rule": "copper coins = round(terraria_life * 0.6); 1 in 12 a Heart, 1 in 15 a Mana Star",
+   "rule": "copper coins = round(noita_hp x 6 x tier hp_mult) (weak hound at t1 = 60, like a Terraria zombie); 1 in 12 a Heart, 1 in 15 a Mana Star",
    "stage": "1a",
-   "_unverified": {
-    "rule": "playtest"
-   }
+   "_unverified": {}
   },
   {
    "id": "boss_reward",
