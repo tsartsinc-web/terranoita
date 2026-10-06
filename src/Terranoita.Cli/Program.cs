@@ -42,7 +42,9 @@ namespace Terranoita.Cli
                             return 0;
                         case "entity":
                         {
-                            string path = args[2].Contains('/') ? args[2] : FindEntity(files, args[2], null);
+                            string path = args[2].Contains('/') ? args[2]
+                                : new EntityLookup(files.Archive.Entries.Select(x => x.Path), p => Text(files, p), null).Find(args[2], null, null, null).Path
+                                  ?? throw new FileNotFoundException("no entity file for " + args[2]);
                             var facts = EnemyJson(files, path);
                             Console.WriteLine(facts.ToJsonString(new JsonSerializerOptions { WriteIndented = true }));
                             return 0;
@@ -63,22 +65,11 @@ namespace Terranoita.Cli
 
         static string Text(NoitaFiles files, string path) => files.TryReadText(path, out var t) ? t : null;
 
-        /// <summary>The sheet's guessed path if it exists, otherwise any entity XML named &lt;id&gt;.xml.</summary>
-        static string FindEntity(NoitaFiles files, string id, string guess)
-        {
-            if (guess != null && files.Archive.Contains(guess))
-                return guess;
-            var hits = files.Archive.Entries
-                .Where(e => e.Path.StartsWith("data/entities/", StringComparison.OrdinalIgnoreCase) &&
-                            e.Path.EndsWith("/" + id + ".xml", StringComparison.OrdinalIgnoreCase))
-                .Select(e => e.Path).OrderBy(p => p.Length).ToList();
-            return hits.FirstOrDefault();
-        }
-
         static JsonObject EnemyJson(NoitaFiles files, string path)
         {
             var e = NoitaEntity.Load(p => Text(files, p), path);
             var f = EnemyFacts.From(e);
+            var dump = EntityDump.Of(e);
             var ranged = new JsonArray();
             foreach (var r in f.Ranged)
             {
@@ -109,6 +100,7 @@ namespace Terranoita.Cli
                             ["damage"] = p.Damage,
                             ["audio_root"] = p.AudioRoot,
                             ["explosion_sound"] = p.ExplosionSound,
+                            ["components"] = DumpJson(EntityDump.Of(NoitaEntity.Load(x => Text(files, x), r.EntityFile))),
                         };
                     }
                     catch (Exception ex)
@@ -161,7 +153,48 @@ namespace Terranoita.Cli
                 ["audio_roots"] = new JsonArray(f.AudioRoots.Select(a => (JsonNode)a).ToArray()),
                 ["damage_multipliers"] = mult,
                 ["ranged"] = ranged,
+                ["components"] = DumpJson(dump),
+                ["scripts"] = new JsonArray(EntityDump.Scripts(dump).Select(x => (JsonNode)x).ToArray()),
             };
+        }
+
+        /// <summary>Components as JSON: {component, entity (child entities only), attrs, children}.</summary>
+        static JsonArray DumpJson(List<EntityDump.Item> items)
+        {
+            var a = new JsonArray();
+            foreach (var i in items)
+            {
+                var o = NodeJson(i.Component);
+                if (i.Entity != null)
+                    o["entity"] = i.Entity;
+                a.Add(o);
+            }
+            return a;
+        }
+
+        static JsonObject NodeJson(NxmlNode n)
+        {
+            var attrs = new JsonObject();
+            foreach (var kv in n.Attributes.OrderBy(k => k.Key, StringComparer.Ordinal))
+                attrs[kv.Key] = kv.Value;
+            var o = new JsonObject { ["component"] = n.Name, ["attrs"] = attrs };
+            if (n.Children.Count > 0)
+                o["children"] = new JsonArray(n.Children.Select(c => (JsonNode)NodeJson(c)).ToArray());
+            return o;
+        }
+
+        static void CollectComponentNames(JsonNode node, HashSet<string> names)
+        {
+            if (node is JsonObject o)
+            {
+                if (o["component"] is JsonValue v && o["attrs"] != null)
+                    names.Add((string)v);
+                foreach (var kv in o)
+                    CollectComponentNames(kv.Value, names);
+            }
+            else if (node is JsonArray arr)
+                foreach (var x in arr)
+                    CollectComponentNames(x, names);
         }
 
         static int Facts(NoitaFiles files, string enemiesSheet, string outPath)
@@ -169,12 +202,14 @@ namespace Terranoita.Cli
             var sheet = JsonNode.Parse(File.ReadAllText(enemiesSheet));
             var result = new JsonObject();
             int ok = 0, missing = 0, failed = 0;
+            var translations = files.TryReadText("data/translations/common.csv", out var csv) ? NoitaTranslations.Parse(csv) : null;
+            var lookup = new EntityLookup(files.Archive.Entries.Select(x => x.Path), p => Text(files, p), translations);
             foreach (var row in sheet["rows"].AsArray())
             {
                 string id = (string)row["id"];
-                string guess = (string)row["noita_entity"];
-                string path = FindEntity(files, id, guess);
-                if (path == null)
+                var found = lookup.Find(id, (string)row["noita_entity"], (string)row["name_key"], (string)row["name_en"]);
+                var candidates = new JsonArray(found.Candidates.Select(c => (JsonNode)c).ToArray());
+                if (found.Path == null)
                 {
                     result[id] = new JsonObject { ["error"] = "no entity file found for this id" };
                     missing++;
@@ -182,16 +217,32 @@ namespace Terranoita.Cli
                 }
                 try
                 {
-                    result[id] = EnemyJson(files, path);
+                    var o = EnemyJson(files, found.Path);
+                    o["found_by"] = found.How;
+                    o["candidates"] = candidates;
+                    result[id] = o;
                     ok++;
                 }
                 catch (Exception ex)
                 {
-                    result[id] = new JsonObject { ["entity"] = path, ["error"] = ex.Message };
+                    result[id] = new JsonObject { ["entity"] = found.Path, ["error"] = ex.Message };
                     failed++;
                 }
             }
-            File.WriteAllText(outPath, result.ToJsonString(new JsonSerializerOptions { WriteIndented = true }));
+            // what each component attribute means and defaults to, from Noita's own modding documentation
+            var names = new HashSet<string>(StringComparer.Ordinal);
+            CollectComponentNames(result, names);
+            string docPath = Path.Combine(files.GameDir, "tools_modding", "component_documentation.txt");
+            if (File.Exists(docPath))
+            {
+                var docs = new JsonObject();
+                foreach (var kv in ComponentDocs.Split(File.ReadAllText(docPath)).Where(kv => names.Contains(kv.Key)).OrderBy(kv => kv.Key, StringComparer.Ordinal))
+                    docs[kv.Key] = kv.Value;
+                result["_component_docs"] = docs;
+            }
+            else
+                Console.Error.WriteLine("note: " + docPath + " not found; facts written without component documentation");
+            File.WriteAllText(outPath, result.ToJsonString(new JsonSerializerOptions { WriteIndented = true, Encoder = System.Text.Encodings.Web.JavaScriptEncoder.UnsafeRelaxedJsonEscaping }));
             Console.WriteLine($"facts: {ok} read, {missing} without an entity file, {failed} failed -> {outPath}");
             return 0;
         }

@@ -116,6 +116,7 @@ namespace Terranoita.Noita
         readonly WakArchive _wak;
 
         public WakArchive Archive => _wak;
+        public string GameDir => _gameDir;
 
         public NoitaFiles(string gameDir)
         {

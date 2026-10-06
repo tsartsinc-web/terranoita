@@ -110,6 +110,10 @@ namespace Terranoita.Noita
                         f.DamageMultipliers[kv.Key] = m;
 
             f.Sprite = PickSprite(e.ComponentsNamed("SpriteComponent"));
+            // physics bodies (crystals, lukki, chests) look like their body's image, sometimes on a child entity
+            if (f.Sprite == null)
+                f.Sprite = PhysicsImage(e) ?? e.Children.Select(c => PickSprite(c.ComponentsNamed("SpriteComponent")) ?? PhysicsImage(c))
+                                                        .FirstOrDefault(s => s != null);
 
             var hb = e.Component("HitboxComponent");
             if (hb != null && hb.Float("aabb_max_x").HasValue)
@@ -159,6 +163,9 @@ namespace Terranoita.Noita
             (int)Math.Round((n.Float(maxX) ?? 0) - (n.Float(minX) ?? 0)),
             (int)Math.Round((n.Float(maxY) ?? 0) - (n.Float(minY) ?? 0)),
         };
+
+        static string PhysicsImage(NoitaEntity e) =>
+            e.ComponentsNamed("PhysicsImageShapeComponent").Select(c => c.Attr("image_file")).FirstOrDefault(f => !string.IsNullOrEmpty(f));
 
         static string PickSprite(IEnumerable<NxmlNode> sprites)
         {

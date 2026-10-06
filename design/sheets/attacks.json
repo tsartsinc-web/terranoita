@@ -118,16 +118,13 @@
     ]
    },
    "per_frames": "hit",
-   "cooldown_frames": 40,
-   "range_tiles": 1.5,
+   "cooldown_frames": 20,
+   "range_tiles": 1.88,
    "lunge_speed": 0,
-   "sound": null,
+   "sound": "none",
    "wiki_text": "Melee/Melee/5-10",
    "stage": "1b",
-   "_unverified": {
-    "cooldown_frames": "default for kind 'melee'; read AnimalAIComponent attack_*_frames_between check in the player's data.wak (tools: Terranoita.Cli wak-cat)",
-    "range_tiles": "default for kind; read AnimalAIComponent attack_*_range check in the player's data.wak (tools: Terranoita.Cli wak-cat)"
-   }
+   "_unverified": {}
   },
   {
    "id": "giantshooter_weak.explodes_into_acid_on_death",
@@ -169,16 +166,13 @@
     ]
    },
    "per_frames": "hit",
-   "cooldown_frames": 40,
-   "range_tiles": 1.5,
+   "cooldown_frames": 20,
+   "range_tiles": 1.88,
    "lunge_speed": 0,
-   "sound": null,
+   "sound": "none",
    "wiki_text": "Melee/Melee/5-10",
    "stage": "1b",
-   "_unverified": {
-    "cooldown_frames": "default for kind 'melee'; read AnimalAIComponent attack_*_frames_between check in the player's data.wak (tools: Terranoita.Cli wak-cat)",
-    "range_tiles": "default for kind; read AnimalAIComponent attack_*_range check in the player's data.wak (tools: Terranoita.Cli wak-cat)"
-   }
+   "_unverified": {}
   },
   {
    "id": "fly.lunge",
@@ -239,17 +233,13 @@
     "fire": 6.25
    },
    "per_frames": "hit",
-   "cooldown_frames": 90,
-   "range_tiles": 25,
+   "cooldown_frames": 125,
+   "range_tiles": 30.0,
    "lunge_speed": 0,
-   "sound": null,
+   "sound": "animals/firemage/attack_shoot",
    "wiki_text": "Ghostly Fireball/Explosion/50; Ghostly Fireball/Fire/6.25",
    "stage": "1b",
-   "_unverified": {
-    "cooldown_frames": "default for kind 'projectile'; read AnimalAIComponent attack_*_frames_between check in the player's data.wak (tools: Terranoita.Cli wak-cat)",
-    "range_tiles": "default for kind; read AnimalAIComponent attack_*_range check in the player's data.wak (tools: Terranoita.Cli wak-cat)",
-    "count": "wiki shows no count; read attack_ranged_entity_count check in the player's data.wak (tools: Terranoita.Cli wak-cat)"
-   }
+   "_unverified": {}
   },
   {
    "id": "firemage.melee",
@@ -267,16 +257,13 @@
     ]
    },
    "per_frames": "hit",
-   "cooldown_frames": 40,
-   "range_tiles": 1.5,
+   "cooldown_frames": 20,
+   "range_tiles": 1.88,
    "lunge_speed": 0,
-   "sound": null,
+   "sound": "animals/firemage/attack_melee",
    "wiki_text": "Melee/Melee/10-17.5",
    "stage": "1b",
-   "_unverified": {
-    "cooldown_frames": "default for kind 'melee'; read AnimalAIComponent attack_*_frames_between check in the player's data.wak (tools: Terranoita.Cli wak-cat)",
-    "range_tiles": "default for kind; read AnimalAIComponent attack_*_range check in the player's data.wak (tools: Terranoita.Cli wak-cat)"
-   }
+   "_unverified": {}
   },
   {
    "id": "failed_alchemist_b.damage_field",
@@ -434,17 +421,13 @@
     "explosion": 2.5
    },
    "per_frames": "hit",
-   "cooldown_frames": 90,
-   "range_tiles": 25,
+   "cooldown_frames": 155,
+   "range_tiles": 56.25,
    "lunge_speed": 0,
-   "sound": null,
+   "sound": "animals/wizard/voc_attack",
    "wiki_text": "Projectile/Projectile/7.5; Projectile/Explosion/2.5",
    "stage": "1b",
-   "_unverified": {
-    "cooldown_frames": "default for kind 'projectile'; read AnimalAIComponent attack_*_frames_between check in the player's data.wak (tools: Terranoita.Cli wak-cat)",
-    "range_tiles": "default for kind; read AnimalAIComponent attack_*_range check in the player's data.wak (tools: Terranoita.Cli wak-cat)",
-    "count": "wiki shows no count; read attack_ranged_entity_count check in the player's data.wak (tools: Terranoita.Cli wak-cat)"
-   }
+   "_unverified": {}
   },
   {
    "id": "necromancer.chaotic_polymorphine",
@@ -457,17 +440,13 @@
    ],
    "damage": null,
    "per_frames": "hit",
-   "cooldown_frames": 90,
-   "range_tiles": 25,
+   "cooldown_frames": 245,
+   "range_tiles": 30.0,
    "lunge_speed": 0,
-   "sound": null,
+   "sound": "none",
    "wiki_text": "[[Chaotic Polymorphine]] projectile",
    "stage": "1b",
-   "_unverified": {
-    "cooldown_frames": "default for kind 'projectile'; read AnimalAIComponent attack_*_frames_between check in the player's data.wak (tools: Terranoita.Cli wak-cat)",
-    "range_tiles": "default for kind; read AnimalAIComponent attack_*_range check in the player's data.wak (tools: Terranoita.Cli wak-cat)",
-    "count": "wiki shows no count; read attack_ranged_entity_count check in the player's data.wak (tools: Terranoita.Cli wak-cat)"
-   }
+   "_unverified": {}
   },
   {
    "id": "necromancer.melee",
@@ -485,16 +464,13 @@
     ]
    },
    "per_frames": "hit",
-   "cooldown_frames": 40,
-   "range_tiles": 1.5,
+   "cooldown_frames": 20,
+   "range_tiles": 2.81,
    "lunge_speed": 0,
-   "sound": null,
+   "sound": "animals/generic/attack_melee",
    "wiki_text": "Melee/Melee/20-35",
    "stage": "1b",
-   "_unverified": {
-    "cooldown_frames": "default for kind 'melee'; read AnimalAIComponent attack_*_frames_between check in the player's data.wak (tools: Terranoita.Cli wak-cat)",
-    "range_tiles": "default for kind; read AnimalAIComponent attack_*_range check in the player's data.wak (tools: Terranoita.Cli wak-cat)"
-   }
+   "_unverified": {}
   },
   {
    "id": "scavenger_invis.turns_other_enemies_link_status_effects_invisible_invisible",
@@ -648,17 +624,13 @@
     "projectile": 6.0
    },
    "per_frames": "hit",
-   "cooldown_frames": 90,
-   "range_tiles": 25,
+   "cooldown_frames": 110,
+   "range_tiles": 30.0,
    "lunge_speed": 0,
-   "sound": null,
+   "sound": "animals/acidshooter/voc_shoot",
    "wiki_text": "[[Acid Ball]] projectile/Projectile/6",
    "stage": "1b",
-   "_unverified": {
-    "cooldown_frames": "default for kind 'projectile'; read AnimalAIComponent attack_*_frames_between check in the player's data.wak (tools: Terranoita.Cli wak-cat)",
-    "range_tiles": "default for kind; read AnimalAIComponent attack_*_range check in the player's data.wak (tools: Terranoita.Cli wak-cat)",
-    "count": "wiki shows no count; read attack_ranged_entity_count check in the player's data.wak (tools: Terranoita.Cli wak-cat)"
-   }
+   "_unverified": {}
   },
   {
    "id": "acidshooter.melee",
@@ -676,16 +648,13 @@
     ]
    },
    "per_frames": "hit",
-   "cooldown_frames": 40,
-   "range_tiles": 1.5,
+   "cooldown_frames": 20,
+   "range_tiles": 1.88,
    "lunge_speed": 0,
-   "sound": null,
+   "sound": "animals/generic/attack_melee",
    "wiki_text": "Melee/Melee/5-10",
    "stage": "1b",
-   "_unverified": {
-    "cooldown_frames": "default for kind 'melee'; read AnimalAIComponent attack_*_frames_between check in the player's data.wak (tools: Terranoita.Cli wak-cat)",
-    "range_tiles": "default for kind; read AnimalAIComponent attack_*_range check in the player's data.wak (tools: Terranoita.Cli wak-cat)"
-   }
+   "_unverified": {}
   },
   {
    "id": "acidshooter_weak.acid_ball",
@@ -745,16 +714,13 @@
     "projectile": 6.75
    },
    "per_frames": "hit",
-   "cooldown_frames": 90,
-   "range_tiles": 25,
+   "cooldown_frames": 145,
+   "range_tiles": 33.75,
    "lunge_speed": 0,
-   "sound": null,
+   "sound": "animals/shotgunner/_throw",
    "wiki_text": "Projectile x 3-4/Projectile/6.75",
    "stage": "1b",
-   "_unverified": {
-    "cooldown_frames": "default for kind 'projectile'; read AnimalAIComponent attack_*_frames_between check in the player's data.wak (tools: Terranoita.Cli wak-cat)",
-    "range_tiles": "default for kind; read AnimalAIComponent attack_*_range check in the player's data.wak (tools: Terranoita.Cli wak-cat)"
-   }
+   "_unverified": {}
   },
   {
    "id": "shotgunner.melee",
@@ -772,16 +738,13 @@
     ]
    },
    "per_frames": "hit",
-   "cooldown_frames": 40,
-   "range_tiles": 1.5,
+   "cooldown_frames": 20,
+   "range_tiles": 2.25,
    "lunge_speed": 0,
-   "sound": null,
+   "sound": "animals/shotgunner/_voc_attack",
    "wiki_text": "Melee/Melee/10-17.5",
    "stage": "1b",
-   "_unverified": {
-    "cooldown_frames": "default for kind 'melee'; read AnimalAIComponent attack_*_frames_between check in the player's data.wak (tools: Terranoita.Cli wak-cat)",
-    "range_tiles": "default for kind; read AnimalAIComponent attack_*_range check in the player's data.wak (tools: Terranoita.Cli wak-cat)"
-   }
+   "_unverified": {}
   },
   {
    "id": "shotgunner_weak.projectile",
@@ -841,16 +804,13 @@
     "projectile": 6.75
    },
    "per_frames": "hit",
-   "cooldown_frames": 90,
-   "range_tiles": 25,
+   "cooldown_frames": 115,
+   "range_tiles": 33.75,
    "lunge_speed": 0,
-   "sound": null,
+   "sound": "animals/shotgunner/_throw",
    "wiki_text": "Projectile x 12-16/Projectile/6.75",
    "stage": "1b",
-   "_unverified": {
-    "cooldown_frames": "default for kind 'projectile'; read AnimalAIComponent attack_*_frames_between check in the player's data.wak (tools: Terranoita.Cli wak-cat)",
-    "range_tiles": "default for kind; read AnimalAIComponent attack_*_range check in the player's data.wak (tools: Terranoita.Cli wak-cat)"
-   }
+   "_unverified": {}
   },
   {
    "id": "shotgunner_hell.melee",
@@ -868,16 +828,13 @@
     ]
    },
    "per_frames": "hit",
-   "cooldown_frames": 40,
-   "range_tiles": 1.5,
+   "cooldown_frames": 20,
+   "range_tiles": 2.25,
    "lunge_speed": 0,
-   "sound": null,
+   "sound": "animals/shotgunner/_voc_attack",
    "wiki_text": "Melee/Melee/35-42.5",
    "stage": "1b",
-   "_unverified": {
-    "cooldown_frames": "default for kind 'melee'; read AnimalAIComponent attack_*_frames_between check in the player's data.wak (tools: Terranoita.Cli wak-cat)",
-    "range_tiles": "default for kind; read AnimalAIComponent attack_*_range check in the player's data.wak (tools: Terranoita.Cli wak-cat)"
-   }
+   "_unverified": {}
   },
   {
    "id": "missilecrab.missiles",
@@ -892,16 +849,13 @@
     "explosion": 20.0
    },
    "per_frames": "hit",
-   "cooldown_frames": 90,
-   "range_tiles": 25,
+   "cooldown_frames": 165,
+   "range_tiles": 30.0,
    "lunge_speed": 0,
-   "sound": null,
+   "sound": "none",
    "wiki_text": "Missiles x 3-4/Explosion/20",
    "stage": "1b",
-   "_unverified": {
-    "cooldown_frames": "default for kind 'projectile'; read AnimalAIComponent attack_*_frames_between check in the player's data.wak (tools: Terranoita.Cli wak-cat)",
-    "range_tiles": "default for kind; read AnimalAIComponent attack_*_range check in the player's data.wak (tools: Terranoita.Cli wak-cat)"
-   }
+   "_unverified": {}
   },
   {
    "id": "missilecrab.melee",
@@ -919,16 +873,13 @@
     ]
    },
    "per_frames": "hit",
-   "cooldown_frames": 40,
-   "range_tiles": 1.5,
+   "cooldown_frames": 20,
+   "range_tiles": 1.88,
    "lunge_speed": 0,
-   "sound": null,
+   "sound": "none",
    "wiki_text": "Melee/Melee/10-17.5",
    "stage": "1b",
-   "_unverified": {
-    "cooldown_frames": "default for kind 'melee'; read AnimalAIComponent attack_*_frames_between check in the player's data.wak (tools: Terranoita.Cli wak-cat)",
-    "range_tiles": "default for kind; read AnimalAIComponent attack_*_range check in the player's data.wak (tools: Terranoita.Cli wak-cat)"
-   }
+   "_unverified": {}
   },
   {
    "id": "spitmonster.projectile",
@@ -943,17 +894,13 @@
     "projectile": 12.5
    },
    "per_frames": "hit",
-   "cooldown_frames": 90,
-   "range_tiles": 25,
+   "cooldown_frames": 55,
+   "range_tiles": 46.88,
    "lunge_speed": 0,
-   "sound": null,
+   "sound": "animals/spitmonster/attack_shoot",
    "wiki_text": "Projectile/Projectile/12.5",
    "stage": "1b",
-   "_unverified": {
-    "cooldown_frames": "default for kind 'projectile'; read AnimalAIComponent attack_*_frames_between check in the player's data.wak (tools: Terranoita.Cli wak-cat)",
-    "range_tiles": "default for kind; read AnimalAIComponent attack_*_range check in the player's data.wak (tools: Terranoita.Cli wak-cat)",
-    "count": "wiki shows no count; read attack_ranged_entity_count check in the player's data.wak (tools: Terranoita.Cli wak-cat)"
-   }
+   "_unverified": {}
   },
   {
    "id": "gazer.lava",
@@ -968,17 +915,13 @@
     "projectile": 37.5
    },
    "per_frames": "hit",
-   "cooldown_frames": 90,
-   "range_tiles": 25,
+   "cooldown_frames": 95,
+   "range_tiles": 30.0,
    "lunge_speed": 0,
-   "sound": null,
+   "sound": "animals/gazer/attack_shoot",
    "wiki_text": "[[Lava]] projectile/Projectile/37.5",
    "stage": "1b",
-   "_unverified": {
-    "cooldown_frames": "default for kind 'projectile'; read AnimalAIComponent attack_*_frames_between check in the player's data.wak (tools: Terranoita.Cli wak-cat)",
-    "range_tiles": "default for kind; read AnimalAIComponent attack_*_range check in the player's data.wak (tools: Terranoita.Cli wak-cat)",
-    "count": "wiki shows no count; read attack_ranged_entity_count check in the player's data.wak (tools: Terranoita.Cli wak-cat)"
-   }
+   "_unverified": {}
   },
   {
    "id": "worm_end.worm_bite",
@@ -1042,16 +985,13 @@
     ]
    },
    "per_frames": "hit",
-   "cooldown_frames": 40,
-   "range_tiles": 1.5,
+   "cooldown_frames": 20,
+   "range_tiles": 1.88,
    "lunge_speed": 0,
-   "sound": null,
+   "sound": "animals/generic/attack_melee",
    "wiki_text": "Melee/Melee/10-17.5",
    "stage": "1b",
-   "_unverified": {
-    "cooldown_frames": "default for kind 'melee'; read AnimalAIComponent attack_*_frames_between check in the player's data.wak (tools: Terranoita.Cli wak-cat)",
-    "range_tiles": "default for kind; read AnimalAIComponent attack_*_range check in the player's data.wak (tools: Terranoita.Cli wak-cat)"
-   }
+   "_unverified": {}
   },
   {
    "id": "wraith_glowing.pinpoint_of_light",
@@ -1119,16 +1059,13 @@
     ]
    },
    "per_frames": "hit",
-   "cooldown_frames": 40,
-   "range_tiles": 1.5,
+   "cooldown_frames": 20,
+   "range_tiles": 1.88,
    "lunge_speed": 0,
-   "sound": null,
+   "sound": "animals/generic/attack_melee",
    "wiki_text": "Melee/Melee/5-10",
    "stage": "1b",
-   "_unverified": {
-    "cooldown_frames": "default for kind 'melee'; read AnimalAIComponent attack_*_frames_between check in the player's data.wak (tools: Terranoita.Cli wak-cat)",
-    "range_tiles": "default for kind; read AnimalAIComponent attack_*_range check in the player's data.wak (tools: Terranoita.Cli wak-cat)"
-   }
+   "_unverified": {}
   },
   {
    "id": "ghost_crystal.freezing",
@@ -1194,17 +1131,13 @@
     "projectile": 12.5
    },
    "per_frames": "hit",
-   "cooldown_frames": 90,
-   "range_tiles": 25,
+   "cooldown_frames": 165,
+   "range_tiles": 30.0,
    "lunge_speed": 0,
-   "sound": null,
+   "sound": "none",
    "wiki_text": "[[Pollen]] projectile/Explosion/12.5; [[Pollen]] projectile/Projectile/12.5",
    "stage": "1b",
-   "_unverified": {
-    "cooldown_frames": "default for kind 'projectile'; read AnimalAIComponent attack_*_frames_between check in the player's data.wak (tools: Terranoita.Cli wak-cat)",
-    "range_tiles": "default for kind; read AnimalAIComponent attack_*_range check in the player's data.wak (tools: Terranoita.Cli wak-cat)",
-    "count": "wiki shows no count; read attack_ranged_entity_count check in the player's data.wak (tools: Terranoita.Cli wak-cat)"
-   }
+   "_unverified": {}
   },
   {
    "id": "fungus_giga.pollen_bundle",
@@ -1244,16 +1177,13 @@
     "melee": 35.0
    },
    "per_frames": "hit",
-   "cooldown_frames": 90,
-   "range_tiles": 6,
-   "lunge_speed": null,
-   "sound": null,
+   "cooldown_frames": 120,
+   "range_tiles": 9.38,
+   "lunge_speed": 10.0,
+   "sound": "animals/generic/attack_dash",
    "wiki_text": "Lunge/Dash/35",
    "stage": "1b",
-   "_unverified": {
-    "cooldown_frames": "default for kind 'lunge'; read AnimalAIComponent attack_*_frames_between check in the player's data.wak (tools: Terranoita.Cli wak-cat)",
-    "range_tiles": "default for kind; read AnimalAIComponent attack_*_range check in the player's data.wak (tools: Terranoita.Cli wak-cat)"
-   }
+   "_unverified": {}
   },
   {
    "id": "fungus_giga.explodes_on_death",
@@ -1337,16 +1267,13 @@
     "melee": 6.25
    },
    "per_frames": "hit",
-   "cooldown_frames": 90,
-   "range_tiles": 6,
-   "lunge_speed": null,
-   "sound": null,
+   "cooldown_frames": 120,
+   "range_tiles": 9.38,
+   "lunge_speed": 10.0,
+   "sound": "animals/zombie/attack_dash",
    "wiki_text": "Lunge/dash/6.25",
    "stage": "1b",
-   "_unverified": {
-    "cooldown_frames": "default for kind 'lunge'; read AnimalAIComponent attack_*_frames_between check in the player's data.wak (tools: Terranoita.Cli wak-cat)",
-    "range_tiles": "default for kind; read AnimalAIComponent attack_*_range check in the player's data.wak (tools: Terranoita.Cli wak-cat)"
-   }
+   "_unverified": {}
   },
   {
    "id": "zombie.melee",
@@ -1364,16 +1291,13 @@
     ]
    },
    "per_frames": "hit",
-   "cooldown_frames": 40,
-   "range_tiles": 1.5,
+   "cooldown_frames": 20,
+   "range_tiles": 1.88,
    "lunge_speed": 0,
-   "sound": null,
+   "sound": "animals/zombie/attack_melee",
    "wiki_text": "Melee/Melee/5-10",
    "stage": "1b",
-   "_unverified": {
-    "cooldown_frames": "default for kind 'melee'; read AnimalAIComponent attack_*_frames_between check in the player's data.wak (tools: Terranoita.Cli wak-cat)",
-    "range_tiles": "default for kind; read AnimalAIComponent attack_*_range check in the player's data.wak (tools: Terranoita.Cli wak-cat)"
-   }
+   "_unverified": {}
   },
   {
    "id": "scavenger_clusterbomb.timed_mines",
@@ -1413,17 +1337,13 @@
     "projectile": 32.5
    },
    "per_frames": "hit",
-   "cooldown_frames": 90,
-   "range_tiles": 25,
+   "cooldown_frames": 95,
+   "range_tiles": 58.12,
    "lunge_speed": 0,
-   "sound": null,
+   "sound": "none",
    "wiki_text": "Projectile/Projectile/32.5",
    "stage": "1b",
-   "_unverified": {
-    "cooldown_frames": "default for kind 'projectile'; read AnimalAIComponent attack_*_frames_between check in the player's data.wak (tools: Terranoita.Cli wak-cat)",
-    "range_tiles": "default for kind; read AnimalAIComponent attack_*_range check in the player's data.wak (tools: Terranoita.Cli wak-cat)",
-    "count": "wiki shows no count; read attack_ranged_entity_count check in the player's data.wak (tools: Terranoita.Cli wak-cat)"
-   }
+   "_unverified": {}
   },
   {
    "id": "scavenger_clusterbomb.melee",
@@ -1441,16 +1361,13 @@
     ]
    },
    "per_frames": "hit",
-   "cooldown_frames": 40,
-   "range_tiles": 1.5,
+   "cooldown_frames": 20,
+   "range_tiles": 1.88,
    "lunge_speed": 0,
-   "sound": null,
+   "sound": "animals/generic/attack_melee",
    "wiki_text": "Melee/Melee/10-17.5",
    "stage": "1b",
-   "_unverified": {
-    "cooldown_frames": "default for kind 'melee'; read AnimalAIComponent attack_*_frames_between check in the player's data.wak (tools: Terranoita.Cli wak-cat)",
-    "range_tiles": "default for kind; read AnimalAIComponent attack_*_range check in the player's data.wak (tools: Terranoita.Cli wak-cat)"
-   }
+   "_unverified": {}
   },
   {
    "id": "tank_rocket.homing_rocket",
@@ -1466,17 +1383,13 @@
     "explosion": 12.5
    },
    "per_frames": "hit",
-   "cooldown_frames": 90,
-   "range_tiles": 25,
+   "cooldown_frames": 95,
+   "range_tiles": 56.25,
    "lunge_speed": 0,
-   "sound": null,
+   "sound": "none",
    "wiki_text": "Homing rocket/Projectile/25; Homing rocket/Explosion/12.5",
    "stage": "1b",
-   "_unverified": {
-    "cooldown_frames": "default for kind 'projectile'; read AnimalAIComponent attack_*_frames_between check in the player's data.wak (tools: Terranoita.Cli wak-cat)",
-    "range_tiles": "default for kind; read AnimalAIComponent attack_*_range check in the player's data.wak (tools: Terranoita.Cli wak-cat)",
-    "count": "wiki shows no count; read attack_ranged_entity_count check in the player's data.wak (tools: Terranoita.Cli wak-cat)"
-   }
+   "_unverified": {}
   },
   {
    "id": "tank_rocket.explodes_on_death",
@@ -1515,17 +1428,13 @@
     "explosion": 25.0
    },
    "per_frames": "hit",
-   "cooldown_frames": 90,
-   "range_tiles": 25,
+   "cooldown_frames": 51,
+   "range_tiles": 26.25,
    "lunge_speed": 0,
-   "sound": null,
+   "sound": "none",
    "wiki_text": "Icethrower/Explosion/25",
    "stage": "1b",
-   "_unverified": {
-    "cooldown_frames": "default for kind 'projectile'; read AnimalAIComponent attack_*_frames_between check in the player's data.wak (tools: Terranoita.Cli wak-cat)",
-    "range_tiles": "default for kind; read AnimalAIComponent attack_*_range check in the player's data.wak (tools: Terranoita.Cli wak-cat)",
-    "count": "wiki shows no count; read attack_ranged_entity_count check in the player's data.wak (tools: Terranoita.Cli wak-cat)"
-   }
+   "_unverified": {}
   },
   {
    "id": "iceskull.iceball",
@@ -1541,17 +1450,13 @@
     "ice": 7.5
    },
    "per_frames": "hit",
-   "cooldown_frames": 90,
-   "range_tiles": 25,
+   "cooldown_frames": 85,
+   "range_tiles": 15.0,
    "lunge_speed": 0,
-   "sound": null,
+   "sound": "animals/iceskull/attack_shoot",
    "wiki_text": "[[Iceball]]/Explosion/25; [[Iceball]]/Ice/7.5",
    "stage": "1b",
-   "_unverified": {
-    "cooldown_frames": "default for kind 'projectile'; read AnimalAIComponent attack_*_frames_between check in the player's data.wak (tools: Terranoita.Cli wak-cat)",
-    "range_tiles": "default for kind; read AnimalAIComponent attack_*_range check in the player's data.wak (tools: Terranoita.Cli wak-cat)",
-    "count": "wiki shows no count; read attack_ranged_entity_count check in the player's data.wak (tools: Terranoita.Cli wak-cat)"
-   }
+   "_unverified": {}
   },
   {
    "id": "iceskull.lunge",
@@ -1566,16 +1471,13 @@
     "melee": 6.25
    },
    "per_frames": "hit",
-   "cooldown_frames": 90,
-   "range_tiles": 6,
-   "lunge_speed": null,
-   "sound": null,
+   "cooldown_frames": 120,
+   "range_tiles": 9.38,
+   "lunge_speed": 10.0,
+   "sound": "animals/generic/attack_dash",
    "wiki_text": "Lunge/Dash/6.25",
    "stage": "1b",
-   "_unverified": {
-    "cooldown_frames": "default for kind 'lunge'; read AnimalAIComponent attack_*_frames_between check in the player's data.wak (tools: Terranoita.Cli wak-cat)",
-    "range_tiles": "default for kind; read AnimalAIComponent attack_*_range check in the player's data.wak (tools: Terranoita.Cli wak-cat)"
-   }
+   "_unverified": {}
   },
   {
    "id": "iceskull.melee",
@@ -1593,16 +1495,13 @@
     ]
    },
    "per_frames": "hit",
-   "cooldown_frames": 40,
-   "range_tiles": 1.5,
+   "cooldown_frames": 20,
+   "range_tiles": 1.88,
    "lunge_speed": 0,
-   "sound": null,
+   "sound": "animals/generic/attack_melee",
    "wiki_text": "Melee/Melee/5-10",
    "stage": "1b",
-   "_unverified": {
-    "cooldown_frames": "default for kind 'melee'; read AnimalAIComponent attack_*_frames_between check in the player's data.wak (tools: Terranoita.Cli wak-cat)",
-    "range_tiles": "default for kind; read AnimalAIComponent attack_*_range check in the player's data.wak (tools: Terranoita.Cli wak-cat)"
-   }
+   "_unverified": {}
   },
   {
    "id": "frog_big.tentacle",
@@ -1617,16 +1516,13 @@
     "melee": 10.0
    },
    "per_frames": "hit",
-   "cooldown_frames": 40,
-   "range_tiles": 1.5,
+   "cooldown_frames": 20,
+   "range_tiles": 1.88,
    "lunge_speed": 0,
-   "sound": null,
+   "sound": "animals/generic/attack_melee",
    "wiki_text": "Tentacle/Melee/10",
    "stage": "1b",
-   "_unverified": {
-    "cooldown_frames": "default for kind 'melee'; read AnimalAIComponent attack_*_frames_between check in the player's data.wak (tools: Terranoita.Cli wak-cat)",
-    "range_tiles": "default for kind; read AnimalAIComponent attack_*_range check in the player's data.wak (tools: Terranoita.Cli wak-cat)"
-   }
+   "_unverified": {}
   },
   {
    "id": "frog_big.lunge",
@@ -1641,16 +1537,13 @@
     "melee": 10.0
    },
    "per_frames": "hit",
-   "cooldown_frames": 90,
-   "range_tiles": 6,
-   "lunge_speed": null,
-   "sound": null,
+   "cooldown_frames": 120,
+   "range_tiles": 9.38,
+   "lunge_speed": 10.0,
+   "sound": "animals/frog_big/attack_dash",
    "wiki_text": "Lunge/Dash/10",
    "stage": "1b",
-   "_unverified": {
-    "cooldown_frames": "default for kind 'lunge'; read AnimalAIComponent attack_*_frames_between check in the player's data.wak (tools: Terranoita.Cli wak-cat)",
-    "range_tiles": "default for kind; read AnimalAIComponent attack_*_range check in the player's data.wak (tools: Terranoita.Cli wak-cat)"
-   }
+   "_unverified": {}
   },
   {
    "id": "drone_lasership.intense_concentrated_light_variant",
@@ -1658,24 +1551,21 @@
    "kind": "projectile",
    "projectile": "intense_concentrated_light_variant",
    "count": [
-    7,
-    7
+    1,
+    1
    ],
    "damage": {
     "projectile": 2.5,
     "explosion": 1.25
    },
    "per_frames": "hit",
-   "cooldown_frames": 90,
-   "range_tiles": 25,
+   "cooldown_frames": 140,
+   "range_tiles": 28.12,
    "lunge_speed": 0,
-   "sound": null,
+   "sound": "none",
    "wiki_text": "[[Intense Concentrated Light]] variant x 7/Projectile/2.5; [[Intense Concentrated Light]] variant x 7/Explosion/1.25",
    "stage": "1b",
-   "_unverified": {
-    "cooldown_frames": "default for kind 'projectile'; read AnimalAIComponent attack_*_frames_between check in the player's data.wak (tools: Terranoita.Cli wak-cat)",
-    "range_tiles": "default for kind; read AnimalAIComponent attack_*_range check in the player's data.wak (tools: Terranoita.Cli wak-cat)"
-   }
+   "_unverified": {}
   },
   {
    "id": "worm_big.worm_bite",
@@ -1714,17 +1604,13 @@
     "explosion": 50.0
    },
    "per_frames": "hit",
-   "cooldown_frames": 90,
-   "range_tiles": 25,
+   "cooldown_frames": 445,
+   "range_tiles": 30.0,
    "lunge_speed": 0,
-   "sound": null,
+   "sound": "none",
    "wiki_text": "Present grenade/Explosion/50",
    "stage": "1b",
-   "_unverified": {
-    "cooldown_frames": "default for kind 'projectile'; read AnimalAIComponent attack_*_frames_between check in the player's data.wak (tools: Terranoita.Cli wak-cat)",
-    "range_tiles": "default for kind; read AnimalAIComponent attack_*_range check in the player's data.wak (tools: Terranoita.Cli wak-cat)",
-    "count": "wiki shows no count; read attack_ranged_entity_count check in the player's data.wak (tools: Terranoita.Cli wak-cat)"
-   }
+   "_unverified": {}
   },
   {
    "id": "miner_santa.melee",
@@ -1742,16 +1628,13 @@
     ]
    },
    "per_frames": "hit",
-   "cooldown_frames": 40,
-   "range_tiles": 1.5,
+   "cooldown_frames": 20,
+   "range_tiles": 1.88,
    "lunge_speed": 0,
-   "sound": null,
+   "sound": "animals/generic/attack_melee",
    "wiki_text": "Melee/Melee/10-17.5",
    "stage": "1b",
-   "_unverified": {
-    "cooldown_frames": "default for kind 'melee'; read AnimalAIComponent attack_*_frames_between check in the player's data.wak (tools: Terranoita.Cli wak-cat)",
-    "range_tiles": "default for kind; read AnimalAIComponent attack_*_range check in the player's data.wak (tools: Terranoita.Cli wak-cat)"
-   }
+   "_unverified": {}
   },
   {
    "id": "failed_alchemist.melee",
@@ -1769,16 +1652,13 @@
     ]
    },
    "per_frames": "hit",
-   "cooldown_frames": 40,
-   "range_tiles": 1.5,
+   "cooldown_frames": 20,
+   "range_tiles": 3.75,
    "lunge_speed": 0,
-   "sound": null,
+   "sound": "animals/failed_alchemist/attack_melee",
    "wiki_text": "Melee/Melee/50-90",
    "stage": "1b",
-   "_unverified": {
-    "cooldown_frames": "default for kind 'melee'; read AnimalAIComponent attack_*_frames_between check in the player's data.wak (tools: Terranoita.Cli wak-cat)",
-    "range_tiles": "default for kind; read AnimalAIComponent attack_*_range check in the player's data.wak (tools: Terranoita.Cli wak-cat)"
-   }
+   "_unverified": {}
   },
   {
    "id": "skullfly.path_of_dark_flame",
@@ -1793,17 +1673,13 @@
     "projectile": 20.0
    },
    "per_frames": "hit",
-   "cooldown_frames": 90,
-   "range_tiles": 25,
+   "cooldown_frames": 145,
+   "range_tiles": 37.5,
    "lunge_speed": 0,
-   "sound": null,
+   "sound": "none",
    "wiki_text": "[[Path of Dark Flame]]/Projectile/20",
    "stage": "1b",
-   "_unverified": {
-    "cooldown_frames": "default for kind 'projectile'; read AnimalAIComponent attack_*_frames_between check in the player's data.wak (tools: Terranoita.Cli wak-cat)",
-    "range_tiles": "default for kind; read AnimalAIComponent attack_*_range check in the player's data.wak (tools: Terranoita.Cli wak-cat)",
-    "count": "wiki shows no count; read attack_ranged_entity_count check in the player's data.wak (tools: Terranoita.Cli wak-cat)"
-   }
+   "_unverified": {}
   },
   {
    "id": "skullfly.melee",
@@ -1821,16 +1697,13 @@
     ]
    },
    "per_frames": "hit",
-   "cooldown_frames": 40,
-   "range_tiles": 1.5,
+   "cooldown_frames": 20,
+   "range_tiles": 1.88,
    "lunge_speed": 0,
-   "sound": null,
+   "sound": "animals/skullfly/attack_melee",
    "wiki_text": "Melee/Melee/5-10",
    "stage": "1b",
-   "_unverified": {
-    "cooldown_frames": "default for kind 'melee'; read AnimalAIComponent attack_*_frames_between check in the player's data.wak (tools: Terranoita.Cli wak-cat)",
-    "range_tiles": "default for kind; read AnimalAIComponent attack_*_range check in the player's data.wak (tools: Terranoita.Cli wak-cat)"
-   }
+   "_unverified": {}
   },
   {
    "id": "skullrat.lunge",
@@ -1845,16 +1718,13 @@
     "melee": 6.25
    },
    "per_frames": "hit",
-   "cooldown_frames": 90,
-   "range_tiles": 6,
-   "lunge_speed": null,
-   "sound": null,
+   "cooldown_frames": 120,
+   "range_tiles": 9.38,
+   "lunge_speed": 10.0,
+   "sound": "animals/skullrat/attack_dash",
    "wiki_text": "Lunge/Dash/6.25",
    "stage": "1b",
-   "_unverified": {
-    "cooldown_frames": "default for kind 'lunge'; read AnimalAIComponent attack_*_frames_between check in the player's data.wak (tools: Terranoita.Cli wak-cat)",
-    "range_tiles": "default for kind; read AnimalAIComponent attack_*_range check in the player's data.wak (tools: Terranoita.Cli wak-cat)"
-   }
+   "_unverified": {}
   },
   {
    "id": "skullrat.melee",
@@ -1872,16 +1742,13 @@
     ]
    },
    "per_frames": "hit",
-   "cooldown_frames": 40,
-   "range_tiles": 1.5,
+   "cooldown_frames": 20,
+   "range_tiles": 1.88,
    "lunge_speed": 0,
-   "sound": null,
+   "sound": "animals/skullrat/attack_melee",
    "wiki_text": "Melee/Melee/15-20",
    "stage": "1b",
-   "_unverified": {
-    "cooldown_frames": "default for kind 'melee'; read AnimalAIComponent attack_*_frames_between check in the player's data.wak (tools: Terranoita.Cli wak-cat)",
-    "range_tiles": "default for kind; read AnimalAIComponent attack_*_range check in the player's data.wak (tools: Terranoita.Cli wak-cat)"
-   }
+   "_unverified": {}
   },
   {
    "id": "worm_skull.worm_bite",
@@ -1995,17 +1862,13 @@
     "projectile": 0.0
    },
    "per_frames": "hit",
-   "cooldown_frames": 90,
-   "range_tiles": 25,
+   "cooldown_frames": 65,
+   "range_tiles": 41.25,
    "lunge_speed": 0,
-   "sound": null,
+   "sound": "none",
    "wiki_text": "[[Evergreen Seed]] projectile/Projectile/0",
    "stage": "1b",
-   "_unverified": {
-    "cooldown_frames": "default for kind 'projectile'; read AnimalAIComponent attack_*_frames_between check in the player's data.wak (tools: Terranoita.Cli wak-cat)",
-    "range_tiles": "default for kind; read AnimalAIComponent attack_*_range check in the player's data.wak (tools: Terranoita.Cli wak-cat)",
-    "count": "wiki shows no count; read attack_ranged_entity_count check in the player's data.wak (tools: Terranoita.Cli wak-cat)"
-   }
+   "_unverified": {}
   },
   {
    "id": "ultimate_killer.melee",
@@ -2023,16 +1886,13 @@
     ]
    },
    "per_frames": "hit",
-   "cooldown_frames": 40,
-   "range_tiles": 1.5,
+   "cooldown_frames": 20,
+   "range_tiles": 1.88,
    "lunge_speed": 0,
-   "sound": null,
+   "sound": "animals/generic/attack_melee",
    "wiki_text": "Melee/Melee/2.5-5",
    "stage": "1b",
-   "_unverified": {
-    "cooldown_frames": "default for kind 'melee'; read AnimalAIComponent attack_*_frames_between check in the player's data.wak (tools: Terranoita.Cli wak-cat)",
-    "range_tiles": "default for kind; read AnimalAIComponent attack_*_range check in the player's data.wak (tools: Terranoita.Cli wak-cat)"
-   }
+   "_unverified": {}
   },
   {
    "id": "scavenger_shield.shield_buff",
@@ -2069,17 +1929,13 @@
     "projectile": 20.0
    },
    "per_frames": "hit",
-   "cooldown_frames": 90,
-   "range_tiles": 25,
+   "cooldown_frames": 55,
+   "range_tiles": 9.38,
    "lunge_speed": 0,
-   "sound": null,
+   "sound": "none",
    "wiki_text": "Projectile/Projectile/20",
    "stage": "1b",
-   "_unverified": {
-    "cooldown_frames": "default for kind 'projectile'; read AnimalAIComponent attack_*_frames_between check in the player's data.wak (tools: Terranoita.Cli wak-cat)",
-    "range_tiles": "default for kind; read AnimalAIComponent attack_*_range check in the player's data.wak (tools: Terranoita.Cli wak-cat)",
-    "count": "wiki shows no count; read attack_ranged_entity_count check in the player's data.wak (tools: Terranoita.Cli wak-cat)"
-   }
+   "_unverified": {}
   },
   {
    "id": "phantom_b.energy_orb",
@@ -2094,17 +1950,13 @@
     "projectile": 20.0
    },
    "per_frames": "hit",
-   "cooldown_frames": 90,
-   "range_tiles": 25,
+   "cooldown_frames": 295,
+   "range_tiles": 30.0,
    "lunge_speed": 0,
-   "sound": null,
+   "sound": "none",
    "wiki_text": "[[Energy Orb]](first projectile)/Projectile/2.5; [[Energy Orb]]/Projectile/20",
    "stage": "1b",
-   "_unverified": {
-    "cooldown_frames": "default for kind 'projectile'; read AnimalAIComponent attack_*_frames_between check in the player's data.wak (tools: Terranoita.Cli wak-cat)",
-    "range_tiles": "default for kind; read AnimalAIComponent attack_*_range check in the player's data.wak (tools: Terranoita.Cli wak-cat)",
-    "count": "wiki shows no count; read attack_ranged_entity_count check in the player's data.wak (tools: Terranoita.Cli wak-cat)"
-   }
+   "_unverified": {}
   },
   {
    "id": "blob.lunge",
@@ -2116,19 +1968,16 @@
     1
    ],
    "damage": {
-    "melee": 7.5
+    "melee": 6.25
    },
    "per_frames": "hit",
-   "cooldown_frames": 90,
-   "range_tiles": 6,
-   "lunge_speed": null,
-   "sound": null,
+   "cooldown_frames": 120,
+   "range_tiles": 15.0,
+   "lunge_speed": 10.0,
+   "sound": "animals/generic/attack_dash",
    "wiki_text": "Lunge/Dash/7.5",
    "stage": "1b",
-   "_unverified": {
-    "cooldown_frames": "default for kind 'lunge'; read AnimalAIComponent attack_*_frames_between check in the player's data.wak (tools: Terranoita.Cli wak-cat)",
-    "range_tiles": "default for kind; read AnimalAIComponent attack_*_range check in the player's data.wak (tools: Terranoita.Cli wak-cat)"
-   }
+   "_unverified": {}
   },
   {
    "id": "blob.melee",
@@ -2146,16 +1995,13 @@
     ]
    },
    "per_frames": "hit",
-   "cooldown_frames": 40,
-   "range_tiles": 1.5,
+   "cooldown_frames": 20,
+   "range_tiles": 1.88,
    "lunge_speed": 0,
-   "sound": null,
+   "sound": "animals/generic/attack_melee",
    "wiki_text": "Melee/Melee/7.5-12.5",
    "stage": "1b",
-   "_unverified": {
-    "cooldown_frames": "default for kind 'melee'; read AnimalAIComponent attack_*_frames_between check in the player's data.wak (tools: Terranoita.Cli wak-cat)",
-    "range_tiles": "default for kind; read AnimalAIComponent attack_*_range check in the player's data.wak (tools: Terranoita.Cli wak-cat)"
-   }
+   "_unverified": {}
   },
   {
    "id": "tank.machine_gun",
@@ -2196,17 +2042,13 @@
     "projectile": 32.5
    },
    "per_frames": "hit",
-   "cooldown_frames": 90,
-   "range_tiles": 25,
+   "cooldown_frames": 85,
+   "range_tiles": 7.5,
    "lunge_speed": 0,
-   "sound": null,
+   "sound": "none",
    "wiki_text": "Grenade when close-range/Projectile/32.5",
    "stage": "1b",
-   "_unverified": {
-    "cooldown_frames": "default for kind 'projectile'; read AnimalAIComponent attack_*_frames_between check in the player's data.wak (tools: Terranoita.Cli wak-cat)",
-    "range_tiles": "default for kind; read AnimalAIComponent attack_*_range check in the player's data.wak (tools: Terranoita.Cli wak-cat)",
-    "count": "wiki shows no count; read attack_ranged_entity_count check in the player's data.wak (tools: Terranoita.Cli wak-cat)"
-   }
+   "_unverified": {}
   },
   {
    "id": "tank.explodes_on_death",
@@ -2246,17 +2088,13 @@
     "explosion": 2.5
    },
    "per_frames": "hit",
-   "cooldown_frames": 90,
-   "range_tiles": 25,
+   "cooldown_frames": 165,
+   "range_tiles": 56.25,
    "lunge_speed": 0,
-   "sound": null,
+   "sound": "animals/wizard/voc_attack",
    "wiki_text": "Projectile/Projectile/7.5; Projectile/Explosion/2.5",
    "stage": "1b",
-   "_unverified": {
-    "cooldown_frames": "default for kind 'projectile'; read AnimalAIComponent attack_*_frames_between check in the player's data.wak (tools: Terranoita.Cli wak-cat)",
-    "range_tiles": "default for kind; read AnimalAIComponent attack_*_range check in the player's data.wak (tools: Terranoita.Cli wak-cat)",
-    "count": "wiki shows no count; read attack_ranged_entity_count check in the player's data.wak (tools: Terranoita.Cli wak-cat)"
-   }
+   "_unverified": {}
   },
   {
    "id": "boss_centipede.circular_orb",
@@ -2743,17 +2581,13 @@
     "projectile": 32.5
    },
    "per_frames": "hit",
-   "cooldown_frames": 90,
-   "range_tiles": 25,
+   "cooldown_frames": 165,
+   "range_tiles": 41.25,
    "lunge_speed": 0,
-   "sound": null,
+   "sound": "none",
    "wiki_text": "[[Firebolt]]-like projectile/Projectile/32.5",
    "stage": "1b",
-   "_unverified": {
-    "cooldown_frames": "default for kind 'projectile'; read AnimalAIComponent attack_*_frames_between check in the player's data.wak (tools: Terranoita.Cli wak-cat)",
-    "range_tiles": "default for kind; read AnimalAIComponent attack_*_range check in the player's data.wak (tools: Terranoita.Cli wak-cat)",
-    "count": "wiki shows no count; read attack_ranged_entity_count check in the player's data.wak (tools: Terranoita.Cli wak-cat)"
-   }
+   "_unverified": {}
   },
   {
    "id": "scavenger_grenade.melee",
@@ -2771,16 +2605,13 @@
     ]
    },
    "per_frames": "hit",
-   "cooldown_frames": 40,
-   "range_tiles": 1.5,
+   "cooldown_frames": 20,
+   "range_tiles": 1.88,
    "lunge_speed": 0,
-   "sound": null,
+   "sound": "animals/generic/attack_melee",
    "wiki_text": "Melee/Melee/10-17.5",
    "stage": "1b",
-   "_unverified": {
-    "cooldown_frames": "default for kind 'melee'; read AnimalAIComponent attack_*_frames_between check in the player's data.wak (tools: Terranoita.Cli wak-cat)",
-    "range_tiles": "default for kind; read AnimalAIComponent attack_*_range check in the player's data.wak (tools: Terranoita.Cli wak-cat)"
-   }
+   "_unverified": {}
   },
   {
    "id": "playerghost.melee",
@@ -2793,16 +2624,13 @@
    ],
    "damage": null,
    "per_frames": "hit",
-   "cooldown_frames": 40,
-   "range_tiles": 1.5,
+   "cooldown_frames": 20,
+   "range_tiles": 3.75,
    "lunge_speed": 0,
-   "sound": null,
+   "sound": "animals/generic/attack_melee",
    "wiki_text": "Melee/Melee/10-17.5,Random wand",
    "stage": "1b",
-   "_unverified": {
-    "cooldown_frames": "default for kind 'melee'; read AnimalAIComponent attack_*_frames_between check in the player's data.wak (tools: Terranoita.Cli wak-cat)",
-    "range_tiles": "default for kind; read AnimalAIComponent attack_*_range check in the player's data.wak (tools: Terranoita.Cli wak-cat)"
-   }
+   "_unverified": {}
   },
   {
    "id": "roboguard_big.projectile",
@@ -2818,17 +2646,13 @@
     "fire": 5.0
    },
    "per_frames": "hit",
-   "cooldown_frames": 90,
-   "range_tiles": 25,
+   "cooldown_frames": 48,
+   "range_tiles": 30.0,
    "lunge_speed": 0,
-   "sound": null,
+   "sound": "none",
    "wiki_text": "Projectile/Projectile/11.25; Projectile/Fire/5",
    "stage": "1b",
-   "_unverified": {
-    "cooldown_frames": "default for kind 'projectile'; read AnimalAIComponent attack_*_frames_between check in the player's data.wak (tools: Terranoita.Cli wak-cat)",
-    "range_tiles": "default for kind; read AnimalAIComponent attack_*_range check in the player's data.wak (tools: Terranoita.Cli wak-cat)",
-    "count": "wiki shows no count; read attack_ranged_entity_count check in the player's data.wak (tools: Terranoita.Cli wak-cat)"
-   }
+   "_unverified": {}
   },
   {
    "id": "roboguard_big.melee",
@@ -2846,16 +2670,13 @@
     ]
    },
    "per_frames": "hit",
-   "cooldown_frames": 40,
-   "range_tiles": 1.5,
+   "cooldown_frames": 20,
+   "range_tiles": 3.75,
    "lunge_speed": 0,
-   "sound": null,
+   "sound": "none",
    "wiki_text": "Melee/Melee/10-17.5",
    "stage": "1b",
-   "_unverified": {
-    "cooldown_frames": "default for kind 'melee'; read AnimalAIComponent attack_*_frames_between check in the player's data.wak (tools: Terranoita.Cli wak-cat)",
-    "range_tiles": "default for kind; read AnimalAIComponent attack_*_range check in the player's data.wak (tools: Terranoita.Cli wak-cat)"
-   }
+   "_unverified": {}
   },
   {
    "id": "fungus.lunge",
@@ -2867,22 +2688,16 @@
     1
    ],
    "damage": {
-    "melee": [
-     5.0,
-     10.0
-    ]
+    "melee": 6.25
    },
    "per_frames": "hit",
-   "cooldown_frames": 90,
-   "range_tiles": 6,
-   "lunge_speed": null,
-   "sound": null,
+   "cooldown_frames": 120,
+   "range_tiles": 9.38,
+   "lunge_speed": 10.0,
+   "sound": "animals/generic/attack_dash",
    "wiki_text": "Lunge/Dash/5-10",
    "stage": "1b",
-   "_unverified": {
-    "cooldown_frames": "default for kind 'lunge'; read AnimalAIComponent attack_*_frames_between check in the player's data.wak (tools: Terranoita.Cli wak-cat)",
-    "range_tiles": "default for kind; read AnimalAIComponent attack_*_range check in the player's data.wak (tools: Terranoita.Cli wak-cat)"
-   }
+   "_unverified": {}
   },
   {
    "id": "fungus.explodes_on_death",
@@ -2937,7 +2752,7 @@
    "id": "tank_super.grenade",
    "enemy": "tank_super",
    "kind": "projectile",
-   "projectile": "grenade",
+   "projectile": "grenade_leader",
    "count": [
     1,
     1
@@ -2947,17 +2762,13 @@
     "explosion": 12.5
    },
    "per_frames": "hit",
-   "cooldown_frames": 90,
-   "range_tiles": 25,
+   "cooldown_frames": 85,
+   "range_tiles": 7.5,
    "lunge_speed": 0,
-   "sound": null,
+   "sound": "none",
    "wiki_text": "Grenade when close-range/Projectile/12.5; Grenade when close-range/Explosion/12.5",
    "stage": "1b",
-   "_unverified": {
-    "cooldown_frames": "default for kind 'projectile'; read AnimalAIComponent attack_*_frames_between check in the player's data.wak (tools: Terranoita.Cli wak-cat)",
-    "range_tiles": "default for kind; read AnimalAIComponent attack_*_range check in the player's data.wak (tools: Terranoita.Cli wak-cat)",
-    "count": "wiki shows no count; read attack_ranged_entity_count check in the player's data.wak (tools: Terranoita.Cli wak-cat)"
-   }
+   "_unverified": {}
   },
   {
    "id": "tank_super.explodes_on_death",
@@ -2997,17 +2808,13 @@
     "explosion": 10.0
    },
    "per_frames": "hit",
-   "cooldown_frames": 90,
-   "range_tiles": 25,
+   "cooldown_frames": 125,
+   "range_tiles": 18.75,
    "lunge_speed": 0,
-   "sound": null,
+   "sound": "none",
    "wiki_text": "Projectile/Projectile/3.75; Projectile/Explosion/10",
    "stage": "1b",
-   "_unverified": {
-    "cooldown_frames": "default for kind 'projectile'; read AnimalAIComponent attack_*_frames_between check in the player's data.wak (tools: Terranoita.Cli wak-cat)",
-    "range_tiles": "default for kind; read AnimalAIComponent attack_*_range check in the player's data.wak (tools: Terranoita.Cli wak-cat)",
-    "count": "wiki shows no count; read attack_ranged_entity_count check in the player's data.wak (tools: Terranoita.Cli wak-cat)"
-   }
+   "_unverified": {}
   },
   {
    "id": "drone_physics.melee",
@@ -3025,16 +2832,13 @@
     ]
    },
    "per_frames": "hit",
-   "cooldown_frames": 40,
-   "range_tiles": 1.5,
+   "cooldown_frames": 20,
+   "range_tiles": 1.88,
    "lunge_speed": 0,
-   "sound": null,
+   "sound": "none",
    "wiki_text": "Melee/Melee/5-10",
    "stage": "1b",
-   "_unverified": {
-    "cooldown_frames": "default for kind 'melee'; read AnimalAIComponent attack_*_frames_between check in the player's data.wak (tools: Terranoita.Cli wak-cat)",
-    "range_tiles": "default for kind; read AnimalAIComponent attack_*_range check in the player's data.wak (tools: Terranoita.Cli wak-cat)"
-   }
+   "_unverified": {}
   },
   {
    "id": "drone_physics.explodes_on_death",
@@ -3095,17 +2899,13 @@
     "fire": 11.25
    },
    "per_frames": "hit",
-   "cooldown_frames": 90,
-   "range_tiles": 25,
+   "cooldown_frames": 47,
+   "range_tiles": 13.12,
    "lunge_speed": 0,
-   "sound": null,
+   "sound": "none",
    "wiki_text": "[[Flamethrower]]/Explosion/12.5; [[Flamethrower]]/Fire/11.25",
    "stage": "1b",
-   "_unverified": {
-    "cooldown_frames": "default for kind 'projectile'; read AnimalAIComponent attack_*_frames_between check in the player's data.wak (tools: Terranoita.Cli wak-cat)",
-    "range_tiles": "default for kind; read AnimalAIComponent attack_*_range check in the player's data.wak (tools: Terranoita.Cli wak-cat)",
-    "count": "wiki shows no count; read attack_ranged_entity_count check in the player's data.wak (tools: Terranoita.Cli wak-cat)"
-   }
+   "_unverified": {}
   },
   {
    "id": "fireskull.lunge",
@@ -3159,23 +2959,19 @@
    "projectile": "glue_shot",
    "count": [
     1,
-    1
+    3
    ],
    "damage": {
     "projectile": 2.5
    },
    "per_frames": "hit",
-   "cooldown_frames": 90,
-   "range_tiles": 25,
+   "cooldown_frames": 165,
+   "range_tiles": 30.0,
    "lunge_speed": 0,
-   "sound": null,
+   "sound": "none",
    "wiki_text": "Glue Shot/Projectile/2.5",
    "stage": "1b",
-   "_unverified": {
-    "cooldown_frames": "default for kind 'projectile'; read AnimalAIComponent attack_*_frames_between check in the player's data.wak (tools: Terranoita.Cli wak-cat)",
-    "range_tiles": "default for kind; read AnimalAIComponent attack_*_range check in the player's data.wak (tools: Terranoita.Cli wak-cat)",
-    "count": "wiki shows no count; read attack_ranged_entity_count check in the player's data.wak (tools: Terranoita.Cli wak-cat)"
-   }
+   "_unverified": {}
   },
   {
    "id": "scavenger_glue.melee",
@@ -3193,16 +2989,13 @@
     ]
    },
    "per_frames": "hit",
-   "cooldown_frames": 40,
-   "range_tiles": 1.5,
+   "cooldown_frames": 20,
+   "range_tiles": 2.25,
    "lunge_speed": 0,
-   "sound": null,
+   "sound": "animals/generic/attack_melee",
    "wiki_text": "Melee/Melee/10-17.5",
    "stage": "1b",
-   "_unverified": {
-    "cooldown_frames": "default for kind 'melee'; read AnimalAIComponent attack_*_frames_between check in the player's data.wak (tools: Terranoita.Cli wak-cat)",
-    "range_tiles": "default for kind; read AnimalAIComponent attack_*_range check in the player's data.wak (tools: Terranoita.Cli wak-cat)"
-   }
+   "_unverified": {}
   },
   {
    "id": "slimeshooter_weak.slimeball",
@@ -3240,17 +3033,13 @@
     "explosion": 7.5
    },
    "per_frames": "hit",
-   "cooldown_frames": 90,
-   "range_tiles": 25,
+   "cooldown_frames": 80,
+   "range_tiles": 30.0,
    "lunge_speed": 0,
-   "sound": null,
+   "sound": "animals/slimeshooter/voc_shoot",
    "wiki_text": "[[Slimeball]] projectile but with a physical [[Toxic Sludge]] trail/Projectile/6.25; [[Slimeball]] projectile but with a physical [[Toxic Sludge]] trail/Explosion/7.5",
    "stage": "1b",
-   "_unverified": {
-    "cooldown_frames": "default for kind 'projectile'; read AnimalAIComponent attack_*_frames_between check in the player's data.wak (tools: Terranoita.Cli wak-cat)",
-    "range_tiles": "default for kind; read AnimalAIComponent attack_*_range check in the player's data.wak (tools: Terranoita.Cli wak-cat)",
-    "count": "wiki shows no count; read attack_ranged_entity_count check in the player's data.wak (tools: Terranoita.Cli wak-cat)"
-   }
+   "_unverified": {}
   },
   {
    "id": "maggot_tiny.green_orb",
@@ -3364,17 +3153,13 @@
     "explosion": 2.5
    },
    "per_frames": "hit",
-   "cooldown_frames": 90,
-   "range_tiles": 25,
+   "cooldown_frames": 135,
+   "range_tiles": 56.25,
    "lunge_speed": 0,
-   "sound": null,
+   "sound": "animals/wizard/voc_attack",
    "wiki_text": "Neutralizing bolt/Projectile/7.5; Neutralizing bolt/Explosion/2.5",
    "stage": "1b",
-   "_unverified": {
-    "cooldown_frames": "default for kind 'projectile'; read AnimalAIComponent attack_*_frames_between check in the player's data.wak (tools: Terranoita.Cli wak-cat)",
-    "range_tiles": "default for kind; read AnimalAIComponent attack_*_range check in the player's data.wak (tools: Terranoita.Cli wak-cat)",
-    "count": "wiki shows no count; read attack_ranged_entity_count check in the player's data.wak (tools: Terranoita.Cli wak-cat)"
-   }
+   "_unverified": {}
   },
   {
    "id": "shaman.cursed_sphere",
@@ -3411,17 +3196,13 @@
    ],
    "damage": null,
    "per_frames": "hit",
-   "cooldown_frames": 90,
-   "range_tiles": 25,
+   "cooldown_frames": 125,
+   "range_tiles": 41.25,
    "lunge_speed": 0,
-   "sound": null,
+   "sound": "none",
    "wiki_text": "Projectile/Projectile/20,Summons Pienkätyri",
    "stage": "1b",
-   "_unverified": {
-    "cooldown_frames": "default for kind 'projectile'; read AnimalAIComponent attack_*_frames_between check in the player's data.wak (tools: Terranoita.Cli wak-cat)",
-    "range_tiles": "default for kind; read AnimalAIComponent attack_*_range check in the player's data.wak (tools: Terranoita.Cli wak-cat)",
-    "count": "wiki shows no count; read attack_ranged_entity_count check in the player's data.wak (tools: Terranoita.Cli wak-cat)"
-   }
+   "_unverified": {}
   },
   {
    "id": "minipit.projectile",
@@ -3542,17 +3323,13 @@
     "fire": 6.25
    },
    "per_frames": "hit",
-   "cooldown_frames": 90,
-   "range_tiles": 25,
+   "cooldown_frames": 85,
+   "range_tiles": 30.0,
    "lunge_speed": 0,
-   "sound": null,
+   "sound": "none",
    "wiki_text": "[[Fireball]]/Explosion/50; [[Fireball]]/Fire/6.25",
    "stage": "1b",
-   "_unverified": {
-    "cooldown_frames": "default for kind 'projectile'; read AnimalAIComponent attack_*_frames_between check in the player's data.wak (tools: Terranoita.Cli wak-cat)",
-    "range_tiles": "default for kind; read AnimalAIComponent attack_*_range check in the player's data.wak (tools: Terranoita.Cli wak-cat)",
-    "count": "wiki shows no count; read attack_ranged_entity_count check in the player's data.wak (tools: Terranoita.Cli wak-cat)"
-   }
+   "_unverified": {}
   },
   {
    "id": "bigzombie.melee",
@@ -3570,16 +3347,13 @@
     ]
    },
    "per_frames": "hit",
-   "cooldown_frames": 40,
-   "range_tiles": 1.5,
+   "cooldown_frames": 20,
+   "range_tiles": 1.88,
    "lunge_speed": 0,
-   "sound": null,
+   "sound": "animals/generic/attack_melee",
    "wiki_text": "Melee/Melee/15-20",
    "stage": "1b",
-   "_unverified": {
-    "cooldown_frames": "default for kind 'melee'; read AnimalAIComponent attack_*_frames_between check in the player's data.wak (tools: Terranoita.Cli wak-cat)",
-    "range_tiles": "default for kind; read AnimalAIComponent attack_*_range check in the player's data.wak (tools: Terranoita.Cli wak-cat)"
-   }
+   "_unverified": {}
   },
   {
    "id": "meatmaggot.worm_bite",
@@ -3621,16 +3395,13 @@
     ]
    },
    "per_frames": "hit",
-   "cooldown_frames": 40,
-   "range_tiles": 1.5,
+   "cooldown_frames": 10,
+   "range_tiles": 2.81,
    "lunge_speed": 0,
-   "sound": null,
+   "sound": "none",
    "wiki_text": "Melee/Melee/15-25",
    "stage": "1b",
-   "_unverified": {
-    "cooldown_frames": "default for kind 'melee'; read AnimalAIComponent attack_*_frames_between check in the player's data.wak (tools: Terranoita.Cli wak-cat)",
-    "range_tiles": "default for kind; read AnimalAIComponent attack_*_range check in the player's data.wak (tools: Terranoita.Cli wak-cat)"
-   }
+   "_unverified": {}
   },
   {
    "id": "chest_mimic.melee",
@@ -3648,16 +3419,13 @@
     ]
    },
    "per_frames": "hit",
-   "cooldown_frames": 40,
-   "range_tiles": 1.5,
+   "cooldown_frames": 20,
+   "range_tiles": 2.81,
    "lunge_speed": 0,
-   "sound": null,
+   "sound": "animals/generic/attack_melee",
    "wiki_text": "Melee/Melee/15-25",
    "stage": "1b",
-   "_unverified": {
-    "cooldown_frames": "default for kind 'melee'; read AnimalAIComponent attack_*_frames_between check in the player's data.wak (tools: Terranoita.Cli wak-cat)",
-    "range_tiles": "default for kind; read AnimalAIComponent attack_*_range check in the player's data.wak (tools: Terranoita.Cli wak-cat)"
-   }
+   "_unverified": {}
   },
   {
    "id": "worm.worm_bite",
@@ -3790,17 +3558,13 @@
     "explosion": 100.0
    },
    "per_frames": "hit",
-   "cooldown_frames": 90,
-   "range_tiles": 25,
+   "cooldown_frames": 185,
+   "range_tiles": 41.25,
    "lunge_speed": 0,
-   "sound": null,
+   "sound": "none",
    "wiki_text": "Shoots player-sensitive mines/Explosion/100",
    "stage": "1b",
-   "_unverified": {
-    "cooldown_frames": "default for kind 'projectile'; read AnimalAIComponent attack_*_frames_between check in the player's data.wak (tools: Terranoita.Cli wak-cat)",
-    "range_tiles": "default for kind; read AnimalAIComponent attack_*_range check in the player's data.wak (tools: Terranoita.Cli wak-cat)",
-    "count": "wiki shows no count; read attack_ranged_entity_count check in the player's data.wak (tools: Terranoita.Cli wak-cat)"
-   }
+   "_unverified": {}
   },
   {
    "id": "scavenger_mine.projectile",
@@ -3843,16 +3607,13 @@
     ]
    },
    "per_frames": "hit",
-   "cooldown_frames": 40,
-   "range_tiles": 1.5,
+   "cooldown_frames": 20,
+   "range_tiles": 1.88,
    "lunge_speed": 0,
-   "sound": null,
+   "sound": "animals/generic/attack_melee",
    "wiki_text": "Melee/Melee/10-17.5",
    "stage": "1b",
-   "_unverified": {
-    "cooldown_frames": "default for kind 'melee'; read AnimalAIComponent attack_*_frames_between check in the player's data.wak (tools: Terranoita.Cli wak-cat)",
-    "range_tiles": "default for kind; read AnimalAIComponent attack_*_range check in the player's data.wak (tools: Terranoita.Cli wak-cat)"
-   }
+   "_unverified": {}
   },
   {
    "id": "player.melee",
@@ -3940,17 +3701,13 @@
     "projectile": 8.75
    },
    "per_frames": "hit",
-   "cooldown_frames": 90,
-   "range_tiles": 25,
+   "cooldown_frames": 175,
+   "range_tiles": 75.0,
    "lunge_speed": 0,
-   "sound": null,
+   "sound": "animals/lasershooter/voc_shoot",
    "wiki_text": "Laser projectile/Projectile/8.75",
    "stage": "1b",
-   "_unverified": {
-    "cooldown_frames": "default for kind 'projectile'; read AnimalAIComponent attack_*_frames_between check in the player's data.wak (tools: Terranoita.Cli wak-cat)",
-    "range_tiles": "default for kind; read AnimalAIComponent attack_*_range check in the player's data.wak (tools: Terranoita.Cli wak-cat)",
-    "count": "wiki shows no count; read attack_ranged_entity_count check in the player's data.wak (tools: Terranoita.Cli wak-cat)"
-   }
+   "_unverified": {}
   },
   {
    "id": "monk.projectile",
@@ -3991,17 +3748,13 @@
     "explosion": 2.5
    },
    "per_frames": "hit",
-   "cooldown_frames": 90,
-   "range_tiles": 25,
+   "cooldown_frames": 225,
+   "range_tiles": 56.25,
    "lunge_speed": 0,
-   "sound": null,
+   "sound": "animals/wizard/voc_attack",
    "wiki_text": "Polymorphing projectile/Projectile/7.5; Polymorphing projectile/Explosion/2.5",
    "stage": "1b",
-   "_unverified": {
-    "cooldown_frames": "default for kind 'projectile'; read AnimalAIComponent attack_*_frames_between check in the player's data.wak (tools: Terranoita.Cli wak-cat)",
-    "range_tiles": "default for kind; read AnimalAIComponent attack_*_range check in the player's data.wak (tools: Terranoita.Cli wak-cat)",
-    "count": "wiki shows no count; read attack_ranged_entity_count check in the player's data.wak (tools: Terranoita.Cli wak-cat)"
-   }
+   "_unverified": {}
   },
   {
    "id": "ant.acid_spray",
@@ -4014,17 +3767,13 @@
    ],
    "damage": null,
    "per_frames": "hit",
-   "cooldown_frames": 90,
-   "range_tiles": 25,
+   "cooldown_frames": 135,
+   "range_tiles": 9.38,
    "lunge_speed": 0,
-   "sound": null,
+   "sound": "none",
    "wiki_text": "Spits a small spray of [[Acid]]",
    "stage": "1b",
-   "_unverified": {
-    "cooldown_frames": "default for kind 'projectile'; read AnimalAIComponent attack_*_frames_between check in the player's data.wak (tools: Terranoita.Cli wak-cat)",
-    "range_tiles": "default for kind; read AnimalAIComponent attack_*_range check in the player's data.wak (tools: Terranoita.Cli wak-cat)",
-    "count": "wiki shows no count; read attack_ranged_entity_count check in the player's data.wak (tools: Terranoita.Cli wak-cat)"
-   }
+   "_unverified": {}
   },
   {
    "id": "ant.melee",
@@ -4042,16 +3791,13 @@
     ]
    },
    "per_frames": "hit",
-   "cooldown_frames": 40,
-   "range_tiles": 1.5,
+   "cooldown_frames": 20,
+   "range_tiles": 2.81,
    "lunge_speed": 0,
-   "sound": null,
+   "sound": "animals/generic/attack_melee",
    "wiki_text": "Melee/Melee/15-25",
    "stage": "1b",
-   "_unverified": {
-    "cooldown_frames": "default for kind 'melee'; read AnimalAIComponent attack_*_frames_between check in the player's data.wak (tools: Terranoita.Cli wak-cat)",
-    "range_tiles": "default for kind; read AnimalAIComponent attack_*_range check in the player's data.wak (tools: Terranoita.Cli wak-cat)"
-   }
+   "_unverified": {}
   },
   {
    "id": "scavenger_poison.poison_trail_shot",
@@ -4067,17 +3813,13 @@
     "explosion": 6.25
    },
    "per_frames": "hit",
-   "cooldown_frames": 90,
-   "range_tiles": 25,
+   "cooldown_frames": 65,
+   "range_tiles": 30.0,
    "lunge_speed": 0,
-   "sound": null,
+   "sound": "none",
    "wiki_text": "Projectile with [[Poison Trail]]/Projectile/8.25; Projectile with [[Poison Trail]]/Explosion/6.25",
    "stage": "1b",
-   "_unverified": {
-    "cooldown_frames": "default for kind 'projectile'; read AnimalAIComponent attack_*_frames_between check in the player's data.wak (tools: Terranoita.Cli wak-cat)",
-    "range_tiles": "default for kind; read AnimalAIComponent attack_*_range check in the player's data.wak (tools: Terranoita.Cli wak-cat)",
-    "count": "wiki shows no count; read attack_ranged_entity_count check in the player's data.wak (tools: Terranoita.Cli wak-cat)"
-   }
+   "_unverified": {}
   },
   {
    "id": "scavenger_poison.melee",
@@ -4095,16 +3837,13 @@
     ]
    },
    "per_frames": "hit",
-   "cooldown_frames": 40,
-   "range_tiles": 1.5,
+   "cooldown_frames": 20,
+   "range_tiles": 1.88,
    "lunge_speed": 0,
-   "sound": null,
+   "sound": "animals/generic/attack_melee",
    "wiki_text": "Melee/Melee/10-17.5",
    "stage": "1b",
-   "_unverified": {
-    "cooldown_frames": "default for kind 'melee'; read AnimalAIComponent attack_*_frames_between check in the player's data.wak (tools: Terranoita.Cli wak-cat)",
-    "range_tiles": "default for kind; read AnimalAIComponent attack_*_range check in the player's data.wak (tools: Terranoita.Cli wak-cat)"
-   }
+   "_unverified": {}
   },
   {
    "id": "fungus_tiny.lunge",
@@ -4116,22 +3855,16 @@
     1
    ],
    "damage": {
-    "melee": [
-     5.0,
-     10.0
-    ]
+    "melee": 6.25
    },
    "per_frames": "hit",
-   "cooldown_frames": 90,
-   "range_tiles": 6,
-   "lunge_speed": null,
-   "sound": null,
+   "cooldown_frames": 120,
+   "range_tiles": 9.38,
+   "lunge_speed": 10.0,
+   "sound": "animals/generic/attack_dash",
    "wiki_text": "Lunge/Dash/5-10",
    "stage": "1b",
-   "_unverified": {
-    "cooldown_frames": "default for kind 'lunge'; read AnimalAIComponent attack_*_frames_between check in the player's data.wak (tools: Terranoita.Cli wak-cat)",
-    "range_tiles": "default for kind; read AnimalAIComponent attack_*_range check in the player's data.wak (tools: Terranoita.Cli wak-cat)"
-   }
+   "_unverified": {}
   },
   {
    "id": "fungus_tiny.explodes_on_death",
@@ -4194,16 +3927,13 @@
     "melee": 10.0
    },
    "per_frames": "hit",
-   "cooldown_frames": 90,
-   "range_tiles": 6,
-   "lunge_speed": null,
-   "sound": null,
+   "cooldown_frames": 120,
+   "range_tiles": 9.38,
+   "lunge_speed": 10.0,
+   "sound": "animals/generic/attack_dash",
    "wiki_text": "Lunge/Dash/10",
    "stage": "1b",
-   "_unverified": {
-    "cooldown_frames": "default for kind 'lunge'; read AnimalAIComponent attack_*_frames_between check in the player's data.wak (tools: Terranoita.Cli wak-cat)",
-    "range_tiles": "default for kind; read AnimalAIComponent attack_*_range check in the player's data.wak (tools: Terranoita.Cli wak-cat)"
-   }
+   "_unverified": {}
   },
   {
    "id": "fungus_big.explodes_on_death",
@@ -4272,22 +4002,19 @@
     ]
    },
    "per_frames": "hit",
-   "cooldown_frames": 40,
-   "range_tiles": 1.5,
+   "cooldown_frames": 20,
+   "range_tiles": 2.81,
    "lunge_speed": 0,
-   "sound": null,
+   "sound": "animals/generic/attack_melee",
    "wiki_text": "Melee/Melee/30-40",
    "stage": "1b",
-   "_unverified": {
-    "cooldown_frames": "default for kind 'melee'; read AnimalAIComponent attack_*_frames_between check in the player's data.wak (tools: Terranoita.Cli wak-cat)",
-    "range_tiles": "default for kind; read AnimalAIComponent attack_*_range check in the player's data.wak (tools: Terranoita.Cli wak-cat)"
-   }
+   "_unverified": {}
   },
   {
    "id": "icemage.iceball",
    "enemy": "icemage",
    "kind": "projectile",
-   "projectile": "iceball",
+   "projectile": "icemage_iceball",
    "count": [
     1,
     1
@@ -4297,17 +4024,13 @@
     "ice": 8.75
    },
    "per_frames": "hit",
-   "cooldown_frames": 90,
-   "range_tiles": 25,
+   "cooldown_frames": 185,
+   "range_tiles": 30.0,
    "lunge_speed": 0,
-   "sound": null,
+   "sound": "animals/wizard/voc_attack",
    "wiki_text": "[[Iceball]]/Explosion/50; [[Iceball]]/Ice/8.75",
    "stage": "1b",
-   "_unverified": {
-    "cooldown_frames": "default for kind 'projectile'; read AnimalAIComponent attack_*_frames_between check in the player's data.wak (tools: Terranoita.Cli wak-cat)",
-    "range_tiles": "default for kind; read AnimalAIComponent attack_*_range check in the player's data.wak (tools: Terranoita.Cli wak-cat)",
-    "count": "wiki shows no count; read attack_ranged_entity_count check in the player's data.wak (tools: Terranoita.Cli wak-cat)"
-   }
+   "_unverified": {}
   },
   {
    "id": "icemage.melee",
@@ -4325,22 +4048,19 @@
     ]
    },
    "per_frames": "hit",
-   "cooldown_frames": 40,
-   "range_tiles": 1.5,
+   "cooldown_frames": 20,
+   "range_tiles": 1.88,
    "lunge_speed": 0,
-   "sound": null,
+   "sound": "animals/wizard/voc_attack",
    "wiki_text": "Melee/Melee/10-17.5",
    "stage": "1b",
-   "_unverified": {
-    "cooldown_frames": "default for kind 'melee'; read AnimalAIComponent attack_*_frames_between check in the player's data.wak (tools: Terranoita.Cli wak-cat)",
-    "range_tiles": "default for kind; read AnimalAIComponent attack_*_range check in the player's data.wak (tools: Terranoita.Cli wak-cat)"
-   }
+   "_unverified": {}
   },
   {
    "id": "wizard_returner.iceball",
    "enemy": "wizard_returner",
    "kind": "projectile",
-   "projectile": "iceball",
+   "projectile": "ghostly_fireball",
    "count": [
     1,
     1
@@ -4349,17 +4069,13 @@
     "explosion": 50.0
    },
    "per_frames": "hit",
-   "cooldown_frames": 90,
-   "range_tiles": 25,
+   "cooldown_frames": 75,
+   "range_tiles": 56.25,
    "lunge_speed": 0,
-   "sound": null,
+   "sound": "animals/wizard/voc_attack",
    "wiki_text": "[[Iceball]]/Explosion/50; [[Iceball]]/Ice/6.25,Copies projectiles",
    "stage": "1b",
-   "_unverified": {
-    "cooldown_frames": "default for kind 'projectile'; read AnimalAIComponent attack_*_frames_between check in the player's data.wak (tools: Terranoita.Cli wak-cat)",
-    "range_tiles": "default for kind; read AnimalAIComponent attack_*_range check in the player's data.wak (tools: Terranoita.Cli wak-cat)",
-    "count": "wiki shows no count; read attack_ranged_entity_count check in the player's data.wak (tools: Terranoita.Cli wak-cat)"
-   }
+   "_unverified": {}
   },
   {
    "id": "scavenger_heal.healing_bolt",
@@ -4401,16 +4117,13 @@
     ]
    },
    "per_frames": "hit",
-   "cooldown_frames": 40,
-   "range_tiles": 1.5,
+   "cooldown_frames": 20,
+   "range_tiles": 3.75,
    "lunge_speed": 0,
-   "sound": null,
+   "sound": "animals/statue/attack_melee",
    "wiki_text": "Melee/Melee/10-17.5",
    "stage": "1b",
-   "_unverified": {
-    "cooldown_frames": "default for kind 'melee'; read AnimalAIComponent attack_*_frames_between check in the player's data.wak (tools: Terranoita.Cli wak-cat)",
-    "range_tiles": "default for kind; read AnimalAIComponent attack_*_range check in the player's data.wak (tools: Terranoita.Cli wak-cat)"
-   }
+   "_unverified": {}
   },
   {
    "id": "spearbot.laser_spear",
@@ -4425,17 +4138,13 @@
     "holy": 30.0
    },
    "per_frames": "hit",
-   "cooldown_frames": 90,
-   "range_tiles": 25,
+   "cooldown_frames": 105,
+   "range_tiles": 22.5,
    "lunge_speed": 0,
-   "sound": null,
+   "sound": "animals/spearbot/attack_shoot",
    "wiki_text": "Laser Spear/Holy/30",
    "stage": "1b",
-   "_unverified": {
-    "cooldown_frames": "default for kind 'projectile'; read AnimalAIComponent attack_*_frames_between check in the player's data.wak (tools: Terranoita.Cli wak-cat)",
-    "range_tiles": "default for kind; read AnimalAIComponent attack_*_range check in the player's data.wak (tools: Terranoita.Cli wak-cat)",
-    "count": "wiki shows no count; read attack_ranged_entity_count check in the player's data.wak (tools: Terranoita.Cli wak-cat)"
-   }
+   "_unverified": {}
   },
   {
    "id": "wand_ghost_charmed.projectile",
@@ -4524,16 +4233,13 @@
     ]
    },
    "per_frames": "hit",
-   "cooldown_frames": 40,
-   "range_tiles": 1.5,
+   "cooldown_frames": 20,
+   "range_tiles": 1.88,
    "lunge_speed": 0,
-   "sound": null,
+   "sound": "animals/generic/attack_melee",
    "wiki_text": "Melee/Melee/5-10",
    "stage": "1b",
-   "_unverified": {
-    "cooldown_frames": "default for kind 'melee'; read AnimalAIComponent attack_*_frames_between check in the player's data.wak (tools: Terranoita.Cli wak-cat)",
-    "range_tiles": "default for kind; read AnimalAIComponent attack_*_range check in the player's data.wak (tools: Terranoita.Cli wak-cat)"
-   }
+   "_unverified": {}
   },
   {
    "id": "shooterflower.explosive_homing",
@@ -4548,16 +4254,13 @@
     "projectile": 3.0
    },
    "per_frames": "hit",
-   "cooldown_frames": 90,
-   "range_tiles": 25,
+   "cooldown_frames": 145,
+   "range_tiles": 37.5,
    "lunge_speed": 0,
-   "sound": null,
+   "sound": "animals/shooterflower/attack_shoot",
    "wiki_text": "Explosive homing projectile x 10/Projectile/3",
    "stage": "1b",
-   "_unverified": {
-    "cooldown_frames": "default for kind 'projectile'; read AnimalAIComponent attack_*_frames_between check in the player's data.wak (tools: Terranoita.Cli wak-cat)",
-    "range_tiles": "default for kind; read AnimalAIComponent attack_*_range check in the player's data.wak (tools: Terranoita.Cli wak-cat)"
-   }
+   "_unverified": {}
   },
   {
    "id": "alchemist.thrown_potion",
@@ -4570,23 +4273,19 @@
    ],
    "damage": null,
    "per_frames": "hit",
-   "cooldown_frames": 90,
-   "range_tiles": 25,
+   "cooldown_frames": 125,
+   "range_tiles": 30.0,
    "lunge_speed": 0,
-   "sound": null,
+   "sound": "none",
    "wiki_text": "Throws [[Potions]].",
    "stage": "1b",
-   "_unverified": {
-    "cooldown_frames": "default for kind 'projectile'; read AnimalAIComponent attack_*_frames_between check in the player's data.wak (tools: Terranoita.Cli wak-cat)",
-    "range_tiles": "default for kind; read AnimalAIComponent attack_*_range check in the player's data.wak (tools: Terranoita.Cli wak-cat)",
-    "count": "wiki shows no count; read attack_ranged_entity_count check in the player's data.wak (tools: Terranoita.Cli wak-cat)"
-   }
+   "_unverified": {}
   },
   {
    "id": "bloom.slimeball",
    "enemy": "bloom",
    "kind": "projectile",
-   "projectile": "slimeball",
+   "projectile": "dummy",
    "count": [
     1,
     1
@@ -4596,17 +4295,13 @@
     "explosion": 5.0
    },
    "per_frames": "hit",
-   "cooldown_frames": 90,
-   "range_tiles": 25,
+   "cooldown_frames": 105,
+   "range_tiles": 46.88,
    "lunge_speed": 0,
-   "sound": null,
+   "sound": "animals/bloom/attack_shoot",
    "wiki_text": "[[Slimeball]] Projectile/Projectile/6.5; [[Slimeball]] Projectile/Explosion/5",
    "stage": "1b",
-   "_unverified": {
-    "cooldown_frames": "default for kind 'projectile'; read AnimalAIComponent attack_*_frames_between check in the player's data.wak (tools: Terranoita.Cli wak-cat)",
-    "range_tiles": "default for kind; read AnimalAIComponent attack_*_range check in the player's data.wak (tools: Terranoita.Cli wak-cat)",
-    "count": "wiki shows no count; read attack_ranged_entity_count check in the player's data.wak (tools: Terranoita.Cli wak-cat)"
-   }
+   "_unverified": {}
   },
   {
    "id": "neutralizer.neutralize_shot",
@@ -4694,17 +4389,13 @@
     "explosion": 10.0
    },
    "per_frames": "hit",
-   "cooldown_frames": 90,
-   "range_tiles": 25,
+   "cooldown_frames": 48,
+   "range_tiles": 30.0,
    "lunge_speed": 0,
-   "sound": null,
+   "sound": "none",
    "wiki_text": "Projectile/Projectile/3.75; Projectile/Explosion/10",
    "stage": "1b",
-   "_unverified": {
-    "cooldown_frames": "default for kind 'projectile'; read AnimalAIComponent attack_*_frames_between check in the player's data.wak (tools: Terranoita.Cli wak-cat)",
-    "range_tiles": "default for kind; read AnimalAIComponent attack_*_range check in the player's data.wak (tools: Terranoita.Cli wak-cat)",
-    "count": "wiki shows no count; read attack_ranged_entity_count check in the player's data.wak (tools: Terranoita.Cli wak-cat)"
-   }
+   "_unverified": {}
   },
   {
    "id": "roboguard.melee",
@@ -4722,16 +4413,13 @@
     ]
    },
    "per_frames": "hit",
-   "cooldown_frames": 40,
-   "range_tiles": 1.5,
+   "cooldown_frames": 20,
+   "range_tiles": 3.75,
    "lunge_speed": 0,
-   "sound": null,
+   "sound": "none",
    "wiki_text": "Melee/Melee/10-17.5",
    "stage": "1b",
-   "_unverified": {
-    "cooldown_frames": "default for kind 'melee'; read AnimalAIComponent attack_*_frames_between check in the player's data.wak (tools: Terranoita.Cli wak-cat)",
-    "range_tiles": "default for kind; read AnimalAIComponent attack_*_range check in the player's data.wak (tools: Terranoita.Cli wak-cat)"
-   }
+   "_unverified": {}
   },
   {
    "id": "rat.melee",
@@ -4822,17 +4510,13 @@
     "explosion": 10.0
    },
    "per_frames": "hit",
-   "cooldown_frames": 90,
-   "range_tiles": 25,
+   "cooldown_frames": 69,
+   "range_tiles": 36.56,
    "lunge_speed": 0,
-   "sound": null,
+   "sound": "none",
    "wiki_text": "Rifle/Projectile/3.75; Rifle/Explosion/10",
    "stage": "1b",
-   "_unverified": {
-    "cooldown_frames": "default for kind 'projectile'; read AnimalAIComponent attack_*_frames_between check in the player's data.wak (tools: Terranoita.Cli wak-cat)",
-    "range_tiles": "default for kind; read AnimalAIComponent attack_*_range check in the player's data.wak (tools: Terranoita.Cli wak-cat)",
-    "count": "wiki shows no count; read attack_ranged_entity_count check in the player's data.wak (tools: Terranoita.Cli wak-cat)"
-   }
+   "_unverified": {}
   },
   {
    "id": "scavenger_smg.melee",
@@ -4850,16 +4534,13 @@
     ]
    },
    "per_frames": "hit",
-   "cooldown_frames": 40,
-   "range_tiles": 1.5,
+   "cooldown_frames": 20,
+   "range_tiles": 1.88,
    "lunge_speed": 0,
-   "sound": null,
+   "sound": "animals/generic/attack_melee",
    "wiki_text": "Melee/Melee/10-17.5",
    "stage": "1b",
-   "_unverified": {
-    "cooldown_frames": "default for kind 'melee'; read AnimalAIComponent attack_*_frames_between check in the player's data.wak (tools: Terranoita.Cli wak-cat)",
-    "range_tiles": "default for kind; read AnimalAIComponent attack_*_range check in the player's data.wak (tools: Terranoita.Cli wak-cat)"
-   }
+   "_unverified": {}
   },
   {
    "id": "goblin_bomb.glitter_bomb",
@@ -4874,17 +4555,13 @@
     "explosion": 25.0
    },
    "per_frames": "hit",
-   "cooldown_frames": 90,
-   "range_tiles": 25,
+   "cooldown_frames": 345,
+   "range_tiles": 28.12,
    "lunge_speed": 0,
-   "sound": null,
+   "sound": "none",
    "wiki_text": "Throws [[Glitter Bombs]]/Explosion/25",
    "stage": "1b",
-   "_unverified": {
-    "cooldown_frames": "default for kind 'projectile'; read AnimalAIComponent attack_*_frames_between check in the player's data.wak (tools: Terranoita.Cli wak-cat)",
-    "range_tiles": "default for kind; read AnimalAIComponent attack_*_range check in the player's data.wak (tools: Terranoita.Cli wak-cat)",
-    "count": "wiki shows no count; read attack_ranged_entity_count check in the player's data.wak (tools: Terranoita.Cli wak-cat)"
-   }
+   "_unverified": {}
   },
   {
    "id": "goblin_bomb.melee",
@@ -4902,16 +4579,13 @@
     ]
    },
    "per_frames": "hit",
-   "cooldown_frames": 40,
-   "range_tiles": 1.5,
+   "cooldown_frames": 20,
+   "range_tiles": 1.88,
    "lunge_speed": 0,
-   "sound": null,
+   "sound": "animals/generic/attack_melee",
    "wiki_text": "Melee/Melee/10-17.5",
    "stage": "1b",
-   "_unverified": {
-    "cooldown_frames": "default for kind 'melee'; read AnimalAIComponent attack_*_frames_between check in the player's data.wak (tools: Terranoita.Cli wak-cat)",
-    "range_tiles": "default for kind; read AnimalAIComponent attack_*_range check in the player's data.wak (tools: Terranoita.Cli wak-cat)"
-   }
+   "_unverified": {}
   },
   {
    "id": "thunderskull.ball_lightning",
@@ -4927,17 +4601,13 @@
     "electricity": 15.0
    },
    "per_frames": "hit",
-   "cooldown_frames": 90,
-   "range_tiles": 25,
+   "cooldown_frames": 285,
+   "range_tiles": 9.38,
    "lunge_speed": 0,
-   "sound": null,
+   "sound": "animals/thunderskull/attack_shoot",
    "wiki_text": "Ball Lightning/Explosion/5.25; Ball Lightning/Electricity/15",
    "stage": "1b",
-   "_unverified": {
-    "cooldown_frames": "default for kind 'projectile'; read AnimalAIComponent attack_*_frames_between check in the player's data.wak (tools: Terranoita.Cli wak-cat)",
-    "range_tiles": "default for kind; read AnimalAIComponent attack_*_range check in the player's data.wak (tools: Terranoita.Cli wak-cat)",
-    "count": "wiki shows no count; read attack_ranged_entity_count check in the player's data.wak (tools: Terranoita.Cli wak-cat)"
-   }
+   "_unverified": {}
   },
   {
    "id": "assassin.lunge",
@@ -4952,16 +4622,13 @@
     "melee": 22.5
    },
    "per_frames": "hit",
-   "cooldown_frames": 90,
-   "range_tiles": 6,
-   "lunge_speed": null,
-   "sound": null,
+   "cooldown_frames": 120,
+   "range_tiles": 9.38,
+   "lunge_speed": 10.0,
+   "sound": "animals/robot/attack_dash",
    "wiki_text": "Lunge/Dash/22.5",
    "stage": "1b",
-   "_unverified": {
-    "cooldown_frames": "default for kind 'lunge'; read AnimalAIComponent attack_*_frames_between check in the player's data.wak (tools: Terranoita.Cli wak-cat)",
-    "range_tiles": "default for kind; read AnimalAIComponent attack_*_range check in the player's data.wak (tools: Terranoita.Cli wak-cat)"
-   }
+   "_unverified": {}
   },
   {
    "id": "assassin.melee",
@@ -4979,16 +4646,13 @@
     ]
    },
    "per_frames": "hit",
-   "cooldown_frames": 40,
-   "range_tiles": 1.5,
+   "cooldown_frames": 20,
+   "range_tiles": 1.88,
    "lunge_speed": 0,
-   "sound": null,
+   "sound": "animals/assassin/attack_melee",
    "wiki_text": "Melee/Melee/25-40",
    "stage": "1b",
-   "_unverified": {
-    "cooldown_frames": "default for kind 'melee'; read AnimalAIComponent attack_*_frames_between check in the player's data.wak (tools: Terranoita.Cli wak-cat)",
-    "range_tiles": "default for kind; read AnimalAIComponent attack_*_range check in the player's data.wak (tools: Terranoita.Cli wak-cat)"
-   }
+   "_unverified": {}
   },
   {
    "id": "wizard_twitchy.twitching_shot",
@@ -5004,17 +4668,13 @@
     "explosion": 2.5
    },
    "per_frames": "hit",
-   "cooldown_frames": 90,
-   "range_tiles": 25,
+   "cooldown_frames": 115,
+   "range_tiles": 56.25,
    "lunge_speed": 0,
-   "sound": null,
+   "sound": "animals/wizard/voc_attack",
    "wiki_text": "Twitching projectiles/Projectile/7.5; Twitching projectiles/Explosion/2.5",
    "stage": "1b",
-   "_unverified": {
-    "cooldown_frames": "default for kind 'projectile'; read AnimalAIComponent attack_*_frames_between check in the player's data.wak (tools: Terranoita.Cli wak-cat)",
-    "range_tiles": "default for kind; read AnimalAIComponent attack_*_range check in the player's data.wak (tools: Terranoita.Cli wak-cat)",
-    "count": "wiki shows no count; read attack_ranged_entity_count check in the player's data.wak (tools: Terranoita.Cli wak-cat)"
-   }
+   "_unverified": {}
   },
   {
    "id": "parallel_tentacles.polymorphing",
@@ -5598,17 +5258,13 @@
     "explosion": 2.5
    },
    "per_frames": "hit",
-   "cooldown_frames": 90,
-   "range_tiles": 25,
+   "cooldown_frames": 225,
+   "range_tiles": 56.25,
    "lunge_speed": 0,
-   "sound": null,
+   "sound": "animals/wizard/voc_attack",
    "wiki_text": "Teleportation projectile/Projectile/7.5; Teleportation projectile/Explosion/2.5",
    "stage": "1b",
-   "_unverified": {
-    "cooldown_frames": "default for kind 'projectile'; read AnimalAIComponent attack_*_frames_between check in the player's data.wak (tools: Terranoita.Cli wak-cat)",
-    "range_tiles": "default for kind; read AnimalAIComponent attack_*_range check in the player's data.wak (tools: Terranoita.Cli wak-cat)",
-    "count": "wiki shows no count; read attack_ranged_entity_count check in the player's data.wak (tools: Terranoita.Cli wak-cat)"
-   }
+   "_unverified": {}
   },
   {
    "id": "necromancer_super.double_accelerating_bolts",
@@ -5674,16 +5330,13 @@
     "explosion": 20.0
    },
    "per_frames": "hit",
-   "cooldown_frames": 90,
-   "range_tiles": 25,
+   "cooldown_frames": 145,
+   "range_tiles": 150.0,
    "lunge_speed": 0,
-   "sound": null,
+   "sound": "none",
    "wiki_text": "Projectile x 4-8/Projectile/35; Projectile x 4-8/Explosion/20",
    "stage": "1b",
-   "_unverified": {
-    "cooldown_frames": "default for kind 'projectile'; read AnimalAIComponent attack_*_frames_between check in the player's data.wak (tools: Terranoita.Cli wak-cat)",
-    "range_tiles": "default for kind; read AnimalAIComponent attack_*_range check in the player's data.wak (tools: Terranoita.Cli wak-cat)"
-   }
+   "_unverified": {}
   },
   {
    "id": "sniper_hell.melee",
@@ -5701,16 +5354,13 @@
     ]
    },
    "per_frames": "hit",
-   "cooldown_frames": 40,
-   "range_tiles": 1.5,
+   "cooldown_frames": 20,
+   "range_tiles": 1.88,
    "lunge_speed": 0,
-   "sound": null,
+   "sound": "animals/generic/attack_melee",
    "wiki_text": "Melee/Melee/35-42.5",
    "stage": "1b",
-   "_unverified": {
-    "cooldown_frames": "default for kind 'melee'; read AnimalAIComponent attack_*_frames_between check in the player's data.wak (tools: Terranoita.Cli wak-cat)",
-    "range_tiles": "default for kind; read AnimalAIComponent attack_*_range check in the player's data.wak (tools: Terranoita.Cli wak-cat)"
-   }
+   "_unverified": {}
   },
   {
    "id": "sniper.projectile",
@@ -5726,17 +5376,13 @@
     "explosion": 10.0
    },
    "per_frames": "hit",
-   "cooldown_frames": 90,
-   "range_tiles": 25,
+   "cooldown_frames": 145,
+   "range_tiles": 150.0,
    "lunge_speed": 0,
-   "sound": null,
+   "sound": "none",
    "wiki_text": "Projectile/Projectile/25; Projectile/Explosion/10",
    "stage": "1b",
-   "_unverified": {
-    "cooldown_frames": "default for kind 'projectile'; read AnimalAIComponent attack_*_frames_between check in the player's data.wak (tools: Terranoita.Cli wak-cat)",
-    "range_tiles": "default for kind; read AnimalAIComponent attack_*_range check in the player's data.wak (tools: Terranoita.Cli wak-cat)",
-    "count": "wiki shows no count; read attack_ranged_entity_count check in the player's data.wak (tools: Terranoita.Cli wak-cat)"
-   }
+   "_unverified": {}
   },
   {
    "id": "sniper.melee",
@@ -5754,16 +5400,13 @@
     ]
    },
    "per_frames": "hit",
-   "cooldown_frames": 40,
-   "range_tiles": 1.5,
+   "cooldown_frames": 20,
+   "range_tiles": 1.88,
    "lunge_speed": 0,
-   "sound": null,
+   "sound": "animals/generic/attack_melee",
    "wiki_text": "Melee/Melee/10-17.5",
    "stage": "1b",
-   "_unverified": {
-    "cooldown_frames": "default for kind 'melee'; read AnimalAIComponent attack_*_frames_between check in the player's data.wak (tools: Terranoita.Cli wak-cat)",
-    "range_tiles": "default for kind; read AnimalAIComponent attack_*_range check in the player's data.wak (tools: Terranoita.Cli wak-cat)"
-   }
+   "_unverified": {}
   },
   {
    "id": "wizard_dark.blinding",
@@ -5779,23 +5422,19 @@
     "explosion": 2.5
    },
    "per_frames": "hit",
-   "cooldown_frames": 90,
-   "range_tiles": 25,
+   "cooldown_frames": 225,
+   "range_tiles": 56.25,
    "lunge_speed": 0,
-   "sound": null,
+   "sound": "animals/wizard/voc_attack",
    "wiki_text": "Blinding projectile/Projectile/7.5; Blinding projectile/Explosion/2.5",
    "stage": "1b",
-   "_unverified": {
-    "cooldown_frames": "default for kind 'projectile'; read AnimalAIComponent attack_*_frames_between check in the player's data.wak (tools: Terranoita.Cli wak-cat)",
-    "range_tiles": "default for kind; read AnimalAIComponent attack_*_range check in the player's data.wak (tools: Terranoita.Cli wak-cat)",
-    "count": "wiki shows no count; read attack_ranged_entity_count check in the player's data.wak (tools: Terranoita.Cli wak-cat)"
-   }
+   "_unverified": {}
   },
   {
    "id": "phantom_a.energy_orb",
    "enemy": "phantom_a",
    "kind": "projectile",
-   "projectile": "energy_orb",
+   "projectile": "orbspawner",
    "count": [
     1,
     1
@@ -5804,17 +5443,13 @@
     "projectile": 20.0
    },
    "per_frames": "hit",
-   "cooldown_frames": 90,
-   "range_tiles": 25,
+   "cooldown_frames": 295,
+   "range_tiles": 30.0,
    "lunge_speed": 0,
-   "sound": null,
+   "sound": "none",
    "wiki_text": "[[Energy Orb]](first projectile)/Projectile/2.5; [[Energy Orb]]/Projectile/20",
    "stage": "1b",
-   "_unverified": {
-    "cooldown_frames": "default for kind 'projectile'; read AnimalAIComponent attack_*_frames_between check in the player's data.wak (tools: Terranoita.Cli wak-cat)",
-    "range_tiles": "default for kind; read AnimalAIComponent attack_*_range check in the player's data.wak (tools: Terranoita.Cli wak-cat)",
-    "count": "wiki shows no count; read attack_ranged_entity_count check in the player's data.wak (tools: Terranoita.Cli wak-cat)"
-   }
+   "_unverified": {}
   },
   {
    "id": "firemage_weak.weaker_fireball",
@@ -5999,16 +5634,13 @@
     "melee": 6.25
    },
    "per_frames": "hit",
-   "cooldown_frames": 90,
-   "range_tiles": 6,
-   "lunge_speed": null,
-   "sound": null,
+   "cooldown_frames": 120,
+   "range_tiles": 9.38,
+   "lunge_speed": 40.0,
+   "sound": "animals/generic/attack_dash",
    "wiki_text": "Lunge/dash/6.25",
    "stage": "1b",
-   "_unverified": {
-    "cooldown_frames": "default for kind 'lunge'; read AnimalAIComponent attack_*_frames_between check in the player's data.wak (tools: Terranoita.Cli wak-cat)",
-    "range_tiles": "default for kind; read AnimalAIComponent attack_*_range check in the player's data.wak (tools: Terranoita.Cli wak-cat)"
-   }
+   "_unverified": {}
   },
   {
    "id": "wolf.melee",
@@ -6026,16 +5658,13 @@
     ]
    },
    "per_frames": "hit",
-   "cooldown_frames": 40,
-   "range_tiles": 1.5,
+   "cooldown_frames": 20,
+   "range_tiles": 1.88,
    "lunge_speed": 0,
-   "sound": null,
+   "sound": "animals/generic/attack_melee",
    "wiki_text": "Melee/Melee/5-10",
    "stage": "1b",
-   "_unverified": {
-    "cooldown_frames": "default for kind 'melee'; read AnimalAIComponent attack_*_frames_between check in the player's data.wak (tools: Terranoita.Cli wak-cat)",
-    "range_tiles": "default for kind; read AnimalAIComponent attack_*_range check in the player's data.wak (tools: Terranoita.Cli wak-cat)"
-   }
+   "_unverified": {}
   },
   {
    "id": "thundermage_big.thunder_charge_homing",
@@ -6051,17 +5680,13 @@
     "electricity": 37.5
    },
    "per_frames": "hit",
-   "cooldown_frames": 90,
-   "range_tiles": 25,
+   "cooldown_frames": 285,
+   "range_tiles": 30.0,
    "lunge_speed": 0,
-   "sound": null,
+   "sound": "none",
    "wiki_text": "[[Thunder Charge]] with [[Copy Trail]] and a slow [[Homing]]/Explosion/45; [[Thunder Charge]] with [[Copy Trail]] and a slow [[Homing]]/Electricity/37.5",
    "stage": "1b",
-   "_unverified": {
-    "cooldown_frames": "default for kind 'projectile'; read AnimalAIComponent attack_*_frames_between check in the player's data.wak (tools: Terranoita.Cli wak-cat)",
-    "range_tiles": "default for kind; read AnimalAIComponent attack_*_range check in the player's data.wak (tools: Terranoita.Cli wak-cat)",
-    "count": "wiki shows no count; read attack_ranged_entity_count check in the player's data.wak (tools: Terranoita.Cli wak-cat)"
-   }
+   "_unverified": {}
   },
   {
    "id": "thundermage_big.melee",
@@ -6079,16 +5704,13 @@
     ]
    },
    "per_frames": "hit",
-   "cooldown_frames": 40,
-   "range_tiles": 1.5,
+   "cooldown_frames": 20,
+   "range_tiles": 1.88,
    "lunge_speed": 0,
-   "sound": null,
+   "sound": "animals/generic/attack_melee",
    "wiki_text": "Melee/Melee/10-17.5",
    "stage": "1b",
-   "_unverified": {
-    "cooldown_frames": "default for kind 'melee'; read AnimalAIComponent attack_*_frames_between check in the player's data.wak (tools: Terranoita.Cli wak-cat)",
-    "range_tiles": "default for kind; read AnimalAIComponent attack_*_range check in the player's data.wak (tools: Terranoita.Cli wak-cat)"
-   }
+   "_unverified": {}
   },
   {
    "id": "bigbat.summon_lepakko",
@@ -6125,16 +5747,13 @@
     "melee": 12.5
    },
    "per_frames": "hit",
-   "cooldown_frames": 90,
-   "range_tiles": 6,
-   "lunge_speed": null,
-   "sound": null,
+   "cooldown_frames": 120,
+   "range_tiles": 9.38,
+   "lunge_speed": 10.0,
+   "sound": "animals/bigbat/attack_dash",
    "wiki_text": "Lunge/Dash/12.5",
    "stage": "1b",
-   "_unverified": {
-    "cooldown_frames": "default for kind 'lunge'; read AnimalAIComponent attack_*_frames_between check in the player's data.wak (tools: Terranoita.Cli wak-cat)",
-    "range_tiles": "default for kind; read AnimalAIComponent attack_*_range check in the player's data.wak (tools: Terranoita.Cli wak-cat)"
-   }
+   "_unverified": {}
   },
   {
    "id": "ghoul.two_small_acid_balls",
@@ -6196,23 +5815,19 @@
    ],
    "damage": null,
    "per_frames": "hit",
-   "cooldown_frames": 90,
-   "range_tiles": 25,
+   "cooldown_frames": 55,
+   "range_tiles": 9.38,
    "lunge_speed": 0,
-   "sound": null,
+   "sound": "none",
    "wiki_text": "Projectile/Projectile/20,Wand (random spells)",
    "stage": "1b",
-   "_unverified": {
-    "cooldown_frames": "default for kind 'projectile'; read AnimalAIComponent attack_*_frames_between check in the player's data.wak (tools: Terranoita.Cli wak-cat)",
-    "range_tiles": "default for kind; read AnimalAIComponent attack_*_range check in the player's data.wak (tools: Terranoita.Cli wak-cat)",
-    "count": "wiki shows no count; read attack_ranged_entity_count check in the player's data.wak (tools: Terranoita.Cli wak-cat)"
-   }
+   "_unverified": {}
   },
   {
    "id": "skygazer.chaotic_polymorphine",
    "enemy": "skygazer",
    "kind": "projectile",
-   "projectile": "chaotic_polymorphine",
+   "projectile": "polyshot",
    "count": [
     1,
     1
@@ -6221,17 +5836,13 @@
     "holy": 37.5
    },
    "per_frames": "hit",
-   "cooldown_frames": 90,
-   "range_tiles": 25,
+   "cooldown_frames": 145,
+   "range_tiles": 30.0,
    "lunge_speed": 0,
-   "sound": null,
+   "sound": "animals/gazer/attack_shoot",
    "wiki_text": "[[Chaotic Polymorphine]] projectile/Holy/37.5",
    "stage": "1b",
-   "_unverified": {
-    "cooldown_frames": "default for kind 'projectile'; read AnimalAIComponent attack_*_frames_between check in the player's data.wak (tools: Terranoita.Cli wak-cat)",
-    "range_tiles": "default for kind; read AnimalAIComponent attack_*_range check in the player's data.wak (tools: Terranoita.Cli wak-cat)",
-    "count": "wiki shows no count; read attack_ranged_entity_count check in the player's data.wak (tools: Terranoita.Cli wak-cat)"
-   }
+   "_unverified": {}
   },
   {
    "id": "skycrystal_physics.blue_concentrated_light",
@@ -6246,17 +5857,13 @@
     "projectile": 8.75
    },
    "per_frames": "hit",
-   "cooldown_frames": 90,
-   "range_tiles": 25,
+   "cooldown_frames": 125,
+   "range_tiles": 22.5,
    "lunge_speed": 0,
-   "sound": null,
+   "sound": "none",
    "wiki_text": "Blue [[Concentrated Light]]/Projectile/8.75",
    "stage": "1b",
-   "_unverified": {
-    "cooldown_frames": "default for kind 'projectile'; read AnimalAIComponent attack_*_frames_between check in the player's data.wak (tools: Terranoita.Cli wak-cat)",
-    "range_tiles": "default for kind; read AnimalAIComponent attack_*_range check in the player's data.wak (tools: Terranoita.Cli wak-cat)",
-    "count": "wiki shows no count; read attack_ranged_entity_count check in the player's data.wak (tools: Terranoita.Cli wak-cat)"
-   }
+   "_unverified": {}
   },
   {
    "id": "wisp.holy_aura",
@@ -6336,7 +5943,7 @@
    "id": "miner_hell.tnt",
    "enemy": "miner_hell",
    "kind": "projectile",
-   "projectile": "tnt",
+   "projectile": "tnt_hell",
    "count": [
     6,
     14
@@ -6345,16 +5952,13 @@
     "explosion": 62.5
    },
    "per_frames": "hit",
-   "cooldown_frames": 90,
-   "range_tiles": 25,
+   "cooldown_frames": 105,
+   "range_tiles": 30.0,
    "lunge_speed": 0,
-   "sound": null,
+   "sound": "animals/miner/_throw",
    "wiki_text": "[[TNT]] x 6-14/Explosion/62.5",
    "stage": "1b",
-   "_unverified": {
-    "cooldown_frames": "default for kind 'projectile'; read AnimalAIComponent attack_*_frames_between check in the player's data.wak (tools: Terranoita.Cli wak-cat)",
-    "range_tiles": "default for kind; read AnimalAIComponent attack_*_range check in the player's data.wak (tools: Terranoita.Cli wak-cat)"
-   }
+   "_unverified": {}
   },
   {
    "id": "miner_hell.melee",
@@ -6372,16 +5976,13 @@
     ]
    },
    "per_frames": "hit",
-   "cooldown_frames": 40,
-   "range_tiles": 1.5,
+   "cooldown_frames": 20,
+   "range_tiles": 1.88,
    "lunge_speed": 0,
-   "sound": null,
+   "sound": "animals/miner/_voc_attack",
    "wiki_text": "Melee/Melee/10-17.5",
    "stage": "1b",
-   "_unverified": {
-    "cooldown_frames": "default for kind 'melee'; read AnimalAIComponent attack_*_frames_between check in the player's data.wak (tools: Terranoita.Cli wak-cat)",
-    "range_tiles": "default for kind; read AnimalAIComponent attack_*_range check in the player's data.wak (tools: Terranoita.Cli wak-cat)"
-   }
+   "_unverified": {}
   },
   {
    "id": "cook.sausages",
@@ -6448,17 +6049,13 @@
     "explosion": 50.0
    },
    "per_frames": "hit",
-   "cooldown_frames": 90,
-   "range_tiles": 25,
+   "cooldown_frames": 145,
+   "range_tiles": 30.0,
    "lunge_speed": 0,
-   "sound": null,
+   "sound": "animals/miner/_throw",
    "wiki_text": "[[TNT]]/Explosion/50",
    "stage": "1b",
-   "_unverified": {
-    "cooldown_frames": "default for kind 'projectile'; read AnimalAIComponent attack_*_frames_between check in the player's data.wak (tools: Terranoita.Cli wak-cat)",
-    "range_tiles": "default for kind; read AnimalAIComponent attack_*_range check in the player's data.wak (tools: Terranoita.Cli wak-cat)",
-    "count": "wiki shows no count; read attack_ranged_entity_count check in the player's data.wak (tools: Terranoita.Cli wak-cat)"
-   }
+   "_unverified": {}
   },
   {
    "id": "miner.melee",
@@ -6476,16 +6073,13 @@
     ]
    },
    "per_frames": "hit",
-   "cooldown_frames": 40,
-   "range_tiles": 1.5,
+   "cooldown_frames": 20,
+   "range_tiles": 1.88,
    "lunge_speed": 0,
-   "sound": null,
+   "sound": "animals/miner/_voc_attack",
    "wiki_text": "Melee/Melee/10-17.5",
    "stage": "1b",
-   "_unverified": {
-    "cooldown_frames": "default for kind 'melee'; read AnimalAIComponent attack_*_frames_between check in the player's data.wak (tools: Terranoita.Cli wak-cat)",
-    "range_tiles": "default for kind; read AnimalAIComponent attack_*_range check in the player's data.wak (tools: Terranoita.Cli wak-cat)"
-   }
+   "_unverified": {}
   },
   {
    "id": "miner_weak.tnt",
@@ -6598,16 +6192,13 @@
     "explosion": 12.5
    },
    "per_frames": "hit",
-   "cooldown_frames": 90,
-   "range_tiles": 25,
+   "cooldown_frames": 95,
+   "range_tiles": 46.88,
    "lunge_speed": 0,
-   "sound": null,
+   "sound": "none",
    "wiki_text": "Grenades x 2/Projectile/12.5; Grenades x 2/Explosion/12.5",
    "stage": "1b",
-   "_unverified": {
-    "cooldown_frames": "default for kind 'projectile'; read AnimalAIComponent attack_*_frames_between check in the player's data.wak (tools: Terranoita.Cli wak-cat)",
-    "range_tiles": "default for kind; read AnimalAIComponent attack_*_range check in the player's data.wak (tools: Terranoita.Cli wak-cat)"
-   }
+   "_unverified": {}
   },
   {
    "id": "scavenger_leader.melee",
@@ -6625,16 +6216,13 @@
     ]
    },
    "per_frames": "hit",
-   "cooldown_frames": 40,
-   "range_tiles": 1.5,
+   "cooldown_frames": 20,
+   "range_tiles": 1.88,
    "lunge_speed": 0,
-   "sound": null,
+   "sound": "animals/generic/attack_melee",
    "wiki_text": "Melee/Melee/10-17.5",
    "stage": "1b",
-   "_unverified": {
-    "cooldown_frames": "default for kind 'melee'; read AnimalAIComponent attack_*_frames_between check in the player's data.wak (tools: Terranoita.Cli wak-cat)",
-    "range_tiles": "default for kind; read AnimalAIComponent attack_*_range check in the player's data.wak (tools: Terranoita.Cli wak-cat)"
-   }
+   "_unverified": {}
   },
   {
    "id": "turret.laser",
@@ -6699,17 +6287,13 @@
     "explosion": 30.0
    },
    "per_frames": "hit",
-   "cooldown_frames": 90,
-   "range_tiles": 25,
+   "cooldown_frames": 160,
+   "range_tiles": 93.75,
    "lunge_speed": 0,
-   "sound": null,
+   "sound": "none",
    "wiki_text": "Shoots a bright green projectile that drops little blobs,that will pop and deal/Projectile/1.25/Explosion/30",
    "stage": "1b",
-   "_unverified": {
-    "cooldown_frames": "default for kind 'projectile'; read AnimalAIComponent attack_*_frames_between check in the player's data.wak (tools: Terranoita.Cli wak-cat)",
-    "range_tiles": "default for kind; read AnimalAIComponent attack_*_range check in the player's data.wak (tools: Terranoita.Cli wak-cat)",
-    "count": "wiki shows no count; read attack_ranged_entity_count check in the player's data.wak (tools: Terranoita.Cli wak-cat)"
-   }
+   "_unverified": {}
   },
   {
    "id": "maggot.melee",
@@ -6727,16 +6311,13 @@
     ]
    },
    "per_frames": "hit",
-   "cooldown_frames": 40,
-   "range_tiles": 1.5,
+   "cooldown_frames": 20,
+   "range_tiles": 1.88,
    "lunge_speed": 0,
-   "sound": null,
+   "sound": "animals/generic/attack_melee",
    "wiki_text": "Melee/Melee/10-17.5",
    "stage": "1b",
-   "_unverified": {
-    "cooldown_frames": "default for kind 'melee'; read AnimalAIComponent attack_*_frames_between check in the player's data.wak (tools: Terranoita.Cli wak-cat)",
-    "range_tiles": "default for kind; read AnimalAIComponent attack_*_range check in the player's data.wak (tools: Terranoita.Cli wak-cat)"
-   }
+   "_unverified": {}
   },
   {
    "id": "friend.evergreen_seed",
@@ -6953,17 +6534,13 @@
     "explosion": 62.5
    },
    "per_frames": "hit",
-   "cooldown_frames": 90,
-   "range_tiles": 25,
+   "cooldown_frames": 165,
+   "range_tiles": 30.0,
    "lunge_speed": 0,
-   "sound": null,
+   "sound": "none",
    "wiki_text": "[[Cocktail]] Projectile/Explosion/62.5",
    "stage": "1b",
-   "_unverified": {
-    "cooldown_frames": "default for kind 'projectile'; read AnimalAIComponent attack_*_frames_between check in the player's data.wak (tools: Terranoita.Cli wak-cat)",
-    "range_tiles": "default for kind; read AnimalAIComponent attack_*_range check in the player's data.wak (tools: Terranoita.Cli wak-cat)",
-    "count": "wiki shows no count; read attack_ranged_entity_count check in the player's data.wak (tools: Terranoita.Cli wak-cat)"
-   }
+   "_unverified": {}
   },
   {
    "id": "firebug.firebomb",
@@ -6978,17 +6555,13 @@
     "fire": 5.0
    },
    "per_frames": "hit",
-   "cooldown_frames": 90,
-   "range_tiles": 25,
+   "cooldown_frames": 85,
+   "range_tiles": 24.38,
    "lunge_speed": 0,
-   "sound": null,
+   "sound": "animals/firebug/attack_shoot",
    "wiki_text": "[[Firebomb]]/fire/5",
    "stage": "1b",
-   "_unverified": {
-    "cooldown_frames": "default for kind 'projectile'; read AnimalAIComponent attack_*_frames_between check in the player's data.wak (tools: Terranoita.Cli wak-cat)",
-    "range_tiles": "default for kind; read AnimalAIComponent attack_*_range check in the player's data.wak (tools: Terranoita.Cli wak-cat)",
-    "count": "wiki shows no count; read attack_ranged_entity_count check in the player's data.wak (tools: Terranoita.Cli wak-cat)"
-   }
+   "_unverified": {}
   },
   {
    "id": "firebug.lunge",
@@ -7003,22 +6576,19 @@
     "melee": 6.25
    },
    "per_frames": "hit",
-   "cooldown_frames": 90,
-   "range_tiles": 6,
-   "lunge_speed": null,
-   "sound": null,
+   "cooldown_frames": 120,
+   "range_tiles": 9.38,
+   "lunge_speed": 10.0,
+   "sound": "animals/generic/attack_dash",
    "wiki_text": "Lunge/Dash/6.25",
    "stage": "1b",
-   "_unverified": {
-    "cooldown_frames": "default for kind 'lunge'; read AnimalAIComponent attack_*_frames_between check in the player's data.wak (tools: Terranoita.Cli wak-cat)",
-    "range_tiles": "default for kind; read AnimalAIComponent attack_*_range check in the player's data.wak (tools: Terranoita.Cli wak-cat)"
-   }
+   "_unverified": {}
   },
   {
    "id": "bigfirebug.firebomb",
    "enemy": "bigfirebug",
    "kind": "projectile",
-   "projectile": "firebomb",
+   "projectile": "fireball_bigfirebug",
    "count": [
     1,
     1
@@ -7028,17 +6598,13 @@
     "projectile": 5.0
    },
    "per_frames": "hit",
-   "cooldown_frames": 90,
-   "range_tiles": 25,
+   "cooldown_frames": 85,
+   "range_tiles": 37.5,
    "lunge_speed": 0,
-   "sound": null,
+   "sound": "none",
    "wiki_text": "[[Firebomb]]/fire/7.5; [[Firebomb]]/Projectile/5",
    "stage": "1b",
-   "_unverified": {
-    "cooldown_frames": "default for kind 'projectile'; read AnimalAIComponent attack_*_frames_between check in the player's data.wak (tools: Terranoita.Cli wak-cat)",
-    "range_tiles": "default for kind; read AnimalAIComponent attack_*_range check in the player's data.wak (tools: Terranoita.Cli wak-cat)",
-    "count": "wiki shows no count; read attack_ranged_entity_count check in the player's data.wak (tools: Terranoita.Cli wak-cat)"
-   }
+   "_unverified": {}
   },
   {
    "id": "bigfirebug.lunge",
@@ -7050,19 +6616,16 @@
     1
    ],
    "damage": {
-    "melee": 7.5
+    "melee": 6.25
    },
    "per_frames": "hit",
-   "cooldown_frames": 90,
-   "range_tiles": 6,
-   "lunge_speed": null,
-   "sound": null,
+   "cooldown_frames": 120,
+   "range_tiles": 9.38,
+   "lunge_speed": 10.0,
+   "sound": "animals/generic/attack_dash",
    "wiki_text": "Lunge/Dash/7.5",
    "stage": "1b",
-   "_unverified": {
-    "cooldown_frames": "default for kind 'lunge'; read AnimalAIComponent attack_*_frames_between check in the player's data.wak (tools: Terranoita.Cli wak-cat)",
-    "range_tiles": "default for kind; read AnimalAIComponent attack_*_range check in the player's data.wak (tools: Terranoita.Cli wak-cat)"
-   }
+   "_unverified": {}
   },
   {
    "id": "necrobot.projectile",
@@ -7077,17 +6640,13 @@
     "projectile": 20.0
    },
    "per_frames": "hit",
-   "cooldown_frames": 90,
-   "range_tiles": 25,
+   "cooldown_frames": 125,
+   "range_tiles": 41.25,
    "lunge_speed": 0,
-   "sound": null,
+   "sound": "none",
    "wiki_text": "Projectile/Projectile/20",
    "stage": "1b",
-   "_unverified": {
-    "cooldown_frames": "default for kind 'projectile'; read AnimalAIComponent attack_*_frames_between check in the player's data.wak (tools: Terranoita.Cli wak-cat)",
-    "range_tiles": "default for kind; read AnimalAIComponent attack_*_range check in the player's data.wak (tools: Terranoita.Cli wak-cat)",
-    "count": "wiki shows no count; read attack_ranged_entity_count check in the player's data.wak (tools: Terranoita.Cli wak-cat)"
-   }
+   "_unverified": {}
   },
   {
    "id": "tentacler.tentacle",
@@ -7102,16 +6661,13 @@
     "melee": 25.0
    },
    "per_frames": "hit",
-   "cooldown_frames": 40,
-   "range_tiles": 1.5,
+   "cooldown_frames": 20,
+   "range_tiles": 1.88,
    "lunge_speed": 0,
-   "sound": null,
+   "sound": "animals/generic/attack_melee",
    "wiki_text": "Tentacle/Melee/25",
    "stage": "1b",
-   "_unverified": {
-    "cooldown_frames": "default for kind 'melee'; read AnimalAIComponent attack_*_frames_between check in the player's data.wak (tools: Terranoita.Cli wak-cat)",
-    "range_tiles": "default for kind; read AnimalAIComponent attack_*_range check in the player's data.wak (tools: Terranoita.Cli wak-cat)"
-   }
+   "_unverified": {}
   },
   {
    "id": "drone_shield.shield_buff",
@@ -7149,17 +6705,13 @@
     "explosion": 2.5
    },
    "per_frames": "hit",
-   "cooldown_frames": 90,
-   "range_tiles": 25,
+   "cooldown_frames": 165,
+   "range_tiles": 56.25,
    "lunge_speed": 0,
-   "sound": null,
+   "sound": "animals/wizard/voc_attack",
    "wiki_text": "Projectile/Projectile/7.5; Projectile/Explosion/2.5",
    "stage": "1b",
-   "_unverified": {
-    "cooldown_frames": "default for kind 'projectile'; read AnimalAIComponent attack_*_frames_between check in the player's data.wak (tools: Terranoita.Cli wak-cat)",
-    "range_tiles": "default for kind; read AnimalAIComponent attack_*_range check in the player's data.wak (tools: Terranoita.Cli wak-cat)",
-    "count": "wiki shows no count; read attack_ranged_entity_count check in the player's data.wak (tools: Terranoita.Cli wak-cat)"
-   }
+   "_unverified": {}
   },
   {
    "id": "barfer.toxic_sludge_spit",
@@ -7172,17 +6724,13 @@
    ],
    "damage": null,
    "per_frames": "hit",
-   "cooldown_frames": 90,
-   "range_tiles": 25,
+   "cooldown_frames": 145,
+   "range_tiles": 30.0,
    "lunge_speed": 0,
-   "sound": null,
+   "sound": "animals/wizard/voc_attack",
    "wiki_text": "Spits [[Toxic Sludge]]",
    "stage": "1b",
-   "_unverified": {
-    "cooldown_frames": "default for kind 'projectile'; read AnimalAIComponent attack_*_frames_between check in the player's data.wak (tools: Terranoita.Cli wak-cat)",
-    "range_tiles": "default for kind; read AnimalAIComponent attack_*_range check in the player's data.wak (tools: Terranoita.Cli wak-cat)",
-    "count": "wiki shows no count; read attack_ranged_entity_count check in the player's data.wak (tools: Terranoita.Cli wak-cat)"
-   }
+   "_unverified": {}
   },
   {
    "id": "thundermage.thunder_charge",
@@ -7198,17 +6746,13 @@
     "electricity": 37.5
    },
    "per_frames": "hit",
-   "cooldown_frames": 90,
-   "range_tiles": 25,
+   "cooldown_frames": 185,
+   "range_tiles": 30.0,
    "lunge_speed": 0,
-   "sound": null,
+   "sound": "none",
    "wiki_text": "[[Thunder Charge]]/Explosion/45; [[Thunder Charge]]/Electricity/37.5",
    "stage": "1b",
-   "_unverified": {
-    "cooldown_frames": "default for kind 'projectile'; read AnimalAIComponent attack_*_frames_between check in the player's data.wak (tools: Terranoita.Cli wak-cat)",
-    "range_tiles": "default for kind; read AnimalAIComponent attack_*_range check in the player's data.wak (tools: Terranoita.Cli wak-cat)",
-    "count": "wiki shows no count; read attack_ranged_entity_count check in the player's data.wak (tools: Terranoita.Cli wak-cat)"
-   }
+   "_unverified": {}
   },
   {
    "id": "thundermage.melee",
@@ -7226,16 +6770,13 @@
     ]
    },
    "per_frames": "hit",
-   "cooldown_frames": 40,
-   "range_tiles": 1.5,
+   "cooldown_frames": 20,
+   "range_tiles": 1.88,
    "lunge_speed": 0,
-   "sound": null,
+   "sound": "animals/generic/attack_melee",
    "wiki_text": "Melee/Melee/10-17.5",
    "stage": "1b",
-   "_unverified": {
-    "cooldown_frames": "default for kind 'melee'; read AnimalAIComponent attack_*_frames_between check in the player's data.wak (tools: Terranoita.Cli wak-cat)",
-    "range_tiles": "default for kind; read AnimalAIComponent attack_*_range check in the player's data.wak (tools: Terranoita.Cli wak-cat)"
-   }
+   "_unverified": {}
   },
   {
    "id": "wraith_storm.lightning_bolt",
@@ -7325,17 +6866,13 @@
    ],
    "damage": null,
    "per_frames": "hit",
-   "cooldown_frames": 90,
-   "range_tiles": 25,
+   "cooldown_frames": 225,
+   "range_tiles": 56.25,
    "lunge_speed": 0,
-   "sound": null,
+   "sound": "animals/wizard/voc_attack",
    "wiki_text": "[[Swapper]] bolt",
    "stage": "1b",
-   "_unverified": {
-    "cooldown_frames": "default for kind 'projectile'; read AnimalAIComponent attack_*_frames_between check in the player's data.wak (tools: Terranoita.Cli wak-cat)",
-    "range_tiles": "default for kind; read AnimalAIComponent attack_*_range check in the player's data.wak (tools: Terranoita.Cli wak-cat)",
-    "count": "wiki shows no count; read attack_ranged_entity_count check in the player's data.wak (tools: Terranoita.Cli wak-cat)"
-   }
+   "_unverified": {}
   },
   {
    "id": "hidden.projectile",
@@ -7482,16 +7019,13 @@
     ]
    },
    "per_frames": "hit",
-   "cooldown_frames": 40,
-   "range_tiles": 1.5,
+   "cooldown_frames": 20,
+   "range_tiles": 2.81,
    "lunge_speed": 0,
-   "sound": null,
+   "sound": "animals/generic/attack_melee",
    "wiki_text": "Melee/Melee/30-40",
    "stage": "1b",
-   "_unverified": {
-    "cooldown_frames": "default for kind 'melee'; read AnimalAIComponent attack_*_frames_between check in the player's data.wak (tools: Terranoita.Cli wak-cat)",
-    "range_tiles": "default for kind; read AnimalAIComponent attack_*_range check in the player's data.wak (tools: Terranoita.Cli wak-cat)"
-   }
+   "_unverified": {}
   },
   {
    "id": "lurker.launches_itself_as_a_at_you",
