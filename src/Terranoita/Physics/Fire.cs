@@ -8,37 +8,54 @@ using Terraria.ID;
 namespace Terranoita.Game.Physics
 {
     /// <summary>
-    /// Burning tiles (systems.json block_physics, materials.json burns / burn_seconds / burns_to / melts_to): they burn
-    /// for burn_seconds, set what touches them on fire, spread to burnable neighbours and melt ice and snow, then go.
-    /// Water next to a burning tile puts it out. Lava sets burnable tiles next to it on fire.
+    /// Burning tiles and background walls (systems.json block_physics, materials.json burns / burn_seconds / burns_to /
+    /// melts_to / terraria_walls): they burn for burn_seconds, set what touches them on fire, spread to burnable
+    /// neighbours (blocks and walls), melt ice and snow, then go. Water next to them puts them out. Lava and whoever is
+    /// on fire set them alight.
     /// </summary>
     public static class Fire
     {
         const int Tick = 6;                    // spread, melt and burn-down are looked at every 6 frames
         const float SpreadChance = 0.07f;      // per burnable neighbour and tick (a wooden wall burns through in ~10 s)
+        const float WallFactor = 0.7f;         // fire creeps along background walls a little slower
         const float LavaChance = 0.25f;        // per burnable tile next to lava and scan
-        const int MaxBurning = 3000;
+        const int MaxBurning = 4000;
         // [fire]+ice -> water at 40, [fire]+snow -> water at 80 (materials.xml reactions), per tick
         const float MeltIce = 0.04f, MeltSnow = 0.08f;
 
-        static readonly Dictionary<int, int> Burning = new Dictionary<int, int>();   // tile -> frames left
+        // key: (x + y * maxTilesX) * 2 + layer (0 = block, 1 = wall) -> frames left
+        static readonly Dictionary<int, int> Burning = new Dictionary<int, int>();
         static int _frame;
 
         public static int Count => Burning.Count;
         public static void Clear() => Burning.Clear();
 
-        public static bool Ignite(int x, int y)
+        static int Key(int x, int y, bool wall) => (x + y * Main.maxTilesX) * 2 + (wall ? 1 : 0);
+
+        static bool CanBurn(Tile t, bool wall) => wall ? Mats.WallBurns(t) : Mats.Burns(t);
+
+        public static bool Ignite(int x, int y, bool wall = false)
         {
             if (!Mats.InWorld(x, y) || Burning.Count >= MaxBurning)
                 return false;
             var t = Main.tile[x, y];
-            if (!Mats.Burns(t) || Wet(x, y))
+            if (!CanBurn(t, wall) || Wet(x, y))
                 return false;
-            int k = x + y * Main.maxTilesX;
+            int k = Key(x, y, wall);
             if (Burning.ContainsKey(k))
                 return false;
-            Burning[k] = Math.Max(Tick, (int)(Mats.Of(t).BurnSeconds * 60));
+            var m = wall ? Mats.OfWall(t) : Mats.Of(t);
+            Burning[k] = Math.Max(Tick, (int)(m.BurnSeconds * 60));
             return true;
+        }
+
+        /// <summary>Blocks and walls in this cell.</summary>
+        static void IgniteCell(int x, int y, float chance)
+        {
+            if (Main.rand.NextFloat() < chance)
+                Ignite(x, y);
+            if (Main.rand.NextFloat() < chance)
+                Ignite(x, y, true);
         }
 
         /// <summary>Set burnable tiles within radius px of pos on fire (fire shots, fiery explosions).</summary>
@@ -48,10 +65,10 @@ namespace Terranoita.Game.Physics
             int cx = (int)(pos.X / 16), cy = (int)(pos.Y / 16);
             for (int x = cx - r; x <= cx + r; x++)
                 for (int y = cy - r; y <= cy + r; y++)
-                    if ((x - cx) * (x - cx) + (y - cy) * (y - cy) <= r * r && Main.rand.NextFloat() < chance)
+                    if ((x - cx) * (x - cx) + (y - cy) * (y - cy) <= r * r)
                     {
-                        Ignite(x, y);
-                        if (Mats.InWorld(x, y) && Mats.Melts(Main.tile[x, y]))
+                        IgniteCell(x, y, chance);
+                        if (Mats.InWorld(x, y) && Mats.Melts(Main.tile[x, y]) && Main.rand.NextFloat() < chance)
                             Melt(x, y);
                     }
         }
@@ -80,13 +97,14 @@ namespace Terranoita.Game.Physics
                 meBox.Inflate(4, 4);
                 foreach (var kv in Burning)
                 {
-                    int x = kv.Key % Main.maxTilesX, y = kv.Key / Main.maxTilesX;
+                    int cell = kv.Key / 2, x = cell % Main.maxTilesX, y = cell / Main.maxTilesX;
+                    bool wall = kv.Key % 2 == 1;
                     if (!screen.Contains(x, y))
                         continue;
-                    Lighting.AddLight(x, y, 0.9f, 0.45f, 0.1f);
-                    if (Main.rand.Next(4) == 0)
+                    Lighting.AddLight(x, y, wall ? 0.6f : 0.9f, wall ? 0.3f : 0.45f, 0.1f);
+                    if (Main.rand.Next(wall ? 7 : 4) == 0)
                     {
-                        var d = Dust.NewDustDirect(new Vector2(x * 16, y * 16), 16, 16, DustID.Torch, 0f, -2f, 100, default(Color), 1.6f);
+                        var d = Dust.NewDustDirect(new Vector2(x * 16, y * 16), 16, 16, DustID.Torch, 0f, -2f, 100, default(Color), wall ? 1.2f : 1.6f);
                         d.noGravity = true;
                     }
                     if (Main.rand.Next(40) == 0)
@@ -106,15 +124,16 @@ namespace Terranoita.Game.Physics
         static void BurnTick()
         {
             var done = new List<int>();
-            var spread = new List<(int, int)>();
+            var spread = new List<(int, int, bool)>();
             foreach (var k in Burning.Keys.ToList())
             {
-                int x = k % Main.maxTilesX, y = k / Main.maxTilesX;
+                int cell = k / 2, x = cell % Main.maxTilesX, y = cell / Main.maxTilesX;
+                bool wall = k % 2 == 1;
                 var t = Main.tile[x, y];
-                if (!Mats.Burns(t) || Wet(x, y))
+                if (!CanBurn(t, wall) || Wet(x, y))
                 {
                     Burning.Remove(k);
-                    if (t != null && t.active())
+                    if (t != null && (t.active() || t.wall > 0))
                         for (int s = 0; s < 4; s++)
                             Dust.NewDust(new Vector2(x * 16, y * 16), 16, 16, DustID.Smoke, 0f, -1f, 150);
                     continue;
@@ -122,26 +141,32 @@ namespace Terranoita.Game.Physics
                 for (int dx = -1; dx <= 1; dx++)
                     for (int dy = -1; dy <= 1; dy++)
                     {
-                        if (dx == 0 && dy == 0)
-                            continue;
                         var n = Main.tile[x + dx, y + dy];
                         // flames climb: up and sideways more than down
                         float chance = SpreadChance * (dy < 0 ? 1.5f : dy > 0 ? 0.5f : 1f);
-                        if (Mats.Burns(n) && Main.rand.NextFloat() < chance)
-                            spread.Add((x + dx, y + dy));
-                        else if (Mats.Melts(n) && Main.rand.NextFloat() < (n.type == TileID.SnowBlock ? MeltSnow : MeltIce))
+                        if (dx == 0 && dy == 0)
+                            chance = SpreadChance * 2;   // the block and the wall behind it light each other
+                        if (Mats.Burns(n) && (dx != 0 || dy != 0 || wall) && Main.rand.NextFloat() < chance * (wall ? WallFactor : 1f))
+                            spread.Add((x + dx, y + dy, false));
+                        if (Mats.WallBurns(n) && (dx != 0 || dy != 0 || !wall) && Main.rand.NextFloat() < chance * WallFactor)
+                            spread.Add((x + dx, y + dy, true));
+                        if ((dx != 0 || dy != 0) && Mats.Melts(n) && Main.rand.NextFloat() < (n.type == TileID.SnowBlock ? MeltSnow : MeltIce))
                             Melt(x + dx, y + dy);
                     }
                 HurtNpcs(x, y);
                 if ((Burning[k] -= Tick) <= 0)
                     done.Add(k);
             }
-            foreach (var (x, y) in spread)
-                Ignite(x, y);
+            foreach (var (x, y, wall) in spread)
+                Ignite(x, y, wall);
             foreach (var k in done)
             {
                 Burning.Remove(k);
-                BurnOut(k % Main.maxTilesX, k / Main.maxTilesX);
+                int cell = k / 2;
+                if (k % 2 == 1)
+                    WallBurnOut(cell % Main.maxTilesX, cell / Main.maxTilesX);
+                else
+                    BurnOut(cell % Main.maxTilesX, cell / Main.maxTilesX);
             }
         }
 
@@ -163,8 +188,7 @@ namespace Terranoita.Game.Physics
             box.Inflate(2, 2);
             for (int x = box.Left / 16; x <= box.Right / 16; x++)
                 for (int y = box.Top / 16; y <= box.Bottom / 16; y++)
-                    if (Main.rand.NextFloat() < SpreadChance * 2)
-                        Ignite(x, y);
+                    IgniteCell(x, y, SpreadChance * 2);
         }
 
         static void HurtNpcs(int x, int y)
@@ -196,6 +220,17 @@ namespace Terranoita.Game.Physics
                 WorldGen.KillTile(x, y, false, false, true);   // burned away: nothing drops; the hook disturbs around it
         }
 
+        static void WallBurnOut(int x, int y)
+        {
+            var t = Main.tile[x, y];
+            if (t == null || t.wall == 0)
+                return;
+            for (int s = 0; s < 2; s++)
+                Dust.NewDust(new Vector2(x * 16, y * 16), 16, 16, DustID.Smoke, 0f, -1f, 100, default(Color), 1.1f);
+            t.wall = 0;            // burned away: nothing drops
+            WorldGen.SquareWallFrame(x, y, true);
+        }
+
         static void Melt(int x, int y)
         {
             var t = Main.tile[x, y];
@@ -212,7 +247,7 @@ namespace Terranoita.Game.Physics
                 Dust.NewDust(new Vector2(x * 16, y * 16), 16, 16, DustID.Cloud, 0f, -1f, 150);
         }
 
-        /// <summary>Lava next to burnable tiles (and ice, snow) around the player.</summary>
+        /// <summary>Lava next to burnable blocks and walls (and ice, snow) around the player.</summary>
         static void LavaScan(Player me)
         {
             if (!me.active)
@@ -230,10 +265,10 @@ namespace Terranoita.Game.Physics
                         for (int dy = -1; dy <= 1; dy++)
                         {
                             var n = Main.tile[x + dx, y + dy];
-                            if (Mats.Burns(n) && Main.rand.NextFloat() < LavaChance)
-                                Ignite(x + dx, y + dy);
-                            else if (Mats.Melts(n) && Main.rand.NextFloat() < LavaChance)
+                            if (Mats.Melts(n) && Main.rand.NextFloat() < LavaChance)
                                 Melt(x + dx, y + dy);
+                            else
+                                IgniteCell(x + dx, y + dy, LavaChance);
                         }
                 }
         }

@@ -11,6 +11,10 @@
    "type": "string[]",
    "desc": "Terraria TileID names in this group."
   },
+  "terraria_walls": {
+   "type": "string[]",
+   "desc": "Terraria WallID names of the same stuff: background walls burn like it (and are gone)."
+  },
   "noita_material": {
    "type": "string",
    "desc": "The Noita material (materials.xml) it behaves like."
@@ -68,6 +72,7 @@
     "Dirt",
     "ClayBlock"
    ],
+   "terraria_walls": [],
    "noita_material": "soil",
    "falls": "powder",
    "falls_as": "same",
@@ -86,6 +91,7 @@
    "terraria_tiles": [
     "Mud"
    ],
+   "terraria_walls": [],
    "noita_material": "mud",
    "falls": "powder",
    "falls_as": "same",
@@ -104,6 +110,7 @@
    "terraria_tiles": [
     "Ash"
    ],
+   "terraria_walls": [],
    "noita_material": "sand",
    "falls": "powder",
    "falls_as": "same",
@@ -123,6 +130,7 @@
     "Silt",
     "Slush"
    ],
+   "terraria_walls": [],
    "noita_material": "sand",
    "falls": "powder",
    "falls_as": "same",
@@ -141,6 +149,7 @@
    "terraria_tiles": [
     "SnowBlock"
    ],
+   "terraria_walls": [],
    "noita_material": "snow",
    "falls": "powder",
    "falls_as": "same",
@@ -164,6 +173,15 @@
     "GolfGrass",
     "GolfGrassHallowed"
    ],
+   "terraria_walls": [
+    "Grass",
+    "GrassUnsafe",
+    "Flower",
+    "FlowerUnsafe",
+    "CorruptGrassUnsafe",
+    "HallowedGrassUnsafe",
+    "CrimsonGrassUnsafe"
+   ],
    "noita_material": "grass",
    "falls": "powder",
    "falls_as": "Dirt",
@@ -184,6 +202,10 @@
     "CorruptJungleGrass",
     "CrimsonJungleGrass"
    ],
+   "terraria_walls": [
+    "JungleUnsafe",
+    "Jungle"
+   ],
    "noita_material": "grass",
    "falls": "powder",
    "falls_as": "Mud",
@@ -202,6 +224,7 @@
    "terraria_tiles": [
     "MushroomGrass"
    ],
+   "terraria_walls": [],
    "noita_material": "fungi",
    "falls": "powder",
    "falls_as": "Mud",
@@ -220,6 +243,7 @@
    "terraria_tiles": [
     "AshGrass"
    ],
+   "terraria_walls": [],
    "noita_material": "grass",
    "falls": "powder",
    "falls_as": "Ash",
@@ -259,6 +283,36 @@
     "Rope",
     "Cobweb"
    ],
+   "terraria_walls": [
+    "Wood",
+    "Planked",
+    "Ebonwood",
+    "Pearlwood",
+    "LivingWood",
+    "LivingWoodUnsafe",
+    "Shadewood",
+    "WoodenFence",
+    "SpookyWood",
+    "EbonwoodFence",
+    "RichMahoganyFence",
+    "PearlwoodFence",
+    "ShadewoodFence",
+    "WhiteDynasty",
+    "BlueDynasty",
+    "BorealWood",
+    "BorealWoodFence",
+    "PalmWood",
+    "PalmWoodFence",
+    "BambooBlockWall",
+    "LargeBambooBlockWall",
+    "BambooFence",
+    "AshWood",
+    "AshWoodFence",
+    "FeywoodWall",
+    "PineWoodBlockWall",
+    "RichMaogany",
+    "Hay"
+   ],
    "noita_material": "wood",
    "falls": "none",
    "falls_as": "same",
@@ -281,6 +335,7 @@
     "TreeAsh",
     "Bamboo"
    ],
+   "terraria_walls": [],
    "noita_material": "wood",
    "falls": "none",
    "falls_as": "same",
@@ -300,6 +355,10 @@
     "MushroomTrees",
     "MushroomVines",
     "MushroomBlock"
+   ],
+   "terraria_walls": [
+    "Mushroom",
+    "MushroomUnsafe"
    ],
    "noita_material": "fungi",
    "falls": "none",
@@ -327,6 +386,9 @@
     "AshVines",
     "VineFlowers"
    ],
+   "terraria_walls": [
+    "LivingLeaf"
+   ],
    "noita_material": "plant_material",
    "falls": "none",
    "falls_as": "same",
@@ -349,6 +411,7 @@
     "FleshIce",
     "BreakableIce"
    ],
+   "terraria_walls": [],
    "noita_material": "ice",
    "falls": "none",
    "falls_as": "same",
@@ -369,6 +432,7 @@
     "RainCloud",
     "SnowCloud"
    ],
+   "terraria_walls": [],
    "noita_material": "-",
    "falls": "weightless",
    "falls_as": "same",

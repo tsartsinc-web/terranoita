@@ -8,11 +8,21 @@ namespace Terranoita.Game.Physics
     /// <summary>Terraria tile type -> its Noita material (design/sheets/materials.json).</summary>
     public static class Mats
     {
-        static MaterialDef[] _byTile;
+        static MaterialDef[] _byTile, _byWall;
         static ushort[] _fallsAs, _burnsTo;
 
         static void Build()
         {
+            _byWall = new MaterialDef[WallID.Count];
+            foreach (var m in Materials.All)
+                foreach (var name in m.TerrariaWalls ?? new string[0])
+                {
+                    var f = typeof(WallID).GetField(name);
+                    if (f == null)
+                        Entry.Warn("materials: no WallID." + name);
+                    else
+                        _byWall[Convert.ToInt32(f.GetValue(null))] = m;
+                }
             _byTile = new MaterialDef[TileID.Count];
             _fallsAs = new ushort[TileID.Count];
             _burnsTo = new ushort[TileID.Count];
@@ -55,6 +65,14 @@ namespace Terranoita.Game.Physics
             return m != null && m.Falls == "powder" && !TileID.Sets.Falling[t.type];
         }
 
+        public static MaterialDef OfWall(Tile t)
+        {
+            if (_byTile == null)
+                Build();
+            return t != null && t.wall > 0 && t.wall < _byWall.Length ? _byWall[t.wall] : null;
+        }
+
+        public static bool WallBurns(Tile t) => OfWall(t)?.Burns == true;
         public static bool Weightless(Tile t) => Of(t)?.Falls == "weightless";
         public static bool Burns(Tile t) => Of(t)?.Burns == true;
         public static bool Melts(Tile t) => Of(t) != null && Of(t).MeltsTo != "none";

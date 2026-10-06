@@ -58,9 +58,27 @@ ROWS = [
      "author: clouds are weightless"),
 ]
 
+# background walls of the same stuff: they burn like it (burned walls are gone)
+WALLS = {
+    "wood": ["Wood", "Planked", "Ebonwood", "Pearlwood", "LivingWood", "LivingWoodUnsafe", "Shadewood", "WoodenFence",
+             "SpookyWood", "EbonwoodFence", "RichMahoganyFence", "PearlwoodFence", "ShadewoodFence", "WhiteDynasty",
+             "BlueDynasty", "BorealWood", "BorealWoodFence", "PalmWood", "PalmWoodFence", "BambooBlockWall",
+             "LargeBambooBlockWall", "BambooFence", "AshWood", "AshWoodFence", "FeywoodWall", "PineWoodBlockWall",
+             "RichMaogany", "Hay"],
+    "grass": ["Grass", "GrassUnsafe", "Flower", "FlowerUnsafe", "CorruptGrassUnsafe", "HallowedGrassUnsafe",
+              "CrimsonGrassUnsafe"],
+    "jungle_grass": ["JungleUnsafe", "Jungle"],
+    "mushroom_trees": ["Mushroom", "MushroomUnsafe"],
+    "plants": ["LivingLeaf"],
+}
+COLUMNS = dict(list(COLUMNS.items())[:2] + [("terraria_walls", {"type": "string[]", "desc":
+           "Terraria WallID names of the same stuff: background walls burn like it (and are gone)."})] +
+           list(COLUMNS.items())[2:])
+
 rows = []
 for (rid, tiles, mat, falls, falls_as, burns, secs, burns_to, melts, src) in ROWS:
-    rows.append({"id": rid, "terraria_tiles": tiles, "noita_material": mat, "falls": falls, "falls_as": falls_as or "same",
+    rows.append({"id": rid, "terraria_tiles": tiles, "terraria_walls": WALLS.get(rid, []), "noita_material": mat,
+                 "falls": falls, "falls_as": falls_as or "same",
                  "burns": burns, "burn_seconds": secs, "burns_to": burns_to, "melts_to": melts, "stage": "2",
                  "_unverified": {}, "_sources": {"all": src + ". Which tiles fall: author (loose ones only)."}})
 sheet = {"sheet": "materials", "description": "Stage 2 block physics: how Terraria tiles behave as Noita materials.",

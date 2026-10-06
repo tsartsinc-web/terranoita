@@ -396,3 +396,4 @@ Entry.Stage default 1b, version 0.2.0. Проверить на ПК also: worm l
 - Not done (needs author decisions): wand slots UI, how Terraria gets wands (drops/shops/start), Noita projectiles as
   Terraria projectiles for the player.
 - Burning player and NPCs (onFire) light the burnable tiles they touch (author: a burning player did not set wood alight).
+- Background walls burn (materials.terraria_walls: wooden, grass, flower, jungle, mushroom, leaf walls): blocks and the walls behind them light each other, fire creeps along walls at 0.7x. Physics autotest: wooden wall 47/49 burned with the box, the rest as before.

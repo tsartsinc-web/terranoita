@@ -95,6 +95,10 @@ namespace Terranoita.Game.Physics
             for (int x = _x0 + 24; x <= _x0 + 27; x++)
                 for (int y = _gy - 4; y <= _gy - 1; y++)
                     Place(x, y, TileID.WoodBlock, true);
+            // with a wooden wall behind it and beyond it
+            for (int x = _x0 + 21; x <= _x0 + 27; x++)
+                for (int y = _gy - 7; y <= _gy - 1; y++)
+                    WorldGen.PlaceWall(x, y, WallID.Wood, true);
             Place(_x0 + 28, _gy - 1, TileID.IceBlock, false);
             Place(_x0 + 28, _gy - 2, TileID.SnowBlock, false);
             // 5. dirt to blow up
@@ -127,6 +131,11 @@ namespace Terranoita.Game.Physics
             int hutHigh = Count(_x0 + 10, _x0 + 18, _gy - 8, _gy - 8, t => t.type == TileID.WoodBlock);
             int hut = Count(_x0 + 10, _x0 + 18, _gy - 9, _gy - 1, t => t.type == TileID.WoodBlock);
             int box = Count(_x0 + 24, _x0 + 27, _gy - 4, _gy - 1, t => t.type == TileID.WoodBlock);
+            int walls = 0;
+            for (int x = _x0 + 21; x <= _x0 + 27; x++)
+                for (int y = _gy - 7; y <= _gy - 1; y++)
+                    if (Main.tile[x, y].wall == WallID.Wood)
+                        walls++;
             int ice = Count(_x0 + 28, _x0 + 28, _gy - 2, _gy - 1, t => t.type == TileID.IceBlock || t.type == TileID.SnowBlock);
             int water = 0;
             for (int x = _x0 + 22; x <= _x0 + 32; x++)
@@ -135,7 +144,7 @@ namespace Terranoita.Game.Physics
             int blasted = 36 - Count(_x0 + 34, _x0 + 42, _gy - 4, _gy - 1, t => t.type == TileID.Dirt);
             Log(when + ": loose dirt " + col + "/14, " + colLanded + " low on the floor (want 14 and 14); pile " + pile + "/9 dirt, " +
                 pileWide + " wide on the floor (want > 1); hut " + hut + "/15 wood, " + hutHigh + " still at the old height (want 0); " +
-                "box " + box + "/16 wood, burning " + Fire.Count + "; ice+snow " + ice + "/2, water " + water + "; blasted " + blasted +
+                "box " + box + "/16 wood, wall " + walls + "/49, burning " + Fire.Count + ";ice+snow " + ice + "/2, water " + water + "; blasted " + blasted +
                 "/36; falling " + Falling.Active + ", placed " + Placed.Count);
         }
     }
