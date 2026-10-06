@@ -27,8 +27,6 @@ Work branch: `claude/dazzling-carson-h8mi9n`. Current step and history: last sec
 - Checks: `dotnet test tests/Terranoita.Core.Tests`, `python3 -m unittest discover -s tests/tools`,
   `python3 tools/preflight.py --gate 1a -q` must stay CLEAN (stage 1a rows must not change).
 - Anything needing the games goes to MODLOG as "проверить на ПК" and into the next pc_step run.
-- Never invent numbers or behaviour (author: "we have Noita"). If the facts lack a value, do not put a design value in:
-  list the cell in design/sources/placeholders_to_check.md with the Noita file to read; the local session reads it.
 
 ## Save tokens
 Targeted greps and python one-liners with short output; no full-file dumps; no subagents/workflows unless the author
