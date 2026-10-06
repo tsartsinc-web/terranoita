@@ -1639,8 +1639,9 @@
    "effect": "neutralize",
    "terrain": "none",
    "stage": "1b",
-   "_unverified": {
-    "effect": "guessed from the name; confirm in the projectile's entity XML"
+   "_unverified": {},
+   "_sources": {
+    "effect": "neutralizershot.xml (same file as neutralize_shot): damage 0; HitEffectComponent LOAD_CHILD_ENTITY data/entities/misc/neutralizer_target.xml = GameEffectComponent MOVEMENT_SLOWER_2X (read on the author's PC)"
    }
   },
   {

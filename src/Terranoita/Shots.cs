@@ -111,6 +111,7 @@ namespace Terranoita.Game
                 case "fire": me.AddBuff(BuffID.OnFire, 180); break;
                 case "poison": me.AddBuff(BuffID.Poisoned, 300); break;
                 case "acid": me.AddBuff(BuffID.Poisoned, 120); break;   // early-game strength, not Venom
+                case "neutralize": me.AddBuff(BuffID.Slow, 300); break;  // neutralizer_target.xml: MOVEMENT_SLOWER_2X
             }
             Entry.Log(s.From.Def.Id + " shot " + s.Def.Id + " hits for " + final + (direct ? "" : " (blast)"));
         }
