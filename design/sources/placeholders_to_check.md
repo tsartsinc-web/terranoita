@@ -1,0 +1,55 @@
+# Placeholders to replace with values read from Noita (local session; read the files listed)
+
+Each line: sheet | row | column | current placeholder | entity file | scripts. Read the entity XML and scripts in
+data.wak (tncli wak-cat), put the real value in the cell and replace its _sources note with the file and line it came from.
+
+- enemies | ghost | hitbox | [48, 48] | data/entities/animals/ghost.xml | -
+- attacks | lukki.melee | cooldown_frames | 40 | data/entities/animals/lukki/lukki.xml | -
+- attacks | lukki_longleg.melee | cooldown_frames | 40 | data/entities/animals/lukki/lukki_longleg.xml | -
+- attacks | lukki_tiny.melee | cooldown_frames | 40 | data/entities/animals/lukki/lukki_tiny.xml | -
+- attacks | worm_end.worm_bite | cooldown_frames | 40 | data/entities/animals/worm_end.xml | -
+- attacks | wraith_glowing.pinpoint_of_light | count | [1, 1] | data/entities/animals/wraith_glowing.xml | data/scripts/animals/wraith_glowing_damage.lua
+- attacks | wraith_glowing.pinpoint_of_light | range_tiles | 56.2 | data/entities/animals/wraith_glowing.xml | data/scripts/animals/wraith_glowing_damage.lua
+- attacks | statue_physics.green_radial_orb | count | [1, 1] | data/entities/animals/statue_physics.xml | data/scripts/animals/statue_physics_shot.lua
+- attacks | statue_physics.green_radial_orb | range_tiles | 56.2 | data/entities/animals/statue_physics.xml | data/scripts/animals/statue_physics_shot.lua
+- attacks | fungus_giga.pollen_bundle | count | [1, 1] | data/entities/animals/fungus_giga.xml | data/scripts/animals/fungus_big_death.lua, data/scripts/animals/fungus_giga_pollen.lua
+- attacks | fungus_giga.pollen_bundle | range_tiles | 56.2 | data/entities/animals/fungus_giga.xml | data/scripts/animals/fungus_big_death.lua, data/scripts/animals/fungus_giga_pollen.lua
+- attacks | fungus_giga.explodes_on_death | range_tiles | 11.25 | data/entities/animals/fungus_giga.xml | data/scripts/animals/fungus_big_death.lua, data/scripts/animals/fungus_giga_pollen.lua
+- attacks | worm_big.worm_bite | cooldown_frames | 40 | data/entities/animals/worm_big.xml | data/scripts/animals/worm_death.lua
+- attacks | worm_skull.worm_bite | cooldown_frames | 40 | data/entities/animals/worm_skull.xml | -
+- attacks | lukki_creepy_long.melee | cooldown_frames | 40 | data/entities/animals/lukki/lukki_creepy_long.xml | -
+- attacks | fungus.explodes_on_death | range_tiles | 9.38 | data/entities/animals/fungus.xml | data/scripts/animals/fungus_death.lua, data/scripts/animals/fungus_smoke.lua
+- attacks | meatmaggot.worm_bite | cooldown_frames | 40 | data/entities/animals/meatmaggot.xml | -
+- attacks | worm.worm_bite | cooldown_frames | 40 | data/entities/animals/worm.xml | -
+- attacks | monk.projectile | count | [1, 1] | data/entities/animals/monk.xml | data/scripts/animals/monk_hand_move.lua, data/scripts/animals/monk_hand_shoot.lua
+- attacks | monk.projectile | range_tiles | 46.9 | data/entities/animals/monk.xml | data/scripts/animals/monk_hand_move.lua, data/scripts/animals/monk_hand_shoot.lua
+- attacks | fungus_tiny.explodes_on_death | range_tiles | 9.38 | data/entities/animals/fungus_tiny.xml | data/scripts/animals/fungus_death.lua, data/scripts/animals/fungus_smoke.lua
+- attacks | eel.worm_bite | cooldown_frames | 40 | data/entities/animals/eel.xml | -
+- attacks | fungus_big.explodes_on_death | range_tiles | 11.25 | data/entities/animals/fungus_big.xml | data/scripts/animals/fungus_big_death.lua, data/scripts/animals/fungus_smoke.lua
+- attacks | worm_tiny.worm_bite | cooldown_frames | 40 | data/entities/animals/worm_tiny.xml | -
+- attacks | neutralizer.projectile | count | [1, 1] | data/entities/animals/basebot_neutralizer.xml | data/scripts/animals/basebot_neutralizer_check.lua
+- attacks | neutralizer.projectile | range_tiles | 46.9 | data/entities/animals/basebot_neutralizer.xml | data/scripts/animals/basebot_neutralizer_check.lua
+- attacks | wraith_storm.lightning_bolt | count | [1, 1] | data/entities/animals/wraith_storm.xml | data/scripts/projectiles/projectile_thunder.lua
+- attacks | wraith_storm.lightning_bolt | range_tiles | 56.2 | data/entities/animals/wraith_storm.xml | data/scripts/projectiles/projectile_thunder.lua
+- attacks | bloodcrystal_physics.projectile | count | [1, 1] | data/entities/animals/bloodcrystal_physics.xml | data/scripts/animals/bloodcrystal_explosion.lua
+- attacks | bloodcrystal_physics.projectile | range_tiles | 56.2 | data/entities/animals/bloodcrystal_physics.xml | data/scripts/animals/bloodcrystal_explosion.lua
+- attacks | nest_fly.release | cooldown_frames | 121 | data/entities/buildings/flynest.xml | data/scripts/buildings/flynest.lua
+- attacks | nest_fly.release | count | [1, 3] | data/entities/buildings/flynest.xml | data/scripts/buildings/flynest.lua
+- attacks | nest_fly.release | range_tiles | 15 | data/entities/buildings/flynest.xml | data/scripts/buildings/flynest.lua
+- attacks | nest_firebug.release | cooldown_frames | 121 | data/entities/buildings/firebugnest.xml | data/scripts/buildings/firebugnest.lua
+- attacks | nest_firebug.release | count | [1, 3] | data/entities/buildings/firebugnest.xml | data/scripts/buildings/firebugnest.lua
+- attacks | nest_firebug.release | range_tiles | 15 | data/entities/buildings/firebugnest.xml | data/scripts/buildings/firebugnest.lua
+- attacks | weakspirit.aura | range_tiles | 6 | data/entities/animals/weakspirit.xml | data/scripts/animals/spirit_aura_weak.lua
+- attacks | slimespirit.aura | range_tiles | 6 | data/entities/animals/slimespirit.xml | data/scripts/animals/spirit_aura_slime.lua
+- attacks | confusespirit.aura | range_tiles | 6 | data/entities/animals/confusespirit.xml | data/scripts/animals/spirit_aura_confuse.lua
+- attacks | berserkspirit.aura | range_tiles | 6 | data/entities/animals/berserkspirit.xml | data/scripts/animals/spirit_aura_berserk.lua
+- attacks | giantshooter.split | cooldown_frames | 60 | data/entities/animals/giantshooter.xml | data/scripts/animals/giantshooter_death.lua
+- attacks | giantshooter.split | count | [1, 1] | data/entities/animals/giantshooter.xml | data/scripts/animals/giantshooter_death.lua
+- attacks | giantshooter_weak.split | cooldown_frames | 60 | data/entities/animals/giantshooter_weak.xml | data/scripts/animals/giantshooter_death.lua
+- attacks | giantshooter_weak.split | count | [1, 1] | data/entities/animals/giantshooter_weak.xml | data/scripts/animals/giantshooter_death.lua
+- attacks | blob.split | cooldown_frames | 60 | data/entities/animals/blob.xml | data/scripts/animals/blob_damage.lua
+- attacks | blob.split | count | [1, 1] | data/entities/animals/blob.xml | data/scripts/animals/blob_damage.lua
+- attacks | scavenger_leader.split | cooldown_frames | 60 | data/entities/animals/scavenger_leader.xml | data/scripts/animals/leader_damage.lua
+- attacks | scavenger_leader.split | count | [1, 1] | data/entities/animals/scavenger_leader.xml | data/scripts/animals/leader_damage.lua
+- ai_archetypes | mimic | wake_tiles | 4 |  | -
+- ai_archetypes | leggy_mimic | wake_tiles | 4 |  | -
