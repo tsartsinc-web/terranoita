@@ -3127,7 +3127,8 @@
    "audio": "animals/frog_big",
    "attacks": [
     "frog_big.tentacle",
-    "frog_big.lunge"
+    "frog_big.lunge",
+    "frog_big.tongue"
    ],
    "spawn_in": [
     "Collapsed Mines",
@@ -11728,8 +11729,8 @@
    "sight_tiles": 56.2,
    "audio": "animals/slimeshooter",
    "attacks": [
-    "lurker.launches_itself_as_a_at_you",
-    "lurker.curse"
+    "lurker.curse",
+    "lurker.lurkershot"
    ],
    "spawn_in": [
     "Lukki Lair"

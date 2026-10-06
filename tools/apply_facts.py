@@ -56,6 +56,19 @@ def tokens(s):
 
 # ---- behaviour components (facts from the newer tncli) -------------------------------------------------------------
 
+# sound events an attack of each kind starts with, most specific first (Noita names them per creature folder)
+SOUND_NAMES = {
+    "melee": ["attack_melee", "attack_bite", "limb_attack", "_voc_attack", "voc_attack"],
+    "lunge": ["attack_dash", "voc_attack", "_voc_attack"],
+    "projectile": ["attack_shoot", "attack_ranged", "shoot", "voc_shoot", "_throw", "_voc_attack", "voc_attack"],
+    "retaliate": ["shoot", "attack_shoot", "attack_ranged"],
+    "summon": ["attack_ranged", "attack_shoot", "shoot", "duplicate", "voc_attack"],
+    "heal": ["attack_ranged", "attack_shoot", "shoot"],
+    "support": ["attack_ranged", "attack_shoot", "shoot"],
+    "aura": ["attack_aura", "aura"],
+    "death_explosion": ["death_buildup", "explode", "explosion"],
+}
+
 # components that move a creature some other way than CharacterPlatformingComponent
 MOVERS = {"WormComponent", "WormAIComponent", "PhysicsAIComponent", "AdvancedFishAIComponent", "FishAIComponent",
           "IKLimbWalkerComponent", "IKLimbsAnimatorComponent", "LimbBossComponent", "CrawlerAnimalComponent",
@@ -160,6 +173,37 @@ def spawned_files(f):
     return list(dict.fromkeys(out))
 
 
+SHOOTING_KINDS = ("projectile", "retaliate", "heal", "support")
+
+
+def squash(s):
+    return re.sub(r"[^a-z0-9]", "", (s or "").lower())
+
+
+def match_score(attack, entity_file):
+    """How well a sheet attack fits a data.wak projectile file: shared words, plus one if either name contains the
+    other once underscores are dropped (machine_gun / machinegun_bullet_tank)."""
+    name, file = attack["projectile"] if attack["projectile"] not in (None, "none") else attack["id"].split(".", 1)[1], basename(entity_file)
+    score = len(tokens(name) & tokens(file))
+    a, b = squash(name), squash(file)
+    if a and b and (a in b or b in a):
+        score += 1
+    return score
+
+
+def new_ranged_attack(enemy, r):
+    pf = r.get("projectile") or {}
+    a = {"id": "%s.%s" % (enemy["id"], basename(r["entity_file"])), "enemy": enemy["id"], "kind": "projectile",
+         "projectile": "none", "summons": [], "count": [1, 1],
+         "damage": {"projectile": round((pf.get("damage") or 0) * 25.0, 2)}, "per_frames": "hit",
+         "cooldown_frames": None, "range_tiles": None, "lunge_speed": 0, "sound": None,
+         "wiki_text": "From data.wak: %s ranged attack %s (not on the wiki)" % (r.get("source"), r["entity_file"]),
+         "stage": enemy["stage"], "_unverified": {}}
+    if (pf.get("explosion_radius_px") or 0) > 0:
+        a["_unverified"]["damage"] = "projectile part from data.wak; its explosion damage is in config_explosion damage"
+    return a
+
+
 def has_own_attacks(f):
     return bool(f.get("ranged")) or bool(f.get("dash")) or any(c["component"] in ATTACKERS for c in components(f))
 
@@ -192,7 +236,8 @@ def main():
     claimed = {}    # projectile id -> (noita_file, who set it)
 
     def own_projectile_row(shared, entity_file, enemy_id, attack):
-        """A copy of a shared projectile row for the enemy whose data.wak file differs; the attack is repointed."""
+        """A copy of a shared projectile row for the enemy whose data.wak file differs (or a new row when the attack
+        had none, like heal shots); the attack is repointed."""
         same = [x for x in proj_by_id.values() if claimed.get(x["id"], (x.get("noita_file"),))[0] == entity_file]
         if same:
             row, pid = same[0], same[0]["id"]
@@ -203,14 +248,20 @@ def main():
                 pid = "%s_%s" % (enemy_id, basename(entity_file))
                 row = proj_by_id.get(pid)
         if row is None:
+            if shared is None:
+                shared = {"id": "none", "name_en": basename(entity_file).replace("_", " ").capitalize() + " projectile",
+                          "effect": "heal" if attack["kind"] == "heal" else "none", "terrain": "none"}
+                name = shared["name_en"]
+            else:
+                name = shared["name_en"] + " (" + basename(entity_file) + ")"
             row = {k: v for k, v in shared.items() if not k.startswith("_")}
-            row.update(id=pid, name_en=shared["name_en"] + " (" + basename(entity_file) + ")", used_by=[],
+            row.update(id=pid, name_en=name, used_by=[],
                        noita_file=None, sprite=None, speed=None, gravity=None, lifetime_frames=None,
                        explosion_radius=None, audio=None, explosion_sound=None, stage=attack["stage"])
             row["_unverified"] = {"effect": "copied from %s; confirm in %s" % (shared["id"], entity_file)}
             projectiles["rows"].append(row)
             proj_by_id[pid] = row
-        if enemy_id in shared.get("used_by", []):
+        if shared is not None and enemy_id in shared.get("used_by", []):
             shared["used_by"].remove(enemy_id)
         if enemy_id not in row["used_by"]:
             row["used_by"].append(enemy_id)
@@ -328,9 +379,16 @@ def main():
                     notes.append("%s: dash damage wiki %s, data.wak %s (using data.wak)" % (aid, a["damage"].get("melee"), shown))
                 verify(a, "damage", {"melee": shown})
 
+        # the start sound of every other attack, by kind, from the creature's own sound folders (None: not decided)
+        for aid in e["attacks"]:
+            a = attack_by_id[aid]
+            names = SOUND_NAMES.get(a["kind"])
+            if sounds and names and a.get("sound") is None:
+                verify(a, "sound", first_sound(roots, names))
+
         # ranged: match sheet projectile attacks to data.wak ranged attacks
         ranged = list(f.get("ranged") or [])
-        proj_attacks = [attack_by_id[a] for a in e["attacks"] if attack_by_id[a]["kind"] in ("projectile", "retaliate")]
+        proj_attacks = [attack_by_id[a] for a in e["attacks"] if attack_by_id[a]["kind"] in SHOOTING_KINDS]
         pairs = []
         if len(ranged) == 1 and len(proj_attacks) == 1:
             pairs = [(proj_attacks[0], ranged[0])]
@@ -339,16 +397,28 @@ def main():
             for a in proj_attacks:
                 best, score = None, 0
                 for r in free:
-                    s = len(tokens(a["projectile"]) & tokens(basename(r["entity_file"])))
+                    s = match_score(a, r["entity_file"])
                     if s > score:
                         best, score = r, s
                 if best:
                     pairs.append((a, best))
                     free.remove(best)
-            unmatched = [a["id"] for a in proj_attacks if a not in [p[0] for p in pairs]]
+            unmatched = [a for a in proj_attacks if a not in [p[0] for p in pairs]]
+            if len(unmatched) == 1 and len(free) == 1:
+                pairs.append((unmatched[0], free[0]))   # the only attack left fires the only file left
+                unmatched, free = [], []
+            if not proj_attacks and len(free) == 1 and not any(attack_by_id[x]["kind"] == "summon" for x in e["attacks"]):
+                # data.wak has a ranged attack the wiki does not list: it gets its own row
+                a = new_ranged_attack(e, free[0])
+                attack_by_id[a["id"]] = a
+                attacks["rows"].append(a)
+                e["attacks"].append(a["id"])
+                pairs.append((a, free[0]))
+                notes.append("%s: added attack %s for %s (not on the wiki)" % (e["id"], a["id"], free[0]["entity_file"]))
+                free = []
             if unmatched or free:
                 notes.append("%s: could not match attacks %s to data.wak files %s" % (
-                    e["id"], unmatched, [r["entity_file"] for r in free]))
+                    e["id"], [a["id"] for a in unmatched], [r["entity_file"] for r in free]))
         for a, r in pairs:
             if r.get("frames_between"):
                 # Noita also keeps the creature in its attack state for state_frames before it can act again
@@ -363,6 +433,9 @@ def main():
                 verify(a, "count", [1, 1])  # attributes absent: Noita's default of one projectile per shot
             p = proj_by_id.get(a["projectile"])
             pf = r.get("projectile")
+            if not p and pf and a["projectile"] in (None, "", "none"):
+                p = own_projectile_row(None, r["entity_file"], e["id"], a)
+                notes.append("%s: %s fires %s: new projectile row %s" % (e["id"], a["id"], r["entity_file"], p["id"]))
             if not p or not pf:
                 notes.append("%s: no projectile facts for %s (%s)" % (e["id"], a["id"], r.get("projectile_error", "")))
                 continue

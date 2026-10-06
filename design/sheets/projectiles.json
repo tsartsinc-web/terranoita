@@ -1270,14 +1270,14 @@
    "used_by": [
     "tank_super"
    ],
-   "noita_file": null,
-   "sprite": null,
-   "speed": null,
-   "gravity": null,
-   "lifetime_frames": null,
-   "explosion_radius": null,
-   "audio": null,
-   "explosion_sound": null,
+   "noita_file": "data/entities/projectiles/machinegun_bullet_tank_super.xml",
+   "sprite": "data/projectiles_gfx/fireball_smaller_green.xml",
+   "speed": 33.75,
+   "gravity": 0.1667,
+   "lifetime_frames": 30,
+   "explosion_radius": 1.12,
+   "audio": "projectiles/laser",
+   "explosion_sound": "none",
    "effect": "light",
    "terrain": "none",
    "stage": "1b",
@@ -1378,14 +1378,14 @@
    "used_by": [
     "tank"
    ],
-   "noita_file": null,
-   "sprite": null,
-   "speed": null,
-   "gravity": null,
-   "lifetime_frames": null,
-   "explosion_radius": null,
-   "audio": null,
-   "explosion_sound": null,
+   "noita_file": "data/entities/projectiles/machinegun_bullet_tank.xml",
+   "sprite": "data/projectiles_gfx/bullet.xml",
+   "speed": 22.5,
+   "gravity": 0.3333,
+   "lifetime_frames": 50,
+   "explosion_radius": 0.38,
+   "audio": "projectiles/minigun",
+   "explosion_sound": "none",
    "effect": "none",
    "terrain": "none",
    "stage": "1b",
@@ -2018,14 +2018,14 @@
     "scavenger_shield",
     "drone_shield"
    ],
-   "noita_file": null,
-   "sprite": null,
-   "speed": null,
-   "gravity": null,
-   "lifetime_frames": null,
-   "explosion_radius": null,
-   "audio": null,
-   "explosion_sound": null,
+   "noita_file": "data/entities/projectiles/shieldshot.xml",
+   "sprite": "data/projectiles_gfx/grenade_blue.xml",
+   "speed": 11.25,
+   "gravity": 0.0,
+   "lifetime_frames": 50,
+   "explosion_radius": 0.19,
+   "audio": "projectiles/bullet_shield",
+   "explosion_sound": "none",
    "effect": "none",
    "terrain": "none",
    "stage": "1b",
@@ -2795,6 +2795,153 @@
    "stage": "1b",
    "_unverified": {
     "effect": "copied from firebomb; confirm in data/entities/projectiles/fireball_bigfirebug.xml"
+   }
+  },
+  {
+   "id": "invisshot",
+   "name_en": "Invisshot projectile",
+   "effect": "none",
+   "terrain": "none",
+   "used_by": [
+    "scavenger_invis"
+   ],
+   "noita_file": "data/entities/projectiles/invisshot.xml",
+   "sprite": "data/projectiles_gfx/grenade_blue.xml",
+   "speed": 11.25,
+   "gravity": 0.0,
+   "lifetime_frames": 50,
+   "explosion_radius": 0.19,
+   "audio": "projectiles/bullet_invis",
+   "explosion_sound": "none",
+   "stage": "1b",
+   "_unverified": {
+    "effect": "copied from none; confirm in data/entities/projectiles/invisshot.xml"
+   }
+  },
+  {
+   "id": "tongue",
+   "name_en": "Tongue projectile",
+   "effect": "none",
+   "terrain": "none",
+   "used_by": [
+    "frog_big"
+   ],
+   "noita_file": "data/entities/projectiles/tongue.xml",
+   "sprite": null,
+   "speed": 0.4,
+   "gravity": 0.0,
+   "lifetime_frames": 35,
+   "explosion_radius": 0.0,
+   "audio": "projectiles/tongue",
+   "explosion_sound": "none",
+   "stage": "1b",
+   "_unverified": {
+    "effect": "copied from none; confirm in data/entities/projectiles/tongue.xml"
+   }
+  },
+  {
+   "id": "healshot_slow",
+   "name_en": "Healshot slow projectile",
+   "effect": "heal",
+   "terrain": "none",
+   "used_by": [
+    "healerdrone_physics"
+   ],
+   "noita_file": "data/entities/projectiles/healshot_slow.xml",
+   "sprite": "data/projectiles_gfx/grenade_green.xml",
+   "speed": 13.75,
+   "gravity": 0.0,
+   "lifetime_frames": 100,
+   "explosion_radius": 0.19,
+   "audio": "projectiles/bullet_heal",
+   "explosion_sound": "none",
+   "stage": "1b",
+   "_unverified": {
+    "effect": "copied from none; confirm in data/entities/projectiles/healshot_slow.xml"
+   }
+  },
+  {
+   "id": "orb_cursed",
+   "name_en": "Orb cursed projectile",
+   "effect": "none",
+   "terrain": "none",
+   "used_by": [
+    "shaman"
+   ],
+   "noita_file": "data/entities/projectiles/orb_cursed.xml",
+   "sprite": "data/projectiles_gfx/orb_red.xml",
+   "speed": 0.075,
+   "gravity": 0.0,
+   "lifetime_frames": 120,
+   "explosion_radius": 0.19,
+   "audio": "projectiles/orb_cursed",
+   "explosion_sound": "none",
+   "stage": "1b",
+   "_unverified": {
+    "effect": "copied from none; confirm in data/entities/projectiles/orb_cursed.xml"
+   }
+  },
+  {
+   "id": "healshot",
+   "name_en": "Healshot projectile",
+   "effect": "heal",
+   "terrain": "none",
+   "used_by": [
+    "scavenger_heal"
+   ],
+   "noita_file": "data/entities/projectiles/healshot.xml",
+   "sprite": "data/projectiles_gfx/grenade_green.xml",
+   "speed": 11.25,
+   "gravity": 0.0,
+   "lifetime_frames": 50,
+   "explosion_radius": 0.19,
+   "audio": "projectiles/bullet_heal_robot",
+   "explosion_sound": "none",
+   "stage": "1b",
+   "_unverified": {
+    "effect": "copied from none; confirm in data/entities/projectiles/healshot.xml"
+   }
+  },
+  {
+   "id": "freeze_circle",
+   "name_en": "Freeze circle projectile",
+   "effect": "none",
+   "terrain": "none",
+   "used_by": [
+    "tentacler_small"
+   ],
+   "noita_file": "data/entities/projectiles/freeze_circle.xml",
+   "sprite": null,
+   "speed": 0.0,
+   "gravity": 0.0,
+   "lifetime_frames": 9999999,
+   "explosion_radius": 0.19,
+   "audio": "projectiles/freeze_circle",
+   "explosion_sound": "none",
+   "stage": "1b",
+   "_unverified": {
+    "effect": "copied from none; confirm in data/entities/projectiles/freeze_circle.xml"
+   }
+  },
+  {
+   "id": "lurkershot",
+   "name_en": "Lurkershot projectile",
+   "effect": "none",
+   "terrain": "none",
+   "used_by": [
+    "lurker"
+   ],
+   "noita_file": "data/entities/projectiles/lurkershot.xml",
+   "sprite": null,
+   "speed": 7.5,
+   "gravity": 0.0,
+   "lifetime_frames": 60,
+   "explosion_radius": 0.0,
+   "audio": "projectiles/bullet_burst_of_air",
+   "explosion_sound": "none",
+   "stage": "1b",
+   "_unverified": {
+    "effect": "copied from none; confirm in data/entities/projectiles/lurkershot.xml"
    }
   }
  ]
