@@ -385,9 +385,8 @@ namespace Terranoita.Game
                 if (n.Invisible > 0)
                     n.Invisible--;
                 var light = Lighting.GetColor((int)(npc.Center.X / 16), (int)(npc.Center.Y / 16));
-                // fully opaque; a little self-lit, since Noita sprites have no dark outline and vanish into night scenes
-                const int floor = 70;
-                var color = new Color(Math.Max((int)light.R, floor), Math.Max((int)light.G, floor), Math.Max((int)light.B, floor), 255);
+                // lit exactly like Terraria NPCs: dark in the dark (a brightness floor showed them through walls)
+                var color = new Color(light.R, light.G, light.B, (byte)255);
                 float scale = Terranoita.Noita.Units.PixelScale * (n.Def.Size > 0 ? n.Def.Size : 1f);
                 // the lowest visible pixel of the standing frame rests on the bottom of the hitbox
                 var pivot = new Vector2(npc.Center.X, npc.position.Y + npc.height - art.Foot * scale + npc.gfxOffY) - Main.screenPosition;
