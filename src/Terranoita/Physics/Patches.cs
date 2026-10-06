@@ -135,17 +135,38 @@ namespace Terranoita.Game.Physics
             }
         }
 
+        [Hook("fluids_draw")]
+        [HarmonyPatch(typeof(Main), "DrawPlayers_AfterProjectiles")]
+        static class FluidsDrawPatch
+        {
+            // in front of the player, like Terraria's water
+            static void Postfix()
+            {
+                if (!Live || Fluids.Count == 0)
+                    return;
+                var sb = Main.spriteBatch;
+                try
+                {
+                    sb.Begin(SpriteSortMode.Deferred, BlendState.AlphaBlend, Main.DefaultSamplerState, DepthStencilState.None, Main.Rasterizer, null, Main.Transform);
+                }
+                catch (Exception ex) { Entry.Error("fluids draw begin", ex); return; }
+                try { Fluids.Draw(sb); }
+                catch (Exception ex) { Entry.Error("fluids draw", ex); }
+                sb.End();
+            }
+        }
+
         [Hook("shots_draw")]
         [HarmonyPatch(typeof(Main), "DrawProjectiles")]
         static class DrawPatch
         {
             static void Postfix()
             {
-                if (!Live || (Falling.Active == 0 && Fluids.Count == 0))
+                if (!Live || Falling.Active == 0)
                     return;
                 var sb = Main.spriteBatch;
                 sb.Begin(SpriteSortMode.Deferred, BlendState.AlphaBlend, Main.DefaultSamplerState, DepthStencilState.None, Main.Rasterizer, null, Main.Transform);
-                try { Fluids.Draw(sb); Falling.Draw(sb); }
+                try { Falling.Draw(sb); }
                 catch (Exception ex) { Entry.Error("physics draw", ex); }
                 sb.End();
             }

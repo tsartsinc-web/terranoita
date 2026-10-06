@@ -423,3 +423,11 @@ Entry.Stage default 1b, version 0.2.0. Проверить на ПК also: worm l
   cell moves once per tick), thin gas vanished (fade by share).
 - Author's idea (asked, not done): acid slowly turning what it touches into a block it cannot eat, which poisons
   on touch. Not in Noita's data (lava + toxic sludge/poison make toxic/poison rock, no touch effect, corrodible).
+- Liquid gallery (TERRANOITA_AUTOTEST_LIQUIDS=1): 99 closed obsidian boxes in the caverns, one Noita liquid/gas
+  each (+ Terraria water and lava), signs with names, torches, stone background, Nightmare Pickaxe; nothing applied
+  to the player, game stays open (author plays it). Author: our liquids looked opaque and behind the player; now
+  drawn after the players (hook fluids_draw) and see-through like Terraria's water (alpha <= 150).
+- Author: some effects cancel others in Noita. Noita's data has no such table (status_list.lua only has
+  protects_from_fire and remove_cells_that_cause_when_activated; exclusivity_group is used by one creature): stains
+  are pixels of material on the sprite (SpriteStainsSystem in noita.exe), so a new liquid covers the old. Done:
+  a new stain ends the other stains (water washes off oil, slime, sludge); protects_from_fire was already in.

@@ -583,8 +583,8 @@ namespace Terranoita.Game.Physics
             if (me.active && !me.dead)
                 foreach (var (d, burning) in Under(me.Hitbox))
                 {
-                    foreach (var e in d.TouchEffects ?? new string[0])
-                        Status.Apply(e);
+                    if (d.TouchEffects != null && d.TouchEffects.Length > 0)
+                        Status.Stain(d.TouchEffects);
                     if (burning)
                         Status.Apply("ON_FIRE");
                     if (d.Kind == "liquid" && d.Viscosity > 0 && _frame % 2 == 0)
@@ -678,7 +678,8 @@ namespace Terranoita.Game.Physics
                     if (Cells.TryGetValue(kv.Key - Main.maxTilesX, out var up) && up.Kind == c.Kind && !Gas(up.Kind))
                         h = 16;
                     r = new Rectangle(x * 16, y * 16 + 16 - h, 16, h);
-                    col *= col.A / 255f;
+                    // see-through like Terraria's water (author), whatever Noita's alpha
+                    col *= Math.Min(col.A, (byte)150) / 255f;
                 }
                 r.Offset((int)-Main.screenPosition.X, (int)-Main.screenPosition.Y);
                 sb.Draw(_pixel, r, col);

@@ -250,6 +250,15 @@
    "purpose": "Noita status icons after Terraria's buff icons.",
    "stage": "2",
    "_unverified": {}
+  },
+  {
+   "id": "fluids_draw",
+   "target": "Terraria.Main:DrawPlayers_AfterProjectiles()",
+   "patch": "postfix",
+   "system": "block_physics",
+   "purpose": "Noita liquids and gases drawn in front of the player, see-through like Terraria's water.",
+   "stage": "2",
+   "_unverified": {}
   }
  ]
 }

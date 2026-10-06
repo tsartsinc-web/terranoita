@@ -44,7 +44,35 @@ namespace Terranoita.Game.Physics
             }
         }
 
-        public static void Clear() => Left.Clear();
+        static readonly HashSet<string> Stains = new HashSet<string>();
+
+        /// <summary>
+        /// A liquid's touch effect. Noita keeps stains as pixels of material on the creature's sprite, and a new
+        /// liquid covers the old ones: stepping into water washes off oil, slime or toxic sludge. So a new stain
+        /// ends the other stains (not burning: that is fire, not a stain).
+        /// </summary>
+        public static void Stain(IEnumerable<string> ids)
+        {
+            var stains = new HashSet<string>(ids.Where(i => i != "ON_FIRE"));
+            if (stains.Any(s => !Stains.Contains(s)))
+                foreach (var old in Stains.Where(s => !stains.Contains(s)).ToList())
+                {
+                    Left.Remove(old);
+                    Stains.Remove(old);
+                }
+            foreach (var id in ids)
+            {
+                Apply(id);
+                if (id != "ON_FIRE" && Left.ContainsKey(id))
+                    Stains.Add(id);
+            }
+        }
+
+        public static void Clear()
+        {
+            Left.Clear();
+            Stains.Clear();
+        }
 
         static bool FireProof => Left.Keys.Any(k => Defs.TryGetValue(k, out var d) && d.ProtectsFromFire);
 
@@ -53,7 +81,7 @@ namespace Terranoita.Game.Physics
         {
             foreach (var id in Left.Keys.ToList())
                 if (--Left[id] <= 0)
-                    Left.Remove(id);
+                    { Left.Remove(id); Stains.Remove(id); }
             if (Left.Count == 0)
                 return;
             if (FireProof)

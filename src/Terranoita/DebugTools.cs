@@ -175,6 +175,11 @@ namespace Terranoita.Game
                 if (other.active && !other.friendly && !other.townNPC && Carriers.Get(other) == null)
                     other.active = false;
             }
+            if (Physics.LiquidGallery.Enabled)
+            {
+                Physics.LiquidGallery.Frame(p, _worldFrames);
+                return;
+            }
             if (Physics.PhysicsTest.Enabled)
             {
                 Physics.PhysicsTest.Frame(p, _worldFrames);

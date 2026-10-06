@@ -158,7 +158,7 @@
   },
   {
    "id": "noita_status",
-   "description": "Stage 2: Noita status effects (sheet status_effects) on the player: Noita's icon and name after Terraria's buff icons, effects run by our code (Terraria has no room for new buffs). Noita fire and poison from enemy shots and burning tiles use them too.",
+   "description": "Stage 2: Noita status effects (sheet status_effects) on the player: Noita's icon and name after Terraria's buff icons, effects run by our code (Terraria has no room for new buffs). Noita fire and poison from enemy shots and burning tiles use them too. Stains (a liquid's touch effects): Noita keeps them as pixels of material on the sprite and a new liquid covers the old, so a new stain ends the other stains (water washes off oil, slime, toxic sludge). Wet, oiled, bloody, slimy, radioactive put out fire and keep it off (protects_from_fire).",
    "stage": "2",
    "hooks": [
     "player_buffs",
