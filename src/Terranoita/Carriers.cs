@@ -336,6 +336,23 @@ namespace Terranoita.Game
                 npc.direction = npc.spriteDirection = n.Brain.Direction;
                 if (n.Def.Walks && !n.Def.Flies && !n.Brain.PassesTiles)
                     Collision.StepUp(ref npc.position, ref npc.velocity, npc.width, npc.height, ref npc.stepSpeed, ref npc.gfxOffY);
+                if (n.Brain.Burrows)
+                    DigSound(npc);
+            }
+
+            // Terraria's worm digging sound (vanilla worm AI): while in the ground, more often the closer the player is
+            static void DigSound(NPC npc)
+            {
+                if (npc.soundDelay > 0)
+                {
+                    npc.soundDelay--;
+                    return;
+                }
+                if (!TheTerrain.Solid(new V2(npc.Center.X, npc.Center.Y)))
+                    return;
+                float dist = Vector2.Distance(npc.Center, Main.LocalPlayer.Center) / 40f;
+                npc.soundDelay = (int)MathHelper.Clamp(dist, 10f, 20f);
+                SoundEngine.PlaySound(15, (int)npc.position.X, (int)npc.position.Y, 1);
             }
         }
 

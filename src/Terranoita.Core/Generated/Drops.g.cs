@@ -24,6 +24,7 @@ namespace Terranoita.Generated
         {
             new DropDef { Id = "none", Description = "Nothing.", Rule = "no drop", Stage = "1a" },
             new DropDef { Id = "noita_gold", Description = "Gold like Noita: more health, more money.", Rule = "copper coins = round(noita_hp x 6 x tier hp_mult) (weak hound at t1 = 60, like a Terraria zombie); 1 in 12 a Heart, 1 in 15 a Mana Star", Stage = "1a" },
+            new DropDef { Id = "terraria_twin", Description = "Author: besides the gold, the loot of a Terraria enemy of similar strength from the same place.", Rule = "on every noita_gold kill: Terraria enemies (not boss/critter/town, own drop rules) whose bestiary biome is where the player is (special biomes first, else Surface/Underground/Caverns); one of the 3 with the nearest normal-mode max life; its drop rules rolled by Terraria's ItemDropResolver at the kill (no coins)", Stage = "1b" },
             new DropDef { Id = "boss_reward", Description = "Boss loot.", Stage = "1c" },  // UNFILLED: rule
         };
     }

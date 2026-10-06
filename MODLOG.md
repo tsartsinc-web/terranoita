@@ -346,3 +346,15 @@ Entry.Stage default 1b, version 0.2.0. Проверить на ПК also: worm l
   tentacler smalltentacle speed 0.4, freeze_circle sprite none speed 0; barfer.toxic_sludge_spit sprite none. For the cloud.
 - Release 0.2.0 (terranoita-0.2.0.zip, Release build of 98e4a79+, stage 1b default) uploaded and submitted to the Melty
   draft: status draft, publishable, one click yes. Waiting for the author's Test in the Melty app, then publish.
+
+## Loot, worms (2026-10-06, local session)
+- Author: besides gold, the loot of a similar Terraria enemy from the same place. drops.json terraria_twin (stage 1b),
+  Loot.cs: bestiary biome of where the player is (special biomes first, else Surface/Underground/Caverns), no bosses,
+  critters, town, rare (npc.rarity > 0) or event/invasion enemies; pre-hardmode only damage < 40; one of the 3 nearest
+  by max life; rolled with Terraria's ItemDropResolver on a stand-in NPC. Log: "loot of X like Y (id): items".
+- Autotest kills each enemy before the next (loot tested); TERRANOITA_AUTOTEST_PLACES=1 moves the player through 12
+  places (forest, snow, desert, jungle, caverns, ice, mushroom, marble, granite, underground desert, dungeon,
+  underworld); test character has 1000 hp (author). Run: 107 kills, 101 loot rolls, 0 ERROR. Author saw Tattered Cloth
+  (Goblin Scout) everywhere before places/filters; then umbrella slime/nimbus (rain), nymph, Doctor Bones: filtered.
+- Worms (Move burrow, not eels): half of Noita's speed (author), Terraria's worm dig sound (sound 15 style 1, vanilla
+  delay 10-20 by distance) while in the ground. To hear/feel: author in game.

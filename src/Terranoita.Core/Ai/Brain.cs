@@ -88,6 +88,7 @@ namespace Terranoita.Ai
         const int AttackPoseFrames = 18;
         const float GripMargin = 6f;          // climbers hold on to tiles this close to their body
         const float WormTurn = 0.05f;         // fallback when a burrower's row has no turn_rate
+        const float WormSpeedMult = 0.5f;     // author: worms at half Noita's speed
         const int TrailLength = 256;
 
         public readonly EnemyDef Enemy;
@@ -120,7 +121,7 @@ namespace Terranoita.Ai
         public int Age => _age;
         /// <summary>Ghosts and worms move through tiles: the game turns tile collision off for them.</summary>
         public bool PassesTiles => Move == "phase" || Move == "burrow";
-        bool Burrows => Move == "burrow" || Move == "burrow_liquid";
+        public bool Burrows => Move == "burrow" || Move == "burrow_liquid";
         /// <summary>Worms: drawn as a head with its body along Trail, turned to its velocity.</summary>
         public bool Burrowing => Burrows;
         /// <summary>A disguised creature (mimic) that has not noticed the player yet.</summary>
@@ -439,7 +440,7 @@ namespace Terranoita.Ai
             bool inside = terrain == null || terrain.Liquid(body.Center) || (!water && terrain.Solid(body.Center));
             bool hunting = engaged;
             float top = hunting ? Enemy.RunSpeed : (Enemy.RoamSpeed > 0 ? Enemy.RoamSpeed : Enemy.RunSpeed * 0.5f);
-            top = Math.Max(top, 0.5f);
+            top = Math.Max(water ? top : top * WormSpeedMult, 0.5f);
             float turn = hunting ? Enemy.TurnRate : Enemy.RoamTurnRate;
             if (turn <= 0)
                 turn = WormTurn;

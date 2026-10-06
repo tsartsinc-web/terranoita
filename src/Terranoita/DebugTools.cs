@@ -27,7 +27,55 @@ namespace Terranoita.Game
         static readonly bool ExitWhenDone = Environment.GetEnvironmentVariable("TERRANOITA_AUTOTEST_EXIT") == "1";
         /// <summary>TERRANOITA_AUTOTEST_SECONDS: how long each enemy is watched (default 6).</summary>
         static readonly int Each = 60 * (int.TryParse(Environment.GetEnvironmentVariable("TERRANOITA_AUTOTEST_SECONDS"), out int sec) && sec > 0 ? sec : 6);
+        /// <summary>TERRANOITA_AUTOTEST_PLACES=1: each enemy in another place (loot comes from where it dies).</summary>
+        static readonly bool Places = Environment.GetEnvironmentVariable("TERRANOITA_AUTOTEST_PLACES") == "1";
         static int _menuFrames, _worldFrames, _autoIndex;
+
+        // a ground tile that makes the place, and its layer: 0 surface, 1 below the surface, 2 rock layer
+        static readonly (string name, ushort[] tiles, int layer)[] PlaceList =
+        {
+            ("forest", new ushort[] { Terraria.ID.TileID.Grass }, 0),
+            ("snow", new ushort[] { Terraria.ID.TileID.SnowBlock }, 0),
+            ("desert", new ushort[] { Terraria.ID.TileID.Sand }, 0),
+            ("jungle", new ushort[] { Terraria.ID.TileID.JungleGrass }, 1),
+            ("caverns", new ushort[] { Terraria.ID.TileID.Stone }, 2),
+            ("ice caves", new ushort[] { Terraria.ID.TileID.IceBlock }, 2),
+            ("mushroom", new ushort[] { Terraria.ID.TileID.MushroomGrass }, 1),
+            ("marble", new ushort[] { Terraria.ID.TileID.Marble }, 1),
+            ("granite", new ushort[] { Terraria.ID.TileID.Granite }, 1),
+            ("underground desert", new ushort[] { Terraria.ID.TileID.Sandstone, Terraria.ID.TileID.HardenedSand }, 1),
+            ("dungeon", new ushort[] { Terraria.ID.TileID.BlueDungeonBrick, Terraria.ID.TileID.GreenDungeonBrick, Terraria.ID.TileID.PinkDungeonBrick }, 1),
+            ("underworld", new ushort[] { Terraria.ID.TileID.Ash }, 1),
+        };
+
+        /// <summary>Put the player on a random spot of the next place (a tile of its kind with room above).</summary>
+        static void MoveToPlace(Player p, int index)
+        {
+            var place = PlaceList[index % PlaceList.Length];
+            int top = place.layer == 0 ? 60 : place.layer == 1 ? (int)Main.worldSurface : (int)Main.rockLayer;
+            int bottom = place.layer == 0 ? (int)Main.worldSurface : Main.maxTilesY - 60;
+            for (int attempt = 0; attempt < 300000; attempt++)
+            {
+                int x = Main.rand.Next(60, Main.maxTilesX - 60), y = Main.rand.Next(top, bottom);
+                var t = Main.tile[x, y];
+                if (t == null || !t.active() || Array.IndexOf(place.tiles, t.type) < 0)
+                    continue;
+                bool room = true;
+                for (int dx = -1; dx <= 1 && room; dx++)
+                    for (int dy = 1; dy <= 3 && room; dy++)
+                    {
+                        var a = Main.tile[x + dx, y - dy];
+                        room = a == null || ((!a.active() || !Main.tileSolid[a.type]) && a.liquid == 0);
+                    }
+                if (!room)
+                    continue;
+                p.Teleport(new Vector2(x * 16 + 8 - p.width / 2f, y * 16 - p.height));
+                p.velocity = Vector2.Zero;
+                Entry.Log("AUTOTEST: place " + place.name + " at " + x + "," + y + (Main.hardMode ? " (hardmode)" : ""));
+                return;
+            }
+            Entry.Log("AUTOTEST: place " + place.name + " not found");
+        }
         static bool _entering;
         const string TestPlayer = "Terranoita Test";
         static readonly NoitaNpc[] _seen = new NoitaNpc[Main.maxNPCs];
@@ -105,7 +153,8 @@ namespace Terranoita.Game
                 return;
             }
             var p = Main.LocalPlayer;
-            // keep the test character alive but still taking hits, so attacks show in the log
+            // keep the test character alive but still taking hits, so attacks show in the log (author: 1000 hp)
+            p.statLifeMax = p.statLifeMax2 = 1000;
             if (p.statLife < p.statLifeMax2 / 2)
                 p.statLife = p.statLifeMax2;
             _worldFrames++;
@@ -139,13 +188,19 @@ namespace Terranoita.Game
             if (_worldFrames >= 300 && (_worldFrames - 300) % Each == 0 && _autoIndex < all.Length)
             {
                 var e = all[_autoIndex++];
-                // one enemy at a time: remove the previous ones
+                // one enemy at a time: kill the previous ones (so their loot is tested), remove what survives
                 for (int i = 0; i < Main.maxNPCs; i++)
                     if (Main.npc[i].active && Carriers.Get(Main.npc[i]) != null)
                     {
-                        Carriers.Forget(Main.npc[i]);
-                        Main.npc[i].active = false;
+                        Main.npc[i].StrikeNPCNoInteraction(Main.npc[i].lifeMax * 10, 0f, 0);
+                        if (Main.npc[i].active && Carriers.Get(Main.npc[i]) != null)
+                        {
+                            Carriers.Forget(Main.npc[i]);
+                            Main.npc[i].active = false;
+                        }
                     }
+                if (Places)
+                    MoveToPlace(p, _autoIndex);
                 Entry.Log("AUTOTEST: spawning " + e.Id);
                 SpawnInFront(e, 10);
             }

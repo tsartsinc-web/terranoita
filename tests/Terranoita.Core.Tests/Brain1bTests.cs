@@ -137,7 +137,7 @@ namespace Terranoita.Tests
         public void WormHuntsThroughTheGroundAndLeapsOutAtThePlayer()
         {
             var world = new World { IsSolid = p => p.Y >= 0 };
-            var brain = new Brain(Row("worm", run: 3f, gravity: 0.2f));
+            var brain = new Brain(Row("worm", run: 6f, gravity: 0.2f));   // worms move at half the row's speed
             Assert.True(brain.PassesTiles);
             var body = new FreeBody { Pos = new V2(-300, 120) };
             var rng = new Random(4);
@@ -194,7 +194,7 @@ namespace Terranoita.Tests
                     lastDir = body.Velocity.Normalized;
                 lastSpeed = sp;
             }
-            Assert.InRange(lastSpeed, row.RunSpeed - 0.01f, row.RunSpeed + 0.01f);
+            Assert.InRange(lastSpeed, row.RunSpeed * 0.5f - 0.01f, row.RunSpeed * 0.5f + 0.01f);   // author: worms at half speed
         }
 
         [Fact]
