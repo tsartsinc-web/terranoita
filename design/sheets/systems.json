@@ -79,7 +79,7 @@
   },
   {
    "id": "enemy_spawning",
-   "description": "Each spawn attempt, roll the Noita enemies whose zone matches the spawn tile and player, weighted by tier.",
+   "description": "Each spawn attempt, roll the Noita enemies whose zone matches the spawn tile and player, weighted by tier. Enemies with more than 1000 Terraria life (noita_hp x tier hp_mult) spawn only in hardmode (author's rule).",
    "stage": "1a",
    "hooks": [
     "npc_spawn"

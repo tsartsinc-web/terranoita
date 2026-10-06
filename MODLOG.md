@@ -326,3 +326,12 @@ Entry.Stage default 1b, version 0.2.0. Проверить на ПК also: worm l
   looping sounds (AudioLoopComponent) not played; berserk aura has no player effect; 50 design placeholders listed in
   design/sources/placeholders_to_check.md (author decides what to do with them); 13 rows moved to 1c need facts.
 - Melty: draft only, nothing to publish without the author.
+
+## Cloud: tough enemies wait for hardmode (author's rule)
+- Author: enemies with more than 1000 HP spawn only after the Wall of Flesh. Terraria life = noita_hp x tier hp_mult;
+  `Spawning.Build` now skips pre-hardmode zones for them until `Main.hardMode` (`PreHardmodeMaxLife = 1000`).
+  systems.json enemy_spawning notes the rule. Gate 1a/1b CLEAN, tools tests OK.
+- Affected (11, all 1b): worm_big 14000, worm_skull 7500, ghost 6000, wraith 4425, crystal_physics 2400,
+  lasershooter 1800, wraith_glowing 1475, skullfly 1260, wizard_hearty 1200, barfer 1200, skullrat 1110.
+  Most are dungeon (Temple of the Art, tier t3) — the pre-hardmode dungeon gets fewer Noita enemies.
+- проверить на ПК: game side builds (Spawning.cs changed), next pc_step run.

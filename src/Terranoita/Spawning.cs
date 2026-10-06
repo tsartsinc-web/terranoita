@@ -16,6 +16,7 @@ namespace Terranoita.Game
     {
         const int MaxNear = 4;            // Noita enemies within 120 tiles of the player
         const int ChancePerFrame = 480;   // ~ one roll every 8 seconds at spawn weight 1
+        const int PreHardmodeMaxLife = 1000;  // author: tougher enemies only after the Wall of Flesh
 
         static List<(EnemyDef def, Func<Player, int, int, bool>[] where)> _pool;
 
@@ -27,6 +28,7 @@ namespace Terranoita.Game
                 if (!Defs.InStage(e.Stage, Entry.Stage) || e.SpawnRule != "natural")
                     continue;
                 var checks = new List<Func<Player, int, int, bool>>();
+                bool tough = e.NoitaHp * Defs.Tier[e.Tier].HpMult > PreHardmodeMaxLife;
                 foreach (var loc in e.SpawnIn ?? new string[0])
                 {
                     if (!Defs.Biome.TryGetValue(loc, out var b) || !Defs.Zone.TryGetValue(b.Zone, out var z))
@@ -34,7 +36,7 @@ namespace Terranoita.Game
                     if (!ZoneChecks.All.TryGetValue(z.Id, out var check) || check == null)
                         continue;
                     var zone = z;
-                    checks.Add((p, x, y) => Unlocked(zone) && check(p, x, y));
+                    checks.Add((p, x, y) => Unlocked(zone) && (!tough || Main.hardMode) && check(p, x, y));
                 }
                 if (checks.Count > 0)
                     _pool.Add((e, checks.ToArray()));
