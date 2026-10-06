@@ -271,3 +271,17 @@ Entry.Stage default 1b, version 0.2.0. Проверить на ПК also: worm l
   wraith_storm wizard_swapper hidden — next: look at these (range/cooldown/LOS), maybe a longer autotest per creature.
 - ("gone after 360 brain frames" lines are the autotest removing the previous creature — expected.)
 - Not visually checked by a person yet (sprites, feet, sizes of the 140): ask the author to watch a run.
+
+## Author watched the 1b autotest (for the cloud to analyse; log: design/sources/pc_autotest_1b.txt)
+1. Some laser-gun creatures fired nothing. Leads: laser_spear sprite "none" (log: "sprite none failed"; 9 sprites failed
+   of 251); intense_concentrated_light_variant speed 0.05 (megalaser_blue.xml is a beam, not a flying shot);
+   laserbeam / laser_turret are probably LaserEmitterComponent beams in Noita — check how they deliver damage.
+2. Worms: only flying heads, no body; the head does not face its target (only flips left/right); no hit damage seen.
+   Noita worm.xml: WormComponent + WormAIComponent + CellEaterComponent, 6 SpriteComponents (worm_head, worm_body x?,
+   worm_tail), audio animals/worm. Needs: body segments drawn along Brain's trail, head rotated to its velocity,
+   worm_bite on contact. Later (stage 2 physics) CellEater = eats blocks. Note: the autotest's "remove other NPCs" only
+   removes non-carrier NPCs, so segments are not the cause unless they are separate NPCs.
+3. Ghosts (weakspirit, slimespirit, confusespirit, berserkspirit): no sound, no attack, no damage; they just rub against
+   the player. Sheet has attacks = []. Noita weakspirit.xml: GameEffectComponent PROTECTION_FREEZE, LuaComponent
+   data/scripts/animals/spirit_aura_weak.lua (the aura is in Lua), AudioLoopComponent, audio animals/ghost.
+4. Author: not all creatures were seen on screen (140 spawned per the log) — check spawn spots/visibility.
