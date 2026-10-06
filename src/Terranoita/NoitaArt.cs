@@ -121,6 +121,10 @@ namespace Terranoita.Game
             }
         }
 
+        /// <summary>A Noita text (common.csv key) in the game's language, or the fallback.</summary>
+        public static string Text(string key, string fallback) =>
+            string.IsNullOrEmpty(key) || key == "none" ? fallback : _names?.Get(key, NoitaLanguage()) ?? fallback;
+
         public static string Name(EnemyDef e) =>
             _names?.Get(e.NameKey, NoitaLanguage()) ?? e.NameEn ?? e.Id;
 

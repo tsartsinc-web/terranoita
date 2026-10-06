@@ -46,6 +46,9 @@ namespace Terranoita.Generated
             new HookDef { Id = "world_load", Target = "Terraria.IO.WorldFile:LoadWorld()", Patch = "postfix", System = "block_physics", Purpose = "Read which tiles the player placed (<world>.terranoita).", Stage = "2" },
             new HookDef { Id = "world_save", Target = "Terraria.IO.WorldFile:SaveWorld(bool, bool, bool)", Patch = "postfix", System = "block_physics", Purpose = "Write which tiles the player placed.", Stage = "2" },
             new HookDef { Id = "projectile_update", Target = "Terraria.Projectile:Update(int)", Patch = "postfix", System = "block_physics", Purpose = "Fire projectiles (Molotov, flames, hellfire...) set burnable tiles on fire.", Stage = "2" },
+            new HookDef { Id = "player_buffs", Target = "Terraria.Player:UpdateBuffs(int)", Patch = "postfix", System = "noita_status", Purpose = "Noita status effects set the player's flags (speed, confused, immune...).", Stage = "2" },
+            new HookDef { Id = "player_liferegen", Target = "Terraria.Player:UpdateLifeRegen()", Patch = "prefix", System = "noita_status", Purpose = "Noita status effects hurt or heal over time.", Stage = "2" },
+            new HookDef { Id = "buffs_draw", Target = "Terraria.Main:DrawInterface_Resources_Buffs()", Patch = "postfix", System = "noita_status", Purpose = "Noita status icons after Terraria's buff icons.", Stage = "2" },
         };
     }
 }

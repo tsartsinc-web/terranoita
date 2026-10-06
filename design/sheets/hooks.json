@@ -223,6 +223,33 @@
    "purpose": "Fire projectiles (Molotov, flames, hellfire...) set burnable tiles on fire.",
    "stage": "2",
    "_unverified": {}
+  },
+  {
+   "id": "player_buffs",
+   "target": "Terraria.Player:UpdateBuffs(int)",
+   "patch": "postfix",
+   "system": "noita_status",
+   "purpose": "Noita status effects set the player's flags (speed, confused, immune...).",
+   "stage": "2",
+   "_unverified": {}
+  },
+  {
+   "id": "player_liferegen",
+   "target": "Terraria.Player:UpdateLifeRegen()",
+   "patch": "prefix",
+   "system": "noita_status",
+   "purpose": "Noita status effects hurt or heal over time.",
+   "stage": "2",
+   "_unverified": {}
+  },
+  {
+   "id": "buffs_draw",
+   "target": "Terraria.Main:DrawInterface_Resources_Buffs()",
+   "patch": "postfix",
+   "system": "noita_status",
+   "purpose": "Noita status icons after Terraria's buff icons.",
+   "stage": "2",
+   "_unverified": {}
   }
  ]
 }

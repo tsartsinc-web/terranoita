@@ -41,6 +41,14 @@ namespace Terranoita.Game.Physics
                 Check("after 5 s");
             else if (frame == 300 + 60 * 25)
                 Check("after 25 s");
+            else if (frame == 300 + 60 * 8)
+            {
+                foreach (var id in new[] { "WET", "OILED", "SLIMY", "RADIOACTIVE", "POISONED", "BERSERK", "NIGHTVISION", "HP_REGENERATION", "TRIP", "ALCOHOLIC" })
+                    Status.Apply(id, 12);
+                Log("statuses applied: " + string.Join(", ", Status.Active) + "; hp " + p.statLife);
+            }
+            else if (frame == 300 + 60 * 14)
+                Log("statuses after 6 s: " + string.Join(", ", Status.Active) + "; hp " + p.statLife + "; move speed " + p.moveSpeed.ToString("0.00") + ", on fire " + p.onFire);
         }
 
         static void Setup(Player p)

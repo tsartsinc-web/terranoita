@@ -122,8 +122,8 @@ namespace Terranoita.Game
                 return;
             switch (s.Def.Effect)
             {
-                case "fire": me.AddBuff(BuffID.OnFire, 180); break;
-                case "poison": me.AddBuff(BuffID.Poisoned, 300); break;
+                case "fire": Physics.Status.Apply("ON_FIRE", 3); break;       // Noita's own effects (status_effects.json)
+                case "poison": Physics.Status.Apply("POISONED", 5); break;
                 case "acid": me.AddBuff(BuffID.Poisoned, 120); break;   // early-game strength, not Venom
                 case "neutralize": me.AddBuff(BuffID.Slow, 300); break;  // neutralizer_target.xml: MOVEMENT_SLOWER_2X
             }

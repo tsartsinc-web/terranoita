@@ -1,0 +1,4392 @@
+{
+ "sheet": "liquids",
+ "description": "Stage 2: Noita liquids and gases (materials.xml), simulated on top of Terraria's tiles.",
+ "key": "id",
+ "columns": {
+  "id": {
+   "type": "string",
+   "desc": "Noita material name."
+  },
+  "name_key": {
+   "type": "string",
+   "desc": "Translation key in Noita's common.csv."
+  },
+  "kind": {
+   "type": "enum",
+   "values": [
+    "liquid",
+    "gas"
+   ],
+   "desc": "Noita cell_type."
+  },
+  "color": {
+   "type": "string",
+   "desc": "ARGB hex (Graphics color, else wang_color)."
+  },
+  "density": {
+   "type": "number",
+   "desc": "Heavier sinks under lighter (Noita density)."
+  },
+  "gravity": {
+   "type": "number",
+   "desc": "Noita liquid_gravity."
+  },
+  "viscosity": {
+   "type": "number",
+   "desc": "Noita liquid_viscosity (0 = runny)."
+  },
+  "burnable": {
+   "type": "bool",
+   "desc": "Catches fire."
+  },
+  "fire_hp": {
+   "type": "number",
+   "desc": "How long it burns (Noita fire_hp)."
+  },
+  "on_fire": {
+   "type": "bool",
+   "desc": "Is itself burning (fire materials)."
+  },
+  "glow": {
+   "type": "number",
+   "desc": "Noita gfx_glow (0 = none)."
+  },
+  "lifetime": {
+   "type": "number",
+   "desc": "Gas lifetime in Noita frames (0 = forever)."
+  },
+  "touch_effects": {
+   "type": "string[]",
+   "desc": "Noita status effects on touch (status_effects + stains)."
+  },
+  "ingestion": {
+   "type": "string[]",
+   "desc": "Noita status effects when drunk, TYPE:amount."
+  },
+  "freezes_to": {
+   "type": "string",
+   "desc": "Material it freezes into ('none')."
+  },
+  "melts_to": {
+   "type": "string",
+   "desc": "Material it melts into ('none')."
+  },
+  "tags": {
+   "type": "string[]",
+   "desc": "Noita tags."
+  },
+  "creative": {
+   "type": "bool",
+   "desc": "Shown in Noita's creative mode (a 'real' material, not an effect)."
+  },
+  "stage": {
+   "type": "enum",
+   "values": [
+    "1a",
+    "1b",
+    "1c",
+    "2",
+    "3",
+    "4"
+   ],
+   "desc": "Stage that builds it."
+  }
+ },
+ "rows": [
+  {
+   "id": "acid",
+   "name_key": "mat_acid",
+   "kind": "liquid",
+   "color": "4b00ed32",
+   "density": 2.9,
+   "gravity": 0.6,
+   "viscosity": 0.0,
+   "burnable": false,
+   "fire_hp": 0.0,
+   "on_fire": false,
+   "glow": 100.0,
+   "lifetime": 0.0,
+   "touch_effects": [],
+   "ingestion": [
+    "POISONED:0.3"
+   ],
+   "freezes_to": "ice_acid_static",
+   "melts_to": "none",
+   "tags": [
+    "liquid",
+    "acid",
+    "impure",
+    "liquid_common",
+    "chaotic_transmutation"
+   ],
+   "creative": true,
+   "stage": "2",
+   "_unverified": {},
+   "_sources": {
+    "all": "materials.xml CellData"
+   }
+  },
+  {
+   "id": "acid_gas",
+   "name_key": "mat_acid_gas",
+   "kind": "gas",
+   "color": "af4eb835",
+   "density": 2.0,
+   "gravity": 0.5,
+   "viscosity": 0.0,
+   "burnable": true,
+   "fire_hp": 1000.0,
+   "on_fire": false,
+   "glow": 0.0,
+   "lifetime": 450.0,
+   "touch_effects": [],
+   "ingestion": [],
+   "freezes_to": "none",
+   "melts_to": "none",
+   "tags": [
+    "gas",
+    "burnable_fast"
+   ],
+   "creative": true,
+   "stage": "2",
+   "_unverified": {},
+   "_sources": {
+    "all": "materials.xml CellData"
+   }
+  },
+  {
+   "id": "acid_gas_static",
+   "name_key": "mat_acid_gas_static",
+   "kind": "gas",
+   "color": "af4eb835",
+   "density": 2.0,
+   "gravity": 0.5,
+   "viscosity": 0.0,
+   "burnable": true,
+   "fire_hp": 1000.0,
+   "on_fire": false,
+   "glow": 0.0,
+   "lifetime": 0.0,
+   "touch_effects": [],
+   "ingestion": [],
+   "freezes_to": "none",
+   "melts_to": "none",
+   "tags": [
+    "gas",
+    "burnable_fast"
+   ],
+   "creative": false,
+   "stage": "2",
+   "_unverified": {},
+   "_sources": {
+    "all": "materials.xml CellData"
+   }
+  },
+  {
+   "id": "alcohol",
+   "name_key": "mat_alcohol",
+   "kind": "liquid",
+   "color": "4fea7207",
+   "density": 3.5,
+   "gravity": 1.2,
+   "viscosity": 0.0,
+   "burnable": false,
+   "fire_hp": 0.0,
+   "on_fire": false,
+   "glow": 0.0,
+   "lifetime": 0.0,
+   "touch_effects": [
+    "ALCOHOLIC"
+   ],
+   "ingestion": [
+    "INGESTION_DRUNK:0.3"
+   ],
+   "freezes_to": "none",
+   "melts_to": "none",
+   "tags": [
+    "liquid",
+    "water",
+    "impure",
+    "liquid_common",
+    "chaotic_transmutation"
+   ],
+   "creative": true,
+   "stage": "2",
+   "_unverified": {},
+   "_sources": {
+    "all": "materials.xml CellData"
+   }
+  },
+  {
+   "id": "alcohol_gas",
+   "name_key": "mat_alcohol_gas",
+   "kind": "gas",
+   "color": "72f87d12",
+   "density": 1.0,
+   "gravity": 0.0,
+   "viscosity": 0.0,
+   "burnable": true,
+   "fire_hp": 0.0,
+   "on_fire": false,
+   "glow": 80.0,
+   "lifetime": 50.0,
+   "touch_effects": [
+    "ALCOHOLIC"
+   ],
+   "ingestion": [],
+   "freezes_to": "none",
+   "melts_to": "none",
+   "tags": [
+    "gas",
+    "burnable",
+    "evaporable"
+   ],
+   "creative": false,
+   "stage": "2",
+   "_unverified": {},
+   "_sources": {
+    "all": "materials.xml CellData"
+   }
+  },
+  {
+   "id": "aluminium_molten",
+   "name_key": "mat_aluminium_molten",
+   "kind": "liquid",
+   "color": "ff404040",
+   "density": 5.0,
+   "gravity": 1.5,
+   "viscosity": 75.0,
+   "burnable": true,
+   "fire_hp": 90000.0,
+   "on_fire": true,
+   "glow": 200.0,
+   "lifetime": 0.0,
+   "touch_effects": [
+    "ON_FIRE"
+   ],
+   "ingestion": [
+    "INGESTION_ON_FIRE:0.1"
+   ],
+   "freezes_to": "none",
+   "melts_to": "none",
+   "tags": [
+    "liquid",
+    "corrodible",
+    "molten_metal",
+    "alchemy",
+    "gold",
+    "solid",
+    "liquid_common",
+    "earth"
+   ],
+   "creative": true,
+   "stage": "2",
+   "_unverified": {},
+   "_sources": {
+    "all": "materials.xml CellData"
+   }
+  },
+  {
+   "id": "aluminium_oxide_molten",
+   "name_key": "mat_aluminium_oxide_molten",
+   "kind": "liquid",
+   "color": "ff404040",
+   "density": 5.0,
+   "gravity": 1.5,
+   "viscosity": 75.0,
+   "burnable": true,
+   "fire_hp": 90000.0,
+   "on_fire": true,
+   "glow": 200.0,
+   "lifetime": 0.0,
+   "touch_effects": [
+    "ON_FIRE"
+   ],
+   "ingestion": [
+    "INGESTION_ON_FIRE:0.1"
+   ],
+   "freezes_to": "none",
+   "melts_to": "none",
+   "tags": [
+    "liquid",
+    "corrodible",
+    "molten_metal",
+    "alchemy",
+    "gold",
+    "solid",
+    "liquid_common",
+    "earth"
+   ],
+   "creative": true,
+   "stage": "2",
+   "_unverified": {},
+   "_sources": {
+    "all": "materials.xml CellData"
+   }
+  },
+  {
+   "id": "aluminium_robot_molten",
+   "name_key": "mat_aluminium_robot_molten",
+   "kind": "liquid",
+   "color": "ff404040",
+   "density": 5.0,
+   "gravity": 1.5,
+   "viscosity": 75.0,
+   "burnable": true,
+   "fire_hp": 90000.0,
+   "on_fire": true,
+   "glow": 200.0,
+   "lifetime": 0.0,
+   "touch_effects": [
+    "ON_FIRE"
+   ],
+   "ingestion": [
+    "INGESTION_ON_FIRE:0.1"
+   ],
+   "freezes_to": "none",
+   "melts_to": "none",
+   "tags": [
+    "liquid",
+    "corrodible",
+    "molten_metal",
+    "alchemy",
+    "gold",
+    "solid",
+    "liquid_common",
+    "earth"
+   ],
+   "creative": true,
+   "stage": "2",
+   "_unverified": {},
+   "_sources": {
+    "all": "materials.xml CellData"
+   }
+  },
+  {
+   "id": "beer",
+   "name_key": "mat_beer",
+   "kind": "liquid",
+   "color": "4fbd7e05",
+   "density": 3.5,
+   "gravity": 1.2,
+   "viscosity": 0.0,
+   "burnable": false,
+   "fire_hp": 0.0,
+   "on_fire": false,
+   "glow": 0.0,
+   "lifetime": 0.0,
+   "touch_effects": [
+    "WET"
+   ],
+   "ingestion": [
+    "INGESTION_DRUNK:0.15"
+   ],
+   "freezes_to": "none",
+   "melts_to": "none",
+   "tags": [
+    "liquid",
+    "water",
+    "impure",
+    "liquid_common"
+   ],
+   "creative": true,
+   "stage": "2",
+   "_unverified": {},
+   "_sources": {
+    "all": "materials.xml CellData"
+   }
+  },
+  {
+   "id": "blood",
+   "name_key": "mat_blood",
+   "kind": "liquid",
+   "color": "aa830000",
+   "density": 4.1,
+   "gravity": 0.7,
+   "viscosity": 0.0,
+   "burnable": false,
+   "fire_hp": 0.0,
+   "on_fire": false,
+   "glow": 0.0,
+   "lifetime": 0.0,
+   "touch_effects": [
+    "BLOODY"
+   ],
+   "ingestion": [],
+   "freezes_to": "ice_blood_static",
+   "melts_to": "none",
+   "tags": [
+    "liquid",
+    "corrodible",
+    "soluble",
+    "blood",
+    "impure",
+    "liquid_common",
+    "food",
+    "chaotic_transmutation"
+   ],
+   "creative": true,
+   "stage": "2",
+   "_unverified": {},
+   "_sources": {
+    "all": "materials.xml CellData"
+   }
+  },
+  {
+   "id": "blood_cold",
+   "name_key": "mat_blood_cold",
+   "kind": "liquid",
+   "color": "ff3d4d87",
+   "density": 3.0,
+   "gravity": 1.0,
+   "viscosity": 0.0,
+   "burnable": false,
+   "fire_hp": 0.0,
+   "on_fire": false,
+   "glow": 255.0,
+   "lifetime": 0.0,
+   "touch_effects": [],
+   "ingestion": [
+    "INGESTION_FREEZING:0.2"
+   ],
+   "freezes_to": "ice_cold_static",
+   "melts_to": "none",
+   "tags": [
+    "liquid",
+    "corrodible",
+    "soluble",
+    "evaporable_custom",
+    "blood",
+    "impure",
+    "cold",
+    "liquid_common"
+   ],
+   "creative": true,
+   "stage": "2",
+   "_unverified": {},
+   "_sources": {
+    "all": "materials.xml CellData"
+   }
+  },
+  {
+   "id": "blood_cold_vapour",
+   "name_key": "mat_blood_cold_vapour",
+   "kind": "gas",
+   "color": "7f5c98cd",
+   "density": 2.0,
+   "gravity": 0.5,
+   "viscosity": 0.0,
+   "burnable": false,
+   "fire_hp": 0.0,
+   "on_fire": false,
+   "glow": 255.0,
+   "lifetime": 250.0,
+   "touch_effects": [],
+   "ingestion": [],
+   "freezes_to": "none",
+   "melts_to": "none",
+   "tags": [
+    "gas",
+    "vapour",
+    "cold"
+   ],
+   "creative": true,
+   "stage": "2",
+   "_unverified": {},
+   "_sources": {
+    "all": "materials.xml CellData"
+   }
+  },
+  {
+   "id": "blood_fading",
+   "name_key": "mat_blood_fading",
+   "kind": "liquid",
+   "color": "aa830002",
+   "density": 3.0,
+   "gravity": 0.7,
+   "viscosity": 0.0,
+   "burnable": false,
+   "fire_hp": 0.0,
+   "on_fire": false,
+   "glow": 0.0,
+   "lifetime": 0.0,
+   "touch_effects": [
+    "BLOODY"
+   ],
+   "ingestion": [],
+   "freezes_to": "ice_blood_static",
+   "melts_to": "none",
+   "tags": [
+    "liquid",
+    "corrodible",
+    "soluble",
+    "evaporable_fast",
+    "blood",
+    "impure",
+    "liquid_common",
+    "food"
+   ],
+   "creative": false,
+   "stage": "2",
+   "_unverified": {},
+   "_sources": {
+    "all": "materials.xml CellData"
+   }
+  },
+  {
+   "id": "blood_fading_slow",
+   "name_key": "mat_blood",
+   "kind": "liquid",
+   "color": "aa830000",
+   "density": 4.1,
+   "gravity": 0.7,
+   "viscosity": 0.0,
+   "burnable": false,
+   "fire_hp": 0.0,
+   "on_fire": false,
+   "glow": 0.0,
+   "lifetime": 200.0,
+   "touch_effects": [
+    "BLOODY"
+   ],
+   "ingestion": [],
+   "freezes_to": "ice_blood_static",
+   "melts_to": "none",
+   "tags": [
+    "liquid",
+    "corrodible",
+    "soluble",
+    "blood",
+    "impure",
+    "liquid_common",
+    "food",
+    "chaotic_transmutation"
+   ],
+   "creative": true,
+   "stage": "2",
+   "_unverified": {},
+   "_sources": {
+    "all": "materials.xml CellData"
+   }
+  },
+  {
+   "id": "blood_fungi",
+   "name_key": "mat_blood_fungi",
+   "kind": "liquid",
+   "color": "fff064aa",
+   "density": 3.0,
+   "gravity": 1.0,
+   "viscosity": 0.0,
+   "burnable": false,
+   "fire_hp": 0.0,
+   "on_fire": false,
+   "glow": 100.0,
+   "lifetime": 0.0,
+   "touch_effects": [
+    "SLIMY"
+   ],
+   "ingestion": [
+    "TRIP:0.5"
+   ],
+   "freezes_to": "none",
+   "melts_to": "none",
+   "tags": [
+    "liquid",
+    "corrodible",
+    "soluble",
+    "evaporable",
+    "blood",
+    "impure",
+    "liquid_common",
+    "food",
+    "fungus",
+    "chaotic_transmutation"
+   ],
+   "creative": true,
+   "stage": "2",
+   "_unverified": {},
+   "_sources": {
+    "all": "materials.xml CellData"
+   }
+  },
+  {
+   "id": "blood_worm",
+   "name_key": "mat_blood_worm",
+   "kind": "liquid",
+   "color": "88c8bc00",
+   "density": 2.123,
+   "gravity": 1.0,
+   "viscosity": 0.0,
+   "burnable": false,
+   "fire_hp": 0.0,
+   "on_fire": false,
+   "glow": 0.0,
+   "lifetime": 0.0,
+   "touch_effects": [],
+   "ingestion": [
+    "NIGHTVISION:0.5"
+   ],
+   "freezes_to": "none",
+   "melts_to": "none",
+   "tags": [
+    "liquid",
+    "corrodible",
+    "soluble",
+    "blood",
+    "impure",
+    "liquid_common",
+    "food",
+    "chaotic_transmutation"
+   ],
+   "creative": true,
+   "stage": "2",
+   "_unverified": {},
+   "_sources": {
+    "all": "materials.xml CellData"
+   }
+  },
+  {
+   "id": "brass_molten",
+   "name_key": "mat_brass_molten",
+   "kind": "liquid",
+   "color": "ffb89e58",
+   "density": 3.0,
+   "gravity": 1.5,
+   "viscosity": 0.0,
+   "burnable": true,
+   "fire_hp": 90000.0,
+   "on_fire": true,
+   "glow": 200.0,
+   "lifetime": 0.0,
+   "touch_effects": [
+    "ON_FIRE"
+   ],
+   "ingestion": [
+    "INGESTION_ON_FIRE:0.1"
+   ],
+   "freezes_to": "none",
+   "melts_to": "none",
+   "tags": [
+    "liquid",
+    "corrodible",
+    "molten",
+    "alchemy",
+    "solid",
+    "liquid_common",
+    "earth"
+   ],
+   "creative": true,
+   "stage": "2",
+   "_unverified": {},
+   "_sources": {
+    "all": "materials.xml CellData"
+   }
+  },
+  {
+   "id": "cement",
+   "name_key": "mat_cement",
+   "kind": "liquid",
+   "color": "ff808080",
+   "density": 6.0,
+   "gravity": 0.5,
+   "viscosity": 15.0,
+   "burnable": false,
+   "fire_hp": 0.0,
+   "on_fire": false,
+   "glow": 0.0,
+   "lifetime": 0.0,
+   "touch_effects": [],
+   "ingestion": [],
+   "freezes_to": "none",
+   "melts_to": "none",
+   "tags": [
+    "corrodible",
+    "meltable_to_lava",
+    "alchemy",
+    "impure",
+    "solid",
+    "earth"
+   ],
+   "creative": true,
+   "stage": "2",
+   "_unverified": {},
+   "_sources": {
+    "all": "materials.xml CellData"
+   }
+  },
+  {
+   "id": "cloud",
+   "name_key": "mat_cloud",
+   "kind": "gas",
+   "color": "7fafafbf",
+   "density": 4.17,
+   "gravity": 0.5,
+   "viscosity": 0.0,
+   "burnable": false,
+   "fire_hp": 0.0,
+   "on_fire": false,
+   "glow": 0.0,
+   "lifetime": 350.0,
+   "touch_effects": [],
+   "ingestion": [],
+   "freezes_to": "none",
+   "melts_to": "none",
+   "tags": [
+    "gas"
+   ],
+   "creative": false,
+   "stage": "2",
+   "_unverified": {},
+   "_sources": {
+    "all": "materials.xml CellData"
+   }
+  },
+  {
+   "id": "cloud_blood",
+   "name_key": "mat_cloud_blood",
+   "kind": "liquid",
+   "color": "33b80000",
+   "density": 1.0,
+   "gravity": 0.0,
+   "viscosity": 0.0,
+   "burnable": false,
+   "fire_hp": 0.0,
+   "on_fire": false,
+   "glow": 130.0,
+   "lifetime": 10.0,
+   "touch_effects": [
+    "BLOODY"
+   ],
+   "ingestion": [],
+   "freezes_to": "none",
+   "melts_to": "none",
+   "tags": [
+    "liquid",
+    "blood",
+    "impure",
+    "liquid_common"
+   ],
+   "creative": false,
+   "stage": "2",
+   "_unverified": {},
+   "_sources": {
+    "all": "materials.xml CellData"
+   }
+  },
+  {
+   "id": "cloud_lighter",
+   "name_key": "mat_cloud",
+   "kind": "gas",
+   "color": "7fafafe5",
+   "density": 1.0,
+   "gravity": 0.5,
+   "viscosity": 0.0,
+   "burnable": false,
+   "fire_hp": 0.0,
+   "on_fire": false,
+   "glow": 0.0,
+   "lifetime": 350.0,
+   "touch_effects": [],
+   "ingestion": [],
+   "freezes_to": "none",
+   "melts_to": "none",
+   "tags": [
+    "gas"
+   ],
+   "creative": false,
+   "stage": "2",
+   "_unverified": {},
+   "_sources": {
+    "all": "materials.xml CellData"
+   }
+  },
+  {
+   "id": "cloud_radioactive",
+   "name_key": "mat_cloud_radioactive",
+   "kind": "liquid",
+   "color": "11b4ff10",
+   "density": 1.0,
+   "gravity": 0.0,
+   "viscosity": 0.0,
+   "burnable": false,
+   "fire_hp": 0.0,
+   "on_fire": false,
+   "glow": 130.0,
+   "lifetime": 10.0,
+   "touch_effects": [
+    "RADIOACTIVE"
+   ],
+   "ingestion": [
+    "POISONED:0.1"
+   ],
+   "freezes_to": "none",
+   "melts_to": "none",
+   "tags": [
+    "liquid",
+    "radioactive",
+    "impure",
+    "liquid_common"
+   ],
+   "creative": false,
+   "stage": "2",
+   "_unverified": {},
+   "_sources": {
+    "all": "materials.xml CellData"
+   }
+  },
+  {
+   "id": "cloud_slime",
+   "name_key": "mat_cloud_slime",
+   "kind": "liquid",
+   "color": "37c5447c",
+   "density": 1.0,
+   "gravity": 0.0,
+   "viscosity": 0.0,
+   "burnable": false,
+   "fire_hp": 0.0,
+   "on_fire": false,
+   "glow": 130.0,
+   "lifetime": 10.0,
+   "touch_effects": [
+    "SLIMY"
+   ],
+   "ingestion": [
+    "FOOD_POISONING:0.2"
+   ],
+   "freezes_to": "none",
+   "melts_to": "none",
+   "tags": [
+    "liquid",
+    "impure",
+    "slime",
+    "liquid_common"
+   ],
+   "creative": false,
+   "stage": "2",
+   "_unverified": {},
+   "_sources": {
+    "all": "materials.xml CellData"
+   }
+  },
+  {
+   "id": "copper_molten",
+   "name_key": "mat_copper_molten",
+   "kind": "liquid",
+   "color": "ffb89e58",
+   "density": 3.0,
+   "gravity": 1.5,
+   "viscosity": 0.0,
+   "burnable": true,
+   "fire_hp": 90000.0,
+   "on_fire": true,
+   "glow": 200.0,
+   "lifetime": 0.0,
+   "touch_effects": [
+    "ON_FIRE"
+   ],
+   "ingestion": [
+    "INGESTION_ON_FIRE:0.1"
+   ],
+   "freezes_to": "none",
+   "melts_to": "none",
+   "tags": [
+    "liquid",
+    "corrodible",
+    "molten",
+    "alchemy",
+    "solid",
+    "liquid_common",
+    "earth"
+   ],
+   "creative": true,
+   "stage": "2",
+   "_unverified": {},
+   "_sources": {
+    "all": "materials.xml CellData"
+   }
+  },
+  {
+   "id": "creepy_liquid",
+   "name_key": "mat_creepy_liquid",
+   "kind": "liquid",
+   "color": "7f381774",
+   "density": 1.0,
+   "gravity": 0.5,
+   "viscosity": 0.0,
+   "burnable": false,
+   "fire_hp": 0.0,
+   "on_fire": false,
+   "glow": 90.0,
+   "lifetime": 1350.0,
+   "touch_effects": [],
+   "ingestion": [],
+   "freezes_to": "none",
+   "melts_to": "none",
+   "tags": [
+    "liquid",
+    "impure"
+   ],
+   "creative": false,
+   "stage": "2",
+   "_unverified": {},
+   "_sources": {
+    "all": "materials.xml CellData"
+   }
+  },
+  {
+   "id": "cursed_liquid",
+   "name_key": "mat_cursed_liquid",
+   "kind": "liquid",
+   "color": "44369244",
+   "density": 3.0,
+   "gravity": 0.5,
+   "viscosity": 0.0,
+   "burnable": false,
+   "fire_hp": 0.0,
+   "on_fire": false,
+   "glow": 60.0,
+   "lifetime": 0.0,
+   "touch_effects": [
+    "POISONED"
+   ],
+   "ingestion": [
+    "POISONED:0.12"
+   ],
+   "freezes_to": "ice_radioactive_static",
+   "melts_to": "none",
+   "tags": [
+    "corrodible",
+    "soluble",
+    "impure"
+   ],
+   "creative": true,
+   "stage": "2",
+   "_unverified": {},
+   "_sources": {
+    "all": "materials.xml CellData"
+   }
+  },
+  {
+   "id": "endslime_static",
+   "name_key": "mat_endslime_static",
+   "kind": "liquid",
+   "color": "888bff80",
+   "density": 4.0,
+   "gravity": 1.0,
+   "viscosity": 0.0,
+   "burnable": false,
+   "fire_hp": 0.0,
+   "on_fire": false,
+   "glow": 0.0,
+   "lifetime": 0.0,
+   "touch_effects": [],
+   "ingestion": [
+    "FOOD_POISONING:0.1"
+   ],
+   "freezes_to": "none",
+   "melts_to": "none",
+   "tags": [
+    "static",
+    "alchemy",
+    "solid",
+    "earth"
+   ],
+   "creative": false,
+   "stage": "2",
+   "_unverified": {},
+   "_sources": {
+    "all": "materials.xml CellData"
+   }
+  },
+  {
+   "id": "fungal_gas",
+   "name_key": "mat_fungal_gas",
+   "kind": "gas",
+   "color": "7fea1caf",
+   "density": 2.0,
+   "gravity": 0.5,
+   "viscosity": 0.0,
+   "burnable": true,
+   "fire_hp": 1000.0,
+   "on_fire": false,
+   "glow": 0.0,
+   "lifetime": 450.0,
+   "touch_effects": [],
+   "ingestion": [],
+   "freezes_to": "none",
+   "melts_to": "none",
+   "tags": [
+    "gas",
+    "burnable_fast",
+    "fungus"
+   ],
+   "creative": true,
+   "stage": "2",
+   "_unverified": {},
+   "_sources": {
+    "all": "materials.xml CellData"
+   }
+  },
+  {
+   "id": "glass_broken_molten",
+   "name_key": "mat_glass_broken_molten",
+   "kind": "liquid",
+   "color": "ffb89e58",
+   "density": 3.0,
+   "gravity": 1.5,
+   "viscosity": 0.0,
+   "burnable": true,
+   "fire_hp": 90000.0,
+   "on_fire": true,
+   "glow": 200.0,
+   "lifetime": 0.0,
+   "touch_effects": [
+    "ON_FIRE"
+   ],
+   "ingestion": [
+    "INGESTION_ON_FIRE:0.1"
+   ],
+   "freezes_to": "none",
+   "melts_to": "none",
+   "tags": [
+    "liquid",
+    "molten",
+    "meltable_to_lava",
+    "alchemy",
+    "solid",
+    "liquid_common",
+    "earth"
+   ],
+   "creative": false,
+   "stage": "2",
+   "_unverified": {},
+   "_sources": {
+    "all": "materials.xml CellData"
+   }
+  },
+  {
+   "id": "glass_molten",
+   "name_key": "mat_glass_molten",
+   "kind": "liquid",
+   "color": "ffb89e58",
+   "density": 3.0,
+   "gravity": 1.5,
+   "viscosity": 0.0,
+   "burnable": true,
+   "fire_hp": 90000.0,
+   "on_fire": true,
+   "glow": 200.0,
+   "lifetime": 0.0,
+   "touch_effects": [
+    "ON_FIRE"
+   ],
+   "ingestion": [
+    "INGESTION_ON_FIRE:0.1"
+   ],
+   "freezes_to": "none",
+   "melts_to": "none",
+   "tags": [
+    "liquid",
+    "molten",
+    "meltable_to_lava",
+    "alchemy",
+    "solid",
+    "liquid_common",
+    "earth"
+   ],
+   "creative": false,
+   "stage": "2",
+   "_unverified": {},
+   "_sources": {
+    "all": "materials.xml CellData"
+   }
+  },
+  {
+   "id": "gold_molten",
+   "name_key": "mat_gold_molten",
+   "kind": "liquid",
+   "color": "ffb89e58",
+   "density": 5.0,
+   "gravity": 1.5,
+   "viscosity": 75.0,
+   "burnable": true,
+   "fire_hp": 90000.0,
+   "on_fire": true,
+   "glow": 200.0,
+   "lifetime": 0.0,
+   "touch_effects": [
+    "ON_FIRE"
+   ],
+   "ingestion": [
+    "INGESTION_ON_FIRE:0.1"
+   ],
+   "freezes_to": "none",
+   "melts_to": "none",
+   "tags": [
+    "liquid",
+    "corrodible",
+    "molten",
+    "alchemy",
+    "gold",
+    "solid",
+    "liquid_common",
+    "earth"
+   ],
+   "creative": true,
+   "stage": "2",
+   "_unverified": {},
+   "_sources": {
+    "all": "materials.xml CellData"
+   }
+  },
+  {
+   "id": "juhannussima",
+   "name_key": "mat_juhannussima",
+   "kind": "liquid",
+   "color": "4fea7207",
+   "density": 3.5,
+   "gravity": 1.2,
+   "viscosity": 0.0,
+   "burnable": false,
+   "fire_hp": 0.0,
+   "on_fire": false,
+   "glow": 0.0,
+   "lifetime": 0.0,
+   "touch_effects": [
+    "WET"
+   ],
+   "ingestion": [
+    "INGESTION_DRUNK:0.1"
+   ],
+   "freezes_to": "none",
+   "melts_to": "none",
+   "tags": [
+    "liquid",
+    "water",
+    "impure",
+    "liquid_common"
+   ],
+   "creative": true,
+   "stage": "2",
+   "_unverified": {},
+   "_sources": {
+    "all": "materials.xml CellData"
+   }
+  },
+  {
+   "id": "just_death",
+   "name_key": "mat_magic_liquid_death",
+   "kind": "liquid",
+   "color": "ff000000",
+   "density": 4.0,
+   "gravity": 1.5,
+   "viscosity": 0.0,
+   "burnable": false,
+   "fire_hp": 0.0,
+   "on_fire": false,
+   "glow": 255.0,
+   "lifetime": 200.0,
+   "touch_effects": [
+    "WET"
+   ],
+   "ingestion": [],
+   "freezes_to": "ice_static",
+   "melts_to": "steam",
+   "tags": [
+    "liquid",
+    "magic"
+   ],
+   "creative": true,
+   "stage": "2",
+   "_unverified": {},
+   "_sources": {
+    "all": "materials.xml CellData"
+   }
+  },
+  {
+   "id": "lava",
+   "name_key": "mat_lava",
+   "kind": "liquid",
+   "color": "ffff6000",
+   "density": 6.0,
+   "gravity": 0.2,
+   "viscosity": 10.0,
+   "burnable": false,
+   "fire_hp": 0.0,
+   "on_fire": false,
+   "glow": 150.0,
+   "lifetime": 0.0,
+   "touch_effects": [
+    "ON_FIRE"
+   ],
+   "ingestion": [
+    "INGESTION_ON_FIRE:0.1"
+   ],
+   "freezes_to": "lavarock_static",
+   "melts_to": "none",
+   "tags": [
+    "fire_lava",
+    "liquid",
+    "lava",
+    "liquid_common",
+    "chaotic_transmutation"
+   ],
+   "creative": true,
+   "stage": "2",
+   "_unverified": {},
+   "_sources": {
+    "all": "materials.xml CellData"
+   }
+  },
+  {
+   "id": "liquid_fire",
+   "name_key": "mat_liquid_fire",
+   "kind": "liquid",
+   "color": "aff08400",
+   "density": 1.0,
+   "gravity": 0.2,
+   "viscosity": 9.0,
+   "burnable": true,
+   "fire_hp": 1000000.0,
+   "on_fire": true,
+   "glow": 200.0,
+   "lifetime": 0.0,
+   "touch_effects": [
+    "OILED",
+    "OILED"
+   ],
+   "ingestion": [
+    "INGESTION_ON_FIRE:0.1"
+   ],
+   "freezes_to": "none",
+   "melts_to": "none",
+   "tags": [
+    "liquid",
+    "burnable",
+    "impure",
+    "hot",
+    "fire_strong",
+    "liquid_common"
+   ],
+   "creative": true,
+   "stage": "2",
+   "_unverified": {},
+   "_sources": {
+    "all": "materials.xml CellData"
+   }
+  },
+  {
+   "id": "liquid_fire_weak",
+   "name_key": "mat_liquid_fire_weak",
+   "kind": "liquid",
+   "color": "ffebcd00",
+   "density": 1.0,
+   "gravity": 0.2,
+   "viscosity": 9.0,
+   "burnable": true,
+   "fire_hp": 2300.0,
+   "on_fire": true,
+   "glow": 200.0,
+   "lifetime": 0.0,
+   "touch_effects": [
+    "OILED",
+    "OILED"
+   ],
+   "ingestion": [
+    "POISONED:0.05",
+    "FOOD_POISONING:0.2"
+   ],
+   "freezes_to": "none",
+   "melts_to": "none",
+   "tags": [
+    "liquid",
+    "burnable",
+    "impure",
+    "hot",
+    "fire_strong",
+    "liquid_common"
+   ],
+   "creative": true,
+   "stage": "2",
+   "_unverified": {},
+   "_sources": {
+    "all": "materials.xml CellData"
+   }
+  },
+  {
+   "id": "magic_gas_fungus",
+   "name_key": "mat_magic_gas_fungus",
+   "kind": "gas",
+   "color": "fff064aa",
+   "density": 2.0,
+   "gravity": 0.5,
+   "viscosity": 0.0,
+   "burnable": false,
+   "fire_hp": 0.0,
+   "on_fire": false,
+   "glow": 180.0,
+   "lifetime": 250.0,
+   "touch_effects": [
+    "TRIP"
+   ],
+   "ingestion": [],
+   "freezes_to": "none",
+   "melts_to": "none",
+   "tags": [
+    "gas",
+    "vapour",
+    "alchemy"
+   ],
+   "creative": true,
+   "stage": "2",
+   "_unverified": {},
+   "_sources": {
+    "all": "materials.xml CellData"
+   }
+  },
+  {
+   "id": "magic_gas_hp_regeneration",
+   "name_key": "mat_magic_gas_hp_regeneration",
+   "kind": "gas",
+   "color": "7fa1f18c",
+   "density": 2.0,
+   "gravity": 0.5,
+   "viscosity": 0.0,
+   "burnable": false,
+   "fire_hp": 0.0,
+   "on_fire": false,
+   "glow": 255.0,
+   "lifetime": 250.0,
+   "touch_effects": [
+    "HP_REGENERATION"
+   ],
+   "ingestion": [],
+   "freezes_to": "none",
+   "melts_to": "none",
+   "tags": [
+    "gas",
+    "vapour",
+    "regenerative_gas"
+   ],
+   "creative": true,
+   "stage": "2",
+   "_unverified": {},
+   "_sources": {
+    "all": "materials.xml CellData"
+   }
+  },
+  {
+   "id": "magic_gas_midas",
+   "name_key": "mat_magic_gas_midas",
+   "kind": "gas",
+   "color": "efefa101",
+   "density": 2.0,
+   "gravity": 0.5,
+   "viscosity": 0.0,
+   "burnable": false,
+   "fire_hp": 0.0,
+   "on_fire": false,
+   "glow": 255.0,
+   "lifetime": 410.0,
+   "touch_effects": [],
+   "ingestion": [],
+   "freezes_to": "none",
+   "melts_to": "none",
+   "tags": [
+    "gas",
+    "vapour"
+   ],
+   "creative": true,
+   "stage": "2",
+   "_unverified": {},
+   "_sources": {
+    "all": "materials.xml CellData"
+   }
+  },
+  {
+   "id": "magic_gas_polymorph",
+   "name_key": "mat_magic_gas_polymorph",
+   "kind": "gas",
+   "color": "80f17beb",
+   "density": 2.0,
+   "gravity": 0.5,
+   "viscosity": 0.0,
+   "burnable": false,
+   "fire_hp": 0.0,
+   "on_fire": false,
+   "glow": 180.0,
+   "lifetime": 250.0,
+   "touch_effects": [
+    "POLYMORPH"
+   ],
+   "ingestion": [],
+   "freezes_to": "none",
+   "melts_to": "none",
+   "tags": [
+    "gas",
+    "vapour",
+    "alchemy"
+   ],
+   "creative": true,
+   "stage": "2",
+   "_unverified": {},
+   "_sources": {
+    "all": "materials.xml CellData"
+   }
+  },
+  {
+   "id": "magic_gas_teleport",
+   "name_key": "mat_magic_gas_teleport",
+   "kind": "gas",
+   "color": "817fceed",
+   "density": 2.0,
+   "gravity": 0.5,
+   "viscosity": 0.0,
+   "burnable": false,
+   "fire_hp": 0.0,
+   "on_fire": false,
+   "glow": 180.0,
+   "lifetime": 250.0,
+   "touch_effects": [
+    "TELEPORTATION"
+   ],
+   "ingestion": [],
+   "freezes_to": "none",
+   "melts_to": "none",
+   "tags": [
+    "gas",
+    "vapour",
+    "alchemy"
+   ],
+   "creative": true,
+   "stage": "2",
+   "_unverified": {},
+   "_sources": {
+    "all": "materials.xml CellData"
+   }
+  },
+  {
+   "id": "magic_gas_weakness",
+   "name_key": "mat_magic_gas_weakness",
+   "kind": "gas",
+   "color": "b426c528",
+   "density": 2.0,
+   "gravity": 0.5,
+   "viscosity": 0.0,
+   "burnable": false,
+   "fire_hp": 0.0,
+   "on_fire": false,
+   "glow": 180.0,
+   "lifetime": 250.0,
+   "touch_effects": [
+    "WEAKNESS"
+   ],
+   "ingestion": [],
+   "freezes_to": "none",
+   "melts_to": "none",
+   "tags": [
+    "gas",
+    "vapour",
+    "alchemy"
+   ],
+   "creative": true,
+   "stage": "2",
+   "_unverified": {},
+   "_sources": {
+    "all": "materials.xml CellData"
+   }
+  },
+  {
+   "id": "magic_gas_worm_blood",
+   "name_key": "mat_magic_gas_worm_blood",
+   "kind": "gas",
+   "color": "7fc6cf27",
+   "density": 2.0,
+   "gravity": 0.5,
+   "viscosity": 0.0,
+   "burnable": false,
+   "fire_hp": 0.0,
+   "on_fire": false,
+   "glow": 0.0,
+   "lifetime": 410.0,
+   "touch_effects": [
+    "NIGHTVISION"
+   ],
+   "ingestion": [],
+   "freezes_to": "none",
+   "melts_to": "none",
+   "tags": [
+    "gas",
+    "vapour"
+   ],
+   "creative": true,
+   "stage": "2",
+   "_unverified": {},
+   "_sources": {
+    "all": "materials.xml CellData"
+   }
+  },
+  {
+   "id": "magic_liquid",
+   "name_key": "mat_magic_liquid",
+   "kind": "liquid",
+   "color": "80fffea2",
+   "density": 5.23,
+   "gravity": 0.8,
+   "viscosity": 0.0,
+   "burnable": false,
+   "fire_hp": 0.0,
+   "on_fire": false,
+   "glow": 150.0,
+   "lifetime": 300.0,
+   "touch_effects": [],
+   "ingestion": [
+    "FOOD_POISONING:0.1"
+   ],
+   "freezes_to": "none",
+   "melts_to": "none",
+   "tags": [
+    "liquid",
+    "water",
+    "magic_liquid",
+    "impure"
+   ],
+   "creative": false,
+   "stage": "2",
+   "_unverified": {},
+   "_sources": {
+    "all": "materials.xml CellData"
+   }
+  },
+  {
+   "id": "magic_liquid_berserk",
+   "name_key": "mat_magic_liquid_berserk",
+   "kind": "liquid",
+   "color": "80f86868",
+   "density": 2.412,
+   "gravity": 0.8,
+   "viscosity": 0.0,
+   "burnable": false,
+   "fire_hp": 0.0,
+   "on_fire": false,
+   "glow": 150.0,
+   "lifetime": 0.0,
+   "touch_effects": [
+    "BERSERK"
+   ],
+   "ingestion": [
+    "BERSERK:0.15"
+   ],
+   "freezes_to": "none",
+   "melts_to": "none",
+   "tags": [
+    "liquid",
+    "water",
+    "magic_liquid",
+    "impure"
+   ],
+   "creative": true,
+   "stage": "2",
+   "_unverified": {},
+   "_sources": {
+    "all": "materials.xml CellData"
+   }
+  },
+  {
+   "id": "magic_liquid_charm",
+   "name_key": "mat_magic_liquid_charm",
+   "kind": "liquid",
+   "color": "80c23055",
+   "density": 3.513,
+   "gravity": 0.8,
+   "viscosity": 0.0,
+   "burnable": false,
+   "fire_hp": 0.0,
+   "on_fire": false,
+   "glow": 150.0,
+   "lifetime": 0.0,
+   "touch_effects": [
+    "CHARM"
+   ],
+   "ingestion": [
+    "CHARM:0.2"
+   ],
+   "freezes_to": "none",
+   "melts_to": "none",
+   "tags": [
+    "liquid",
+    "water",
+    "magic_liquid",
+    "impure"
+   ],
+   "creative": true,
+   "stage": "2",
+   "_unverified": {},
+   "_sources": {
+    "all": "materials.xml CellData"
+   }
+  },
+  {
+   "id": "magic_liquid_faster_levitation",
+   "name_key": "mat_magic_liquid_faster_levitation",
+   "kind": "liquid",
+   "color": "80f6ffdc",
+   "density": 1.11,
+   "gravity": 0.8,
+   "viscosity": 0.0,
+   "burnable": false,
+   "fire_hp": 0.0,
+   "on_fire": false,
+   "glow": 100.0,
+   "lifetime": 0.0,
+   "touch_effects": [
+    "FASTER_LEVITATION"
+   ],
+   "ingestion": [
+    "FASTER_LEVITATION:0.2"
+   ],
+   "freezes_to": "none",
+   "melts_to": "none",
+   "tags": [
+    "liquid",
+    "water",
+    "magic_liquid",
+    "impure",
+    "magic_faster"
+   ],
+   "creative": true,
+   "stage": "2",
+   "_unverified": {},
+   "_sources": {
+    "all": "materials.xml CellData"
+   }
+  },
+  {
+   "id": "magic_liquid_faster_levitation_and_movement",
+   "name_key": "mat_magic_liquid_faster_levitation_and_movement",
+   "kind": "liquid",
+   "color": "80c7f865",
+   "density": 1.091,
+   "gravity": 0.8,
+   "viscosity": 0.0,
+   "burnable": false,
+   "fire_hp": 0.0,
+   "on_fire": false,
+   "glow": 100.0,
+   "lifetime": 0.0,
+   "touch_effects": [
+    "FASTER_LEVITATION",
+    "MOVEMENT_FASTER_2X"
+   ],
+   "ingestion": [
+    "FASTER_LEVITATION:0.1",
+    "MOVEMENT_FASTER_2X:0.1"
+   ],
+   "freezes_to": "none",
+   "melts_to": "none",
+   "tags": [
+    "liquid",
+    "water",
+    "magic_liquid",
+    "impure",
+    "magic_faster"
+   ],
+   "creative": true,
+   "stage": "2",
+   "_unverified": {},
+   "_sources": {
+    "all": "materials.xml CellData"
+   }
+  },
+  {
+   "id": "magic_liquid_hp_regeneration",
+   "name_key": "mat_magic_liquid_hp_regeneration",
+   "kind": "liquid",
+   "color": "80a1f18b",
+   "density": 5.53,
+   "gravity": 0.8,
+   "viscosity": 0.0,
+   "burnable": false,
+   "fire_hp": 0.0,
+   "on_fire": false,
+   "glow": 150.0,
+   "lifetime": 0.0,
+   "touch_effects": [
+    "HP_REGENERATION"
+   ],
+   "ingestion": [
+    "HP_REGENERATION:0.075"
+   ],
+   "freezes_to": "none",
+   "melts_to": "none",
+   "tags": [
+    "liquid",
+    "water",
+    "magic_liquid",
+    "regenerative"
+   ],
+   "creative": true,
+   "stage": "2",
+   "_unverified": {},
+   "_sources": {
+    "all": "materials.xml CellData"
+   }
+  },
+  {
+   "id": "magic_liquid_hp_regeneration_unstable",
+   "name_key": "mat_magic_liquid_hp_regeneration_unstable",
+   "kind": "liquid",
+   "color": "80a1f18c",
+   "density": 5.74,
+   "gravity": 0.8,
+   "viscosity": 0.0,
+   "burnable": false,
+   "fire_hp": 0.0,
+   "on_fire": false,
+   "glow": 150.0,
+   "lifetime": 900.0,
+   "touch_effects": [
+    "HP_REGENERATION"
+   ],
+   "ingestion": [
+    "HP_REGENERATION:0.075"
+   ],
+   "freezes_to": "none",
+   "melts_to": "none",
+   "tags": [
+    "liquid",
+    "water",
+    "magic_liquid",
+    "regenerative"
+   ],
+   "creative": true,
+   "stage": "2",
+   "_unverified": {},
+   "_sources": {
+    "all": "materials.xml CellData"
+   }
+  },
+  {
+   "id": "magic_liquid_invisibility",
+   "name_key": "mat_magic_liquid_invisibility",
+   "kind": "liquid",
+   "color": "80306cc0",
+   "density": 5.3272,
+   "gravity": 0.8,
+   "viscosity": 0.0,
+   "burnable": false,
+   "fire_hp": 0.0,
+   "on_fire": false,
+   "glow": 150.0,
+   "lifetime": 0.0,
+   "touch_effects": [
+    "INVISIBILITY"
+   ],
+   "ingestion": [
+    "FOOD_POISONING:0.2"
+   ],
+   "freezes_to": "none",
+   "melts_to": "none",
+   "tags": [
+    "liquid",
+    "water",
+    "magic_liquid",
+    "impure"
+   ],
+   "creative": true,
+   "stage": "2",
+   "_unverified": {},
+   "_sources": {
+    "all": "materials.xml CellData"
+   }
+  },
+  {
+   "id": "magic_liquid_mana_regeneration",
+   "name_key": "mat_magic_liquid_mana_regeneration",
+   "kind": "liquid",
+   "color": "800bffe5",
+   "density": 4.921,
+   "gravity": 0.8,
+   "viscosity": 0.0,
+   "burnable": false,
+   "fire_hp": 0.0,
+   "on_fire": false,
+   "glow": 130.0,
+   "lifetime": 0.0,
+   "touch_effects": [
+    "MANA_REGENERATION"
+   ],
+   "ingestion": [
+    "MANA_REGENERATION:0.2"
+   ],
+   "freezes_to": "none",
+   "melts_to": "none",
+   "tags": [
+    "liquid",
+    "water",
+    "magic_liquid",
+    "impure"
+   ],
+   "creative": true,
+   "stage": "2",
+   "_unverified": {},
+   "_sources": {
+    "all": "materials.xml CellData"
+   }
+  },
+  {
+   "id": "magic_liquid_movement_faster",
+   "name_key": "mat_magic_liquid_movement_faster",
+   "kind": "liquid",
+   "color": "80c1dba4",
+   "density": 1.1,
+   "gravity": 0.8,
+   "viscosity": 0.0,
+   "burnable": false,
+   "fire_hp": 0.0,
+   "on_fire": false,
+   "glow": 150.0,
+   "lifetime": 0.0,
+   "touch_effects": [
+    "MOVEMENT_FASTER_2X"
+   ],
+   "ingestion": [
+    "MOVEMENT_FASTER_2X:0.2"
+   ],
+   "freezes_to": "none",
+   "melts_to": "none",
+   "tags": [
+    "liquid",
+    "water",
+    "magic_liquid",
+    "impure",
+    "magic_faster"
+   ],
+   "creative": true,
+   "stage": "2",
+   "_unverified": {},
+   "_sources": {
+    "all": "materials.xml CellData"
+   }
+  },
+  {
+   "id": "magic_liquid_polymorph",
+   "name_key": "mat_magic_liquid_polymorph",
+   "kind": "liquid",
+   "color": "80f18beb",
+   "density": 4.14,
+   "gravity": 0.8,
+   "viscosity": 0.0,
+   "burnable": false,
+   "fire_hp": 0.0,
+   "on_fire": false,
+   "glow": 150.0,
+   "lifetime": 0.0,
+   "touch_effects": [
+    "POLYMORPH"
+   ],
+   "ingestion": [
+    "POLYMORPH:0.2"
+   ],
+   "freezes_to": "none",
+   "melts_to": "none",
+   "tags": [
+    "liquid",
+    "water",
+    "magic_liquid",
+    "magic_polymorph",
+    "impure"
+   ],
+   "creative": true,
+   "stage": "2",
+   "_unverified": {},
+   "_sources": {
+    "all": "materials.xml CellData"
+   }
+  },
+  {
+   "id": "magic_liquid_protection_all",
+   "name_key": "mat_magic_liquid_protection_all",
+   "kind": "liquid",
+   "color": "80df9828",
+   "density": 5.12,
+   "gravity": 0.8,
+   "viscosity": 0.0,
+   "burnable": false,
+   "fire_hp": 0.0,
+   "on_fire": false,
+   "glow": 150.0,
+   "lifetime": 0.0,
+   "touch_effects": [
+    "PROTECTION_ALL"
+   ],
+   "ingestion": [
+    "FOOD_POISONING:0.2"
+   ],
+   "freezes_to": "none",
+   "melts_to": "none",
+   "tags": [
+    "liquid",
+    "water",
+    "magic_liquid",
+    "impure"
+   ],
+   "creative": true,
+   "stage": "2",
+   "_unverified": {},
+   "_sources": {
+    "all": "materials.xml CellData"
+   }
+  },
+  {
+   "id": "magic_liquid_random_polymorph",
+   "name_key": "mat_magic_liquid_random_polymorph",
+   "kind": "liquid",
+   "color": "8091448d",
+   "density": 4.15,
+   "gravity": 0.8,
+   "viscosity": 0.0,
+   "burnable": false,
+   "fire_hp": 0.0,
+   "on_fire": false,
+   "glow": 150.0,
+   "lifetime": 0.0,
+   "touch_effects": [
+    "POLYMORPH_RANDOM"
+   ],
+   "ingestion": [
+    "POLYMORPH_RANDOM:0.2"
+   ],
+   "freezes_to": "none",
+   "melts_to": "none",
+   "tags": [
+    "liquid",
+    "water",
+    "magic_liquid",
+    "magic_polymorph",
+    "impure"
+   ],
+   "creative": true,
+   "stage": "2",
+   "_unverified": {},
+   "_sources": {
+    "all": "materials.xml CellData"
+   }
+  },
+  {
+   "id": "magic_liquid_teleportation",
+   "name_key": "mat_magic_liquid_teleportation",
+   "kind": "liquid",
+   "color": "807fceea",
+   "density": 4.21,
+   "gravity": 0.8,
+   "viscosity": 0.0,
+   "burnable": true,
+   "fire_hp": 0.0,
+   "on_fire": false,
+   "glow": 150.0,
+   "lifetime": 0.0,
+   "touch_effects": [
+    "TELEPORTATION"
+   ],
+   "ingestion": [
+    "TELEPORTATION:0.05"
+   ],
+   "freezes_to": "none",
+   "melts_to": "none",
+   "tags": [
+    "liquid",
+    "water",
+    "magic_liquid",
+    "impure"
+   ],
+   "creative": true,
+   "stage": "2",
+   "_unverified": {},
+   "_sources": {
+    "all": "materials.xml CellData"
+   }
+  },
+  {
+   "id": "magic_liquid_unstable_polymorph",
+   "name_key": "mat_magic_liquid_unstable_polymorph",
+   "kind": "liquid",
+   "color": "80a3569f",
+   "density": 4.16,
+   "gravity": 0.8,
+   "viscosity": 0.0,
+   "burnable": false,
+   "fire_hp": 0.0,
+   "on_fire": false,
+   "glow": 150.0,
+   "lifetime": 0.0,
+   "touch_effects": [
+    "POLYMORPH_UNSTABLE"
+   ],
+   "ingestion": [
+    "POLYMORPH_UNSTABLE:0.2"
+   ],
+   "freezes_to": "none",
+   "melts_to": "none",
+   "tags": [
+    "liquid",
+    "water",
+    "magic_liquid",
+    "magic_polymorph",
+    "impure"
+   ],
+   "creative": true,
+   "stage": "2",
+   "_unverified": {},
+   "_sources": {
+    "all": "materials.xml CellData"
+   }
+  },
+  {
+   "id": "magic_liquid_unstable_teleportation",
+   "name_key": "mat_magic_liquid_unstable_teleportation",
+   "kind": "liquid",
+   "color": "8000bee4",
+   "density": 4.43,
+   "gravity": 0.8,
+   "viscosity": 0.0,
+   "burnable": true,
+   "fire_hp": 0.0,
+   "on_fire": false,
+   "glow": 150.0,
+   "lifetime": 0.0,
+   "touch_effects": [
+    "UNSTABLE_TELEPORTATION"
+   ],
+   "ingestion": [
+    "UNSTABLE_TELEPORTATION:0.05"
+   ],
+   "freezes_to": "none",
+   "melts_to": "none",
+   "tags": [
+    "liquid",
+    "water",
+    "magic_liquid",
+    "impure"
+   ],
+   "creative": true,
+   "stage": "2",
+   "_unverified": {},
+   "_sources": {
+    "all": "materials.xml CellData"
+   }
+  },
+  {
+   "id": "magic_liquid_weakness",
+   "name_key": "magic_liquid_weakness",
+   "kind": "liquid",
+   "color": "b426c528",
+   "density": 1.872,
+   "gravity": 0.8,
+   "viscosity": 0.0,
+   "burnable": false,
+   "fire_hp": 0.0,
+   "on_fire": false,
+   "glow": 150.0,
+   "lifetime": 0.0,
+   "touch_effects": [
+    "WEAKNESS"
+   ],
+   "ingestion": [
+    "WEAKNESS:0.2"
+   ],
+   "freezes_to": "none",
+   "melts_to": "none",
+   "tags": [
+    "liquid",
+    "water",
+    "magic_liquid",
+    "impure",
+    "magic_faster"
+   ],
+   "creative": true,
+   "stage": "2",
+   "_unverified": {},
+   "_sources": {
+    "all": "materials.xml CellData"
+   }
+  },
+  {
+   "id": "magic_liquid_worm_attractor",
+   "name_key": "mat_magic_liquid_worm_attractor",
+   "kind": "liquid",
+   "color": "80687478",
+   "density": 4.76,
+   "gravity": 0.8,
+   "viscosity": 0.0,
+   "burnable": false,
+   "fire_hp": 0.0,
+   "on_fire": false,
+   "glow": 150.0,
+   "lifetime": 0.0,
+   "touch_effects": [
+    "WORM_ATTRACTOR"
+   ],
+   "ingestion": [
+    "WORM_ATTRACTOR:0.4"
+   ],
+   "freezes_to": "none",
+   "melts_to": "none",
+   "tags": [
+    "liquid",
+    "water",
+    "magic_liquid",
+    "impure"
+   ],
+   "creative": true,
+   "stage": "2",
+   "_unverified": {},
+   "_sources": {
+    "all": "materials.xml CellData"
+   }
+  },
+  {
+   "id": "material_confusion",
+   "name_key": "mat_confusion",
+   "kind": "liquid",
+   "color": "88e8bd5c",
+   "density": 1.2,
+   "gravity": 0.8,
+   "viscosity": 0.0,
+   "burnable": false,
+   "fire_hp": 0.0,
+   "on_fire": false,
+   "glow": 150.0,
+   "lifetime": 0.0,
+   "touch_effects": [
+    "CONFUSION"
+   ],
+   "ingestion": [
+    "CONFUSION:0.1"
+   ],
+   "freezes_to": "none",
+   "melts_to": "none",
+   "tags": [
+    "liquid",
+    "water",
+    "magic_liquid",
+    "impure"
+   ],
+   "creative": true,
+   "stage": "2",
+   "_unverified": {},
+   "_sources": {
+    "all": "materials.xml CellData"
+   }
+  },
+  {
+   "id": "material_darkness",
+   "name_key": "mat_darkness",
+   "kind": "liquid",
+   "color": "80563e66",
+   "density": 1.2434,
+   "gravity": 0.8,
+   "viscosity": 0.0,
+   "burnable": false,
+   "fire_hp": 0.0,
+   "on_fire": false,
+   "glow": 150.0,
+   "lifetime": 0.0,
+   "touch_effects": [
+    "POISONED"
+   ],
+   "ingestion": [
+    "POISONED:0.1"
+   ],
+   "freezes_to": "none",
+   "melts_to": "none",
+   "tags": [
+    "liquid",
+    "water",
+    "magic_liquid",
+    "impure"
+   ],
+   "creative": true,
+   "stage": "2",
+   "_unverified": {},
+   "_sources": {
+    "all": "materials.xml CellData"
+   }
+  },
+  {
+   "id": "material_rainbow",
+   "name_key": "mat_rainbow",
+   "kind": "liquid",
+   "color": "80ffa2cd",
+   "density": 1.874,
+   "gravity": 0.8,
+   "viscosity": 0.0,
+   "burnable": false,
+   "fire_hp": 0.0,
+   "on_fire": false,
+   "glow": 220.0,
+   "lifetime": 240.0,
+   "touch_effects": [],
+   "ingestion": [
+    "RAINBOW_FARTS:0.1"
+   ],
+   "freezes_to": "none",
+   "melts_to": "none",
+   "tags": [
+    "liquid",
+    "water",
+    "magic_liquid",
+    "impure"
+   ],
+   "creative": true,
+   "stage": "2",
+   "_unverified": {},
+   "_sources": {
+    "all": "materials.xml CellData"
+   }
+  },
+  {
+   "id": "metal_molten",
+   "name_key": "mat_metal_molten",
+   "kind": "liquid",
+   "color": "ff404040",
+   "density": 5.0,
+   "gravity": 1.5,
+   "viscosity": 75.0,
+   "burnable": true,
+   "fire_hp": 90000.0,
+   "on_fire": true,
+   "glow": 200.0,
+   "lifetime": 0.0,
+   "touch_effects": [
+    "ON_FIRE"
+   ],
+   "ingestion": [
+    "INGESTION_ON_FIRE:0.1"
+   ],
+   "freezes_to": "none",
+   "melts_to": "none",
+   "tags": [
+    "liquid",
+    "corrodible",
+    "molten_metal",
+    "alchemy",
+    "gold",
+    "solid",
+    "liquid_common",
+    "earth"
+   ],
+   "creative": true,
+   "stage": "2",
+   "_unverified": {},
+   "_sources": {
+    "all": "materials.xml CellData"
+   }
+  },
+  {
+   "id": "metal_nohit_molten",
+   "name_key": "mat_metal_nohit_molten",
+   "kind": "liquid",
+   "color": "ff404040",
+   "density": 5.0,
+   "gravity": 1.5,
+   "viscosity": 75.0,
+   "burnable": true,
+   "fire_hp": 90000.0,
+   "on_fire": true,
+   "glow": 200.0,
+   "lifetime": 0.0,
+   "touch_effects": [
+    "ON_FIRE"
+   ],
+   "ingestion": [
+    "INGESTION_ON_FIRE:0.1"
+   ],
+   "freezes_to": "none",
+   "melts_to": "none",
+   "tags": [
+    "liquid",
+    "corrodible",
+    "molten_metal",
+    "alchemy",
+    "gold",
+    "solid",
+    "liquid_common",
+    "earth"
+   ],
+   "creative": true,
+   "stage": "2",
+   "_unverified": {},
+   "_sources": {
+    "all": "materials.xml CellData"
+   }
+  },
+  {
+   "id": "metal_prop_molten",
+   "name_key": "mat_metal_prop_molten",
+   "kind": "liquid",
+   "color": "ff404040",
+   "density": 5.0,
+   "gravity": 1.5,
+   "viscosity": 75.0,
+   "burnable": true,
+   "fire_hp": 90000.0,
+   "on_fire": true,
+   "glow": 200.0,
+   "lifetime": 0.0,
+   "touch_effects": [
+    "ON_FIRE"
+   ],
+   "ingestion": [
+    "INGESTION_ON_FIRE:0.1"
+   ],
+   "freezes_to": "none",
+   "melts_to": "none",
+   "tags": [
+    "liquid",
+    "corrodible",
+    "molten_metal",
+    "alchemy",
+    "gold",
+    "solid",
+    "liquid_common",
+    "earth"
+   ],
+   "creative": true,
+   "stage": "2",
+   "_unverified": {},
+   "_sources": {
+    "all": "materials.xml CellData"
+   }
+  },
+  {
+   "id": "metal_rust_molten",
+   "name_key": "mat_metal_rust_molten",
+   "kind": "liquid",
+   "color": "ff404040",
+   "density": 5.0,
+   "gravity": 1.5,
+   "viscosity": 75.0,
+   "burnable": true,
+   "fire_hp": 90000.0,
+   "on_fire": true,
+   "glow": 200.0,
+   "lifetime": 0.0,
+   "touch_effects": [
+    "ON_FIRE"
+   ],
+   "ingestion": [
+    "INGESTION_ON_FIRE:0.1"
+   ],
+   "freezes_to": "none",
+   "melts_to": "none",
+   "tags": [
+    "liquid",
+    "corrodible",
+    "molten_metal",
+    "alchemy",
+    "gold",
+    "solid",
+    "liquid_common",
+    "earth"
+   ],
+   "creative": true,
+   "stage": "2",
+   "_unverified": {},
+   "_sources": {
+    "all": "materials.xml CellData"
+   }
+  },
+  {
+   "id": "metal_sand_molten",
+   "name_key": "mat_metal_sand_molten",
+   "kind": "liquid",
+   "color": "ff404040",
+   "density": 5.0,
+   "gravity": 1.5,
+   "viscosity": 75.0,
+   "burnable": true,
+   "fire_hp": 90000.0,
+   "on_fire": true,
+   "glow": 200.0,
+   "lifetime": 0.0,
+   "touch_effects": [
+    "ON_FIRE"
+   ],
+   "ingestion": [
+    "INGESTION_ON_FIRE:0.1"
+   ],
+   "freezes_to": "none",
+   "melts_to": "none",
+   "tags": [
+    "liquid",
+    "corrodible",
+    "molten_metal",
+    "alchemy",
+    "gold",
+    "solid",
+    "liquid_common",
+    "earth"
+   ],
+   "creative": true,
+   "stage": "2",
+   "_unverified": {},
+   "_sources": {
+    "all": "materials.xml CellData"
+   }
+  },
+  {
+   "id": "midas",
+   "name_key": "mat_midas",
+   "kind": "liquid",
+   "color": "efefa101",
+   "density": 4.0,
+   "gravity": 0.5,
+   "viscosity": 0.0,
+   "burnable": false,
+   "fire_hp": 0.0,
+   "on_fire": false,
+   "glow": 90.0,
+   "lifetime": 0.0,
+   "touch_effects": [
+    "ALCOHOLIC"
+   ],
+   "ingestion": [
+    "POISONED:0.1",
+    "FOOD_POISONING:0.1"
+   ],
+   "freezes_to": "none",
+   "melts_to": "none",
+   "tags": [
+    "liquid",
+    "burnable",
+    "water"
+   ],
+   "creative": true,
+   "stage": "2",
+   "_unverified": {},
+   "_sources": {
+    "all": "materials.xml CellData"
+   }
+  },
+  {
+   "id": "midas_precursor",
+   "name_key": "mat_midas_precursor",
+   "kind": "liquid",
+   "color": "e1243cff",
+   "density": 3.5,
+   "gravity": 0.5,
+   "viscosity": 0.0,
+   "burnable": false,
+   "fire_hp": 0.0,
+   "on_fire": false,
+   "glow": 0.0,
+   "lifetime": 0.0,
+   "touch_effects": [
+    "ALCOHOLIC"
+   ],
+   "ingestion": [
+    "POISONED:0.1",
+    "FOOD_POISONING:0.1"
+   ],
+   "freezes_to": "none",
+   "melts_to": "none",
+   "tags": [
+    "liquid",
+    "burnable",
+    "water"
+   ],
+   "creative": true,
+   "stage": "2",
+   "_unverified": {},
+   "_sources": {
+    "all": "materials.xml CellData"
+   }
+  },
+  {
+   "id": "milk",
+   "name_key": "mat_milk",
+   "kind": "liquid",
+   "color": "fffff6e5",
+   "density": 3.5,
+   "gravity": 1.2,
+   "viscosity": 0.0,
+   "burnable": false,
+   "fire_hp": 0.0,
+   "on_fire": false,
+   "glow": 0.0,
+   "lifetime": 0.0,
+   "touch_effects": [
+    "WET"
+   ],
+   "ingestion": [],
+   "freezes_to": "none",
+   "melts_to": "none",
+   "tags": [
+    "liquid",
+    "water",
+    "impure",
+    "liquid_common"
+   ],
+   "creative": true,
+   "stage": "2",
+   "_unverified": {},
+   "_sources": {
+    "all": "materials.xml CellData"
+   }
+  },
+  {
+   "id": "mimic_liquid",
+   "name_key": "mat_mimic_liquid",
+   "kind": "liquid",
+   "color": "88e8bd5c",
+   "density": 6.0,
+   "gravity": 1.5,
+   "viscosity": 0.0,
+   "burnable": false,
+   "fire_hp": 0.0,
+   "on_fire": false,
+   "glow": 105.0,
+   "lifetime": 0.0,
+   "touch_effects": [
+    "WET"
+   ],
+   "ingestion": [
+    "POISONED:0.1"
+   ],
+   "freezes_to": "ice_static",
+   "melts_to": "steam",
+   "tags": [
+    "liquid",
+    "mimic_liquid"
+   ],
+   "creative": true,
+   "stage": "2",
+   "_unverified": {},
+   "_sources": {
+    "all": "materials.xml CellData"
+   }
+  },
+  {
+   "id": "molut",
+   "name_key": "mat_molut",
+   "kind": "liquid",
+   "color": "ffb4a485",
+   "density": 3.5,
+   "gravity": 1.2,
+   "viscosity": 0.0,
+   "burnable": false,
+   "fire_hp": 0.0,
+   "on_fire": false,
+   "glow": 0.0,
+   "lifetime": 0.0,
+   "touch_effects": [
+    "WET"
+   ],
+   "ingestion": [
+    "INGESTION_DRUNK:0.075",
+    "FOOD_POISONING:0.15"
+   ],
+   "freezes_to": "none",
+   "melts_to": "none",
+   "tags": [
+    "liquid",
+    "water",
+    "impure",
+    "liquid_common"
+   ],
+   "creative": true,
+   "stage": "2",
+   "_unverified": {},
+   "_sources": {
+    "all": "materials.xml CellData"
+   }
+  },
+  {
+   "id": "oil",
+   "name_key": "mat_oil",
+   "kind": "liquid",
+   "color": "e63d3728",
+   "density": 1.0,
+   "gravity": 0.5,
+   "viscosity": 0.0,
+   "burnable": true,
+   "fire_hp": 500.0,
+   "on_fire": false,
+   "glow": 0.0,
+   "lifetime": 0.0,
+   "touch_effects": [
+    "OILED"
+   ],
+   "ingestion": [
+    "POISONED:0.05",
+    "FOOD_POISONING:0.2"
+   ],
+   "freezes_to": "none",
+   "melts_to": "none",
+   "tags": [
+    "liquid",
+    "burnable",
+    "impure",
+    "liquid_common",
+    "chaotic_transmutation"
+   ],
+   "creative": true,
+   "stage": "2",
+   "_unverified": {},
+   "_sources": {
+    "all": "materials.xml CellData"
+   }
+  },
+  {
+   "id": "pea_soup",
+   "name_key": "mat_pea_soup",
+   "kind": "liquid",
+   "color": "884fab2e",
+   "density": 5.0,
+   "gravity": 0.1,
+   "viscosity": 0.0,
+   "burnable": false,
+   "fire_hp": 0.0,
+   "on_fire": false,
+   "glow": 0.0,
+   "lifetime": 0.0,
+   "touch_effects": [
+    "SLIMY",
+    "SLIMY"
+   ],
+   "ingestion": [
+    "FARTS:0.3"
+   ],
+   "freezes_to": "ice_slime_static",
+   "melts_to": "none",
+   "tags": [
+    "corrodible",
+    "meltable_to_lava",
+    "alchemy",
+    "slime",
+    "liquid_common",
+    "food",
+    "chaotic_transmutation"
+   ],
+   "creative": true,
+   "stage": "2",
+   "_unverified": {},
+   "_sources": {
+    "all": "materials.xml CellData"
+   }
+  },
+  {
+   "id": "peat",
+   "name_key": "mat_peat",
+   "kind": "liquid",
+   "color": "a045aa45",
+   "density": 3.4,
+   "gravity": 0.5,
+   "viscosity": 40.0,
+   "burnable": true,
+   "fire_hp": 100.0,
+   "on_fire": false,
+   "glow": 0.0,
+   "lifetime": 0.0,
+   "touch_effects": [],
+   "ingestion": [
+    "FARTS:0.1"
+   ],
+   "freezes_to": "none",
+   "melts_to": "none",
+   "tags": [
+    "plant",
+    "corrodible",
+    "burnable",
+    "alchemy",
+    "impure"
+   ],
+   "creative": true,
+   "stage": "2",
+   "_unverified": {},
+   "_sources": {
+    "all": "materials.xml CellData"
+   }
+  },
+  {
+   "id": "plasma_fading",
+   "name_key": "mat_plasma_fading",
+   "kind": "liquid",
+   "color": "7734bfff",
+   "density": 3.0,
+   "gravity": 1.0,
+   "viscosity": 0.0,
+   "burnable": false,
+   "fire_hp": 0.0,
+   "on_fire": false,
+   "glow": 254.0,
+   "lifetime": 0.0,
+   "touch_effects": [],
+   "ingestion": [],
+   "freezes_to": "none",
+   "melts_to": "none",
+   "tags": [
+    "liquid",
+    "corrodible",
+    "soluble",
+    "evaporable_fast",
+    "impure",
+    "liquid_common"
+   ],
+   "creative": false,
+   "stage": "2",
+   "_unverified": {},
+   "_sources": {
+    "all": "materials.xml CellData"
+   }
+  },
+  {
+   "id": "plasma_fading_bright",
+   "name_key": "mat_plasma_fading",
+   "kind": "liquid",
+   "color": "ff36cdff",
+   "density": 3.0,
+   "gravity": 1.0,
+   "viscosity": 0.0,
+   "burnable": false,
+   "fire_hp": 0.0,
+   "on_fire": false,
+   "glow": 254.0,
+   "lifetime": 0.0,
+   "touch_effects": [],
+   "ingestion": [],
+   "freezes_to": "none",
+   "melts_to": "none",
+   "tags": [
+    "liquid",
+    "corrodible",
+    "soluble",
+    "evaporable_fast",
+    "impure",
+    "liquid_common"
+   ],
+   "creative": false,
+   "stage": "2",
+   "_unverified": {},
+   "_sources": {
+    "all": "materials.xml CellData"
+   }
+  },
+  {
+   "id": "plastic_grey_molten",
+   "name_key": "mat_plastic_red_molten",
+   "kind": "liquid",
+   "color": "ff707273",
+   "density": 5.1,
+   "gravity": 3.0,
+   "viscosity": 0.0,
+   "burnable": false,
+   "fire_hp": 0.0,
+   "on_fire": false,
+   "glow": 0.0,
+   "lifetime": 0.0,
+   "touch_effects": [],
+   "ingestion": [],
+   "freezes_to": "none",
+   "melts_to": "none",
+   "tags": [
+    "liquid",
+    "corrodible",
+    "molten",
+    "meltable_to_lava",
+    "alchemy",
+    "liquid_common"
+   ],
+   "creative": false,
+   "stage": "2",
+   "_unverified": {},
+   "_sources": {
+    "all": "materials.xml CellData"
+   }
+  },
+  {
+   "id": "plastic_molten",
+   "name_key": "mat_plastic_molten",
+   "kind": "liquid",
+   "color": "ff73737f",
+   "density": 5.1,
+   "gravity": 3.0,
+   "viscosity": 0.0,
+   "burnable": false,
+   "fire_hp": 0.0,
+   "on_fire": false,
+   "glow": 0.0,
+   "lifetime": 0.0,
+   "touch_effects": [],
+   "ingestion": [],
+   "freezes_to": "none",
+   "melts_to": "none",
+   "tags": [
+    "liquid",
+    "corrodible",
+    "molten",
+    "meltable_to_lava",
+    "alchemy",
+    "liquid_common"
+   ],
+   "creative": false,
+   "stage": "2",
+   "_unverified": {},
+   "_sources": {
+    "all": "materials.xml CellData"
+   }
+  },
+  {
+   "id": "plastic_prop_molten",
+   "name_key": "mat_plastic_prop_molten",
+   "kind": "liquid",
+   "color": "ff73737f",
+   "density": 5.1,
+   "gravity": 3.0,
+   "viscosity": 0.0,
+   "burnable": false,
+   "fire_hp": 0.0,
+   "on_fire": false,
+   "glow": 0.0,
+   "lifetime": 0.0,
+   "touch_effects": [],
+   "ingestion": [],
+   "freezes_to": "none",
+   "melts_to": "none",
+   "tags": [
+    "liquid",
+    "corrodible",
+    "molten",
+    "meltable_to_lava",
+    "alchemy",
+    "liquid_common"
+   ],
+   "creative": false,
+   "stage": "2",
+   "_unverified": {},
+   "_sources": {
+    "all": "materials.xml CellData"
+   }
+  },
+  {
+   "id": "plastic_red_molten",
+   "name_key": "mat_plastic_red_molten",
+   "kind": "liquid",
+   "color": "ff9000ab",
+   "density": 5.1,
+   "gravity": 3.0,
+   "viscosity": 0.0,
+   "burnable": false,
+   "fire_hp": 0.0,
+   "on_fire": false,
+   "glow": 0.0,
+   "lifetime": 0.0,
+   "touch_effects": [],
+   "ingestion": [],
+   "freezes_to": "none",
+   "melts_to": "none",
+   "tags": [
+    "liquid",
+    "corrodible",
+    "molten",
+    "meltable_to_lava",
+    "alchemy",
+    "liquid_common"
+   ],
+   "creative": false,
+   "stage": "2",
+   "_unverified": {},
+   "_sources": {
+    "all": "materials.xml CellData"
+   }
+  },
+  {
+   "id": "poison",
+   "name_key": "mat_poison",
+   "kind": "liquid",
+   "color": "44b43cff",
+   "density": 3.0,
+   "gravity": 0.5,
+   "viscosity": 0.0,
+   "burnable": false,
+   "fire_hp": 0.0,
+   "on_fire": false,
+   "glow": 60.0,
+   "lifetime": 0.0,
+   "touch_effects": [
+    "POISONED"
+   ],
+   "ingestion": [
+    "POISONED:0.12"
+   ],
+   "freezes_to": "ice_poison_static",
+   "melts_to": "none",
+   "tags": [
+    "liquid",
+    "corrodible",
+    "soluble",
+    "impure",
+    "liquid_common"
+   ],
+   "creative": true,
+   "stage": "2",
+   "_unverified": {},
+   "_sources": {
+    "all": "materials.xml CellData"
+   }
+  },
+  {
+   "id": "poison_gas",
+   "name_key": "mat_poison_gas",
+   "kind": "gas",
+   "color": "7fb42cff",
+   "density": 2.0,
+   "gravity": 0.5,
+   "viscosity": 0.0,
+   "burnable": true,
+   "fire_hp": 1000.0,
+   "on_fire": false,
+   "glow": 0.0,
+   "lifetime": 450.0,
+   "touch_effects": [],
+   "ingestion": [],
+   "freezes_to": "none",
+   "melts_to": "none",
+   "tags": [
+    "gas",
+    "burnable_fast"
+   ],
+   "creative": true,
+   "stage": "2",
+   "_unverified": {},
+   "_sources": {
+    "all": "materials.xml CellData"
+   }
+  },
+  {
+   "id": "poo_gas",
+   "name_key": "mat_poo_gas",
+   "kind": "gas",
+   "color": "7f724f43",
+   "density": 1.0,
+   "gravity": 0.5,
+   "viscosity": 0.0,
+   "burnable": false,
+   "fire_hp": 0.0,
+   "on_fire": false,
+   "glow": 0.0,
+   "lifetime": 350.0,
+   "touch_effects": [
+    "FOOD_POISONING",
+    "POISONED"
+   ],
+   "ingestion": [
+    "FOOD_POISONING:0.12"
+   ],
+   "freezes_to": "none",
+   "melts_to": "none",
+   "tags": [
+    "gas"
+   ],
+   "creative": true,
+   "stage": "2",
+   "_unverified": {},
+   "_sources": {
+    "all": "materials.xml CellData"
+   }
+  },
+  {
+   "id": "porridge",
+   "name_key": "mat_porridge",
+   "kind": "liquid",
+   "color": "eed7cfae",
+   "density": 2.123,
+   "gravity": 1.0,
+   "viscosity": 0.9,
+   "burnable": true,
+   "fire_hp": 100.0,
+   "on_fire": false,
+   "glow": 0.0,
+   "lifetime": 0.0,
+   "touch_effects": [],
+   "ingestion": [
+    "HP_REGENERATION:0.015"
+   ],
+   "freezes_to": "none",
+   "melts_to": "none",
+   "tags": [
+    "liquid",
+    "corrodible",
+    "soluble",
+    "impure",
+    "liquid_common",
+    "evaporable_by_fire",
+    "food"
+   ],
+   "creative": true,
+   "stage": "2",
+   "_unverified": {},
+   "_sources": {
+    "all": "materials.xml CellData"
+   }
+  },
+  {
+   "id": "pus",
+   "name_key": "mat_pus",
+   "kind": "liquid",
+   "color": "aa695642",
+   "density": 1.2434,
+   "gravity": 0.8,
+   "viscosity": 0.0,
+   "burnable": false,
+   "fire_hp": 0.0,
+   "on_fire": false,
+   "glow": 0.0,
+   "lifetime": 0.0,
+   "touch_effects": [
+    "POISONED"
+   ],
+   "ingestion": [
+    "POISONED:0.1"
+   ],
+   "freezes_to": "none",
+   "melts_to": "none",
+   "tags": [
+    "liquid",
+    "water",
+    "magic_liquid",
+    "impure"
+   ],
+   "creative": true,
+   "stage": "2",
+   "_unverified": {},
+   "_sources": {
+    "all": "materials.xml CellData"
+   }
+  },
+  {
+   "id": "radioactive_gas",
+   "name_key": "mat_radioactive_gas",
+   "kind": "gas",
+   "color": "7fc4ff10",
+   "density": 2.0,
+   "gravity": 0.5,
+   "viscosity": 0.0,
+   "burnable": false,
+   "fire_hp": 0.0,
+   "on_fire": false,
+   "glow": 100.0,
+   "lifetime": 450.0,
+   "touch_effects": [],
+   "ingestion": [],
+   "freezes_to": "none",
+   "melts_to": "none",
+   "tags": [
+    "gas"
+   ],
+   "creative": true,
+   "stage": "2",
+   "_unverified": {},
+   "_sources": {
+    "all": "materials.xml CellData"
+   }
+  },
+  {
+   "id": "radioactive_gas_static",
+   "name_key": "mat_radioactive_gas_static",
+   "kind": "gas",
+   "color": "7fc4ff10",
+   "density": 2.0,
+   "gravity": 0.5,
+   "viscosity": 0.0,
+   "burnable": false,
+   "fire_hp": 0.0,
+   "on_fire": false,
+   "glow": 100.0,
+   "lifetime": 0.0,
+   "touch_effects": [],
+   "ingestion": [],
+   "freezes_to": "none",
+   "melts_to": "none",
+   "tags": [
+    "gas"
+   ],
+   "creative": false,
+   "stage": "2",
+   "_unverified": {},
+   "_sources": {
+    "all": "materials.xml CellData"
+   }
+  },
+  {
+   "id": "radioactive_liquid",
+   "name_key": "mat_radioactive_liquid",
+   "kind": "liquid",
+   "color": "44b4ff10",
+   "density": 3.0,
+   "gravity": 0.5,
+   "viscosity": 0.0,
+   "burnable": false,
+   "fire_hp": 0.0,
+   "on_fire": false,
+   "glow": 60.0,
+   "lifetime": 0.0,
+   "touch_effects": [
+    "RADIOACTIVE"
+   ],
+   "ingestion": [
+    "POISONED:0.1"
+   ],
+   "freezes_to": "ice_radioactive_static",
+   "melts_to": "none",
+   "tags": [
+    "liquid",
+    "corrodible",
+    "soluble",
+    "radioactive",
+    "impure",
+    "liquid_common",
+    "chaotic_transmutation"
+   ],
+   "creative": true,
+   "stage": "2",
+   "_unverified": {},
+   "_sources": {
+    "all": "materials.xml CellData"
+   }
+  },
+  {
+   "id": "radioactive_liquid_fading",
+   "name_key": "mat_radioactive_liquid_fading",
+   "kind": "liquid",
+   "color": "44b4ff10",
+   "density": 3.0,
+   "gravity": 0.5,
+   "viscosity": 0.0,
+   "burnable": false,
+   "fire_hp": 0.0,
+   "on_fire": false,
+   "glow": 130.0,
+   "lifetime": 0.0,
+   "touch_effects": [],
+   "ingestion": [
+    "POISONED:0.2"
+   ],
+   "freezes_to": "none",
+   "melts_to": "none",
+   "tags": [
+    "liquid",
+    "corrodible",
+    "soluble",
+    "evaporable",
+    "radioactive",
+    "impure",
+    "liquid_common"
+   ],
+   "creative": false,
+   "stage": "2",
+   "_unverified": {},
+   "_sources": {
+    "all": "materials.xml CellData"
+   }
+  },
+  {
+   "id": "radioactive_liquid_yellow",
+   "name_key": "mat_radioactive_liquid_yellow",
+   "kind": "liquid",
+   "color": "44b4ff10",
+   "density": 3.0,
+   "gravity": 0.5,
+   "viscosity": 0.0,
+   "burnable": false,
+   "fire_hp": 0.0,
+   "on_fire": false,
+   "glow": 60.0,
+   "lifetime": 0.0,
+   "touch_effects": [
+    "RADIOACTIVE",
+    "RADIOACTIVE"
+   ],
+   "ingestion": [
+    "POISONED:0.2"
+   ],
+   "freezes_to": "ice_radioactive_static",
+   "melts_to": "none",
+   "tags": [
+    "liquid",
+    "corrodible",
+    "soluble",
+    "radioactive",
+    "impure",
+    "liquid_common",
+    "chaotic_transmutation"
+   ],
+   "creative": true,
+   "stage": "2",
+   "_unverified": {},
+   "_sources": {
+    "all": "materials.xml CellData"
+   }
+  },
+  {
+   "id": "rainbow_gas",
+   "name_key": "mat_rainbow_gas",
+   "kind": "gas",
+   "color": "80ffa2cd",
+   "density": 2.0,
+   "gravity": 0.5,
+   "viscosity": 0.0,
+   "burnable": false,
+   "fire_hp": 0.0,
+   "on_fire": false,
+   "glow": 255.0,
+   "lifetime": 250.0,
+   "touch_effects": [],
+   "ingestion": [],
+   "freezes_to": "none",
+   "melts_to": "none",
+   "tags": [
+    "gas"
+   ],
+   "creative": true,
+   "stage": "2",
+   "_unverified": {},
+   "_sources": {
+    "all": "materials.xml CellData"
+   }
+  },
+  {
+   "id": "rocket_particles",
+   "name_key": "mat_rocket_particles",
+   "kind": "liquid",
+   "color": "66fffffe",
+   "density": 3.0,
+   "gravity": 0.2,
+   "viscosity": 0.0,
+   "burnable": false,
+   "fire_hp": 0.0,
+   "on_fire": false,
+   "glow": 0.0,
+   "lifetime": 0.0,
+   "touch_effects": [],
+   "ingestion": [],
+   "freezes_to": "none",
+   "melts_to": "none",
+   "tags": [
+    "liquid"
+   ],
+   "creative": false,
+   "stage": "2",
+   "_unverified": {},
+   "_sources": {
+    "all": "materials.xml CellData"
+   }
+  },
+  {
+   "id": "sand_herb_vapour",
+   "name_key": "mat_sand_herb_vapour",
+   "kind": "gas",
+   "color": "7f6e8c3b",
+   "density": 2.0,
+   "gravity": 0.5,
+   "viscosity": 0.0,
+   "burnable": false,
+   "fire_hp": 0.0,
+   "on_fire": false,
+   "glow": 0.0,
+   "lifetime": 250.0,
+   "touch_effects": [],
+   "ingestion": [],
+   "freezes_to": "none",
+   "melts_to": "none",
+   "tags": [
+    "gas",
+    "vapour"
+   ],
+   "creative": true,
+   "stage": "2",
+   "_unverified": {},
+   "_sources": {
+    "all": "materials.xml CellData"
+   }
+  },
+  {
+   "id": "silver_molten",
+   "name_key": "mat_silver_molten",
+   "kind": "liquid",
+   "color": "ffb89e58",
+   "density": 3.0,
+   "gravity": 1.5,
+   "viscosity": 0.0,
+   "burnable": true,
+   "fire_hp": 90000.0,
+   "on_fire": true,
+   "glow": 200.0,
+   "lifetime": 0.0,
+   "touch_effects": [
+    "ON_FIRE"
+   ],
+   "ingestion": [
+    "INGESTION_ON_FIRE:0.1"
+   ],
+   "freezes_to": "none",
+   "melts_to": "none",
+   "tags": [
+    "liquid",
+    "corrodible",
+    "molten",
+    "alchemy",
+    "solid",
+    "liquid_common",
+    "earth"
+   ],
+   "creative": true,
+   "stage": "2",
+   "_unverified": {},
+   "_sources": {
+    "all": "materials.xml CellData"
+   }
+  },
+  {
+   "id": "sima",
+   "name_key": "mat_sima",
+   "kind": "liquid",
+   "color": "4fea7207",
+   "density": 3.5,
+   "gravity": 1.2,
+   "viscosity": 0.0,
+   "burnable": false,
+   "fire_hp": 0.0,
+   "on_fire": false,
+   "glow": 0.0,
+   "lifetime": 0.0,
+   "touch_effects": [
+    "WET"
+   ],
+   "ingestion": [
+    "INGESTION_DRUNK:0.01"
+   ],
+   "freezes_to": "none",
+   "melts_to": "none",
+   "tags": [
+    "liquid",
+    "water",
+    "impure",
+    "liquid_common"
+   ],
+   "creative": true,
+   "stage": "2",
+   "_unverified": {},
+   "_sources": {
+    "all": "materials.xml CellData"
+   }
+  },
+  {
+   "id": "slime",
+   "name_key": "mat_slime_pink",
+   "kind": "liquid",
+   "color": "88b8376d",
+   "density": 5.0,
+   "gravity": 0.1,
+   "viscosity": 0.0,
+   "burnable": false,
+   "fire_hp": 0.0,
+   "on_fire": false,
+   "glow": 0.0,
+   "lifetime": 0.0,
+   "touch_effects": [
+    "SLIMY"
+   ],
+   "ingestion": [
+    "FOOD_POISONING:0.2"
+   ],
+   "freezes_to": "ice_slime_static",
+   "melts_to": "none",
+   "tags": [
+    "corrodible",
+    "meltable_to_lava",
+    "alchemy",
+    "slime",
+    "liquid_common",
+    "food",
+    "chaotic_transmutation"
+   ],
+   "creative": true,
+   "stage": "2",
+   "_unverified": {},
+   "_sources": {
+    "all": "materials.xml CellData"
+   }
+  },
+  {
+   "id": "slime_green",
+   "name_key": "mat_slime_green",
+   "kind": "liquid",
+   "color": "884fab2e",
+   "density": 5.0,
+   "gravity": 0.1,
+   "viscosity": 0.0,
+   "burnable": false,
+   "fire_hp": 0.0,
+   "on_fire": false,
+   "glow": 0.0,
+   "lifetime": 0.0,
+   "touch_effects": [
+    "SLIMY",
+    "SLIMY"
+   ],
+   "ingestion": [
+    "FOOD_POISONING:0.2"
+   ],
+   "freezes_to": "ice_slime_static",
+   "melts_to": "none",
+   "tags": [
+    "corrodible",
+    "meltable_to_lava",
+    "alchemy",
+    "slime",
+    "liquid_common",
+    "food",
+    "chaotic_transmutation"
+   ],
+   "creative": true,
+   "stage": "2",
+   "_unverified": {},
+   "_sources": {
+    "all": "materials.xml CellData"
+   }
+  },
+  {
+   "id": "slime_static",
+   "name_key": "mat_slime_static",
+   "kind": "liquid",
+   "color": "88e8bd5c",
+   "density": 4.0,
+   "gravity": 1.0,
+   "viscosity": 0.0,
+   "burnable": false,
+   "fire_hp": 0.0,
+   "on_fire": false,
+   "glow": 0.0,
+   "lifetime": 0.0,
+   "touch_effects": [],
+   "ingestion": [
+    "FOOD_POISONING:0.1"
+   ],
+   "freezes_to": "none",
+   "melts_to": "none",
+   "tags": [
+    "static",
+    "alchemy",
+    "solid",
+    "earth",
+    "food"
+   ],
+   "creative": false,
+   "stage": "2",
+   "_unverified": {},
+   "_sources": {
+    "all": "materials.xml CellData"
+   }
+  },
+  {
+   "id": "slime_yellow",
+   "name_key": "mat_slime_static",
+   "kind": "liquid",
+   "color": "889cb32b",
+   "density": 5.0,
+   "gravity": 0.1,
+   "viscosity": 0.0,
+   "burnable": false,
+   "fire_hp": 0.0,
+   "on_fire": false,
+   "glow": 0.0,
+   "lifetime": 0.0,
+   "touch_effects": [
+    "SLIMY",
+    "SLIMY"
+   ],
+   "ingestion": [
+    "FOOD_POISONING:0.2"
+   ],
+   "freezes_to": "ice_slime_static",
+   "melts_to": "none",
+   "tags": [
+    "corrodible",
+    "meltable_to_lava",
+    "alchemy",
+    "slime",
+    "liquid_common",
+    "food"
+   ],
+   "creative": true,
+   "stage": "2",
+   "_unverified": {},
+   "_sources": {
+    "all": "materials.xml CellData"
+   }
+  },
+  {
+   "id": "slush",
+   "name_key": "mat_slush",
+   "kind": "liquid",
+   "color": "90b5ceff",
+   "density": 3.0,
+   "gravity": 0.5,
+   "viscosity": 0.0,
+   "burnable": false,
+   "fire_hp": 0.0,
+   "on_fire": false,
+   "glow": 0.0,
+   "lifetime": 0.0,
+   "touch_effects": [
+    "WET"
+   ],
+   "ingestion": [],
+   "freezes_to": "none",
+   "melts_to": "none",
+   "tags": [
+    "corrodible",
+    "meltable_to_water",
+    "alchemy",
+    "snow",
+    "chaotic_transmutation"
+   ],
+   "creative": true,
+   "stage": "2",
+   "_unverified": {},
+   "_sources": {
+    "all": "materials.xml CellData"
+   }
+  },
+  {
+   "id": "smoke",
+   "name_key": "mat_smoke",
+   "kind": "gas",
+   "color": "7f848485",
+   "density": 1.0,
+   "gravity": 0.5,
+   "viscosity": 0.0,
+   "burnable": false,
+   "fire_hp": 0.0,
+   "on_fire": false,
+   "glow": 0.0,
+   "lifetime": 350.0,
+   "touch_effects": [],
+   "ingestion": [],
+   "freezes_to": "none",
+   "melts_to": "none",
+   "tags": [
+    "gas"
+   ],
+   "creative": true,
+   "stage": "2",
+   "_unverified": {},
+   "_sources": {
+    "all": "materials.xml CellData"
+   }
+  },
+  {
+   "id": "smoke_explosion",
+   "name_key": "mat_smoke_explosion",
+   "kind": "gas",
+   "color": "7f848486",
+   "density": 1.0,
+   "gravity": 0.5,
+   "viscosity": 0.0,
+   "burnable": false,
+   "fire_hp": 0.0,
+   "on_fire": false,
+   "glow": 0.0,
+   "lifetime": 150.0,
+   "touch_effects": [],
+   "ingestion": [],
+   "freezes_to": "none",
+   "melts_to": "none",
+   "tags": [
+    "gas"
+   ],
+   "creative": false,
+   "stage": "2",
+   "_unverified": {},
+   "_sources": {
+    "all": "materials.xml CellData"
+   }
+  },
+  {
+   "id": "smoke_magic",
+   "name_key": "mat_smoke_magic",
+   "kind": "gas",
+   "color": "01a53d77",
+   "density": 1.0,
+   "gravity": 0.5,
+   "viscosity": 0.0,
+   "burnable": false,
+   "fire_hp": 0.0,
+   "on_fire": false,
+   "glow": 0.0,
+   "lifetime": 150.0,
+   "touch_effects": [],
+   "ingestion": [],
+   "freezes_to": "none",
+   "melts_to": "none",
+   "tags": [
+    "gas"
+   ],
+   "creative": true,
+   "stage": "2",
+   "_unverified": {},
+   "_sources": {
+    "all": "materials.xml CellData"
+   }
+  },
+  {
+   "id": "smoke_static",
+   "name_key": "mat_smoke_static",
+   "kind": "gas",
+   "color": "7f848487",
+   "density": 1.0,
+   "gravity": 0.5,
+   "viscosity": 0.0,
+   "burnable": false,
+   "fire_hp": 0.0,
+   "on_fire": false,
+   "glow": 0.0,
+   "lifetime": 0.0,
+   "touch_effects": [],
+   "ingestion": [],
+   "freezes_to": "none",
+   "melts_to": "none",
+   "tags": [
+    "gas"
+   ],
+   "creative": false,
+   "stage": "2",
+   "_unverified": {},
+   "_sources": {
+    "all": "materials.xml CellData"
+   }
+  },
+  {
+   "id": "spore_pod_stalk",
+   "name_key": "mat_bluefungi_static",
+   "kind": "liquid",
+   "color": "88e8bd5c",
+   "density": 4.0,
+   "gravity": 1.0,
+   "viscosity": 0.0,
+   "burnable": true,
+   "fire_hp": 0.0,
+   "on_fire": false,
+   "glow": 0.0,
+   "lifetime": 0.0,
+   "touch_effects": [],
+   "ingestion": [
+    "FOOD_POISONING:0.1"
+   ],
+   "freezes_to": "none",
+   "melts_to": "none",
+   "tags": [
+    "static",
+    "alchemy",
+    "solid",
+    "burnable",
+    "earth",
+    "fungus"
+   ],
+   "creative": false,
+   "stage": "2",
+   "_unverified": {},
+   "_sources": {
+    "all": "materials.xml CellData"
+   }
+  },
+  {
+   "id": "steam",
+   "name_key": "mat_steam",
+   "kind": "gas",
+   "color": "7fc5c5ff",
+   "density": 1.0,
+   "gravity": 0.5,
+   "viscosity": 0.0,
+   "burnable": false,
+   "fire_hp": 0.0,
+   "on_fire": false,
+   "glow": 0.0,
+   "lifetime": 1000.0,
+   "touch_effects": [],
+   "ingestion": [],
+   "freezes_to": "none",
+   "melts_to": "none",
+   "tags": [
+    "gas"
+   ],
+   "creative": true,
+   "stage": "2",
+   "_unverified": {},
+   "_sources": {
+    "all": "materials.xml CellData"
+   }
+  },
+  {
+   "id": "steam_trailer",
+   "name_key": "mat_steam",
+   "kind": "gas",
+   "color": "bf84a7be",
+   "density": 1.0,
+   "gravity": 0.5,
+   "viscosity": 0.0,
+   "burnable": false,
+   "fire_hp": 0.0,
+   "on_fire": false,
+   "glow": 0.0,
+   "lifetime": 1000.0,
+   "touch_effects": [],
+   "ingestion": [],
+   "freezes_to": "none",
+   "melts_to": "none",
+   "tags": [
+    "gas"
+   ],
+   "creative": true,
+   "stage": "2",
+   "_unverified": {},
+   "_sources": {
+    "all": "materials.xml CellData"
+   }
+  },
+  {
+   "id": "steel_molten",
+   "name_key": "mat_steel_molten",
+   "kind": "liquid",
+   "color": "ffb89e58",
+   "density": 2.0,
+   "gravity": 1.5,
+   "viscosity": 75.0,
+   "burnable": true,
+   "fire_hp": 90000.0,
+   "on_fire": true,
+   "glow": 200.0,
+   "lifetime": 0.0,
+   "touch_effects": [
+    "ON_FIRE"
+   ],
+   "ingestion": [
+    "INGESTION_ON_FIRE:0.1"
+   ],
+   "freezes_to": "none",
+   "melts_to": "none",
+   "tags": [
+    "liquid",
+    "molten",
+    "alchemy",
+    "solid",
+    "liquid_common",
+    "earth"
+   ],
+   "creative": true,
+   "stage": "2",
+   "_unverified": {},
+   "_sources": {
+    "all": "materials.xml CellData"
+   }
+  },
+  {
+   "id": "steel_rust_molten",
+   "name_key": "mat_steel_rust_molten",
+   "kind": "liquid",
+   "color": "ff404040",
+   "density": 5.0,
+   "gravity": 1.5,
+   "viscosity": 75.0,
+   "burnable": true,
+   "fire_hp": 90000.0,
+   "on_fire": true,
+   "glow": 200.0,
+   "lifetime": 0.0,
+   "touch_effects": [
+    "ON_FIRE"
+   ],
+   "ingestion": [
+    "INGESTION_ON_FIRE:0.1"
+   ],
+   "freezes_to": "none",
+   "melts_to": "none",
+   "tags": [
+    "liquid",
+    "corrodible",
+    "molten_metal",
+    "alchemy",
+    "gold",
+    "solid",
+    "liquid_common",
+    "earth"
+   ],
+   "creative": true,
+   "stage": "2",
+   "_unverified": {},
+   "_sources": {
+    "all": "materials.xml CellData"
+   }
+  },
+  {
+   "id": "steel_static_molten",
+   "name_key": "mat_steel_static_molten",
+   "kind": "liquid",
+   "color": "ff404040",
+   "density": 5.0,
+   "gravity": 1.5,
+   "viscosity": 75.0,
+   "burnable": true,
+   "fire_hp": 90000.0,
+   "on_fire": true,
+   "glow": 200.0,
+   "lifetime": 0.0,
+   "touch_effects": [
+    "ON_FIRE"
+   ],
+   "ingestion": [
+    "INGESTION_ON_FIRE:0.1"
+   ],
+   "freezes_to": "none",
+   "melts_to": "none",
+   "tags": [
+    "liquid",
+    "corrodible",
+    "molten_metal",
+    "alchemy",
+    "gold",
+    "solid",
+    "liquid_common",
+    "earth"
+   ],
+   "creative": true,
+   "stage": "2",
+   "_unverified": {},
+   "_sources": {
+    "all": "materials.xml CellData"
+   }
+  },
+  {
+   "id": "steelmoss_slanted_molten",
+   "name_key": "mat_steelmoss_slanted_molten",
+   "kind": "liquid",
+   "color": "ff404040",
+   "density": 5.0,
+   "gravity": 1.5,
+   "viscosity": 75.0,
+   "burnable": true,
+   "fire_hp": 90000.0,
+   "on_fire": true,
+   "glow": 200.0,
+   "lifetime": 0.0,
+   "touch_effects": [
+    "ON_FIRE"
+   ],
+   "ingestion": [
+    "INGESTION_ON_FIRE:0.1"
+   ],
+   "freezes_to": "none",
+   "melts_to": "none",
+   "tags": [
+    "liquid",
+    "corrodible",
+    "molten_metal",
+    "alchemy",
+    "gold",
+    "solid",
+    "liquid_common",
+    "earth"
+   ],
+   "creative": true,
+   "stage": "2",
+   "_unverified": {},
+   "_sources": {
+    "all": "materials.xml CellData"
+   }
+  },
+  {
+   "id": "steelmoss_static_molten",
+   "name_key": "mat_steelmoss_static_molten",
+   "kind": "liquid",
+   "color": "ff404040",
+   "density": 5.0,
+   "gravity": 1.5,
+   "viscosity": 75.0,
+   "burnable": true,
+   "fire_hp": 90000.0,
+   "on_fire": true,
+   "glow": 200.0,
+   "lifetime": 0.0,
+   "touch_effects": [
+    "ON_FIRE"
+   ],
+   "ingestion": [
+    "INGESTION_ON_FIRE:0.1"
+   ],
+   "freezes_to": "none",
+   "melts_to": "none",
+   "tags": [
+    "liquid",
+    "corrodible",
+    "molten_metal",
+    "alchemy",
+    "gold",
+    "solid",
+    "liquid_common",
+    "earth"
+   ],
+   "creative": true,
+   "stage": "2",
+   "_unverified": {},
+   "_sources": {
+    "all": "materials.xml CellData"
+   }
+  },
+  {
+   "id": "steelsmoke_static_molten",
+   "name_key": "mat_steelsmoke_static_molten",
+   "kind": "liquid",
+   "color": "ff404040",
+   "density": 5.0,
+   "gravity": 1.5,
+   "viscosity": 75.0,
+   "burnable": true,
+   "fire_hp": 90000.0,
+   "on_fire": true,
+   "glow": 200.0,
+   "lifetime": 0.0,
+   "touch_effects": [
+    "ON_FIRE"
+   ],
+   "ingestion": [
+    "INGESTION_ON_FIRE:0.1"
+   ],
+   "freezes_to": "none",
+   "melts_to": "none",
+   "tags": [
+    "liquid",
+    "corrodible",
+    "molten_metal",
+    "alchemy",
+    "gold",
+    "solid",
+    "liquid_common",
+    "earth"
+   ],
+   "creative": true,
+   "stage": "2",
+   "_unverified": {},
+   "_sources": {
+    "all": "materials.xml CellData"
+   }
+  },
+  {
+   "id": "swamp",
+   "name_key": "mat_swamp",
+   "kind": "liquid",
+   "color": "802f2f0a",
+   "density": 3.5,
+   "gravity": 0.6,
+   "viscosity": 15.0,
+   "burnable": false,
+   "fire_hp": 0.0,
+   "on_fire": false,
+   "glow": 0.0,
+   "lifetime": 0.0,
+   "touch_effects": [
+    "WET"
+   ],
+   "ingestion": [
+    "FOOD_POISONING:0.05"
+   ],
+   "freezes_to": "none",
+   "melts_to": "none",
+   "tags": [
+    "liquid",
+    "corrodible",
+    "soluble",
+    "meltable_to_water",
+    "freezable",
+    "water",
+    "impure",
+    "liquid_common",
+    "chaotic_transmutation"
+   ],
+   "creative": true,
+   "stage": "2",
+   "_unverified": {},
+   "_sources": {
+    "all": "materials.xml CellData"
+   }
+  },
+  {
+   "id": "urine",
+   "name_key": "mat_urine",
+   "kind": "liquid",
+   "color": "33ffee00",
+   "density": 3.0,
+   "gravity": 0.9,
+   "viscosity": 0.0,
+   "burnable": false,
+   "fire_hp": 0.0,
+   "on_fire": false,
+   "glow": 0.0,
+   "lifetime": 0.0,
+   "touch_effects": [
+    "JARATE"
+   ],
+   "ingestion": [
+    "FOOD_POISONING:0.1"
+   ],
+   "freezes_to": "none",
+   "melts_to": "none",
+   "tags": [
+    "liquid",
+    "corrodible",
+    "soluble",
+    "liquid_common"
+   ],
+   "creative": false,
+   "stage": "2",
+   "_unverified": {},
+   "_sources": {
+    "all": "materials.xml CellData"
+   }
+  },
+  {
+   "id": "void_liquid",
+   "name_key": "mat_void_liquid",
+   "kind": "liquid",
+   "color": "ff000000",
+   "density": 14.5,
+   "gravity": 1.5,
+   "viscosity": 0.0,
+   "burnable": false,
+   "fire_hp": 0.0,
+   "on_fire": false,
+   "glow": 255.0,
+   "lifetime": 200.0,
+   "touch_effects": [
+    "WET"
+   ],
+   "ingestion": [],
+   "freezes_to": "ice_static",
+   "melts_to": "steam",
+   "tags": [
+    "liquid"
+   ],
+   "creative": true,
+   "stage": "2",
+   "_unverified": {},
+   "_sources": {
+    "all": "materials.xml CellData"
+   }
+  },
+  {
+   "id": "vomit",
+   "name_key": "mat_vomit",
+   "kind": "liquid",
+   "color": "ffcc4c4c",
+   "density": 5.0,
+   "gravity": 0.1,
+   "viscosity": 0.0,
+   "burnable": false,
+   "fire_hp": 0.0,
+   "on_fire": false,
+   "glow": 0.0,
+   "lifetime": 0.0,
+   "touch_effects": [
+    "SLIMY",
+    "WET"
+   ],
+   "ingestion": [
+    "FOOD_POISONING:0.1"
+   ],
+   "freezes_to": "ice_slime_static",
+   "melts_to": "none",
+   "tags": [
+    "food"
+   ],
+   "creative": true,
+   "stage": "2",
+   "_unverified": {},
+   "_sources": {
+    "all": "materials.xml CellData"
+   }
+  },
+  {
+   "id": "water",
+   "name_key": "mat_water",
+   "kind": "liquid",
+   "color": "a0376259",
+   "density": 4.0,
+   "gravity": 1.5,
+   "viscosity": 0.0,
+   "burnable": false,
+   "fire_hp": 0.0,
+   "on_fire": false,
+   "glow": 0.0,
+   "lifetime": 0.0,
+   "touch_effects": [
+    "WET"
+   ],
+   "ingestion": [],
+   "freezes_to": "ice_static",
+   "melts_to": "steam",
+   "tags": [
+    "liquid",
+    "corrodible",
+    "freezable",
+    "water",
+    "liquid_common",
+    "chaotic_transmutation"
+   ],
+   "creative": true,
+   "stage": "2",
+   "_unverified": {},
+   "_sources": {
+    "all": "materials.xml CellData"
+   }
+  },
+  {
+   "id": "water_fading",
+   "name_key": "mat_water_fading",
+   "kind": "liquid",
+   "color": "a0376259",
+   "density": 4.0,
+   "gravity": 1.5,
+   "viscosity": 0.0,
+   "burnable": false,
+   "fire_hp": 0.0,
+   "on_fire": false,
+   "glow": 0.0,
+   "lifetime": 0.0,
+   "touch_effects": [
+    "WET",
+    "WET"
+   ],
+   "ingestion": [],
+   "freezes_to": "ice_static",
+   "melts_to": "steam",
+   "tags": [
+    "liquid",
+    "corrodible",
+    "freezable",
+    "water",
+    "liquid_common",
+    "chaotic_transmutation"
+   ],
+   "creative": true,
+   "stage": "2",
+   "_unverified": {},
+   "_sources": {
+    "all": "materials.xml CellData"
+   }
+  },
+  {
+   "id": "water_ice",
+   "name_key": "mat_water_ice",
+   "kind": "liquid",
+   "color": "a0376269",
+   "density": 3.5,
+   "gravity": 1.5,
+   "viscosity": 0.0,
+   "burnable": false,
+   "fire_hp": 0.0,
+   "on_fire": false,
+   "glow": 0.0,
+   "lifetime": 0.0,
+   "touch_effects": [
+    "WET"
+   ],
+   "ingestion": [
+    "INGESTION_FREEZING:0.02"
+   ],
+   "freezes_to": "ice_static",
+   "melts_to": "water",
+   "tags": [
+    "liquid",
+    "corrodible",
+    "meltable_to_water",
+    "freezable",
+    "water",
+    "liquid_common",
+    "chaotic_transmutation"
+   ],
+   "creative": true,
+   "stage": "2",
+   "_unverified": {},
+   "_sources": {
+    "all": "materials.xml CellData"
+   }
+  },
+  {
+   "id": "water_salt",
+   "name_key": "mat_water_salt",
+   "kind": "liquid",
+   "color": "a02f754c",
+   "density": 4.01,
+   "gravity": 1.5,
+   "viscosity": 0.0,
+   "burnable": false,
+   "fire_hp": 0.0,
+   "on_fire": false,
+   "glow": 0.0,
+   "lifetime": 0.0,
+   "touch_effects": [
+    "WET",
+    "WET"
+   ],
+   "ingestion": [],
+   "freezes_to": "ice_static",
+   "melts_to": "steam",
+   "tags": [
+    "liquid",
+    "corrodible",
+    "freezable",
+    "water",
+    "liquid_common"
+   ],
+   "creative": true,
+   "stage": "2",
+   "_unverified": {},
+   "_sources": {
+    "all": "materials.xml CellData"
+   }
+  },
+  {
+   "id": "water_static",
+   "name_key": "mat_water_static",
+   "kind": "liquid",
+   "color": "a0376259",
+   "density": 4.0,
+   "gravity": 1.5,
+   "viscosity": 0.0,
+   "burnable": false,
+   "fire_hp": 0.0,
+   "on_fire": false,
+   "glow": 0.0,
+   "lifetime": 0.0,
+   "touch_effects": [
+    "WET"
+   ],
+   "ingestion": [],
+   "freezes_to": "none",
+   "melts_to": "none",
+   "tags": [
+    "static"
+   ],
+   "creative": false,
+   "stage": "2",
+   "_unverified": {},
+   "_sources": {
+    "all": "materials.xml CellData"
+   }
+  },
+  {
+   "id": "water_swamp",
+   "name_key": "mat_water_swamp",
+   "kind": "liquid",
+   "color": "802f552c",
+   "density": 3.4,
+   "gravity": 0.9,
+   "viscosity": 0.0,
+   "burnable": false,
+   "fire_hp": 0.0,
+   "on_fire": false,
+   "glow": 0.0,
+   "lifetime": 0.0,
+   "touch_effects": [
+    "WET"
+   ],
+   "ingestion": [
+    "FOOD_POISONING:0.1"
+   ],
+   "freezes_to": "ice_static",
+   "melts_to": "steam",
+   "tags": [
+    "liquid",
+    "corrodible",
+    "meltable_to_water",
+    "water",
+    "impure",
+    "liquid_common"
+   ],
+   "creative": true,
+   "stage": "2",
+   "_unverified": {},
+   "_sources": {
+    "all": "materials.xml CellData"
+   }
+  },
+  {
+   "id": "water_temp",
+   "name_key": "mat_water_temp",
+   "kind": "liquid",
+   "color": "902f554f",
+   "density": 4.0,
+   "gravity": 1.5,
+   "viscosity": 0.0,
+   "burnable": false,
+   "fire_hp": 0.0,
+   "on_fire": false,
+   "glow": 0.0,
+   "lifetime": 0.0,
+   "touch_effects": [
+    "WET"
+   ],
+   "ingestion": [],
+   "freezes_to": "ice_static",
+   "melts_to": "steam",
+   "tags": [
+    "liquid",
+    "corrodible",
+    "freezable",
+    "water",
+    "liquid_common"
+   ],
+   "creative": false,
+   "stage": "2",
+   "_unverified": {},
+   "_sources": {
+    "all": "materials.xml CellData"
+   }
+  },
+  {
+   "id": "wax_molten",
+   "name_key": "mat_wax_molten",
+   "kind": "liquid",
+   "color": "ffeaacab",
+   "density": 2.0,
+   "gravity": 0.3,
+   "viscosity": 75.0,
+   "burnable": true,
+   "fire_hp": 90000.0,
+   "on_fire": true,
+   "glow": 0.0,
+   "lifetime": 0.0,
+   "touch_effects": [],
+   "ingestion": [],
+   "freezes_to": "none",
+   "melts_to": "none",
+   "tags": [
+    "liquid",
+    "corrodible",
+    "molten",
+    "alchemy",
+    "impure",
+    "solid",
+    "liquid_common",
+    "earth"
+   ],
+   "creative": true,
+   "stage": "2",
+   "_unverified": {},
+   "_sources": {
+    "all": "materials.xml CellData"
+   }
+  }
+ ]
+}

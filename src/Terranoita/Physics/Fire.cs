@@ -110,7 +110,7 @@ namespace Terranoita.Game.Physics
                     if (Main.rand.Next(40) == 0)
                         Dust.NewDust(new Vector2(x * 16, y * 16 - 8), 16, 8, DustID.Smoke, 0f, -1.5f, 120);
                     if (me.active && !me.dead && meBox.Intersects(new Rectangle(x * 16, y * 16, 16, 16)))
-                        me.AddBuff(BuffID.OnFire, 180);
+                        Status.Apply("ON_FIRE", 3);
                 }
             }
             if (_frame % Tick == 0 && Burning.Count > 0)

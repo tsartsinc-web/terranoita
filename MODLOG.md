@@ -397,3 +397,12 @@ Entry.Stage default 1b, version 0.2.0. Проверить на ПК also: worm l
   Terraria projectiles for the player.
 - Burning player and NPCs (onFire) light the burnable tiles they touch (author: a burning player did not set wood alight).
 - Background walls burn (materials.terraria_walls: wooden, grass, flower, jungle, mushroom, leaf walls): blocks and the walls behind them light each other, fire creeps along walls at 0.7x. Physics autotest: wooden wall 47/49 burned with the box, the rest as before.
+- Noita liquids and gases catalogued: tools/extract_liquids.py (from the author's materials.xml) -> design/sheets/
+  liquids.json (128: 102 liquids, 26 gases, colours, density, burnable, touch/ingestion effects, freeze/melt) and
+  reactions.json (260 reactions involving them). Not simulated yet.
+- Author asked to import Noita's buffs/debuffs: design/sheets/status_effects.json (tools/seed_status_effects.py from
+  status_list.lua: 33 effects with Noita icon, name, description, harmful, protects_from_fire, our mechanic).
+  Physics/Status.cs: Noita icons after Terraria's buff icons (hover: Noita name and description in the game's
+  language, seconds left), effects by our code (flags in Player.UpdateBuffs postfix, damage/heal over time in
+  UpdateLifeRegen prefix). Enemy fire/poison shots and burning tiles now give Noita's ON_FIRE / POISONED. Wet, oiled,
+  slimy... put out and keep off fire. Test: 10 effects shown with icons, hp and speed change as expected.

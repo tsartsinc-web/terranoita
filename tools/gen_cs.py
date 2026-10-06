@@ -33,6 +33,9 @@ NAMES = {
     "systems": ("SystemDef", "Systems"),
     "hooks": ("HookDef", "Hooks"),
     "materials": ("MaterialDef", "Materials"),
+    "liquids": ("LiquidDef", "Liquids"),
+    "reactions": ("ReactionDef", "Reactions"),
+    "status_effects": ("StatusEffectDef", "StatusEffects"),
     "spells": ("SpellDef", "SpellTable"),
     "wands": ("WandDef", "WandTable"),
 }

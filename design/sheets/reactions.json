@@ -1,0 +1,3953 @@
+{
+ "sheet": "reactions",
+ "description": "Stage 2: Noita reactions involving liquids and gases (materials.xml).",
+ "key": "id",
+ "columns": {
+  "id": {
+   "type": "string",
+   "desc": "Row id."
+  },
+  "probability": {
+   "type": "number",
+   "desc": "Noita probability (per contact and frame, of 100)."
+  },
+  "input1": {
+   "type": "string",
+   "desc": "Material or [tag]."
+  },
+  "input2": {
+   "type": "string",
+   "desc": "Material or [tag]."
+  },
+  "output1": {
+   "type": "string",
+   "desc": "Material input1 turns into."
+  },
+  "output2": {
+   "type": "string",
+   "desc": "Material input2 turns into."
+  },
+  "fast": {
+   "type": "bool",
+   "desc": "Noita fast reaction."
+  },
+  "explosion": {
+   "type": "number",
+   "desc": "Explosion radius (0 = none)."
+  },
+  "stage": {
+   "type": "enum",
+   "values": [
+    "1a",
+    "1b",
+    "1c",
+    "2",
+    "3",
+    "4"
+   ],
+   "desc": "Stage that builds it."
+  }
+ },
+ "rows": [
+  {
+   "id": "r000",
+   "probability": 70.0,
+   "input1": "cement",
+   "input2": "concrete_static",
+   "output1": "concrete_static",
+   "output2": "concrete_static",
+   "fast": false,
+   "explosion": 0.0,
+   "stage": "2",
+   "_unverified": {},
+   "_sources": {
+    "all": "materials.xml Reaction"
+   }
+  },
+  {
+   "id": "r001",
+   "probability": 80.0,
+   "input1": "cement",
+   "input2": "fire",
+   "output1": "concrete_static",
+   "output2": "air",
+   "fast": false,
+   "explosion": 0.0,
+   "stage": "2",
+   "_unverified": {},
+   "_sources": {
+    "all": "materials.xml Reaction"
+   }
+  },
+  {
+   "id": "r002",
+   "probability": 80.0,
+   "input1": "cement",
+   "input2": "[lava]",
+   "output1": "rock_static_grey",
+   "output2": "rock_static_grey",
+   "fast": false,
+   "explosion": 0.0,
+   "stage": "2",
+   "_unverified": {},
+   "_sources": {
+    "all": "materials.xml Reaction"
+   }
+  },
+  {
+   "id": "r003",
+   "probability": 100.0,
+   "input1": "cement",
+   "input2": "water",
+   "output1": "concrete_static",
+   "output2": "air",
+   "fast": false,
+   "explosion": 0.0,
+   "stage": "2",
+   "_unverified": {},
+   "_sources": {
+    "all": "materials.xml Reaction"
+   }
+  },
+  {
+   "id": "r004",
+   "probability": 100.0,
+   "input1": "cement",
+   "input2": "wood_player",
+   "output1": "concrete_static",
+   "output2": "wood_player",
+   "fast": false,
+   "explosion": 0.0,
+   "stage": "2",
+   "_unverified": {},
+   "_sources": {
+    "all": "materials.xml Reaction"
+   }
+  },
+  {
+   "id": "r005",
+   "probability": 90.0,
+   "input1": "cement",
+   "input2": "air",
+   "output1": "concrete_static",
+   "output2": "air",
+   "fast": false,
+   "explosion": 0.0,
+   "stage": "2",
+   "_unverified": {},
+   "_sources": {
+    "all": "materials.xml Reaction"
+   }
+  },
+  {
+   "id": "r006",
+   "probability": 100.0,
+   "input1": "water",
+   "input2": "cement",
+   "output1": "concrete_static",
+   "output2": "air",
+   "fast": false,
+   "explosion": 0.0,
+   "stage": "2",
+   "_unverified": {},
+   "_sources": {
+    "all": "materials.xml Reaction"
+   }
+  },
+  {
+   "id": "r007",
+   "probability": 3.0,
+   "input1": "steam",
+   "input2": "[static]",
+   "output1": "water",
+   "output2": "[static]",
+   "fast": false,
+   "explosion": 0.0,
+   "stage": "2",
+   "_unverified": {},
+   "_sources": {
+    "all": "materials.xml Reaction"
+   }
+  },
+  {
+   "id": "r008",
+   "probability": 10.0,
+   "input1": "steam_trailer",
+   "input2": "[static]",
+   "output1": "water",
+   "output2": "[static]",
+   "fast": false,
+   "explosion": 0.0,
+   "stage": "2",
+   "_unverified": {},
+   "_sources": {
+    "all": "materials.xml Reaction"
+   }
+  },
+  {
+   "id": "r009",
+   "probability": 20.0,
+   "input1": "[fire]",
+   "input2": "water",
+   "output1": "[fire]",
+   "output2": "steam",
+   "fast": false,
+   "explosion": 0.0,
+   "stage": "2",
+   "_unverified": {},
+   "_sources": {
+    "all": "materials.xml Reaction"
+   }
+  },
+  {
+   "id": "r010",
+   "probability": 20.0,
+   "input1": "[fire]",
+   "input2": "snow",
+   "output1": "[fire]",
+   "output2": "steam",
+   "fast": false,
+   "explosion": 0.0,
+   "stage": "2",
+   "_unverified": {},
+   "_sources": {
+    "all": "materials.xml Reaction"
+   }
+  },
+  {
+   "id": "r011",
+   "probability": 20.0,
+   "input1": "[fire]",
+   "input2": "snow_static",
+   "output1": "[fire]",
+   "output2": "steam",
+   "fast": false,
+   "explosion": 0.0,
+   "stage": "2",
+   "_unverified": {},
+   "_sources": {
+    "all": "materials.xml Reaction"
+   }
+  },
+  {
+   "id": "r012",
+   "probability": 40.0,
+   "input1": "[fire]",
+   "input2": "ice",
+   "output1": "[fire]",
+   "output2": "water",
+   "fast": false,
+   "explosion": 0.0,
+   "stage": "2",
+   "_unverified": {},
+   "_sources": {
+    "all": "materials.xml Reaction"
+   }
+  },
+  {
+   "id": "r013",
+   "probability": 40.0,
+   "input1": "[fire]",
+   "input2": "ice_static",
+   "output1": "[fire]",
+   "output2": "water",
+   "fast": false,
+   "explosion": 0.0,
+   "stage": "2",
+   "_unverified": {},
+   "_sources": {
+    "all": "materials.xml Reaction"
+   }
+  },
+  {
+   "id": "r014",
+   "probability": 80.0,
+   "input1": "[fire]",
+   "input2": "snow_static",
+   "output1": "[fire]",
+   "output2": "water",
+   "fast": false,
+   "explosion": 0.0,
+   "stage": "2",
+   "_unverified": {},
+   "_sources": {
+    "all": "materials.xml Reaction"
+   }
+  },
+  {
+   "id": "r015",
+   "probability": 80.0,
+   "input1": "[fire]",
+   "input2": "snow",
+   "output1": "[fire]",
+   "output2": "water",
+   "fast": false,
+   "explosion": 0.0,
+   "stage": "2",
+   "_unverified": {},
+   "_sources": {
+    "all": "materials.xml Reaction"
+   }
+  },
+  {
+   "id": "r016",
+   "probability": 60.0,
+   "input1": "[fire]",
+   "input2": "[meltable_to_water]",
+   "output1": "[fire]",
+   "output2": "water",
+   "fast": false,
+   "explosion": 0.0,
+   "stage": "2",
+   "_unverified": {},
+   "_sources": {
+    "all": "materials.xml Reaction"
+   }
+  },
+  {
+   "id": "r017",
+   "probability": 40.0,
+   "input1": "[fire]",
+   "input2": "[meltable_to_blood]",
+   "output1": "[fire]",
+   "output2": "blood",
+   "fast": false,
+   "explosion": 0.0,
+   "stage": "2",
+   "_unverified": {},
+   "_sources": {
+    "all": "materials.xml Reaction"
+   }
+  },
+  {
+   "id": "r018",
+   "probability": 40.0,
+   "input1": "[fire]",
+   "input2": "[meltable_to_slime]",
+   "output1": "[fire]",
+   "output2": "slime",
+   "fast": false,
+   "explosion": 0.0,
+   "stage": "2",
+   "_unverified": {},
+   "_sources": {
+    "all": "materials.xml Reaction"
+   }
+  },
+  {
+   "id": "r019",
+   "probability": 1.0,
+   "input1": "ice",
+   "input2": "air",
+   "output1": "water",
+   "output2": "air",
+   "fast": false,
+   "explosion": 0.0,
+   "stage": "2",
+   "_unverified": {},
+   "_sources": {
+    "all": "materials.xml Reaction"
+   }
+  },
+  {
+   "id": "r020",
+   "probability": 1.0,
+   "input1": "ice_static",
+   "input2": "air",
+   "output1": "water",
+   "output2": "air",
+   "fast": false,
+   "explosion": 0.0,
+   "stage": "2",
+   "_unverified": {},
+   "_sources": {
+    "all": "materials.xml Reaction"
+   }
+  },
+  {
+   "id": "r021",
+   "probability": 1.0,
+   "input1": "water",
+   "input2": "ice",
+   "output1": "water",
+   "output2": "water_ice",
+   "fast": false,
+   "explosion": 0.0,
+   "stage": "2",
+   "_unverified": {},
+   "_sources": {
+    "all": "materials.xml Reaction"
+   }
+  },
+  {
+   "id": "r022",
+   "probability": 1.0,
+   "input1": "water",
+   "input2": "ice_static",
+   "output1": "water",
+   "output2": "water_ice",
+   "fast": false,
+   "explosion": 0.0,
+   "stage": "2",
+   "_unverified": {},
+   "_sources": {
+    "all": "materials.xml Reaction"
+   }
+  },
+  {
+   "id": "r023",
+   "probability": 1.0,
+   "input1": "water",
+   "input2": "[ice]",
+   "output1": "water",
+   "output2": "water_ice",
+   "fast": false,
+   "explosion": 0.0,
+   "stage": "2",
+   "_unverified": {},
+   "_sources": {
+    "all": "materials.xml Reaction"
+   }
+  },
+  {
+   "id": "r024",
+   "probability": 8.0,
+   "input1": "ice_static",
+   "input2": "water",
+   "output1": "ice_static",
+   "output2": "water_ice",
+   "fast": false,
+   "explosion": 0.0,
+   "stage": "2",
+   "_unverified": {},
+   "_sources": {
+    "all": "materials.xml Reaction"
+   }
+  },
+  {
+   "id": "r025",
+   "probability": 6.0,
+   "input1": "snow_static",
+   "input2": "water",
+   "output1": "snow_static",
+   "output2": "water_ice",
+   "fast": false,
+   "explosion": 0.0,
+   "stage": "2",
+   "_unverified": {},
+   "_sources": {
+    "all": "materials.xml Reaction"
+   }
+  },
+  {
+   "id": "r026",
+   "probability": 4.0,
+   "input1": "snow_sticky",
+   "input2": "water",
+   "output1": "snow_sticky",
+   "output2": "water_ice",
+   "fast": false,
+   "explosion": 0.0,
+   "stage": "2",
+   "_unverified": {},
+   "_sources": {
+    "all": "materials.xml Reaction"
+   }
+  },
+  {
+   "id": "r027",
+   "probability": 10.0,
+   "input1": "snowrock_static",
+   "input2": "water",
+   "output1": "snowrock_static",
+   "output2": "water_ice",
+   "fast": false,
+   "explosion": 0.0,
+   "stage": "2",
+   "_unverified": {},
+   "_sources": {
+    "all": "materials.xml Reaction"
+   }
+  },
+  {
+   "id": "r028",
+   "probability": 10.0,
+   "input1": "ice",
+   "input2": "water_ice",
+   "output1": "ice_static",
+   "output2": "ice_static",
+   "fast": false,
+   "explosion": 0.0,
+   "stage": "2",
+   "_unverified": {},
+   "_sources": {
+    "all": "materials.xml Reaction"
+   }
+  },
+  {
+   "id": "r029",
+   "probability": 8.0,
+   "input1": "ice",
+   "input2": "water",
+   "output1": "ice_static",
+   "output2": "water_ice",
+   "fast": false,
+   "explosion": 0.0,
+   "stage": "2",
+   "_unverified": {},
+   "_sources": {
+    "all": "materials.xml Reaction"
+   }
+  },
+  {
+   "id": "r030",
+   "probability": 35.0,
+   "input1": "water_ice",
+   "input2": "ice_static",
+   "output1": "ice_static",
+   "output2": "ice_static",
+   "fast": false,
+   "explosion": 0.0,
+   "stage": "2",
+   "_unverified": {},
+   "_sources": {
+    "all": "materials.xml Reaction"
+   }
+  },
+  {
+   "id": "r031",
+   "probability": 35.0,
+   "input1": "water_ice",
+   "input2": "ice",
+   "output1": "ice_static",
+   "output2": "ice_static",
+   "fast": false,
+   "explosion": 0.0,
+   "stage": "2",
+   "_unverified": {},
+   "_sources": {
+    "all": "materials.xml Reaction"
+   }
+  },
+  {
+   "id": "r032",
+   "probability": 35.0,
+   "input1": "water_ice",
+   "input2": "snow_static",
+   "output1": "ice_static",
+   "output2": "snow_static",
+   "fast": false,
+   "explosion": 0.0,
+   "stage": "2",
+   "_unverified": {},
+   "_sources": {
+    "all": "materials.xml Reaction"
+   }
+  },
+  {
+   "id": "r033",
+   "probability": 35.0,
+   "input1": "water_ice",
+   "input2": "snowrock_static",
+   "output1": "ice_static",
+   "output2": "snowrock_static",
+   "fast": false,
+   "explosion": 0.0,
+   "stage": "2",
+   "_unverified": {},
+   "_sources": {
+    "all": "materials.xml Reaction"
+   }
+  },
+  {
+   "id": "r034",
+   "probability": 13.0,
+   "input1": "water",
+   "input2": "radioactive_liquid",
+   "output1": "water",
+   "output2": "water",
+   "fast": false,
+   "explosion": 0.0,
+   "stage": "2",
+   "_unverified": {},
+   "_sources": {
+    "all": "materials.xml Reaction"
+   }
+  },
+  {
+   "id": "r035",
+   "probability": 15.0,
+   "input1": "mud",
+   "input2": "radioactive_liquid",
+   "output1": "mud",
+   "output2": "water_swamp",
+   "fast": false,
+   "explosion": 0.0,
+   "stage": "2",
+   "_unverified": {},
+   "_sources": {
+    "all": "materials.xml Reaction"
+   }
+  },
+  {
+   "id": "r036",
+   "probability": 15.0,
+   "input1": "water_static",
+   "input2": "radioactive_liquid",
+   "output1": "water_static",
+   "output2": "water",
+   "fast": false,
+   "explosion": 0.0,
+   "stage": "2",
+   "_unverified": {},
+   "_sources": {
+    "all": "materials.xml Reaction"
+   }
+  },
+  {
+   "id": "r037",
+   "probability": 15.0,
+   "input1": "water_ice",
+   "input2": "radioactive_liquid",
+   "output1": "water_ice",
+   "output2": "water_ice",
+   "fast": false,
+   "explosion": 0.0,
+   "stage": "2",
+   "_unverified": {},
+   "_sources": {
+    "all": "materials.xml Reaction"
+   }
+  },
+  {
+   "id": "r038",
+   "probability": 17.0,
+   "input1": "water_swamp",
+   "input2": "radioactive_liquid",
+   "output1": "water_swamp",
+   "output2": "water_swamp",
+   "fast": false,
+   "explosion": 0.0,
+   "stage": "2",
+   "_unverified": {},
+   "_sources": {
+    "all": "materials.xml Reaction"
+   }
+  },
+  {
+   "id": "r039",
+   "probability": 20.0,
+   "input1": "water_salt",
+   "input2": "radioactive_liquid",
+   "output1": "water_salt",
+   "output2": "water",
+   "fast": false,
+   "explosion": 0.0,
+   "stage": "2",
+   "_unverified": {},
+   "_sources": {
+    "all": "materials.xml Reaction"
+   }
+  },
+  {
+   "id": "r040",
+   "probability": 5.0,
+   "input1": "snow",
+   "input2": "radioactive_liquid",
+   "output1": "water",
+   "output2": "radioactive_liquid",
+   "fast": false,
+   "explosion": 0.0,
+   "stage": "2",
+   "_unverified": {},
+   "_sources": {
+    "all": "materials.xml Reaction"
+   }
+  },
+  {
+   "id": "r041",
+   "probability": 15.0,
+   "input1": "swamp",
+   "input2": "radioactive_liquid",
+   "output1": "swamp",
+   "output2": "water_swamp",
+   "fast": false,
+   "explosion": 0.0,
+   "stage": "2",
+   "_unverified": {},
+   "_sources": {
+    "all": "materials.xml Reaction"
+   }
+  },
+  {
+   "id": "r042",
+   "probability": 5.0,
+   "input1": "salt",
+   "input2": "water",
+   "output1": "air",
+   "output2": "water_salt",
+   "fast": false,
+   "explosion": 0.0,
+   "stage": "2",
+   "_unverified": {},
+   "_sources": {
+    "all": "materials.xml Reaction"
+   }
+  },
+  {
+   "id": "r043",
+   "probability": 5.0,
+   "input1": "salt",
+   "input2": "water_ice",
+   "output1": "air",
+   "output2": "water_salt",
+   "fast": false,
+   "explosion": 0.0,
+   "stage": "2",
+   "_unverified": {},
+   "_sources": {
+    "all": "materials.xml Reaction"
+   }
+  },
+  {
+   "id": "r044",
+   "probability": 20.0,
+   "input1": "[fire]",
+   "input2": "water_salt",
+   "output1": "[fire]",
+   "output2": "salt",
+   "fast": false,
+   "explosion": 0.0,
+   "stage": "2",
+   "_unverified": {},
+   "_sources": {
+    "all": "materials.xml Reaction"
+   }
+  },
+  {
+   "id": "r045",
+   "probability": 50.0,
+   "input1": "sodium",
+   "input2": "[water]",
+   "output1": "sodium",
+   "output2": "steam",
+   "fast": false,
+   "explosion": 0.0,
+   "stage": "2",
+   "_unverified": {},
+   "_sources": {
+    "all": "materials.xml Reaction"
+   }
+  },
+  {
+   "id": "r046",
+   "probability": 50.0,
+   "input1": "[slime]",
+   "input2": "[magic_faster]",
+   "output1": "fire_blue",
+   "output2": "steam",
+   "fast": false,
+   "explosion": 0.0,
+   "stage": "2",
+   "_unverified": {},
+   "_sources": {
+    "all": "materials.xml Reaction"
+   }
+  },
+  {
+   "id": "r047",
+   "probability": 50.0,
+   "input1": "endslime",
+   "input2": "[magic_faster]",
+   "output1": "fire_blue",
+   "output2": "steam",
+   "fast": false,
+   "explosion": 0.0,
+   "stage": "2",
+   "_unverified": {},
+   "_sources": {
+    "all": "materials.xml Reaction"
+   }
+  },
+  {
+   "id": "r048",
+   "probability": 60.0,
+   "input1": "steam",
+   "input2": "waterrock",
+   "output1": "steam",
+   "output2": "steam",
+   "fast": false,
+   "explosion": 0.0,
+   "stage": "2",
+   "_unverified": {},
+   "_sources": {
+    "all": "materials.xml Reaction"
+   }
+  },
+  {
+   "id": "r049",
+   "probability": 1.0,
+   "input1": "ice_melting_perf_killer",
+   "input2": "air",
+   "output1": "water",
+   "output2": "air",
+   "fast": false,
+   "explosion": 0.0,
+   "stage": "2",
+   "_unverified": {},
+   "_sources": {
+    "all": "materials.xml Reaction"
+   }
+  },
+  {
+   "id": "r050",
+   "probability": 50.0,
+   "input1": "[acid]",
+   "input2": "[corrodible]",
+   "output1": "[acid]",
+   "output2": "acid_gas",
+   "fast": true,
+   "explosion": 0.0,
+   "stage": "2",
+   "_unverified": {},
+   "_sources": {
+    "all": "materials.xml Reaction"
+   }
+  },
+  {
+   "id": "r051",
+   "probability": 10.0,
+   "input1": "[acid]",
+   "input2": "air",
+   "output1": "acid_gas",
+   "output2": "air",
+   "fast": true,
+   "explosion": 0.0,
+   "stage": "2",
+   "_unverified": {},
+   "_sources": {
+    "all": "materials.xml Reaction"
+   }
+  },
+  {
+   "id": "r052",
+   "probability": 12.0,
+   "input1": "[acid]",
+   "input2": "acid_gas",
+   "output1": "acid_gas",
+   "output2": "air",
+   "fast": true,
+   "explosion": 0.0,
+   "stage": "2",
+   "_unverified": {},
+   "_sources": {
+    "all": "materials.xml Reaction"
+   }
+  },
+  {
+   "id": "r053",
+   "probability": 20.0,
+   "input1": "[fire]",
+   "input2": "[meltable]",
+   "output1": "smoke",
+   "output2": "[meltable]_molten",
+   "fast": false,
+   "explosion": 0.0,
+   "stage": "2",
+   "_unverified": {},
+   "_sources": {
+    "all": "materials.xml Reaction"
+   }
+  },
+  {
+   "id": "r054",
+   "probability": 20.0,
+   "input1": "[meltable]_molten",
+   "input2": "water",
+   "output1": "[meltable]",
+   "output2": "steam",
+   "fast": false,
+   "explosion": 0.0,
+   "stage": "2",
+   "_unverified": {},
+   "_sources": {
+    "all": "materials.xml Reaction"
+   }
+  },
+  {
+   "id": "r055",
+   "probability": 20.0,
+   "input1": "[fire]",
+   "input2": "[meltable_plastic]",
+   "output1": "smoke",
+   "output2": "[meltable_plastic]_molten",
+   "fast": false,
+   "explosion": 0.0,
+   "stage": "2",
+   "_unverified": {},
+   "_sources": {
+    "all": "materials.xml Reaction"
+   }
+  },
+  {
+   "id": "r056",
+   "probability": 20.0,
+   "input1": "[meltable_plastic]_molten",
+   "input2": "water",
+   "output1": "plastic_grey",
+   "output2": "steam",
+   "fast": false,
+   "explosion": 0.0,
+   "stage": "2",
+   "_unverified": {},
+   "_sources": {
+    "all": "materials.xml Reaction"
+   }
+  },
+  {
+   "id": "r057",
+   "probability": 0.0,
+   "input1": "[lava]",
+   "input2": "air",
+   "output1": "smoke",
+   "output2": "air",
+   "fast": false,
+   "explosion": 0.0,
+   "stage": "2",
+   "_unverified": {},
+   "_sources": {
+    "all": "materials.xml Reaction"
+   }
+  },
+  {
+   "id": "r058",
+   "probability": 80.0,
+   "input1": "[lava]",
+   "input2": "water",
+   "output1": "rock_static",
+   "output2": "steam",
+   "fast": false,
+   "explosion": 0.0,
+   "stage": "2",
+   "_unverified": {},
+   "_sources": {
+    "all": "materials.xml Reaction"
+   }
+  },
+  {
+   "id": "r059",
+   "probability": 80.0,
+   "input1": "[lava]",
+   "input2": "water_ice",
+   "output1": "rock_static",
+   "output2": "steam",
+   "fast": false,
+   "explosion": 0.0,
+   "stage": "2",
+   "_unverified": {},
+   "_sources": {
+    "all": "materials.xml Reaction"
+   }
+  },
+  {
+   "id": "r060",
+   "probability": 80.0,
+   "input1": "[lava]",
+   "input2": "mud",
+   "output1": "sand_static",
+   "output2": "steam",
+   "fast": false,
+   "explosion": 0.0,
+   "stage": "2",
+   "_unverified": {},
+   "_sources": {
+    "all": "materials.xml Reaction"
+   }
+  },
+  {
+   "id": "r061",
+   "probability": 80.0,
+   "input1": "[lava]",
+   "input2": "water_salt",
+   "output1": "rock_static_glow",
+   "output2": "steam",
+   "fast": false,
+   "explosion": 0.0,
+   "stage": "2",
+   "_unverified": {},
+   "_sources": {
+    "all": "materials.xml Reaction"
+   }
+  },
+  {
+   "id": "r062",
+   "probability": 80.0,
+   "input1": "[lava]",
+   "input2": "water_fading",
+   "output1": "rock_static",
+   "output2": "steam",
+   "fast": false,
+   "explosion": 0.0,
+   "stage": "2",
+   "_unverified": {},
+   "_sources": {
+    "all": "materials.xml Reaction"
+   }
+  },
+  {
+   "id": "r063",
+   "probability": 80.0,
+   "input1": "[lava]",
+   "input2": "sima",
+   "output1": "rock_static",
+   "output2": "fire",
+   "fast": false,
+   "explosion": 0.0,
+   "stage": "2",
+   "_unverified": {},
+   "_sources": {
+    "all": "materials.xml Reaction"
+   }
+  },
+  {
+   "id": "r064",
+   "probability": 80.0,
+   "input1": "[lava]",
+   "input2": "juhannussima",
+   "output1": "rock_static",
+   "output2": "fire",
+   "fast": false,
+   "explosion": 0.0,
+   "stage": "2",
+   "_unverified": {},
+   "_sources": {
+    "all": "materials.xml Reaction"
+   }
+  },
+  {
+   "id": "r065",
+   "probability": 80.0,
+   "input1": "[lava]",
+   "input2": "magic_liquid",
+   "output1": "static_magic_material",
+   "output2": "steam",
+   "fast": false,
+   "explosion": 0.0,
+   "stage": "2",
+   "_unverified": {},
+   "_sources": {
+    "all": "materials.xml Reaction"
+   }
+  },
+  {
+   "id": "r066",
+   "probability": 80.0,
+   "input1": "[lava]",
+   "input2": "pea_soup",
+   "output1": "[lava]",
+   "output2": "liquid_fire",
+   "fast": false,
+   "explosion": 0.0,
+   "stage": "2",
+   "_unverified": {},
+   "_sources": {
+    "all": "materials.xml Reaction"
+   }
+  },
+  {
+   "id": "r067",
+   "probability": 80.0,
+   "input1": "[lava]",
+   "input2": "midas_precursor",
+   "output1": "[lava]",
+   "output2": "magic_gas_midas",
+   "fast": false,
+   "explosion": 0.0,
+   "stage": "2",
+   "_unverified": {},
+   "_sources": {
+    "all": "materials.xml Reaction"
+   }
+  },
+  {
+   "id": "r068",
+   "probability": 80.0,
+   "input1": "[lava]",
+   "input2": "magic_liquid_polymorph",
+   "output1": "[lava]",
+   "output2": "magic_gas_polymorph",
+   "fast": false,
+   "explosion": 0.0,
+   "stage": "2",
+   "_unverified": {},
+   "_sources": {
+    "all": "materials.xml Reaction"
+   }
+  },
+  {
+   "id": "r069",
+   "probability": 80.0,
+   "input1": "[lava]",
+   "input2": "magic_liquid_teleportation",
+   "output1": "[lava]",
+   "output2": "magic_gas_teleport",
+   "fast": false,
+   "explosion": 0.0,
+   "stage": "2",
+   "_unverified": {},
+   "_sources": {
+    "all": "materials.xml Reaction"
+   }
+  },
+  {
+   "id": "r070",
+   "probability": 80.0,
+   "input1": "[lava]",
+   "input2": "magic_liquid_weakness",
+   "output1": "[lava]",
+   "output2": "magic_gas_weakness",
+   "fast": false,
+   "explosion": 0.0,
+   "stage": "2",
+   "_unverified": {},
+   "_sources": {
+    "all": "materials.xml Reaction"
+   }
+  },
+  {
+   "id": "r071",
+   "probability": 70.0,
+   "input1": "[lava]",
+   "input2": "slime",
+   "output1": "endslime",
+   "output2": "endslime",
+   "fast": false,
+   "explosion": 0.0,
+   "stage": "2",
+   "_unverified": {},
+   "_sources": {
+    "all": "materials.xml Reaction"
+   }
+  },
+  {
+   "id": "r072",
+   "probability": 70.0,
+   "input1": "[lava]",
+   "input2": "blood",
+   "output1": "lavarock_static",
+   "output2": "steam",
+   "fast": false,
+   "explosion": 0.0,
+   "stage": "2",
+   "_unverified": {},
+   "_sources": {
+    "all": "materials.xml Reaction"
+   }
+  },
+  {
+   "id": "r073",
+   "probability": 70.0,
+   "input1": "[lava]",
+   "input2": "blood_fading",
+   "output1": "lavarock_static",
+   "output2": "steam",
+   "fast": false,
+   "explosion": 0.0,
+   "stage": "2",
+   "_unverified": {},
+   "_sources": {
+    "all": "materials.xml Reaction"
+   }
+  },
+  {
+   "id": "r074",
+   "probability": 70.0,
+   "input1": "[lava]",
+   "input2": "blood_fading_slow",
+   "output1": "lavarock_static",
+   "output2": "steam",
+   "fast": false,
+   "explosion": 0.0,
+   "stage": "2",
+   "_unverified": {},
+   "_sources": {
+    "all": "materials.xml Reaction"
+   }
+  },
+  {
+   "id": "r075",
+   "probability": 70.0,
+   "input1": "[lava]",
+   "input2": "cloud_blood",
+   "output1": "lavarock_static",
+   "output2": "steam",
+   "fast": false,
+   "explosion": 0.0,
+   "stage": "2",
+   "_unverified": {},
+   "_sources": {
+    "all": "materials.xml Reaction"
+   }
+  },
+  {
+   "id": "r076",
+   "probability": 70.0,
+   "input1": "[lava]",
+   "input2": "cursed_liquid",
+   "output1": "rock_static_cursed_green",
+   "output2": "steam",
+   "fast": false,
+   "explosion": 0.0,
+   "stage": "2",
+   "_unverified": {},
+   "_sources": {
+    "all": "materials.xml Reaction"
+   }
+  },
+  {
+   "id": "r077",
+   "probability": 70.0,
+   "input1": "[lava]",
+   "input2": "slime_green",
+   "output1": "fungi_green",
+   "output2": "fungal_gas",
+   "fast": false,
+   "explosion": 0.0,
+   "stage": "2",
+   "_unverified": {},
+   "_sources": {
+    "all": "materials.xml Reaction"
+   }
+  },
+  {
+   "id": "r078",
+   "probability": 70.0,
+   "input1": "[lava]",
+   "input2": "slime_yellow",
+   "output1": "fungi_yellow",
+   "output2": "fungal_gas",
+   "fast": false,
+   "explosion": 0.0,
+   "stage": "2",
+   "_unverified": {},
+   "_sources": {
+    "all": "materials.xml Reaction"
+   }
+  },
+  {
+   "id": "r079",
+   "probability": 70.0,
+   "input1": "[lava]",
+   "input2": "[radioactive]",
+   "output1": "rock_static_radioactive",
+   "output2": "radioactive_gas",
+   "fast": false,
+   "explosion": 0.0,
+   "stage": "2",
+   "_unverified": {},
+   "_sources": {
+    "all": "materials.xml Reaction"
+   }
+  },
+  {
+   "id": "r080",
+   "probability": 70.0,
+   "input1": "[lava]",
+   "input2": "[regenerative]",
+   "output1": "[lava]",
+   "output2": "magic_gas_hp_regeneration",
+   "fast": false,
+   "explosion": 0.0,
+   "stage": "2",
+   "_unverified": {},
+   "_sources": {
+    "all": "materials.xml Reaction"
+   }
+  },
+  {
+   "id": "r081",
+   "probability": 70.0,
+   "input1": "[lava]",
+   "input2": "urine",
+   "output1": "templebrick_golden_static",
+   "output2": "steam",
+   "fast": false,
+   "explosion": 0.0,
+   "stage": "2",
+   "_unverified": {},
+   "_sources": {
+    "all": "materials.xml Reaction"
+   }
+  },
+  {
+   "id": "r082",
+   "probability": 70.0,
+   "input1": "[lava]",
+   "input2": "poison",
+   "output1": "rock_static_poison",
+   "output2": "poison_gas",
+   "fast": false,
+   "explosion": 0.0,
+   "stage": "2",
+   "_unverified": {},
+   "_sources": {
+    "all": "materials.xml Reaction"
+   }
+  },
+  {
+   "id": "r083",
+   "probability": 70.0,
+   "input1": "[lava]",
+   "input2": "blood_worm",
+   "output1": "[lava]",
+   "output2": "magic_gas_worm_blood",
+   "fast": false,
+   "explosion": 0.0,
+   "stage": "2",
+   "_unverified": {},
+   "_sources": {
+    "all": "materials.xml Reaction"
+   }
+  },
+  {
+   "id": "r084",
+   "probability": 70.0,
+   "input1": "magic_gas_worm_blood",
+   "input2": "steam",
+   "output1": "blood_worm",
+   "output2": "blood_worm",
+   "fast": false,
+   "explosion": 0.0,
+   "stage": "2",
+   "_unverified": {},
+   "_sources": {
+    "all": "materials.xml Reaction"
+   }
+  },
+  {
+   "id": "r085",
+   "probability": 50.0,
+   "input1": "[lava]",
+   "input2": "vomit",
+   "output1": "[lava]",
+   "output2": "acid",
+   "fast": false,
+   "explosion": 0.0,
+   "stage": "2",
+   "_unverified": {},
+   "_sources": {
+    "all": "materials.xml Reaction"
+   }
+  },
+  {
+   "id": "r086",
+   "probability": 3.0,
+   "input1": "[lava]",
+   "input2": "[meltable_to_lava]",
+   "output1": "smoke",
+   "output2": "fire",
+   "fast": false,
+   "explosion": 0.0,
+   "stage": "2",
+   "_unverified": {},
+   "_sources": {
+    "all": "materials.xml Reaction"
+   }
+  },
+  {
+   "id": "r087",
+   "probability": 80.0,
+   "input1": "[lava]",
+   "input2": "[meltable_to_lava_fast]",
+   "output1": "smoke",
+   "output2": "lava",
+   "fast": false,
+   "explosion": 0.0,
+   "stage": "2",
+   "_unverified": {},
+   "_sources": {
+    "all": "materials.xml Reaction"
+   }
+  },
+  {
+   "id": "r088",
+   "probability": 60.0,
+   "input1": "[lava]",
+   "input2": "[meltable_to_water]",
+   "output1": "[lava]",
+   "output2": "water",
+   "fast": false,
+   "explosion": 0.0,
+   "stage": "2",
+   "_unverified": {},
+   "_sources": {
+    "all": "materials.xml Reaction"
+   }
+  },
+  {
+   "id": "r089",
+   "probability": 80.0,
+   "input1": "[lava]",
+   "input2": "[meltable_to_acid]",
+   "output1": "[lava]",
+   "output2": "acid",
+   "fast": false,
+   "explosion": 0.0,
+   "stage": "2",
+   "_unverified": {},
+   "_sources": {
+    "all": "materials.xml Reaction"
+   }
+  },
+  {
+   "id": "r090",
+   "probability": 90.0,
+   "input1": "[fire]",
+   "input2": "[meltable_to_acid]",
+   "output1": "[fire]",
+   "output2": "acid",
+   "fast": false,
+   "explosion": 0.0,
+   "stage": "2",
+   "_unverified": {},
+   "_sources": {
+    "all": "materials.xml Reaction"
+   }
+  },
+  {
+   "id": "r091",
+   "probability": 80.0,
+   "input1": "[lava]",
+   "input2": "[meltable_to_cold]",
+   "output1": "[lava]",
+   "output2": "blood_cold",
+   "fast": false,
+   "explosion": 0.0,
+   "stage": "2",
+   "_unverified": {},
+   "_sources": {
+    "all": "materials.xml Reaction"
+   }
+  },
+  {
+   "id": "r092",
+   "probability": 90.0,
+   "input1": "[fire]",
+   "input2": "[meltable_to_cold]",
+   "output1": "[fire]",
+   "output2": "blood_cold",
+   "fast": false,
+   "explosion": 0.0,
+   "stage": "2",
+   "_unverified": {},
+   "_sources": {
+    "all": "materials.xml Reaction"
+   }
+  },
+  {
+   "id": "r093",
+   "probability": 80.0,
+   "input1": "[lava]",
+   "input2": "[meltable_to_radioactive]",
+   "output1": "[lava]",
+   "output2": "radioactive_liquid",
+   "fast": false,
+   "explosion": 0.0,
+   "stage": "2",
+   "_unverified": {},
+   "_sources": {
+    "all": "materials.xml Reaction"
+   }
+  },
+  {
+   "id": "r094",
+   "probability": 90.0,
+   "input1": "[fire]",
+   "input2": "[meltable_to_radioactive]",
+   "output1": "[fire]",
+   "output2": "radioactive_liquid",
+   "fast": false,
+   "explosion": 0.0,
+   "stage": "2",
+   "_unverified": {},
+   "_sources": {
+    "all": "materials.xml Reaction"
+   }
+  },
+  {
+   "id": "r095",
+   "probability": 80.0,
+   "input1": "[lava]",
+   "input2": "[meltable_to_poison]",
+   "output1": "[lava]",
+   "output2": "poison",
+   "fast": false,
+   "explosion": 0.0,
+   "stage": "2",
+   "_unverified": {},
+   "_sources": {
+    "all": "materials.xml Reaction"
+   }
+  },
+  {
+   "id": "r096",
+   "probability": 90.0,
+   "input1": "[fire]",
+   "input2": "[meltable_to_poison]",
+   "output1": "[fire]",
+   "output2": "poison",
+   "fast": false,
+   "explosion": 0.0,
+   "stage": "2",
+   "_unverified": {},
+   "_sources": {
+    "all": "materials.xml Reaction"
+   }
+  },
+  {
+   "id": "r097",
+   "probability": 100.0,
+   "input1": "[fire]",
+   "input2": "[meltable_by_fire]",
+   "output1": "lava",
+   "output2": "smoke",
+   "fast": false,
+   "explosion": 0.0,
+   "stage": "2",
+   "_unverified": {},
+   "_sources": {
+    "all": "materials.xml Reaction"
+   }
+  },
+  {
+   "id": "r098",
+   "probability": 80.0,
+   "input1": "[lava]",
+   "input2": "poo",
+   "output1": "soil",
+   "output2": "poo_gas",
+   "fast": false,
+   "explosion": 0.0,
+   "stage": "2",
+   "_unverified": {},
+   "_sources": {
+    "all": "materials.xml Reaction"
+   }
+  },
+  {
+   "id": "r099",
+   "probability": 20.0,
+   "input1": "cactus",
+   "input2": "[lava]",
+   "output1": "sand_herb_vapour",
+   "output2": "[lava]",
+   "fast": false,
+   "explosion": 0.0,
+   "stage": "2",
+   "_unverified": {},
+   "_sources": {
+    "all": "materials.xml Reaction"
+   }
+  },
+  {
+   "id": "r100",
+   "probability": 20.0,
+   "input1": "[fire]",
+   "input2": "cactus",
+   "output1": "[fire]",
+   "output2": "sand_herb_vapour",
+   "fast": false,
+   "explosion": 0.0,
+   "stage": "2",
+   "_unverified": {},
+   "_sources": {
+    "all": "materials.xml Reaction"
+   }
+  },
+  {
+   "id": "r101",
+   "probability": 20.0,
+   "input1": "[fire]",
+   "input2": "wood_static_gas",
+   "output1": "[fire]",
+   "output2": "steam_trailer",
+   "fast": false,
+   "explosion": 0.0,
+   "stage": "2",
+   "_unverified": {},
+   "_sources": {
+    "all": "materials.xml Reaction"
+   }
+  },
+  {
+   "id": "r102",
+   "probability": 10.0,
+   "input1": "mushroom_seed",
+   "input2": "water",
+   "output1": "mushroom",
+   "output2": "air",
+   "fast": false,
+   "explosion": 0.0,
+   "stage": "2",
+   "_unverified": {},
+   "_sources": {
+    "all": "materials.xml Reaction"
+   }
+  },
+  {
+   "id": "r103",
+   "probability": 5.0,
+   "input1": "mushroom_seed",
+   "input2": "blood",
+   "output1": "mushroom_giant_red",
+   "output2": "air",
+   "fast": false,
+   "explosion": 0.0,
+   "stage": "2",
+   "_unverified": {},
+   "_sources": {
+    "all": "materials.xml Reaction"
+   }
+  },
+  {
+   "id": "r104",
+   "probability": 7.0,
+   "input1": "mushroom_seed",
+   "input2": "alcohol",
+   "output1": "mushroom_giant_blue",
+   "output2": "air",
+   "fast": false,
+   "explosion": 0.0,
+   "stage": "2",
+   "_unverified": {},
+   "_sources": {
+    "all": "materials.xml Reaction"
+   }
+  },
+  {
+   "id": "r105",
+   "probability": 1.0,
+   "input1": "mushroom",
+   "input2": "water",
+   "output1": "mushroom",
+   "output2": "air",
+   "fast": false,
+   "explosion": 0.0,
+   "stage": "2",
+   "_unverified": {},
+   "_sources": {
+    "all": "materials.xml Reaction"
+   }
+  },
+  {
+   "id": "r106",
+   "probability": 5.0,
+   "input1": "mushroom_giant_red",
+   "input2": "blood",
+   "output1": "mushroom_giant_red",
+   "output2": "air",
+   "fast": false,
+   "explosion": 0.0,
+   "stage": "2",
+   "_unverified": {},
+   "_sources": {
+    "all": "materials.xml Reaction"
+   }
+  },
+  {
+   "id": "r107",
+   "probability": 5.0,
+   "input1": "mushroom_giant_blue",
+   "input2": "alcohol",
+   "output1": "mushroom_giant_blue",
+   "output2": "air",
+   "fast": false,
+   "explosion": 0.0,
+   "stage": "2",
+   "_unverified": {},
+   "_sources": {
+    "all": "materials.xml Reaction"
+   }
+  },
+  {
+   "id": "r108",
+   "probability": 80.0,
+   "input1": "plant_seed",
+   "input2": "water",
+   "output1": "plant_material",
+   "output2": "air",
+   "fast": false,
+   "explosion": 0.0,
+   "stage": "2",
+   "_unverified": {},
+   "_sources": {
+    "all": "materials.xml Reaction"
+   }
+  },
+  {
+   "id": "r109",
+   "probability": 90.0,
+   "input1": "rocket_particles",
+   "input2": "air",
+   "output1": "air",
+   "output2": "air",
+   "fast": false,
+   "explosion": 0.0,
+   "stage": "2",
+   "_unverified": {},
+   "_sources": {
+    "all": "materials.xml Reaction"
+   }
+  },
+  {
+   "id": "r110",
+   "probability": 20.0,
+   "input1": "snow",
+   "input2": "urine",
+   "output1": "water",
+   "output2": "steam",
+   "fast": false,
+   "explosion": 0.0,
+   "stage": "2",
+   "_unverified": {},
+   "_sources": {
+    "all": "materials.xml Reaction"
+   }
+  },
+  {
+   "id": "r111",
+   "probability": 40.0,
+   "input1": "steelsmoke_static",
+   "input2": "air",
+   "output1": "steelsmoke_static",
+   "output2": "steam",
+   "fast": false,
+   "explosion": 0.0,
+   "stage": "2",
+   "_unverified": {},
+   "_sources": {
+    "all": "materials.xml Reaction"
+   }
+  },
+  {
+   "id": "r112",
+   "probability": 10.0,
+   "input1": "rock_static_glow",
+   "input2": "air",
+   "output1": "rock_static_glow",
+   "output2": "slime_green",
+   "fast": false,
+   "explosion": 0.0,
+   "stage": "2",
+   "_unverified": {},
+   "_sources": {
+    "all": "materials.xml Reaction"
+   }
+  },
+  {
+   "id": "r113",
+   "probability": 5.0,
+   "input1": "slime_green",
+   "input2": "air",
+   "output1": "air",
+   "output2": "air",
+   "fast": false,
+   "explosion": 0.0,
+   "stage": "2",
+   "_unverified": {},
+   "_sources": {
+    "all": "materials.xml Reaction"
+   }
+  },
+  {
+   "id": "r114",
+   "probability": 90.0,
+   "input1": "blood_cold",
+   "input2": "[freezable]",
+   "output1": "blood_cold",
+   "output2": "ice_static",
+   "fast": false,
+   "explosion": 0.0,
+   "stage": "2",
+   "_unverified": {},
+   "_sources": {
+    "all": "materials.xml Reaction"
+   }
+  },
+  {
+   "id": "r115",
+   "probability": 20.0,
+   "input1": "blood_cold",
+   "input2": "air",
+   "output1": "blood_cold_vapour",
+   "output2": "air",
+   "fast": false,
+   "explosion": 0.0,
+   "stage": "2",
+   "_unverified": {},
+   "_sources": {
+    "all": "materials.xml Reaction"
+   }
+  },
+  {
+   "id": "r116",
+   "probability": 20.0,
+   "input1": "blood_cold",
+   "input2": "blood_worm",
+   "output1": "blood_worm",
+   "output2": "blood_worm",
+   "fast": false,
+   "explosion": 0.0,
+   "stage": "2",
+   "_unverified": {},
+   "_sources": {
+    "all": "materials.xml Reaction"
+   }
+  },
+  {
+   "id": "r117",
+   "probability": 20.0,
+   "input1": "blood_cold",
+   "input2": "[fire]",
+   "output1": "blood_cold_vapour",
+   "output2": "steam",
+   "fast": false,
+   "explosion": 0.0,
+   "stage": "2",
+   "_unverified": {},
+   "_sources": {
+    "all": "materials.xml Reaction"
+   }
+  },
+  {
+   "id": "r118",
+   "probability": 70.0,
+   "input1": "blood_cold",
+   "input2": "lava",
+   "output1": "blood_cold_vapour",
+   "output2": "rock_hard",
+   "fast": false,
+   "explosion": 0.0,
+   "stage": "2",
+   "_unverified": {},
+   "_sources": {
+    "all": "materials.xml Reaction"
+   }
+  },
+  {
+   "id": "r119",
+   "probability": 100.0,
+   "input1": "steelfrost_static",
+   "input2": "[fire]",
+   "output1": "steel_static",
+   "output2": "steam",
+   "fast": false,
+   "explosion": 0.0,
+   "stage": "2",
+   "_unverified": {},
+   "_sources": {
+    "all": "materials.xml Reaction"
+   }
+  },
+  {
+   "id": "r120",
+   "probability": 100.0,
+   "input1": "steelfrost_static",
+   "input2": "lava",
+   "output1": "steel_static",
+   "output2": "lavarock_static",
+   "fast": false,
+   "explosion": 0.0,
+   "stage": "2",
+   "_unverified": {},
+   "_sources": {
+    "all": "materials.xml Reaction"
+   }
+  },
+  {
+   "id": "r121",
+   "probability": 100.0,
+   "input1": "beer",
+   "input2": "milk",
+   "output1": "molut",
+   "output2": "molut",
+   "fast": false,
+   "explosion": 0.0,
+   "stage": "2",
+   "_unverified": {},
+   "_sources": {
+    "all": "materials.xml Reaction"
+   }
+  },
+  {
+   "id": "r122",
+   "probability": 60.0,
+   "input1": "alcohol",
+   "input2": "[fire]",
+   "output1": "[fire]",
+   "output2": "alcohol_gas",
+   "fast": false,
+   "explosion": 0.0,
+   "stage": "2",
+   "_unverified": {},
+   "_sources": {
+    "all": "materials.xml Reaction"
+   }
+  },
+  {
+   "id": "r123",
+   "probability": 60.0,
+   "input1": "alcohol",
+   "input2": "[lava]",
+   "output1": "[fire]",
+   "output2": "alcohol_gas",
+   "fast": false,
+   "explosion": 0.0,
+   "stage": "2",
+   "_unverified": {},
+   "_sources": {
+    "all": "materials.xml Reaction"
+   }
+  },
+  {
+   "id": "r124",
+   "probability": 4.0,
+   "input1": "alcohol",
+   "input2": "air",
+   "output1": "alcohol",
+   "output2": "alcohol_gas",
+   "fast": false,
+   "explosion": 0.0,
+   "stage": "2",
+   "_unverified": {},
+   "_sources": {
+    "all": "materials.xml Reaction"
+   }
+  },
+  {
+   "id": "r125",
+   "probability": 20.0,
+   "input1": "[fire]",
+   "input2": "alcohol_gas",
+   "output1": "alcohol_gas",
+   "output2": "alcohol_gas",
+   "fast": false,
+   "explosion": 0.0,
+   "stage": "2",
+   "_unverified": {},
+   "_sources": {
+    "all": "materials.xml Reaction"
+   }
+  },
+  {
+   "id": "r126",
+   "probability": 60.0,
+   "input1": "glue",
+   "input2": "[fire]",
+   "output1": "[fire]",
+   "output2": "poison_gas",
+   "fast": true,
+   "explosion": 0.0,
+   "stage": "2",
+   "_unverified": {},
+   "_sources": {
+    "all": "materials.xml Reaction"
+   }
+  },
+  {
+   "id": "r127",
+   "probability": 70.0,
+   "input1": "[fire]",
+   "input2": "[slime]",
+   "output1": "cloud_slime",
+   "output2": "cloud_slime",
+   "fast": false,
+   "explosion": 0.0,
+   "stage": "2",
+   "_unverified": {},
+   "_sources": {
+    "all": "materials.xml Reaction"
+   }
+  },
+  {
+   "id": "r128",
+   "probability": 10.0,
+   "input1": "water",
+   "input2": "[slime]",
+   "output1": "water",
+   "output2": "cloud_slime",
+   "fast": false,
+   "explosion": 0.0,
+   "stage": "2",
+   "_unverified": {},
+   "_sources": {
+    "all": "materials.xml Reaction"
+   }
+  },
+  {
+   "id": "r129",
+   "probability": 30.0,
+   "input1": "alcohol",
+   "input2": "[slime]",
+   "output1": "alcohol",
+   "output2": "smoke",
+   "fast": false,
+   "explosion": 0.0,
+   "stage": "2",
+   "_unverified": {},
+   "_sources": {
+    "all": "materials.xml Reaction"
+   }
+  },
+  {
+   "id": "r130",
+   "probability": 10.0,
+   "input1": "water",
+   "input2": "soil_lush",
+   "output1": "swamp",
+   "output2": "soil",
+   "fast": false,
+   "explosion": 0.0,
+   "stage": "2",
+   "_unverified": {},
+   "_sources": {
+    "all": "materials.xml Reaction"
+   }
+  },
+  {
+   "id": "r131",
+   "probability": 10.0,
+   "input1": "water",
+   "input2": "fungisoil",
+   "output1": "swamp",
+   "output2": "soil",
+   "fast": false,
+   "explosion": 0.0,
+   "stage": "2",
+   "_unverified": {},
+   "_sources": {
+    "all": "materials.xml Reaction"
+   }
+  },
+  {
+   "id": "r132",
+   "probability": 1.0,
+   "input1": "swamp",
+   "input2": "water",
+   "output1": "swamp",
+   "output2": "water_swamp",
+   "fast": false,
+   "explosion": 0.0,
+   "stage": "2",
+   "_unverified": {},
+   "_sources": {
+    "all": "materials.xml Reaction"
+   }
+  },
+  {
+   "id": "r133",
+   "probability": 6.0,
+   "input1": "water_swamp",
+   "input2": "air",
+   "output1": "peat",
+   "output2": "air",
+   "fast": false,
+   "explosion": 0.0,
+   "stage": "2",
+   "_unverified": {},
+   "_sources": {
+    "all": "materials.xml Reaction"
+   }
+  },
+  {
+   "id": "r134",
+   "probability": 3.0,
+   "input1": "blood_thick",
+   "input2": "air",
+   "output1": "blood_fading",
+   "output2": "air",
+   "fast": false,
+   "explosion": 0.0,
+   "stage": "2",
+   "_unverified": {},
+   "_sources": {
+    "all": "materials.xml Reaction"
+   }
+  },
+  {
+   "id": "r135",
+   "probability": 15.0,
+   "input1": "poison",
+   "input2": "air",
+   "output1": "poison_gas",
+   "output2": "air",
+   "fast": true,
+   "explosion": 0.0,
+   "stage": "2",
+   "_unverified": {},
+   "_sources": {
+    "all": "materials.xml Reaction"
+   }
+  },
+  {
+   "id": "r136",
+   "probability": 5.0,
+   "input1": "water",
+   "input2": "soil",
+   "output1": "air",
+   "output2": "mud",
+   "fast": false,
+   "explosion": 0.0,
+   "stage": "2",
+   "_unverified": {},
+   "_sources": {
+    "all": "materials.xml Reaction"
+   }
+  },
+  {
+   "id": "r137",
+   "probability": 90.0,
+   "input1": "magic_liquid",
+   "input2": "rock_magic_bottom",
+   "output1": "magic_liquid",
+   "output2": "magic_liquid",
+   "fast": true,
+   "explosion": 0.0,
+   "stage": "2",
+   "_unverified": {},
+   "_sources": {
+    "all": "materials.xml Reaction"
+   }
+  },
+  {
+   "id": "r138",
+   "probability": 40.0,
+   "input1": "magic_liquid",
+   "input2": "soil",
+   "output1": "smoke",
+   "output2": "magic_liquid",
+   "fast": false,
+   "explosion": 0.0,
+   "stage": "2",
+   "_unverified": {},
+   "_sources": {
+    "all": "materials.xml Reaction"
+   }
+  },
+  {
+   "id": "r139",
+   "probability": 5.0,
+   "input1": "rock_static_wet",
+   "input2": "air",
+   "output1": "rock_static_wet",
+   "output2": "water_fading",
+   "fast": false,
+   "explosion": 0.0,
+   "stage": "2",
+   "_unverified": {},
+   "_sources": {
+    "all": "materials.xml Reaction"
+   }
+  },
+  {
+   "id": "r140",
+   "probability": 2.0,
+   "input1": "water_fading",
+   "input2": "air",
+   "output1": "air",
+   "output2": "air",
+   "fast": false,
+   "explosion": 0.0,
+   "stage": "2",
+   "_unverified": {},
+   "_sources": {
+    "all": "materials.xml Reaction"
+   }
+  },
+  {
+   "id": "r141",
+   "probability": 2.0,
+   "input1": "[water]",
+   "input2": "liquid_fire",
+   "output1": "fire",
+   "output2": "liquid_fire",
+   "fast": false,
+   "explosion": 0.0,
+   "stage": "2",
+   "_unverified": {},
+   "_sources": {
+    "all": "materials.xml Reaction"
+   }
+  },
+  {
+   "id": "r142",
+   "probability": 100.0,
+   "input1": "midas_precursor",
+   "input2": "[meat]",
+   "output1": "midas",
+   "output2": "midas",
+   "fast": true,
+   "explosion": 0.0,
+   "stage": "2",
+   "_unverified": {},
+   "_sources": {
+    "all": "materials.xml Reaction"
+   }
+  },
+  {
+   "id": "r143",
+   "probability": 100.0,
+   "input1": "midas_precursor",
+   "input2": "midas",
+   "output1": "midas",
+   "output2": "midas",
+   "fast": true,
+   "explosion": 0.0,
+   "stage": "2",
+   "_unverified": {},
+   "_sources": {
+    "all": "materials.xml Reaction"
+   }
+  },
+  {
+   "id": "r144",
+   "probability": 70.0,
+   "input1": "smoke_static",
+   "input2": "air",
+   "output1": "smoke_static",
+   "output2": "smoke",
+   "fast": true,
+   "explosion": 0.0,
+   "stage": "2",
+   "_unverified": {},
+   "_sources": {
+    "all": "materials.xml Reaction"
+   }
+  },
+  {
+   "id": "r145",
+   "probability": 70.0,
+   "input1": "acid_gas_static",
+   "input2": "air",
+   "output1": "acid_gas_static",
+   "output2": "acid_gas",
+   "fast": true,
+   "explosion": 0.0,
+   "stage": "2",
+   "_unverified": {},
+   "_sources": {
+    "all": "materials.xml Reaction"
+   }
+  },
+  {
+   "id": "r146",
+   "probability": 70.0,
+   "input1": "radioactive_gas_static",
+   "input2": "air",
+   "output1": "radioactive_gas_static",
+   "output2": "radioactive_gas",
+   "fast": true,
+   "explosion": 0.0,
+   "stage": "2",
+   "_unverified": {},
+   "_sources": {
+    "all": "materials.xml Reaction"
+   }
+  },
+  {
+   "id": "r147",
+   "probability": 100.0,
+   "input1": "midas",
+   "input2": "[alchemy]",
+   "output1": "midas",
+   "output2": "gold",
+   "fast": true,
+   "explosion": 0.0,
+   "stage": "2",
+   "_unverified": {},
+   "_sources": {
+    "all": "materials.xml Reaction"
+   }
+  },
+  {
+   "id": "r148",
+   "probability": 90.0,
+   "input1": "magic_gas_midas",
+   "input2": "[alchemy]",
+   "output1": "gold",
+   "output2": "gold",
+   "fast": false,
+   "explosion": 0.0,
+   "stage": "2",
+   "_unverified": {},
+   "_sources": {
+    "all": "materials.xml Reaction"
+   }
+  },
+  {
+   "id": "r149",
+   "probability": 100.0,
+   "input1": "creepy_liquid_emitter",
+   "input2": "fire",
+   "output1": "creepy_liquid",
+   "output2": "creepy_liquid",
+   "fast": false,
+   "explosion": 0.0,
+   "stage": "2",
+   "_unverified": {},
+   "_sources": {
+    "all": "materials.xml Reaction"
+   }
+  },
+  {
+   "id": "r150",
+   "probability": 90.0,
+   "input1": "creepy_liquid",
+   "input2": "air",
+   "output1": "creepy_liquid",
+   "output2": "creepy_liquid",
+   "fast": false,
+   "explosion": 0.0,
+   "stage": "2",
+   "_unverified": {},
+   "_sources": {
+    "all": "materials.xml Reaction"
+   }
+  },
+  {
+   "id": "r151",
+   "probability": 100.0,
+   "input1": "radioactive_liquid",
+   "input2": "blood_worm",
+   "output1": "void_liquid",
+   "output2": "void_liquid",
+   "fast": false,
+   "explosion": 0.0,
+   "stage": "2",
+   "_unverified": {},
+   "_sources": {
+    "all": "materials.xml Reaction"
+   }
+  },
+  {
+   "id": "r152",
+   "probability": 100.0,
+   "input1": "radioactive_liquid",
+   "input2": "sand",
+   "output1": "fungi_creeping",
+   "output2": "fungi_creeping",
+   "fast": false,
+   "explosion": 0.0,
+   "stage": "2",
+   "_unverified": {},
+   "_sources": {
+    "all": "materials.xml Reaction"
+   }
+  },
+  {
+   "id": "r153",
+   "probability": 50.0,
+   "input1": "fungi_creeping",
+   "input2": "radioactive_liquid",
+   "output1": "fungi_creeping",
+   "output2": "fungi_creeping",
+   "fast": false,
+   "explosion": 0.0,
+   "stage": "2",
+   "_unverified": {},
+   "_sources": {
+    "all": "materials.xml Reaction"
+   }
+  },
+  {
+   "id": "r154",
+   "probability": 50.0,
+   "input1": "fungi_creeping",
+   "input2": "radioactive_liquid_yellow",
+   "output1": "fungi_creeping",
+   "output2": "fungi_creeping",
+   "fast": false,
+   "explosion": 0.0,
+   "stage": "2",
+   "_unverified": {},
+   "_sources": {
+    "all": "materials.xml Reaction"
+   }
+  },
+  {
+   "id": "r155",
+   "probability": 80.0,
+   "input1": "purifying_powder",
+   "input2": "[impure]",
+   "output1": "purifying_powder",
+   "output2": "water",
+   "fast": false,
+   "explosion": 0.0,
+   "stage": "2",
+   "_unverified": {},
+   "_sources": {
+    "all": "materials.xml Reaction"
+   }
+  },
+  {
+   "id": "r156",
+   "probability": 15.0,
+   "input1": "magic_liquid_faster_levitation",
+   "input2": "magic_liquid_movement_faster",
+   "output1": "magic_liquid_faster_levitation_and_movement",
+   "output2": "magic_liquid_faster_levitation_and_movement",
+   "fast": false,
+   "explosion": 0.0,
+   "stage": "2",
+   "_unverified": {},
+   "_sources": {
+    "all": "materials.xml Reaction"
+   }
+  },
+  {
+   "id": "r157",
+   "probability": 25.0,
+   "input1": "magic_liquid_mana_regeneration",
+   "input2": "water",
+   "output1": "magic_liquid_mana_regeneration",
+   "output2": "magic_liquid_mana_regeneration",
+   "fast": false,
+   "explosion": 0.0,
+   "stage": "2",
+   "_unverified": {},
+   "_sources": {
+    "all": "materials.xml Reaction"
+   }
+  },
+  {
+   "id": "r158",
+   "probability": 25.0,
+   "input1": "magic_liquid_mana_regeneration",
+   "input2": "[meltable_metal]",
+   "output1": "magic_liquid_mana_regeneration",
+   "output2": "steam",
+   "fast": false,
+   "explosion": 0.0,
+   "stage": "2",
+   "_unverified": {},
+   "_sources": {
+    "all": "materials.xml Reaction"
+   }
+  },
+  {
+   "id": "r159",
+   "probability": 25.0,
+   "input1": "magic_liquid_mana_regeneration",
+   "input2": "gold_box2d",
+   "output1": "magic_liquid_mana_regeneration",
+   "output2": "steam",
+   "fast": false,
+   "explosion": 0.0,
+   "stage": "2",
+   "_unverified": {},
+   "_sources": {
+    "all": "materials.xml Reaction"
+   }
+  },
+  {
+   "id": "r160",
+   "probability": 25.0,
+   "input1": "magic_liquid_mana_regeneration",
+   "input2": "bloodgold_box2d",
+   "output1": "magic_liquid_mana_regeneration",
+   "output2": "steam",
+   "fast": false,
+   "explosion": 0.0,
+   "stage": "2",
+   "_unverified": {},
+   "_sources": {
+    "all": "materials.xml Reaction"
+   }
+  },
+  {
+   "id": "r161",
+   "probability": 25.0,
+   "input1": "magic_liquid_mana_regeneration",
+   "input2": "[meltable_metal_generic]",
+   "output1": "magic_liquid_mana_regeneration",
+   "output2": "steam",
+   "fast": false,
+   "explosion": 0.0,
+   "stage": "2",
+   "_unverified": {},
+   "_sources": {
+    "all": "materials.xml Reaction"
+   }
+  },
+  {
+   "id": "r162",
+   "probability": 25.0,
+   "input1": "material_confusion",
+   "input2": "magic_liquid_berserk",
+   "output1": "magic_liquid_charm",
+   "output2": "magic_liquid_charm",
+   "fast": false,
+   "explosion": 0.0,
+   "stage": "2",
+   "_unverified": {},
+   "_sources": {
+    "all": "materials.xml Reaction"
+   }
+  },
+  {
+   "id": "r163",
+   "probability": 15.0,
+   "input1": "magic_liquid_worm_attractor",
+   "input2": "blood_worm",
+   "output1": "material_confusion",
+   "output2": "material_confusion",
+   "fast": false,
+   "explosion": 0.0,
+   "stage": "2",
+   "_unverified": {},
+   "_sources": {
+    "all": "materials.xml Reaction"
+   }
+  },
+  {
+   "id": "r164",
+   "probability": 21.0,
+   "input1": "magic_liquid_invisibility",
+   "input2": "water",
+   "output1": "water",
+   "output2": "water",
+   "fast": false,
+   "explosion": 0.0,
+   "stage": "2",
+   "_unverified": {},
+   "_sources": {
+    "all": "materials.xml Reaction"
+   }
+  },
+  {
+   "id": "r165",
+   "probability": 35.0,
+   "input1": "material_confusion",
+   "input2": "blood",
+   "output1": "magic_liquid_unstable_polymorph",
+   "output2": "magic_liquid_unstable_polymorph",
+   "fast": false,
+   "explosion": 0.0,
+   "stage": "2",
+   "_unverified": {},
+   "_sources": {
+    "all": "materials.xml Reaction"
+   }
+  },
+  {
+   "id": "r166",
+   "probability": 5.0,
+   "input1": "magic_liquid_unstable_teleportation",
+   "input2": "magic_liquid_teleportation",
+   "output1": "magic_liquid_unstable_teleportation",
+   "output2": "magic_liquid_unstable_teleportation",
+   "fast": false,
+   "explosion": 0.0,
+   "stage": "2",
+   "_unverified": {},
+   "_sources": {
+    "all": "materials.xml Reaction"
+   }
+  },
+  {
+   "id": "r167",
+   "probability": 21.0,
+   "input1": "magic_liquid_teleportation",
+   "input2": "alcohol",
+   "output1": "magic_liquid_unstable_teleportation",
+   "output2": "alcohol",
+   "fast": false,
+   "explosion": 0.0,
+   "stage": "2",
+   "_unverified": {},
+   "_sources": {
+    "all": "materials.xml Reaction"
+   }
+  },
+  {
+   "id": "r168",
+   "probability": 20.0,
+   "input1": "magic_liquid_unstable_teleportation",
+   "input2": "[slime]",
+   "output1": "magic_liquid_teleportation",
+   "output2": "magic_liquid_teleportation",
+   "fast": false,
+   "explosion": 0.0,
+   "stage": "2",
+   "_unverified": {},
+   "_sources": {
+    "all": "materials.xml Reaction"
+   }
+  },
+  {
+   "id": "r169",
+   "probability": 20.0,
+   "input1": "magic_liquid_unstable_teleportation",
+   "input2": "endslime",
+   "output1": "magic_liquid_teleportation",
+   "output2": "magic_liquid_teleportation",
+   "fast": false,
+   "explosion": 0.0,
+   "stage": "2",
+   "_unverified": {},
+   "_sources": {
+    "all": "materials.xml Reaction"
+   }
+  },
+  {
+   "id": "r170",
+   "probability": 10.0,
+   "input1": "magic_liquid_teleportation",
+   "input2": "magic_liquid_mana_regeneration",
+   "output1": "fire",
+   "output2": "magic_liquid_mana_regeneration",
+   "fast": false,
+   "explosion": 0.0,
+   "stage": "2",
+   "_unverified": {},
+   "_sources": {
+    "all": "materials.xml Reaction"
+   }
+  },
+  {
+   "id": "r171",
+   "probability": 10.0,
+   "input1": "magic_liquid_unstable_teleportation",
+   "input2": "magic_liquid_mana_regeneration",
+   "output1": "fire",
+   "output2": "magic_liquid_mana_regeneration",
+   "fast": false,
+   "explosion": 0.0,
+   "stage": "2",
+   "_unverified": {},
+   "_sources": {
+    "all": "materials.xml Reaction"
+   }
+  },
+  {
+   "id": "r172",
+   "probability": 15.0,
+   "input1": "magic_liquid_polymorph",
+   "input2": "radioactive_liquid",
+   "output1": "magic_liquid_random_polymorph",
+   "output2": "radioactive_liquid",
+   "fast": false,
+   "explosion": 0.0,
+   "stage": "2",
+   "_unverified": {},
+   "_sources": {
+    "all": "materials.xml Reaction"
+   }
+  },
+  {
+   "id": "r173",
+   "probability": 45.0,
+   "input1": "material_confusion",
+   "input2": "[sand_metal]",
+   "output1": "magic_liquid_faster_levitation",
+   "output2": "magic_liquid_faster_levitation",
+   "fast": false,
+   "explosion": 0.0,
+   "stage": "2",
+   "_unverified": {},
+   "_sources": {
+    "all": "materials.xml Reaction"
+   }
+  },
+  {
+   "id": "r174",
+   "probability": 10.0,
+   "input1": "alcohol",
+   "input2": "meat_frog",
+   "output1": "magic_liquid_berserk",
+   "output2": "meat_frog",
+   "fast": false,
+   "explosion": 0.0,
+   "stage": "2",
+   "_unverified": {},
+   "_sources": {
+    "all": "materials.xml Reaction"
+   }
+  },
+  {
+   "id": "r175",
+   "probability": 50.0,
+   "input1": "honey",
+   "input2": "diamond",
+   "output1": "magic_liquid_protection_all",
+   "output2": "poison",
+   "fast": false,
+   "explosion": 0.0,
+   "stage": "2",
+   "_unverified": {},
+   "_sources": {
+    "all": "materials.xml Reaction"
+   }
+  },
+  {
+   "id": "r176",
+   "probability": 100.0,
+   "input1": "material_confusion",
+   "input2": "magic_liquid_unstable_teleportation",
+   "output1": "orb_powder",
+   "output2": "fire",
+   "fast": false,
+   "explosion": 0.0,
+   "stage": "2",
+   "_unverified": {},
+   "_sources": {
+    "all": "materials.xml Reaction"
+   }
+  },
+  {
+   "id": "r177",
+   "probability": 60.0,
+   "input1": "magic_liquid_weakness",
+   "input2": "magic_liquid_teleportation",
+   "output1": "magic_liquid_weakness",
+   "output2": "magic_liquid_unstable_teleportation",
+   "fast": false,
+   "explosion": 0.0,
+   "stage": "2",
+   "_unverified": {},
+   "_sources": {
+    "all": "materials.xml Reaction"
+   }
+  },
+  {
+   "id": "r178",
+   "probability": 60.0,
+   "input1": "magic_liquid_weakness",
+   "input2": "magic_liquid_berserk",
+   "output1": "magic_liquid_weakness",
+   "output2": "water",
+   "fast": false,
+   "explosion": 0.0,
+   "stage": "2",
+   "_unverified": {},
+   "_sources": {
+    "all": "materials.xml Reaction"
+   }
+  },
+  {
+   "id": "r179",
+   "probability": 60.0,
+   "input1": "magic_liquid_weakness",
+   "input2": "magic_liquid_polymorph",
+   "output1": "magic_liquid_weakness",
+   "output2": "magic_liquid_random_polymorph",
+   "fast": false,
+   "explosion": 0.0,
+   "stage": "2",
+   "_unverified": {},
+   "_sources": {
+    "all": "materials.xml Reaction"
+   }
+  },
+  {
+   "id": "r180",
+   "probability": 60.0,
+   "input1": "magic_liquid_weakness",
+   "input2": "magic_liquid_faster_levitation",
+   "output1": "radioactive_liquid",
+   "output2": "radioactive_liquid",
+   "fast": false,
+   "explosion": 0.0,
+   "stage": "2",
+   "_unverified": {},
+   "_sources": {
+    "all": "materials.xml Reaction"
+   }
+  },
+  {
+   "id": "r181",
+   "probability": 60.0,
+   "input1": "magic_liquid_weakness",
+   "input2": "magic_liquid_mana_regeneration",
+   "output1": "steam",
+   "output2": "steam",
+   "fast": false,
+   "explosion": 0.0,
+   "stage": "2",
+   "_unverified": {},
+   "_sources": {
+    "all": "materials.xml Reaction"
+   }
+  },
+  {
+   "id": "r182",
+   "probability": 60.0,
+   "input1": "magic_liquid_weakness",
+   "input2": "[fungus]",
+   "output1": "magic_liquid_weakness",
+   "output2": "sand",
+   "fast": false,
+   "explosion": 0.0,
+   "stage": "2",
+   "_unverified": {},
+   "_sources": {
+    "all": "materials.xml Reaction"
+   }
+  },
+  {
+   "id": "r183",
+   "probability": 60.0,
+   "input1": "magic_liquid_weakness",
+   "input2": "fungisoil",
+   "output1": "magic_liquid_weakness",
+   "output2": "soil",
+   "fast": false,
+   "explosion": 0.0,
+   "stage": "2",
+   "_unverified": {},
+   "_sources": {
+    "all": "materials.xml Reaction"
+   }
+  },
+  {
+   "id": "r184",
+   "probability": 100.0,
+   "input1": "magic_liquid_weakness",
+   "input2": "[gold]",
+   "output1": "magic_liquid_weakness",
+   "output2": "silver",
+   "fast": false,
+   "explosion": 0.0,
+   "stage": "2",
+   "_unverified": {},
+   "_sources": {
+    "all": "materials.xml Reaction"
+   }
+  },
+  {
+   "id": "r185",
+   "probability": 100.0,
+   "input1": "magic_liquid_weakness",
+   "input2": "gold_molten",
+   "output1": "magic_liquid_weakness",
+   "output2": "silver_molten",
+   "fast": false,
+   "explosion": 0.0,
+   "stage": "2",
+   "_unverified": {},
+   "_sources": {
+    "all": "materials.xml Reaction"
+   }
+  },
+  {
+   "id": "r186",
+   "probability": 100.0,
+   "input1": "magic_liquid_weakness",
+   "input2": "diamond",
+   "output1": "steam",
+   "output2": "radioactive_liquid",
+   "fast": false,
+   "explosion": 0.0,
+   "stage": "2",
+   "_unverified": {},
+   "_sources": {
+    "all": "materials.xml Reaction"
+   }
+  },
+  {
+   "id": "r187",
+   "probability": 100.0,
+   "input1": "magic_liquid_weakness",
+   "input2": "salt",
+   "output1": "magic_liquid_weakness",
+   "output2": "smoke",
+   "fast": false,
+   "explosion": 0.0,
+   "stage": "2",
+   "_unverified": {},
+   "_sources": {
+    "all": "materials.xml Reaction"
+   }
+  },
+  {
+   "id": "r188",
+   "probability": 100.0,
+   "input1": "magic_liquid_weakness",
+   "input2": "acid_gas",
+   "output1": "magic_liquid_weakness",
+   "output2": "magic_liquid_weakness",
+   "fast": false,
+   "explosion": 0.0,
+   "stage": "2",
+   "_unverified": {},
+   "_sources": {
+    "all": "materials.xml Reaction"
+   }
+  },
+  {
+   "id": "r189",
+   "probability": 100.0,
+   "input1": "magic_liquid_weakness",
+   "input2": "acid_gas_static",
+   "output1": "magic_liquid_weakness",
+   "output2": "magic_liquid_weakness",
+   "fast": false,
+   "explosion": 0.0,
+   "stage": "2",
+   "_unverified": {},
+   "_sources": {
+    "all": "materials.xml Reaction"
+   }
+  },
+  {
+   "id": "r190",
+   "probability": 80.0,
+   "input1": "magic_liquid_weakness",
+   "input2": "magic_liquid_protection_all",
+   "output1": "smoke",
+   "output2": "acid",
+   "fast": false,
+   "explosion": 0.0,
+   "stage": "2",
+   "_unverified": {},
+   "_sources": {
+    "all": "materials.xml Reaction"
+   }
+  },
+  {
+   "id": "r191",
+   "probability": 80.0,
+   "input1": "magic_liquid_weakness",
+   "input2": "midas",
+   "output1": "smoke",
+   "output2": "liquid_fire",
+   "fast": false,
+   "explosion": 0.0,
+   "stage": "2",
+   "_unverified": {},
+   "_sources": {
+    "all": "materials.xml Reaction"
+   }
+  },
+  {
+   "id": "r192",
+   "probability": 80.0,
+   "input1": "magic_liquid_weakness",
+   "input2": "midas_precursor",
+   "output1": "smoke",
+   "output2": "liquid_fire",
+   "fast": false,
+   "explosion": 0.0,
+   "stage": "2",
+   "_unverified": {},
+   "_sources": {
+    "all": "materials.xml Reaction"
+   }
+  },
+  {
+   "id": "r193",
+   "probability": 40.0,
+   "input1": "vomit",
+   "input2": "bone",
+   "output1": "magic_liquid_weakness",
+   "output2": "magic_liquid_weakness",
+   "fast": false,
+   "explosion": 0.0,
+   "stage": "2",
+   "_unverified": {},
+   "_sources": {
+    "all": "materials.xml Reaction"
+   }
+  },
+  {
+   "id": "r194",
+   "probability": 40.0,
+   "input1": "vomit",
+   "input2": "bone_box2d",
+   "output1": "magic_liquid_weakness",
+   "output2": "magic_liquid_weakness",
+   "fast": false,
+   "explosion": 0.0,
+   "stage": "2",
+   "_unverified": {},
+   "_sources": {
+    "all": "materials.xml Reaction"
+   }
+  },
+  {
+   "id": "r195",
+   "probability": 40.0,
+   "input1": "vomit",
+   "input2": "bone_static",
+   "output1": "magic_liquid_weakness",
+   "output2": "magic_liquid_weakness",
+   "fast": false,
+   "explosion": 0.0,
+   "stage": "2",
+   "_unverified": {},
+   "_sources": {
+    "all": "materials.xml Reaction"
+   }
+  },
+  {
+   "id": "r196",
+   "probability": 10.0,
+   "input1": "magic_liquid_polymorph",
+   "input2": "copper",
+   "output1": "magic_gas_polymorph",
+   "output2": "magic_gas_polymorph",
+   "fast": false,
+   "explosion": 0.0,
+   "stage": "2",
+   "_unverified": {},
+   "_sources": {
+    "all": "materials.xml Reaction"
+   }
+  },
+  {
+   "id": "r197",
+   "probability": 10.0,
+   "input1": "magic_liquid_teleportation",
+   "input2": "silver",
+   "output1": "magic_gas_teleport",
+   "output2": "magic_gas_teleport",
+   "fast": false,
+   "explosion": 0.0,
+   "stage": "2",
+   "_unverified": {},
+   "_sources": {
+    "all": "materials.xml Reaction"
+   }
+  },
+  {
+   "id": "r198",
+   "probability": 10.0,
+   "input1": "[fungus]",
+   "input2": "brass",
+   "output1": "magic_gas_fungus",
+   "output2": "magic_gas_fungus",
+   "fast": false,
+   "explosion": 0.0,
+   "stage": "2",
+   "_unverified": {},
+   "_sources": {
+    "all": "materials.xml Reaction"
+   }
+  },
+  {
+   "id": "r199",
+   "probability": 50.0,
+   "input1": "wizardstone",
+   "input2": "[fire]",
+   "output1": "steam",
+   "output2": "lava",
+   "fast": false,
+   "explosion": 0.0,
+   "stage": "2",
+   "_unverified": {},
+   "_sources": {
+    "all": "materials.xml Reaction"
+   }
+  },
+  {
+   "id": "r200",
+   "probability": 50.0,
+   "input1": "wizardstone",
+   "input2": "[water]",
+   "output1": "smoke",
+   "output2": "magic_liquid_teleportation",
+   "fast": false,
+   "explosion": 0.0,
+   "stage": "2",
+   "_unverified": {},
+   "_sources": {
+    "all": "materials.xml Reaction"
+   }
+  },
+  {
+   "id": "r201",
+   "probability": 50.0,
+   "input1": "wizardstone",
+   "input2": "magic_liquid_protection_all",
+   "output1": "steam",
+   "output2": "steam",
+   "fast": false,
+   "explosion": 0.0,
+   "stage": "2",
+   "_unverified": {},
+   "_sources": {
+    "all": "materials.xml Reaction"
+   }
+  },
+  {
+   "id": "r202",
+   "probability": 50.0,
+   "input1": "wizardstone",
+   "input2": "magic_liquid_mana_regeneration",
+   "output1": "smoke",
+   "output2": "acid",
+   "fast": false,
+   "explosion": 0.0,
+   "stage": "2",
+   "_unverified": {},
+   "_sources": {
+    "all": "materials.xml Reaction"
+   }
+  },
+  {
+   "id": "r203",
+   "probability": 50.0,
+   "input1": "gold_molten",
+   "input2": "[cold]",
+   "output1": "gold",
+   "output2": "[cold]",
+   "fast": false,
+   "explosion": 0.0,
+   "stage": "2",
+   "_unverified": {},
+   "_sources": {
+    "all": "materials.xml Reaction"
+   }
+  },
+  {
+   "id": "r204",
+   "probability": 50.0,
+   "input1": "silver_molten",
+   "input2": "[cold]",
+   "output1": "silver",
+   "output2": "[cold]",
+   "fast": false,
+   "explosion": 0.0,
+   "stage": "2",
+   "_unverified": {},
+   "_sources": {
+    "all": "materials.xml Reaction"
+   }
+  },
+  {
+   "id": "r205",
+   "probability": 50.0,
+   "input1": "copper_molten",
+   "input2": "[cold]",
+   "output1": "copper",
+   "output2": "[cold]",
+   "fast": false,
+   "explosion": 0.0,
+   "stage": "2",
+   "_unverified": {},
+   "_sources": {
+    "all": "materials.xml Reaction"
+   }
+  },
+  {
+   "id": "r206",
+   "probability": 50.0,
+   "input1": "brass_molten",
+   "input2": "[cold]",
+   "output1": "brass",
+   "output2": "[cold]",
+   "fast": false,
+   "explosion": 0.0,
+   "stage": "2",
+   "_unverified": {},
+   "_sources": {
+    "all": "materials.xml Reaction"
+   }
+  },
+  {
+   "id": "r207",
+   "probability": 50.0,
+   "input1": "steel_molten",
+   "input2": "[cold]",
+   "output1": "steel_sand",
+   "output2": "[cold]",
+   "fast": false,
+   "explosion": 0.0,
+   "stage": "2",
+   "_unverified": {},
+   "_sources": {
+    "all": "materials.xml Reaction"
+   }
+  },
+  {
+   "id": "r208",
+   "probability": 50.0,
+   "input1": "wax_molten",
+   "input2": "[cold]",
+   "output1": "wax",
+   "output2": "[cold]",
+   "fast": false,
+   "explosion": 0.0,
+   "stage": "2",
+   "_unverified": {},
+   "_sources": {
+    "all": "materials.xml Reaction"
+   }
+  },
+  {
+   "id": "r209",
+   "probability": 50.0,
+   "input1": "gold_molten",
+   "input2": "[water]",
+   "output1": "gold",
+   "output2": "steam",
+   "fast": false,
+   "explosion": 0.0,
+   "stage": "2",
+   "_unverified": {},
+   "_sources": {
+    "all": "materials.xml Reaction"
+   }
+  },
+  {
+   "id": "r210",
+   "probability": 50.0,
+   "input1": "silver_molten",
+   "input2": "[water]",
+   "output1": "silver",
+   "output2": "steam",
+   "fast": false,
+   "explosion": 0.0,
+   "stage": "2",
+   "_unverified": {},
+   "_sources": {
+    "all": "materials.xml Reaction"
+   }
+  },
+  {
+   "id": "r211",
+   "probability": 50.0,
+   "input1": "copper_molten",
+   "input2": "[water]",
+   "output1": "copper",
+   "output2": "steam",
+   "fast": false,
+   "explosion": 0.0,
+   "stage": "2",
+   "_unverified": {},
+   "_sources": {
+    "all": "materials.xml Reaction"
+   }
+  },
+  {
+   "id": "r212",
+   "probability": 50.0,
+   "input1": "brass_molten",
+   "input2": "[water]",
+   "output1": "brass",
+   "output2": "steam",
+   "fast": false,
+   "explosion": 0.0,
+   "stage": "2",
+   "_unverified": {},
+   "_sources": {
+    "all": "materials.xml Reaction"
+   }
+  },
+  {
+   "id": "r213",
+   "probability": 50.0,
+   "input1": "steel_molten",
+   "input2": "[water]",
+   "output1": "steel_sand",
+   "output2": "steam",
+   "fast": false,
+   "explosion": 0.0,
+   "stage": "2",
+   "_unverified": {},
+   "_sources": {
+    "all": "materials.xml Reaction"
+   }
+  },
+  {
+   "id": "r214",
+   "probability": 50.0,
+   "input1": "wax_molten",
+   "input2": "[water]",
+   "output1": "wax",
+   "output2": "steam",
+   "fast": false,
+   "explosion": 0.0,
+   "stage": "2",
+   "_unverified": {},
+   "_sources": {
+    "all": "materials.xml Reaction"
+   }
+  },
+  {
+   "id": "r215",
+   "probability": 50.0,
+   "input1": "[molten_metal]",
+   "input2": "[water]",
+   "output1": "metal_sand",
+   "output2": "steam",
+   "fast": false,
+   "explosion": 0.0,
+   "stage": "2",
+   "_unverified": {},
+   "_sources": {
+    "all": "materials.xml Reaction"
+   }
+  },
+  {
+   "id": "r216",
+   "probability": 50.0,
+   "input1": "gold_molten",
+   "input2": "[frozen]",
+   "output1": "gold",
+   "output2": "[frozen]",
+   "fast": false,
+   "explosion": 0.0,
+   "stage": "2",
+   "_unverified": {},
+   "_sources": {
+    "all": "materials.xml Reaction"
+   }
+  },
+  {
+   "id": "r217",
+   "probability": 50.0,
+   "input1": "silver_molten",
+   "input2": "[frozen]",
+   "output1": "silver",
+   "output2": "[frozen]",
+   "fast": false,
+   "explosion": 0.0,
+   "stage": "2",
+   "_unverified": {},
+   "_sources": {
+    "all": "materials.xml Reaction"
+   }
+  },
+  {
+   "id": "r218",
+   "probability": 50.0,
+   "input1": "copper_molten",
+   "input2": "[frozen]",
+   "output1": "copper",
+   "output2": "[frozen]",
+   "fast": false,
+   "explosion": 0.0,
+   "stage": "2",
+   "_unverified": {},
+   "_sources": {
+    "all": "materials.xml Reaction"
+   }
+  },
+  {
+   "id": "r219",
+   "probability": 50.0,
+   "input1": "brass_molten",
+   "input2": "[frozen]",
+   "output1": "brass",
+   "output2": "[frozen]",
+   "fast": false,
+   "explosion": 0.0,
+   "stage": "2",
+   "_unverified": {},
+   "_sources": {
+    "all": "materials.xml Reaction"
+   }
+  },
+  {
+   "id": "r220",
+   "probability": 50.0,
+   "input1": "steel_molten",
+   "input2": "[frozen]",
+   "output1": "steel_sand",
+   "output2": "[frozen]",
+   "fast": false,
+   "explosion": 0.0,
+   "stage": "2",
+   "_unverified": {},
+   "_sources": {
+    "all": "materials.xml Reaction"
+   }
+  },
+  {
+   "id": "r221",
+   "probability": 50.0,
+   "input1": "wax_molten",
+   "input2": "[frozen]",
+   "output1": "wax",
+   "output2": "[frozen]",
+   "fast": false,
+   "explosion": 0.0,
+   "stage": "2",
+   "_unverified": {},
+   "_sources": {
+    "all": "materials.xml Reaction"
+   }
+  },
+  {
+   "id": "r222",
+   "probability": 30.0,
+   "input1": "[meltable_metal_generic]",
+   "input2": "[fire_strong]",
+   "output1": "metal_sand_molten",
+   "output2": "[fire_strong]",
+   "fast": false,
+   "explosion": 0.0,
+   "stage": "2",
+   "_unverified": {},
+   "_sources": {
+    "all": "materials.xml Reaction"
+   }
+  },
+  {
+   "id": "r223",
+   "probability": 30.0,
+   "input1": "[meltable_metal_generic]",
+   "input2": "[lava]",
+   "output1": "metal_sand_molten",
+   "output2": "[lava]",
+   "fast": false,
+   "explosion": 0.0,
+   "stage": "2",
+   "_unverified": {},
+   "_sources": {
+    "all": "materials.xml Reaction"
+   }
+  },
+  {
+   "id": "r224",
+   "probability": 10.0,
+   "input1": "acid_gas_static",
+   "input2": "air",
+   "output1": "acid_gas",
+   "output2": "air",
+   "fast": false,
+   "explosion": 0.0,
+   "stage": "2",
+   "_unverified": {},
+   "_sources": {
+    "all": "materials.xml Reaction"
+   }
+  },
+  {
+   "id": "r225",
+   "probability": 50.0,
+   "input1": "diamond",
+   "input2": "magic_liquid_random_polymorph",
+   "output1": "silver",
+   "output2": "smoke",
+   "fast": false,
+   "explosion": 0.0,
+   "stage": "2",
+   "_unverified": {},
+   "_sources": {
+    "all": "materials.xml Reaction"
+   }
+  },
+  {
+   "id": "r226",
+   "probability": 50.0,
+   "input1": "gold",
+   "input2": "magic_liquid_random_polymorph",
+   "output1": "silver",
+   "output2": "smoke",
+   "fast": false,
+   "explosion": 0.0,
+   "stage": "2",
+   "_unverified": {},
+   "_sources": {
+    "all": "materials.xml Reaction"
+   }
+  },
+  {
+   "id": "r227",
+   "probability": 50.0,
+   "input1": "silver",
+   "input2": "magic_liquid_polymorph",
+   "output1": "copper",
+   "output2": "smoke",
+   "fast": false,
+   "explosion": 0.0,
+   "stage": "2",
+   "_unverified": {},
+   "_sources": {
+    "all": "materials.xml Reaction"
+   }
+  },
+  {
+   "id": "r228",
+   "probability": 50.0,
+   "input1": "copper",
+   "input2": "magic_liquid_teleportation",
+   "output1": "brass",
+   "output2": "smoke",
+   "fast": false,
+   "explosion": 0.0,
+   "stage": "2",
+   "_unverified": {},
+   "_sources": {
+    "all": "materials.xml Reaction"
+   }
+  },
+  {
+   "id": "r229",
+   "probability": 50.0,
+   "input1": "brass",
+   "input2": "magic_liquid_unstable_teleportation",
+   "output1": "metal_sand",
+   "output2": "smoke",
+   "fast": false,
+   "explosion": 0.0,
+   "stage": "2",
+   "_unverified": {},
+   "_sources": {
+    "all": "materials.xml Reaction"
+   }
+  },
+  {
+   "id": "r230",
+   "probability": 70.0,
+   "input1": "magic_liquid_teleportation",
+   "input2": "[lava]",
+   "output1": "blood_cold_vapour",
+   "output2": "[lava]",
+   "fast": false,
+   "explosion": 0.0,
+   "stage": "2",
+   "_unverified": {},
+   "_sources": {
+    "all": "materials.xml Reaction"
+   }
+  },
+  {
+   "id": "r231",
+   "probability": 70.0,
+   "input1": "magic_liquid_unstable_teleportation",
+   "input2": "[lava]",
+   "output1": "blood_cold_vapour",
+   "output2": "[lava]",
+   "fast": false,
+   "explosion": 0.0,
+   "stage": "2",
+   "_unverified": {},
+   "_sources": {
+    "all": "materials.xml Reaction"
+   }
+  },
+  {
+   "id": "r232",
+   "probability": 10.0,
+   "input1": "blood",
+   "input2": "poison",
+   "output1": "slime",
+   "output2": "smoke",
+   "fast": false,
+   "explosion": 0.0,
+   "stage": "2",
+   "_unverified": {},
+   "_sources": {
+    "all": "materials.xml Reaction"
+   }
+  },
+  {
+   "id": "r233",
+   "probability": 10.0,
+   "input1": "blood",
+   "input2": "poison_gas",
+   "output1": "slime",
+   "output2": "smoke",
+   "fast": false,
+   "explosion": 0.0,
+   "stage": "2",
+   "_unverified": {},
+   "_sources": {
+    "all": "materials.xml Reaction"
+   }
+  },
+  {
+   "id": "r234",
+   "probability": 100.0,
+   "input1": "copper",
+   "input2": "brass",
+   "output1": "silver",
+   "output2": "smoke",
+   "fast": false,
+   "explosion": 0.0,
+   "stage": "2",
+   "_unverified": {},
+   "_sources": {
+    "all": "materials.xml Reaction"
+   }
+  },
+  {
+   "id": "r235",
+   "probability": 100.0,
+   "input1": "silver",
+   "input2": "copper",
+   "output1": "diamond",
+   "output2": "smoke",
+   "fast": false,
+   "explosion": 0.0,
+   "stage": "2",
+   "_unverified": {},
+   "_sources": {
+    "all": "materials.xml Reaction"
+   }
+  },
+  {
+   "id": "r236",
+   "probability": 100.0,
+   "input1": "diamond",
+   "input2": "silver",
+   "output1": "purifying_powder",
+   "output2": "smoke",
+   "fast": false,
+   "explosion": 0.0,
+   "stage": "2",
+   "_unverified": {},
+   "_sources": {
+    "all": "materials.xml Reaction"
+   }
+  },
+  {
+   "id": "r237",
+   "probability": 100.0,
+   "input1": "diamond",
+   "input2": "magic_liquid_random_polymorph",
+   "output1": "void_liquid",
+   "output2": "void_liquid",
+   "fast": false,
+   "explosion": 0.0,
+   "stage": "2",
+   "_unverified": {},
+   "_sources": {
+    "all": "materials.xml Reaction"
+   }
+  },
+  {
+   "id": "r238",
+   "probability": 100.0,
+   "input1": "void_liquid",
+   "input2": "radioactive_liquid",
+   "output1": "void_liquid",
+   "output2": "void_liquid",
+   "fast": false,
+   "explosion": 0.0,
+   "stage": "2",
+   "_unverified": {},
+   "_sources": {
+    "all": "materials.xml Reaction"
+   }
+  },
+  {
+   "id": "r239",
+   "probability": 100.0,
+   "input1": "void_liquid",
+   "input2": "[fungus]",
+   "output1": "void_liquid",
+   "output2": "void_liquid",
+   "fast": false,
+   "explosion": 0.0,
+   "stage": "2",
+   "_unverified": {},
+   "_sources": {
+    "all": "materials.xml Reaction"
+   }
+  },
+  {
+   "id": "r240",
+   "probability": 100.0,
+   "input1": "mimic_liquid",
+   "input2": "[any_liquid]",
+   "output1": "[any_liquid]",
+   "output2": "[any_liquid]",
+   "fast": false,
+   "explosion": 0.0,
+   "stage": "2",
+   "_unverified": {},
+   "_sources": {
+    "all": "materials.xml Reaction"
+   }
+  },
+  {
+   "id": "r241",
+   "probability": 50.0,
+   "input1": "meat",
+   "input2": "poison",
+   "output1": "rotten_meat",
+   "output2": "poison",
+   "fast": false,
+   "explosion": 0.0,
+   "stage": "2",
+   "_unverified": {},
+   "_sources": {
+    "all": "materials.xml Reaction"
+   }
+  },
+  {
+   "id": "r242",
+   "probability": 100.0,
+   "input1": "purifying_powder",
+   "input2": "lava",
+   "output1": "gunpowder_unstable",
+   "output2": "gunpowder_unstable",
+   "fast": false,
+   "explosion": 0.0,
+   "stage": "2",
+   "_unverified": {},
+   "_sources": {
+    "all": "materials.xml Reaction"
+   }
+  },
+  {
+   "id": "r243",
+   "probability": 80.0,
+   "input1": "pus",
+   "input2": "water",
+   "output1": "pus",
+   "output2": "pus",
+   "fast": false,
+   "explosion": 0.0,
+   "stage": "2",
+   "_unverified": {},
+   "_sources": {
+    "all": "materials.xml Reaction"
+   }
+  },
+  {
+   "id": "r244",
+   "probability": 80.0,
+   "input1": "pus",
+   "input2": "radioactive_liquid",
+   "output1": "pus",
+   "output2": "pus",
+   "fast": false,
+   "explosion": 0.0,
+   "stage": "2",
+   "_unverified": {},
+   "_sources": {
+    "all": "materials.xml Reaction"
+   }
+  },
+  {
+   "id": "r245",
+   "probability": 40.0,
+   "input1": "pus",
+   "input2": "[fungus]",
+   "output1": "fungi",
+   "output2": "fungi",
+   "fast": false,
+   "explosion": 0.0,
+   "stage": "2",
+   "_unverified": {},
+   "_sources": {
+    "all": "materials.xml Reaction"
+   }
+  },
+  {
+   "id": "r246",
+   "probability": 20.0,
+   "input1": "pus",
+   "input2": "[gold]",
+   "output1": "pus",
+   "output2": "smoke",
+   "fast": false,
+   "explosion": 0.0,
+   "stage": "2",
+   "_unverified": {},
+   "_sources": {
+    "all": "materials.xml Reaction"
+   }
+  },
+  {
+   "id": "r247",
+   "probability": 20.0,
+   "input1": "pus",
+   "input2": "silver",
+   "output1": "pus",
+   "output2": "smoke",
+   "fast": false,
+   "explosion": 0.0,
+   "stage": "2",
+   "_unverified": {},
+   "_sources": {
+    "all": "materials.xml Reaction"
+   }
+  },
+  {
+   "id": "r248",
+   "probability": 20.0,
+   "input1": "pus",
+   "input2": "copper",
+   "output1": "pus",
+   "output2": "smoke",
+   "fast": false,
+   "explosion": 0.0,
+   "stage": "2",
+   "_unverified": {},
+   "_sources": {
+    "all": "materials.xml Reaction"
+   }
+  },
+  {
+   "id": "r249",
+   "probability": 20.0,
+   "input1": "pus",
+   "input2": "brass",
+   "output1": "pus",
+   "output2": "smoke",
+   "fast": false,
+   "explosion": 0.0,
+   "stage": "2",
+   "_unverified": {},
+   "_sources": {
+    "all": "materials.xml Reaction"
+   }
+  },
+  {
+   "id": "r250",
+   "probability": 10.0,
+   "input1": "pus",
+   "input2": "aluminium",
+   "output1": "pus",
+   "output2": "smoke",
+   "fast": false,
+   "explosion": 0.0,
+   "stage": "2",
+   "_unverified": {},
+   "_sources": {
+    "all": "materials.xml Reaction"
+   }
+  },
+  {
+   "id": "r251",
+   "probability": 80.0,
+   "input1": "pus",
+   "input2": "grass",
+   "output1": "pus",
+   "output2": "smoke",
+   "fast": false,
+   "explosion": 0.0,
+   "stage": "2",
+   "_unverified": {},
+   "_sources": {
+    "all": "materials.xml Reaction"
+   }
+  },
+  {
+   "id": "r252",
+   "probability": 80.0,
+   "input1": "pus",
+   "input2": "sand_static_rainforest",
+   "output1": "pus",
+   "output2": "coal_static",
+   "fast": false,
+   "explosion": 0.0,
+   "stage": "2",
+   "_unverified": {},
+   "_sources": {
+    "all": "materials.xml Reaction"
+   }
+  },
+  {
+   "id": "r253",
+   "probability": 80.0,
+   "input1": "pus",
+   "input2": "sand_static_rainforest_dark",
+   "output1": "pus",
+   "output2": "coal_static",
+   "fast": false,
+   "explosion": 0.0,
+   "stage": "2",
+   "_unverified": {},
+   "_sources": {
+    "all": "materials.xml Reaction"
+   }
+  },
+  {
+   "id": "r254",
+   "probability": 80.0,
+   "input1": "pus",
+   "input2": "soil_lush",
+   "output1": "pus",
+   "output2": "coal",
+   "fast": false,
+   "explosion": 0.0,
+   "stage": "2",
+   "_unverified": {},
+   "_sources": {
+    "all": "materials.xml Reaction"
+   }
+  },
+  {
+   "id": "r255",
+   "probability": 80.0,
+   "input1": "pus",
+   "input2": "soil_lush_dark",
+   "output1": "pus",
+   "output2": "coal",
+   "fast": false,
+   "explosion": 0.0,
+   "stage": "2",
+   "_unverified": {},
+   "_sources": {
+    "all": "materials.xml Reaction"
+   }
+  },
+  {
+   "id": "r256",
+   "probability": 80.0,
+   "input1": "pus",
+   "input2": "urine",
+   "output1": "magic_liquid",
+   "output2": "magic_liquid",
+   "fast": false,
+   "explosion": 0.0,
+   "stage": "2",
+   "_unverified": {},
+   "_sources": {
+    "all": "materials.xml Reaction"
+   }
+  },
+  {
+   "id": "r257",
+   "probability": 10.0,
+   "input1": "just_death",
+   "input2": "air",
+   "output1": "air",
+   "output2": "air",
+   "fast": false,
+   "explosion": 0.0,
+   "stage": "2",
+   "_unverified": {},
+   "_sources": {
+    "all": "materials.xml Reaction"
+   }
+  },
+  {
+   "id": "r258",
+   "probability": 80.0,
+   "input1": "grass",
+   "input2": "magic_liquid_hp_regeneration",
+   "output1": "grass_holy",
+   "output2": "air",
+   "fast": false,
+   "explosion": 0.0,
+   "stage": "2",
+   "_unverified": {},
+   "_sources": {
+    "all": "materials.xml Reaction"
+   }
+  },
+  {
+   "id": "r259",
+   "probability": 80.0,
+   "input1": "grass_holy",
+   "input2": "urine",
+   "output1": "grass",
+   "output2": "magic_gas_hp_regeneration",
+   "fast": false,
+   "explosion": 0.0,
+   "stage": "2",
+   "_unverified": {},
+   "_sources": {
+    "all": "materials.xml Reaction"
+   }
+  }
+ ]
+}

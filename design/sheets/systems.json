@@ -157,6 +157,18 @@
    "_unverified": {}
   },
   {
+   "id": "noita_status",
+   "description": "Stage 2: Noita status effects (sheet status_effects) on the player: Noita's icon and name after Terraria's buff icons, effects run by our code (Terraria has no room for new buffs). Noita fire and poison from enemy shots and burning tiles use them too.",
+   "stage": "2",
+   "hooks": [
+    "player_buffs",
+    "player_liferegen",
+    "buffs_draw"
+   ],
+   "code": "src/Terranoita/Physics/Status.cs",
+   "_unverified": {}
+  },
+  {
    "id": "wand_slots",
    "description": "Stage 3: four wand slots next to the Terraria inventory, Noita spell editing.",
    "stage": "3",

@@ -83,6 +83,7 @@ namespace Terranoita.Game.Physics
             {
                 Falling.Clear();
                 Fire.Clear();
+                Status.Clear();
                 if (On)
                     Placed.Load();
             }
