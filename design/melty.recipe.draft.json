@@ -1,0 +1,44 @@
+{
+  "schemaVersion": 1,
+  "mode": "installed",
+  "games": [
+    {
+      "slug": "terraria",
+      "role": "primary",
+      "version": ">=1.4.5"
+    },
+    {
+      "slug": "noita",
+      "role": "secondary"
+    }
+  ],
+  "components": [
+    {
+      "id": "main",
+      "fileName": "terranoita-*.zip",
+      "label": "Terranoita",
+      "kind": "main",
+      "required": true
+    }
+  ],
+  "requirements": [],
+  "mappings": [
+    {
+      "component": "main",
+      "from": "",
+      "to": "{game}"
+    }
+  ],
+  "launch": {
+    "kind": "exe",
+    "path": "{game}/Terranoita.exe",
+    "args": [
+      "--noita-dir",
+      "{game:noita}"
+    ],
+    "cwd": "{game}"
+  },
+  "runtimeData": [
+    "{localappdata}/Terranoita"
+  ]
+}

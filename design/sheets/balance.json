@@ -1,0 +1,81 @@
+{
+ "sheet": "balance",
+ "description": "Progression tiers: how Noita numbers become Terraria numbers.",
+ "key": "id",
+ "columns": {
+  "id": {
+   "type": "string",
+   "desc": "Tier id."
+  },
+  "meaning": {
+   "type": "string",
+   "desc": "Where in Terraria's progression."
+  },
+  "hp_mult": {
+   "type": "number",
+   "desc": "Terraria life = noita_hp x this."
+  },
+  "dmg_mult": {
+   "type": "number",
+   "desc": "Terraria damage = Noita damage x this."
+  },
+  "defense": {
+   "type": "int",
+   "desc": "Terraria defense."
+  },
+  "spawn_weight": {
+   "type": "number",
+   "desc": "Relative spawn weight vs vanilla enemies."
+  }
+ },
+ "rows": [
+  {
+   "id": "t1",
+   "meaning": "Pre-hardmode, start of the game",
+   "hp_mult": 6.0,
+   "dmg_mult": 1.5,
+   "defense": 2,
+   "spawn_weight": 1.0,
+   "_unverified": {
+    "hp_mult": "playtest",
+    "dmg_mult": "playtest"
+   }
+  },
+  {
+   "id": "t2",
+   "meaning": "Pre-hardmode, deeper layers",
+   "hp_mult": 10.0,
+   "dmg_mult": 2.0,
+   "defense": 6,
+   "spawn_weight": 1.0,
+   "_unverified": {
+    "hp_mult": "playtest",
+    "dmg_mult": "playtest"
+   }
+  },
+  {
+   "id": "t3",
+   "meaning": "Hardmode",
+   "hp_mult": 25.0,
+   "dmg_mult": 3.5,
+   "defense": 20,
+   "spawn_weight": 0.9,
+   "_unverified": {
+    "hp_mult": "playtest",
+    "dmg_mult": "playtest"
+   }
+  },
+  {
+   "id": "t4",
+   "meaning": "After Plantera",
+   "hp_mult": 45.0,
+   "dmg_mult": 5.0,
+   "defense": 35,
+   "spawn_weight": 0.8,
+   "_unverified": {
+    "hp_mult": "playtest",
+    "dmg_mult": "playtest"
+   }
+  }
+ ]
+}

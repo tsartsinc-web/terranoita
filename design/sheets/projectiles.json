@@ -1,0 +1,2408 @@
+{
+ "sheet": "projectiles",
+ "description": "Projectiles enemies fire. Stage 3 reuses them as spells.",
+ "key": "id",
+ "columns": {
+  "id": {
+   "type": "string",
+   "desc": "Projectile id."
+  },
+  "name_en": {
+   "type": "string",
+   "desc": "Name."
+  },
+  "used_by": {
+   "type": "ref[]",
+   "ref": "enemies",
+   "desc": "Enemies that fire it."
+  },
+  "noita_file": {
+   "type": "string",
+   "desc": "Projectile entity XML in data.wak (from the enemy's attack_ranged_entity_file)."
+  },
+  "sprite": {
+   "type": "string",
+   "desc": "Sprite (png or sprite xml) in data.wak."
+  },
+  "speed": {
+   "type": "number",
+   "desc": "Launch speed, Terraria pixels per frame."
+  },
+  "gravity": {
+   "type": "number",
+   "desc": "Gravity, pixels per frame^2 (0 = straight)."
+  },
+  "lifetime_frames": {
+   "type": "int",
+   "desc": "Frames before it expires."
+  },
+  "explosion_radius": {
+   "type": "number",
+   "desc": "Explosion radius in tiles (0 = none)."
+  },
+  "effect": {
+   "type": "enum",
+   "values": [
+    "none",
+    "acid",
+    "fire",
+    "ice",
+    "electric",
+    "poison",
+    "polymorph",
+    "teleport",
+    "blind",
+    "glue",
+    "heal",
+    "explosive",
+    "light",
+    "neutralize",
+    "swap"
+   ],
+   "desc": "Status or special effect on hit."
+  },
+  "terrain": {
+   "type": "enum",
+   "values": [
+    "none",
+    "dig",
+    "melt",
+    "burn",
+    "explode"
+   ],
+   "desc": "What it does to blocks (stage 2 physics)."
+  },
+  "stage": {
+   "type": "enum",
+   "values": [
+    "1a",
+    "1b",
+    "1c"
+   ],
+   "desc": "Earliest stage that needs it."
+  }
+ },
+ "rows": [
+  {
+   "id": "acid_ball",
+   "name_en": "Acid Ball projectile",
+   "used_by": [
+    "acidshooter",
+    "acidshooter_weak"
+   ],
+   "noita_file": null,
+   "sprite": null,
+   "speed": null,
+   "gravity": null,
+   "lifetime_frames": null,
+   "explosion_radius": null,
+   "effect": "acid",
+   "terrain": "none",
+   "stage": "1a",
+   "_unverified": {
+    "effect": "guessed from the name; confirm in the projectile's entity XML"
+   }
+  },
+  {
+   "id": "acid_spit",
+   "name_en": "Acid spit",
+   "used_by": [
+    "trap_acid"
+   ],
+   "noita_file": null,
+   "sprite": null,
+   "speed": null,
+   "gravity": null,
+   "lifetime_frames": null,
+   "explosion_radius": null,
+   "effect": "acid",
+   "terrain": "none",
+   "stage": "1b",
+   "_unverified": {
+    "effect": "guessed from the name; confirm in the projectile's entity XML"
+   }
+  },
+  {
+   "id": "acid_spray",
+   "name_en": "Spits a small spray of Acid",
+   "used_by": [
+    "ant"
+   ],
+   "noita_file": null,
+   "sprite": null,
+   "speed": null,
+   "gravity": null,
+   "lifetime_frames": null,
+   "explosion_radius": null,
+   "effect": "acid",
+   "terrain": "none",
+   "stage": "1b",
+   "_unverified": {
+    "effect": "guessed from the name; confirm in the projectile's entity XML"
+   }
+  },
+  {
+   "id": "arrow",
+   "name_en": "Arrow",
+   "used_by": [
+    "trap_arrow"
+   ],
+   "noita_file": null,
+   "sprite": null,
+   "speed": null,
+   "gravity": null,
+   "lifetime_frames": null,
+   "explosion_radius": null,
+   "effect": "none",
+   "terrain": "none",
+   "stage": "1b",
+   "_unverified": {
+    "effect": "guessed from the name; confirm in the projectile's entity XML"
+   }
+  },
+  {
+   "id": "ball_lightning",
+   "name_en": "Ball Lightning",
+   "used_by": [
+    "thunderskull"
+   ],
+   "noita_file": null,
+   "sprite": null,
+   "speed": null,
+   "gravity": null,
+   "lifetime_frames": null,
+   "explosion_radius": null,
+   "effect": "electric",
+   "terrain": "none",
+   "stage": "1b",
+   "_unverified": {
+    "effect": "guessed from the name; confirm in the projectile's entity XML"
+   }
+  },
+  {
+   "id": "big_green_orb",
+   "name_en": "Big green orb",
+   "used_by": [
+    "fish_giga"
+   ],
+   "noita_file": null,
+   "sprite": null,
+   "speed": null,
+   "gravity": null,
+   "lifetime_frames": null,
+   "explosion_radius": null,
+   "effect": "none",
+   "terrain": "none",
+   "stage": "1c",
+   "_unverified": {
+    "effect": "guessed from the name; confirm in the projectile's entity XML"
+   }
+  },
+  {
+   "id": "blinding",
+   "name_en": "Blinding projectile",
+   "used_by": [
+    "parallel_tentacles",
+    "boss_pit",
+    "wizard_dark"
+   ],
+   "noita_file": null,
+   "sprite": null,
+   "speed": null,
+   "gravity": null,
+   "lifetime_frames": null,
+   "explosion_radius": null,
+   "effect": "blind",
+   "terrain": "none",
+   "stage": "1b",
+   "_unverified": {
+    "effect": "guessed from the name; confirm in the projectile's entity XML"
+   }
+  },
+  {
+   "id": "bloodcrystal_physics_shot",
+   "name_en": "Blood Crystal's shot",
+   "used_by": [
+    "bloodcrystal_physics"
+   ],
+   "noita_file": null,
+   "sprite": null,
+   "speed": null,
+   "gravity": null,
+   "lifetime_frames": null,
+   "explosion_radius": null,
+   "effect": "none",
+   "terrain": "none",
+   "stage": "1b",
+   "_unverified": {
+    "effect": "guessed from the name; confirm in the projectile's entity XML"
+   }
+  },
+  {
+   "id": "blue_concentrated_light",
+   "name_en": "Blue Concentrated Light",
+   "used_by": [
+    "skycrystal_physics"
+   ],
+   "noita_file": null,
+   "sprite": null,
+   "speed": null,
+   "gravity": null,
+   "lifetime_frames": null,
+   "explosion_radius": null,
+   "effect": "light",
+   "terrain": "none",
+   "stage": "1b",
+   "_unverified": {
+    "effect": "guessed from the name; confirm in the projectile's entity XML"
+   }
+  },
+  {
+   "id": "blue_orb",
+   "name_en": "Blue orb",
+   "used_by": [
+    "islandspirit"
+   ],
+   "noita_file": null,
+   "sprite": null,
+   "speed": null,
+   "gravity": null,
+   "lifetime_frames": null,
+   "explosion_radius": null,
+   "effect": "none",
+   "terrain": "none",
+   "stage": "1c",
+   "_unverified": {
+    "effect": "guessed from the name; confirm in the projectile's entity XML"
+   }
+  },
+  {
+   "id": "boss_centipede_minion_shot",
+   "name_en": "Three-Eye's Helper's shot",
+   "used_by": [
+    "boss_centipede_minion"
+   ],
+   "noita_file": null,
+   "sprite": null,
+   "speed": null,
+   "gravity": null,
+   "lifetime_frames": null,
+   "explosion_radius": null,
+   "effect": "none",
+   "terrain": "none",
+   "stage": "1c",
+   "_unverified": {
+    "effect": "guessed from the name; confirm in the projectile's entity XML"
+   }
+  },
+  {
+   "id": "boss_limbs_shot",
+   "name_en": "Three-Eye's Legs's shot",
+   "used_by": [
+    "boss_limbs"
+   ],
+   "noita_file": null,
+   "sprite": null,
+   "speed": null,
+   "gravity": null,
+   "lifetime_frames": null,
+   "explosion_radius": null,
+   "effect": "none",
+   "terrain": "none",
+   "stage": "1c",
+   "_unverified": {
+    "effect": "guessed from the name; confirm in the projectile's entity XML"
+   }
+  },
+  {
+   "id": "bouncing_burst",
+   "name_en": "Bouncing Burst",
+   "used_by": [
+    "parallel_tentacles",
+    "boss_pit"
+   ],
+   "noita_file": null,
+   "sprite": null,
+   "speed": null,
+   "gravity": null,
+   "lifetime_frames": null,
+   "explosion_radius": null,
+   "effect": "none",
+   "terrain": "none",
+   "stage": "1c",
+   "_unverified": {
+    "effect": "guessed from the name; confirm in the projectile's entity XML"
+   }
+  },
+  {
+   "id": "chaotic_polymorphine",
+   "name_en": "Chaotic Polymorphine projectile",
+   "used_by": [
+    "necromancer",
+    "skygazer"
+   ],
+   "noita_file": null,
+   "sprite": null,
+   "speed": null,
+   "gravity": null,
+   "lifetime_frames": null,
+   "explosion_radius": null,
+   "effect": "polymorph",
+   "terrain": "none",
+   "stage": "1b",
+   "_unverified": {
+    "effect": "guessed from the name; confirm in the projectile's entity XML"
+   }
+  },
+  {
+   "id": "circular_orb",
+   "name_en": "Circular orb",
+   "used_by": [
+    "boss_centipede"
+   ],
+   "noita_file": null,
+   "sprite": null,
+   "speed": null,
+   "gravity": null,
+   "lifetime_frames": null,
+   "explosion_radius": null,
+   "effect": "none",
+   "terrain": "none",
+   "stage": "1c",
+   "_unverified": {
+    "effect": "guessed from the name; confirm in the projectile's entity XML"
+   }
+  },
+  {
+   "id": "cocktail",
+   "name_en": "Cocktail Projectile",
+   "used_by": [
+    "miner_fire"
+   ],
+   "noita_file": null,
+   "sprite": null,
+   "speed": null,
+   "gravity": null,
+   "lifetime_frames": null,
+   "explosion_radius": null,
+   "effect": "fire",
+   "terrain": "none",
+   "stage": "1b",
+   "_unverified": {
+    "effect": "guessed from the name; confirm in the projectile's entity XML"
+   }
+  },
+  {
+   "id": "crystal_physics_shot",
+   "name_en": "Cursed Crystal's shot",
+   "used_by": [
+    "crystal_physics"
+   ],
+   "noita_file": null,
+   "sprite": null,
+   "speed": null,
+   "gravity": null,
+   "lifetime_frames": null,
+   "explosion_radius": null,
+   "effect": "none",
+   "terrain": "none",
+   "stage": "1b",
+   "_unverified": {
+    "effect": "guessed from the name; confirm in the projectile's entity XML"
+   }
+  },
+  {
+   "id": "double_accelerating_bolts",
+   "name_en": "Double accelerating bolts x 2",
+   "used_by": [
+    "necromancer_super"
+   ],
+   "noita_file": null,
+   "sprite": null,
+   "speed": null,
+   "gravity": null,
+   "lifetime_frames": null,
+   "explosion_radius": null,
+   "effect": "none",
+   "terrain": "none",
+   "stage": "1c",
+   "_unverified": {
+    "effect": "guessed from the name; confirm in the projectile's entity XML"
+   }
+  },
+  {
+   "id": "drone_physics_shot",
+   "name_en": "Drone's shot",
+   "used_by": [
+    "drone_physics"
+   ],
+   "noita_file": null,
+   "sprite": null,
+   "speed": null,
+   "gravity": null,
+   "lifetime_frames": null,
+   "explosion_radius": null,
+   "effect": "none",
+   "terrain": "none",
+   "stage": "1b",
+   "_unverified": {
+    "effect": "guessed from the name; confirm in the projectile's entity XML"
+   }
+  },
+  {
+   "id": "electric_spark",
+   "name_en": "Electric spark",
+   "used_by": [
+    "trap_thunder"
+   ],
+   "noita_file": null,
+   "sprite": null,
+   "speed": null,
+   "gravity": null,
+   "lifetime_frames": null,
+   "explosion_radius": null,
+   "effect": "electric",
+   "terrain": "none",
+   "stage": "1b",
+   "_unverified": {
+    "effect": "guessed from the name; confirm in the projectile's entity XML"
+   }
+  },
+  {
+   "id": "energy_orb",
+   "name_en": "Energy Orb(first projectile)",
+   "used_by": [
+    "phantom_b",
+    "phantom_a"
+   ],
+   "noita_file": null,
+   "sprite": null,
+   "speed": null,
+   "gravity": null,
+   "lifetime_frames": null,
+   "explosion_radius": null,
+   "effect": "none",
+   "terrain": "none",
+   "stage": "1b",
+   "_unverified": {
+    "effect": "guessed from the name; confirm in the projectile's entity XML"
+   }
+  },
+  {
+   "id": "evergreen_seed",
+   "name_en": "Evergreen Seed projectile",
+   "used_by": [
+    "ultimate_killer",
+    "friend"
+   ],
+   "noita_file": null,
+   "sprite": null,
+   "speed": null,
+   "gravity": null,
+   "lifetime_frames": null,
+   "explosion_radius": null,
+   "effect": "none",
+   "terrain": "none",
+   "stage": "1b",
+   "_unverified": {
+    "effect": "guessed from the name; confirm in the projectile's entity XML"
+   }
+  },
+  {
+   "id": "explosive_homing",
+   "name_en": "Explosive homing projectile x 10",
+   "used_by": [
+    "shooterflower"
+   ],
+   "noita_file": null,
+   "sprite": null,
+   "speed": null,
+   "gravity": null,
+   "lifetime_frames": null,
+   "explosion_radius": null,
+   "effect": "none",
+   "terrain": "none",
+   "stage": "1b",
+   "_unverified": {
+    "effect": "guessed from the name; confirm in the projectile's entity XML"
+   }
+  },
+  {
+   "id": "explosive_orb",
+   "name_en": "Explosive orb",
+   "used_by": [
+    "boss_centipede"
+   ],
+   "noita_file": null,
+   "sprite": null,
+   "speed": null,
+   "gravity": null,
+   "lifetime_frames": null,
+   "explosion_radius": null,
+   "effect": "none",
+   "terrain": "none",
+   "stage": "1c",
+   "_unverified": {
+    "effect": "guessed from the name; confirm in the projectile's entity XML"
+   }
+  },
+  {
+   "id": "fire",
+   "name_en": "Fire",
+   "used_by": [
+    "trap_fire"
+   ],
+   "noita_file": null,
+   "sprite": null,
+   "speed": null,
+   "gravity": null,
+   "lifetime_frames": null,
+   "explosion_radius": null,
+   "effect": "fire",
+   "terrain": "none",
+   "stage": "1b",
+   "_unverified": {
+    "effect": "guessed from the name; confirm in the projectile's entity XML"
+   }
+  },
+  {
+   "id": "fire_breath",
+   "name_en": "Fire Breath",
+   "used_by": [
+    "boss_dragon"
+   ],
+   "noita_file": null,
+   "sprite": null,
+   "speed": null,
+   "gravity": null,
+   "lifetime_frames": null,
+   "explosion_radius": null,
+   "effect": "fire",
+   "terrain": "none",
+   "stage": "1c",
+   "_unverified": {
+    "effect": "guessed from the name; confirm in the projectile's entity XML"
+   }
+  },
+  {
+   "id": "fire_pillar",
+   "name_en": "Fire pillar",
+   "used_by": [
+    "boss_centipede"
+   ],
+   "noita_file": null,
+   "sprite": null,
+   "speed": null,
+   "gravity": null,
+   "lifetime_frames": null,
+   "explosion_radius": null,
+   "effect": "fire",
+   "terrain": "none",
+   "stage": "1c",
+   "_unverified": {
+    "effect": "guessed from the name; confirm in the projectile's entity XML"
+   }
+  },
+  {
+   "id": "fireball",
+   "name_en": "Fireball",
+   "used_by": [
+    "bigzombietorso",
+    "bigzombie"
+   ],
+   "noita_file": null,
+   "sprite": null,
+   "speed": null,
+   "gravity": null,
+   "lifetime_frames": null,
+   "explosion_radius": null,
+   "effect": "fire",
+   "terrain": "none",
+   "stage": "1b",
+   "_unverified": {
+    "effect": "guessed from the name; confirm in the projectile's entity XML"
+   }
+  },
+  {
+   "id": "firebolt",
+   "name_en": "Firebolt",
+   "used_by": [
+    "parallel_tentacles",
+    "boss_pit"
+   ],
+   "noita_file": null,
+   "sprite": null,
+   "speed": null,
+   "gravity": null,
+   "lifetime_frames": null,
+   "explosion_radius": null,
+   "effect": "fire",
+   "terrain": "none",
+   "stage": "1c",
+   "_unverified": {
+    "effect": "guessed from the name; confirm in the projectile's entity XML"
+   }
+  },
+  {
+   "id": "firebolt_like",
+   "name_en": "Firebolt-like projectile",
+   "used_by": [
+    "scavenger_grenade"
+   ],
+   "noita_file": null,
+   "sprite": null,
+   "speed": null,
+   "gravity": null,
+   "lifetime_frames": null,
+   "explosion_radius": null,
+   "effect": "fire",
+   "terrain": "none",
+   "stage": "1b",
+   "_unverified": {
+    "effect": "guessed from the name; confirm in the projectile's entity XML"
+   }
+  },
+  {
+   "id": "firebomb",
+   "name_en": "Firebomb",
+   "used_by": [
+    "firebug",
+    "bigfirebug"
+   ],
+   "noita_file": null,
+   "sprite": null,
+   "speed": null,
+   "gravity": null,
+   "lifetime_frames": null,
+   "explosion_radius": null,
+   "effect": "fire",
+   "terrain": "none",
+   "stage": "1b",
+   "_unverified": {
+    "effect": "guessed from the name; confirm in the projectile's entity XML"
+   }
+  },
+  {
+   "id": "flamethrower",
+   "name_en": "Flamethrower",
+   "used_by": [
+    "flamer"
+   ],
+   "noita_file": null,
+   "sprite": null,
+   "speed": null,
+   "gravity": null,
+   "lifetime_frames": null,
+   "explosion_radius": null,
+   "effect": "fire",
+   "terrain": "none",
+   "stage": "1b",
+   "_unverified": {
+    "effect": "guessed from the name; confirm in the projectile's entity XML"
+   }
+  },
+  {
+   "id": "freezing",
+   "name_en": "Freezing projectile",
+   "used_by": [
+    "ghost_crystal"
+   ],
+   "noita_file": null,
+   "sprite": null,
+   "speed": null,
+   "gravity": null,
+   "lifetime_frames": null,
+   "explosion_radius": null,
+   "effect": "ice",
+   "terrain": "none",
+   "stage": "1b",
+   "_unverified": {
+    "effect": "guessed from the name; confirm in the projectile's entity XML"
+   }
+  },
+  {
+   "id": "friend_hostile_shot",
+   "name_en": "Friend's shot",
+   "used_by": [
+    "friend_hostile"
+   ],
+   "noita_file": null,
+   "sprite": null,
+   "speed": null,
+   "gravity": null,
+   "lifetime_frames": null,
+   "explosion_radius": null,
+   "effect": "none",
+   "terrain": "none",
+   "stage": "1c",
+   "_unverified": {
+    "effect": "guessed from the name; confirm in the projectile's entity XML"
+   }
+  },
+  {
+   "id": "ghostly_fireball",
+   "name_en": "Ghostly Fireball",
+   "used_by": [
+    "firemage"
+   ],
+   "noita_file": null,
+   "sprite": null,
+   "speed": null,
+   "gravity": null,
+   "lifetime_frames": null,
+   "explosion_radius": null,
+   "effect": "fire",
+   "terrain": "none",
+   "stage": "1b",
+   "_unverified": {
+    "effect": "guessed from the name; confirm in the projectile's entity XML"
+   }
+  },
+  {
+   "id": "giant_firebolt",
+   "name_en": "Giant Firebolt",
+   "used_by": [
+    "parallel_tentacles",
+    "boss_pit"
+   ],
+   "noita_file": null,
+   "sprite": null,
+   "speed": null,
+   "gravity": null,
+   "lifetime_frames": null,
+   "explosion_radius": null,
+   "effect": "fire",
+   "terrain": "none",
+   "stage": "1c",
+   "_unverified": {
+    "effect": "guessed from the name; confirm in the projectile's entity XML"
+   }
+  },
+  {
+   "id": "giant_magic_missile",
+   "name_en": "Giant Magic Missile",
+   "used_by": [
+    "parallel_tentacles",
+    "boss_pit"
+   ],
+   "noita_file": null,
+   "sprite": null,
+   "speed": null,
+   "gravity": null,
+   "lifetime_frames": null,
+   "explosion_radius": null,
+   "effect": "explosive",
+   "terrain": "none",
+   "stage": "1c",
+   "_unverified": {
+    "effect": "guessed from the name; confirm in the projectile's entity XML"
+   }
+  },
+  {
+   "id": "glitter_bomb",
+   "name_en": "Throws Glitter Bombs",
+   "used_by": [
+    "goblin_bomb"
+   ],
+   "noita_file": null,
+   "sprite": null,
+   "speed": null,
+   "gravity": null,
+   "lifetime_frames": null,
+   "explosion_radius": null,
+   "effect": "explosive",
+   "terrain": "none",
+   "stage": "1b",
+   "_unverified": {
+    "effect": "guessed from the name; confirm in the projectile's entity XML"
+   }
+  },
+  {
+   "id": "glue_shot",
+   "name_en": "Glue Shot",
+   "used_by": [
+    "scavenger_glue"
+   ],
+   "noita_file": null,
+   "sprite": null,
+   "speed": null,
+   "gravity": null,
+   "lifetime_frames": null,
+   "explosion_radius": null,
+   "effect": "glue",
+   "terrain": "none",
+   "stage": "1b",
+   "_unverified": {
+    "effect": "guessed from the name; confirm in the projectile's entity XML"
+   }
+  },
+  {
+   "id": "greater_short_bubble",
+   "name_en": "Greater short bubble",
+   "used_by": [
+    "necromancer_super"
+   ],
+   "noita_file": null,
+   "sprite": null,
+   "speed": null,
+   "gravity": null,
+   "lifetime_frames": null,
+   "explosion_radius": null,
+   "effect": "none",
+   "terrain": "none",
+   "stage": "1c",
+   "_unverified": {
+    "effect": "guessed from the name; confirm in the projectile's entity XML"
+   }
+  },
+  {
+   "id": "green_meteor",
+   "name_en": "Green Meteor",
+   "used_by": [
+    "boss_wizard"
+   ],
+   "noita_file": null,
+   "sprite": null,
+   "speed": null,
+   "gravity": null,
+   "lifetime_frames": null,
+   "explosion_radius": null,
+   "effect": "none",
+   "terrain": "none",
+   "stage": "1c",
+   "_unverified": {
+    "effect": "guessed from the name; confirm in the projectile's entity XML"
+   }
+  },
+  {
+   "id": "green_orb",
+   "name_en": "Green Orb",
+   "used_by": [
+    "maggot_tiny",
+    "boss_dragon"
+   ],
+   "noita_file": null,
+   "sprite": null,
+   "speed": null,
+   "gravity": null,
+   "lifetime_frames": null,
+   "explosion_radius": null,
+   "effect": "none",
+   "terrain": "none",
+   "stage": "1c",
+   "_unverified": {
+    "effect": "guessed from the name; confirm in the projectile's entity XML"
+   }
+  },
+  {
+   "id": "green_radial_orb",
+   "name_en": "Green radial orb projectile",
+   "used_by": [
+    "statue_physics"
+   ],
+   "noita_file": null,
+   "sprite": null,
+   "speed": null,
+   "gravity": null,
+   "lifetime_frames": null,
+   "explosion_radius": null,
+   "effect": "none",
+   "terrain": "none",
+   "stage": "1b",
+   "_unverified": {
+    "effect": "guessed from the name; confirm in the projectile's entity XML"
+   }
+  },
+  {
+   "id": "grenade",
+   "name_en": "Grenade when close-range",
+   "used_by": [
+    "tank",
+    "tank_super"
+   ],
+   "noita_file": null,
+   "sprite": null,
+   "speed": null,
+   "gravity": null,
+   "lifetime_frames": null,
+   "explosion_radius": null,
+   "effect": "explosive",
+   "terrain": "none",
+   "stage": "1b",
+   "_unverified": {
+    "effect": "guessed from the name; confirm in the projectile's entity XML"
+   }
+  },
+  {
+   "id": "grenades",
+   "name_en": "Grenades x 2",
+   "used_by": [
+    "scavenger_leader"
+   ],
+   "noita_file": null,
+   "sprite": null,
+   "speed": null,
+   "gravity": null,
+   "lifetime_frames": null,
+   "explosion_radius": null,
+   "effect": "explosive",
+   "terrain": "none",
+   "stage": "1b",
+   "_unverified": {
+    "effect": "guessed from the name; confirm in the projectile's entity XML"
+   }
+  },
+  {
+   "id": "hidden_shot",
+   "name_en": "Spy's shot",
+   "used_by": [
+    "hidden"
+   ],
+   "noita_file": null,
+   "sprite": null,
+   "speed": null,
+   "gravity": null,
+   "lifetime_frames": null,
+   "explosion_radius": null,
+   "effect": "none",
+   "terrain": "none",
+   "stage": "1b",
+   "_unverified": {
+    "effect": "guessed from the name; confirm in the projectile's entity XML"
+   }
+  },
+  {
+   "id": "homing_orb",
+   "name_en": "Homing orb",
+   "used_by": [
+    "boss_centipede",
+    "boss_meat"
+   ],
+   "noita_file": null,
+   "sprite": null,
+   "speed": null,
+   "gravity": null,
+   "lifetime_frames": null,
+   "explosion_radius": null,
+   "effect": "none",
+   "terrain": "none",
+   "stage": "1c",
+   "_unverified": {
+    "effect": "guessed from the name; confirm in the projectile's entity XML"
+   }
+  },
+  {
+   "id": "homing_rocket",
+   "name_en": "Homing rocket",
+   "used_by": [
+    "tank_rocket"
+   ],
+   "noita_file": null,
+   "sprite": null,
+   "speed": null,
+   "gravity": null,
+   "lifetime_frames": null,
+   "explosion_radius": null,
+   "effect": "explosive",
+   "terrain": "none",
+   "stage": "1b",
+   "_unverified": {
+    "effect": "guessed from the name; confirm in the projectile's entity XML"
+   }
+  },
+  {
+   "id": "iceball",
+   "name_en": "Iceball",
+   "used_by": [
+    "iceskull",
+    "icemage",
+    "wizard_returner"
+   ],
+   "noita_file": null,
+   "sprite": null,
+   "speed": null,
+   "gravity": null,
+   "lifetime_frames": null,
+   "explosion_radius": null,
+   "effect": "ice",
+   "terrain": "none",
+   "stage": "1b",
+   "_unverified": {
+    "effect": "guessed from the name; confirm in the projectile's entity XML"
+   }
+  },
+  {
+   "id": "icethrower",
+   "name_en": "Icethrower",
+   "used_by": [
+    "icer"
+   ],
+   "noita_file": null,
+   "sprite": null,
+   "speed": null,
+   "gravity": null,
+   "lifetime_frames": null,
+   "explosion_radius": null,
+   "effect": "ice",
+   "terrain": "none",
+   "stage": "1b",
+   "_unverified": {
+    "effect": "guessed from the name; confirm in the projectile's entity XML"
+   }
+  },
+  {
+   "id": "intense_concentrated_light",
+   "name_en": "Intense Concentrated Light x 5 (purple halo)",
+   "used_by": [
+    "enlightened_alchemist",
+    "parallel_alchemist",
+    "boss_alchemist"
+   ],
+   "noita_file": null,
+   "sprite": null,
+   "speed": null,
+   "gravity": null,
+   "lifetime_frames": null,
+   "explosion_radius": null,
+   "effect": "light",
+   "terrain": "none",
+   "stage": "1b",
+   "_unverified": {
+    "effect": "guessed from the name; confirm in the projectile's entity XML"
+   }
+  },
+  {
+   "id": "intense_concentrated_light_variant",
+   "name_en": "Intense Concentrated Light variant x 7",
+   "used_by": [
+    "drone_lasership"
+   ],
+   "noita_file": null,
+   "sprite": null,
+   "speed": null,
+   "gravity": null,
+   "lifetime_frames": null,
+   "explosion_radius": null,
+   "effect": "light",
+   "terrain": "none",
+   "stage": "1b",
+   "_unverified": {
+    "effect": "guessed from the name; confirm in the projectile's entity XML"
+   }
+  },
+  {
+   "id": "large_firebolt",
+   "name_en": "Large Firebolt",
+   "used_by": [
+    "parallel_tentacles",
+    "boss_pit"
+   ],
+   "noita_file": null,
+   "sprite": null,
+   "speed": null,
+   "gravity": null,
+   "lifetime_frames": null,
+   "explosion_radius": null,
+   "effect": "fire",
+   "terrain": "none",
+   "stage": "1c",
+   "_unverified": {
+    "effect": "guessed from the name; confirm in the projectile's entity XML"
+   }
+  },
+  {
+   "id": "large_magic_missile",
+   "name_en": "Large Magic Missile",
+   "used_by": [
+    "parallel_tentacles",
+    "boss_pit"
+   ],
+   "noita_file": null,
+   "sprite": null,
+   "speed": null,
+   "gravity": null,
+   "lifetime_frames": null,
+   "explosion_radius": null,
+   "effect": "explosive",
+   "terrain": "none",
+   "stage": "1c",
+   "_unverified": {
+    "effect": "guessed from the name; confirm in the projectile's entity XML"
+   }
+  },
+  {
+   "id": "laser",
+   "name_en": "Laser projectile",
+   "used_by": [
+    "lasershooter",
+    "turret"
+   ],
+   "noita_file": null,
+   "sprite": null,
+   "speed": null,
+   "gravity": null,
+   "lifetime_frames": null,
+   "explosion_radius": null,
+   "effect": "light",
+   "terrain": "none",
+   "stage": "1b",
+   "_unverified": {
+    "effect": "guessed from the name; confirm in the projectile's entity XML"
+   }
+  },
+  {
+   "id": "laser_blasts",
+   "name_en": "Laser blasts",
+   "used_by": [
+    "tank_super"
+   ],
+   "noita_file": null,
+   "sprite": null,
+   "speed": null,
+   "gravity": null,
+   "lifetime_frames": null,
+   "explosion_radius": null,
+   "effect": "light",
+   "terrain": "none",
+   "stage": "1b",
+   "_unverified": {
+    "effect": "guessed from the name; confirm in the projectile's entity XML"
+   }
+  },
+  {
+   "id": "laser_spear",
+   "name_en": "Laser Spear",
+   "used_by": [
+    "spearbot"
+   ],
+   "noita_file": null,
+   "sprite": null,
+   "speed": null,
+   "gravity": null,
+   "lifetime_frames": null,
+   "explosion_radius": null,
+   "effect": "light",
+   "terrain": "none",
+   "stage": "1b",
+   "_unverified": {
+    "effect": "guessed from the name; confirm in the projectile's entity XML"
+   }
+  },
+  {
+   "id": "lava",
+   "name_en": "Lava projectile",
+   "used_by": [
+    "gazer"
+   ],
+   "noita_file": null,
+   "sprite": null,
+   "speed": null,
+   "gravity": null,
+   "lifetime_frames": null,
+   "explosion_radius": null,
+   "effect": "fire",
+   "terrain": "none",
+   "stage": "1b",
+   "_unverified": {
+    "effect": "guessed from the name; confirm in the projectile's entity XML"
+   }
+  },
+  {
+   "id": "lightning_bolt",
+   "name_en": "Retaliates with Lightning Bolt",
+   "used_by": [
+    "wraith_storm",
+    "enlightened_alchemist",
+    "parallel_alchemist",
+    "boss_alchemist"
+   ],
+   "noita_file": null,
+   "sprite": null,
+   "speed": null,
+   "gravity": null,
+   "lifetime_frames": null,
+   "explosion_radius": null,
+   "effect": "electric",
+   "terrain": "none",
+   "stage": "1b",
+   "_unverified": {
+    "effect": "guessed from the name; confirm in the projectile's entity XML"
+   }
+  },
+  {
+   "id": "long_range_accelerating_orb",
+   "name_en": "Long-range accelerating orb x 2",
+   "used_by": [
+    "necromancer_shop"
+   ],
+   "noita_file": null,
+   "sprite": null,
+   "speed": null,
+   "gravity": null,
+   "lifetime_frames": null,
+   "explosion_radius": null,
+   "effect": "none",
+   "terrain": "none",
+   "stage": "1c",
+   "_unverified": {
+    "effect": "guessed from the name; confirm in the projectile's entity XML"
+   }
+  },
+  {
+   "id": "machine_gun",
+   "name_en": "Machine Gun",
+   "used_by": [
+    "tank"
+   ],
+   "noita_file": null,
+   "sprite": null,
+   "speed": null,
+   "gravity": null,
+   "lifetime_frames": null,
+   "explosion_radius": null,
+   "effect": "none",
+   "terrain": "none",
+   "stage": "1b",
+   "_unverified": {
+    "effect": "guessed from the name; confirm in the projectile's entity XML"
+   }
+  },
+  {
+   "id": "maggot_blob",
+   "name_en": "Shoots a bright green projectile that drops little blobs,that will pop and deal",
+   "used_by": [
+    "maggot"
+   ],
+   "noita_file": null,
+   "sprite": null,
+   "speed": null,
+   "gravity": null,
+   "lifetime_frames": null,
+   "explosion_radius": null,
+   "effect": "none",
+   "terrain": "none",
+   "stage": "1b",
+   "_unverified": {
+    "effect": "guessed from the name; confirm in the projectile's entity XML"
+   }
+  },
+  {
+   "id": "magic_missile",
+   "name_en": "Magic Missile",
+   "used_by": [
+    "parallel_tentacles",
+    "boss_pit"
+   ],
+   "noita_file": null,
+   "sprite": null,
+   "speed": null,
+   "gravity": null,
+   "lifetime_frames": null,
+   "explosion_radius": null,
+   "effect": "explosive",
+   "terrain": "none",
+   "stage": "1c",
+   "_unverified": {
+    "effect": "guessed from the name; confirm in the projectile's entity XML"
+   }
+  },
+  {
+   "id": "meteor",
+   "name_en": "Meteor (red halo)",
+   "used_by": [
+    "enlightened_alchemist",
+    "parallel_alchemist",
+    "boss_alchemist"
+   ],
+   "noita_file": null,
+   "sprite": null,
+   "speed": null,
+   "gravity": null,
+   "lifetime_frames": null,
+   "explosion_radius": null,
+   "effect": "none",
+   "terrain": "none",
+   "stage": "1b",
+   "_unverified": {
+    "effect": "guessed from the name; confirm in the projectile's entity XML"
+   }
+  },
+  {
+   "id": "minipit_shot",
+   "name_en": "Tiny Minion's shot",
+   "used_by": [
+    "minipit"
+   ],
+   "noita_file": null,
+   "sprite": null,
+   "speed": null,
+   "gravity": null,
+   "lifetime_frames": null,
+   "explosion_radius": null,
+   "effect": "none",
+   "terrain": "none",
+   "stage": "1c",
+   "_unverified": {
+    "effect": "guessed from the name; confirm in the projectile's entity XML"
+   }
+  },
+  {
+   "id": "missiles",
+   "name_en": "Missiles x 3-4",
+   "used_by": [
+    "missilecrab"
+   ],
+   "noita_file": null,
+   "sprite": null,
+   "speed": null,
+   "gravity": null,
+   "lifetime_frames": null,
+   "explosion_radius": null,
+   "effect": "explosive",
+   "terrain": "none",
+   "stage": "1b",
+   "_unverified": {
+    "effect": "guessed from the name; confirm in the projectile's entity XML"
+   }
+  },
+  {
+   "id": "monk_shot",
+   "name_en": "Monk's shot",
+   "used_by": [
+    "monk"
+   ],
+   "noita_file": null,
+   "sprite": null,
+   "speed": null,
+   "gravity": null,
+   "lifetime_frames": null,
+   "explosion_radius": null,
+   "effect": "none",
+   "terrain": "none",
+   "stage": "1b",
+   "_unverified": {
+    "effect": "guessed from the name; confirm in the projectile's entity XML"
+   }
+  },
+  {
+   "id": "necrobot_shot",
+   "name_en": "Necrobot's shot",
+   "used_by": [
+    "necrobot"
+   ],
+   "noita_file": null,
+   "sprite": null,
+   "speed": null,
+   "gravity": null,
+   "lifetime_frames": null,
+   "explosion_radius": null,
+   "effect": "none",
+   "terrain": "none",
+   "stage": "1b",
+   "_unverified": {
+    "effect": "guessed from the name; confirm in the projectile's entity XML"
+   }
+  },
+  {
+   "id": "necrobot_super_shot",
+   "name_en": "Super Necrobot's shot",
+   "used_by": [
+    "necrobot_super"
+   ],
+   "noita_file": null,
+   "sprite": null,
+   "speed": null,
+   "gravity": null,
+   "lifetime_frames": null,
+   "explosion_radius": null,
+   "effect": "none",
+   "terrain": "none",
+   "stage": "1b",
+   "_unverified": {
+    "effect": "guessed from the name; confirm in the projectile's entity XML"
+   }
+  },
+  {
+   "id": "neutralize_shot",
+   "name_en": "Neutralize shot",
+   "used_by": [
+    "neutralizer"
+   ],
+   "noita_file": null,
+   "sprite": null,
+   "speed": null,
+   "gravity": null,
+   "lifetime_frames": null,
+   "explosion_radius": null,
+   "effect": "neutralize",
+   "terrain": "none",
+   "stage": "1b",
+   "_unverified": {
+    "effect": "guessed from the name; confirm in the projectile's entity XML"
+   }
+  },
+  {
+   "id": "neutralizer_shot",
+   "name_en": "Stopper's shot",
+   "used_by": [
+    "neutralizer"
+   ],
+   "noita_file": null,
+   "sprite": null,
+   "speed": null,
+   "gravity": null,
+   "lifetime_frames": null,
+   "explosion_radius": null,
+   "effect": "neutralize",
+   "terrain": "none",
+   "stage": "1b",
+   "_unverified": {
+    "effect": "guessed from the name; confirm in the projectile's entity XML"
+   }
+  },
+  {
+   "id": "neutralizing_bolt",
+   "name_en": "Neutralizing bolt",
+   "used_by": [
+    "wizard_neutral"
+   ],
+   "noita_file": null,
+   "sprite": null,
+   "speed": null,
+   "gravity": null,
+   "lifetime_frames": null,
+   "explosion_radius": null,
+   "effect": "neutralize",
+   "terrain": "none",
+   "stage": "1b",
+   "_unverified": {
+    "effect": "guessed from the name; confirm in the projectile's entity XML"
+   }
+  },
+  {
+   "id": "neutralizing_shot",
+   "name_en": "Neutralizing projectiles",
+   "used_by": [
+    "parallel_tentacles",
+    "boss_pit"
+   ],
+   "noita_file": null,
+   "sprite": null,
+   "speed": null,
+   "gravity": null,
+   "lifetime_frames": null,
+   "explosion_radius": null,
+   "effect": "neutralize",
+   "terrain": "none",
+   "stage": "1c",
+   "_unverified": {
+    "effect": "guessed from the name; confirm in the projectile's entity XML"
+   }
+  },
+  {
+   "id": "path_of_dark_flame",
+   "name_en": "Path of Dark Flame",
+   "used_by": [
+    "skullfly"
+   ],
+   "noita_file": null,
+   "sprite": null,
+   "speed": null,
+   "gravity": null,
+   "lifetime_frames": null,
+   "explosion_radius": null,
+   "effect": "fire",
+   "terrain": "none",
+   "stage": "1b",
+   "_unverified": {
+    "effect": "guessed from the name; confirm in the projectile's entity XML"
+   }
+  },
+  {
+   "id": "pinpoint_of_light",
+   "name_en": "Retaliates with Pinpoint of Light when hit",
+   "used_by": [
+    "wraith_glowing",
+    "enlightened_alchemist",
+    "parallel_alchemist",
+    "boss_alchemist"
+   ],
+   "noita_file": null,
+   "sprite": null,
+   "speed": null,
+   "gravity": null,
+   "lifetime_frames": null,
+   "explosion_radius": null,
+   "effect": "light",
+   "terrain": "none",
+   "stage": "1b",
+   "_unverified": {
+    "effect": "guessed from the name; confirm in the projectile's entity XML"
+   }
+  },
+  {
+   "id": "plasma_beam",
+   "name_en": "Plasma Beam",
+   "used_by": [
+    "boss_robot"
+   ],
+   "noita_file": null,
+   "sprite": null,
+   "speed": null,
+   "gravity": null,
+   "lifetime_frames": null,
+   "explosion_radius": null,
+   "effect": "none",
+   "terrain": "none",
+   "stage": "1c",
+   "_unverified": {
+    "effect": "guessed from the name; confirm in the projectile's entity XML"
+   }
+  },
+  {
+   "id": "poison_trail_shot",
+   "name_en": "Projectile with Poison Trail",
+   "used_by": [
+    "scavenger_poison"
+   ],
+   "noita_file": null,
+   "sprite": null,
+   "speed": null,
+   "gravity": null,
+   "lifetime_frames": null,
+   "explosion_radius": null,
+   "effect": "poison",
+   "terrain": "none",
+   "stage": "1b",
+   "_unverified": {
+    "effect": "guessed from the name; confirm in the projectile's entity XML"
+   }
+  },
+  {
+   "id": "pollen",
+   "name_en": "Pollen projectile",
+   "used_by": [
+    "fungus_giga"
+   ],
+   "noita_file": null,
+   "sprite": null,
+   "speed": null,
+   "gravity": null,
+   "lifetime_frames": null,
+   "explosion_radius": null,
+   "effect": "poison",
+   "terrain": "none",
+   "stage": "1b",
+   "_unverified": {
+    "effect": "guessed from the name; confirm in the projectile's entity XML"
+   }
+  },
+  {
+   "id": "pollen_bundle",
+   "name_en": "Pollen bundle projectile",
+   "used_by": [
+    "fungus_giga"
+   ],
+   "noita_file": null,
+   "sprite": null,
+   "speed": null,
+   "gravity": null,
+   "lifetime_frames": null,
+   "explosion_radius": null,
+   "effect": "poison",
+   "terrain": "none",
+   "stage": "1b",
+   "_unverified": {
+    "effect": "guessed from the name; confirm in the projectile's entity XML"
+   }
+  },
+  {
+   "id": "polymorphing",
+   "name_en": "Polymorphing projectile",
+   "used_by": [
+    "wizard_poly",
+    "parallel_tentacles",
+    "boss_pit"
+   ],
+   "noita_file": null,
+   "sprite": null,
+   "speed": null,
+   "gravity": null,
+   "lifetime_frames": null,
+   "explosion_radius": null,
+   "effect": "polymorph",
+   "terrain": "none",
+   "stage": "1b",
+   "_unverified": {
+    "effect": "guessed from the name; confirm in the projectile's entity XML"
+   }
+  },
+  {
+   "id": "polymorphing_orb",
+   "name_en": "Polymorphing orb",
+   "used_by": [
+    "boss_centipede"
+   ],
+   "noita_file": null,
+   "sprite": null,
+   "speed": null,
+   "gravity": null,
+   "lifetime_frames": null,
+   "explosion_radius": null,
+   "effect": "polymorph",
+   "terrain": "none",
+   "stage": "1c",
+   "_unverified": {
+    "effect": "guessed from the name; confirm in the projectile's entity XML"
+   }
+  },
+  {
+   "id": "present_grenade",
+   "name_en": "Present grenade",
+   "used_by": [
+    "miner_santa"
+   ],
+   "noita_file": null,
+   "sprite": null,
+   "speed": null,
+   "gravity": null,
+   "lifetime_frames": null,
+   "explosion_radius": null,
+   "effect": "explosive",
+   "terrain": "none",
+   "stage": "1b",
+   "_unverified": {
+    "effect": "guessed from the name; confirm in the projectile's entity XML"
+   }
+  },
+  {
+   "id": "proximity_mine",
+   "name_en": "Shoots player-sensitive mines",
+   "used_by": [
+    "scavenger_mine"
+   ],
+   "noita_file": null,
+   "sprite": null,
+   "speed": null,
+   "gravity": null,
+   "lifetime_frames": null,
+   "explosion_radius": null,
+   "effect": "explosive",
+   "terrain": "none",
+   "stage": "1b",
+   "_unverified": {
+    "effect": "guessed from the name; confirm in the projectile's entity XML"
+   }
+  },
+  {
+   "id": "rifle",
+   "name_en": "Rifle",
+   "used_by": [
+    "scavenger_smg"
+   ],
+   "noita_file": null,
+   "sprite": null,
+   "speed": null,
+   "gravity": null,
+   "lifetime_frames": null,
+   "explosion_radius": null,
+   "effect": "none",
+   "terrain": "none",
+   "stage": "1b",
+   "_unverified": {
+    "effect": "guessed from the name; confirm in the projectile's entity XML"
+   }
+  },
+  {
+   "id": "roboguard_big_shot",
+   "name_en": "Hunchback's shot",
+   "used_by": [
+    "roboguard_big"
+   ],
+   "noita_file": null,
+   "sprite": null,
+   "speed": null,
+   "gravity": null,
+   "lifetime_frames": null,
+   "explosion_radius": null,
+   "effect": "none",
+   "terrain": "none",
+   "stage": "1b",
+   "_unverified": {
+    "effect": "guessed from the name; confirm in the projectile's entity XML"
+   }
+  },
+  {
+   "id": "roboguard_shot",
+   "name_en": "Robo-Cop's shot",
+   "used_by": [
+    "roboguard"
+   ],
+   "noita_file": null,
+   "sprite": null,
+   "speed": null,
+   "gravity": null,
+   "lifetime_frames": null,
+   "explosion_radius": null,
+   "effect": "none",
+   "terrain": "none",
+   "stage": "1b",
+   "_unverified": {
+    "effect": "guessed from the name; confirm in the projectile's entity XML"
+   }
+  },
+  {
+   "id": "rocket_barrage",
+   "name_en": "Rocket Barrage x 10",
+   "used_by": [
+    "boss_robot"
+   ],
+   "noita_file": null,
+   "sprite": null,
+   "speed": null,
+   "gravity": null,
+   "lifetime_frames": null,
+   "explosion_radius": null,
+   "effect": "explosive",
+   "terrain": "none",
+   "stage": "1c",
+   "_unverified": {
+    "effect": "guessed from the name; confirm in the projectile's entity XML"
+   }
+  },
+  {
+   "id": "sausages",
+   "name_en": "Sausages",
+   "used_by": [
+    "cook"
+   ],
+   "noita_file": null,
+   "sprite": null,
+   "speed": null,
+   "gravity": null,
+   "lifetime_frames": null,
+   "explosion_radius": null,
+   "effect": "none",
+   "terrain": "none",
+   "stage": "1b",
+   "_unverified": {
+    "effect": "guessed from the name; confirm in the projectile's entity XML"
+   }
+  },
+  {
+   "id": "scavenger_clusterbomb_shot",
+   "name_en": "Hiisi Bomber's shot",
+   "used_by": [
+    "scavenger_clusterbomb"
+   ],
+   "noita_file": null,
+   "sprite": null,
+   "speed": null,
+   "gravity": null,
+   "lifetime_frames": null,
+   "explosion_radius": null,
+   "effect": "explosive",
+   "terrain": "none",
+   "stage": "1b",
+   "_unverified": {
+    "effect": "guessed from the name; confirm in the projectile's entity XML"
+   }
+  },
+  {
+   "id": "scavenger_mine_shot",
+   "name_en": "Hiisi Mine Thrower's shot",
+   "used_by": [
+    "scavenger_mine"
+   ],
+   "noita_file": null,
+   "sprite": null,
+   "speed": null,
+   "gravity": null,
+   "lifetime_frames": null,
+   "explosion_radius": null,
+   "effect": "explosive",
+   "terrain": "none",
+   "stage": "1b",
+   "_unverified": {
+    "effect": "guessed from the name; confirm in the projectile's entity XML"
+   }
+  },
+  {
+   "id": "shield_buff",
+   "name_en": "Shield Gun",
+   "used_by": [
+    "scavenger_shield",
+    "drone_shield"
+   ],
+   "noita_file": null,
+   "sprite": null,
+   "speed": null,
+   "gravity": null,
+   "lifetime_frames": null,
+   "explosion_radius": null,
+   "effect": "none",
+   "terrain": "none",
+   "stage": "1b",
+   "_unverified": {
+    "effect": "guessed from the name; confirm in the projectile's entity XML"
+   }
+  },
+  {
+   "id": "short_range_sparks",
+   "name_en": "Short-range sparks",
+   "used_by": [
+    "necromancer_shop"
+   ],
+   "noita_file": null,
+   "sprite": null,
+   "speed": null,
+   "gravity": null,
+   "lifetime_frames": null,
+   "explosion_radius": null,
+   "effect": "none",
+   "terrain": "none",
+   "stage": "1c",
+   "_unverified": {
+    "effect": "guessed from the name; confirm in the projectile's entity XML"
+   }
+  },
+  {
+   "id": "shotgunner_hell_shot",
+   "name_en": "Hell Shotgun Hiisi's shot",
+   "used_by": [
+    "shotgunner_hell"
+   ],
+   "noita_file": null,
+   "sprite": null,
+   "speed": null,
+   "gravity": null,
+   "lifetime_frames": null,
+   "explosion_radius": null,
+   "effect": "none",
+   "terrain": "none",
+   "stage": "1b",
+   "_unverified": {
+    "effect": "guessed from the name; confirm in the projectile's entity XML"
+   }
+  },
+  {
+   "id": "shotgunner_shot",
+   "name_en": "Shotgun Hiisi's shot",
+   "used_by": [
+    "shotgunner"
+   ],
+   "noita_file": null,
+   "sprite": null,
+   "speed": null,
+   "gravity": null,
+   "lifetime_frames": null,
+   "explosion_radius": null,
+   "effect": "none",
+   "terrain": "none",
+   "stage": "1b",
+   "_unverified": {
+    "effect": "guessed from the name; confirm in the projectile's entity XML"
+   }
+  },
+  {
+   "id": "shotgunner_weak_shot",
+   "name_en": "Weak Shotgun Hiisi's shot",
+   "used_by": [
+    "shotgunner_weak"
+   ],
+   "noita_file": null,
+   "sprite": null,
+   "speed": null,
+   "gravity": null,
+   "lifetime_frames": null,
+   "explosion_radius": null,
+   "effect": "none",
+   "terrain": "none",
+   "stage": "1a",
+   "_unverified": {
+    "effect": "guessed from the name; confirm in the projectile's entity XML"
+   }
+  },
+  {
+   "id": "slimeball",
+   "name_en": "Slimeball projectile very similar to the player spell",
+   "used_by": [
+    "slimeshooter_weak",
+    "bloom"
+   ],
+   "noita_file": null,
+   "sprite": null,
+   "speed": null,
+   "gravity": null,
+   "lifetime_frames": null,
+   "explosion_radius": null,
+   "effect": "poison",
+   "terrain": "none",
+   "stage": "1a",
+   "_unverified": {
+    "effect": "guessed from the name; confirm in the projectile's entity XML"
+   }
+  },
+  {
+   "id": "slimeball_sludge",
+   "name_en": "Slimeball projectile but with a physical Toxic Sludge trail",
+   "used_by": [
+    "slimeshooter"
+   ],
+   "noita_file": null,
+   "sprite": null,
+   "speed": null,
+   "gravity": null,
+   "lifetime_frames": null,
+   "explosion_radius": null,
+   "effect": "poison",
+   "terrain": "none",
+   "stage": "1b",
+   "_unverified": {
+    "effect": "guessed from the name; confirm in the projectile's entity XML"
+   }
+  },
+  {
+   "id": "slimeshooter_boss_limbs_shot",
+   "name_en": "Guardian Slime's shot",
+   "used_by": [
+    "slimeshooter_boss_limbs"
+   ],
+   "noita_file": null,
+   "sprite": null,
+   "speed": null,
+   "gravity": null,
+   "lifetime_frames": null,
+   "explosion_radius": null,
+   "effect": "poison",
+   "terrain": "none",
+   "stage": "1c",
+   "_unverified": {
+    "effect": "guessed from the name; confirm in the projectile's entity XML"
+   }
+  },
+  {
+   "id": "slow_orb",
+   "name_en": "Slow orb",
+   "used_by": [
+    "boss_meat"
+   ],
+   "noita_file": null,
+   "sprite": null,
+   "speed": null,
+   "gravity": null,
+   "lifetime_frames": null,
+   "explosion_radius": null,
+   "effect": "none",
+   "terrain": "none",
+   "stage": "1c",
+   "_unverified": {
+    "effect": "guessed from the name; confirm in the projectile's entity XML"
+   }
+  },
+  {
+   "id": "sniper_hell_shot",
+   "name_en": "Hiisi Hell Sniper's shot",
+   "used_by": [
+    "sniper_hell"
+   ],
+   "noita_file": null,
+   "sprite": null,
+   "speed": null,
+   "gravity": null,
+   "lifetime_frames": null,
+   "explosion_radius": null,
+   "effect": "none",
+   "terrain": "none",
+   "stage": "1b",
+   "_unverified": {
+    "effect": "guessed from the name; confirm in the projectile's entity XML"
+   }
+  },
+  {
+   "id": "sniper_shot",
+   "name_en": "Hiisi Sniper's shot",
+   "used_by": [
+    "sniper"
+   ],
+   "noita_file": null,
+   "sprite": null,
+   "speed": null,
+   "gravity": null,
+   "lifetime_frames": null,
+   "explosion_radius": null,
+   "effect": "none",
+   "terrain": "none",
+   "stage": "1b",
+   "_unverified": {
+    "effect": "guessed from the name; confirm in the projectile's entity XML"
+   }
+  },
+  {
+   "id": "soldier_shot",
+   "name_en": "Executioner's shot",
+   "used_by": [
+    "soldier"
+   ],
+   "noita_file": null,
+   "sprite": null,
+   "speed": null,
+   "gravity": null,
+   "lifetime_frames": null,
+   "explosion_radius": null,
+   "effect": "none",
+   "terrain": "none",
+   "stage": "1b",
+   "_unverified": {
+    "effect": "guessed from the name; confirm in the projectile's entity XML"
+   }
+  },
+  {
+   "id": "spitmonster_shot",
+   "name_en": "Hell Spitter's shot",
+   "used_by": [
+    "spitmonster"
+   ],
+   "noita_file": null,
+   "sprite": null,
+   "speed": null,
+   "gravity": null,
+   "lifetime_frames": null,
+   "explosion_radius": null,
+   "effect": "none",
+   "terrain": "none",
+   "stage": "1b",
+   "_unverified": {
+    "effect": "guessed from the name; confirm in the projectile's entity XML"
+   }
+  },
+  {
+   "id": "swapper_bolt",
+   "name_en": "Swapper bolt",
+   "used_by": [
+    "wizard_swapper"
+   ],
+   "noita_file": null,
+   "sprite": null,
+   "speed": null,
+   "gravity": null,
+   "lifetime_frames": null,
+   "explosion_radius": null,
+   "effect": "swap",
+   "terrain": "none",
+   "stage": "1b",
+   "_unverified": {
+    "effect": "guessed from the name; confirm in the projectile's entity XML"
+   }
+  },
+  {
+   "id": "targeting",
+   "name_en": "Targeting Projectile",
+   "used_by": [
+    "sentry"
+   ],
+   "noita_file": null,
+   "sprite": null,
+   "speed": null,
+   "gravity": null,
+   "lifetime_frames": null,
+   "explosion_radius": null,
+   "effect": "none",
+   "terrain": "none",
+   "stage": "1b",
+   "_unverified": {
+    "effect": "guessed from the name; confirm in the projectile's entity XML"
+   }
+  },
+  {
+   "id": "teleportation",
+   "name_en": "Teleportation Projectile",
+   "used_by": [
+    "coward",
+    "parallel_tentacles",
+    "boss_pit",
+    "wizard_tele"
+   ],
+   "noita_file": null,
+   "sprite": null,
+   "speed": null,
+   "gravity": null,
+   "lifetime_frames": null,
+   "explosion_radius": null,
+   "effect": "teleport",
+   "terrain": "none",
+   "stage": "1b",
+   "_unverified": {
+    "effect": "guessed from the name; confirm in the projectile's entity XML"
+   }
+  },
+  {
+   "id": "thrown_potion",
+   "name_en": "Throws Potions.",
+   "used_by": [
+    "alchemist"
+   ],
+   "noita_file": null,
+   "sprite": null,
+   "speed": null,
+   "gravity": null,
+   "lifetime_frames": null,
+   "explosion_radius": null,
+   "effect": "none",
+   "terrain": "none",
+   "stage": "1b",
+   "_unverified": {
+    "effect": "guessed from the name; confirm in the projectile's entity XML"
+   }
+  },
+  {
+   "id": "thunder_charge",
+   "name_en": "Thunder Charge",
+   "used_by": [
+    "thundermage"
+   ],
+   "noita_file": null,
+   "sprite": null,
+   "speed": null,
+   "gravity": null,
+   "lifetime_frames": null,
+   "explosion_radius": null,
+   "effect": "electric",
+   "terrain": "none",
+   "stage": "1b",
+   "_unverified": {
+    "effect": "guessed from the name; confirm in the projectile's entity XML"
+   }
+  },
+  {
+   "id": "thunder_charge_homing",
+   "name_en": "Thunder Charge with Copy Trail and a slow Homing",
+   "used_by": [
+    "thundermage_big"
+   ],
+   "noita_file": null,
+   "sprite": null,
+   "speed": null,
+   "gravity": null,
+   "lifetime_frames": null,
+   "explosion_radius": null,
+   "effect": "electric",
+   "terrain": "none",
+   "stage": "1b",
+   "_unverified": {
+    "effect": "guessed from the name; confirm in the projectile's entity XML"
+   }
+  },
+  {
+   "id": "timed_mines",
+   "name_en": "Timed Mines",
+   "used_by": [
+    "scavenger_clusterbomb"
+   ],
+   "noita_file": null,
+   "sprite": null,
+   "speed": null,
+   "gravity": null,
+   "lifetime_frames": null,
+   "explosion_radius": null,
+   "effect": "explosive",
+   "terrain": "none",
+   "stage": "1b",
+   "_unverified": {
+    "effect": "guessed from the name; confirm in the projectile's entity XML"
+   }
+  },
+  {
+   "id": "tnt",
+   "name_en": "TNT x 6-14",
+   "used_by": [
+    "miner_hell",
+    "miner",
+    "miner_weak"
+   ],
+   "noita_file": null,
+   "sprite": null,
+   "speed": null,
+   "gravity": null,
+   "lifetime_frames": null,
+   "explosion_radius": null,
+   "effect": "explosive",
+   "terrain": "none",
+   "stage": "1a",
+   "_unverified": {
+    "effect": "guessed from the name; confirm in the projectile's entity XML"
+   }
+  },
+  {
+   "id": "toxic_sludge_spit",
+   "name_en": "Spits Toxic Sludge",
+   "used_by": [
+    "barfer"
+   ],
+   "noita_file": null,
+   "sprite": null,
+   "speed": null,
+   "gravity": null,
+   "lifetime_frames": null,
+   "explosion_radius": null,
+   "effect": "poison",
+   "terrain": "none",
+   "stage": "1b",
+   "_unverified": {
+    "effect": "guessed from the name; confirm in the projectile's entity XML"
+   }
+  },
+  {
+   "id": "twitching_shot",
+   "name_en": "Twitching projectiles",
+   "used_by": [
+    "wizard_twitchy"
+   ],
+   "noita_file": null,
+   "sprite": null,
+   "speed": null,
+   "gravity": null,
+   "lifetime_frames": null,
+   "explosion_radius": null,
+   "effect": "none",
+   "terrain": "none",
+   "stage": "1b",
+   "_unverified": {
+    "effect": "guessed from the name; confirm in the projectile's entity XML"
+   }
+  },
+  {
+   "id": "two_small_acid_balls",
+   "name_en": "Two small acid balls x 2",
+   "used_by": [
+    "ghoul"
+   ],
+   "noita_file": null,
+   "sprite": null,
+   "speed": null,
+   "gravity": null,
+   "lifetime_frames": null,
+   "explosion_radius": null,
+   "effect": "acid",
+   "terrain": "none",
+   "stage": "1c",
+   "_unverified": {
+    "effect": "guessed from the name; confirm in the projectile's entity XML"
+   }
+  },
+  {
+   "id": "wand_ghost_charmed_shot",
+   "name_en": "Charmed Magic Wand's shot",
+   "used_by": [
+    "wand_ghost_charmed"
+   ],
+   "noita_file": null,
+   "sprite": null,
+   "speed": null,
+   "gravity": null,
+   "lifetime_frames": null,
+   "explosion_radius": null,
+   "effect": "none",
+   "terrain": "none",
+   "stage": "1c",
+   "_unverified": {
+    "effect": "guessed from the name; confirm in the projectile's entity XML"
+   }
+  },
+  {
+   "id": "wand_ghost_shot",
+   "name_en": "Magic Wand's shot",
+   "used_by": [
+    "wand_ghost"
+   ],
+   "noita_file": null,
+   "sprite": null,
+   "speed": null,
+   "gravity": null,
+   "lifetime_frames": null,
+   "explosion_radius": null,
+   "effect": "none",
+   "terrain": "none",
+   "stage": "1b",
+   "_unverified": {
+    "effect": "guessed from the name; confirm in the projectile's entity XML"
+   }
+  },
+  {
+   "id": "weaker_fireball",
+   "name_en": "Weaker Fireball",
+   "used_by": [
+    "firemage_weak"
+   ],
+   "noita_file": null,
+   "sprite": null,
+   "speed": null,
+   "gravity": null,
+   "lifetime_frames": null,
+   "explosion_radius": null,
+   "effect": "fire",
+   "terrain": "none",
+   "stage": "1a",
+   "_unverified": {
+    "effect": "guessed from the name; confirm in the projectile's entity XML"
+   }
+  },
+  {
+   "id": "wizard_hearty_shot",
+   "name_en": "Master of Wounding's shot",
+   "used_by": [
+    "wizard_hearty"
+   ],
+   "noita_file": null,
+   "sprite": null,
+   "speed": null,
+   "gravity": null,
+   "lifetime_frames": null,
+   "explosion_radius": null,
+   "effect": "none",
+   "terrain": "none",
+   "stage": "1b",
+   "_unverified": {
+    "effect": "guessed from the name; confirm in the projectile's entity XML"
+   }
+  },
+  {
+   "id": "wizard_homing_shot",
+   "name_en": "Master of Homing's shot",
+   "used_by": [
+    "wizard_homing"
+   ],
+   "noita_file": null,
+   "sprite": null,
+   "speed": null,
+   "gravity": null,
+   "lifetime_frames": null,
+   "explosion_radius": null,
+   "effect": "none",
+   "terrain": "none",
+   "stage": "1b",
+   "_unverified": {
+    "effect": "guessed from the name; confirm in the projectile's entity XML"
+   }
+  },
+  {
+   "id": "wizard_weaken_shot",
+   "name_en": "Master of Vulnerability's shot",
+   "used_by": [
+    "wizard_weaken"
+   ],
+   "noita_file": null,
+   "sprite": null,
+   "speed": null,
+   "gravity": null,
+   "lifetime_frames": null,
+   "explosion_radius": null,
+   "effect": "none",
+   "terrain": "none",
+   "stage": "1b",
+   "_unverified": {
+    "effect": "guessed from the name; confirm in the projectile's entity XML"
+   }
+  }
+ ]
+}

@@ -1,0 +1,182 @@
+{
+ "sheet": "systems",
+ "description": "Every game system the mashup touches.",
+ "key": "id",
+ "columns": {
+  "id": {
+   "type": "string",
+   "desc": "System id."
+  },
+  "description": {
+   "type": "string",
+   "desc": "What it does."
+  },
+  "stage": {
+   "type": "enum",
+   "values": [
+    "1a",
+    "1b",
+    "1c",
+    "2",
+    "3",
+    "4"
+   ],
+   "desc": "Stage that builds it."
+  },
+  "hooks": {
+   "type": "ref[]",
+   "ref": "hooks",
+   "desc": "Patches into Terraria it uses."
+  },
+  "code": {
+   "type": "string",
+   "desc": "Where the code lives ('-' = not started)."
+  }
+ },
+ "rows": [
+  {
+   "id": "launcher",
+   "description": "Start the player's own Terraria.exe from {game} inside our process, apply our Harmony patches, then run Terraria's normal entry point. Game files are never changed.",
+   "stage": "1a",
+   "hooks": [
+    "terraria_entry"
+   ],
+   "code": "src/Terranoita.Launcher/Program.cs",
+   "_unverified": {
+    "description": "confirm Terraria.exe is x86 .NET Framework 4 + XNA, its entry point, and Steam start-up when launched by us"
+   }
+  },
+  {
+   "id": "noita_assets",
+   "description": "Read sprites, sprite animations and translations straight from the player's Noita data.wak (read-only).",
+   "stage": "1a",
+   "hooks": [
+    "load_content"
+   ],
+   "code": "src/Terranoita.Core/Noita/",
+   "_unverified": {
+    "description": "data.wak layout is from community docs; confirm on the player's file"
+   }
+  },
+  {
+   "id": "enemy_registry",
+   "description": "Generated definitions from the sheets (EnemyDef, AttackDef, ...).",
+   "stage": "1a",
+   "hooks": [],
+   "code": "src/Terranoita.Core/Generated/",
+   "_unverified": {}
+  },
+  {
+   "id": "carrier_npc",
+   "description": "Vanilla Terraria has a fixed list of NPC types, so each Noita enemy rides on one vanilla 'carrier' NPC slot; a side table keyed by NPC index says which Noita enemy it is, and our patches replace that slot's AI, drawing, name, hit effects and loot.",
+   "stage": "1a",
+   "hooks": [
+    "npc_ai",
+    "npc_findframe",
+    "npc_draw",
+    "npc_name",
+    "npc_hiteffect",
+    "npc_loot",
+    "npc_bestiary_kill"
+   ],
+   "code": "src/Terranoita/Carriers.cs",
+   "_unverified": {
+    "description": "pick the carrier NPC/projectile types from the decompile: types with the fewest special cases"
+   }
+  },
+  {
+   "id": "enemy_spawning",
+   "description": "Each spawn attempt, roll the Noita enemies whose zone matches the spawn tile and player, weighted by tier.",
+   "stage": "1a",
+   "hooks": [
+    "npc_spawn"
+   ],
+   "code": "src/Terranoita/Spawning.cs",
+   "_unverified": {}
+  },
+  {
+   "id": "enemy_ai",
+   "description": "One state machine per AI archetype, written against a small body/world interface so it is unit-tested without the game.",
+   "stage": "1a",
+   "hooks": [
+    "npc_ai"
+   ],
+   "code": "src/Terranoita.Core/Ai/",
+   "_unverified": {}
+  },
+  {
+   "id": "enemy_projectiles",
+   "description": "Enemy shots ride on a vanilla carrier projectile the same way NPCs do.",
+   "stage": "1a",
+   "hooks": [
+    "proj_ai",
+    "proj_draw",
+    "proj_kill"
+   ],
+   "code": "src/Terranoita/Projectiles.cs",
+   "_unverified": {}
+  },
+  {
+   "id": "damage_types",
+   "description": "Noita damage types and per-enemy multipliers applied to hits on our enemies.",
+   "stage": "1a",
+   "hooks": [
+    "npc_strike"
+   ],
+   "code": "src/Terranoita/Damage.cs",
+   "_unverified": {}
+  },
+  {
+   "id": "loot",
+   "description": "Noita-style gold (coins by health), hearts and mana stars.",
+   "stage": "1a",
+   "hooks": [
+    "npc_loot"
+   ],
+   "code": "src/Terranoita/Loot.cs",
+   "_unverified": {}
+  },
+  {
+   "id": "test_tools",
+   "description": "Debug keys to spawn any Noita enemy near the player and log what happens, for repeatable in-game tests and screenshots.",
+   "stage": "1a",
+   "hooks": [
+    "main_update"
+   ],
+   "code": "src/Terranoita/Debug.cs",
+   "_unverified": {}
+  },
+  {
+   "id": "block_physics",
+   "description": "Stage 2: disturbed blocks fall, burn, melt and explode; untouched caves, islands and clouds stay put.",
+   "stage": "2",
+   "hooks": [],
+   "code": "-",
+   "_unverified": {}
+  },
+  {
+   "id": "wand_slots",
+   "description": "Stage 3: four wand slots next to the Terraria inventory, Noita spell editing.",
+   "stage": "3",
+   "hooks": [],
+   "code": "-",
+   "_unverified": {}
+  },
+  {
+   "id": "spells",
+   "description": "Stage 3: Noita spells cast from wands; reuses the projectiles sheet.",
+   "stage": "3",
+   "hooks": [],
+   "code": "-",
+   "_unverified": {}
+  },
+  {
+   "id": "flasks_items",
+   "description": "Stage 4: four flask/item slots, flasks and Noita items.",
+   "stage": "4",
+   "hooks": [],
+   "code": "-",
+   "_unverified": {}
+  }
+ ]
+}

@@ -1,0 +1,242 @@
+{
+ "sheet": "terraria_zones",
+ "description": "Terraria spawn zones and the exact check the mod makes.",
+ "key": "id",
+ "columns": {
+  "id": {
+   "type": "string",
+   "desc": "Zone id."
+  },
+  "condition": {
+   "type": "string",
+   "desc": "In plain words."
+  },
+  "hardmode": {
+   "type": "bool",
+   "desc": "Needs hardmode."
+  },
+  "after_boss": {
+   "type": "enum",
+   "values": [
+    "none",
+    "skeletron",
+    "plantera"
+   ],
+   "desc": "Boss that must be down."
+  },
+  "terraria_check": {
+   "type": "string",
+   "desc": "C# expression over Player p / spawn tile x,y, checked against the 1.4.5 decompile."
+  }
+ },
+ "rows": [
+  {
+   "id": "surface_forest",
+   "condition": "Overworld height, no other surface biome",
+   "hardmode": false,
+   "after_boss": "none",
+   "terraria_check": null,
+   "_unverified": {}
+  },
+  {
+   "id": "surface_water",
+   "condition": "Overworld height, NPC spawn tile in water",
+   "hardmode": false,
+   "after_boss": "none",
+   "terraria_check": null,
+   "_unverified": {}
+  },
+  {
+   "id": "surface_desert",
+   "condition": "Overworld height, desert",
+   "hardmode": false,
+   "after_boss": "none",
+   "terraria_check": null,
+   "_unverified": {}
+  },
+  {
+   "id": "surface_snow",
+   "condition": "Overworld height, snow",
+   "hardmode": false,
+   "after_boss": "none",
+   "terraria_check": null,
+   "_unverified": {}
+  },
+  {
+   "id": "underground_dirt",
+   "condition": "Dirt layer height, no special biome",
+   "hardmode": false,
+   "after_boss": "none",
+   "terraria_check": null,
+   "_unverified": {}
+  },
+  {
+   "id": "cavern",
+   "condition": "Rock layer height, no special biome",
+   "hardmode": false,
+   "after_boss": "none",
+   "terraria_check": null,
+   "_unverified": {}
+  },
+  {
+   "id": "cavern_deep",
+   "condition": "Lower half of the rock layer, no special biome",
+   "hardmode": false,
+   "after_boss": "none",
+   "terraria_check": null,
+   "_unverified": {}
+  },
+  {
+   "id": "underground_snow",
+   "condition": "Below surface, snow",
+   "hardmode": false,
+   "after_boss": "none",
+   "terraria_check": null,
+   "_unverified": {}
+  },
+  {
+   "id": "underground_jungle",
+   "condition": "Below surface, jungle",
+   "hardmode": false,
+   "after_boss": "none",
+   "terraria_check": null,
+   "_unverified": {}
+  },
+  {
+   "id": "glowing_mushroom",
+   "condition": "Glowing mushroom biome",
+   "hardmode": false,
+   "after_boss": "none",
+   "terraria_check": null,
+   "_unverified": {}
+  },
+  {
+   "id": "underground_desert",
+   "condition": "Underground desert",
+   "hardmode": false,
+   "after_boss": "none",
+   "terraria_check": null,
+   "_unverified": {}
+  },
+  {
+   "id": "marble",
+   "condition": "Marble cave",
+   "hardmode": false,
+   "after_boss": "none",
+   "terraria_check": null,
+   "_unverified": {}
+  },
+  {
+   "id": "granite",
+   "condition": "Granite cave",
+   "hardmode": false,
+   "after_boss": "none",
+   "terraria_check": null,
+   "_unverified": {}
+  },
+  {
+   "id": "underground_desert_hm",
+   "condition": "Underground desert",
+   "hardmode": true,
+   "after_boss": "none",
+   "terraria_check": null,
+   "_unverified": {}
+  },
+  {
+   "id": "cavern_hm",
+   "condition": "Rock layer height, no special biome",
+   "hardmode": true,
+   "after_boss": "none",
+   "terraria_check": null,
+   "_unverified": {}
+  },
+  {
+   "id": "underground_snow_hm",
+   "condition": "Below surface, snow",
+   "hardmode": true,
+   "after_boss": "none",
+   "terraria_check": null,
+   "_unverified": {}
+  },
+  {
+   "id": "dungeon",
+   "condition": "Dungeon",
+   "hardmode": false,
+   "after_boss": "skeletron",
+   "terraria_check": null,
+   "_unverified": {}
+  },
+  {
+   "id": "underground_hallow",
+   "condition": "Below surface, hallow",
+   "hardmode": true,
+   "after_boss": "none",
+   "terraria_check": null,
+   "_unverified": {}
+  },
+  {
+   "id": "underground_jungle_hm",
+   "condition": "Below surface, jungle",
+   "hardmode": true,
+   "after_boss": "none",
+   "terraria_check": null,
+   "_unverified": {}
+  },
+  {
+   "id": "spider_cave_hm",
+   "condition": "Spider cave walls behind the spawn tile",
+   "hardmode": true,
+   "after_boss": "none",
+   "terraria_check": null,
+   "_unverified": {}
+  },
+  {
+   "id": "crimson_underground_hm",
+   "condition": "Below surface, crimson or corruption",
+   "hardmode": true,
+   "after_boss": "none",
+   "terraria_check": null,
+   "_unverified": {}
+  },
+  {
+   "id": "sky_hm",
+   "condition": "Sky height",
+   "hardmode": true,
+   "after_boss": "none",
+   "terraria_check": null,
+   "_unverified": {}
+  },
+  {
+   "id": "lihzahrd_temple",
+   "condition": "Inside the Jungle Temple",
+   "hardmode": true,
+   "after_boss": "plantera",
+   "terraria_check": null,
+   "_unverified": {}
+  },
+  {
+   "id": "underworld_post_plantera",
+   "condition": "Underworld height",
+   "hardmode": true,
+   "after_boss": "plantera",
+   "terraria_check": null,
+   "_unverified": {}
+  },
+  {
+   "id": "sky_post_plantera",
+   "condition": "Sky height",
+   "hardmode": true,
+   "after_boss": "plantera",
+   "terraria_check": null,
+   "_unverified": {}
+  },
+  {
+   "id": "none",
+   "condition": "Never spawns naturally",
+   "hardmode": false,
+   "after_boss": "none",
+   "terraria_check": "false",
+   "_unverified": {}
+  }
+ ]
+}

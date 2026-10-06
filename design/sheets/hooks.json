@@ -1,0 +1,213 @@
+{
+ "sheet": "hooks",
+ "description": "Every patch into Terraria. Runtime Harmony patches only; no game file is modified.",
+ "key": "id",
+ "columns": {
+  "id": {
+   "type": "string",
+   "desc": "Hook id."
+  },
+  "target": {
+   "type": "string",
+   "desc": "Type:Method(signature) in Terraria.exe 1.4.5.8."
+  },
+  "patch": {
+   "type": "enum",
+   "values": [
+    "prefix",
+    "postfix",
+    "transpiler",
+    "call"
+   ],
+   "desc": "Harmony patch kind ('call' = we call it)."
+  },
+  "system": {
+   "type": "ref",
+   "ref": "systems",
+   "desc": "Owning system."
+  },
+  "purpose": {
+   "type": "string",
+   "desc": "Why."
+  },
+  "stage": {
+   "type": "enum",
+   "values": [
+    "1a",
+    "1b",
+    "1c",
+    "2",
+    "3",
+    "4"
+   ],
+   "desc": "Stage that needs it."
+  }
+ },
+ "rows": [
+  {
+   "id": "terraria_entry",
+   "target": "Terraria.WindowsLaunch:Main(string[])",
+   "patch": "call",
+   "system": "launcher",
+   "purpose": "Terraria's normal start, called after our patches are in.",
+   "stage": "1a",
+   "_unverified": {
+    "target": "check the exact type, method and signature in the Terraria 1.4.5.8 decompile (ilspycmd)"
+   }
+  },
+  {
+   "id": "load_content",
+   "target": "Terraria.Main:LoadContent()",
+   "patch": "postfix",
+   "system": "noita_assets",
+   "purpose": "GraphicsDevice exists: turn Noita PNGs into textures.",
+   "stage": "1a",
+   "_unverified": {
+    "target": "check the exact type, method and signature in the Terraria 1.4.5.8 decompile (ilspycmd)"
+   }
+  },
+  {
+   "id": "main_update",
+   "target": "Terraria.Main:DoUpdate(ref GameTime)",
+   "patch": "postfix",
+   "system": "test_tools",
+   "purpose": "Per-frame debug keys.",
+   "stage": "1a",
+   "_unverified": {
+    "target": "check the exact type, method and signature in the Terraria 1.4.5.8 decompile (ilspycmd)"
+   }
+  },
+  {
+   "id": "npc_spawn",
+   "target": "Terraria.NPC:SpawnNPC()",
+   "patch": "postfix",
+   "system": "enemy_spawning",
+   "purpose": "Our extra spawn roll after vanilla's.",
+   "stage": "1a",
+   "_unverified": {
+    "target": "check the exact type, method and signature in the Terraria 1.4.5.8 decompile (ilspycmd)"
+   }
+  },
+  {
+   "id": "npc_ai",
+   "target": "Terraria.NPC:AI()",
+   "patch": "prefix",
+   "system": "carrier_npc",
+   "purpose": "Run our archetype AI for carrier NPCs and skip vanilla AI.",
+   "stage": "1a",
+   "_unverified": {
+    "target": "check the exact type, method and signature in the Terraria 1.4.5.8 decompile (ilspycmd)"
+   }
+  },
+  {
+   "id": "npc_findframe",
+   "target": "Terraria.NPC:FindFrame()",
+   "patch": "prefix",
+   "system": "carrier_npc",
+   "purpose": "Skip vanilla animation for carriers (we animate from Noita sprite XML).",
+   "stage": "1a",
+   "_unverified": {
+    "target": "check the exact type, method and signature in the Terraria 1.4.5.8 decompile (ilspycmd)"
+   }
+  },
+  {
+   "id": "npc_draw",
+   "target": "Terraria.Main:DrawNPC(int, bool)",
+   "patch": "prefix",
+   "system": "carrier_npc",
+   "purpose": "Draw the Noita sprite instead of the carrier's.",
+   "stage": "1a",
+   "_unverified": {
+    "target": "check the exact type, method and signature in the Terraria 1.4.5.8 decompile (ilspycmd)"
+   }
+  },
+  {
+   "id": "npc_name",
+   "target": "Terraria.NPC:get_TypeName()",
+   "patch": "postfix",
+   "system": "carrier_npc",
+   "purpose": "Show the Noita name (from Noita's translation file) on hover and in death messages.",
+   "stage": "1a",
+   "_unverified": {
+    "target": "check the exact type, method and signature in the Terraria 1.4.5.8 decompile (ilspycmd)"
+   }
+  },
+  {
+   "id": "npc_hiteffect",
+   "target": "Terraria.NPC:HitEffect(NPC.HitInfo)",
+   "patch": "prefix",
+   "system": "carrier_npc",
+   "purpose": "No carrier gore; Noita blood particles instead.",
+   "stage": "1a",
+   "_unverified": {
+    "target": "check the exact type, method and signature in the Terraria 1.4.5.8 decompile (ilspycmd)"
+   }
+  },
+  {
+   "id": "npc_loot",
+   "target": "Terraria.NPC:NPCLoot()",
+   "patch": "prefix",
+   "system": "loot",
+   "purpose": "Our loot for carriers, skip the carrier's vanilla drops.",
+   "stage": "1a",
+   "_unverified": {
+    "target": "check the exact type, method and signature in the Terraria 1.4.5.8 decompile (ilspycmd)"
+   }
+  },
+  {
+   "id": "npc_bestiary_kill",
+   "target": "Terraria.NPC:CountKillForBannersAndDropThem(int)",
+   "patch": "prefix",
+   "system": "carrier_npc",
+   "purpose": "Kills of Noita enemies must not count as the carrier's banner/bestiary kills.",
+   "stage": "1a",
+   "_unverified": {
+    "target": "check the exact type, method and signature in the Terraria 1.4.5.8 decompile (ilspycmd)"
+   }
+  },
+  {
+   "id": "npc_strike",
+   "target": "Terraria.NPC:StrikeNPC(NPC.HitInfo, bool, bool)",
+   "patch": "prefix",
+   "system": "damage_types",
+   "purpose": "Apply the enemy's Noita damage multipliers.",
+   "stage": "1a",
+   "_unverified": {
+    "target": "check the exact type, method and signature in the Terraria 1.4.5.8 decompile (ilspycmd)"
+   }
+  },
+  {
+   "id": "proj_ai",
+   "target": "Terraria.Projectile:AI()",
+   "patch": "prefix",
+   "system": "enemy_projectiles",
+   "purpose": "Our projectile behaviour for carrier projectiles.",
+   "stage": "1a",
+   "_unverified": {
+    "target": "check the exact type, method and signature in the Terraria 1.4.5.8 decompile (ilspycmd)"
+   }
+  },
+  {
+   "id": "proj_draw",
+   "target": "Terraria.Main:DrawProj(int)",
+   "patch": "prefix",
+   "system": "enemy_projectiles",
+   "purpose": "Draw the Noita projectile sprite.",
+   "stage": "1a",
+   "_unverified": {
+    "target": "check the exact type, method and signature in the Terraria 1.4.5.8 decompile (ilspycmd)"
+   }
+  },
+  {
+   "id": "proj_kill",
+   "target": "Terraria.Projectile:Kill()",
+   "patch": "prefix",
+   "system": "enemy_projectiles",
+   "purpose": "Our explosion/impact effect; skip the carrier's.",
+   "stage": "1a",
+   "_unverified": {
+    "target": "check the exact type, method and signature in the Terraria 1.4.5.8 decompile (ilspycmd)"
+   }
+  }
+ ]
+}

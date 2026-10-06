@@ -1,0 +1,53 @@
+{
+ "sheet": "drops",
+ "description": "Loot tables.",
+ "key": "id",
+ "columns": {
+  "id": {
+   "type": "string",
+   "desc": "Table id."
+  },
+  "description": {
+   "type": "string",
+   "desc": "What drops."
+  },
+  "rule": {
+   "type": "string",
+   "desc": "Exact rule."
+  },
+  "stage": {
+   "type": "enum",
+   "values": [
+    "1a",
+    "1b",
+    "1c"
+   ],
+   "desc": "Earliest stage."
+  }
+ },
+ "rows": [
+  {
+   "id": "none",
+   "description": "Nothing.",
+   "rule": "no drop",
+   "stage": "1a",
+   "_unverified": {}
+  },
+  {
+   "id": "noita_gold",
+   "description": "Gold like Noita: more health, more money.",
+   "rule": "copper coins = round(terraria_life * 0.6); 1 in 12 a Heart, 1 in 15 a Mana Star",
+   "stage": "1a",
+   "_unverified": {
+    "rule": "playtest"
+   }
+  },
+  {
+   "id": "boss_reward",
+   "description": "Boss loot.",
+   "rule": null,
+   "stage": "1c",
+   "_unverified": {}
+  }
+ ]
+}

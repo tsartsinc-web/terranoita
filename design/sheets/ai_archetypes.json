@@ -1,0 +1,901 @@
+{
+ "sheet": "ai_archetypes",
+ "description": "Behaviour archetypes; each generates one AI state machine.",
+ "key": "id",
+ "columns": {
+  "id": {
+   "type": "string",
+   "desc": "Archetype id."
+  },
+  "description": {
+   "type": "string",
+   "desc": "What it does."
+  },
+  "move": {
+   "type": "enum",
+   "values": [
+    "ground",
+    "ground_levitate",
+    "hover",
+    "phase",
+    "fly",
+    "hop",
+    "climb",
+    "burrow",
+    "swim",
+    "static"
+   ],
+   "desc": "Movement mode."
+  },
+  "speed": {
+   "type": "number",
+   "desc": "Max speed, pixels/frame."
+  },
+  "accel": {
+   "type": "number",
+   "desc": "Acceleration, pixels/frame^2."
+  },
+  "jump_speed": {
+   "type": "number",
+   "desc": "Jump/levitation impulse."
+  },
+  "gravity": {
+   "type": "bool",
+   "desc": "Affected by gravity."
+  },
+  "sight_tiles": {
+   "type": "number",
+   "desc": "Notices the player within this many tiles."
+  },
+  "keep_distance_tiles": {
+   "type": "number",
+   "desc": "Preferred distance from the target (0 = close in)."
+  },
+  "used_by": {
+   "type": "ref[]",
+   "ref": "enemies",
+   "desc": "Enemies using it."
+  },
+  "stage": {
+   "type": "enum",
+   "values": [
+    "1a",
+    "1b",
+    "1c"
+   ],
+   "desc": "Earliest stage that needs it."
+  }
+ },
+ "rows": [
+  {
+   "id": "walker_melee",
+   "description": "Walks/jumps toward the target, lunges and bites at close range.",
+   "move": "ground",
+   "speed": 2.2,
+   "accel": 0.12,
+   "jump_speed": 6.0,
+   "gravity": true,
+   "sight_tiles": 30,
+   "keep_distance_tiles": 0,
+   "used_by": [
+    "fungus_giga",
+    "zombie_weak",
+    "zombie",
+    "failed_alchemist",
+    "skullrat",
+    "ultimate_killer",
+    "fungus",
+    "bigzombietorso",
+    "bigzombiehead",
+    "bigzombie",
+    "ant",
+    "fungus_tiny",
+    "fungus_big",
+    "statue",
+    "rat",
+    "plague_rats_rat",
+    "assassin",
+    "wolf",
+    "friend",
+    "friend_hostile"
+   ],
+   "stage": "1a",
+   "_unverified": {
+    "speed": "tune in game against the Noita original",
+    "accel": "tune in game",
+    "jump_speed": "tune in game"
+   }
+  },
+  {
+   "id": "walker_shooter",
+   "description": "Hiisi-style: walks to a firing distance, shoots, backs off when too close.",
+   "move": "ground",
+   "speed": 1.6,
+   "accel": 0.1,
+   "jump_speed": 6.0,
+   "gravity": true,
+   "sight_tiles": 40,
+   "keep_distance_tiles": 10,
+   "used_by": [
+    "scavenger_invis",
+    "shotgunner",
+    "shotgunner_weak",
+    "shotgunner_hell",
+    "icer",
+    "scavenger_shield",
+    "roboguard_big",
+    "flamer",
+    "scavenger_glue",
+    "necrobot_super",
+    "monk",
+    "scavenger_poison",
+    "scavenger_heal",
+    "coward",
+    "roboguard",
+    "scavenger_smg",
+    "sniper_hell",
+    "sniper",
+    "ghoul",
+    "cook",
+    "soldier",
+    "necrobot",
+    "hidden"
+   ],
+   "stage": "1a",
+   "_unverified": {
+    "speed": "tune in game against the Noita original",
+    "accel": "tune in game",
+    "jump_speed": "tune in game"
+   }
+  },
+  {
+   "id": "walker_thrower",
+   "description": "Walks to throwing distance and lobs arcing explosives (TNT, grenades, flasks).",
+   "move": "ground",
+   "speed": 1.6,
+   "accel": 0.1,
+   "jump_speed": 6.0,
+   "gravity": true,
+   "sight_tiles": 35,
+   "keep_distance_tiles": 8,
+   "used_by": [
+    "giant",
+    "scavenger_clusterbomb",
+    "miner_santa",
+    "scavenger_grenade",
+    "scavenger_mine",
+    "alchemist",
+    "goblin_bomb",
+    "miner_hell",
+    "miner",
+    "miner_weak",
+    "scavenger_leader",
+    "miner_fire"
+   ],
+   "stage": "1a",
+   "_unverified": {
+    "speed": "tune in game against the Noita original",
+    "accel": "tune in game",
+    "jump_speed": "tune in game"
+   }
+  },
+  {
+   "id": "mage_levitate",
+   "description": "Noita mage: walks, levitates up ledges and gaps, casts from range.",
+   "move": "ground_levitate",
+   "speed": 1.4,
+   "accel": 0.08,
+   "jump_speed": 4.0,
+   "gravity": true,
+   "sight_tiles": 45,
+   "keep_distance_tiles": 12,
+   "used_by": [
+    "firemage",
+    "failed_alchemist_b",
+    "necromancer",
+    "playerghost",
+    "shaman",
+    "icemage",
+    "necromancer_super",
+    "firemage_weak",
+    "necromancer_shop",
+    "thundermage_big",
+    "barfer",
+    "thundermage",
+    "enlightened_alchemist"
+   ],
+   "stage": "1a",
+   "_unverified": {
+    "speed": "tune in game against the Noita original",
+    "accel": "tune in game",
+    "jump_speed": "tune in game"
+   }
+  },
+  {
+   "id": "floater_caster",
+   "description": "Hovers without gravity, blocked by tiles, keeps distance and casts.",
+   "move": "hover",
+   "speed": 1.2,
+   "accel": 0.05,
+   "jump_speed": 0.0,
+   "gravity": false,
+   "sight_tiles": 45,
+   "keep_distance_tiles": 12,
+   "used_by": [
+    "wizard_hearty",
+    "spitmonster",
+    "gazer",
+    "statue_physics",
+    "skullfly",
+    "phantom_b",
+    "wizard_homing",
+    "boss_centipede_minion",
+    "wizard_neutral",
+    "minipit",
+    "lasershooter",
+    "wizard_poly",
+    "wizard_returner",
+    "wand_ghost_charmed",
+    "thunderskull",
+    "wizard_twitchy",
+    "wizard_tele",
+    "wizard_dark",
+    "phantom_a",
+    "wand_ghost",
+    "skygazer",
+    "wizard_weaken",
+    "wizard_swapper"
+   ],
+   "stage": "1b",
+   "_unverified": {
+    "speed": "tune in game against the Noita original",
+    "accel": "tune in game",
+    "jump_speed": "tune in game"
+   }
+  },
+  {
+   "id": "ghost_phase",
+   "description": "Drifts through tiles toward the target; curse aura or contact damage.",
+   "move": "phase",
+   "speed": 1.0,
+   "accel": 0.04,
+   "jump_speed": 0.0,
+   "gravity": false,
+   "sight_tiles": 50,
+   "keep_distance_tiles": 0,
+   "used_by": [
+    "weakspirit",
+    "slimespirit",
+    "confusespirit",
+    "berserkspirit",
+    "darkghost",
+    "wraith_glowing",
+    "ghost",
+    "wraith",
+    "ethereal_being",
+    "wisp",
+    "wraith_storm",
+    "boss_ghost_polyp",
+    "lurker"
+   ],
+   "stage": "1b",
+   "_unverified": {
+    "speed": "tune in game against the Noita original",
+    "accel": "tune in game",
+    "jump_speed": "tune in game"
+   }
+  },
+  {
+   "id": "flyer_lunge",
+   "description": "Erratic flyer that dashes into the target.",
+   "move": "fly",
+   "speed": 3.0,
+   "accel": 0.15,
+   "jump_speed": 0.0,
+   "gravity": false,
+   "sight_tiles": 30,
+   "keep_distance_tiles": 0,
+   "used_by": [
+    "fly",
+    "iceskull",
+    "sheep_bat",
+    "sheep_fly",
+    "bat",
+    "fireskull",
+    "bigbat",
+    "firebug",
+    "bigfirebug"
+   ],
+   "stage": "1a",
+   "_unverified": {
+    "speed": "tune in game against the Noita original",
+    "accel": "tune in game",
+    "jump_speed": "tune in game"
+   }
+  },
+  {
+   "id": "drone_flyer",
+   "description": "Robot drone: flies to a standoff point and fires.",
+   "move": "fly",
+   "speed": 2.0,
+   "accel": 0.08,
+   "jump_speed": 0.0,
+   "gravity": false,
+   "sight_tiles": 40,
+   "keep_distance_tiles": 10,
+   "used_by": [
+    "drone_lasership",
+    "healerdrone_physics",
+    "drone_physics",
+    "spearbot",
+    "drone_shield"
+   ],
+   "stage": "1b",
+   "_unverified": {
+    "speed": "tune in game against the Noita original",
+    "accel": "tune in game",
+    "jump_speed": "tune in game"
+   }
+  },
+  {
+   "id": "hopper",
+   "description": "Jumps toward the target in arcs (frogs, blobs, small spiders).",
+   "move": "hop",
+   "speed": 2.5,
+   "accel": 0.2,
+   "jump_speed": 7.5,
+   "gravity": true,
+   "sight_tiles": 25,
+   "keep_distance_tiles": 0,
+   "used_by": [
+    "longleg",
+    "missilecrab",
+    "frog_big",
+    "blob",
+    "frog",
+    "miniblob"
+   ],
+   "stage": "1a",
+   "_unverified": {
+    "speed": "tune in game against the Noita original",
+    "accel": "tune in game",
+    "jump_speed": "tune in game"
+   }
+  },
+  {
+   "id": "slime_crawler",
+   "description": "Slow crawler that spits projectiles from medium range.",
+   "move": "ground",
+   "speed": 0.8,
+   "accel": 0.06,
+   "jump_speed": 3.0,
+   "gravity": true,
+   "sight_tiles": 30,
+   "keep_distance_tiles": 6,
+   "used_by": [
+    "giantshooter",
+    "giantshooter_weak",
+    "acidshooter",
+    "acidshooter_weak",
+    "slimeshooter_boss_limbs",
+    "slimeshooter_weak",
+    "slimeshooter",
+    "tentacler_small",
+    "bloom",
+    "maggot",
+    "tentacler"
+   ],
+   "stage": "1a",
+   "_unverified": {
+    "speed": "tune in game against the Noita original",
+    "accel": "tune in game",
+    "jump_speed": "tune in game"
+   }
+  },
+  {
+   "id": "wall_climber",
+   "description": "Lukki: walks on any solid surface including walls and ceilings.",
+   "move": "climb",
+   "speed": 1.8,
+   "accel": 0.1,
+   "jump_speed": 0.0,
+   "gravity": false,
+   "sight_tiles": 35,
+   "keep_distance_tiles": 0,
+   "used_by": [
+    "lukki",
+    "lukki_longleg",
+    "lukki_tiny",
+    "lukki_dark",
+    "lukki_creepy_long"
+   ],
+   "stage": "1b",
+   "_unverified": {
+    "speed": "tune in game against the Noita original",
+    "accel": "tune in game",
+    "jump_speed": "tune in game"
+   }
+  },
+  {
+   "id": "worm",
+   "description": "Segmented worm that moves through tiles and bites.",
+   "move": "burrow",
+   "speed": 3.5,
+   "accel": 0.12,
+   "jump_speed": 0.0,
+   "gravity": false,
+   "sight_tiles": 50,
+   "keep_distance_tiles": 0,
+   "used_by": [
+    "worm_end",
+    "worm_big",
+    "worm_skull",
+    "meatmaggot",
+    "worm",
+    "eel",
+    "worm_tiny"
+   ],
+   "stage": "1b",
+   "_unverified": {
+    "speed": "tune in game against the Noita original",
+    "accel": "tune in game",
+    "jump_speed": "tune in game"
+   }
+  },
+  {
+   "id": "swimmer",
+   "description": "Swims in liquid, flops on land. Harmless.",
+   "move": "swim",
+   "speed": 1.5,
+   "accel": 0.1,
+   "jump_speed": 0.0,
+   "gravity": false,
+   "sight_tiles": 15,
+   "keep_distance_tiles": 0,
+   "used_by": [
+    "fish",
+    "fish_large"
+   ],
+   "stage": "1b",
+   "_unverified": {
+    "speed": "tune in game against the Noita original",
+    "accel": "tune in game",
+    "jump_speed": "tune in game"
+   }
+  },
+  {
+   "id": "helpless_walker",
+   "description": "Wanders and flees. Harmless.",
+   "move": "ground",
+   "speed": 1.2,
+   "accel": 0.08,
+   "jump_speed": 5.0,
+   "gravity": true,
+   "sight_tiles": 15,
+   "keep_distance_tiles": 0,
+   "used_by": [
+    "duck",
+    "sheep",
+    "player",
+    "deer",
+    "elk",
+    "scorpion"
+   ],
+   "stage": "1b",
+   "_unverified": {
+    "speed": "tune in game against the Noita original",
+    "accel": "tune in game",
+    "jump_speed": "tune in game"
+   }
+  },
+  {
+   "id": "tank",
+   "description": "Heavy tracked robot: rolls and fires its weapon.",
+   "move": "ground",
+   "speed": 1.0,
+   "accel": 0.05,
+   "jump_speed": 0.0,
+   "gravity": true,
+   "sight_tiles": 45,
+   "keep_distance_tiles": 12,
+   "used_by": [
+    "tank_rocket",
+    "tank",
+    "tank_super"
+   ],
+   "stage": "1b",
+   "_unverified": {
+    "speed": "tune in game against the Noita original",
+    "accel": "tune in game",
+    "jump_speed": "tune in game"
+   }
+  },
+  {
+   "id": "static_turret",
+   "description": "Does not move; fires or radiates when the target is in sight.",
+   "move": "static",
+   "speed": 0.0,
+   "accel": 0.0,
+   "jump_speed": 0.0,
+   "gravity": false,
+   "sight_tiles": 40,
+   "keep_distance_tiles": 0,
+   "used_by": [
+    "hpcrystal",
+    "death_orb_lab",
+    "snowcrystal",
+    "ghost_crystal",
+    "crystal_physics",
+    "pebble",
+    "blood_orb",
+    "death_orb_throne",
+    "shooterflower",
+    "neutralizer",
+    "skycrystal_physics",
+    "sentry",
+    "turret",
+    "trap_acid",
+    "trap_arrow",
+    "trap_fire",
+    "trap_thunder",
+    "bloodcrystal_physics"
+   ],
+   "stage": "1b",
+   "_unverified": {
+    "speed": "tune in game against the Noita original",
+    "accel": "tune in game",
+    "jump_speed": "tune in game"
+   }
+  },
+  {
+   "id": "spawner_nest",
+   "description": "Stationary nest that releases its creatures when the target is near.",
+   "move": "static",
+   "speed": 0.0,
+   "accel": 0.0,
+   "jump_speed": 0.0,
+   "gravity": false,
+   "sight_tiles": 30,
+   "keep_distance_tiles": 0,
+   "used_by": [
+    "nest_fly",
+    "nest_longleg",
+    "nest_firebug"
+   ],
+   "stage": "1b",
+   "_unverified": {
+    "speed": "tune in game against the Noita original",
+    "accel": "tune in game",
+    "jump_speed": "tune in game"
+   }
+  },
+  {
+   "id": "mimic",
+   "description": "Looks like an item or chest until the target is close, then attacks.",
+   "move": "ground",
+   "speed": 2.0,
+   "accel": 0.12,
+   "jump_speed": 6.0,
+   "gravity": true,
+   "sight_tiles": 10,
+   "keep_distance_tiles": 0,
+   "used_by": [
+    "mimic_potion",
+    "chest_leggy",
+    "chest_mimic",
+    "dark_alchemist",
+    "shaman_wind"
+   ],
+   "stage": "1b",
+   "_unverified": {
+    "speed": "tune in game against the Noita original",
+    "accel": "tune in game",
+    "jump_speed": "tune in game"
+   }
+  },
+  {
+   "id": "boss_boss_centipede",
+   "description": "Boss fight for Three-Eye; designed in stage 1c.",
+   "move": null,
+   "speed": null,
+   "accel": null,
+   "jump_speed": null,
+   "gravity": null,
+   "sight_tiles": null,
+   "keep_distance_tiles": null,
+   "used_by": [
+    "boss_centipede"
+   ],
+   "stage": "1c",
+   "_unverified": {}
+  },
+  {
+   "id": "boss_boss_limbs",
+   "description": "Boss fight for Three-Eye's Legs; designed in stage 1c.",
+   "move": null,
+   "speed": null,
+   "accel": null,
+   "jump_speed": null,
+   "gravity": null,
+   "sight_tiles": null,
+   "keep_distance_tiles": null,
+   "used_by": [
+    "boss_limbs"
+   ],
+   "stage": "1c",
+   "_unverified": {}
+  },
+  {
+   "id": "boss_boss_robot",
+   "description": "Boss fight for Three-Eye's Eye; designed in stage 1c.",
+   "move": null,
+   "speed": null,
+   "accel": null,
+   "jump_speed": null,
+   "gravity": null,
+   "sight_tiles": null,
+   "keep_distance_tiles": null,
+   "used_by": [
+    "boss_robot"
+   ],
+   "stage": "1c",
+   "_unverified": {}
+  },
+  {
+   "id": "boss_boss_meat",
+   "description": "Boss fight for Three-Eye's Heart; designed in stage 1c.",
+   "move": null,
+   "speed": null,
+   "accel": null,
+   "jump_speed": null,
+   "gravity": null,
+   "sight_tiles": null,
+   "keep_distance_tiles": null,
+   "used_by": [
+    "boss_meat"
+   ],
+   "stage": "1c",
+   "_unverified": {}
+  },
+  {
+   "id": "boss_boss_dragon",
+   "description": "Boss fight for Dragon; designed in stage 1c.",
+   "move": null,
+   "speed": null,
+   "accel": null,
+   "jump_speed": null,
+   "gravity": null,
+   "sight_tiles": null,
+   "keep_distance_tiles": null,
+   "used_by": [
+    "boss_dragon"
+   ],
+   "stage": "1c",
+   "_unverified": {}
+  },
+  {
+   "id": "boss_boss_wizard",
+   "description": "Boss fight for Master of Masters; designed in stage 1c.",
+   "move": null,
+   "speed": null,
+   "accel": null,
+   "jump_speed": null,
+   "gravity": null,
+   "sight_tiles": null,
+   "keep_distance_tiles": null,
+   "used_by": [
+    "boss_wizard"
+   ],
+   "stage": "1c",
+   "_unverified": {}
+  },
+  {
+   "id": "boss_boss_alchemist",
+   "description": "Boss fight for High Alchemist; designed in stage 1c.",
+   "move": null,
+   "speed": null,
+   "accel": null,
+   "jump_speed": null,
+   "gravity": null,
+   "sight_tiles": null,
+   "keep_distance_tiles": null,
+   "used_by": [
+    "boss_alchemist"
+   ],
+   "stage": "1c",
+   "_unverified": {}
+  },
+  {
+   "id": "boss_boss_ghost",
+   "description": "Boss fight for Forgotten; designed in stage 1c.",
+   "move": null,
+   "speed": null,
+   "accel": null,
+   "jump_speed": null,
+   "gravity": null,
+   "sight_tiles": null,
+   "keep_distance_tiles": null,
+   "used_by": [
+    "boss_ghost"
+   ],
+   "stage": "1c",
+   "_unverified": {}
+  },
+  {
+   "id": "boss_boss_pit",
+   "description": "Boss fight for Connoisseur of Wands; designed in stage 1c.",
+   "move": null,
+   "speed": null,
+   "accel": null,
+   "jump_speed": null,
+   "gravity": null,
+   "sight_tiles": null,
+   "keep_distance_tiles": null,
+   "used_by": [
+    "boss_pit"
+   ],
+   "stage": "1c",
+   "_unverified": {}
+  },
+  {
+   "id": "boss_boss_sky",
+   "description": "Boss fight for Stone; designed in stage 1c.",
+   "move": null,
+   "speed": null,
+   "accel": null,
+   "jump_speed": null,
+   "gravity": null,
+   "sight_tiles": null,
+   "keep_distance_tiles": null,
+   "used_by": [
+    "boss_sky"
+   ],
+   "stage": "1c",
+   "_unverified": {}
+  },
+  {
+   "id": "boss_maggot_tiny",
+   "description": "Boss fight for Slime Maggot; designed in stage 1c.",
+   "move": null,
+   "speed": null,
+   "accel": null,
+   "jump_speed": null,
+   "gravity": null,
+   "sight_tiles": null,
+   "keep_distance_tiles": null,
+   "used_by": [
+    "maggot_tiny"
+   ],
+   "stage": "1c",
+   "_unverified": {}
+  },
+  {
+   "id": "boss_fish_giga",
+   "description": "Boss fight for Creature of the Deep; designed in stage 1c.",
+   "move": null,
+   "speed": null,
+   "accel": null,
+   "jump_speed": null,
+   "gravity": null,
+   "sight_tiles": null,
+   "keep_distance_tiles": null,
+   "used_by": [
+    "fish_giga"
+   ],
+   "stage": "1c",
+   "_unverified": {}
+  },
+  {
+   "id": "boss_islandspirit",
+   "description": "Boss fight for Tapio's Vassal; designed in stage 1c.",
+   "move": null,
+   "speed": null,
+   "accel": null,
+   "jump_speed": null,
+   "gravity": null,
+   "sight_tiles": null,
+   "keep_distance_tiles": null,
+   "used_by": [
+    "islandspirit"
+   ],
+   "stage": "1c",
+   "_unverified": {}
+  },
+  {
+   "id": "boss_gate_monster_a",
+   "description": "Boss fight for Goalkeeper; designed in stage 1c.",
+   "move": null,
+   "speed": null,
+   "accel": null,
+   "jump_speed": null,
+   "gravity": null,
+   "sight_tiles": null,
+   "keep_distance_tiles": null,
+   "used_by": [
+    "gate_monster_a"
+   ],
+   "stage": "1c",
+   "_unverified": {}
+  },
+  {
+   "id": "boss_gate_monster_b",
+   "description": "Boss fight for Goalkeeper; designed in stage 1c.",
+   "move": null,
+   "speed": null,
+   "accel": null,
+   "jump_speed": null,
+   "gravity": null,
+   "sight_tiles": null,
+   "keep_distance_tiles": null,
+   "used_by": [
+    "gate_monster_b"
+   ],
+   "stage": "1c",
+   "_unverified": {}
+  },
+  {
+   "id": "boss_gate_monster_c",
+   "description": "Boss fight for Goalkeeper; designed in stage 1c.",
+   "move": null,
+   "speed": null,
+   "accel": null,
+   "jump_speed": null,
+   "gravity": null,
+   "sight_tiles": null,
+   "keep_distance_tiles": null,
+   "used_by": [
+    "gate_monster_c"
+   ],
+   "stage": "1c",
+   "_unverified": {}
+  },
+  {
+   "id": "boss_gate_monster_d",
+   "description": "Boss fight for Sieve; designed in stage 1c.",
+   "move": null,
+   "speed": null,
+   "accel": null,
+   "jump_speed": null,
+   "gravity": null,
+   "sight_tiles": null,
+   "keep_distance_tiles": null,
+   "used_by": [
+    "gate_monster_d"
+   ],
+   "stage": "1c",
+   "_unverified": {}
+  },
+  {
+   "id": "boss_parallel_tentacles",
+   "description": "Boss fight for Three-eye's Minion; designed in stage 1c.",
+   "move": null,
+   "speed": null,
+   "accel": null,
+   "jump_speed": null,
+   "gravity": null,
+   "sight_tiles": null,
+   "keep_distance_tiles": null,
+   "used_by": [
+    "parallel_tentacles"
+   ],
+   "stage": "1c",
+   "_unverified": {}
+  },
+  {
+   "id": "boss_parallel_alchemist",
+   "description": "Boss fight for Alchemist's Shadow; designed in stage 1c.",
+   "move": null,
+   "speed": null,
+   "accel": null,
+   "jump_speed": null,
+   "gravity": null,
+   "sight_tiles": null,
+   "keep_distance_tiles": null,
+   "used_by": [
+    "parallel_alchemist"
+   ],
+   "stage": "1c",
+   "_unverified": {}
+  }
+ ]
+}
