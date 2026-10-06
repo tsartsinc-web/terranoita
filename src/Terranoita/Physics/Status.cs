@@ -54,6 +54,13 @@ namespace Terranoita.Game.Physics
         public static void Stain(IEnumerable<string> ids)
         {
             var stains = new HashSet<string>(ids.Where(i => i != "ON_FIRE"));
+            if (ids.Contains("ON_FIRE"))
+                // a burning liquid (Noita's "fire", lava) burns off the stains that would keep fire away
+                foreach (var old in Left.Keys.Where(k => Defs.TryGetValue(k, out var d) && d.ProtectsFromFire).ToList())
+                {
+                    Left.Remove(old);
+                    Stains.Remove(old);
+                }
             if (stains.Any(s => !Stains.Contains(s)))
                 foreach (var old in Stains.Where(s => !stains.Contains(s)).ToList())
                 {
@@ -68,8 +75,36 @@ namespace Terranoita.Game.Physics
             }
         }
 
+        /// <summary>Noita remove_cells_that_cause_when_activated: the liquid that caused it is used up.</summary>
+        public static bool RemovesCause(string id) => Defs.TryGetValue(id, out var d) && d.RemovesCause;
+
+        /// <summary>The Noita creature the player is turned into (sprite path), or null.</summary>
+        public static string Form { get; private set; }
+        static int _formTimer;
+
+        static void UpdateForm()
+        {
+            bool sheep = Has("POLYMORPH"), random = Has("POLYMORPH_RANDOM"), unstable = Has("POLYMORPH_UNSTABLE");
+            if (!sheep && !random && !unstable)
+            {
+                Form = null;
+                return;
+            }
+            // the unstable kind keeps changing, every 3 seconds
+            if (Form != null && !(unstable && ++_formTimer % 180 == 0))
+                return;
+            if (sheep && !random && !unstable)
+            {
+                Form = "data/enemies_gfx/sheep.xml";
+                return;
+            }
+            var all = Enemies.All.Where(e => Terranoita.Generated.Defs.InStage(e.Stage, Entry.Stage) && e.Sprite != null && e.Sprite.EndsWith(".xml")).ToArray();
+            Form = all.Length > 0 ? all[Main.rand.Next(all.Length)].Sprite : "data/enemies_gfx/sheep.xml";
+        }
+
         public static void Clear()
         {
+            Form = null;
             Left.Clear();
             Stains.Clear();
         }
@@ -82,6 +117,7 @@ namespace Terranoita.Game.Physics
             foreach (var id in Left.Keys.ToList())
                 if (--Left[id] <= 0)
                     { Left.Remove(id); Stains.Remove(id); }
+            UpdateForm();
             if (Left.Count == 0)
                 return;
             if (FireProof)
@@ -92,6 +128,7 @@ namespace Terranoita.Game.Physics
             if (Has("ON_FIRE") || Has("INGESTION_ON_FIRE"))
                 p.onFire = true;
             if (Has("SLIMY")) p.moveSpeed *= 0.7f;
+            if (Has("CHILLED")) p.moveSpeed *= 0.5f;
             if (Has("FOOD_POISONING")) p.moveSpeed *= 0.8f;
             if (Has("MOVEMENT_FASTER_2X")) p.moveSpeed *= 2f;
             if (Has("POLYMORPH") || Has("POLYMORPH_RANDOM") || Has("POLYMORPH_UNSTABLE"))

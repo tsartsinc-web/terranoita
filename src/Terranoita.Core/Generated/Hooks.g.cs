@@ -50,6 +50,8 @@ namespace Terranoita.Generated
             new HookDef { Id = "player_liferegen", Target = "Terraria.Player:UpdateLifeRegen()", Patch = "prefix", System = "noita_status", Purpose = "Noita status effects hurt or heal over time.", Stage = "2" },
             new HookDef { Id = "buffs_draw", Target = "Terraria.Main:DrawInterface_Resources_Buffs()", Patch = "postfix", System = "noita_status", Purpose = "Noita status icons after Terraria's buff icons.", Stage = "2" },
             new HookDef { Id = "fluids_draw", Target = "Terraria.Main:DrawPlayers_AfterProjectiles()", Patch = "postfix", System = "block_physics", Purpose = "Noita liquids and gases drawn in front of the player, see-through like Terraria's water.", Stage = "2" },
+            new HookDef { Id = "player_draw", Target = "Terraria.Graphics.Renderers.LegacyPlayerRenderer:DrawPlayer(Camera, Player, ...)", Patch = "prefix", System = "noita_status", Purpose = "Invisible or polymorphed player: Terraria does not draw them.", Stage = "2" },
+            new HookDef { Id = "player_form_draw", Target = "Terraria.Main:DrawPlayers_AfterProjectiles()", Patch = "postfix", System = "noita_status", Purpose = "A polymorphed player is drawn as the Noita creature.", Stage = "2" },
         };
     }
 }

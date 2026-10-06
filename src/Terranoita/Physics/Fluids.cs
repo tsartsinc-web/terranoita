@@ -206,6 +206,8 @@ namespace Terranoita.Game.Physics
                 }
                 c.Amount -= (byte)fade;
             }
+            if (d.OnFire)
+                c.Burn = 1;   // Noita's "fire" (oil's burning child) is always alight
             if (c.Burn > 0 && !Burn(x, y, ref c, d))
             {
                 Cells.Remove(k);
@@ -316,7 +318,7 @@ namespace Terranoita.Game.Physics
         static bool Burn(int x, int y, ref Cell c, LiquidDef d)
         {
             // burns down by fire_hp (Noita: oil 1000ish frames per pixel): a full tile of oil burns ~8 s
-            int loss = Math.Max(1, (int)(255 * 2 * 5 / Math.Max(60f, d.FireHp)));
+            int loss = d.FireHp >= 100000 ? 0 : Math.Max(1, (int)(255 * 2 * 5 / Math.Max(60f, d.FireHp)));
             if (loss >= c.Amount)
                 return false;
             c.Amount -= (byte)loss;
@@ -584,7 +586,12 @@ namespace Terranoita.Game.Physics
                 foreach (var (d, burning) in Under(me.Hitbox))
                 {
                     if (d.TouchEffects != null && d.TouchEffects.Length > 0)
+                    {
                         Status.Stain(d.TouchEffects);
+                        // Noita remove_cells_that_cause_when_activated (polymorphine): the liquid is used up
+                        if (d.TouchEffects.Any(Status.RemovesCause))
+                            RemoveUnder(me.Hitbox, d);
+                    }
                     if (burning)
                         Status.Apply("ON_FIRE");
                     if (d.Kind == "liquid" && d.Viscosity > 0 && _frame % 2 == 0)
@@ -613,6 +620,15 @@ namespace Terranoita.Game.Physics
                         }
                 }
             }
+        }
+
+        static void RemoveUnder(Rectangle box, LiquidDef d)
+        {
+            int kind = KindOf(d.Id);
+            for (int x = box.Left / 16 - 1; x <= (box.Right - 1) / 16 + 1; x++)
+                for (int y = box.Top / 16 - 1; y <= (box.Bottom - 1) / 16 + 1; y++)
+                    if (Cells.TryGetValue(Key(x, y), out var c) && c.Kind == kind)
+                        Cells.Remove(Key(x, y));
         }
 
         static IEnumerable<(LiquidDef, bool)> Under(Rectangle box)

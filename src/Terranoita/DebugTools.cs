@@ -120,6 +120,11 @@ namespace Terranoita.Game
             }
             if (ctrl && shift && Main.keyState.IsKeyDown(Keys.L))
                 Physics.Fluids.Add((int)(Main.MouseWorld.X / 16), (int)(Main.MouseWorld.Y / 16), (_liquid ?? Liquids.All.First(l => l.Id == "acid")).Id, 60);
+            if (ctrl && shift && Main.keyState.IsKeyDown(Keys.H) && !Main.oldKeyState.IsKeyDown(Keys.H) && Physics.LiquidGallery.Home.HasValue)
+            {
+                Main.LocalPlayer.Teleport(Physics.LiquidGallery.Home.Value, -1);
+                Main.LocalPlayer.velocity = Vector2.Zero;
+            }
             if (ctrl && shift && Main.keyState.IsKeyDown(Keys.N) && !Main.oldKeyState.IsKeyDown(Keys.N))
             {
                 var all = Built;

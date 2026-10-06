@@ -259,6 +259,24 @@
    "purpose": "Noita liquids and gases drawn in front of the player, see-through like Terraria's water.",
    "stage": "2",
    "_unverified": {}
+  },
+  {
+   "id": "player_draw",
+   "target": "Terraria.Graphics.Renderers.LegacyPlayerRenderer:DrawPlayer(Camera, Player, ...)",
+   "patch": "prefix",
+   "system": "noita_status",
+   "purpose": "Invisible or polymorphed player: Terraria does not draw them.",
+   "stage": "2",
+   "_unverified": {}
+  },
+  {
+   "id": "player_form_draw",
+   "target": "Terraria.Main:DrawPlayers_AfterProjectiles()",
+   "patch": "postfix",
+   "system": "noita_status",
+   "purpose": "A polymorphed player is drawn as the Noita creature.",
+   "stage": "2",
+   "_unverified": {}
   }
  ]
 }

@@ -19,10 +19,27 @@ namespace Terranoita.Game.Physics
         const int PerRow = 12, Inner = 4, InnerH = 3;   // box inside 4 x 3, walls 1
         const int PitchX = Inner + 3, PitchY = InnerH + 2 + 5;   // a gap between boxes, a walkway above each row
 
+        /// <summary>Where the gallery starts: Ctrl+Shift+H brings the player back (teleportatium).</summary>
+        public static Vector2? Home;
+        static readonly System.Collections.Generic.List<(int left, int top, string name)> Boxes =
+            new System.Collections.Generic.List<(int, int, string)>();
+
         public static void Frame(Player p, int frame)
         {
             if (frame == 300)
                 Build(p);
+            // gases and fading liquids go, as in Noita: top the boxes up every 10 seconds so they can be seen
+            else if (frame > 300 && frame % 600 == 0)
+                foreach (var (left, top, name) in Boxes)
+                    if (Fluids.Total(left + 1, left + Inner, top + 1, top + InnerH, name) < Inner * InnerH * 255 / 3)
+                        Fill(left, top, name);
+        }
+
+        static void Fill(int left, int top, string name)
+        {
+            for (int x = left + 1; x <= left + Inner; x++)
+                for (int y = top + 1; y <= top + InnerH; y++)
+                    Fluids.Add(x, y, name, 255);
         }
 
         static void Build(Player p)
@@ -86,19 +103,19 @@ namespace Terranoita.Game.Physics
                 for (int c = 0; c < PerRow && i < names.Length; c++, i++)
                 {
                     int left = x0 + 3 + c * PitchX;
-                    for (int x = left + 1; x <= left + Inner; x++)
-                        for (int y = top + 1; y <= top + InnerH; y++)
-                            Fluids.Add(x, y, names[i], 255);
+                    Boxes.Add((left, top, names[i]));
+                    Fill(left, top, names[i]);
                 }
             }
             // a pickaxe that breaks obsidian, torches
             p.inventory[1].SetDefaults(ItemID.NightmarePickaxe);
             p.inventory[3].SetDefaults(ItemID.Torch);
             p.inventory[3].stack = 99;
-            p.Teleport(new Vector2((x0 + 3) * 16, (y0 + 4) * 16 - p.height), -1);
+            Home = new Vector2((x0 + 3) * 16, (y0 + 4) * 16 - p.height);
+            p.Teleport(Home.Value, -1);
             p.velocity = Vector2.Zero;
             Entry.Log("LIQUID GALLERY: " + names.Length + " boxes in " + rows + " rows at " + x0 + "," + y0 + "; cells " + Fluids.Count);
-            Main.NewText("Terranoita: " + names.Length + " Noita liquids and gases in obsidian boxes. The pickaxe breaks obsidian.", new Color(120, 200, 255));
+            Main.NewText("Terranoita: " + names.Length + " Noita liquids and gases in obsidian boxes. The pickaxe breaks obsidian. Ctrl+Shift+H: back here.", new Color(120, 200, 255));
         }
 
         static void Box(int left, int top, string name)

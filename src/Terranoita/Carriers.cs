@@ -299,7 +299,8 @@ namespace Terranoita.Game
                 target.Center = new V2(player.Center.X, player.Center.Y);
                 target.Width = player.width;
                 target.Height = player.height;
-                target.Visible = Collision.CanHitLine(npc.position, npc.width, npc.height, player.position, player.width, player.height);
+                target.Visible = Collision.CanHitLine(npc.position, npc.width, npc.height, player.position, player.width, player.height)
+                                 && !(player.whoAmI == Main.myPlayer && Physics.Status.Has("INVISIBILITY"));   // Noita invisibility
             }
             return target;
         }

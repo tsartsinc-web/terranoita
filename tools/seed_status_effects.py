@@ -45,6 +45,7 @@ ROWS = {
     "UNSTABLE_TELEPORTATION": ("every 2 s teleports 40-80 tiles to a free spot", 6),
     "WORM_ATTRACTOR": ("Noita worms hunt the player from twice as far", 30),
     "INGESTION_FREEZING": ("frozen in place (Terraria frozen)", 3),
+    "CHILLED": ("half movement speed (author: freezing liquid slows on touch; Noita icon and name of freezing)", 4),
     "FARTS": ("green puffs (Terraria stinky)", 15),
     "RAINBOW_FARTS": ("rainbow puffs", 15),
     "JARATE": ("yellow drips", 15),
@@ -57,6 +58,7 @@ COLUMNS = {
     "icon": {"type": "string", "desc": "Icon in data.wak."},
     "harmful": {"type": "bool", "desc": "Noita is_harmful."},
     "protects_from_fire": {"type": "bool", "desc": "Noita protects_from_fire: puts out and keeps off fire."},
+    "removes_cause": {"type": "bool", "desc": "Noita remove_cells_that_cause_when_activated: the liquid that caused it is used up."},
     "mechanic": {"type": "string", "desc": "What our code does while it lasts."},
     "seconds": {"type": "number", "desc": "How long one touch lasts (refreshed while touching)."},
     "stage": {"type": "enum", "values": ["1a", "1b", "1c", "2", "3", "4"], "desc": "Stage that builds it."},
@@ -82,11 +84,12 @@ if missing:
     raise SystemExit("no row for: " + ", ".join(missing))
 rows = []
 for k, (mech, secs) in ROWS.items():
-    n = lua.get(k) or lua.get(k.replace("INGESTION_", "")) or {}
+    n = lua.get(k) or lua.get(k.replace("INGESTION_", "")) or (lua.get("INGESTION_FREEZING") if k == "CHILLED" else None) or {}
     rows.append({"id": k, "name_key": n.get("ui_name", "").lstrip("$") or "none",
                  "desc_key": n.get("ui_description", "").lstrip("$") or "none",
                  "icon": n.get("ui_icon") or "none", "harmful": bool(n.get("is_harmful", False)),
-                 "protects_from_fire": bool(n.get("protects_from_fire", False)), "mechanic": mech, "seconds": secs,
+                 "protects_from_fire": bool(n.get("protects_from_fire", False)),
+                 "removes_cause": bool(n.get("remove_cells_that_cause_when_activated", False)), "mechanic": mech, "seconds": secs,
                  "stage": "2", "_unverified": {},
                  "_sources": {"all": "status_list.lua" + ("" if lua.get(k) else " (" + (k.replace("INGESTION_", "") if n else "not listed") + ")")}})
 with open(OUT, "w", encoding="utf-8", newline="\n") as f:

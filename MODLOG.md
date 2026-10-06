@@ -431,3 +431,12 @@ Entry.Stage default 1b, version 0.2.0. Проверить на ПК also: worm l
   protects_from_fire and remove_cells_that_cause_when_activated; exclusivity_group is used by one creature): stains
   are pixels of material on the sprite (SpriteStainsSystem in noita.exe), so a new liquid covers the old. Done:
   a new stain ends the other stains (water washes off oil, slime, sludge); protects_from_fire was already in.
+- Author's gallery notes, fixed: Noita's "fire" (liquid_fire, en "fire", oil's CellDataChild with on_fire=1) took
+  oil's OILED stain, which kept its own fire off: on_fire liquids now burn forever (no burn-down at fire_hp 1e6) and
+  touch = ON_FIRE (a burning liquid burns off fire-proof stains). Freezing liquid (blood_cold, vapour): Noita acts
+  only when drunk; author wants a slowdown on touch: new effect CHILLED (50% speed, Noita's freezing icon).
+  Invisibility: the player is not drawn at all and Noita enemies lose sight of them. Polymorph: drawn as a Noita
+  sheep (random creature; unstable changes every 3 s), and the liquid that caused it is used up (Noita
+  remove_cells_that_cause_when_activated, sheet column removes_cause). Empty boxes were gases and fading liquids
+  (Noita lifetimes): the gallery tops boxes up every 10 s. Teleportatium took the author out of the gallery:
+  Ctrl+Shift+H brings them back.

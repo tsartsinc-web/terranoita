@@ -69,6 +69,9 @@ def color(a):
     return c if re.fullmatch(r"[0-9a-f]{8}", c) else "ff808080"
 
 
+# author: freezing liquid (and its vapour) slows whoever touches it; in Noita it only acts when drunk
+AUTHOR_TOUCH = {"blood_cold": ["CHILLED"], "blood_cold_vapour": ["CHILLED"]}
+
 TILE_BY_NAME = [  # first match wins
     ("lavarock", "Obsidian"), ("obsidian", "Obsidian"), ("concrete", "GrayBrick"), ("glass", "Glass"),
     ("ice", "IceBlock"), ("snow", "SnowBlock"), ("mud", "Mud"), ("soil", "Dirt"), ("earth", "Dirt"),
@@ -84,6 +87,21 @@ def terraria_tile(name):
         if key in name:
             return tile
     return "none"
+
+
+def touch(n, a):
+    """Touch effects: status_effects + stains (deduplicated); burning liquids (on_fire, e.g. Noita's "fire", oil's
+    child) set you on fire and do not leave the parent's fire-proof stain; AUTHOR_TOUCH adds the author's ones."""
+    out = []
+    for e in [s for s in (a.get("status_effects") or "").split(",") if s] + a.get("stains", []):
+        if e not in out:
+            out.append(e)
+    if a.get("on_fire") == "1":
+        out = ["ON_FIRE"] + [e for e in out if e not in ("OILED", "WET", "BLOODY", "SLIMY", "RADIOACTIVE")]
+    for e in AUTHOR_TOUCH.get(n, []):
+        if e not in out:
+            out.append(e)
+    return out
 
 
 def main():
@@ -109,7 +127,7 @@ def main():
             "on_fire": a.get("on_fire") == "1",
             "glow": num(a.get("gfx_glow"), 0.0),
             "lifetime": num(a.get("lifetime"), 0.0),
-            "touch_effects": [s for s in (a.get("status_effects") or "").split(",") if s] + a.get("stains", []),
+            "touch_effects": touch(n, a),
             "ingestion": ["%s:%g" % (t, v) for t, v in a.get("ingestion", [])],
             "freezes_to": a.get("cold_freezes_to_material") or "none",
             "melts_to": a.get("warmth_melts_to_material") or "none",
