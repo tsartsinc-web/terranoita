@@ -17,7 +17,7 @@ namespace Terranoita.Game
     {
         static readonly Stopwatch Clock = Stopwatch.StartNew();
         static readonly Dictionary<string, double> Parts = new Dictionary<string, double>(StringComparer.Ordinal);
-        static long _lastLog;
+        static long _lastLog, _lastFrameLog, _prevEnd;
 
         /// <summary>Times one part of this update.</summary>
         public static void Time(string part, Action a)
@@ -34,6 +34,19 @@ namespace Terranoita.Game
         /// <summary>End of an update: log it if the mod's parts took long.</summary>
         public static void EndUpdate()
         {
+            // the whole frame (Terraria's update and draw too): a slow one is logged with what the world holds
+            long now = Clock.ElapsedTicks;
+            double frameMs = _prevEnd == 0 ? 0 : (now - _prevEnd) * 1000.0 / Stopwatch.Frequency;
+            _prevEnd = now;
+            if (frameMs > 40 && !Main.gameMenu && !Main.gamePaused && Clock.ElapsedMilliseconds - _lastFrameLog > 1000)
+            {
+                _lastFrameLog = Clock.ElapsedMilliseconds;
+                Entry.Log("SLOW frame " + frameMs.ToString("0") + " ms (mod parts " + Parts.Values.Sum().ToString("0.0") + " ms): items " +
+                    Main.item.Count(i => i != null && i.active) + ", projectiles " + Main.projectile.Count(x => x != null && x.active) +
+                    ", npcs " + Main.npc.Count(n => n != null && n.active) + ", dust " + Main.dust.Count(d => d != null && d.active) +
+                    ", gore " + Main.gore.Count(g => g != null && g.active) + ", liquids " + Physics.Fluids.Count +
+                    ", spell shots " + Magic.SpellShots.Ids().Count);
+            }
             if (Parts.Count == 0)
                 return;
             double total = Parts.Values.Sum();
