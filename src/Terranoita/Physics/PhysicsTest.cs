@@ -178,7 +178,7 @@ namespace Terranoita.Game.Physics
 
         static void Check(string when)
         {
-            // the two loose columns (5 + 9 grains) end up as piles somewhere around x0-4..x0+10
+            // of the two loose columns (5 + 9 grains) only the 3 grains next to the broken tile fall (author: a local cave-in)
             int col = Count(_x0 - 5, _x0 + 11, _gy - 16, _gy - 1, t => t.type == TileID.Dirt);
             int colLanded = Count(_x0 - 5, _x0 + 11, _gy - 6, _gy - 1, t => t.type == TileID.Dirt);
             int pile = Count(_x0 + 3, _x0 + 9, _gy - 16, _gy - 1, t => t.type == TileID.Dirt);
@@ -200,7 +200,7 @@ namespace Terranoita.Game.Physics
                 for (int y = _gy - 4; y <= _gy - 1; y++)
                     water += Main.tile[x, y].liquid;
             int blasted = 36 - Count(_x0 + 34, _x0 + 42, _gy - 4, _gy - 1, t => t.type == TileID.Dirt);
-            Log(when + ": loose dirt " + col + "/14, " + colLanded + " low on the floor (want 14 and 14); pile " + pile + "/9 dirt, " +
+            Log(when + ": loose dirt " + col + "/14, " + colLanded + " low on the floor (want 14 and 6: 3 grains of each column fall, Falling.Reach); pile " + pile + "/9 dirt, " +
                 pileWide + " wide on the floor (want > 1); hut " + hut + "/15 wood, " + hutHigh + " still at the old height (want 0); " +
                 "box " + box + "/16 wood, wall " + walls + "/49, burning " + Fire.Count + ";ice+snow " + ice + "/2, water " + water + "; blasted " + blasted +
                 "/36; falling " + Falling.Active + ", placed " + Placed.Count);

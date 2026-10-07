@@ -18,6 +18,7 @@ namespace Terranoita.Game.Physics
         const float Gravity = 0.25f, MaxFall = 10f;
         const int MaxGroup = 4000;        // a bigger building is taken as supported (and never searched further)
         const int PerFrame = 400;         // disturbed tiles looked at per frame
+        const int Reach = 3;              // author: loose soil caves in only this close to the broken block, not the whole hill
 
         sealed class Part
         {
@@ -33,11 +34,12 @@ namespace Terranoita.Game.Physics
             public List<Part> Parts = new List<Part>();
             public bool Powder;
             public int HurtCooldown;
+            public int Origin;            // the break that set it falling
         }
 
         static readonly List<Body> Bodies = new List<Body>();
         static readonly Queue<int> Queue = new Queue<int>();
-        static readonly HashSet<int> Queued = new HashSet<int>();
+        static readonly Dictionary<int, int> Queued = new Dictionary<int, int>();   // tile -> the break it came from
         static bool _busy;                // our own tile changes do not disturb through the KillTile hook
 
         public static int Active => Bodies.Count;
@@ -50,58 +52,82 @@ namespace Terranoita.Game.Physics
         }
 
         /// <summary>The tile at x,y changed or went away: the tiles around it look again.</summary>
-        public static void Disturb(int x, int y)
+        public static void Disturb(int x, int y) => Disturb(x, y, x + y * Main.maxTilesX);
+
+        static void Disturb(int x, int y, int origin)
         {
             if (_busy)
                 return;
-            Enqueue(x, y - 1);
-            Enqueue(x - 1, y);
-            Enqueue(x + 1, y);
-            Enqueue(x, y + 1);
-            Enqueue(x, y);
+            Enqueue(x, y - 1, origin);
+            Enqueue(x - 1, y, origin);
+            Enqueue(x + 1, y, origin);
+            Enqueue(x, y + 1, origin);
+            Enqueue(x, y, origin);
         }
 
-        static void Enqueue(int x, int y)
+        static void Enqueue(int x, int y, int origin)
         {
             if (!Mats.InWorld(x, y))
                 return;
             int k = x + y * Main.maxTilesX;
-            if (Queued.Add(k))
+            if (!Queued.ContainsKey(k))
+            {
+                Queued[k] = origin;
                 Queue.Enqueue(k);
+            }
         }
+
+        /// <summary>
+        /// Inside the cave-in of the break at origin: Reach tiles up over the break, and each column further out a
+        /// random 0 or 1 lower, so the hole is a ragged staircase and not a square (author).
+        /// </summary>
+        static bool Near(int x, int y, int origin)
+        {
+            int dx = x - origin % Main.maxTilesX, dy = y - origin / Main.maxTilesX;
+            if (Math.Abs(dx) > Reach || dy > Reach)
+                return false;
+            int height = Reach;
+            for (int i = Math.Sign(dx); i != 0 && Math.Abs(i) <= Math.Abs(dx); i += Math.Sign(dx))
+                height -= Step(origin, i);
+            return -dy <= height;
+        }
+
+        // the same random step for the same break and column, every time it is asked
+        static int Step(int origin, int column) => (int)((uint)(origin * 73856093 ^ column * 19349663) >> 13) & 1;
 
         public static void Update()
         {
             for (int n = 0; n < PerFrame && Queue.Count > 0; n++)
             {
                 int k = Queue.Dequeue();
+                int origin = Queued[k];
                 Queued.Remove(k);
-                Look(k % Main.maxTilesX, k / Main.maxTilesX);
+                Look(k % Main.maxTilesX, k / Main.maxTilesX, origin);
             }
             for (int i = Bodies.Count - 1; i >= 0; i--)
                 if (Step(Bodies[i]))
                     Bodies.RemoveAt(i);
         }
 
-        static void Look(int x, int y)
+        static void Look(int x, int y, int origin)
         {
             var t = Main.tile[x, y];
             if (t == null || !t.active())
                 return;
             if (Mats.Powder(t))
             {
-                if (!Mats.Solid(x, y + 1))
-                    Start(new List<(int, int)> { (x, y) }, true);
+                if (!Mats.Solid(x, y + 1) && Near(x, y, origin))
+                    Start(new List<(int, int)> { (x, y) }, true, origin);
                 return;
             }
             if (Placed.Has(x, y) && IsBlock(t) && !Mats.Weightless(t))
-                CheckSupport(x, y);
+                CheckSupport(x, y, origin);
         }
 
         static bool IsBlock(Tile t) => Main.tileSolid[t.type] || TileID.Sets.Platforms[t.type];
 
         /// <summary>A connected group of placed blocks holds if it touches a natural solid tile or a weightless one.</summary>
-        static void CheckSupport(int x0, int y0)
+        static void CheckSupport(int x0, int y0, int origin)
         {
             var group = new List<(int, int)>();
             var seen = new HashSet<int> { x0 + y0 * Main.maxTilesX };
@@ -126,12 +152,12 @@ namespace Terranoita.Game.Physics
                         open.Push((nx, ny));
                 }
             }
-            Start(group, false);
+            Start(group, false, origin);
         }
 
-        static void Start(List<(int x, int y)> tiles, bool powder)
+        static void Start(List<(int x, int y)> tiles, bool powder, int origin)
         {
-            var b = new Body { X = tiles[0].x, Y = tiles[0].y, Powder = powder };
+            var b = new Body { X = tiles[0].x, Y = tiles[0].y, Powder = powder, Origin = origin };
             _busy = true;
             try
             {
@@ -149,7 +175,7 @@ namespace Terranoita.Game.Physics
             }
             finally { _busy = false; }
             foreach (var (x, y) in tiles)
-                Disturb(x, y);
+                Disturb(x, y, origin);
             Bodies.Add(b);
             if (!powder)
                 Entry.Log("physics: building of " + tiles.Count + " tiles falls at " + b.X + "," + b.Y);
@@ -246,7 +272,7 @@ namespace Terranoita.Game.Physics
             if (!b.Powder || Main.rand.Next(4) == 0)
                 Terraria.Audio.SoundEngine.PlaySound(SoundID.Dig, new Vector2(b.X * 16, (b.Y + rows) * 16));
             foreach (var (x, y) in landed)
-                Disturb(x, y);
+                Disturb(x, y, b.Origin);
         }
 
         /// <summary>Falling blocks hurt what they fall on.</summary>

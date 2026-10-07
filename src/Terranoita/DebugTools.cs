@@ -160,9 +160,12 @@ namespace Terranoita.Game
                     return;
                 }
                 var who = Main.PlayerList.First(f => f.Name == TestPlayer);
-                Entry.Log("AUTOTEST: entering " + Main.WorldList[0].Name + " as " + who.Name);
+                // TERRANOITA_AUTOTEST_WORLD: a world by name (a copy of the author's), else the first one
+                string wanted = Environment.GetEnvironmentVariable("TERRANOITA_AUTOTEST_WORLD");
+                var world = Main.WorldList.FirstOrDefault(w => w.Name == wanted || System.IO.Path.GetFileNameWithoutExtension(w.Path) == wanted) ?? Main.WorldList[0];
+                Entry.Log("AUTOTEST: entering " + world.Name + " as " + who.Name);
                 Main.SelectPlayer(who);
-                Main.WorldList[0].SetAsActive();
+                world.SetAsActive();
                 WorldGen.playWorld();
                 Main.menuMode = 10;
                 return;
@@ -189,6 +192,13 @@ namespace Terranoita.Game
                     if (Physics.LiquidAudit.Done && ExitWhenDone)
                         Main.instance.Exit();
                 }
+                return;
+            }
+            if (Physics.PerfTest.Enabled)
+            {
+                Physics.PerfTest.Frame(p, _worldFrames);
+                if (_worldFrames == Physics.PerfTest.Length && ExitWhenDone)
+                    Main.instance.Exit();
                 return;
             }
             if (Physics.PhysicsTest.Enabled)

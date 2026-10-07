@@ -51,7 +51,8 @@ namespace Terranoita.Game.Physics
         static readonly Comparison<int> Descending = (a, b) => b.CompareTo(a);
         static byte _stamp;
         static int _pass;
-        const int FarX = 160, FarY = 100;
+        const int FarX = 160, FarY = 100, ReactEvery = 4, FarEvery = 32;
+        static bool _far;   // the cell being stepped is far from the player
         static Texture2D _pixel;
 
         public static int Count => Cells.Count;
@@ -198,24 +199,26 @@ namespace Terranoita.Game.Physics
             if (_frame % 2 == 0)
             {
                 // one list kept and reused (author: no garbage every tick)
-                var keys = KeysBuffer;
-                keys.Clear();
-                keys.AddRange(Cells.Keys);
-                // bottom cells first for liquids, so a column falls together
-                keys.Sort(Descending);
                 _stamp = (byte)(_stamp % 255 + 1);
                 _pass++;
-                // far from the player (two screens and more) a cell moves every 8th pass: pools there are still
+                // far from the player (two screens and more) a cell only falls and fades, every FarEvery-th pass:
+                // no reactions there, so far pools do not boil off into gas nobody sees (author: FPS by the caves)
                 var p = Main.LocalPlayer.Center;
                 int px = (int)(p.X / 16), py = (int)(p.Y / 16), W = Main.maxTilesX;
+                var keys = KeysBuffer;
+                keys.Clear();
+                foreach (int k in Cells.Keys)
+                    if (Math.Abs(k % W - px) <= FarX && Math.Abs(k / W - py) <= FarY || (k + _pass) % FarEvery == 0)
+                        keys.Add(k);
+                // bottom cells first for liquids, so a column falls together
+                keys.Sort(Descending);
                 foreach (int k in keys)
-                {
-                    if (Math.Abs(k % W - px) > FarX || Math.Abs(k / W - py) > FarY)
-                        if ((k + _pass) % 8 != 0)
-                            continue;
                     if (Cells.ContainsKey(k))
+                    {
+                        _far = Math.Abs(k % W - px) > FarX || Math.Abs(k / W - py) > FarY;
                         Step(k);
-                }
+                    }
+                _far = false;
             }
             Touch();
         }
@@ -243,7 +246,7 @@ namespace Terranoita.Game.Physics
             if (d.Lifetime > 0 || _fading[c.Kind])
             {
                 // a share of what is there, so a gas spread thin over many tiles lasts as long as a thick one
-                float share = c.Amount * 2f / (d.Lifetime > 0 ? d.Lifetime : 900f);
+                float share = c.Amount * 2f / (d.Lifetime > 0 ? d.Lifetime : 900f) * (_far ? FarEvery : 1);
                 int fade = (int)share + (Main.rand.NextFloat() < share - (int)share ? 1 : 0);
                 if (fade >= c.Amount)
                 {
@@ -260,7 +263,9 @@ namespace Terranoita.Game.Physics
                 return;
             }
             Cells[k] = c;
-            React(x, y);
+            // reactions are looked up every 4th pass, 4 times as likely: the same rate for a quarter of the work
+            if (!_far && (k + _pass) % ReactEvery == 0)
+                React(x, y);
             if (!Cells.TryGetValue(k, out c))
                 return;
             // Terraria's own liquid came in: ours goes on top of it
@@ -490,12 +495,16 @@ namespace Terranoita.Game.Physics
 
         static string FluidsFile => string.IsNullOrEmpty(Main.worldPathName) ? null : Main.worldPathName + ".fluids";
 
+        /// <summary>Which cave pools this world has had (CavePools.Version); kept in the liquids file.</summary>
+        public static int PoolsVersion;
+
         /// <summary>Read the world's liquids; false when the world has none of ours yet (then the caves get pools).</summary>
         public static bool Load()
         {
             if (_defs == null)
                 Build();
             Cells.Clear();
+            PoolsVersion = 0;
             var path = FluidsFile;
             if (path == null || !System.IO.File.Exists(path))
                 return false;
@@ -515,6 +524,8 @@ namespace Terranoita.Game.Physics
                         if (kind <= kinds && map[kind] > 0)
                             Cells[k % w + k / w * Main.maxTilesX] = new Cell { Kind = map[kind], Amount = amount, Burn = burn };
                     }
+                    // 0.3.0 files end here: their caves have the first, sparse pools
+                    PoolsVersion = r.BaseStream.Position < r.BaseStream.Length ? r.ReadInt32() : 1;
                 }
                 Entry.Log("fluids: " + Cells.Count + " cells read from " + System.IO.Path.GetFileName(path));
             }
@@ -543,6 +554,7 @@ namespace Terranoita.Game.Physics
                         w.Write(kv.Value.Amount);
                         w.Write(kv.Value.Burn);
                     }
+                    w.Write(PoolsVersion);
                 }
             }
             catch (Exception ex) { Entry.Error("fluids save", ex); }
@@ -560,6 +572,26 @@ namespace Terranoita.Game.Physics
                     if (Cells.TryGetValue(Key(x, y), out var c) && c.Kind == kind)
                         sum += c.Amount;
             return sum;
+        }
+
+        /// <summary>Cells per material, the most first, with how many are thin (tests).</summary>
+        public static string Census() => string.Join(", ", Cells.Values.GroupBy(c => c.Kind).OrderByDescending(g => g.Count()).Take(8)
+            .Select(g => _defs[g.Key - 1].Id + " " + g.Count() + " (thin " + g.Count(c => c.Amount < 64) + ")"));
+
+        /// <summary>Up to n full liquid cells under the surface, far apart (tests).</summary>
+        public static (int x, int y)[] PoolSpots(int n)
+        {
+            var spots = new List<(int x, int y)>();
+            foreach (var kv in Cells)
+            {
+                int x = kv.Key % Main.maxTilesX, y = kv.Key / Main.maxTilesX;
+                if (Gas(kv.Value.Kind) || kv.Value.Amount < 200 || y < Main.worldSurface || spots.Any(s => Math.Abs(s.x - x) < 200))
+                    continue;
+                spots.Add((x, y));
+                if (spots.Count == n)
+                    break;
+            }
+            return spots.ToArray();
         }
 
         public static bool BurningAt(int x, int y) => Cells.TryGetValue(Key(x, y), out var c) && c.Burn > 0;
@@ -595,7 +627,7 @@ namespace Terranoita.Game.Physics
                     bool second = !first && Matches(r.Input2, me) && Matches(r.Input1, other);
                     if (!first && !second)
                         continue;
-                    float p = r.Probability / 100f * (what == What.Tile ? TileReaction : what == What.Air ? AirReaction : CellReaction);
+                    float p = ReactEvery * r.Probability / 100f * (what == What.Tile ? TileReaction : what == What.Air ? AirReaction : CellReaction);
                     if (Main.rand.NextFloat() >= p)
                         continue;
                     string mine = first ? r.Output1 : r.Output2, theirs = first ? r.Output2 : r.Output1;

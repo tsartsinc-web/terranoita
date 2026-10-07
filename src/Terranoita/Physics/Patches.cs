@@ -92,9 +92,13 @@ namespace Terranoita.Game.Physics
                 catch (Exception ex) { Entry.Error("placed load", ex); }
                 try
                 {
-                    // a world without our liquids yet (new or old) gets its cave pools once
-                    if (!Fluids.Load())
+                    // a world without our liquids yet (new or old) gets its cave pools once; a 0.3.0 world the extra ones
+                    Fluids.Load();
+                    if (Fluids.PoolsVersion < CavePools.Version)
+                    {
                         CavePools.Generate();
+                        Fluids.PoolsVersion = CavePools.Version;
+                    }
                 }
                 catch (Exception ex) { Entry.Error("cave pools", ex); }
             }
@@ -139,9 +143,14 @@ namespace Terranoita.Game.Physics
                     return;
                 try
                 {
-                    Falling.Update();
-                    Fire.Update();
-                    Fluids.Update();
+                    if (PerfTest.Enabled)
+                        PerfTest.Update(() => { Falling.Update(); Fire.Update(); Fluids.Update(); });
+                    else
+                    {
+                        Falling.Update();
+                        Fire.Update();
+                        Fluids.Update();
+                    }
                 }
                 catch (Exception ex) { Entry.Error("physics update", ex); }
             }
@@ -189,7 +198,11 @@ namespace Terranoita.Game.Physics
                     sb.Begin(SpriteSortMode.Deferred, BlendState.AlphaBlend, Main.DefaultSamplerState, DepthStencilState.None, Main.Rasterizer, null, Main.Transform);
                 }
                 catch (Exception ex) { Entry.Error("fluids draw begin", ex); return; }
-                try { Fluids.Draw(sb); }
+                try
+                {
+                    if (PerfTest.Enabled) PerfTest.Draw(() => Fluids.Draw(sb));
+                    else Fluids.Draw(sb);
+                }
                 catch (Exception ex) { Entry.Error("fluids draw", ex); }
                 sb.End();
             }

@@ -26,12 +26,12 @@ namespace Terranoita.Generated
     {
         public static readonly CavePoolDef[] All =
         {
-            new CavePoolDef { Id = "snow", Ground = "snow", Depth = "any", Liquids = new[] { "blood_cold", "blood_cold", "slush", "water_ice" }, Per1000Tiles = 3.0f, Stage = "2" },
-            new CavePoolDef { Id = "jungle", Ground = "jungle", Depth = "any", Liquids = new[] { "swamp", "swamp", "slime_green", "water_swamp" }, Per1000Tiles = 4.0f, Stage = "2" },
-            new CavePoolDef { Id = "desert", Ground = "desert", Depth = "any", Liquids = new[] { "oil", "oil", "acid" }, Per1000Tiles = 2.0f, Stage = "2" },
-            new CavePoolDef { Id = "dirt", Ground = "any", Depth = "dirt", Liquids = new[] { "oil", "oil", "radioactive_liquid", "blood" }, Per1000Tiles = 4.0f, Stage = "2" },
-            new CavePoolDef { Id = "cavern", Ground = "any", Depth = "cavern", Liquids = new[] { "oil", "radioactive_liquid", "radioactive_liquid", "acid", "poison", "blood" }, Per1000Tiles = 5.0f, Stage = "2" },
-            new CavePoolDef { Id = "deep", Ground = "any", Depth = "deep", Liquids = new[] { "acid", "radioactive_liquid", "oil", "poison" }, Per1000Tiles = 4.0f, Stage = "2" },
+            new CavePoolDef { Id = "snow", Ground = "snow", Depth = "any", Liquids = new[] { "blood_cold", "blood_cold", "slush", "water_ice" }, Per1000Tiles = 9.0f, Stage = "2" },
+            new CavePoolDef { Id = "jungle", Ground = "jungle", Depth = "any", Liquids = new[] { "swamp", "swamp", "slime_green", "water_swamp" }, Per1000Tiles = 12.0f, Stage = "2" },
+            new CavePoolDef { Id = "desert", Ground = "desert", Depth = "any", Liquids = new[] { "oil", "oil", "acid" }, Per1000Tiles = 6.0f, Stage = "2" },
+            new CavePoolDef { Id = "dirt", Ground = "any", Depth = "dirt", Liquids = new[] { "oil", "oil", "radioactive_liquid", "blood" }, Per1000Tiles = 12.0f, Stage = "2" },
+            new CavePoolDef { Id = "cavern", Ground = "any", Depth = "cavern", Liquids = new[] { "oil", "radioactive_liquid", "radioactive_liquid", "acid", "poison", "blood" }, Per1000Tiles = 15.0f, Stage = "2" },
+            new CavePoolDef { Id = "deep", Ground = "any", Depth = "deep", Liquids = new[] { "acid", "radioactive_liquid", "oil", "poison" }, Per1000Tiles = 12.0f, Stage = "2" },
         };
     }
 }

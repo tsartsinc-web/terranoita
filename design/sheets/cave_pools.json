@@ -59,11 +59,12 @@
     "slush",
     "water_ice"
    ],
-   "per_1000_tiles": 3,
+   "per_1000_tiles": 9,
    "stage": "2",
    "_unverified": {},
    "_sources": {
-    "all": "author: pools of Noita liquids in the caves, like Noita (mines: oil, toxic sludge, blood; coal pits: oil; snowy depths: freezing liquid; jungle: swamp, slime; vault: acid, poison); kept simple"
+    "per_1000_tiles": "author 2026-10-07: no pools seen in the caves of a small world (38 pools): three times as many",
+      "all": "author: pools of Noita liquids in the caves, like Noita (mines: oil, toxic sludge, blood; coal pits: oil; snowy depths: freezing liquid; jungle: swamp, slime; vault: acid, poison); kept simple"
    }
   },
   {
@@ -76,11 +77,12 @@
     "slime_green",
     "water_swamp"
    ],
-   "per_1000_tiles": 4,
+   "per_1000_tiles": 12,
    "stage": "2",
    "_unverified": {},
    "_sources": {
-    "all": "author: pools of Noita liquids in the caves, like Noita (mines: oil, toxic sludge, blood; coal pits: oil; snowy depths: freezing liquid; jungle: swamp, slime; vault: acid, poison); kept simple"
+    "per_1000_tiles": "author 2026-10-07: no pools seen in the caves of a small world (38 pools): three times as many",
+      "all": "author: pools of Noita liquids in the caves, like Noita (mines: oil, toxic sludge, blood; coal pits: oil; snowy depths: freezing liquid; jungle: swamp, slime; vault: acid, poison); kept simple"
    }
   },
   {
@@ -92,11 +94,12 @@
     "oil",
     "acid"
    ],
-   "per_1000_tiles": 2,
+   "per_1000_tiles": 6,
    "stage": "2",
    "_unverified": {},
    "_sources": {
-    "all": "author: pools of Noita liquids in the caves, like Noita (mines: oil, toxic sludge, blood; coal pits: oil; snowy depths: freezing liquid; jungle: swamp, slime; vault: acid, poison); kept simple"
+    "per_1000_tiles": "author 2026-10-07: no pools seen in the caves of a small world (38 pools): three times as many",
+      "all": "author: pools of Noita liquids in the caves, like Noita (mines: oil, toxic sludge, blood; coal pits: oil; snowy depths: freezing liquid; jungle: swamp, slime; vault: acid, poison); kept simple"
    }
   },
   {
@@ -109,11 +112,12 @@
     "radioactive_liquid",
     "blood"
    ],
-   "per_1000_tiles": 4,
+   "per_1000_tiles": 12,
    "stage": "2",
    "_unverified": {},
    "_sources": {
-    "all": "author: pools of Noita liquids in the caves, like Noita (mines: oil, toxic sludge, blood; coal pits: oil; snowy depths: freezing liquid; jungle: swamp, slime; vault: acid, poison); kept simple"
+    "per_1000_tiles": "author 2026-10-07: no pools seen in the caves of a small world (38 pools): three times as many",
+      "all": "author: pools of Noita liquids in the caves, like Noita (mines: oil, toxic sludge, blood; coal pits: oil; snowy depths: freezing liquid; jungle: swamp, slime; vault: acid, poison); kept simple"
    }
   },
   {
@@ -128,11 +132,12 @@
     "poison",
     "blood"
    ],
-   "per_1000_tiles": 5,
+   "per_1000_tiles": 15,
    "stage": "2",
    "_unverified": {},
    "_sources": {
-    "all": "author: pools of Noita liquids in the caves, like Noita (mines: oil, toxic sludge, blood; coal pits: oil; snowy depths: freezing liquid; jungle: swamp, slime; vault: acid, poison); kept simple"
+    "per_1000_tiles": "author 2026-10-07: no pools seen in the caves of a small world (38 pools): three times as many",
+      "all": "author: pools of Noita liquids in the caves, like Noita (mines: oil, toxic sludge, blood; coal pits: oil; snowy depths: freezing liquid; jungle: swamp, slime; vault: acid, poison); kept simple"
    }
   },
   {
@@ -145,11 +150,12 @@
     "oil",
     "poison"
    ],
-   "per_1000_tiles": 4,
+   "per_1000_tiles": 12,
    "stage": "2",
    "_unverified": {},
    "_sources": {
-    "all": "author: pools of Noita liquids in the caves, like Noita (mines: oil, toxic sludge, blood; coal pits: oil; snowy depths: freezing liquid; jungle: swamp, slime; vault: acid, poison); kept simple"
+    "per_1000_tiles": "author 2026-10-07: no pools seen in the caves of a small world (38 pools): three times as many",
+      "all": "author: pools of Noita liquids in the caves, like Noita (mines: oil, toxic sludge, blood; coal pits: oil; snowy depths: freezing liquid; jungle: swamp, slime; vault: acid, poison); kept simple"
    }
   }
  ]

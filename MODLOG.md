@@ -474,3 +474,10 @@ Entry.Stage default 1b, version 0.2.0. Проверить на ПК also: worm l
 - Per-hit creature/shot logs only in tests.
 - Built, copied to the Terraria folder; the author checks FPS by the caves, then 0.3.1 on Melty with permission.
 
+
+## 2026-10-07 0.3.1 (small update)
+- FPS by the caves measured on the author's world test1 (PERF test, TERRANOITA_AUTOTEST_FPS=1; TERRANOITA_AUTOTEST_WORLD picks a world): liquids were ~3.9 ms per frame and ~40 garbage collections a second; after caching reaction lookups ~0.8 ms and ~7.
+- Far cells (over two screens away) only fall and fade every 32nd pass, scaled; no reactions there (acid and poison pools were boiling off into thousands of thin gas cells).
+- Cave pools x3 (cave_pools.json per_1000_tiles; author saw none). Pools version kept in the .fluids file: 0.3.0 worlds get the extra pools once (test1: +187 pools, ~6000 cells).
+- Loose soil caves in only around the broken block: 3 tiles up over it, each column further out a random 0 or 1 lower (a ragged staircase, author), Falling.Reach.
+- Per-hit logs only in tests.
