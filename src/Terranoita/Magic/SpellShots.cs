@@ -108,6 +108,7 @@ namespace Terranoita.Game.Magic
             if (Main.gameMenu)
                 return;
             ScriptsUpdate();
+            ForgetMarks();
             for (int i = Live.Count - 1; i >= 0; i--)
             {
                 var s = Live[i];

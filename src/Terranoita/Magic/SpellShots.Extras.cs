@@ -397,7 +397,17 @@ namespace Terranoita.Game.Magic
 
         /// <summary>Noita statuses a hit creature has (for critical hits): Terraria buffs and wetness, plus our own
         /// marks for the ones Terraria has no buff for.</summary>
-        static readonly Dictionary<int, Dictionary<string, uint>> Marks = new Dictionary<int, Dictionary<string, uint>>();
+        static readonly Dictionary<int, (int type, Dictionary<string, uint> until)> Marks = new Dictionary<int, (int, Dictionary<string, uint>)>();
+
+        /// <summary>Marks of creatures that are gone leave with them (a new creature in the slot starts clean).</summary>
+        static void ForgetMarks()
+        {
+            if (Marks.Count == 0 || Main.GameUpdateCount % 30 != 0)
+                return;
+            foreach (int i in Marks.Keys.ToList())
+                if (!Main.npc[i].active || Main.npc[i].type != Marks[i].type)
+                    Marks.Remove(i);
+        }
 
         static bool HasStatus(NPC n, string status)
         {
@@ -408,14 +418,14 @@ namespace Terranoita.Game.Magic
                 case "ON_FIRE": if (n.onFire || (n.FindBuffIndex(BuffID.OnFire) >= 0) || (n.FindBuffIndex(BuffID.OnFire3) >= 0)) return true; break;
                 case "POISONED": if (n.poisoned) return true; break;
             }
-            return Marks.TryGetValue(n.whoAmI, out var m) && m.TryGetValue(status, out uint until) && until > Main.GameUpdateCount;
+            return Marks.TryGetValue(n.whoAmI, out var m) && m.type == n.type && m.until.TryGetValue(status, out uint until) && until > Main.GameUpdateCount;
         }
 
         static void Mark(NPC n, string status, int frames)
         {
-            if (!Marks.TryGetValue(n.whoAmI, out var m))
-                Marks[n.whoAmI] = m = new Dictionary<string, uint>();
-            m[status] = Main.GameUpdateCount + (uint)frames;
+            if (!Marks.TryGetValue(n.whoAmI, out var m) || m.type != n.type)
+                Marks[n.whoAmI] = m = (n.type, new Dictionary<string, uint>());
+            m.until[status] = Main.GameUpdateCount + (uint)frames;
         }
 
         /// <summary>Critical chance added by HitEffectComponents (CRITICAL_HIT_BOOST when the target is wet...).</summary>
@@ -426,8 +436,10 @@ namespace Terranoita.Game.Magic
             {
                 if (e.Type != "HitEffectComponent")
                     continue;
-                string kind = e.S("effect_hit"), cond = e.S("condition_effect", e.S("condition_status"));
-                if (kind == "CRITICAL_HIT_BOOST" && (cond.Length == 0 || HasStatus(n, cond)))
+                string kind = e.S("effect_hit");
+                // both conditions count on their own; "" and "NONE" = no condition
+                bool Met(string c) => c.Length == 0 || c == "NONE" || HasStatus(n, c);
+                if (kind == "CRITICAL_HIT_BOOST" && Met(e.S("condition_effect")) && Met(e.S("condition_status")))
                     add += e.N("value", 100);
                 else if (kind.StartsWith("LOAD_") && NotYet.Add("hit:" + e.S("value_string")))
                     Entry.Log("spell hit effect not done yet: " + kind + " " + e.S("value_string"));

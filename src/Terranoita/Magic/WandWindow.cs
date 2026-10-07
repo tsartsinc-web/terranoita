@@ -23,8 +23,6 @@ namespace Terranoita.Game.Magic
         public const int WandSlotCount = 4;
         public static Item[] WandSlots = NewSlots();
         static bool _open, _terrariaLook;
-        static string _handSpell;                   // the spell last taken out of a slot into the hand, and its uses left
-        static int _handUses = -1;
         static Rectangle _lookRect;
         static Texture2D _pixel;
         static Texture2D Pixel
@@ -152,7 +150,8 @@ namespace Terranoita.Game.Magic
                 return;
             var p = Main.LocalPlayer;
             var sb = Main.spriteBatch;
-            int x0 = 20, y = Main.screenHeight / 2 - 40;
+            // right of the coin and ammo slots (author), clear of crafting (left, below) and equipment (right)
+            int x0 = 580, y = 105;
             var rows = new List<(string label, Item[] arr, int index)>();
             if (Casting.HeldWand(p) != null)
                 rows.Add(("", p.inventory, p.selectedItem));
@@ -243,7 +242,7 @@ namespace Terranoita.Game.Magic
             }
             if (w.AlwaysCast.Count > 0)
                 px += 6;
-            int perRow = Math.Max(4, (Main.screenWidth - px - 20) / (slot + 2));
+            int perRow = Math.Max(4, (Main.screenWidth - 340 - px) / (slot + 2));
             bool changed = false;
             for (int i = 0; i < w.Slots.Length; i++)
             {
@@ -266,7 +265,7 @@ namespace Terranoita.Game.Magic
         /// <summary>Click on a spell slot: put the spell in the hand into it, take it out, or swap. True if changed.</summary>
         static bool SpellSlot(Player p, WandData w, int i)
         {
-            var inSlot = w.Slots[i] == null ? new Item() : MagicItems.MakeSpell(w.Slots[i]);
+            var inSlot = w.Slots[i] == null ? new Item() : MagicItems.MakeSpell(w.Slots[i], i < w.Uses.Length ? w.Uses[i] : -1);
             var arr = new[] { inSlot };
             if (!inSlot.IsAir)
                 ItemSlot.MouseHover(arr, ItemSlot.Context.ChestItem, 0);
@@ -287,12 +286,8 @@ namespace Terranoita.Game.Magic
                 return true;
             }
             string handSpell = MagicItems.SpellOf(hand);
-            // a spell keeps its uses left while it moves between slots and wands (Noita); a new one comes full
-            int handUses = handSpell == null ? -1 :
-                handSpell == _handSpell && _handUses >= 0 ? _handUses : (MagicItems.Spell(handSpell)?.MaxUses ?? -1);
+            int handUses = MagicItems.UsesLeft(hand);   // a spell keeps its uses left on the item (Noita)
             Main.mouseItem = inSlot.IsAir ? new Item() : inSlot;
-            _handSpell = w.Slots[i];
-            _handUses = i < w.Uses.Length ? w.Uses[i] : -1;
             w.Slots[i] = handSpell;
             w.Uses[i] = handUses;
             Terraria.Audio.SoundEngine.PlaySound(Terraria.ID.SoundID.Grab);

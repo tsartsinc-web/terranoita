@@ -49,6 +49,41 @@ namespace Terranoita.Game.Magic
             return item;
         }
 
+        /// <summary>A spell item with its uses left (Noita keeps them on the card; -1 = unlimited or full).</summary>
+        public static Item MakeSpell(string actionId, int uses)
+        {
+            var item = MakeSpell(actionId);
+            SetUses(item, uses);
+            return item;
+        }
+
+        // uses left ride on the item instance while it moves between wands, the hand, the inventory and the spell
+        // slots; a spell that comes from a chest or a save has no entry and is full
+        static readonly System.Runtime.CompilerServices.ConditionalWeakTable<Item, StrongBox> UsesOf =
+            new System.Runtime.CompilerServices.ConditionalWeakTable<Item, StrongBox>();
+        sealed class StrongBox { public int Value; }
+
+        public static void SetUses(Item item, int uses)
+        {
+            if (item == null)
+                return;
+            UsesOf.Remove(item);
+            if (uses >= 0)
+                UsesOf.Add(item, new StrongBox { Value = uses });
+        }
+
+        /// <summary>Uses left of a spell item: its own count, else the spell's full uses (-1 = unlimited).</summary>
+        public static int UsesLeft(Item item)
+        {
+            string id = SpellOf(item);
+            if (id == null)
+                return -1;
+            int max = Spell(id)?.MaxUses ?? -1;
+            if (max <= 0)
+                return -1;
+            return UsesOf.TryGetValue(item, out var b) ? Math.Min(b.Value, max) : max;
+        }
+
         public static Item MakeWand(WandData w)
         {
             var item = new Item();
@@ -249,7 +284,7 @@ namespace Terranoita.Game.Magic
             {
                 try
                 {
-                    var lines = IsSpell(item) ? SpellLines(SpellOf(item)) : IsWand(item) ? WandLines(WandOf(item)) : null;
+                    var lines = IsSpell(item) ? SpellLines(SpellOf(item), UsesLeft(item)) : IsWand(item) ? WandLines(WandOf(item)) : null;
                     if (lines == null)
                         return;
                     numLines = 1;
@@ -266,7 +301,7 @@ namespace Terranoita.Game.Magic
             }
         }
 
-        public static List<string> SpellLines(string id)
+        public static List<string> SpellLines(string id, int usesLeft = -1)
         {
             var d = Spell(id);
             var l = new List<string>();
@@ -275,7 +310,7 @@ namespace Terranoita.Game.Magic
             l.Add(NoitaArt.Text("$inventory_actiontype", "Type") + ": " + d.Type);
             l.Add(NoitaArt.Text("$inventory_manadrain", "Mana drain") + ": " + d.Mana);
             if (d.MaxUses > 0)
-                l.Add(NoitaArt.Text("$inventory_usesremaining", "Uses") + ": " + d.MaxUses);
+                l.Add(NoitaArt.Text("$inventory_usesremaining", "Uses") + ": " + (usesLeft >= 0 ? usesLeft : d.MaxUses) + "/" + d.MaxUses);
             return l;
         }
 
