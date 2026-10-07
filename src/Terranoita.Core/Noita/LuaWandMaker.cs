@@ -122,13 +122,38 @@ namespace Terranoita.Noita
         Dictionary<string, string> Values(int comp) => comp >= 1 && comp <= _comps.Count ? _values[_comps[comp - 1]] : null;
 
         /// <summary>Run a wand script (e.g. data/scripts/gun/procedural/wand_level_03.lua) at a world spot.</summary>
-        public MadeWand Make(string script, float x, float y)
+        public MadeWand Make(string script, float x, float y) => Make(new[] { script }, x, y);
+
+        /// <summary>A wand from Noita's wand entity file (data/entities/items/wand_*.xml): the scripts of its Base files
+        /// first, then its own (unique wands such as wand_ruusu.xml are a level wand plus their own name and sprite).</summary>
+        public MadeWand MakeEntity(string xmlPath, float x, float y)
         {
-            using (LuaCulture.Enter())
-                return MakeInner(script, x, y);
+            var scripts = new List<string>();
+            void Walk(string path, int depth)
+            {
+                string xml = depth < 8 ? _read(path) : null;
+                if (xml == null)
+                    return;
+                var body = System.Text.RegularExpressions.Regex.Replace(xml, "<!--.*?-->", "", System.Text.RegularExpressions.RegexOptions.Singleline);
+                foreach (System.Text.RegularExpressions.Match m in System.Text.RegularExpressions.Regex.Matches(body, "<Base\\s+file=\"([^\"]+)\""))
+                    Walk(m.Groups[1].Value, depth + 1);
+                foreach (System.Text.RegularExpressions.Match m in System.Text.RegularExpressions.Regex.Matches(body, "script_source_file=\"(data/scripts/gun/procedural/[^\"]+)\""))
+                    if (!scripts.Contains(m.Groups[1].Value))
+                        scripts.Add(m.Groups[1].Value);
+            }
+            Walk(xmlPath, 0);
+            if (scripts.Count == 0)
+                throw new InvalidOperationException("no wand script in " + xmlPath);
+            return Make(scripts.ToArray(), x, y);
         }
 
-        MadeWand MakeInner(string script, float x, float y)
+        public MadeWand Make(string[] scripts, float x, float y)
+        {
+            using (LuaCulture.Enter())
+                return MakeInner(scripts, x, y);
+        }
+
+        MadeWand MakeInner(string[] scripts, float x, float y)
         {
             _values.Clear(); _comps.Clear(); _cards.Clear(); _permanent.Clear(); _children.Clear();
             _made = new MadeWand();
@@ -196,7 +221,8 @@ namespace Terranoita.Noita
             g["GameGetFrameNum"] = (Func<double>)(() => 0);
             g.MetaTable = Stubs(lua, _made.Missing);
             lua.DoString(LuaCulture.Prelude);
-            lua.DoString(_read(script) ?? throw new InvalidOperationException("Noita file missing: " + script), null, script);
+            foreach (var script in scripts)
+                lua.DoString(_read(script) ?? throw new InvalidOperationException("Noita file missing: " + script), null, script);
             return Read();
         }
 
@@ -233,7 +259,7 @@ namespace Terranoita.Noita
         {
             var vals = Values((int)a[0].Number);
             string field = obj ? a[1].CastToString() + "." + a[2].CastToString() : a[1].CastToString();
-            return vals != null && vals.TryGetValue(field, out var s) ? DynValue.NewString(s) : DynValue.Nil;
+            return vals == null ? DynValue.Nil : DynValue.NewString(vals.TryGetValue(field, out var s) ? s : "");   // Noita: always a string
         }
 
         static Table Stubs(Script lua, List<string> missing)
@@ -263,6 +289,12 @@ namespace Terranoita.Noita
             w.Raw = new Dictionary<string, string>(ab);
             w.Name = S("ui_name") ?? "";
             w.Sprite = S("sprite_file") ?? "";
+            // unique wands write their own name and picture into the ItemComponent (component_write)
+            if (_values.TryGetValue((WandEntity, "ItemComponent"), out var item))
+            {
+                if (item.TryGetValue("item_name", out var n) && n.Length > 0) w.Name = n;
+                if (item.TryGetValue("ui_sprite", out var sp) && sp.Length > 0) w.Sprite = sp;
+            }
             w.SpellsPerCast = (int)F("gun_config.actions_per_round", 1);
             w.RechargeTime = F("gun_config.reload_time", 40);
             w.Capacity = (int)F("gun_config.deck_capacity", 1);

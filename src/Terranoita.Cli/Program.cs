@@ -84,7 +84,7 @@ namespace Terranoita.Cli
                             {
                                 var maker = new Terranoita.Noita.LuaWandMaker(p => Text(files, p), k + 1);
                                 Terranoita.Noita.MadeWand w;
-                                try { w = maker.Make(args[2], 100 * k, 200 + 37 * k); }
+                                try { w = args[2].EndsWith(".xml") ? maker.MakeEntity(args[2], 100 * k, 200 + 37 * k) : maker.Make(args[2], 100 * k, 200 + 37 * k); }
                                 catch (MoonSharp.Interpreter.InterpreterException ex) { Console.WriteLine("lua error: " + ex.DecoratedMessage); return 1; }
                                 Console.WriteLine("'" + w.Name + "' " + w.Sprite + " | casts " + w.SpellsPerCast + " shuffle " + w.Shuffle + " delay " + w.CastDelay +
                                                   " recharge " + w.RechargeTime + " mana " + w.ManaMax + "/" + w.ManaChargeSpeed + " capacity " + w.Capacity +

@@ -148,6 +148,35 @@ namespace Terranoita.Game.Magic
 
         // ---- the wands in the caves: made when the player comes near, picked up by touching ----
 
+        // Noita's unique wands (their entity files are a level wand plus own name and picture) and the level they build on
+        static readonly (string file, int level)[] Unique =
+        {
+            ("wand_ruusu", 2), ("wand_kiekurakeppi", 2), ("wand_leukaluu", 3), ("wand_valtikka", 3), ("wand_vasta", 3),
+            ("wand_vihta", 3), ("wand_petri", 4), ("wand_arpaluu", 5), ("wand_varpuluuta", 5),
+        };
+
+        /// <summary>Which of Noita's wand files a cave wand is: level by depth, unshuffle or better ones sometimes,
+        /// a rare unique wand, level 10 wands in the underworld.</summary>
+        static string WandFile(Spot s)
+        {
+            int roll = WorldGen.genRand.Next(100);
+            string name;
+            if (s.Level >= 6 && s.Y > Main.UnderworldLayer && roll < 30)
+                name = roll < 15 ? "wand_level_10" : "wand_unshuffle_10";
+            else if (roll < 4 && Unique.Any(u => u.level <= s.Level + 1))
+            {
+                var pick = Unique.Where(u => u.level <= s.Level + 1).ToArray();
+                name = pick[WorldGen.genRand.Next(pick.Length)].file;
+            }
+            else if (roll < 14)
+                name = "wand_level_0" + s.Level + "_better";
+            else if (roll < 44)
+                name = "wand_unshuffle_0" + s.Level;
+            else
+                name = "wand_level_0" + s.Level;
+            return "data/entities/items/" + name + ".xml";
+        }
+
         public static void Update()
         {
             var p = Main.LocalPlayer;
@@ -163,8 +192,7 @@ namespace Terranoita.Game.Magic
                 {
                     try
                     {
-                        string script = "data/scripts/gun/procedural/" + (WorldGen.genRand.Next(100) < 30 ? "wand_unshuffle_0" : "wand_level_0") + s.Level + ".lua";
-                        s.Wand = WandWindow.Store(Maker.Make(script, s.X * 16 / 3f, s.Y * 16 / 3f)).Id;
+                        s.Wand = WandWindow.Store(Maker.MakeEntity(WandFile(s), s.X * 16 / 3f, s.Y * 16 / 3f)).Id;
                     }
                     catch (Exception ex) { Entry.Error("cave wand", ex); s.Wand = -2; }
                     changed = true;

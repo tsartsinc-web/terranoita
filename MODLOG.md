@@ -579,3 +579,17 @@ Next steps (author's order: finish magic, then shops):
 - Run 1 worries (check next): sets 2 and 3 cast (mana spent) but "spell shots 0" and the zombie not hurt.
 - Screenshots saved (held_wand, window_noita, window_terraria, black_hole): NOT looked at yet.
 - Next: run 2 (hotbar raw must show 6143:N and the test wand found), look at the 4 pictures, then HANDOFF steps 2-4.
+
+## 2026-10-08 all of Noita's wands (author: all magic, all wands, edit spells any time)
+- LuaWandMaker.MakeEntity(wand xml): runs the scripts of the Base chain, then the wand's own; unique wands (ruusu,
+  kiekurakeppi, leukaluu, valtikka, vasta, vihta, petri, arpaluu, varpuluuta) take name/picture from ItemComponent.
+  ComponentGetValue returns "" for unset fields (Noita: always a string) -> gun_procedural_better.lua and petri run.
+  tncli lua-wand takes a .xml too. All checked offline with tncli.
+- Cave wands: level by depth; 30% unshuffle, 10% better, 4% a unique wand (base level <= level+1), level 10 /
+  unshuffle 10 in the underworld (30%).
+- Spells: all 422 run, every projectile file has a row. Gap: 125 extra_entities of modifiers (only homing done);
+  70 of them are LuaComponent scripts (63 scripts, 42 API calls: transform, velocity, components, tags) -> plan: run
+  Noita's own shot scripts per projectile (one Lua state, entity = shot). Rest: HitEffect 19, particles/trails 16,
+  MagicConvertMaterial 8, Arc 4, Lightning, EnergyShield, AreaDamage, CellEater. Plus material/utility spells and
+  EntityLoad summons (LuaWorld.Load not done in game).
+- проверить на ПК: unique wand pictures (data/items_gfx/wands/custom/*.png) and names in game.
