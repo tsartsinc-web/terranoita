@@ -1,0 +1,75 @@
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using Microsoft.Xna.Framework;
+using Terranoita.Noita;
+using Terraria;
+
+namespace Terranoita.Game.Magic
+{
+    /// <summary>
+    /// TERRANOITA_AUTOTEST_WANDS=1 (game_test -Mode wands, author: "take each wand, fire, next"): every wand Noita's
+    /// wand files make goes into the hand and fires for 1.5 s; the log gets its spells, casts, shots and mana spent.
+    /// Errors of a wand show as ERROR lines right after its WANDS line.
+    /// </summary>
+    public static class WandsTest
+    {
+        public static readonly bool Enabled = Environment.GetEnvironmentVariable("TERRANOITA_AUTOTEST_WANDS") == "1";
+        const int Each = 90;
+        static List<(string file, WandData wand)> _wands;
+        static Vector2 _start;
+        static int _casts, _shots, _mana;
+        public static bool Done { get; private set; }
+
+        static void Log(string s) => Entry.Log("WANDS " + s);
+
+        public static void Frame(Player p, int frame)
+        {
+            p.statManaMax = p.statManaMax2 = 1000;
+            if (frame == 60)
+            {
+                _start = p.position;
+                var maker = new LuaWandMaker(NoitaArt.ReadText, 12345);
+                _wands = new List<(string, WandData)>();
+                foreach (var f in Sandbox.WandFiles())
+                {
+                    try { _wands.Add((f, WandWindow.Store(maker.MakeEntity(f, p.Center.X / 3, p.Center.Y / 3)))); }
+                    catch (Exception ex) { Log("wand " + f + " not made: " + ex.Message); }
+                }
+                Log(_wands.Count + " wands made");
+            }
+            if (frame < 120 || _wands == null || Done)
+                return;
+            int k = (frame - 120) / Each, t = (frame - 120) % Each;
+            if (k >= _wands.Count)
+            {
+                Casting.TestFire = false;
+                Log("done");
+                Done = true;
+                return;
+            }
+            var (file, w) = _wands[k];
+            if (t == 0)
+            {
+                SpellShots.Clear();
+                p.position = _start;
+                p.velocity = Vector2.Zero;
+                p.statMana = p.statManaMax2;
+                p.inventory[1] = MagicItems.MakeWand(w);
+                p.selectedItemState.Select(1);
+                _casts = Casting.TestCasts;
+                _shots = Casting.TestShots;
+                _mana = 0;
+                Casting.TestFire = true;
+            }
+            // mana spent: refilled every frame so a wand never runs dry, the drain is summed
+            _mana += p.statManaMax2 - p.statMana;
+            p.statMana = p.statManaMax2;
+            if (t == Each - 1)
+                Log((k + 1) + "/" + _wands.Count + " " + System.IO.Path.GetFileNameWithoutExtension(file) + " '" + MagicItems.WandName(w) + "' [" +
+                    string.Join(" ", w.Slots.Select(s => s ?? "-")) + (w.AlwaysCast.Count > 0 ? " | always " + string.Join(" ", w.AlwaysCast) : "") +
+                    "]: casts " + (Casting.TestCasts - _casts) + ", shots " + (Casting.TestShots - _shots) + ", mana " + _mana +
+                    ", live " + SpellShots.Ids().Count);
+        }
+    }
+}

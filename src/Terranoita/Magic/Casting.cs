@@ -29,6 +29,7 @@ namespace Terranoita.Game.Magic
 
         /// <summary>Tests: fire as if the button were held, at this point instead of the mouse.</summary>
         public static bool TestFire;
+        public static int TestCasts, TestShots;   // tests: casts made and shots fired
         public static Vector2? TestAim;
         static Vector2 Aim => TestAim ?? Main.MouseWorld;
 
@@ -122,6 +123,8 @@ namespace Terranoita.Game.Magic
                 dir = new Vector2(p.direction, 0);
             dir.Normalize();
             var tip = p.Center + dir * 24f;
+            TestCasts++;
+            TestShots += cast.Shots.Count;
             foreach (var s in cast.Shots)
                 SpellShots.Fire(s, tip, dir, p, w);
             // recoil: Noita's shot effects push the caster back

@@ -3,6 +3,7 @@
 #   powershell -File tools/game_test.ps1 -Mode magic            # MAGIC: wands, casting, screenshots
 #   powershell -File tools/game_test.ps1 -Mode fps -World test1 # PERF: physics time by cave pools
 #   powershell -File tools/game_test.ps1 -Mode enemies -Only worm,eel
+#   powershell -File tools/game_test.ps1 -Mode wands            # every Noita wand file: made, held, fired 1.5 s
 #   powershell -File tools/game_test.ps1 -Mode sandbox          # the author plays: arena, chests of every spell and wand
 # Modes: magic, fps, physics, gallery, audit, enemies. Screenshots: %LOCALAPPDATA%/Terranoita/shots/*.png
 param(
@@ -21,6 +22,7 @@ $log = Join-Path $data "logs\latest.log"
 if (Test-Path $log) { [IO.File]::Delete($log) }
 $env:TERRANOITA_AUTOTEST = "1"; $env:TERRANOITA_AUTOTEST_EXIT = "1"
 switch ($Mode) {
+    "wands"   { $env:TERRANOITA_AUTOTEST_WANDS = "1"; $filter = "WANDS|wand .* not made" }
     "sandbox" { $env:TERRANOITA_SANDBOX = "1"; $env:TERRANOITA_AUTOTEST_EXIT = "" }
     "magic"   { $env:TERRANOITA_AUTOTEST_MAGIC = "1"; $filter = "MAGIC|world loot|starting wands|screenshot" }
     "fps"     { $env:TERRANOITA_AUTOTEST_FPS = "1"; $filter = "PERF|cave pools|fluids:" }

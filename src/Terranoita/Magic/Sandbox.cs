@@ -85,7 +85,7 @@ namespace Terranoita.Game.Magic
         }
 
         /// <summary>Noita's wand entity files: levels, better, unshuffle, level 10, daily, unique, custom.</summary>
-        static IEnumerable<string> WandFiles()
+        internal static IEnumerable<string> WandFiles()
         {
             var files = NoitaArt.List("data/entities/items/")
                 .Where(f => f.EndsWith(".xml", StringComparison.OrdinalIgnoreCase))
