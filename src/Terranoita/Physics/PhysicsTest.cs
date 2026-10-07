@@ -42,6 +42,18 @@ namespace Terranoita.Game.Physics
                 Check("after 5 s");
             else if (frame == 300 + 60 * 25)
                 Check("after 25 s");
+            else if (frame == 300 + 60 * 10)
+            {
+                // Terraria's autosave: WorldFile.SaveWorld on a ThreadPool thread while liquids keep flowing
+                Log("autosave started with " + Fluids.Count + " liquid cells");
+                WorldGen.saveAndPlay();
+            }
+            else if (frame == 300 + 60 * 16)
+            {
+                string f = Main.worldPathName + ".fluids";
+                Log("after autosave: " + f + " " + (System.IO.File.Exists(f) ? new System.IO.FileInfo(f).Length + " bytes" : "missing") +
+                    ", .tmp left " + System.IO.File.Exists(f + ".tmp") + ", .bad " + System.IO.File.Exists(f + ".bad"));
+            }
             else if (frame == 300 + 60 * 8)
             {
                 foreach (var id in new[] { "WET", "OILED", "SLIMY", "RADIOACTIVE", "POISONED", "BERSERK", "NIGHTVISION", "HP_REGENERATION", "TRIP", "ALCOHOLIC" })
