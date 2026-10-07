@@ -119,7 +119,7 @@ namespace Terranoita.Game.Magic
             var sb = Main.spriteBatch;
             int size = (int)(52 * 0.85f), top = 174 + (int)MapHeight.GetValue(null);
             int right = Main.screenWidth - 92 - 47 * 2 - 47 - 50;
-            Utils.DrawBorderString(sb, NoitaArt.Text("$menu_spells", "Spells"), new Vector2(right - 47, top - 22), Color.White, 0.75f);
+            Utils.DrawBorderString(sb, NoitaArt.Text("$menu_spells", Terraria.Localization.Language.ActiveCulture.Name.StartsWith("ru") ? "Заклинания" : "Spells"), new Vector2(right - 47, top - 22), Color.White, 0.75f);
             bool changed = false;
             for (int i = 0; i < SpellSlotCount; i++)
             {

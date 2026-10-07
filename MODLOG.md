@@ -693,3 +693,25 @@ Next steps (author's order: finish magic, then shops):
   log); a cut .fluids file -> .bad and no new pools; a building landing on blocks drops items.
 - вопрос локальной сессии: confirm WorldGen.saveAndPlay runs WorldFile.SaveWorld on the ThreadPool
   (`TN_IL=1 tncli tr-methods Terraria.exe WorldGen saveAndPlay`).
+
+## 2026-10-08 PC: magic review, spell slots, progress window, physics fixes checked
+- Answer to the cloud: WorldGen.saveAndPlay and SaveAndQuit call ThreadPool.QueueUserWorkItem -> *CallBack ->
+  WorldFile.SaveWorld (tr-methods IL). The physics test now calls WorldGen.saveAndPlay() while liquids flow.
+- PHYSICS run (cloud's fixes built here): a .fluids cut in half -> "ERROR in fluids load" + kept as .bad, no pools
+  poured again; autosave with 6708 cells -> no "Collection was modified", new file written, no .tmp left. Physics
+  checks as before (dirt/pile/hut/box/smoke/statuses).
+- Magic review: 1 uses ride on the spell item (ConditionalWeakTable; tooltip "Uses n/max"), 2 marks keyed by NPC
+  type and dropped when the NPC is gone, 3 crit conditions each on its own ("" / NONE = none), 4 cave wand file
+  falls back to wand_level_0N, 5 extras read by NoitaEntityXml, 6 no homing/black-hole pull on critters or
+  untouchables, 7 EntityLoad'ed projectiles start at rest; 8-9 done by the cloud.
+- Wand window right of the coin/ammo slots (x 580, author); 16 spell slots in 2 columns left of the equipment
+  (players/<name>.spells, "ID:uses"), shown with the inventory.
+- Progress window (ProgressWindow.cs): key O (free in Terraria's defaults) + button by the Bestiary; tabs spells,
+  creatures, wands (data/items_gfx/wands pictures), liquids; Noita's progress_menu boxes, unknown = dark silhouette;
+  kills counted in npc_loot when the player hit it, liquids from Fluids.Learn (old known_*.txt moved in), wands and
+  spells by a scan of what the player holds every 30 frames; "+ name" text on discovery; saved every 2 min, on close
+  and on leaving the world. Drawn as a prefix of DrawInterface_33_MouseText (layer 31 is not always drawn).
+- MAGIC run: wand number kept after reload (test 11 found); zombies killed in sets 1,2,4,6,8,9; no errors; game at
+  30 FPS from the black hole set to set 7 (ground eaten -> support checks; cloud's Falling fix was not in that run).
+  Not done yet (logged): EntityLoad of orbit_discs_disc.xml, wall_builder/piece/sound.xml (not in spell_projectiles).
+- Cloud task now: design/cloud_task_core_2.md (faster LuaShotScripts, progress tooltip lines).

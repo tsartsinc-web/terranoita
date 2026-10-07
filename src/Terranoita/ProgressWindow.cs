@@ -339,11 +339,11 @@ namespace Terranoita.Game
         }
 
         [Hook("progress_draw")]
-        [HarmonyPatch(typeof(Main), "DrawInterface_31_BuilderAccToggles")]
+        [HarmonyPatch(typeof(Main), "DrawInterface_33_MouseText")]
         static class DrawPatch
         {
-            // drawn before Terraria's mouse text, so tooltips (hoverItemName) come on top
-            static void Postfix()
+            // drawn right before Terraria's mouse text (a layer drawn always), so tooltips (hoverItemName) come on top
+            static void Prefix()
             {
                 try { if (!Main.gameMenu) Draw(); }
                 catch (Exception ex) { Entry.Error("progress window", ex); }

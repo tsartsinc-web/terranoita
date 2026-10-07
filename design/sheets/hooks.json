@@ -478,8 +478,8 @@
   },
   {
    "id": "progress_draw",
-   "target": "Terraria.Main:DrawInterface_31_BuilderAccToggles()",
-   "patch": "postfix",
+   "target": "Terraria.Main:DrawInterface_33_MouseText()",
+   "patch": "prefix",
    "system": "progress",
    "purpose": "The progress window (key O) and its inventory button.",
    "stage": "3",
