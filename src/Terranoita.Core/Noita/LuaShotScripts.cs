@@ -29,6 +29,13 @@ namespace Terranoita.Noita
         int HerdRelation(int a, int b);
         void Screenshake(float x, float y, float strength);
         void CameraPos(out float x, out float y);
+        /// <summary>GameShootProjectile: the entity (usually one the host made in Load) flies from x,y toward tx,ty,
+        /// shot by shooter.</summary>
+        void Shoot(int shooter, int entity, float x, float y, float tx, float ty);
+        /// <summary>GameGetSkyVisibility: 0..1, how open to the sky a spot is.</summary>
+        float SkyVisibility(float x, float y);
+        /// <summary>GamePlaySound (bank, event, x, y).</summary>
+        void PlaySound(string bank, string evt, float x, float y);
     }
 
     /// <summary>An IShotHost that owns nothing: override what the game (or a test) needs.</summary>
@@ -49,6 +56,9 @@ namespace Terranoita.Noita
         public virtual int HerdRelation(int a, int b) => 100;
         public virtual void Screenshake(float x, float y, float strength) { }
         public virtual void CameraPos(out float x, out float y) { x = y = 0; }
+        public virtual void Shoot(int shooter, int entity, float x, float y, float tx, float ty) { }
+        public virtual float SkyVisibility(float x, float y) => 0;
+        public virtual void PlaySound(string bank, string evt, float x, float y) { }
     }
 
     /// <summary>
@@ -114,6 +124,9 @@ namespace Terranoita.Noita
         readonly Dictionary<string, DynValue> _chunks = new Dictionary<string, DynValue>(StringComparer.Ordinal);
         readonly HashSet<string> _brokenFiles = new HashSet<string>(StringComparer.Ordinal);
         readonly Dictionary<string, int> _materials = new Dictionary<string, int>(StringComparer.Ordinal);
+        /// <summary>Same as FirstEntityId (the game side's name).</summary>
+        public const int FirstEntity = FirstEntityId;
+        const int MaxEntities = 3000;   // EntityLoad stops making more (self-copying spells)
         int _nextEntity = FirstEntityId, _nextComp = 1, _frame, _curEntity, _curComp;
         Random _rng = new Random(0);
 
@@ -523,7 +536,11 @@ namespace Terranoita.Noita
                 if (h != null)
                     return h;
             }
-            return c.Fields.TryGetValue(field, out var v) ? v : null;
+            if (c.Fields.TryGetValue(field, out var v))
+                return v;
+            // never set: Noita's default for the field (component_documentation.txt), "" for a documented string
+            string d = _types.Default(c.Type, field);
+            return d ?? (_types.Kind(c.Type, field) == "string" ? "" : null);
         }
 
         void SetRaw(Comp c, string field, string value)
@@ -612,6 +629,19 @@ namespace Terranoita.Noita
             a.Count > i && a[i].Type == DataType.Number && _ents.TryGetValue((int)a[i].Number, out var e) ? e : null;
 
         static string S(CallbackArguments a, int i) => a.Count > i && a[i].Type != DataType.Nil && a[i].Type != DataType.Void ? a[i].CastToString() : null;
+        /// <summary>Noita's RandomDistribution(min, max, mean, sharpness): values cluster around mean.</summary>
+        double Distribution(CallbackArguments a)
+        {
+            double min = N(a, 0), max = N(a, 1);
+            double mean = a.Count > 2 ? N(a, 2) : (min + max) / 2;
+            int sharp = a.Count > 3 ? Math.Max(1, (int)N(a, 3)) : 1;
+            double sum = 0;
+            for (int i = 0; i < sharp; i++)
+                sum += _rng.NextDouble() * 2 - 1;
+            double v = mean + sum / sharp * Math.Max(mean - min, max - mean);
+            return Math.Max(min, Math.Min(max, v));
+        }
+
         static double N(CallbackArguments a, int i, double d = 0) => a.Count > i && a[i].Type == DataType.Number ? a[i].Number : a.Count > i && a[i].CastToNumber() is double x ? x : d;
         static bool B(CallbackArguments a, int i) => a.Count > i && a[i].CastToBool();
 
@@ -695,7 +725,16 @@ namespace Terranoita.Noita
             Def(g, "EntityRemoveTag", a => { E(a)?.Tags.Remove(S(a, 1)); return null; });
             Def(g, "EntityHasTag", a => DynValue.NewBoolean(E(a)?.Tags.Contains(S(a, 1)) ?? false));
             Def(g, "EntityGetTags", a => DynValue.NewString(string.Join(",", E(a)?.Tags ?? new List<string>())));
-            Def(g, "EntityGetWithTag", a => Ids(_ents.Values.Where(e => !e.Dead && e.Tags.Contains(S(a, 0))).Select(e => e.Id)));
+            Def(g, "EntityGetWithTag", a =>
+            {
+                // Noita: a table, empty when none; the game's shots/creatures with the tag too
+                string tag = S(a, 0);
+                var ids = new List<int>(_host.InRadiusWithTag(0, 0, float.MaxValue, tag));
+                ids.AddRange(_ents.Values.Where(e => !e.Dead && !e.Host && e.Tags.Contains(tag) && !ids.Contains(e.Id)).Select(e => e.Id));
+                var t = new Table(_lua);
+                foreach (int i in ids) t.Append(DynValue.NewNumber(i));
+                return DynValue.NewTable(t);
+            });
             Def(g, "EntityKill", a => { Kill((int)N(a, 0)); return null; });
             Def(g, "EntityAddChild", a =>
             {
@@ -706,7 +745,68 @@ namespace Terranoita.Noita
                 p.Children.Add(ch.Id);
                 return null;
             });
-            Def(g, "EntityLoad", a => DynValue.NewNumber(_host.Load(S(a, 0), (float)N(a, 1), (float)N(a, 2))));
+            Def(g, "EntityLoad", a =>
+            {
+                // the game first (projectiles, creatures); anything else (effects with their own scripts) lives here
+                string file = S(a, 0);
+                float x = (float)N(a, 1), y = (float)N(a, 2);
+                int id = _host.Load(file, x, y);
+                if (id == 0 && file != null && _ents.Count < MaxEntities && _read(file) != null)
+                {
+                    try { id = Spawn(file, x, y); }
+                    catch (Exception ex) { Log?.Invoke("EntityLoad " + file + ": " + ex.Message); }
+                }
+                return DynValue.NewNumber(id);
+            });
+            Def(g, "GameShootProjectile", a =>
+            {
+                _host.Shoot((int)N(a, 0), (int)N(a, 5), (float)N(a, 1), (float)N(a, 2), (float)N(a, 3), (float)N(a, 4));
+                return null;
+            });
+            Def(g, "RandomDistribution", a => DynValue.NewNumber(Math.Round(Distribution(a))));
+            Def(g, "RandomDistributionf", a => DynValue.NewNumber(Distribution(a)));
+            Def(g, "EntityGetClosestWithTag", a =>
+            {
+                float x = (float)N(a, 0), y = (float)N(a, 1);
+                string tag = S(a, 2);
+                int best = 0;
+                float bestD = float.MaxValue;
+                var ids = new List<int>(_host.InRadiusWithTag(x, y, float.MaxValue, tag));
+                ids.AddRange(_ents.Values.Where(e => !e.Dead && !e.Host && e.Tags.Contains(tag)).Select(e => e.Id));
+                foreach (int id in ids)
+                {
+                    Transform(id, out float ex, out float ey, out _, out _, out _);
+                    float d = (ex - x) * (ex - x) + (ey - y) * (ey - y);
+                    if (d < bestD) { bestD = d; best = id; }
+                }
+                return DynValue.NewNumber(best);
+            });
+            Def(g, "GameGetSkyVisibility", a => DynValue.NewNumber(_host.SkyVisibility((float)N(a, 0), (float)N(a, 1))));
+            Def(g, "GamePlaySound", a =>
+            {
+                _host.PlaySound(S(a, 0), S(a, 1), (float)N(a, 2), (float)N(a, 3));
+                return null;
+            });
+            Def(g, "ProceduralRandomi", a =>
+            {
+                // Noita's position-seeded random: the same spot gives the same number
+                double x = N(a, 0), y = N(a, 1);
+                int lo = a.Count > 2 ? (int)N(a, 2) : 0, hi = a.Count > 3 ? (int)N(a, 3) : 1;
+                unchecked
+                {
+                    uint h = (uint)(int)(x * 73856093) ^ (uint)(int)(y * 19349663) ^ 0x9E3779B9u;
+                    h ^= h >> 13; h *= 0x5bd1e995; h ^= h >> 15;
+                    return DynValue.NewNumber(hi <= lo ? lo : lo + (int)(h % (uint)(hi - lo + 1)));
+                }
+            });
+            // physics bodies, the player's inventory and worm attractors are not part of spell shots here
+            Def(g, "PhysicsApplyForceOnArea", a => null);
+            Def(g, "PhysicsApplyForce", a => null);
+            Def(g, "PhysicsApplyTorque", a => null);
+            Def(g, "GameGetAllInventoryItems", a => DynValue.NewTable(new Table(_lua)));
+            Def(g, "GamePickUpInventoryItem", a => null);
+            Def(g, "EntityGetClosestWormAttractor", a => DynValue.Nil);
+            Def(g, "EntityGetClosestWormDetractor", a => DynValue.Nil);
             Def(g, "EntityLoadToEntity", a =>
             {
                 var e = E(a, 1);

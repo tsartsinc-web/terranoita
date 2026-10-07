@@ -201,7 +201,26 @@ namespace Terranoita.Game.Magic
                 int before = _nextId;
                 var config = new Dictionary<string, MoonSharp.Interpreter.DynValue> { ["speed_multiplier"] = MoonSharp.Interpreter.DynValue.NewNumber(1) };
                 Fire(new LuaShot { File = file, Config = config }, pos, new Vector2(owner != null && owner.direction < 0 ? -1 : 1, 0), owner, null);
-                return _nextId > before ? ShotEntityBase + before : 0;
+                var made = _nextId > before ? Live.LastOrDefault() : null;
+                if (made == null)
+                    return 0;
+                if (made.Script == 0)
+                    ScriptsAdd(made, true);   // the script that loaded it may shoot it (GameShootProjectile)
+                return made.Script;
+            }
+            // a wand file (Noita's summon-a-wand spells): a wand made by Noita's own scripts, dropped there
+            if (file.StartsWith("data/entities/items/wand", StringComparison.OrdinalIgnoreCase))
+            {
+                try
+                {
+                    var w = WandWindow.Store(new LuaWandMaker(NoitaArt.ReadText, Main.rand.Next()).MakeEntity(file, pos.X / Px, pos.Y / Px));
+                    var item = MagicItems.MakeWand(w);
+                    int at = Item.NewItem(new Terraria.DataStructures.EntitySource_WorldEvent(), (int)pos.X, (int)pos.Y, 16, 16, item.type, 1, false, item.prefix);
+                    if (at >= 0 && at < Main.maxItems)
+                        Main.item[at].prefix = item.prefix;
+                }
+                catch (Exception ex) { Entry.Error("spell wand " + file, ex); }
+                return 0;
             }
             string id = System.IO.Path.GetFileNameWithoutExtension(file);
             var def = file.Contains("/animals/") ? Enemies.All.FirstOrDefault(x => x.Id == id) : null;
@@ -214,9 +233,6 @@ namespace Terranoita.Game.Magic
                 Entry.Log("spell EntityLoad not done yet: " + file);
             return 0;
         }
-
-        /// <summary>Spell shots as entities of Noita's scripts (creatures are 1000 + whoAmI).</summary>
-        public const int ShotEntityBase = 100000;
 
         static Vector2 NoitaVel(Shot s) => s.Vel * 60f / Px;
         static void SetNoitaVel(Shot s, Vector2 v) => s.Vel = v * Px / 60f;

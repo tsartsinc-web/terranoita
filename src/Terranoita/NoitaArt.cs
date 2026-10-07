@@ -31,6 +31,9 @@ namespace Terranoita.Game
 
         public static bool Ready => _files != null;
 
+        /// <summary>The player's Noita folder (tools_modding docs live there), null before Init.</summary>
+        public static string GameDir => _files?.GameDir;
+
         /// <summary>A text file of the player's Noita (Lua scripts), null if missing.</summary>
         public static string ReadText(string path) => _files != null && _files.TryReadText(path, out var t) ? t : null;
 

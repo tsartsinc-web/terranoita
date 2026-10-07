@@ -22,6 +22,12 @@ namespace Terranoita.Game.Magic
             new[] { "HOMING", "SPITTER", "SPITTER" },
             new[] { "BLACK_HOLE" },
             new[] { "GRENADE", "FIREBALL", "ACIDSHOT" },
+            // modifiers: components of extra entities, then Noita's own shot scripts
+            new[] { "SINEWAVE", "FIRE_TRAIL", "LIGHT_BULLET" },
+            new[] { "ARC_ELECTRIC", "BURST_2", "LIGHT_BULLET", "LIGHT_BULLET" },
+            new[] { "ORBIT_DISCS", "SPIRALING_SHOT", "LIGHT_BULLET" },
+            new[] { "WALL_HORIZONTAL" },
+            new[] { "TELEPORT_PROJECTILE" },
         };
         const int Each = 300;
         public static int Length => 120 + Sets.Length * Each + 60;
@@ -81,6 +87,10 @@ namespace Terranoita.Game.Magic
                 WandWindow.TestOpen(false, false);
             if (k == 5 && t == 150)
                 Screenshot.Request("black_hole");
+            if (k == 8 && t == 60)
+                Screenshot.Request("arc");
+            if (k == 9 && t == 90)
+                Screenshot.Request("orbit_scripts");
             if (t == 0)
             {
                 int slot = Enumerable.Range(0, 10).FirstOrDefault(i => MagicItems.IsWand(p.inventory[i]));
@@ -106,7 +116,7 @@ namespace Terranoita.Game.Magic
             Casting.TestFire = true;
             Casting.TestAim = _target != null && _target.active ? _target.Center : p.Center + new Vector2(p.direction * 200, 0);
             if (t % 60 == 59)
-                Log("set " + k + " +" + (t + 1) / 60 + "s: mana " + p.statMana + ", spell shots " + SpellShots.Ids().Count + ", target " +
+                Log("set " + k + " +" + (t + 1) / 60 + "s: mana " + p.statMana + ", spell shots " + SpellShots.Ids().Count + " (scripted " + SpellShots.ScriptedCount + ")" + ", target " +
                     (_target != null && _target.active ? "life " + _target.life + "/" + _target.lifeMax : "gone") + ", player hp " + p.statLife);
         }
     }

@@ -83,6 +83,7 @@ namespace Terranoita.Noita
     public sealed class ComponentFieldTypes
     {
         readonly Dictionary<string, Dictionary<string, string>> _types = new Dictionary<string, Dictionary<string, string>>(StringComparer.Ordinal);
+        readonly Dictionary<string, Dictionary<string, string>> _defaults = new Dictionary<string, Dictionary<string, string>>(StringComparer.Ordinal);
 
         public static ComponentFieldTypes Parse(string documentation)
         {
@@ -92,13 +93,21 @@ namespace Terranoita.Noita
             foreach (var block in ComponentDocs.Split(documentation))
             {
                 var fields = new Dictionary<string, string>(StringComparer.Ordinal);
+                var defaults = new Dictionary<string, string>(StringComparer.Ordinal);
                 foreach (var line in block.Value.Split('\n'))
                 {
-                    var m = System.Text.RegularExpressions.Regex.Match(line, @"^\s{2,}(\S.*?)\s{2,}(\w+)\s");
+                    // "    float    value_float    0 [0, 1]    """: type, name, default value
+                    var m = System.Text.RegularExpressions.Regex.Match(line, @"^\s{2,}(\S.*?)\s{2,}(\w+)\s+(\S*)");
                     if (m.Success && !fields.ContainsKey(m.Groups[2].Value))
+                    {
                         fields[m.Groups[2].Value] = m.Groups[1].Value.Trim();
+                        string d = m.Groups[3].Value;
+                        if (d.Length > 0 && d != "-" && !d.StartsWith("[") && !d.StartsWith("\""))
+                            defaults[m.Groups[2].Value] = d;
+                    }
                 }
                 t._types[block.Key] = fields;
+                t._defaults[block.Key] = defaults;
             }
             return t;
         }
@@ -106,6 +115,10 @@ namespace Terranoita.Noita
         /// <summary>The documented C++ type, or null.</summary>
         public string Of(string component, string field) =>
             component != null && _types.TryGetValue(component, out var f) && f.TryGetValue(field, out var s) ? s : null;
+
+        /// <summary>The documented default value (what Noita returns for a field never set), or null.</summary>
+        public string Default(string component, string field) =>
+            component != null && _defaults.TryGetValue(component, out var f) && f.TryGetValue(field, out var s) ? s : null;
 
         /// <summary>bool, number, string, vec2 or null (unknown).</summary>
         public string Kind(string component, string field)

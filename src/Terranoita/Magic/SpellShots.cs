@@ -31,6 +31,8 @@ namespace Terranoita.Game.Magic
             public LuaShot Lua;
             public Vector2 Pos, Vel;
             public int Life, Age, Bounces, TriggerIn;
+            public int Script, StartLife;      // its entity in Noita's shot scripts (0 = none), lifetime at start
+            public bool Killed;                // a script killed it
             public uint Born;                  // the game frame it was fired in (shots of one cast share it)
             public float Damage, ExplosionDamage, Radius, Gravity, Friction, Knockback;
             public bool Fire, Penetrate;
@@ -95,14 +97,17 @@ namespace Terranoita.Game.Magic
             };
             if (s.Life < 1)
                 s.Life = 1;
+            s.StartLife = s.Life;
             Live.Add(s);
+            ScriptsAdd(s, false);
             NoitaSound.PlayFirst(d.Audio, pos, "create");
         }
 
         static void Update()
         {
-            if (Main.gameMenu || Live.Count == 0)
+            if (Main.gameMenu)
                 return;
+            ScriptsUpdate();
             for (int i = Live.Count - 1; i >= 0; i--)
             {
                 var s = Live[i];
@@ -110,13 +115,21 @@ namespace Terranoita.Game.Magic
                 try { gone = Step(s); }
                 catch (Exception ex) { Entry.Error("spell shot " + s.Def.Id, ex); gone = true; }
                 if (gone)
+                {
                     Live.Remove(s);
+                    ScriptsRemove(s);
+                }
             }
         }
 
         /// <summary>One frame; true when the shot is gone.</summary>
         static bool Step(Shot s)
         {
+            if (s.Killed)
+            {
+                End(s, false);
+                return true;
+            }
             s.Age++;
             s.Vel.Y += s.Gravity;
             if (s.Friction > 0)
@@ -305,7 +318,11 @@ namespace Terranoita.Game.Magic
             finally { sb.End(); }
         }
 
-        public static void Clear() => Live.Clear();
+        public static void Clear()
+        {
+            Live.Clear();
+            ScriptsClear();
+        }
 
         [Hook("spell_shots_update")]
         [HarmonyPatch(typeof(Main), "UpdateWorld_Projectiles")]
