@@ -196,6 +196,13 @@ namespace Terranoita.Game
                 }
                 return;
             }
+            if (ItemSpike.Enabled)
+            {
+                ItemSpike.Frame(p, _worldFrames);
+                if (_worldFrames == 240 && ExitWhenDone)
+                    Main.instance.Exit();
+                return;
+            }
             if (Physics.PerfTest.Enabled)
             {
                 Physics.PerfTest.Frame(p, _worldFrames);

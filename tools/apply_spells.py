@@ -79,6 +79,90 @@ WAND_ATTRS = {  # column: (component, attribute, kind)
 }
 
 
+SHOT_COLUMNS = {
+    "id": {"type": "string", "desc": "Projectile entity file in data.wak (what spells and triggers name)."},
+    "sprite": {"type": "string", "desc": "Sprite file, or none (drawn with particles)."},
+    "speed_min": {"type": "number", "desc": "ProjectileComponent speed_min, Noita px/s."},
+    "speed_max": {"type": "number", "desc": "ProjectileComponent speed_max, Noita px/s."},
+    "spread_rad": {"type": "number", "desc": "ProjectileComponent direction_random_rad."},
+    "gravity": {"type": "number", "desc": "VelocityComponent gravity_y, Noita px/s^2."},
+    "air_friction": {"type": "number", "desc": "VelocityComponent air_friction."},
+    "lifetime": {"type": "int", "desc": "ProjectileComponent lifetime, frames (-1 = until it hits)."},
+    "lifetime_random": {"type": "int", "desc": "ProjectileComponent lifetime_randomness, frames."},
+    "damage": {"type": "number", "desc": "ProjectileComponent damage (projectile part), Noita units (x25 = hp)."},
+    "damage_every_frames": {"type": "int", "desc": "damage_every_x_frames: hits again while touching (0 = once)."},
+    "explosion_radius": {"type": "number", "desc": "config_explosion explosion_radius, Noita px (0 = none)."},
+    "explosion_damage": {"type": "number", "desc": "config_explosion damage, Noita units."},
+    "explode_on_death": {"type": "bool", "desc": "on_death_explode / on_lifetime_out_explode."},
+    "die_on_hit": {"type": "bool", "desc": "on_collision_die: gone when it hits a creature."},
+    "penetrate": {"type": "bool", "desc": "penetrate_entities: goes through creatures."},
+    "bounces": {"type": "int", "desc": "bounces_left off the ground."},
+    "collide_with_world": {"type": "bool", "desc": "Hits the ground at all."},
+    "knockback": {"type": "number", "desc": "knockback_force."},
+    "material": {"type": "string", "desc": "Material its particle emitter leaves (emitted_material_name), or none."},
+    "explosion_material": {"type": "string", "desc": "config_explosion create_cell_material, or none."},
+    "audio": {"type": "string", "desc": "Noita audio event root of the shot."},
+    "explosion_sound": {"type": "string", "desc": "Explosion audio event, or none."},
+    "stage": {"type": "enum", "values": ["3"], "desc": "Spell projectiles come with stage 3."},
+}
+
+
+def comps_of(p):
+    out = {}
+
+    def walk(cs):
+        for c in cs:
+            out.setdefault(c["component"], c.get("attrs", {}))
+            walk(c.get("children", []))
+    walk(p.get("components") or [])
+    return out
+
+
+def num(v, default=0.0):
+    try:
+        return float(v)
+    except (TypeError, ValueError):
+        return default
+
+
+def shot_row(path, p):
+    c = comps_of(p)
+    pc, vc, ex = c.get("ProjectileComponent", {}), c.get("VelocityComponent", {}), c.get("config_explosion", {})
+    emit = next((x for x in [c.get("ParticleEmitterComponent", {})] if x.get("emitted_material_name")), {})
+    row = {
+        "id": path,
+        "sprite": p.get("sprite") or "none",
+        "speed_min": num(pc.get("speed_min", p.get("speed_min"))),
+        "speed_max": num(pc.get("speed_max", p.get("speed_max"))),
+        "spread_rad": num(pc.get("direction_random_rad")),
+        "gravity": num(vc.get("gravity_y", p.get("gravity_y"))),
+        "air_friction": num(vc.get("air_friction")),
+        "lifetime": int(num(pc.get("lifetime", p.get("lifetime_frames")), -1)),
+        "lifetime_random": int(num(pc.get("lifetime_randomness"))),
+        "damage": num(pc.get("damage", p.get("damage"))),
+        "damage_every_frames": int(num(pc.get("damage_every_x_frames"))),
+        "explosion_radius": num(ex.get("explosion_radius", p.get("explosion_radius_px"))),
+        "explosion_damage": num(ex.get("damage")),
+        "explode_on_death": pc.get("on_death_explode", "0") == "1" or pc.get("on_lifetime_out_explode", "0") == "1",
+        "die_on_hit": pc.get("on_collision_die", "1") == "1",
+        "penetrate": pc.get("penetrate_entities", "0") == "1",
+        "bounces": int(num(pc.get("bounces_left"))),
+        "collide_with_world": pc.get("collide_with_world", "1") == "1",
+        "knockback": num(pc.get("knockback_force")),
+        "material": emit.get("emitted_material_name") or "none",
+        "explosion_material": ex.get("create_cell_material") or "none",
+        "audio": p.get("audio_root") or "none",
+        "explosion_sound": p.get("explosion_sound") or "none",
+        "stage": "3",
+        "_unverified": {} if pc else {"all": "no ProjectileComponent: a special entity (laser, cloud, summon...), port by hand"},
+        "_sources": {"all": "projectile entity via tncli spells"},
+    }
+    return row
+
+
+SHOTS_DESC = "Projectiles the player's spells fire (stage 3), from the player's Noita entity files."
+
+
 def load(name):
     path = os.path.join(SHEETS, name + ".json")
     if os.path.exists(path):
@@ -204,6 +288,9 @@ def main():
     wands = [wand_row(k, v) for k, v in facts.get("wands", {}).items() if "error" not in v]
     write("spells", SPELLS_DESC, SPELL_COLUMNS, spells)
     write("wands", WANDS_DESC, WAND_COLUMNS, wands)
+    shots = [shot_row(k, v) for k, v in sorted(facts.get("projectiles", {}).items()) if "error" not in v]
+    write("spell_projectiles", SHOTS_DESC, SHOT_COLUMNS, shots)
+    print("spell projectiles: %d (%d without a ProjectileComponent)" % (len(shots), sum(1 for r in shots if r["_unverified"])))
     hand = sum(1 for r in spells if r["port"] == "hand")
     print("spells: %d (%d by data, %d by hand); wands: %d" % (len(spells), len(spells) - hand, hand, len(wands)))
 

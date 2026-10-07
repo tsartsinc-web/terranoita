@@ -41,6 +41,7 @@ NAMES = {
     "cave_pools": ("CavePoolDef", "CavePools"),
     "spells": ("SpellDef", "SpellTable"),
     "wands": ("WandDef", "WandTable"),
+    "spell_projectiles": ("SpellProjectileDef", "SpellProjectiles"),
 }
 
 # object columns: C# type and how each value is written

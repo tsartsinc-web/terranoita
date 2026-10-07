@@ -79,6 +79,8 @@ namespace Terranoita.Game
 
         static void ApplyPatches()
         {
+            if (ItemSpike.Enabled)
+                ItemSpike.Candidates();   // before any player or world is loaded
             var harmony = _harmony = new Harmony("gg.melty.terranoita");
             harmony.PatchAll(typeof(Entry).Assembly);
             NoitaArt.Preload();

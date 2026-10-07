@@ -42,6 +42,70 @@ namespace Terranoita.Cli
                         case "wak-cat":
                             Console.Write(Text(files, args[2]) ?? throw new FileNotFoundException(args[2]));
                             return 0;
+                        case "lua-all":   // lua-all <noita>: every spell cast through gun.lua (with a bolt after it), errors and engine calls we lack
+                        {
+                            var probe = new Terranoita.Noita.LuaGun(p => Text(files, p));
+                            var ids = probe.ActionIds();
+                            var missing = new System.Collections.Generic.SortedDictionary<string, System.Collections.Generic.List<string>>();
+                            int ok = 0, failed = 0;
+                            foreach (var id in ids)
+                            {
+                                try
+                                {
+                                    var gun = new Terranoita.Noita.LuaGun(p => Text(files, p));
+                                    var w = new Terranoita.Noita.LuaWand { RechargeTime = 30, CastDelay = 10, Capacity = 4 };
+                                    w.Spells.Add((id, -1)); w.Spells.Add(("LIGHT_BULLET", -1)); w.Spells.Add(("BOMB", -1));
+                                    gun.Load(w);
+                                    for (int k = 0; k < 3; k++)
+                                        foreach (var name in gun.Cast(1000).Missing)
+                                        {
+                                            if (!missing.TryGetValue(name, out var l)) missing[name] = l = new System.Collections.Generic.List<string>();
+                                            if (!l.Contains(id)) l.Add(id);
+                                        }
+                                    ok++;
+                                }
+                                catch (Exception ex)
+                                {
+                                    failed++;
+                                    Console.WriteLine("FAIL " + id + ": " + ex.Message.Split('\n')[0]);
+                                }
+                            }
+                            Console.WriteLine("spells " + ids.Count + ": ran " + ok + ", failed " + failed);
+                            foreach (var kv in missing)
+                                Console.WriteLine("engine call " + kv.Key + " (" + kv.Value.Count + "): " + string.Join(" ", kv.Value.Take(12)));
+                            return 0;
+                        }
+                        case "lua-cast":   // lua-cast <noita> <SPELL,SPELL,...> [casts] [always,cast]: Noita's own gun.lua shooting a wand
+                        {
+                            var gun = new Terranoita.Noita.LuaGun(p => Text(files, p));
+                            var w = new Terranoita.Noita.LuaWand { SpellsPerCast = 1, RechargeTime = 30, CastDelay = 10, Capacity = 26 };
+                            foreach (var id in args[2].Split(',', StringSplitOptions.RemoveEmptyEntries))
+                                w.Spells.Add((id, -1));
+                            if (args.Length > 4)
+                                w.AlwaysCast.AddRange(args[4].Split(',', StringSplitOptions.RemoveEmptyEntries));
+                            gun.Load(w);
+                            int casts = args.Length > 3 ? int.Parse(args[3]) : 3;
+                            float mana = 1000;
+                            for (int k = 0; k < casts; k++)
+                            {
+                                var c = gun.Cast(mana);
+                                mana = c.Mana;
+                                Console.WriteLine("cast " + (k + 1) + ": played " + string.Join(" ", c.Played) + " | delay " + c.CastDelay + " recharge " + c.Recharge + " mana " + c.Mana + " recoil " + c.Recoil +
+                                                  (c.Missing.Count > 0 ? " | engine calls we lack: " + string.Join(", ", c.Missing) : ""));
+                                void Dump(System.Collections.Generic.List<Terranoita.Noita.LuaShot> shots, string ind)
+                                {
+                                    foreach (var s in shots)
+                                    {
+                                        Console.WriteLine(ind + s.File + (s.Trigger != null ? " [" + s.Trigger + " " + s.TriggerFrames + "]" : "") +
+                                                          " dmg+" + s.Get("damage_projectile_add") + " speed*" + s.Get("speed_multiplier") + " spread " + s.Get("spread_degrees") +
+                                                          (s.Text("extra_entities") != "" ? " extra " + s.Text("extra_entities") : ""));
+                                        Dump(s.Payload, ind + "    ");
+                                    }
+                                }
+                                Dump(c.Shots, "  ");
+                            }
+                            return 0;
+                        }
                         case "wak-get":   // wak-get <noita> <path> <out file>: a file as it is (images)
                             if (!files.TryRead(args[2], out var bytes)) throw new FileNotFoundException(args[2]);
                             File.WriteAllBytes(args[3], bytes);
