@@ -481,3 +481,5 @@ Entry.Stage default 1b, version 0.2.0. Проверить на ПК also: worm l
 - Cave pools x3 (cave_pools.json per_1000_tiles; author saw none). Pools version kept in the .fluids file: 0.3.0 worlds get the extra pools once (test1: +187 pools, ~6000 cells).
 - Loose soil caves in only around the broken block: 3 tiles up over it, each column further out a random 0 or 1 lower (a ragged staircase, author), Falling.Reach.
 - Per-hit logs only in tests.
+- 0.3.1 submitted to Melty as a draft (terranoita-0.3.1.zip, 934983 bytes, sha256 2fd57554...f85f2); live once the author presses Play on it in the Melty app.
+
