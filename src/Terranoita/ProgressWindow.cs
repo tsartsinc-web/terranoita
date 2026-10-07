@@ -176,21 +176,12 @@ namespace Terranoita.Game
         static string Tooltip(string category, string id)
         {
             var lines = new List<string> { NameOf(category, id) };
-            switch (category)
-            {
-                case ProgressBook.Spells:
-                    lines.AddRange(MagicItems.SpellLines(id));
-                    long casts = Book.CountOf(category, id, "casts");
-                    if (casts > 0)
-                        lines.Add(NoitaArt.Text("$menu_progress_casts", "Casts") + ": " + casts);
-                    break;
-                case ProgressBook.Creatures:
-                    var e = Enemies.All.FirstOrDefault(x => x.Id == id);
-                    if (e != null)
-                        lines.Add(NoitaArt.Text("$inventory_hp", "HP") + ": " + Math.Round(e.NoitaHp * 25));
-                    lines.Add(NoitaArt.Text("$menu_progress_kills", "Kills") + ": " + Book.CountOf(category, id, "kills"));
-                    break;
-            }
+            try { lines.AddRange(ProgressInfo.Lines(category, id)); }   // Core: life, places, attacks, statuses, damage...
+            catch (Exception ex) { Entry.Error("progress info " + id, ex); }
+            if (category == ProgressBook.Spells && Book.CountOf(category, id, "casts") > 0)
+                lines.Add(NoitaArt.Text("$menu_progress_casts", "Casts") + ": " + Book.CountOf(category, id, "casts"));
+            if (category == ProgressBook.Creatures)
+                lines.Add(NoitaArt.Text("$menu_progress_kills", "Kills") + ": " + Book.CountOf(category, id, "kills"));
             return string.Join("\n", lines);
         }
 

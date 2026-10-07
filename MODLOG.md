@@ -735,3 +735,11 @@ Next steps (author's order: finish magic, then shops):
   Note: the task said damage = Noita x 25 for creatures; the sheets' noita_hp / attack damage are already in
   Noita's shown units, so the lines use the game's own formulas (Carriers: x tier mult).
 - Tests: LuaShotScriptsBenchTests (1), ProgressInfoTests (3). 80 Core tests pass; gate 1a CLEAN; tools tests OK.
+
+## 2026-10-08 PC: sandbox, progress tooltips
+- game_test -Mode sandbox (author: a place to try everything by hand): arena at the test player, 13 chests: all 422
+  spells (gun_actions order) and 48 wands (every data/entities/items/wand_*.xml + wands/custom), no creatures
+  (author), noon; the game stays open.
+- Progress tooltips: Core's ProgressInfo.Lines + casts/kills. GameShotHost.InRadiusWithTag no longer copies the
+  shot list per call. FPS with ~20 scripted shots not measured yet (the author is playing the sandbox; a test run
+  would close it) — проверить на ПК.

@@ -231,7 +231,7 @@ namespace Terranoita.Game.Magic
                             yield return CasterEntity;
                         break;
                     case "projectile": case "projectile_player":
-                        foreach (var s in ByScript.Values.ToList())
+                        foreach (var s in ByScript.Values)   // read at once into a list by Core, no script runs meanwhile
                             if (Near(s.Pos))
                                 yield return s.Script;
                         break;
