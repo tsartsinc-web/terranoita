@@ -655,3 +655,21 @@ Next steps (author's order: finish magic, then shops):
   game's full list in order + unknown flags), text file (tab separated, bad lines skipped), FileFor (by player file
   name, Windows-safe), atomic Save (tmp + File.Replace), Discovered event. ProgressBookTests (4); 74 Core tests pass.
 - Game part (hooks, window, key O, migration of known_<name>.txt) is for the PC session: see the design file.
+## 2026-10-08 PC: Noita's shot scripts in the game (after the cloud's LuaShotScripts)
+- Sweep (tncli shot-script, 120 frames): all 125 extra_entities files run with no errors; 80 spell projectile files
+  with Lua: errors came from EntityGetWithTag returning nil (Noita: empty table), unset fields returning nil (Noita:
+  the documented default -> ComponentFieldTypes.Default from component_documentation.txt), and missing
+  GameShootProjectile, GameGetSkyVisibility, GamePlaySound, ProceduralRandomi, RandomDistribution(f),
+  EntityGetClosestWithTag (+ no-op PhysicsApplyForce(OnArea), inventory, worm attractors). All added
+  (LuaShotScriptsApiTests). Store entities start at LuaShotScripts.FirstEntity (1000000), lower = the game's;
+  EntityLoad: the game first, else the file lives in the store, max 3000 (wall spells copy themselves).
+- Checked against Noita's docs: event function names (death, collision_trigger, item_pickup, shot, ... = field
+  without "script_") as the cloud did; Random(a) = int 0..a; execute_on_added vs execute_times not documented (kept).
+- Game (SpellShots.Scripts.cs, GameShotHost): a shot whose projectile file or extra entity carries a LuaComponent
+  becomes CreateShot + AttachExtra; Update each frame; script_death + Forget when it ends; scripts can kill shots,
+  move them, read/write ProjectileComponent lifetime/damage/bounces_left/mWhoShot. Entities: 1 = caster,
+  1000 + whoAmI = creatures. EntityLoad: spell projectile -> shot (in the store so GameShootProjectile can aim it),
+  creature -> our creature, data/entities/items/wand* -> a wand made by LuaWandMaker.MakeEntity, dropped.
+  Component docs read from <Noita>/tools_modding/component_documentation.txt.
+- MAGIC test: new sets (sine wave + fire trail, electric arc, orbit discs + spiraling (scripts), wall, teleport);
+  screenshots arc, orbit_scripts.
