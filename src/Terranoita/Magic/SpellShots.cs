@@ -225,6 +225,7 @@ namespace Terranoita.Game.Magic
         /// <summary>The shot hits something or runs out: its explosion, its payload.</summary>
         static void End(Shot s, bool hit)
         {
+            TeleportOwner(s);
             if (s.Lua.Trigger == "hit_world" && hit || s.Lua.Trigger == "death" || s.Lua.Trigger == "timer" && s.TriggerIn > 0)
                 Release(s);
             if (s.Radius > 0 && (hit || s.Def.ExplodeOnDeath))

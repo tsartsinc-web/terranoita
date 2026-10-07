@@ -54,9 +54,18 @@ namespace Terranoita.Game.Magic
             return list;
         }
 
+        // components of the projectile's own file played here (its ProjectileComponent, CellEater and AreaDamage are
+        // already in spell_projectiles.json)
+        static readonly HashSet<string> OwnTypes = new HashSet<string>
+        {
+            "HomingComponent", "SineWaveComponent", "MagicConvertMaterialComponent", "ParticleEmitterComponent",
+            "SpriteParticleEmitterComponent", "LightComponent", "HitEffectComponent", "TeleportProjectileComponent",
+            "BlackHoleComponent", "MaterialSeaSpawnerComponent", "EnergyShieldComponent",
+        };
+
         static List<Extra> ExtrasOf(LuaShot ls)
         {
-            var all = new List<Extra>();
+            var all = ReadExtra(ls.File ?? "").Where(c => c.Enabled && OwnTypes.Contains(c.Type)).ToList();
             foreach (var f in ls.Text("extra_entities").Split(new[] { ',' }, StringSplitOptions.RemoveEmptyEntries))
             {
                 var comps = ReadExtra(f.Trim());
@@ -99,6 +108,12 @@ namespace Terranoita.Game.Magic
                     case "AreaDamageComponent":
                         AreaDamageAt(s, e.N("aabb_max.x", 8) * Px, e.N("damage_per_frame", 0.1f) * 25f);
                         break;
+                    case "BlackHoleComponent":
+                        BlackHole(s, e);
+                        break;
+                    case "MaterialSeaSpawnerComponent":
+                        Sea(s, e);
+                        break;
                     case "EnergyShieldComponent":
                         // stops enemy shots close to the spell
                         Shots.StopNear(s.Pos, Math.Max(12f, e.N("radius", 8) * Px));
@@ -120,6 +135,58 @@ namespace Terranoita.Game.Magic
                     else if (Physics.Patches.On)
                         Physics.Fluids.Add(tx, ty, m, Math.Max(4, (int)s.Lua.Get("trail_material_amount")));
                 }
+        }
+
+        /// <summary>Noita's BlackHoleComponent: creatures are pulled in and hurt at its centre.</summary>
+        static void BlackHole(Shot s, Extra e)
+        {
+            float pull = e.N("particle_attractor_force", 2) * 0.05f;
+            for (int i = 0; i < Main.maxNPCs; i++)
+            {
+                var n = Main.npc[i];
+                if (!n.active || n.friendly || n.boss || n.life <= 0)
+                    continue;
+                var to = s.Pos - n.Center;
+                float d = to.Length();
+                if (d > 240 || d < 1)
+                    continue;
+                n.velocity += to / d * pull * (1f - d / 240f) * 4f;
+                if (d < 24 + n.width / 2f && s.Age % 10 == 0 && Main.rand.NextFloat() < Math.Max(0.1f, e.N("damage_probability", 0.25f)) * 4f)
+                    Strike(s, n, 25f);
+            }
+        }
+
+        /// <summary>Noita's MaterialSeaSpawnerComponent (sea of water/lava/acid... spells): the material pours into a
+        /// big box under where the spell is.</summary>
+        static void Sea(Shot s, Extra e)
+        {
+            if (!Physics.Patches.On)
+                return;
+            float w = e.N("size.x", 300) * Px / 16f, h = e.N("size.y", 256) * Px / 16f;
+            float cx = s.Pos.X / 16f + e.N("offset.x", 0) * Px / 16f, cy = s.Pos.Y / 16f + e.N("offset.y", 0) * Px / 16f;
+            int per = Math.Max(1, (int)e.N("speed", 10) / 2);
+            for (int k = 0; k < per; k++)
+            {
+                int x = (int)(cx + (Main.rand.NextFloat() - 0.5f) * w), y = (int)(cy + (Main.rand.NextFloat() - 0.5f) * h);
+                if (Physics.Mats.InWorld(x, y) && !Main.tile[x, y].active())
+                    Physics.Fluids.Add(x, y, e.S("material", "water"), 255);
+            }
+        }
+
+        /// <summary>Noita's TeleportProjectileComponent: the caster appears where the shot ends.</summary>
+        static void TeleportOwner(Shot s)
+        {
+            var p = s.Owner;
+            if (p == null || !p.active || p.dead || !s.Extras.Any(x => x.Type == "TeleportProjectileComponent"))
+                return;
+            var to = s.Pos - new Vector2(p.width / 2f, p.height / 2f);
+            var back = s.Vel.LengthSquared() > 0.01f ? -Vector2.Normalize(s.Vel) * 8f : new Vector2(0, -8);
+            for (int k = 0; k < 12 && Collision.SolidCollision(to, p.width, p.height); k++)
+                to += back;
+            if (Collision.SolidCollision(to, p.width, p.height))
+                return;
+            p.Teleport(to, 1);
+            p.velocity = Vector2.Zero;
         }
 
         static Vector2 NoitaVel(Shot s) => s.Vel * 60f / Px;
@@ -254,6 +321,8 @@ namespace Terranoita.Game.Magic
         /// <summary>Noita's particle emitters on a shot: a trail of coloured sparks.</summary>
         static void Particles(Shot s, Extra e)
         {
+            if (e.S("is_emitting") == "0")
+                return;   // switched on by a script or only for the explosion
             int every = Math.Max(1, (int)e.N("emission_interval_min_frames", 2));
             if (s.Age % every != 0 || Main.gamePaused)
                 return;
