@@ -39,6 +39,9 @@ namespace Terranoita.Game.Physics
         static LiquidDef[] _defs;
         static Dictionary<string, int> _index;
         static HashSet<string>[] _tags;
+        static HashSet<string>[] _burningTags;
+        static bool[] _fading;
+        static readonly Dictionary<string, HashSet<string>> SolidTagSets = new Dictionary<string, HashSet<string>>();
         static Color[] _colors;
         static Dictionary<string, NoitaSolidDef> _solids;
         static Dictionary<string, ushort> _tileOfSolid;
@@ -47,6 +50,8 @@ namespace Terranoita.Game.Physics
         static readonly List<int> KeysBuffer = new List<int>();
         static readonly Comparison<int> Descending = (a, b) => b.CompareTo(a);
         static byte _stamp;
+        static int _pass;
+        const int FarX = 160, FarY = 100;
         static Texture2D _pixel;
 
         public static int Count => Cells.Count;
@@ -57,11 +62,15 @@ namespace Terranoita.Game.Physics
             _defs = Liquids.All;
             _index = new Dictionary<string, int>();
             _tags = new HashSet<string>[_defs.Length + 1];
+            _burningTags = new HashSet<string>[_defs.Length + 1];
+            _fading = new bool[_defs.Length + 1];
             _colors = new Color[_defs.Length + 1];
             for (int i = 0; i < _defs.Length; i++)
             {
                 _index[_defs[i].Id] = i + 1;
                 _tags[i + 1] = new HashSet<string>(_defs[i].Tags ?? new string[0]) { "=" + _defs[i].Id };
+                _fading[i + 1] = _defs[i].Id.EndsWith("_fading", StringComparison.Ordinal);
+                _burningTags[i + 1] = new HashSet<string>(_tags[i + 1]) { "fire", "=fire" };
                 _colors[i + 1] = ParseColor(_defs[i].Color);
             }
             _solids = NoitaSolids.All.ToDictionary(s => s.Id);
@@ -90,7 +99,17 @@ namespace Terranoita.Game.Physics
                 return false;
             // [tag] matches a tag; a bare name only that material ("=name"): magic liquids carry the [water] tag
             // and must not pass for the material water
-            return input[0] == '[' ? tags.Contains(input.Trim('[', ']')) : tags.Contains("=" + input);
+            return tags.Contains(MatchKey(input));
+        }
+
+        // the tag or "=name" an input looks up, made once (author: big FPS drops near cave pools from new strings every tick)
+        static readonly Dictionary<string, string> MatchKeys = new Dictionary<string, string>();
+
+        static string MatchKey(string input)
+        {
+            if (!MatchKeys.TryGetValue(input, out var key))
+                MatchKeys[input] = key = input[0] == '[' ? input.Trim('[', ']') : "=" + input;
+            return key;
         }
 
         public static int KindOf(string material)
@@ -185,9 +204,18 @@ namespace Terranoita.Game.Physics
                 // bottom cells first for liquids, so a column falls together
                 keys.Sort(Descending);
                 _stamp = (byte)(_stamp % 255 + 1);
+                _pass++;
+                // far from the player (two screens and more) a cell moves every 8th pass: pools there are still
+                var p = Main.LocalPlayer.Center;
+                int px = (int)(p.X / 16), py = (int)(p.Y / 16), W = Main.maxTilesX;
                 foreach (int k in keys)
+                {
+                    if (Math.Abs(k % W - px) > FarX || Math.Abs(k / W - py) > FarY)
+                        if ((k + _pass) % 8 != 0)
+                            continue;
                     if (Cells.ContainsKey(k))
                         Step(k);
+                }
             }
             Touch();
         }
@@ -212,7 +240,7 @@ namespace Terranoita.Game.Physics
                 return;
             }
             // gases fade (Noita lifetime in frames), fading liquids too
-            if (d.Lifetime > 0 || d.Id.EndsWith("_fading"))
+            if (d.Lifetime > 0 || _fading[c.Kind])
             {
                 // a share of what is there, so a gas spread thin over many tiles lasts as long as a thick one
                 float share = c.Amount * 2f / (d.Lifetime > 0 ? d.Lifetime : 900f);
@@ -605,9 +633,7 @@ namespace Terranoita.Game.Physics
             if (Cells.TryGetValue(Key(x, y), out var c))
             {
                 what = What.Cell;
-                if (c.Burn > 0)
-                    return new HashSet<string>(_tags[c.Kind]) { "fire", "=fire" };
-                return _tags[c.Kind];
+                return c.Burn > 0 ? _burningTags[c.Kind] : _tags[c.Kind];
             }
             var t = Main.tile[x, y];
             if (t.active() && Main.tileSolid[t.type] && !t.inActive())
@@ -633,9 +659,11 @@ namespace Terranoita.Game.Physics
                 return null;   // dungeon, temple, chests...: Noita's indestructible
             var m = Mats.Of(t);
             string name = m != null && m.NoitaMaterial != "-" ? m.NoitaMaterial : "rock_static";
-            if (!_solids.TryGetValue(name, out var s))
-                return null;
-            var tags = new HashSet<string>(s.Tags ?? new string[0]) { "=" + s.Id };
+            if (SolidTagSets.TryGetValue(name, out var tags))
+                return tags;
+            if (_solids.TryGetValue(name, out var s))
+                tags = new HashSet<string>(s.Tags ?? new string[0]) { "=" + s.Id };
+            SolidTagSets[name] = tags;
             return tags;
         }
 

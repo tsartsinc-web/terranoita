@@ -468,3 +468,9 @@ Entry.Stage default 1b, version 0.2.0. Проверить на ПК also: worm l
 - Melty page updated (author: the description must say liquids, effects, gravity): update_mod tagline + description
   (v0.3: creatures, block physics, liquids and gases, Noita effects, debug keys N/K/L, back up worlds). It describes
   0.3.0 while 0.2.0 is still the live release, until the author tests and publishes 0.3.0.
+
+## 2026-10-07 FPS drops near caves (author, 0.3.0)
+- Liquids: reaction lookups no longer make new strings and tag sets every tick (cached); cells two screens away from the player move every 8th pass.
+- Per-hit creature/shot logs only in tests.
+- Built, copied to the Terraria folder; the author checks FPS by the caves, then 0.3.1 on Melty with permission.
+

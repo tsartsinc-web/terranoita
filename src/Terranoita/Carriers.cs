@@ -157,7 +157,7 @@ namespace Terranoita.Game
                     return;
                 int dir = Target.Center.X >= Npc.Center.X ? 1 : -1;
                 double dealt = Target.Hurt(DeathReason(Noita, Target), dmg, dir);
-                if (dealt > 0)
+                if (dealt > 0 && DebugTools.Testing)
                     Entry.Log(Noita.Def.Id + " " + how + " " + a.Id + " hits for " + (int)dealt);
             }
 
@@ -240,7 +240,8 @@ namespace Terranoita.Game
                         o.Invisible = 600;
                     else
                         o.Shield = true;
-                    Entry.Log(Noita.Def.Id + " " + a.Id + " gives " + o.Def.Id + (invisible ? " invisibility" : " a shield"));
+                    if (DebugTools.Testing)
+                        Entry.Log(Noita.Def.Id + " " + a.Id + " gives " + o.Def.Id + (invisible ? " invisibility" : " a shield"));
                     return;
                 }
             }
@@ -259,7 +260,8 @@ namespace Terranoita.Game
                         int healed = Math.Min(amount, other.lifeMax - other.life);
                         other.life += healed;
                         other.HealEffect(healed);
-                        Entry.Log(Noita.Def.Id + " " + a.Id + " heals " + Get(other).Def.Id + " for " + healed);
+                        if (DebugTools.Testing)
+                            Entry.Log(Noita.Def.Id + " " + a.Id + " heals " + Get(other).Def.Id + " for " + healed);
                         return;
                     }
                 }
