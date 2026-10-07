@@ -196,7 +196,9 @@ namespace Terranoita.Game.Magic
                 name = "wand_unshuffle_0" + s.Level;
             else
                 name = "wand_level_0" + s.Level;
-            return "data/entities/items/" + name + ".xml";
+            string file = "data/entities/items/" + name + ".xml";
+            // a file this Noita lacks (older or newer version): the plain level wand
+            return NoitaArt.ReadText(file) != null ? file : "data/entities/items/wand_level_0" + Math.Min(6, Math.Max(1, s.Level)) + ".xml";
         }
 
         public static void Update()

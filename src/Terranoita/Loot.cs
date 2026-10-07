@@ -160,6 +160,8 @@ namespace Terranoita.Game
                 try { Drop(__instance, n); }
                 catch (Exception ex) { Entry.Error("npc_loot " + n.Def.Id, ex); }
                 Entry.Log("killed " + n.Def.Id + " #" + __instance.whoAmI);
+                if (__instance.playerInteraction[Main.myPlayer])
+                    ProgressWindow.Kill(n.Def.Id);   // met in the progress book when the player killed it
                 Carriers.Forget(__instance);
                 return false;
             }

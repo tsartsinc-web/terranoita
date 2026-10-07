@@ -77,6 +77,12 @@ namespace Terranoita.Game.Magic
 
         // ---- wands ----
 
+        public static IEnumerable<WandData> All()
+        {
+            LoadWands();
+            return _wands.Values.ToList();
+        }
+
         public static WandData Wand(int id)
         {
             LoadWands();

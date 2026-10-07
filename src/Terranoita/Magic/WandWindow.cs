@@ -20,8 +20,10 @@ namespace Terranoita.Game.Magic
     /// </summary>
     public static class WandWindow
     {
-        public const int WandSlotCount = 4;
+        public const int WandSlotCount = 4, SpellSlotCount = 16;
         public static Item[] WandSlots = NewSlots();
+        public static Item[] SpellSlots = NewSpellSlots();   // Noita's 16 spell slots, left of the equipment (author)
+        static string _spellsFile;
         static bool _open, _terrariaLook;
         static Rectangle _lookRect;
         static Texture2D _pixel;
@@ -40,6 +42,7 @@ namespace Terranoita.Game.Magic
         static string _slotsFile;
         const float S = 2f;                         // Noita UI pixels -> screen pixels
 
+        static Item[] NewSpellSlots() => Enumerable.Range(0, SpellSlotCount).Select(_ => new Item()).ToArray();
         static Item[] NewSlots() => Enumerable.Range(0, WandSlotCount).Select(_ => new Item()).ToArray();
         static string Folder => Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData), "Terranoita");
         static string LookFile => Path.Combine(Folder, "wand_window.txt");
@@ -56,6 +59,8 @@ namespace Terranoita.Game.Magic
                 string name = Path.GetFileNameWithoutExtension(Main.ActivePlayerFileData?.Path ?? p.name);
                 Directory.CreateDirectory(Path.Combine(Folder, "players"));
                 _slotsFile = Path.Combine(Folder, "players", name + ".wands");
+                _spellsFile = Path.Combine(Folder, "players", name + ".spells");
+                LoadSpellSlots();
                 WandSlots = NewSlots();
                 if (File.Exists(_slotsFile))
                 {
@@ -69,6 +74,76 @@ namespace Terranoita.Game.Magic
                 SaveSlots();
             }
             catch (Exception ex) { Entry.Error("wand slots", ex); }
+        }
+
+        /// <summary>The spell slots: one line per slot, "ACTION_ID:uses" or "-".</summary>
+        static void LoadSpellSlots()
+        {
+            SpellSlots = NewSpellSlots();
+            try
+            {
+                if (!File.Exists(_spellsFile))
+                    return;
+                var lines = File.ReadAllLines(_spellsFile);
+                for (int i = 0; i < SpellSlotCount && i < lines.Length; i++)
+                {
+                    var parts = lines[i].Trim().Split(':');
+                    if (parts[0].Length == 0 || parts[0] == "-" || MagicItems.Spell(parts[0]) == null)
+                        continue;
+                    int uses = parts.Length > 1 && int.TryParse(parts[1], out int u) ? u : -1;
+                    SpellSlots[i] = MagicItems.MakeSpell(parts[0], uses);
+                }
+            }
+            catch (Exception ex) { Entry.Error("spell slots", ex); }
+        }
+
+        public static void SaveSpellSlots()
+        {
+            if (_spellsFile == null)
+                return;
+            try
+            {
+                File.WriteAllLines(_spellsFile, SpellSlots.Select(it =>
+                    MagicItems.SpellOf(it) is string id ? id + ":" + MagicItems.UsesLeft(it) : "-"));
+            }
+            catch (Exception ex) { Entry.Error("spell slots save", ex); }
+        }
+
+        /// <summary>Two columns of 8 left of Terraria's dye column (armor x = screen width - 92, columns 47 apart,
+        /// rows from 174 + map height, 56 * 0.85 apart), with room for the defense icon.</summary>
+        static readonly System.Reflection.FieldInfo MapHeight = AccessTools.Field(typeof(Main), "mH");
+
+        static void DrawSpellSlots()
+        {
+            var p = Main.LocalPlayer;
+            var sb = Main.spriteBatch;
+            int size = (int)(52 * 0.85f), top = 174 + (int)MapHeight.GetValue(null);
+            int right = Main.screenWidth - 92 - 47 * 2 - 47 - 50;
+            Utils.DrawBorderString(sb, NoitaArt.Text("$menu_spells", "Spells"), new Vector2(right - 47, top - 22), Color.White, 0.75f);
+            bool changed = false;
+            for (int i = 0; i < SpellSlotCount; i++)
+            {
+                int col = i / 8, row = i % 8;
+                var r = new Rectangle(right - 47 * (1 - col), top + (int)(row * 56 * 0.85f), size, size);
+                var item = SpellSlots[i];
+                if (_terrariaLook)
+                    DrawBox(sb, r, item, "inventory_box");
+                else
+                    DrawSpellBox(sb, r, MagicItems.SpellOf(item), false, MagicItems.UsesLeft(item));
+                if (!r.Contains(Main.mouseX, Main.mouseY))
+                    continue;
+                p.mouseInterface = true;
+                if (Main.mouseItem.IsAir || MagicItems.IsSpell(Main.mouseItem))
+                {
+                    var before = item;
+                    ItemSlot.Handle(SpellSlots, ItemSlot.Context.ChestItem, i);
+                    changed |= !ReferenceEquals(before, SpellSlots[i]);
+                }
+                else
+                    ItemSlot.MouseHover(SpellSlots, ItemSlot.Context.ChestItem, i);
+            }
+            if (changed)
+                SaveSpellSlots();
         }
 
         public static void SaveSlots()
@@ -146,7 +221,10 @@ namespace Terranoita.Game.Magic
 
         static void Draw()
         {
-            if (!_open || Main.gameMenu || !NoitaArt.Ready)
+            if (Main.gameMenu || !NoitaArt.Ready || !Main.playerInventory)
+                return;
+            DrawSpellSlots();   // like the equipment: shown with the inventory
+            if (!_open)
                 return;
             var p = Main.LocalPlayer;
             var sb = Main.spriteBatch;
@@ -242,7 +320,7 @@ namespace Terranoita.Game.Magic
             }
             if (w.AlwaysCast.Count > 0)
                 px += 6;
-            int perRow = Math.Max(4, (Main.screenWidth - 340 - px) / (slot + 2));
+            int perRow = Math.Max(4, (Main.screenWidth - 92 - 47 * 3 - 50 - 47 - 20 - px) / (slot + 2));
             bool changed = false;
             for (int i = 0; i < w.Slots.Length; i++)
             {

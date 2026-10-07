@@ -32,6 +32,7 @@ namespace Terranoita.Game.Magic
         const int Each = 300;
         public static int Length => 120 + Sets.Length * Each + 60;
         static NPC _target;
+        static Vector2 _start;   // where the player stands at the start: every set begins there (bombs dig pits)
 
         static void Log(string s) => Entry.Log("MAGIC " + s);
 
@@ -42,6 +43,7 @@ namespace Terranoita.Game.Magic
                 p.statMana = 400;
             if (frame == 100)
             {
+                _start = p.position;
                 Log("hotbar wands: " + string.Join(", ", Enumerable.Range(0, 10).Where(i => MagicItems.IsWand(p.inventory[i]))
                     .Select(i => i + " " + p.inventory[i].Name + " [" + (MagicItems.WandOf(p.inventory[i]) == null ? "NUMBER LOST" : string.Join(" ", MagicItems.WandOf(p.inventory[i]).Slots.Select(s => s ?? "-"))) + "]")));
                 Log("wand slots: " + string.Join(", ", WandWindow.WandSlots.Select(it => it.IsAir ? "-" : it.Name)));
@@ -75,6 +77,13 @@ namespace Terranoita.Game.Magic
             // pictures for checking by eye: the wand in hand while casting, the wand window in both looks
             if (k == 0 && t == 100)
                 Screenshot.Request("held_wand");
+            if (k == 2 && t == 20)
+            {
+                // the spell slots left of the equipment, for the window pictures
+                WandWindow.SpellSlots[0] = MagicItems.MakeSpell("BOMB", 1);
+                WandWindow.SpellSlots[1] = MagicItems.MakeSpell("LIGHT_BULLET");
+                WandWindow.SpellSlots[9] = MagicItems.MakeSpell("BLACK_HOLE", 0);
+            }
             if (k == 2 && t == 30)
                 WandWindow.TestOpen(true, false);
             if (k == 2 && t == 60)
@@ -87,12 +96,26 @@ namespace Terranoita.Game.Magic
                 WandWindow.TestOpen(false, false);
             if (k == 5 && t == 150)
                 Screenshot.Request("black_hole");
+            // the progress window: spells, then creatures (the zombies of the sets before were killed)
+            if (k == 3 && t == 30)
+                ProgressWindow.TestOpen(true, 0);
+            if (k == 3 && t == 60)
+                Screenshot.Request("progress_spells");
+            if (k == 3 && t == 70)
+                ProgressWindow.TestOpen(true, 1);
+            if (k == 3 && t == 100)
+                Screenshot.Request("progress_creatures");
+            if (k == 3 && t == 110)
+                ProgressWindow.TestOpen(false, 0);
             if (k == 8 && t == 60)
                 Screenshot.Request("arc");
             if (k == 9 && t == 90)
                 Screenshot.Request("orbit_scripts");
             if (t == 0)
             {
+                SpellShots.Clear();
+                p.position = _start;
+                p.velocity = Vector2.Zero;
                 int slot = Enumerable.Range(0, 10).FirstOrDefault(i => MagicItems.IsWand(p.inventory[i]));
                 if (Sets[k] != null)
                 {

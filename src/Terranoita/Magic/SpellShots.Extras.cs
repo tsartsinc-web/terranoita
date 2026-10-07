@@ -2,7 +2,6 @@ using System;
 using System.Collections.Generic;
 using System.Globalization;
 using System.Linq;
-using System.Text.RegularExpressions;
 using Microsoft.Xna.Framework;
 using Terranoita.Generated;
 using Terranoita.Noita;
@@ -30,27 +29,24 @@ namespace Terranoita.Game.Magic
 
         static readonly Dictionary<string, List<Extra>> ExtraFiles = new Dictionary<string, List<Extra>>(StringComparer.OrdinalIgnoreCase);
         static readonly HashSet<string> NotYet = new HashSet<string>();
-        static readonly Regex CompRx = new Regex(@"<(\w+Component)\b([^>]*)>", RegexOptions.Compiled);
-        static readonly Regex AttrRx = new Regex(@"([\w.]+)\s*=\s*""([^""]*)""", RegexOptions.Compiled);
 
-        /// <summary>The components of one Noita entity file (no Base chains: extra_entities files are flat).</summary>
+        /// <summary>The components of one Noita entity file, after its Base chain (Core's NoitaEntityXml).</summary>
         static List<Extra> ReadExtra(string file)
         {
             if (ExtraFiles.TryGetValue(file, out var list))
                 return list;
             list = new List<Extra>();
-            string xml = NoitaArt.ReadText(file);
-            if (xml != null)
+            try
             {
-                xml = Regex.Replace(xml, "<!--.*?-->", "", RegexOptions.Singleline);
-                foreach (Match m in CompRx.Matches(xml))
-                {
-                    var e = new Extra { Type = m.Groups[1].Value, F = new Dictionary<string, string>(StringComparer.Ordinal) };
-                    foreach (Match a in AttrRx.Matches(m.Groups[2].Value))
-                        e.F[a.Groups[1].Value] = a.Groups[2].Value;
-                    list.Add(e);
-                }
+                if (NoitaArt.ReadText(file) != null)
+                    foreach (var c in NoitaEntityXml.Load(file, NoitaArt.ReadText).Components)
+                    {
+                        var e = new Extra { Type = c.Type, F = new Dictionary<string, string>(c.Fields, StringComparer.Ordinal) };
+                        e.F["_enabled"] = c.Enabled ? "1" : "0";
+                        list.Add(e);
+                    }
             }
+            catch (Exception ex) { Entry.Error("spell entity " + file, ex); }
             ExtraFiles[file] = list;
             return list;
         }
@@ -145,7 +141,7 @@ namespace Terranoita.Game.Magic
             for (int i = 0; i < Main.maxNPCs; i++)
             {
                 var n = Main.npc[i];
-                if (!n.active || n.friendly || n.boss || n.life <= 0)
+                if (!n.active || n.friendly || n.boss || n.life <= 0 || n.CountsAsACritter || n.dontTakeDamage)
                     continue;
                 var to = s.Pos - n.Center;
                 float d = to.Length();
@@ -204,6 +200,7 @@ namespace Terranoita.Game.Magic
                 var made = _nextId > before ? Live.LastOrDefault() : null;
                 if (made == null)
                     return 0;
+                made.Vel = Vector2.Zero;   // Noita: EntityLoad makes it at rest; the script (GameShootProjectile) sends it
                 if (made.Script == 0)
                     ScriptsAdd(made, true);   // the script that loaded it may shoot it (GameShootProjectile)
                 return made.Script;
@@ -254,8 +251,8 @@ namespace Terranoita.Game.Magic
                 for (int i = 0; i < Main.maxNPCs; i++)
                 {
                     var n = Main.npc[i];
-                    if (!n.active || n.friendly || n.townNPC || n.life <= 0)
-                        continue;
+                    if (!n.active || n.friendly || n.townNPC || n.life <= 0 || n.CountsAsACritter || n.dontTakeDamage)
+                        continue;   // Noita homes on homing_target creatures, not on bunnies
                     float d = Vector2.Distance(n.Center, s.Pos);
                     if (d < best)
                     {

@@ -496,6 +496,9 @@ namespace Terranoita.Game.Physics
 
         public static int KnownCount => Known().Count;
 
+        /// <summary>The liquids and gases this character has touched (moved into the progress book once).</summary>
+        public static IEnumerable<string> KnownIds => Known().ToList();
+
         /// <summary>Forget every name (the audit's character must not leave the author's tester knowing all).</summary>
         public static void ForgetAll()
         {
@@ -506,6 +509,7 @@ namespace Terranoita.Game.Physics
         /// <summary>The player touched (or drank) this material: from now on its name shows under the mouse.</summary>
         public static void Learn(string id)
         {
+            ProgressWindow.Touch(id);
             if (!Known().Add(id))
                 return;
             try

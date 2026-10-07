@@ -199,6 +199,27 @@
    "_unverified": {}
   },
   {
+   "id": "progress",
+   "description": "Stage 3: Noita's Progress menu per character: spells, creatures, wands, liquids met (key O).",
+   "stage": "3",
+   "hooks": [
+    "progress_draw",
+    "progress_enter_world"
+   ],
+   "code": "src/Terranoita/ProgressWindow.cs, src/Terranoita.Core/Progress/ProgressBook.cs",
+   "_unverified": {}
+  },
+  {
+   "id": "menu",
+   "description": "Stage 3: the main menu reads TERRA NOITA.",
+   "stage": "3",
+   "hooks": [
+    "menu_logo"
+   ],
+   "code": "src/Terranoita/MenuLogo.cs",
+   "_unverified": {}
+  },
+  {
    "id": "flasks_items",
    "description": "Stage 4: four flask/item slots, flasks and Noita items.",
    "stage": "4",

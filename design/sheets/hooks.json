@@ -466,6 +466,33 @@
    "purpose": "Tests: for one frame the screen is drawn into a picture.",
    "stage": "3",
    "_unverified": {}
+  },
+  {
+   "id": "menu_logo",
+   "target": "Terraria.Main:DrawVersionNumber(Color, float)",
+   "patch": "postfix",
+   "system": "menu",
+   "purpose": "NOITA written over Terraria's logo in the main menu (TERRA NOITA).",
+   "stage": "3",
+   "_unverified": {}
+  },
+  {
+   "id": "progress_draw",
+   "target": "Terraria.Main:DrawInterface_31_BuilderAccToggles()",
+   "patch": "postfix",
+   "system": "progress",
+   "purpose": "The progress window (key O) and its inventory button.",
+   "stage": "3",
+   "_unverified": {}
+  },
+  {
+   "id": "progress_enter_world",
+   "target": "Terraria.Player+Hooks:EnterWorld(int)",
+   "patch": "postfix",
+   "system": "progress",
+   "purpose": "The character's progress book loaded on entering a world.",
+   "stage": "3",
+   "_unverified": {}
   }
  ]
 }

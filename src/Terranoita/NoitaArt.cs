@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using System.IO;
+using System.Linq;
 using HarmonyLib;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
@@ -33,6 +34,11 @@ namespace Terranoita.Game
 
         /// <summary>The player's Noita folder (tools_modding docs live there), null before Init.</summary>
         public static string GameDir => _files?.GameDir;
+
+        /// <summary>Files of the player's data.wak under a folder (e.g. every wand picture).</summary>
+        public static IEnumerable<string> List(string folder) =>
+            _files == null ? Enumerable.Empty<string>() :
+            _files.Archive.Entries.Select(e => e.Path).Where(p => p.StartsWith(folder, StringComparison.OrdinalIgnoreCase)).ToList();
 
         /// <summary>A text file of the player's Noita (Lua scripts), null if missing.</summary>
         public static string ReadText(string path) => _files != null && _files.TryReadText(path, out var t) ? t : null;
