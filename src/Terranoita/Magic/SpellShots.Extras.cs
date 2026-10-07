@@ -4,6 +4,7 @@ using System.Globalization;
 using System.Linq;
 using System.Text.RegularExpressions;
 using Microsoft.Xna.Framework;
+using Terranoita.Generated;
 using Terranoita.Noita;
 using Terraria;
 using Terraria.ID;
@@ -188,6 +189,34 @@ namespace Terranoita.Game.Magic
             p.Teleport(to, 1);
             p.velocity = Vector2.Zero;
         }
+
+        /// <summary>EntityLoad from Noita's spell scripts: a spell projectile file becomes a spell shot, a creature
+        /// file one of our Noita creatures. The entity number, or 0 when the file is not one of those yet.</summary>
+        public static int LoadEntity(string file, Vector2 pos, Player owner)
+        {
+            if (string.IsNullOrEmpty(file))
+                return 0;
+            if (Def(file) != null)
+            {
+                int before = _nextId;
+                var config = new Dictionary<string, MoonSharp.Interpreter.DynValue> { ["speed_multiplier"] = MoonSharp.Interpreter.DynValue.NewNumber(1) };
+                Fire(new LuaShot { File = file, Config = config }, pos, new Vector2(owner != null && owner.direction < 0 ? -1 : 1, 0), owner, null);
+                return _nextId > before ? ShotEntityBase + before : 0;
+            }
+            string id = System.IO.Path.GetFileNameWithoutExtension(file);
+            var def = file.Contains("/animals/") ? Enemies.All.FirstOrDefault(x => x.Id == id) : null;
+            if (def != null)
+            {
+                int who = Carriers.Spawn(def, (int)pos.X, (int)pos.Y);
+                return who >= 0 ? 1000 + who : 0;
+            }
+            if (NotYet.Add("load:" + file))
+                Entry.Log("spell EntityLoad not done yet: " + file);
+            return 0;
+        }
+
+        /// <summary>Spell shots as entities of Noita's scripts (creatures are 1000 + whoAmI).</summary>
+        public const int ShotEntityBase = 100000;
 
         static Vector2 NoitaVel(Shot s) => s.Vel * 60f / Px;
         static void SetNoitaVel(Shot s, Vector2 v) => s.Vel = v * Px / 60f;

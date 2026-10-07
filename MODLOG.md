@@ -593,3 +593,18 @@ Next steps (author's order: finish magic, then shops):
   MagicConvertMaterial 8, Arc 4, Lightning, EnergyShield, AreaDamage, CellEater. Plus material/utility spells and
   EntityLoad summons (LuaWorld.Load not done in game).
 - проверить на ПК: unique wand pictures (data/items_gfx/wands/custom/*.png) and names in game.
+
+## 2026-10-08 spell modifiers, game side (while the cloud builds LuaShotScripts)
+- SpellShots.Extras.cs: components of a shot's extra_entities files and of its own projectile file (read at run time
+  from the player's Noita): HomingComponent (all variants: anti, boomerang/target_who_shot, homing_wand, rotate),
+  SineWave, Arc (between arc shots of one cast; lightning hurts, fire burns, poison/gunpowder spilled),
+  MagicConvertMaterial (Fluids.ConvertMaterial, Terraria water/lava too), particle emitters (coloured dust),
+  Light, CellEater, AreaDamage, EnergyShield (stops enemy shots, Shots.StopNear), BlackHole (pull + hurt),
+  MaterialSeaSpawner (seas), TeleportProjectile (caster appears where it ends), HitEffect CRITICAL_HIT_BOOST
+  (wet/oiled/burning/bloody), game_effect_entities statuses on hit (fire, wet, oil, poison, frozen, bloody),
+  trail_material (fire/water/oil/acid/poison/gunpowder...).
+- EntityLoad from spell scripts (TerrariaWorld.Load -> SpellShots.LoadEntity): projectile files -> shots,
+  data/entities/animals/* -> our creatures. Shot entity ids = 100000 + shot id.
+- Not yet (logged once in game as "not done yet"): Lua scripts of shots (cloud task), HitEffect LOAD_CHILD_ENTITY
+  (curse, petrify, gravity field...), statuses without a Terraria buff (necromancy, disintegrated...), lasers.
+- проверить на ПК: none of this has run in the game yet.

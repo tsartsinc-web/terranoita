@@ -188,6 +188,8 @@ namespace Terranoita.Game.Magic
         public Player Player;
         const float Px = Terranoita.Noita.Units.PixelScale;
 
+        public override int Load(string file, float x, float y) => SpellShots.LoadEntity(file, new Vector2(x, y) * Px, Player);
+
         // NPCs are entities 1000 + whoAmI
         public override List<int> WithTag(string tag)
         {
