@@ -23,6 +23,8 @@ namespace Terranoita.Game.Magic
         public const int WandSlotCount = 4;
         public static Item[] WandSlots = NewSlots();
         static bool _open, _terrariaLook;
+        static string _handSpell;                   // the spell last taken out of a slot into the hand, and its uses left
+        static int _handUses = -1;
         static Rectangle _lookRect;
         static Texture2D _pixel;
         static Texture2D Pixel
@@ -285,8 +287,12 @@ namespace Terranoita.Game.Magic
                 return true;
             }
             string handSpell = MagicItems.SpellOf(hand);
-            int handUses = handSpell == null ? -1 : (MagicItems.Spell(handSpell)?.MaxUses ?? -1);
+            // a spell keeps its uses left while it moves between slots and wands (Noita); a new one comes full
+            int handUses = handSpell == null ? -1 :
+                handSpell == _handSpell && _handUses >= 0 ? _handUses : (MagicItems.Spell(handSpell)?.MaxUses ?? -1);
             Main.mouseItem = inSlot.IsAir ? new Item() : inSlot;
+            _handSpell = w.Slots[i];
+            _handUses = i < w.Uses.Length ? w.Uses[i] : -1;
             w.Slots[i] = handSpell;
             w.Uses[i] = handUses;
             Terraria.Audio.SoundEngine.PlaySound(Terraria.ID.SoundID.Grab);
