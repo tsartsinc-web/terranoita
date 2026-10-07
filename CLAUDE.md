@@ -2,7 +2,9 @@
 
 Terraria 1.4.5 mod (own launcher + Harmony, no tModLoader) that brings Noita's creatures into the player's Terraria,
 read from the player's Noita at runtime. On Melty as "Terranoita: Invasion" (modId
-c68ad4c6-f9db-40f5-802c-a4f9d7713e69): 0.3.0 LIVE since 2026-10-06 (stage 2 physics, liquids; 114 players on 2026-10-07); 0.3.1 (FPS, more cave pools, local\ncave-ins) submitted as a draft 2026-10-07: goes live once the author plays it in the Melty app. Author writes Russian: reply in simple Russian, short,
+c68ad4c6-f9db-40f5-802c-a4f9d7713e69): 0.3.0 LIVE since 2026-10-06 (stage 2 physics, liquids; 114 players on 2026-10-07); 0.3.1 (FPS, more cave pools, local
+cave-ins) is a draft since 2026-10-07 (goes live when the author presses Play on it in the Melty app); stage 3 work since
+then is not in any release. Author writes Russian: reply in simple Russian, short,
 answer questions immediately (yes/no first). Decisions in README are final: do not ask again. Nothing on Melty without
 the author's explicit permission.
 
@@ -20,6 +22,19 @@ Work branch: `claude/dazzling-carson-h8mi9n`. Current step and history: last sec
   `src/Terranoita.Launcher`.
 - `tools/pc_step.ps1` — everything that needs the games, one command on the author's PC (facts, build, autotest);
   writes `design/sources/pc_check.txt` and `pc_autotest_<stage>.txt`, pushes.
+
+## Stage 3 (wands and spells): Noita's own code, not a re-implementation (author)
+- Core/Noita/LuaGun.cs runs the player's data/scripts/gun/gun.lua + gun_actions.lua in MoonSharp and plays Noita's
+  engine; LuaWorld answers the scripts' questions; LuaWandMaker runs Noita's wand scripts (starting_wand.lua,
+  wand_level_0N.lua). Lua must run with LuaCulture (invariant numbers, LuaJIT pairs order).
+- Game: src/Terranoita/Magic/ (MagicItems: spell/wand items on unused item types, number in the prefix byte;
+  WandStore; Casting; SpellShots; WandWindow key U; WorldLoot: cave wands + chest spells; MagicTest).
+- Terraria internals without a decompiler: `tncli tr-methods <Terraria.exe> <Type> [regex]` (signatures; with env
+  TN_IL=1 also the IL with called members). Other tncli: wak-cat, wak-get, lua-cast, lua-all, lua-wand.
+- Game tests: `powershell -File tools/game_test.ps1 -Mode magic|fps|physics|audit|enemies` (minimized, one at a time,
+  tell the author first). Tests can save screenshots (Screenshot.Request -> %LOCALAPPDATA%/Terranoita/shots).
+- A Harmony patch that cannot bind shows a modal error window in the game: check signatures with tr-methods first
+  (ref vs out shows as "ref").
 
 ## Cloud sessions (no games)
 - .NET 8: `curl -sSfL https://builds.dotnet.microsoft.com/dotnet/scripts/v1/dotnet-install.sh -o /tmp/di.sh &&
