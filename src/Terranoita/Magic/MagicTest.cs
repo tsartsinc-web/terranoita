@@ -39,15 +39,48 @@ namespace Terranoita.Game.Magic
                 Log("hotbar wands: " + string.Join(", ", Enumerable.Range(0, 10).Where(i => MagicItems.IsWand(p.inventory[i]))
                     .Select(i => i + " " + p.inventory[i].Name + " [" + string.Join(" ", MagicItems.WandOf(p.inventory[i]).Slots.Select(s => s ?? "-")) + "]")));
                 Log("wand slots: " + string.Join(", ", WandWindow.WandSlots.Select(it => it.IsAir ? "-" : it.Name)));
+                Log("hotbar raw: " + string.Join(" ", Enumerable.Range(0, 10).Select(i => p.inventory[i].type + ":" + p.inventory[i].prefix)) +
+                    "; prefix calls while loading " + MagicItems.PrefixCalls + ", last " + MagicItems.LastPrefix);
+                // where would a wand's number get lost? straight Prefix calls and a Serialize/DeserializeFrom round trip
+                var probe = MagicItems.MakeWand(WandStore.NewWand());
+                byte made = probe.prefix;
+                var a = new Item(); a.SetDefaults(probe.type); bool ok1 = a.Prefix(made);
+                var b = new Item(); b.SetDefaults(probe.type); bool ok2 = b.Prefix(made, out bool top);
+                var ms = new System.IO.MemoryStream();
+                probe.Serialize(new System.IO.BinaryWriter(ms), false);
+                ms.Position = 0;
+                var c = new Item(); c.DeserializeFrom(new System.IO.BinaryReader(ms), false);
+                Log("prefix probe: made " + made + ", Prefix(int) " + a.prefix + " " + ok1 + ", Prefix(int, ref) " + b.prefix + " " + ok2 +
+                    ", round trip " + c.type + ":" + c.prefix + " (" + ms.Length + " bytes)");
             }
             if (frame < 120 || frame >= 120 + Sets.Length * Each)
             {
                 Casting.TestFire = false;
                 if (frame == 120 + Sets.Length * Each)
-                    Log("done");
+                {
+                    Log("saving hotbar: " + string.Join(" ", Enumerable.Range(0, 10).Select(i => p.inventory[i].type + ":" + p.inventory[i].prefix)));
+                    Main.ActivePlayerFileData.Player = p;   // the file's player is a copy from the menu: save the one playing
+                    Terraria.Player.SavePlayer(Main.ActivePlayerFileData);   // the next run checks the wands come back
+                    Log("done, player saved");
+                }
                 return;
             }
             int k = (frame - 120) / Each, t = (frame - 120) % Each;
+            // pictures for checking by eye: the wand in hand while casting, the wand window in both looks
+            if (k == 0 && t == 100)
+                Screenshot.Request("held_wand");
+            if (k == 2 && t == 30)
+                WandWindow.TestOpen(true, false);
+            if (k == 2 && t == 60)
+                Screenshot.Request("window_noita");
+            if (k == 2 && t == 90)
+                WandWindow.TestOpen(true, true);
+            if (k == 2 && t == 120)
+                Screenshot.Request("window_terraria");
+            if (k == 2 && t == 150)
+                WandWindow.TestOpen(false, false);
+            if (k == 5 && t == 150)
+                Screenshot.Request("black_hole");
             if (t == 0)
             {
                 int slot = Enumerable.Range(0, 10).FirstOrDefault(i => MagicItems.IsWand(p.inventory[i]));

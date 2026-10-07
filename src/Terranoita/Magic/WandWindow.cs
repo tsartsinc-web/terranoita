@@ -107,6 +107,14 @@ namespace Terranoita.Game.Magic
 
         // ---- the window ----
 
+        /// <summary>Tests: open or close the window (Noita or Terraria look).</summary>
+        public static void TestOpen(bool open, bool terrariaLook)
+        {
+            _open = open;
+            _terrariaLook = terrariaLook;
+            Main.playerInventory = open;
+        }
+
         public static void Update()
         {
             if (Main.gameMenu || Main.drawingPlayerChat || Main.editSign || Main.editChest || Main.LocalPlayer?.active != true)

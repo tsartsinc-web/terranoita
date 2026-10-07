@@ -27,6 +27,9 @@ namespace Terranoita.Game.Magic
                 ItemID.Sets.Deprecated[t] = false;
         }
 
+        /// <summary>Tests: how often loading handed a spell or wand number to Prefix, and the last one.</summary>
+        public static int PrefixCalls, LastPrefix;
+
         public static bool IsSpell(Item i) => i != null && !i.IsAir && Array.IndexOf(SpellTypes, i.type) >= 0 && i.prefix > 0;
         public static bool IsWand(Item i) => i != null && !i.IsAir && Array.IndexOf(WandTypes, i.type) >= 0 && i.prefix > 0;
         static bool IsCarrier(int type) => Array.IndexOf(SpellTypes, type) >= 0 || Array.IndexOf(WandTypes, type) >= 0;
@@ -125,8 +128,42 @@ namespace Terranoita.Game.Magic
             {
                 if (!IsCarrier(__instance.type))
                     return true;
+                PrefixCalls++;
+                LastPrefix = prefixWeWant;
                 if (prefixWeWant > 0 && prefixWeWant < 256)
                     __instance.prefix = (byte)prefixWeWant;
+                __result = true;
+                return false;
+            }
+        }
+
+        [Hook("magic_item_prefix2")]
+        [HarmonyPatch(typeof(Item), nameof(Item.Prefix), new[] { typeof(int), typeof(bool) }, new[] { ArgumentType.Normal, ArgumentType.Out })]
+        static class PrefixPatch2
+        {
+            // the overload loading uses (Item.DeserializeFrom): the same rule
+            static bool Prefix(Item __instance, int prefixWeWant, ref bool __result)
+            {
+                if (!IsCarrier(__instance.type))
+                    return true;
+                PrefixCalls++;
+                LastPrefix = prefixWeWant;
+                if (prefixWeWant > 0 && prefixWeWant < 256)
+                    __instance.prefix = (byte)prefixWeWant;
+                __result = true;
+                return false;
+            }
+        }
+
+        [Hook("magic_item_rollprefix")]
+        [HarmonyPatch(typeof(Item), nameof(Item.CanRollPrefix))]
+        static class CanRollPatch
+        {
+            // Item.FixAgainstExploit (run on every loaded item) clears a prefix the item could not roll: ours is a number
+            static bool Prefix(Item __instance, ref bool __result)
+            {
+                if (!IsCarrier(__instance.type))
+                    return true;
                 __result = true;
                 return false;
             }

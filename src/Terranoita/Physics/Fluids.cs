@@ -859,6 +859,9 @@ namespace Terranoita.Game.Physics
                 {
                     if (burning)
                         n.AddBuff(BuffID.OnFire, 120);
+                    // what hurts the player hurts creatures too (acid, lava-like, cursed...): Noita's per-frame damage, every 10 frames
+                    if (d.TouchDamage > 0 && !n.dontTakeDamage)
+                        n.StrikeNPCNoInteraction(Math.Max(1, (int)Math.Round(d.TouchDamage * 25f * 10f)), 0f, 0);
                     foreach (var e in d.TouchEffects ?? new string[0])
                         switch (e)
                         {

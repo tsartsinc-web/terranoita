@@ -76,7 +76,7 @@ namespace Terranoita.Game.Magic
                 Vel = new Vector2((float)Math.Cos(angle), (float)Math.Sin(angle)) * speed * Px / 60f,
                 Life = (d.Lifetime > 0 ? d.Lifetime : 600) + (int)ls.Get("lifetime_add") + rng.Next(-d.LifetimeRandom, d.LifetimeRandom + 1),
                 Bounces = d.Bounces + (int)ls.Get("bounces"),
-                Damage = Math.Max(0, d.Damage + ls.Get("damage_projectile_add") + ls.Get("damage_fire_add") + ls.Get("damage_ice_add") +
+                Damage = Math.Max(0, d.Damage + d.TypedDamage + ls.Get("damage_projectile_add") + ls.Get("damage_fire_add") + ls.Get("damage_ice_add") +
                                      ls.Get("damage_electricity_add") + ls.Get("damage_slice_add") + ls.Get("damage_curse_add") +
                                      ls.Get("damage_drill_add") + ls.Get("damage_melee_add")) * 25f,
                 ExplosionDamage = Math.Max(0, d.ExplosionDamage + ls.Get("damage_explosion_add")) * 25f,
@@ -84,7 +84,7 @@ namespace Terranoita.Game.Magic
                 Gravity = (d.Gravity + ls.Get("gravity")) * Px / 3600f,
                 Friction = d.AirFriction,
                 Knockback = d.Knockback + ls.Get("knockback_force"),
-                Fire = ls.Get("damage_fire_add") > 0 || (d.Material ?? "").Contains("fire"),
+                Fire = ls.Get("damage_fire_add") > 0 || d.FireDamage > 0 || (d.Material ?? "").Contains("fire"),
                 Homing = ls.Text("extra_entities").Contains("homing"),
                 Penetrate = d.Penetrate,
                 TriggerIn = ls.Trigger == "timer" ? Math.Max(1, ls.TriggerFrames) : -1,
@@ -139,6 +139,11 @@ namespace Terranoita.Game.Magic
                 return true;
             }
             s.Pos = next;
+            // Noita's CellEaterComponent (black holes, discs): the ground around it goes; AreaDamageComponent: creatures in its box
+            if (s.Def.EatRadius > 0 && s.Age % 3 == 0)
+                Eat(s);
+            if (s.Def.AreaDamage > 0)
+                AreaDamage(s);
             if (s.Def.Material != "none" && s.Age % 8 == 0 && Physics.Patches.On)
                 Physics.Fluids.Add((int)(s.Pos.X / 16), (int)(s.Pos.Y / 16), s.Def.Material, 12);
             // creatures
@@ -165,6 +170,43 @@ namespace Terranoita.Game.Magic
                 return true;
             }
             return false;
+        }
+
+        static void Eat(Shot s)
+        {
+            float r = s.Def.EatRadius * Px;
+            int cx = (int)(s.Pos.X / 16), cy = (int)(s.Pos.Y / 16), rt = (int)Math.Ceiling(r / 16f);
+            float chance = Math.Min(1f, s.Def.EatProbability / 100f * 3f);   // every 3rd frame
+            for (int x = cx - rt; x <= cx + rt; x++)
+                for (int y = cy - rt; y <= cy + rt; y++)
+                {
+                    if (!Physics.Mats.InWorld(x, y) || Vector2.Distance(new Vector2(x * 16 + 8, y * 16 + 8), s.Pos) > r + 8)
+                        continue;
+                    if (!Main.tile[x, y].active() || !Physics.Blast.Breakable(x, y) || Main.rand.NextFloat() >= chance)
+                        continue;
+                    WorldGen.KillTile(x, y, false, false, true);   // eaten: nothing drops
+                }
+        }
+
+        static readonly Dictionary<int, float> Owed = new Dictionary<int, float>();
+
+        static void AreaDamage(Shot s)
+        {
+            float half = Math.Max(4f, s.Def.AreaHalf) * Px;
+            var box = new Rectangle((int)(s.Pos.X - half), (int)(s.Pos.Y - half), (int)(half * 2), (int)(half * 2));
+            for (int i = 0; i < Main.maxNPCs; i++)
+            {
+                var n = Main.npc[i];
+                if (!n.active || n.friendly || n.dontTakeDamage || n.life <= 0 || !n.Hitbox.Intersects(box))
+                    continue;
+                // per frame in Noita: added up and dealt every 10 frames, so the numbers stay readable
+                Owed[i] = (Owed.TryGetValue(i, out float o) ? o : 0) + s.Def.AreaDamage * 25f;
+                if (s.Age % 10 == 0 && Owed[i] >= 1)
+                {
+                    Strike(s, n, Owed[i]);
+                    Owed[i] = 0;
+                }
+            }
         }
 
         static void Home(Shot s)
@@ -232,6 +274,11 @@ namespace Terranoita.Game.Magic
                 if (n.active && !n.friendly && !n.dontTakeDamage && n.life > 0 && Vector2.Distance(n.Center, s.Pos) <= r + n.width / 2f)
                     Strike(s, n, s.ExplosionDamage + (s.Hit.Contains(i) ? 0 : s.Damage));
             }
+            // Noita: some explosions hurt their caster too (explosion_dont_damage_shooter = 0)
+            var me = s.Owner;
+            if (s.Def.HurtsShooter && me != null && me.active && !me.dead && s.ExplosionDamage > 0 &&
+                Vector2.Distance(me.Center, s.Pos) <= r + me.width / 2f)
+                me.Hurt(Terraria.DataStructures.PlayerDeathReason.ByCustomReason(me.name + " blew up."), (int)Math.Round(s.ExplosionDamage), me.Center.X < s.Pos.X ? -1 : 1);
             int dust = s.Fire || s.Radius >= 24 ? DustID.Torch : DustID.Smoke;
             int count = (int)Math.Min(80, 6 + r / 2);
             for (int k = 0; k < count; k++)

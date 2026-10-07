@@ -49,10 +49,88 @@ namespace Terranoita.Cli
                         var ps = sig.ParameterTypes.Select((pt, i) => pt + " " + (i < pnames.Length ? pnames[i] : "p" + i));
                         bool isStatic = (m.Attributes & System.Reflection.MethodAttributes.Static) != 0;
                         Console.WriteLine((isStatic ? "static " : "") + sig.ReturnType + " " + name + "(" + string.Join(", ", ps) + ")");
+                        if (Environment.GetEnvironmentVariable("TN_IL") == "1" && m.RelativeVirtualAddress != 0)
+                            DumpIl(md, pe.GetMethodBody(m.RelativeVirtualAddress).GetILBytes(), provider);
                     }
                 }
             }
             return 0;
+        }
+
+        static System.Collections.Generic.Dictionary<short, System.Reflection.Emit.OpCode> _ops;
+
+        /// <summary>The method's IL as opcodes with the members, strings and numbers they use (enough to read what it does).</summary>
+        static void DumpIl(MetadataReader md, byte[] il, Names provider)
+        {
+            if (_ops == null)
+            {
+                _ops = new System.Collections.Generic.Dictionary<short, System.Reflection.Emit.OpCode>();
+                foreach (var f in typeof(System.Reflection.Emit.OpCodes).GetFields())
+                    if (f.GetValue(null) is System.Reflection.Emit.OpCode op)
+                        _ops[op.Value] = op;
+            }
+            int i = 0;
+            while (i < il.Length)
+            {
+                int at = i;
+                short code = il[i++];
+                if (code == 0xFE)
+                    code = (short)(0xFE00 | il[i++]);
+                if (!_ops.TryGetValue(code, out var op))
+                {
+                    Console.WriteLine("  ?? " + code);
+                    return;
+                }
+                string arg = "";
+                switch (op.OperandType)
+                {
+                    case System.Reflection.Emit.OperandType.InlineNone: break;
+                    case System.Reflection.Emit.OperandType.ShortInlineBrTarget: arg = "-> " + (i + 1 + (sbyte)il[i]); i += 1; break;
+                    case System.Reflection.Emit.OperandType.ShortInlineI:
+                    case System.Reflection.Emit.OperandType.ShortInlineVar: arg = il[i].ToString(); i += 1; break;
+                    case System.Reflection.Emit.OperandType.InlineVar: arg = BitConverter.ToInt16(il, i).ToString(); i += 2; break;
+                    case System.Reflection.Emit.OperandType.InlineI: arg = BitConverter.ToInt32(il, i).ToString(); i += 4; break;
+                    case System.Reflection.Emit.OperandType.InlineBrTarget: arg = "-> " + (i + 4 + BitConverter.ToInt32(il, i)); i += 4; break;
+                    case System.Reflection.Emit.OperandType.ShortInlineR: arg = BitConverter.ToSingle(il, i).ToString(); i += 4; break;
+                    case System.Reflection.Emit.OperandType.InlineI8: arg = BitConverter.ToInt64(il, i).ToString(); i += 8; break;
+                    case System.Reflection.Emit.OperandType.InlineR: arg = BitConverter.ToDouble(il, i).ToString(); i += 8; break;
+                    case System.Reflection.Emit.OperandType.InlineSwitch: int n = BitConverter.ToInt32(il, i); i += 4 + 4 * n; arg = "switch " + n; break;
+                    case System.Reflection.Emit.OperandType.InlineString: arg = "\"" + md.GetUserString(MetadataTokens.UserStringHandle(BitConverter.ToInt32(il, i) & 0xFFFFFF)) + "\""; i += 4; break;
+                    default: arg = Token(md, BitConverter.ToInt32(il, i)); i += 4; break;
+                }
+                Console.WriteLine("  " + at.ToString("X4") + " " + op.Name + " " + arg);
+            }
+        }
+
+        static string Token(MetadataReader md, int token)
+        {
+            try
+            {
+                var h = MetadataTokens.EntityHandle(token);
+                switch (h.Kind)
+                {
+                    case HandleKind.MethodDefinition:
+                        var m = md.GetMethodDefinition((MethodDefinitionHandle)h);
+                        return Full(md, md.GetTypeDefinition(m.GetDeclaringType())) + "::" + md.GetString(m.Name);
+                    case HandleKind.FieldDefinition:
+                        var f = md.GetFieldDefinition((FieldDefinitionHandle)h);
+                        return Full(md, md.GetTypeDefinition(f.GetDeclaringType())) + "::" + md.GetString(f.Name);
+                    case HandleKind.MemberReference:
+                        var r = md.GetMemberReference((MemberReferenceHandle)h);
+                        string parent = r.Parent.Kind == HandleKind.TypeReference ? md.GetString(md.GetTypeReference((TypeReferenceHandle)r.Parent).Name) : "?";
+                        return parent + "::" + md.GetString(r.Name);
+                    case HandleKind.TypeDefinition:
+                        return Full(md, md.GetTypeDefinition((TypeDefinitionHandle)h));
+                    case HandleKind.TypeReference:
+                        return md.GetString(md.GetTypeReference((TypeReferenceHandle)h).Name);
+                    case HandleKind.MethodSpecification:
+                        var ms = md.GetMethodSpecification((MethodSpecificationHandle)h);
+                        return "spec " + Token(md, MetadataTokens.GetToken(ms.Method));
+                    default:
+                        return h.Kind.ToString();
+                }
+            }
+            catch { return "tok " + token.ToString("X8"); }
         }
 
         static string Full(MetadataReader md, TypeDefinition t)

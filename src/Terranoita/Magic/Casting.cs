@@ -18,6 +18,7 @@ namespace Terranoita.Game.Magic
         sealed class Held
         {
             public LuaGun Gun;
+            public System.Threading.Tasks.Task<LuaGun> Loading;   // gun.lua + gun_actions.lua parsed off the game thread
             public int ReadyAt;            // Main.GameUpdateCount when it can cast again
             public int Version;            // WandData changes reload the deck
         }
@@ -40,11 +41,22 @@ namespace Terranoita.Game.Magic
             return MagicItems.IsWand(item) ? item : null;
         }
 
+        /// <summary>The wand's Lua state, or null while it is still being made (in the background: parsing Noita's
+        /// 420 KB of spell code in the game thread froze the game for a moment, author: FPS drop).</summary>
         static Held GunFor(WandData w)
         {
             int version = Versions.TryGetValue(w.Id, out int v) ? v : 0;
             if (!Guns.TryGetValue(w.Id, out var h))
-                Guns[w.Id] = h = new Held { Gun = new LuaGun(NoitaArt.ReadText, new TerrariaWorld()), Version = -1 };
+            {
+                Guns[w.Id] = h = new Held { Version = -1 };
+                h.Loading = System.Threading.Tasks.Task.Run(() => new LuaGun(NoitaArt.ReadText, new TerrariaWorld()));
+            }
+            if (h.Gun == null)
+            {
+                if (!h.Loading.IsCompleted)
+                    return null;
+                h.Gun = h.Loading.Result;   // throws the loading error, if any
+            }
             if (h.Version != version)
             {
                 var lw = new LuaWand
@@ -83,14 +95,16 @@ namespace Terranoita.Game.Magic
             var w = MagicItems.WandOf(item);
             if (w == null)
                 return;
-            // aim: the player faces the mouse while holding a wand, like Noita
+            // aim: the player faces the mouse and holds the wand out toward it, like Noita
             p.ChangeDir(Aim.X < p.Center.X ? -1 : 1);
+            var aimDir = Aim - p.Center;
+            p.SetCompositeArmFront(true, Player.CompositeArmStretchAmount.Full, (float)Math.Atan2(aimDir.Y, aimDir.X) - MathHelper.PiOver2);
+            Held h;
+            try { h = GunFor(w); }   // started as soon as the wand is in hand
+            catch (Exception ex) { Entry.Error("wand " + w.Id, ex); return; }
             if (!TestFire && (!p.controlUseItem || p.mouseInterface || Main.mapFullscreen || p.noItems || p.CCed))
                 return;
-            Held h;
-            try { h = GunFor(w); }
-            catch (Exception ex) { Entry.Error("wand " + w.Id, ex); return; }
-            if (_now < h.ReadyAt)
+            if (h == null || _now < h.ReadyAt)
                 return;
             LuaCast cast;
             try
@@ -158,8 +172,9 @@ namespace Terranoita.Game.Magic
                     var origin = new Vector2(art.Sprite.OffsetX, art.Sprite.OffsetY);
                     if (flip != 0)
                         origin.Y = frame.Height - origin.Y;
-                    sb.Draw(art.Texture, p.MountedCenter + new Vector2(p.direction * 6, 2) - Main.screenPosition, frame, light, rot, origin,
-                            Terranoita.Noita.Units.PixelScale, flip, 0f);
+                    // in the hand of the arm stretched toward the mouse
+                    var hand = p.GetFrontHandPosition(Player.CompositeArmStretchAmount.Full, rot - MathHelper.PiOver2);
+                    sb.Draw(art.Texture, hand - Main.screenPosition, frame, light, rot, origin, 2f, flip, 0f);
                 }
                 catch (Exception ex) { Entry.Error("held wand", ex); }
                 finally { sb.End(); }

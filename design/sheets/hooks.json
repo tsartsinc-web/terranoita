@@ -421,6 +421,51 @@
    "purpose": "The character's wand slots read; a new character gets Noita's starting wands.",
    "stage": "3",
    "_unverified": {}
+  },
+  {
+   "id": "cave_wands_draw",
+   "target": "Terraria.Main:DrawItems()",
+   "patch": "postfix",
+   "system": "wand_slots",
+   "purpose": "Noita wands lying in the caves (WorldLoot), picked up by touching.",
+   "stage": "3",
+   "_unverified": {}
+  },
+  {
+   "id": "magic_item_prefix2",
+   "target": "Terraria.Item:Prefix(int, ref bool)",
+   "patch": "prefix",
+   "system": "wand_slots",
+   "purpose": "The overload loading uses: spell and wand numbers kept when items are read back.",
+   "stage": "3",
+   "_unverified": {}
+  },
+  {
+   "id": "test_screenshot",
+   "target": "Terraria.Main:DoDraw(GameTime)",
+   "patch": "postfix",
+   "system": "test_tools",
+   "purpose": "Tests: the drawn screen saved as a picture when a test asks for it.",
+   "stage": "3",
+   "_unverified": {}
+  },
+  {
+   "id": "magic_item_rollprefix",
+   "target": "Terraria.Item:CanRollPrefix(int)",
+   "patch": "prefix",
+   "system": "wand_slots",
+   "purpose": "Item.FixAgainstExploit clears prefixes an item cannot roll: spell and wand numbers pass.",
+   "stage": "3",
+   "_unverified": {}
+  },
+  {
+   "id": "test_screenshot_target",
+   "target": "Microsoft.Xna.Framework.Graphics.GraphicsDevice:SetRenderTarget(RenderTarget2D)",
+   "patch": "prefix",
+   "system": "test_tools",
+   "purpose": "Tests: for one frame the screen is drawn into a picture.",
+   "stage": "3",
+   "_unverified": {}
   }
  ]
 }

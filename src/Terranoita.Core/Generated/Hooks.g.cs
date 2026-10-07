@@ -68,6 +68,11 @@ namespace Terranoita.Generated
             new HookDef { Id = "spell_shots_draw", Target = "Terraria.Main:DrawProjectiles()", Patch = "postfix", System = "spells", Purpose = "The player's spell projectiles drawn.", Stage = "3" },
             new HookDef { Id = "wand_window_draw", Target = "Terraria.Main:DrawInterface_27_Inventory()", Patch = "postfix", System = "wand_slots", Purpose = "The wand window (key U): wand slots, stats, spell slots.", Stage = "3" },
             new HookDef { Id = "wand_enter_world", Target = "Terraria.Player+Hooks:EnterWorld(int)", Patch = "postfix", System = "wand_slots", Purpose = "The character's wand slots read; a new character gets Noita's starting wands.", Stage = "3" },
+            new HookDef { Id = "cave_wands_draw", Target = "Terraria.Main:DrawItems()", Patch = "postfix", System = "wand_slots", Purpose = "Noita wands lying in the caves (WorldLoot), picked up by touching.", Stage = "3" },
+            new HookDef { Id = "magic_item_prefix2", Target = "Terraria.Item:Prefix(int, ref bool)", Patch = "prefix", System = "wand_slots", Purpose = "The overload loading uses: spell and wand numbers kept when items are read back.", Stage = "3" },
+            new HookDef { Id = "test_screenshot", Target = "Terraria.Main:DoDraw(GameTime)", Patch = "postfix", System = "test_tools", Purpose = "Tests: the drawn screen saved as a picture when a test asks for it.", Stage = "3" },
+            new HookDef { Id = "magic_item_rollprefix", Target = "Terraria.Item:CanRollPrefix(int)", Patch = "prefix", System = "wand_slots", Purpose = "Item.FixAgainstExploit clears prefixes an item cannot roll: spell and wand numbers pass.", Stage = "3" },
+            new HookDef { Id = "test_screenshot_target", Target = "Microsoft.Xna.Framework.Graphics.GraphicsDevice:SetRenderTarget(RenderTarget2D)", Patch = "prefix", System = "test_tools", Purpose = "Tests: for one frame the screen is drawn into a picture.", Stage = "3" },
         };
     }
 }

@@ -85,6 +85,8 @@ namespace Terranoita.Game.Physics
                 Falling.Clear();
                 Fire.Clear();
                 Magic.SpellShots.Clear();
+                try { Magic.WorldLoot.Load(); }
+                catch (Exception ex) { Entry.Error("world loot", ex); }
                 Status.Clear();
                 Fluids.Clear();
                 ToxicGround.Clear();
@@ -125,7 +127,7 @@ namespace Terranoita.Game.Physics
         {
             static void Postfix()
             {
-                try { Magic.WandWindow.SaveSlots(); Magic.WandStore.Save(); }
+                try { Magic.WandWindow.SaveSlots(); Magic.WandStore.Save(); Magic.WorldLoot.Save(); }
                 catch (Exception ex) { Entry.Error("magic save", ex); }
                 if (!On)
                     return;

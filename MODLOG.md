@@ -534,3 +534,38 @@ Entry.Stage default 1b, version 0.2.0. Проверить на ПК also: worm l
   [Noita]/[Terraria] look switch (author). New characters get Noita's two starting wands.
 - MAGIC autotest: starting wands given, bolt staff kills a zombie, bomb/trigger/divide/homing/black hole/grenade/
   fireball/acid wands cast without errors. Wand window not seen yet (minimized).
+
+## 2026-10-07 HANDOFF (local session -> new chat)
+Done today, in order: 0.3.1 draft on Melty (FPS, 3x pools, staircase cave-ins; NOT yet with the fixes below), fish only
+in water, respawn clears effects, worm bodies (hittable segments), worm sprites turned round, toxic ground, spell facts
++ gun.lua comparison (cloud task), then stage 3 on Noita's own Lua (see the section above).
+
+Stage 3 state:
+- Works (MAGIC autotest): starting wands (Noita's starting_wand.lua / starting_bomb_wand.lua) given to new characters,
+  casting through gun.lua with Terraria mana, spell shots hit and kill, bomb/trigger/divide/homing/black hole/grenade/
+  fireball/acid cast without errors. World loot on first load: 25 cave wands (levels 1-6 by depth), 223 spells in
+  167 chests (test world).
+- Fixed, NOT yet verified in a run: wand number lost on load. Cause: Item.FixAgainstExploit (on every loaded item)
+  calls ResetPrefix when !CanRollPrefix -> patch magic_item_rollprefix. Also both Item.Prefix overloads are patched
+  (the second takes out bool). The MAGIC test now saves via Main.ActivePlayerFileData.Player = p (the file's player
+  is the menu copy). Check: run scratch magictest twice; 2nd run's "hotbar raw" must show 6143:N with N > 0.
+- New, NOT yet run: Screenshot.cs (tests): one frame drawn into our render target (Reach profile cannot read the back
+  buffer), saved to %LOCALAPPDATA%/Terranoita/shots/*.png; MagicTest asks for held_wand, window_noita,
+  window_terraria, black_hole. Look at them (Read the png) before asking the author.
+- Damage: projectiles add damage_by_type (fire, ice, slice...), fireball/grenade explosions hurt the caster
+  (explosion_dont_damage_shooter = 0, Noita); creatures touching damaging liquids (acid...) take Noita's touch damage.
+- Held wand: composite front arm stretched to the aim, wand drawn in that hand (author said it looked silly; check
+  the held_wand screenshot).
+- Black hole: eats the ground (CellEaterComponent) � Noita's small black hole does not damage creatures; big/giga
+  do (AreaDamageComponent, BlackHoleComponent). Told the author; waiting whether to add damage to the small one.
+- Lua state per wand is made in the background (Task) � the FPS drop mid-test was gun_actions.lua being parsed on the
+  game thread.
+
+Next steps (author's order: finish magic, then shops):
+1. Verify the two items above (wand number after reload, screenshots); fix what the pictures show.
+2. Wand window by eye (key U, Noita look / Terraria look switch); wand slots behave like ammo/coin slots.
+3. Uses of limited spells (UsesChanged) shown in the window; spells with 0 uses greyed.
+4. Extra entities beyond homing (extra_entities: trails, explosions on hit...), lasers/clouds (34 projectiles without
+   ProjectileComponent), LuaWorld.Load (EntityLoad: summons, ALL_SPELLS).
+5. Later, author: two traders (spells, wands) for Noita gold.
+6. A new Melty release only with the author's permission (0.3.1 draft is still waiting for Play).
