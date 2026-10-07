@@ -12,7 +12,7 @@ namespace Terranoita.Game.Magic
     /// <summary>
     /// TERRANOITA_SANDBOX=1 (with TERRANOITA_AUTOTEST=1, no exit; tools/game_test.ps1 -Mode sandbox): a place for the
     /// author to try magic by hand. A flat arena at the player, chests holding every spell of the player's Noita and
-    /// every wand Noita's wand files make, Noita creatures walking in from the right to shoot at.
+    /// every wand Noita's wand files make; no creatures (author).
     /// </summary>
     public static class Sandbox
     {
@@ -29,8 +29,7 @@ namespace Terranoita.Game.Magic
                 try { Build(p); }
                 catch (Exception ex) { Entry.Error("sandbox", ex); }
             }
-            if (frame > 120)
-                Targets(p, frame);
+            NoCreatures();
         }
 
         static void Build(Player p)
@@ -117,16 +116,15 @@ namespace Terranoita.Game.Magic
             return 1;
         }
 
-        /// <summary>A few Noita creatures to shoot at, walking in from the right end.</summary>
-        static void Targets(Player p, int frame)
+        /// <summary>No creatures in the sandbox (author): every hostile one is removed.</summary>
+        static void NoCreatures()
         {
-            if (frame % 300 != 0 || Carriers.CountNear(p.Center, 2400) >= 4)
-                return;
-            var pool = Enemies.All.Where(e => Defs.InStage(e.Stage, Entry.Stage) && e.NoitaHp > 0 && e.NoitaHp < 8).ToArray();
-            if (pool.Length == 0)
-                return;
-            var def = pool[Main.rand.Next(pool.Length)];
-            Carriers.Spawn(def, (_x0 + Width - 8) * 16, _floor * 16);
+            for (int i = 0; i < Main.maxNPCs; i++)
+            {
+                var n = Main.npc[i];
+                if (n.active && !n.friendly && !n.townNPC)
+                    n.active = false;
+            }
         }
     }
 }

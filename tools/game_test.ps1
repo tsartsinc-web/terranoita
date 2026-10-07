@@ -33,7 +33,7 @@ if ($World) { $env:TERRANOITA_AUTOTEST_WORLD = $World }
 if ($Only) { $env:TERRANOITA_AUTOTEST_ONLY = $Only }
 if ($Mode -eq "sandbox") {
     Start-Process -FilePath (Join-Path $Terraria "Terranoita.exe") -WorkingDirectory $Terraria `
-        -ArgumentList @("--noita-dir", "`"$Noita`"", "-savedirectory", "`"$data	estsave`"") | Out-Null
+        -ArgumentList @("--noita-dir", "`"$Noita`"", "-savedirectory", "`"$data\testsave`"") | Out-Null
     "sandbox started: the game stays open"
     exit 0
 }
