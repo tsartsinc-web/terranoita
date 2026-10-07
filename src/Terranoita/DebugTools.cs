@@ -105,6 +105,8 @@ namespace Terranoita.Game
         static void Update()
         {
             NoitaSound.Update();
+            try { Carriers.Sweep(); }
+            catch (Exception ex) { Entry.Error("segments sweep", ex); }
             if (Auto)
                 AutoTest();
             if (Main.gameMenu || Main.drawingPlayerChat || Main.editSign || Main.editChest)
@@ -180,7 +182,7 @@ namespace Terranoita.Game
             for (int i = 0; i < Main.maxNPCs; i++)
             {
                 var other = Main.npc[i];
-                if (other.active && !other.friendly && !other.townNPC && Carriers.Get(other) == null)
+                if (other.active && !other.friendly && !other.townNPC && Carriers.Get(other) == null && !Carriers.IsSegment(other))
                     other.active = false;
             }
             if (Physics.LiquidGallery.Enabled)
@@ -213,6 +215,12 @@ namespace Terranoita.Game
                 return;
             }
             var all = OnlyStage == null ? Built : Built.Where(e => e.Stage == OnlyStage).ToArray();
+            // TERRANOITA_AUTOTEST_ONLY=worm,eel: just these enemies
+            var only = Environment.GetEnvironmentVariable("TERRANOITA_AUTOTEST_ONLY");
+            if (!string.IsNullOrEmpty(only))
+                all = all.Where(e => only.Split(',').Contains(e.Id)).ToArray();
+            if (_worldFrames >= 300 && (_worldFrames - 300) % Each == Each / 2)
+                WormBodyCheck();
             if (Showcase)
             {
                 // TERRANOITA_SHOWCASE=1: noon, and a group of Noita enemies around the player, for the listing's screenshots
@@ -277,6 +285,35 @@ namespace Terranoita.Game
                 if (ExitWhenDone)
                     Main.instance.Exit();
             }
+        }
+
+        /// <summary>Halfway through a worm's turn: hit its middle segment and log what the head took (worm bodies).</summary>
+        static void WormBodyCheck()
+        {
+            for (int i = 0; i < Main.maxNPCs; i++)
+            {
+                var head = Main.npc[i];
+                var n = head.active ? Carriers.Get(head) : null;
+                if (n?.Parts == null)
+                    continue;
+                int alive = n.Parts.Count(j => j >= 0 && Main.npc[j].active && Carriers.IsSegment(Main.npc[j]));
+                int mid = n.Parts[n.Parts.Length / 2];
+                if (mid < 0 || !Main.npc[mid].active)
+                {
+                    Entry.Log("AUTOTEST: worm " + n.Def.Id + " segments " + alive + "/" + n.Parts.Length + ", middle one missing");
+                    continue;
+                }
+                var seg = Main.npc[mid];
+                int before = head.life;
+                seg.StrikeNPC(10, 0f, 1, false, false, 0);
+                Entry.Log("AUTOTEST: worm " + n.Def.Id + " segments " + alive + "/" + n.Parts.Length + "; middle at " +
+                          (int)((seg.Center.X - head.Center.X) / 16) + "," + (int)((seg.Center.Y - head.Center.Y) / 16) +
+                          " tiles from the head; hit it for 10: head life " + before + " -> " + head.life + ", segment life " + seg.life);
+            }
+            int stray = Enumerable.Range(0, Main.maxNPCs).Count(i => Main.npc[i].active && Carriers.IsSegment(Main.npc[i]) &&
+                                                                       Carriers.Get(Carriers.HeadOfSegment(Main.npc[i])) == null);
+            if (stray > 0)
+                Entry.Log("AUTOTEST: " + stray + " worm segments without a head");
         }
 
         [Hook("main_update")]

@@ -215,7 +215,7 @@
    "stage": "2",
    "_unverified": {}
   },
-    {
+  {
    "id": "player_spawn",
    "target": "Terraria.Player:Spawn(PlayerSpawnContext)",
    "patch": "postfix",
@@ -303,6 +303,15 @@
    "system": "block_physics",
    "purpose": "The hover name of a liquid drawn next to the cursor, last, so nothing covers it.",
    "stage": "2",
+   "_unverified": {}
+  },
+  {
+   "id": "npc_health_bars",
+   "target": "Terraria.Main:DrawInterface_14_EntityHealthBars()",
+   "patch": "prefix",
+   "system": "carrier_npc",
+   "purpose": "One health bar per Noita worm: the body segments look unhurt while the bars are drawn.",
+   "stage": "1b",
    "_unverified": {}
   }
  ]

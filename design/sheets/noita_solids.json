@@ -23,6 +23,10 @@
    "type": "number",
    "desc": "Noita hp units per frame while touching (player_base.xml)."
   },
+  "touch_effects": {
+   "type": "string[]",
+   "desc": "Noita status effects (status_effects.json) while touching it."
+  },
   "stage": {
    "type": "enum",
    "values": [
@@ -51,6 +55,7 @@
    ],
    "terraria_tile": "none",
    "touch_damage": 0.0,
+   "touch_effects": [],
    "stage": "2",
    "_unverified": {},
    "_sources": {
@@ -69,6 +74,7 @@
    ],
    "terraria_tile": "none",
    "touch_damage": 0.0,
+   "touch_effects": [],
    "stage": "2",
    "_unverified": {},
    "_sources": {
@@ -85,6 +91,7 @@
    ],
    "terraria_tile": "Gold",
    "touch_damage": 0.0,
+   "touch_effects": [],
    "stage": "2",
    "_unverified": {},
    "_sources": {
@@ -103,6 +110,7 @@
    ],
    "terraria_tile": "none",
    "touch_damage": 0.0,
+   "touch_effects": [],
    "stage": "2",
    "_unverified": {},
    "_sources": {
@@ -122,6 +130,7 @@
    ],
    "terraria_tile": "none",
    "touch_damage": 0.0,
+   "touch_effects": [],
    "stage": "2",
    "_unverified": {},
    "_sources": {
@@ -140,6 +149,7 @@
    ],
    "terraria_tile": "none",
    "touch_damage": 0.0,
+   "touch_effects": [],
    "stage": "2",
    "_unverified": {},
    "_sources": {
@@ -159,6 +169,7 @@
    ],
    "terraria_tile": "Copper",
    "touch_damage": 0.0,
+   "touch_effects": [],
    "stage": "2",
    "_unverified": {},
    "_sources": {
@@ -177,6 +188,7 @@
    ],
    "terraria_tile": "none",
    "touch_damage": 0.0,
+   "touch_effects": [],
    "stage": "2",
    "_unverified": {},
    "_sources": {
@@ -195,6 +207,7 @@
    ],
    "terraria_tile": "Ash",
    "touch_damage": 0.0,
+   "touch_effects": [],
    "stage": "2",
    "_unverified": {},
    "_sources": {
@@ -214,6 +227,7 @@
    ],
    "terraria_tile": "Ash",
    "touch_damage": 0.0,
+   "touch_effects": [],
    "stage": "2",
    "_unverified": {},
    "_sources": {
@@ -233,6 +247,7 @@
    ],
    "terraria_tile": "GrayBrick",
    "touch_damage": 0.0,
+   "touch_effects": [],
    "stage": "2",
    "_unverified": {},
    "_sources": {
@@ -252,6 +267,7 @@
    ],
    "terraria_tile": "Copper",
    "touch_damage": 0.0,
+   "touch_effects": [],
    "stage": "2",
    "_unverified": {},
    "_sources": {
@@ -270,6 +286,7 @@
    ],
    "terraria_tile": "none",
    "touch_damage": 0.0,
+   "touch_effects": [],
    "stage": "2",
    "_unverified": {},
    "_sources": {
@@ -287,6 +304,7 @@
    ],
    "terraria_tile": "none",
    "touch_damage": 0.0,
+   "touch_effects": [],
    "stage": "2",
    "_unverified": {},
    "_sources": {
@@ -305,6 +323,7 @@
    ],
    "terraria_tile": "none",
    "touch_damage": 0.0,
+   "touch_effects": [],
    "stage": "2",
    "_unverified": {},
    "_sources": {
@@ -320,6 +339,7 @@
    ],
    "terraria_tile": "none",
    "touch_damage": 0.0,
+   "touch_effects": [],
    "stage": "2",
    "_unverified": {},
    "_sources": {
@@ -335,6 +355,7 @@
    ],
    "terraria_tile": "none",
    "touch_damage": 0.0,
+   "touch_effects": [],
    "stage": "2",
    "_unverified": {},
    "_sources": {
@@ -354,6 +375,7 @@
    ],
    "terraria_tile": "MushroomBlock",
    "touch_damage": 0.0,
+   "touch_effects": [],
    "stage": "2",
    "_unverified": {},
    "_sources": {
@@ -370,6 +392,7 @@
    ],
    "terraria_tile": "MushroomBlock",
    "touch_damage": 0.0,
+   "touch_effects": [],
    "stage": "2",
    "_unverified": {},
    "_sources": {
@@ -389,6 +412,7 @@
    ],
    "terraria_tile": "MushroomBlock",
    "touch_damage": 0.0,
+   "touch_effects": [],
    "stage": "2",
    "_unverified": {},
    "_sources": {
@@ -408,6 +432,7 @@
    ],
    "terraria_tile": "MushroomBlock",
    "touch_damage": 0.0,
+   "touch_effects": [],
    "stage": "2",
    "_unverified": {},
    "_sources": {
@@ -429,6 +454,7 @@
    ],
    "terraria_tile": "Dirt",
    "touch_damage": 0.0,
+   "touch_effects": [],
    "stage": "2",
    "_unverified": {},
    "_sources": {
@@ -447,6 +473,7 @@
    ],
    "terraria_tile": "Glass",
    "touch_damage": 0.0,
+   "touch_effects": [],
    "stage": "2",
    "_unverified": {},
    "_sources": {
@@ -464,6 +491,7 @@
    ],
    "terraria_tile": "none",
    "touch_damage": 0.0,
+   "touch_effects": [],
    "stage": "2",
    "_unverified": {},
    "_sources": {
@@ -484,6 +512,7 @@
    ],
    "terraria_tile": "Gold",
    "touch_damage": 0.0,
+   "touch_effects": [],
    "stage": "2",
    "_unverified": {},
    "_sources": {
@@ -500,6 +529,7 @@
    ],
    "terraria_tile": "Gold",
    "touch_damage": 0.0,
+   "touch_effects": [],
    "stage": "2",
    "_unverified": {},
    "_sources": {
@@ -519,6 +549,7 @@
    ],
    "terraria_tile": "Grass",
    "touch_damage": 0.0,
+   "touch_effects": [],
    "stage": "2",
    "_unverified": {},
    "_sources": {
@@ -537,6 +568,7 @@
    ],
    "terraria_tile": "Grass",
    "touch_damage": 0.0,
+   "touch_effects": [],
    "stage": "2",
    "_unverified": {},
    "_sources": {
@@ -555,6 +587,7 @@
    ],
    "terraria_tile": "none",
    "touch_damage": 0.0,
+   "touch_effects": [],
    "stage": "2",
    "_unverified": {},
    "_sources": {
@@ -573,6 +606,7 @@
    ],
    "terraria_tile": "none",
    "touch_damage": 0.0,
+   "touch_effects": [],
    "stage": "2",
    "_unverified": {},
    "_sources": {
@@ -592,6 +626,7 @@
    ],
    "terraria_tile": "IceBlock",
    "touch_damage": 0.0,
+   "touch_effects": [],
    "stage": "2",
    "_unverified": {},
    "_sources": {
@@ -609,6 +644,7 @@
    ],
    "terraria_tile": "IceBlock",
    "touch_damage": 0.0,
+   "touch_effects": [],
    "stage": "2",
    "_unverified": {},
    "_sources": {
@@ -628,6 +664,7 @@
    ],
    "terraria_tile": "IceBlock",
    "touch_damage": 0.0,
+   "touch_effects": [],
    "stage": "2",
    "_unverified": {},
    "_sources": {
@@ -646,6 +683,7 @@
    ],
    "terraria_tile": "Obsidian",
    "touch_damage": 0.0,
+   "touch_effects": [],
    "stage": "2",
    "_unverified": {},
    "_sources": {
@@ -666,6 +704,7 @@
    ],
    "terraria_tile": "FleshBlock",
    "touch_damage": 0.0,
+   "touch_effects": [],
    "stage": "2",
    "_unverified": {},
    "_sources": {
@@ -686,6 +725,7 @@
    ],
    "terraria_tile": "FleshBlock",
    "touch_damage": 0.0,
+   "touch_effects": [],
    "stage": "2",
    "_unverified": {},
    "_sources": {
@@ -703,6 +743,7 @@
    ],
    "terraria_tile": "Sand",
    "touch_damage": 0.0,
+   "touch_effects": [],
    "stage": "2",
    "_unverified": {},
    "_sources": {
@@ -720,6 +761,7 @@
    ],
    "terraria_tile": "Mud",
    "touch_damage": 0.0,
+   "touch_effects": [],
    "stage": "2",
    "_unverified": {},
    "_sources": {
@@ -736,6 +778,7 @@
    ],
    "terraria_tile": "none",
    "touch_damage": 0.0,
+   "touch_effects": [],
    "stage": "2",
    "_unverified": {},
    "_sources": {
@@ -753,6 +796,7 @@
    ],
    "terraria_tile": "none",
    "touch_damage": 0.0,
+   "touch_effects": [],
    "stage": "2",
    "_unverified": {},
    "_sources": {
@@ -770,6 +814,7 @@
    ],
    "terraria_tile": "none",
    "touch_damage": 0.0,
+   "touch_effects": [],
    "stage": "2",
    "_unverified": {},
    "_sources": {
@@ -786,6 +831,7 @@
    ],
    "terraria_tile": "none",
    "touch_damage": 0.0,
+   "touch_effects": [],
    "stage": "2",
    "_unverified": {},
    "_sources": {
@@ -800,6 +846,7 @@
    ],
    "terraria_tile": "none",
    "touch_damage": 0.0,
+   "touch_effects": [],
    "stage": "2",
    "_unverified": {},
    "_sources": {
@@ -817,6 +864,7 @@
    ],
    "terraria_tile": "LeafBlock",
    "touch_damage": 0.0,
+   "touch_effects": [],
    "stage": "2",
    "_unverified": {},
    "_sources": {
@@ -833,6 +881,7 @@
    ],
    "terraria_tile": "LeafBlock",
    "touch_damage": 0.0,
+   "touch_effects": [],
    "stage": "2",
    "_unverified": {},
    "_sources": {
@@ -849,6 +898,7 @@
    ],
    "terraria_tile": "none",
    "touch_damage": 0.0,
+   "touch_effects": [],
    "stage": "2",
    "_unverified": {},
    "_sources": {
@@ -865,6 +915,7 @@
    ],
    "terraria_tile": "none",
    "touch_damage": 0.0,
+   "touch_effects": [],
    "stage": "2",
    "_unverified": {},
    "_sources": {
@@ -882,6 +933,7 @@
    ],
    "terraria_tile": "none",
    "touch_damage": 0.0,
+   "touch_effects": [],
    "stage": "2",
    "_unverified": {},
    "_sources": {
@@ -899,6 +951,7 @@
    ],
    "terraria_tile": "Stone",
    "touch_damage": 0.0,
+   "touch_effects": [],
    "stage": "2",
    "_unverified": {},
    "_sources": {
@@ -918,6 +971,7 @@
    ],
    "terraria_tile": "Stone",
    "touch_damage": 0.0,
+   "touch_effects": [],
    "stage": "2",
    "_unverified": {},
    "_sources": {
@@ -937,6 +991,7 @@
    ],
    "terraria_tile": "Stone",
    "touch_damage": 0.0,
+   "touch_effects": [],
    "stage": "2",
    "_unverified": {},
    "_sources": {
@@ -956,6 +1011,7 @@
    ],
    "terraria_tile": "Stone",
    "touch_damage": 0.004,
+   "touch_effects": [],
    "stage": "2",
    "_unverified": {},
    "_sources": {
@@ -975,6 +1031,7 @@
    ],
    "terraria_tile": "Stone",
    "touch_damage": 0.0,
+   "touch_effects": [],
    "stage": "2",
    "_unverified": {},
    "_sources": {
@@ -994,6 +1051,7 @@
    ],
    "terraria_tile": "Stone",
    "touch_damage": 0.0,
+   "touch_effects": [],
    "stage": "2",
    "_unverified": {},
    "_sources": {
@@ -1013,10 +1071,14 @@
    ],
    "terraria_tile": "Stone",
    "touch_damage": 0.001,
+   "touch_effects": [
+    "POISONED"
+   ],
    "stage": "2",
    "_unverified": {},
    "_sources": {
-    "all": "materials.xml; terraria_tile by name (tools/extract_liquids.py terraria_tile)"
+    "all": "materials.xml; terraria_tile by name (tools/extract_liquids.py terraria_tile)",
+    "touch_effects": "author 2026-10-07 (screenshot of the toxic banks of a sludge pool in Noita): toxic ground poisons whoever touches it"
    }
   },
   {
@@ -1032,10 +1094,14 @@
    ],
    "terraria_tile": "Stone",
    "touch_damage": 0.001,
+   "touch_effects": [
+    "RADIOACTIVE"
+   ],
    "stage": "2",
    "_unverified": {},
    "_sources": {
-    "all": "materials.xml; terraria_tile by name (tools/extract_liquids.py terraria_tile)"
+    "all": "materials.xml; terraria_tile by name (tools/extract_liquids.py terraria_tile)",
+    "touch_effects": "author 2026-10-07 (screenshot of the toxic banks of a sludge pool in Noita): toxic ground poisons whoever touches it"
    }
   },
   {
@@ -1051,6 +1117,7 @@
    ],
    "terraria_tile": "Stone",
    "touch_damage": 0.0,
+   "touch_effects": [],
    "stage": "2",
    "_unverified": {},
    "_sources": {
@@ -1070,6 +1137,7 @@
    ],
    "terraria_tile": "FleshBlock",
    "touch_damage": 0.0,
+   "touch_effects": [],
    "stage": "2",
    "_unverified": {},
    "_sources": {
@@ -1087,6 +1155,7 @@
    ],
    "terraria_tile": "Sand",
    "touch_damage": 0.0,
+   "touch_effects": [],
    "stage": "2",
    "_unverified": {},
    "_sources": {
@@ -1105,6 +1174,7 @@
    ],
    "terraria_tile": "Sand",
    "touch_damage": 0.0,
+   "touch_effects": [],
    "stage": "2",
    "_unverified": {},
    "_sources": {
@@ -1123,6 +1193,7 @@
    ],
    "terraria_tile": "Sand",
    "touch_damage": 0.0,
+   "touch_effects": [],
    "stage": "2",
    "_unverified": {},
    "_sources": {
@@ -1141,6 +1212,7 @@
    ],
    "terraria_tile": "Sand",
    "touch_damage": 0.0,
+   "touch_effects": [],
    "stage": "2",
    "_unverified": {},
    "_sources": {
@@ -1159,6 +1231,7 @@
    ],
    "terraria_tile": "Sand",
    "touch_damage": 0.0,
+   "touch_effects": [],
    "stage": "2",
    "_unverified": {},
    "_sources": {
@@ -1178,6 +1251,7 @@
    ],
    "terraria_tile": "Silver",
    "touch_damage": 0.0,
+   "touch_effects": [],
    "stage": "2",
    "_unverified": {},
    "_sources": {
@@ -1198,6 +1272,7 @@
    ],
    "terraria_tile": "SnowBlock",
    "touch_damage": 0.0,
+   "touch_effects": [],
    "stage": "2",
    "_unverified": {},
    "_sources": {
@@ -1217,6 +1292,7 @@
    ],
    "terraria_tile": "SnowBlock",
    "touch_damage": 0.0,
+   "touch_effects": [],
    "stage": "2",
    "_unverified": {},
    "_sources": {
@@ -1235,6 +1311,7 @@
    ],
    "terraria_tile": "SnowBlock",
    "touch_damage": 0.0,
+   "touch_effects": [],
    "stage": "2",
    "_unverified": {},
    "_sources": {
@@ -1253,6 +1330,7 @@
    ],
    "terraria_tile": "SnowBlock",
    "touch_damage": 0.0,
+   "touch_effects": [],
    "stage": "2",
    "_unverified": {},
    "_sources": {
@@ -1270,6 +1348,7 @@
    ],
    "terraria_tile": "none",
    "touch_damage": 0.0,
+   "touch_effects": [],
    "stage": "2",
    "_unverified": {},
    "_sources": {
@@ -1289,6 +1368,7 @@
    ],
    "terraria_tile": "Dirt",
    "touch_damage": 0.0,
+   "touch_effects": [],
    "stage": "2",
    "_unverified": {},
    "_sources": {
@@ -1308,6 +1388,7 @@
    ],
    "terraria_tile": "Dirt",
    "touch_damage": 0.0,
+   "touch_effects": [],
    "stage": "2",
    "_unverified": {},
    "_sources": {
@@ -1327,6 +1408,7 @@
    ],
    "terraria_tile": "Dirt",
    "touch_damage": 0.0,
+   "touch_effects": [],
    "stage": "2",
    "_unverified": {},
    "_sources": {
@@ -1344,6 +1426,7 @@
    ],
    "terraria_tile": "none",
    "touch_damage": 0.0,
+   "touch_effects": [],
    "stage": "2",
    "_unverified": {},
    "_sources": {
@@ -1360,6 +1443,7 @@
    ],
    "terraria_tile": "Sand",
    "touch_damage": 0.0,
+   "touch_effects": [],
    "stage": "2",
    "_unverified": {},
    "_sources": {
@@ -1380,6 +1464,7 @@
    ],
    "terraria_tile": "IronBrick",
    "touch_damage": 0.0,
+   "touch_effects": [],
    "stage": "2",
    "_unverified": {},
    "_sources": {
@@ -1400,6 +1485,7 @@
    ],
    "terraria_tile": "IronBrick",
    "touch_damage": 0.0,
+   "touch_effects": [],
    "stage": "2",
    "_unverified": {},
    "_sources": {
@@ -1420,6 +1506,7 @@
    ],
    "terraria_tile": "IronBrick",
    "touch_damage": 0.0,
+   "touch_effects": [],
    "stage": "2",
    "_unverified": {},
    "_sources": {
@@ -1438,6 +1525,7 @@
    ],
    "terraria_tile": "Gold",
    "touch_damage": 0.0,
+   "touch_effects": [],
    "stage": "2",
    "_unverified": {},
    "_sources": {
@@ -1455,6 +1543,7 @@
    ],
    "terraria_tile": "Stone",
    "touch_damage": 0.0,
+   "touch_effects": [],
    "stage": "2",
    "_unverified": {},
    "_sources": {
@@ -1474,6 +1563,7 @@
    ],
    "terraria_tile": "none",
    "touch_damage": 0.0,
+   "touch_effects": [],
    "stage": "2",
    "_unverified": {},
    "_sources": {
@@ -1492,6 +1582,7 @@
    ],
    "terraria_tile": "Stone",
    "touch_damage": 0.0,
+   "touch_effects": [],
    "stage": "2",
    "_unverified": {},
    "_sources": {
@@ -1511,6 +1602,7 @@
    ],
    "terraria_tile": "WoodBlock",
    "touch_damage": 0.0,
+   "touch_effects": [],
    "stage": "2",
    "_unverified": {},
    "_sources": {
@@ -1529,6 +1621,7 @@
    ],
    "terraria_tile": "WoodBlock",
    "touch_damage": 0.0,
+   "touch_effects": [],
    "stage": "2",
    "_unverified": {},
    "_sources": {
@@ -1547,6 +1640,7 @@
    ],
    "terraria_tile": "WoodBlock",
    "touch_damage": 0.0,
+   "touch_effects": [],
    "stage": "2",
    "_unverified": {},
    "_sources": {

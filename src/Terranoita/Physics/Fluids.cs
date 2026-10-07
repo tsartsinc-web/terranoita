@@ -504,6 +504,7 @@ namespace Terranoita.Game.Physics
             if (_defs == null)
                 Build();
             Cells.Clear();
+            ToxicGround.Clear();
             PoolsVersion = 0;
             var path = FluidsFile;
             if (path == null || !System.IO.File.Exists(path))
@@ -526,6 +527,8 @@ namespace Terranoita.Game.Physics
                     }
                     // 0.3.0 files end here: their caves have the first, sparse pools
                     PoolsVersion = r.BaseStream.Position < r.BaseStream.Length ? r.ReadInt32() : 1;
+                    if (r.BaseStream.Position < r.BaseStream.Length)
+                        ToxicGround.Read(r, w);
                 }
                 Entry.Log("fluids: " + Cells.Count + " cells read from " + System.IO.Path.GetFileName(path));
             }
@@ -555,6 +558,7 @@ namespace Terranoita.Game.Physics
                         w.Write(kv.Value.Burn);
                     }
                     w.Write(PoolsVersion);
+                    ToxicGround.Write(w);
                 }
             }
             catch (Exception ex) { Entry.Error("fluids save", ex); }
@@ -577,6 +581,17 @@ namespace Terranoita.Game.Physics
         /// <summary>Cells per material, the most first, with how many are thin (tests).</summary>
         public static string Census() => string.Join(", ", Cells.Values.GroupBy(c => c.Kind).OrderByDescending(g => g.Count()).Take(8)
             .Select(g => _defs[g.Key - 1].Id + " " + g.Count() + " (thin " + g.Count(c => c.Amount < 64) + ")"));
+
+        /// <summary>Cells of a material (cave pool banks).</summary>
+        public static List<int> CellsOf(string material)
+        {
+            int kind = KindOf(material);
+            var list = new List<int>();
+            foreach (var kv in Cells)
+                if (kv.Value.Kind == kind)
+                    list.Add(kv.Key);
+            return list;
+        }
 
         /// <summary>Up to n full liquid cells under the surface, far apart (tests).</summary>
         public static (int x, int y)[] PoolSpots(int n)
@@ -800,6 +815,7 @@ namespace Terranoita.Game.Physics
             if (_tileOfSolid.TryGetValue(output, out ushort tile) && !Main.tile[x, y].active())
             {
                 WorldGen.PlaceTile(x, y, tile, true, true);
+                ToxicGround.Mark(x, y, output);   // lava + toxic sludge: toxic rock
                 Falling.Disturb(x, y);
             }
         }

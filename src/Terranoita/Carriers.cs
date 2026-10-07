@@ -1,4 +1,5 @@
 using System;
+using System.Linq;
 using HarmonyLib;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
@@ -22,6 +23,8 @@ namespace Terranoita.Game
         public bool Shield;
         /// <summary>Frames it stays (nearly) invisible, from an invisibility hiisi.</summary>
         public int Invisible;
+        /// <summary>Worms: the NPC slots of the body segments, next to the head first.</summary>
+        public int[] Parts;
     }
 
     /// <summary>
@@ -32,10 +35,19 @@ namespace Terranoita.Game
     {
         public const int CarrierType = 146;
         static readonly NoitaNpc[] Table = new NoitaNpc[Main.maxNPCs + 1];
+        // worm body segments: also carrier NPCs, with the slot of their head here (-1: not a segment)
+        static readonly int[] HeadOf = System.Linq.Enumerable.Repeat(-1, Main.maxNPCs + 1).ToArray();
         static readonly Random Rng = new Random();
 
         public static NoitaNpc Get(NPC npc) =>
             npc != null && npc.type == CarrierType && npc.whoAmI >= 0 && npc.whoAmI < Table.Length ? Table[npc.whoAmI] : null;
+
+        /// <summary>A worm's body segment: hit like the worm, drawn and moved by its head.</summary>
+        public static bool IsSegment(NPC npc) =>
+            npc != null && npc.type == CarrierType && npc.whoAmI >= 0 && npc.whoAmI < HeadOf.Length && HeadOf[npc.whoAmI] >= 0;
+
+        /// <summary>The head a segment belongs to.</summary>
+        public static NPC HeadOfSegment(NPC npc) => IsSegment(npc) ? Main.npc[HeadOf[npc.whoAmI]] : null;
 
         public static int CountNear(Vector2 where, float range)
         {
@@ -79,10 +91,108 @@ namespace Terranoita.Game
             if (Array.IndexOf(def.Immunities ?? new string[0], "fire") >= 0)
                 foreach (int b in new[] { BuffID.OnFire, BuffID.OnFire3, BuffID.Burning, BuffID.CursedInferno, BuffID.ShadowFlame })
                     npc.buffImmune[b] = true;
+            HeadOf[i] = -1;
             Table[i] = new NoitaNpc { Def = def, Tier = tier, Brain = new Brain(def), Name = NoitaArt.Name(def) };
             npc.noTileCollide = Table[i].Brain.PassesTiles;     // ghosts drift and worms burrow through tiles
+            if (Table[i].Brain.Burrows && def.Segments > 0)
+                SpawnSegments(npc, Table[i]);
             Entry.Log("spawned " + def.Id + " (" + Table[i].Name + ") #" + i + " life " + npc.lifeMax + " at tile " + x / 16 + "," + bottom / 16);
             return i;
+        }
+
+        /// <summary>
+        /// A worm's body as NPCs of its own (author: worms with a real body), like Terraria's worms: every segment can be
+        /// hit and the hit goes to the head (Damage.Strike), fire and poison on the body burn the worm. Only the head bites,
+        /// as in Noita.
+        /// </summary>
+        static void SpawnSegments(NPC head, NoitaNpc n)
+        {
+            n.Parts = new int[n.Def.Segments];
+            for (int s = 0; s < n.Parts.Length; s++)
+            {
+                int j = NPC.NewNPC(new EntitySource_SpawnNPC(), (int)head.Center.X, (int)head.Center.Y, CarrierType);
+                n.Parts[s] = j >= 0 && j < Main.maxNPCs ? j : -1;
+                if (n.Parts[s] < 0)
+                    continue;
+                var seg = Main.npc[j];
+                Table[j] = null;
+                HeadOf[j] = head.whoAmI;
+                seg.width = head.width;
+                seg.height = head.height;
+                seg.Center = head.Center;
+                seg.lifeMax = head.lifeMax;
+                seg.life = head.life;
+                seg.realLife = head.whoAmI;      // one health bar, Terraria's worms do the same
+                seg.defense = seg.defDefense = head.defense;
+                seg.damage = seg.defDamage = 0;
+                seg.knockBackResist = 0f;
+                seg.noGravity = true;
+                seg.noTileCollide = true;
+                seg.aiStyle = 0;
+                seg.value = 0;
+                seg.friendly = false;
+                seg.HitSound = null;
+                seg.DeathSound = null;
+                seg.dontCountMe = true;
+                seg.npcSlots = 0f;
+                seg.timeLeft = head.timeLeft;
+                Array.Copy(head.buffImmune, seg.buffImmune, Math.Min(head.buffImmune.Length, seg.buffImmune.Length));
+            }
+        }
+
+        /// <summary>Where segment i (1 = next to the head, Segments = the tail) is on the head's trail; false while the worm has not come that far.</summary>
+        static bool SegmentAt(NoitaNpc n, int i, out V2 at, out V2 ahead)
+        {
+            var trail = n.Brain.Trail;
+            float spacing = n.Def.SegmentSpacing > 0 ? n.Def.SegmentSpacing : 24f;
+            float want = i * spacing, walked = 0;
+            int k;
+            for (k = 1; k < trail.Count && walked < want; k++)
+                walked += (trail[k] - trail[k - 1]).Length;
+            at = ahead = default(V2);
+            if (trail.Count < 2 || walked < want)
+                return false;
+            at = trail[k - 1];
+            ahead = trail[Math.Max(0, k - 2)];
+            return true;
+        }
+
+        /// <summary>After the head moved: the segments onto its trail, with its life; what the body caught goes to the head.</summary>
+        static void PlaceSegments(NPC head, NoitaNpc n)
+        {
+            for (int s = 0; s < n.Parts.Length; s++)
+            {
+                int j = n.Parts[s];
+                if (j < 0 || HeadOf[j] != head.whoAmI || !Main.npc[j].active)
+                    continue;
+                var seg = Main.npc[j];
+                seg.Center = SegmentAt(n, s + 1, out var at, out _) ? new Vector2(at.X, at.Y) : head.Center;
+                seg.velocity = Vector2.Zero;
+                seg.life = head.life;
+                seg.lifeMax = head.lifeMax;
+                seg.timeLeft = head.timeLeft;
+                for (int b = 0; b < seg.buffType.Length; b++)
+                    if (seg.buffType[b] > 0 && seg.buffTime[b] > 0)
+                    {
+                        head.AddBuff(seg.buffType[b], seg.buffTime[b]);
+                        seg.buffType[b] = 0;
+                        seg.buffTime[b] = 0;
+                    }
+            }
+        }
+
+        /// <summary>A segment whose head is gone goes too (no loot: the head dropped it).</summary>
+        static void FollowHead(NPC seg)
+        {
+            int h = HeadOf[seg.whoAmI];
+            var head = Main.npc[h];
+            var n = head.active ? Get(head) : null;
+            if (n?.Parts == null || Array.IndexOf(n.Parts, seg.whoAmI) < 0 || seg.realLife != h)
+            {
+                HeadOf[seg.whoAmI] = -1;
+                seg.life = 0;
+                seg.active = false;
+            }
         }
 
         public static void Forget(NPC npc)
@@ -323,6 +433,12 @@ namespace Terranoita.Game
         {
             static bool Prefix(NPC __instance)
             {
+                if (IsSegment(__instance))
+                {
+                    try { FollowHead(__instance); }
+                    catch (Exception ex) { Entry.Error("npc_ai segment", ex); }
+                    return false;
+                }
                 var n = Get(__instance);
                 if (n == null)
                     return true;
@@ -341,6 +457,8 @@ namespace Terranoita.Game
                     Collision.StepUp(ref npc.position, ref npc.velocity, npc.width, npc.height, ref npc.stepSpeed, ref npc.gfxOffY);
                 if (n.Brain.Burrows)
                     DigSound(npc);
+                if (n.Parts != null)
+                    PlaceSegments(npc, n);
             }
 
             // Terraria's worm digging sound (vanilla worm AI): while in the ground, more often the closer the player is
@@ -363,7 +481,7 @@ namespace Terranoita.Game
         [HarmonyPatch(typeof(NPC), nameof(NPC.FindFrame))]
         static class FramePatch
         {
-            static bool Prefix(NPC __instance) => Get(__instance) == null;   // animated from the Noita sprite when drawn
+            static bool Prefix(NPC __instance) => Get(__instance) == null && !IsSegment(__instance);   // animated from the Noita sprite when drawn
         }
 
         [Hook("npc_name")]
@@ -372,10 +490,45 @@ namespace Terranoita.Game
         {
             static void Postfix(NPC __instance, ref string __result)
             {
-                var n = Get(__instance);
+                var n = Get(__instance) ?? Get(HeadOfSegment(__instance));   // a worm's body has the worm's name
                 if (n != null)
                     __result = n.Name;
             }
+        }
+
+        [Hook("npc_health_bars")]
+        [HarmonyPatch]
+        static class HealthBarsPatch
+        {
+            // one health bar per worm (author): the body's bars are hidden by drawing them while the segments look unhurt
+            static System.Reflection.MethodBase TargetMethod() => AccessTools.Method(typeof(Main), "DrawInterface_14_EntityHealthBars");
+            static bool Prepare() => TargetMethod() != null;
+
+            static void Prefix(out int[] __state)
+            {
+                __state = new int[Main.maxNPCs];
+                for (int i = 0; i < Main.maxNPCs; i++)
+                    if (Main.npc[i].active && IsSegment(Main.npc[i]))
+                    {
+                        __state[i] = Main.npc[i].life;
+                        Main.npc[i].life = Main.npc[i].lifeMax;
+                    }
+            }
+
+            static void Postfix(int[] __state)
+            {
+                for (int i = 0; i < Main.maxNPCs; i++)
+                    if (__state[i] > 0 && Main.npc[i].active && IsSegment(Main.npc[i]))
+                        Main.npc[i].life = __state[i];
+            }
+        }
+
+        /// <summary>Every frame: segments whose head is gone go too (the head may die or despawn anywhere).</summary>
+        public static void Sweep()
+        {
+            for (int i = 0; i < Main.maxNPCs; i++)
+                if (HeadOf[i] >= 0 && Main.npc[i].active && Main.npc[i].type == CarrierType)
+                    FollowHead(Main.npc[i]);
         }
 
         [Hook("npc_draw")]
@@ -384,6 +537,8 @@ namespace Terranoita.Game
         {
             static bool Prefix(NPC npc)
             {
+                if (IsSegment(npc))
+                    return false;   // the head draws the whole worm
                 var n = Get(npc);
                 if (n == null)
                     return true;
@@ -418,8 +573,9 @@ namespace Terranoita.Game
                 {
                     // worms: body and tail along the head's trail, then the head turned to where it is going
                     DrawSegments(npc, n, color, scale);
-                    float rot = (float)Math.Atan2(npc.velocity.Y, npc.velocity.X);
-                    var flip = npc.velocity.X < 0 ? SpriteEffects.FlipVertically : SpriteEffects.None;
+                    // Noita's worm sprites face left (author: heads were back to front): turned half round, flipped to stay upright
+                    float rot = (float)Math.Atan2(npc.velocity.Y, npc.velocity.X) + MathHelper.Pi;
+                    var flip = npc.velocity.X >= 0 ? SpriteEffects.FlipVertically : SpriteEffects.None;
                     Main.spriteBatch.Draw(art.Texture, npc.Center - Main.screenPosition, new Rectangle(fx, fy, fw, fh), color,
                                           rot, new Vector2(fw / 2f, fh / 2f), scale, flip, 0f);
                     return;
@@ -429,22 +585,10 @@ namespace Terranoita.Game
 
             static void DrawSegments(NPC npc, NoitaNpc n, Color color, float scale)
             {
-                var trail = n.Brain.Trail;
-                float spacing = n.Def.SegmentSpacing > 0 ? n.Def.SegmentSpacing : 24f;
-                if (n.Def.Segments <= 0 || trail.Count < 2)
-                    return;
-                float walked = 0;
-                int k = 1;
                 for (int i = n.Def.Segments; i >= 1; i--)   // tail first, so the head is drawn on top
                 {
-                    float want = i * spacing;
-                    walked = 0;
-                    for (k = 1; k < trail.Count && walked < want; k++)
-                        walked += (trail[k] - trail[k - 1]).Length;
-                    if (walked < want)
+                    if (!SegmentAt(n, i, out var at, out var ahead))
                         continue;   // the worm has not travelled that far yet
-                    var at = trail[k - 1];
-                    var ahead = trail[Math.Max(0, k - 2)];
                     var art = NoitaArt.Get(i == n.Def.Segments ? n.Def.TailSprite : n.Def.BodySprite);
                     if (art?.Texture == null)
                         continue;
@@ -452,8 +596,8 @@ namespace Terranoita.Game
                     int fx = 0, fy = 0, fw = art.Texture.Width, fh = art.Texture.Height;
                     if (anim != null)
                         anim.FrameRect(anim.FrameAt(n.Brain.AnimTicks), out fx, out fy, out fw, out fh);
-                    float rot = (float)Math.Atan2(ahead.Y - at.Y, ahead.X - at.X);
-                    var flip = ahead.X < at.X ? SpriteEffects.FlipVertically : SpriteEffects.None;
+                    float rot = (float)Math.Atan2(ahead.Y - at.Y, ahead.X - at.X) + MathHelper.Pi;
+                    var flip = ahead.X >= at.X ? SpriteEffects.FlipVertically : SpriteEffects.None;
                     Main.spriteBatch.Draw(art.Texture, new Vector2(at.X, at.Y) - Main.screenPosition, new Rectangle(fx, fy, fw, fh),
                                           color, rot, new Vector2(fw / 2f, fh / 2f), scale, flip, 0f);
                 }

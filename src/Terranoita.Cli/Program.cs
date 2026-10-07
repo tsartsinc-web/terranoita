@@ -42,6 +42,10 @@ namespace Terranoita.Cli
                         case "wak-cat":
                             Console.Write(Text(files, args[2]) ?? throw new FileNotFoundException(args[2]));
                             return 0;
+                        case "wak-get":   // wak-get <noita> <path> <out file>: a file as it is (images)
+                            if (!files.TryRead(args[2], out var bytes)) throw new FileNotFoundException(args[2]);
+                            File.WriteAllBytes(args[3], bytes);
+                            return 0;
                         case "entity":
                         {
                             string path = args[2].Contains('/') ? args[2]

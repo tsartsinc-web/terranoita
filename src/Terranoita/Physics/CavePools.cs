@@ -14,8 +14,29 @@ namespace Terranoita.Game.Physics
     {
         const int MaxWidth = 30, MaxDepth = 4;
 
-        /// <summary>2: three times as many pools as 0.3.0 (author: no pools seen in the caves).</summary>
-        public const int Version = 2;
+        /// <summary>2: three times as many pools as 0.3.0 (author: no pools seen in the caves); 3: toxic banks.</summary>
+        public const int Version = 3;
+
+        // the rock a pool of this liquid lies in (author's screenshot: Noita's toxic sludge pools have toxic banks)
+        static readonly (string liquid, string rock)[] BankRock =
+        {
+            ("radioactive_liquid", "rock_static_radioactive"),
+            ("poison", "rock_static_poison"),
+        };
+
+        /// <summary>The natural blocks around toxic sludge and poison turn to Noita's toxic rock (ToxicGround).</summary>
+        public static void Banks()
+        {
+            foreach (var (liquid, rock) in BankRock)
+                foreach (int k in Fluids.CellsOf(liquid))
+                {
+                    int x = k % Main.maxTilesX, y = k / Main.maxTilesX;
+                    foreach (var (bx, by) in new[] { (x - 1, y), (x + 1, y), (x, y + 1), (x - 1, y + 1), (x + 1, y + 1) })
+                        if (Mats.InWorld(bx, by) && Solid(bx, by) && !Placed.Has(bx, by))
+                            ToxicGround.Mark(bx, by, rock);
+                }
+            Entry.Log("cave pools: " + ToxicGround.Count + " toxic bank blocks");
+        }
 
         public static void Generate()
         {

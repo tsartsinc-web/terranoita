@@ -55,6 +55,7 @@ namespace Terranoita.Generated
             new HookDef { Id = "player_form_draw", Target = "Terraria.Main:DrawPlayers_AfterProjectiles()", Patch = "postfix", System = "noita_status", Purpose = "A polymorphed player is drawn as the Noita creature.", Stage = "2" },
             new HookDef { Id = "mouse_over", Target = "Terraria.Main:DrawMouseOver()", Patch = "postfix", System = "block_physics", Purpose = "The name of the liquid under the mouse (??? if not touched yet), shown like a sign's text.", Stage = "2" },
             new HookDef { Id = "cursor_draw", Target = "Terraria.Main:DrawInterface_36_Cursor()", Patch = "postfix", System = "block_physics", Purpose = "The hover name of a liquid drawn next to the cursor, last, so nothing covers it.", Stage = "2" },
+            new HookDef { Id = "npc_health_bars", Target = "Terraria.Main:DrawInterface_14_EntityHealthBars()", Patch = "prefix", System = "carrier_npc", Purpose = "One health bar per Noita worm: the body segments look unhurt while the bars are drawn.", Stage = "1b" },
         };
     }
 }

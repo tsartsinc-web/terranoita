@@ -56,6 +56,7 @@ namespace Terranoita.Game.Physics
                     if (PhysicsTest.Enabled && Placed.Has(i, j))
                         Entry.Log("physics: placed tile at " + i + "," + j + " removed by " + new System.Diagnostics.StackTrace().GetFrame(2)?.GetMethod()?.Name);
                     Placed.Remove(i, j);
+                    ToxicGround.Remove(i, j);
                     Falling.Disturb(i, j);
                 }
                 catch (Exception ex) { Entry.Error("tile_kill", ex); }
@@ -85,6 +86,7 @@ namespace Terranoita.Game.Physics
                 Fire.Clear();
                 Status.Clear();
                 Fluids.Clear();
+                ToxicGround.Clear();
                 if (!On)
                     return;
                 // never let our files or pools stop a world from loading
@@ -94,11 +96,11 @@ namespace Terranoita.Game.Physics
                 {
                     // a world without our liquids yet (new or old) gets its cave pools once; a 0.3.0 world the extra ones
                     Fluids.Load();
-                    if (Fluids.PoolsVersion < CavePools.Version)
-                    {
+                    if (Fluids.PoolsVersion < 2)
                         CavePools.Generate();
-                        Fluids.PoolsVersion = CavePools.Version;
-                    }
+                    if (Fluids.PoolsVersion < 3)
+                        CavePools.Banks();
+                    Fluids.PoolsVersion = CavePools.Version;
                 }
                 catch (Exception ex) { Entry.Error("cave pools", ex); }
             }
@@ -163,6 +165,7 @@ namespace Terranoita.Game.Physics
                         Fire.Update();
                         Fluids.Update();
                     }
+                    ToxicGround.Touch(Main.LocalPlayer);
                 }
                 catch (Exception ex) { Entry.Error("physics update", ex); }
             }
@@ -202,7 +205,7 @@ namespace Terranoita.Game.Physics
             // in front of the player, like Terraria's water
             static void Postfix()
             {
-                if (!Live || Fluids.Count == 0)
+                if (!Live || Fluids.Count == 0 && ToxicGround.Count == 0)
                     return;
                 var sb = Main.spriteBatch;
                 try
@@ -210,6 +213,8 @@ namespace Terranoita.Game.Physics
                     sb.Begin(SpriteSortMode.Deferred, BlendState.AlphaBlend, Main.DefaultSamplerState, DepthStencilState.None, Main.Rasterizer, null, Main.Transform);
                 }
                 catch (Exception ex) { Entry.Error("fluids draw begin", ex); return; }
+                try { ToxicGround.Draw(sb); }
+                catch (Exception ex) { Entry.Error("toxic draw", ex); }
                 try
                 {
                     if (PerfTest.Enabled) PerfTest.Draw(() => Fluids.Draw(sb));
