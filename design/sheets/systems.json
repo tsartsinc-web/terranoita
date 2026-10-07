@@ -172,16 +172,30 @@
    "id": "wand_slots",
    "description": "Stage 3: four wand slots next to the Terraria inventory, Noita spell editing.",
    "stage": "3",
-   "hooks": [],
-   "code": "-",
+   "hooks": [
+    "magic_item_defaults",
+    "magic_item_prefix",
+    "magic_item_name",
+    "magic_item_affix",
+    "magic_item_icon",
+    "magic_item_world",
+    "magic_item_tooltip",
+    "wand_window_draw",
+    "wand_enter_world"
+   ],
+   "code": "src/Terranoita/Magic/MagicItems.cs, WandStore.cs, WandWindow.cs",
    "_unverified": {}
   },
   {
    "id": "spells",
    "description": "Stage 3: Noita spells cast from wands. spells.json and wands.json come from the player's gun_actions.lua and wand entities (tncli spells, tools/apply_spells.py); Spells/Gun.cs is Noita's deck/hand/discard cast loop (mana, multicast, modifiers, triggers, wrap, recharge), tested without the game.",
    "stage": "3",
-   "hooks": [],
-   "code": "src/Terranoita.Core/Spells/",
+   "hooks": [
+    "magic_held_wand",
+    "spell_shots_update",
+    "spell_shots_draw"
+   ],
+   "code": "src/Terranoita.Core/Noita/LuaGun.cs, LuaWandMaker.cs; src/Terranoita/Magic/Casting.cs, SpellShots.cs",
    "_unverified": {}
   },
   {

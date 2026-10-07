@@ -1,0 +1,297 @@
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using HarmonyLib;
+using Microsoft.Xna.Framework;
+using Microsoft.Xna.Framework.Graphics;
+using Terranoita.Generated;
+using Terranoita.Noita;
+using Terraria;
+using Terraria.Audio;
+using Terraria.ID;
+
+namespace Terranoita.Game.Magic
+{
+    /// <summary>
+    /// The player's spell projectiles: the mod's own list (like enemy Shots). Each one is its Noita projectile file
+    /// (spell_projectiles.json: speed, gravity, air friction, lifetime, damage, explosion, bounces, penetration) with
+    /// the shot config Noita's gun.lua gave it on top (damage and explosion added, speed multiplier, spread, extra
+    /// lifetime, bounces, gravity, homing...). Triggers release their payload where they hit or expire.
+    /// Units: 1 Noita pixel = 3 Terraria pixels, 1 Noita damage unit = 25 hp.
+    /// </summary>
+    public static class SpellShots
+    {
+        const float Px = Terranoita.Noita.Units.PixelScale;
+        const int Max = 600;
+
+        sealed class Shot
+        {
+            public int Id;
+            public SpellProjectileDef Def;
+            public LuaShot Lua;
+            public Vector2 Pos, Vel;
+            public int Life, Age, Bounces, TriggerIn;
+            public float Damage, ExplosionDamage, Radius, Gravity, Friction, Knockback;
+            public bool Fire, Homing, Penetrate;
+            public Player Owner;
+            public readonly HashSet<int> Hit = new HashSet<int>();
+        }
+
+        static readonly List<Shot> Live = new List<Shot>();
+        static Dictionary<string, SpellProjectileDef> _defs;
+        static int _nextId = 1;
+        static readonly HashSet<string> Unknown = new HashSet<string>();
+
+        static SpellProjectileDef Def(string file)
+        {
+            if (_defs == null)
+                _defs = SpellProjectiles.All.ToDictionary(x => x.Id, StringComparer.OrdinalIgnoreCase);
+            return file != null && _defs.TryGetValue(file, out var def) ? def : null;
+        }
+
+        public static List<int> Ids() => Live.Select(s => s.Id).ToList();
+        public static Vector2 Position(int id) => Live.FirstOrDefault(s => s.Id == id)?.Pos ?? Vector2.Zero;
+
+        /// <summary>A projectile of a cast, from pos toward dir.</summary>
+        public static void Fire(LuaShot ls, Vector2 pos, Vector2 dir, Player owner, WandData wand)
+        {
+            if (Live.Count >= Max)
+                return;
+            var d = Def(ls.File);
+            if (d == null)
+            {
+                if (Unknown.Add(ls.File ?? "?"))
+                    Entry.Log("spell projectile not in spell_projectiles.json yet: " + ls.File);
+                return;
+            }
+            var rng = Main.rand;
+            float speed = (d.SpeedMin + (float)rng.NextDouble() * Math.Max(0, d.SpeedMax - d.SpeedMin)) * Math.Max(0f, ls.Get("speed_multiplier"));
+            // spread: the shot's degrees (wand + spells), and the projectile's own randomness
+            float spreadDeg = Math.Max(0f, ls.Get("spread_degrees"));
+            float angle = (float)Math.Atan2(dir.Y, dir.X) + MathHelper.ToRadians(((float)rng.NextDouble() * 2 - 1) * spreadDeg)
+                          + ((float)rng.NextDouble() * 2 - 1) * d.SpreadRad;
+            var s = new Shot
+            {
+                Id = _nextId++, Def = d, Lua = ls, Pos = pos, Owner = owner,
+                Vel = new Vector2((float)Math.Cos(angle), (float)Math.Sin(angle)) * speed * Px / 60f,
+                Life = (d.Lifetime > 0 ? d.Lifetime : 600) + (int)ls.Get("lifetime_add") + rng.Next(-d.LifetimeRandom, d.LifetimeRandom + 1),
+                Bounces = d.Bounces + (int)ls.Get("bounces"),
+                Damage = Math.Max(0, d.Damage + ls.Get("damage_projectile_add") + ls.Get("damage_fire_add") + ls.Get("damage_ice_add") +
+                                     ls.Get("damage_electricity_add") + ls.Get("damage_slice_add") + ls.Get("damage_curse_add") +
+                                     ls.Get("damage_drill_add") + ls.Get("damage_melee_add")) * 25f,
+                ExplosionDamage = Math.Max(0, d.ExplosionDamage + ls.Get("damage_explosion_add")) * 25f,
+                Radius = Math.Max(0, d.ExplosionRadius + ls.Get("explosion_radius")) * Px,
+                Gravity = (d.Gravity + ls.Get("gravity")) * Px / 3600f,
+                Friction = d.AirFriction,
+                Knockback = d.Knockback + ls.Get("knockback_force"),
+                Fire = ls.Get("damage_fire_add") > 0 || (d.Material ?? "").Contains("fire"),
+                Homing = ls.Text("extra_entities").Contains("homing"),
+                Penetrate = d.Penetrate,
+                TriggerIn = ls.Trigger == "timer" ? Math.Max(1, ls.TriggerFrames) : -1,
+            };
+            if (s.Life < 1)
+                s.Life = 1;
+            Live.Add(s);
+            NoitaSound.PlayFirst(d.Audio, pos, "create");
+        }
+
+        static void Update()
+        {
+            if (Main.gameMenu || Live.Count == 0)
+                return;
+            for (int i = Live.Count - 1; i >= 0; i--)
+            {
+                var s = Live[i];
+                bool gone = false;
+                try { gone = Step(s); }
+                catch (Exception ex) { Entry.Error("spell shot " + s.Def.Id, ex); gone = true; }
+                if (gone)
+                    Live.Remove(s);
+            }
+        }
+
+        /// <summary>One frame; true when the shot is gone.</summary>
+        static bool Step(Shot s)
+        {
+            s.Age++;
+            s.Vel.Y += s.Gravity;
+            if (s.Friction > 0)
+                s.Vel *= Math.Max(0f, 1f - s.Friction / 60f);
+            if (s.Homing)
+                Home(s);
+            // the timer of a timer trigger
+            if (s.TriggerIn > 0 && --s.TriggerIn == 0)
+                Release(s);
+            var next = s.Pos + s.Vel;
+            if (s.Def.CollideWithWorld && Collision.SolidCollision(next - new Vector2(2, 2), 4, 4))
+            {
+                if (s.Bounces > 0)
+                {
+                    s.Bounces--;
+                    // bounce off the side it hit
+                    if (Collision.SolidCollision(new Vector2(next.X, s.Pos.Y) - new Vector2(2, 2), 4, 4))
+                        s.Vel.X = -s.Vel.X * 0.8f;
+                    if (Collision.SolidCollision(new Vector2(s.Pos.X, next.Y) - new Vector2(2, 2), 4, 4))
+                        s.Vel.Y = -s.Vel.Y * 0.8f;
+                    return false;
+                }
+                End(s, true);
+                return true;
+            }
+            s.Pos = next;
+            if (s.Def.Material != "none" && s.Age % 8 == 0 && Physics.Patches.On)
+                Physics.Fluids.Add((int)(s.Pos.X / 16), (int)(s.Pos.Y / 16), s.Def.Material, 12);
+            // creatures
+            var box = new Rectangle((int)s.Pos.X - 4, (int)s.Pos.Y - 4, 8, 8);
+            for (int i = 0; i < Main.maxNPCs; i++)
+            {
+                var n = Main.npc[i];
+                if (!n.active || n.friendly || n.dontTakeDamage || n.life <= 0 || s.Hit.Contains(i) || !n.Hitbox.Intersects(box))
+                    continue;
+                Strike(s, n, s.Damage);
+                if (s.Def.DamageEveryFrames <= 0)
+                    s.Hit.Add(i);
+                if (!s.Penetrate && s.Def.DieOnHit)
+                {
+                    End(s, true);
+                    return true;
+                }
+            }
+            if (s.Def.DamageEveryFrames > 0 && s.Age % s.Def.DamageEveryFrames == 0)
+                s.Hit.Clear();
+            if (--s.Life <= 0)
+            {
+                End(s, false);
+                return true;
+            }
+            return false;
+        }
+
+        static void Home(Shot s)
+        {
+            NPC best = null;
+            float bestD = 480f;
+            for (int i = 0; i < Main.maxNPCs; i++)
+            {
+                var n = Main.npc[i];
+                if (!n.active || n.friendly || n.townNPC || n.life <= 0)
+                    continue;
+                float d = Vector2.Distance(n.Center, s.Pos);
+                if (d < bestD)
+                {
+                    bestD = d;
+                    best = n;
+                }
+            }
+            if (best == null)
+                return;
+            float speed = s.Vel.Length();
+            var want = Vector2.Normalize(best.Center - s.Pos) * speed;
+            s.Vel = Vector2.Lerp(s.Vel, want, 0.08f);
+        }
+
+        static void Strike(Shot s, NPC n, float damage)
+        {
+            int dmg = (int)Math.Round(damage);
+            if (dmg <= 0 || s.Owner == null)
+                return;
+            bool crit = Main.rand.NextFloat() * 100f < s.Lua.Get("damage_critical_chance");
+            s.Owner.ApplyDamageToNPC(n, dmg, Math.Max(0f, s.Knockback / 10f), s.Vel.X >= 0 ? 1 : -1, crit, null, 0, -1);
+            if (s.Fire)
+                n.AddBuff(BuffID.OnFire, 180);
+        }
+
+        /// <summary>The shot hits something or runs out: its explosion, its payload.</summary>
+        static void End(Shot s, bool hit)
+        {
+            if (s.Lua.Trigger == "hit_world" && hit || s.Lua.Trigger == "death" || s.Lua.Trigger == "timer" && s.TriggerIn > 0)
+                Release(s);
+            if (s.Radius > 0 && (hit || s.Def.ExplodeOnDeath))
+                Explode(s);
+            else
+                NoitaSound.PlayFirst(s.Def.Audio, s.Pos, "destroy");
+        }
+
+        static void Release(Shot s)
+        {
+            if (s.Lua.Payload.Count == 0)
+                return;
+            var dir = s.Vel.LengthSquared() > 0.01f ? Vector2.Normalize(s.Vel) : new Vector2(1, 0);
+            var payload = s.Lua.Payload.ToList();
+            s.Lua.Payload.Clear();   // released once
+            foreach (var p in payload)
+                Fire(p, s.Pos - s.Vel, dir, s.Owner, null);
+        }
+
+        static void Explode(Shot s)
+        {
+            float r = s.Radius;
+            for (int i = 0; i < Main.maxNPCs; i++)
+            {
+                var n = Main.npc[i];
+                if (n.active && !n.friendly && !n.dontTakeDamage && n.life > 0 && Vector2.Distance(n.Center, s.Pos) <= r + n.width / 2f)
+                    Strike(s, n, s.ExplosionDamage + (s.Hit.Contains(i) ? 0 : s.Damage));
+            }
+            int dust = s.Fire || s.Radius >= 24 ? DustID.Torch : DustID.Smoke;
+            int count = (int)Math.Min(80, 6 + r / 2);
+            for (int k = 0; k < count; k++)
+            {
+                var v = Main.rand.NextVector2Circular(r / 10f, r / 10f);
+                Dust.NewDust(s.Pos - new Vector2(4, 4), 8, 8, dust, v.X, v.Y);
+            }
+            if (!NoitaSound.Play(s.Def.ExplosionSound, s.Pos) && r >= 24)
+                SoundEngine.PlaySound(SoundID.Item14, s.Pos);
+            // big Noita explosions dig, as the enemies' do
+            if (r >= 16 && Physics.Patches.On)
+                Physics.Blast.Explode(s.Pos, r, s.Fire);
+            Lighting.AddLight(s.Pos, 1f, 0.7f, 0.3f);
+        }
+
+        static void Draw()
+        {
+            if (Live.Count == 0)
+                return;
+            var sb = Main.spriteBatch;
+            sb.Begin(SpriteSortMode.Deferred, BlendState.AlphaBlend, Main.DefaultSamplerState, DepthStencilState.None, Main.Rasterizer, null, Main.Transform);
+            try
+            {
+                foreach (var s in Live)
+                {
+                    var art = NoitaArt.Get(s.Def.Sprite);
+                    Lighting.AddLight(s.Pos, 0.35f, 0.3f, 0.5f);
+                    if (art?.Texture == null)
+                    {
+                        if (!Main.gamePaused)
+                            Dust.NewDustPerfect(s.Pos, DustID.PurpleTorch, Vector2.Zero, 0, default(Color), 1.1f).noGravity = true;
+                        continue;
+                    }
+                    var anim = art.Sprite.Find("fireball", "default", "stand");
+                    int fx = 0, fy = 0, fw = art.Texture.Width, fh = art.Texture.Height;
+                    if (anim != null)
+                        anim.FrameRect(anim.FrameAt(s.Age), out fx, out fy, out fw, out fh);
+                    var origin = anim != null ? new Vector2(art.Sprite.OffsetX, art.Sprite.OffsetY) : new Vector2(fw / 2f, fh / 2f);
+                    float rot = (float)Math.Atan2(s.Vel.Y, s.Vel.X);
+                    sb.Draw(art.Texture, s.Pos - Main.screenPosition, new Rectangle(fx, fy, fw, fh), Color.White, rot, origin, Px, SpriteEffects.None, 0f);
+                }
+            }
+            catch (Exception ex) { Entry.Error("spell shots draw", ex); }
+            finally { sb.End(); }
+        }
+
+        public static void Clear() => Live.Clear();
+
+        [Hook("spell_shots_update")]
+        [HarmonyPatch(typeof(Main), "UpdateWorld_Projectiles")]
+        static class UpdatePatch
+        {
+            static void Postfix() => Update();
+        }
+
+        [Hook("spell_shots_draw")]
+        [HarmonyPatch(typeof(Main), "DrawProjectiles")]
+        static class DrawPatch
+        {
+            static void Postfix() => Draw();
+        }
+    }
+}

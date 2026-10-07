@@ -67,6 +67,8 @@ namespace Terranoita.Noita
         public int Frame { get => _frame; set => _frame = value; }
 
         public LuaWorld World;
+        /// <summary>A limited spell was used: (card number from 1 in Load order, uses left).</summary>
+        public Action<int, int> UsesChanged;
 
         /// <param name="readText">Reads a file of the player's Noita (data/scripts/...), null if missing.</param>
         public LuaGun(Func<string, string> readText, LuaWorld world = null)
@@ -93,7 +95,11 @@ namespace Terranoita.Noita
             g["OnActionPlayed"] = (Action<string>)(id => _cast?.Played.Add(id));
             g["OnNotEnoughManaForAction"] = (Action)(() => { });
             g["ActionUsed"] = DynValue.NewCallback((c, a) => DynValue.Nil);
-            g["ActionUsesRemainingChanged"] = DynValue.NewCallback((c, a) => DynValue.True);
+            g["ActionUsesRemainingChanged"] = DynValue.NewCallback((c, a) =>
+            {
+                UsesChanged?.Invoke((int)a[0].Number, (int)a[1].Number);
+                return DynValue.True;
+            });
             g["LogAction"] = DynValue.NewCallback((c, a) => DynValue.Nil);
             g["Reflection_RegisterProjectile"] = DynValue.NewCallback((c, a) => DynValue.Nil);
             g["BaabInstruction"] = DynValue.NewCallback((c, a) => DynValue.Nil);

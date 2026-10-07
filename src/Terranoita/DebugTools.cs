@@ -107,6 +107,8 @@ namespace Terranoita.Game
             NoitaSound.Update();
             try { Carriers.Sweep(); }
             catch (Exception ex) { Entry.Error("segments sweep", ex); }
+            try { Magic.WandWindow.Update(); Magic.Casting.Update(); }
+            catch (Exception ex) { Entry.Error("magic update", ex); }
             if (Auto)
                 AutoTest();
             if (Main.gameMenu || Main.drawingPlayerChat || Main.editSign || Main.editChest)
@@ -196,10 +198,10 @@ namespace Terranoita.Game
                 }
                 return;
             }
-            if (ItemSpike.Enabled)
+            if (Magic.MagicTest.Enabled)
             {
-                ItemSpike.Frame(p, _worldFrames);
-                if (_worldFrames == 240 && ExitWhenDone)
+                Magic.MagicTest.Frame(p, _worldFrames);
+                if (_worldFrames == Magic.MagicTest.Length && ExitWhenDone)
                     Main.instance.Exit();
                 return;
             }

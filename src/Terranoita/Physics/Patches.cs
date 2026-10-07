@@ -84,6 +84,7 @@ namespace Terranoita.Game.Physics
             {
                 Falling.Clear();
                 Fire.Clear();
+                Magic.SpellShots.Clear();
                 Status.Clear();
                 Fluids.Clear();
                 ToxicGround.Clear();
@@ -124,6 +125,8 @@ namespace Terranoita.Game.Physics
         {
             static void Postfix()
             {
+                try { Magic.WandWindow.SaveSlots(); Magic.WandStore.Save(); }
+                catch (Exception ex) { Entry.Error("magic save", ex); }
                 if (!On)
                     return;
                 try { Placed.Save(); Fluids.Save(); }

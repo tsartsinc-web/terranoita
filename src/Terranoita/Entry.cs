@@ -79,8 +79,7 @@ namespace Terranoita.Game
 
         static void ApplyPatches()
         {
-            if (ItemSpike.Enabled)
-                ItemSpike.Candidates();   // before any player or world is loaded
+            Magic.MagicItems.Init();   // before any player or world is loaded: Terraria keeps the spell and wand items
             var harmony = _harmony = new Harmony("gg.melty.terranoita");
             harmony.PatchAll(typeof(Entry).Assembly);
             NoitaArt.Preload();

@@ -517,3 +517,20 @@ Entry.Stage default 1b, version 0.2.0. Проверить на ПК also: worm l
   poison pools become rock_static_radioactive / rock_static_poison (ToxicGround, kept in the .fluids file; 0.3.x worlds
   get them once, pools version 3), also lava + sludge. Green glow on open sides; touching gives RADIOACTIVE / POISONED
   and Noita's touch damage. test1 copy: 1541 toxic blocks. Not seen in game yet.
+
+## 2026-10-07 stage 3: Noita's own spell code in Terraria (author: "take Noita's system, its code")
+- MoonSharp (MIT, author allowed the download) runs the player's data/scripts/gun/gun.lua + gun_actions.lua as is:
+  Core/Noita/LuaGun.cs plays Noita's engine (BeginProjectile, triggers, RegisterGunAction, StartReload...), LuaWorld
+  answers the scripts' world questions (enemies near, caster hp, gold, held wand). All 422 spells run (tncli lua-all).
+  Gun.cs and the hand-port list are no longer the plan.
+- LuaWandMaker runs Noita's wand scripts (starting_wand.lua, wand_level_XX.lua -> gun_procedural.lua). Two traps:
+  numbers must be printed with the invariant culture (Russian Windows: "183,33"), and pairs() must walk the list part
+  first as LuaJIT does (get_gun_probs relied on it). LuaCulture.cs.
+- Items: spells and wands are Terraria items on unused item types (spike: deprecated types are dropped on load unless
+  ItemID.Sets.Deprecated is cleared; type + stack survive inventory and chests; the prefix byte is patched to hold
+  the spell/wand number). Wands in %LOCALAPPDATA%/Terranoita/wands.txt, spell numbers in spell_numbers.txt.
+- Casting (Magic/Casting.cs): held wand + use button -> LuaGun.Cast with Terraria mana (author); SpellShots from
+  spell_projectiles.json + the shot config. Wand window: key U, Noita's UI pictures, held wand + 4 wand slots,
+  [Noita]/[Terraria] look switch (author). New characters get Noita's two starting wands.
+- MAGIC autotest: starting wands given, bolt staff kills a zombie, bomb/trigger/divide/homing/black hole/grenade/
+  fireball/acid wands cast without errors. Wand window not seen yet (minimized).

@@ -31,6 +31,9 @@ namespace Terranoita.Game
 
         public static bool Ready => _files != null;
 
+        /// <summary>A text file of the player's Noita (Lua scripts), null if missing.</summary>
+        public static string ReadText(string path) => _files != null && _files.TryReadText(path, out var t) ? t : null;
+
         public static void Open(string noitaDir)
         {
             if (string.IsNullOrEmpty(noitaDir))

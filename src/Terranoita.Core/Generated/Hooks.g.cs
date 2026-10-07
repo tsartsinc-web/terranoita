@@ -56,6 +56,18 @@ namespace Terranoita.Generated
             new HookDef { Id = "mouse_over", Target = "Terraria.Main:DrawMouseOver()", Patch = "postfix", System = "block_physics", Purpose = "The name of the liquid under the mouse (??? if not touched yet), shown like a sign's text.", Stage = "2" },
             new HookDef { Id = "cursor_draw", Target = "Terraria.Main:DrawInterface_36_Cursor()", Patch = "postfix", System = "block_physics", Purpose = "The hover name of a liquid drawn next to the cursor, last, so nothing covers it.", Stage = "2" },
             new HookDef { Id = "npc_health_bars", Target = "Terraria.Main:DrawInterface_14_EntityHealthBars()", Patch = "prefix", System = "carrier_npc", Purpose = "One health bar per Noita worm: the body segments look unhurt while the bars are drawn.", Stage = "1b" },
+            new HookDef { Id = "magic_item_defaults", Target = "Terraria.Item:SetDefaults(int, ItemVariant)", Patch = "postfix", System = "wand_slots", Purpose = "Spell and wand items (unused item types): stack 1, no use of their own.", Stage = "3" },
+            new HookDef { Id = "magic_item_prefix", Target = "Terraria.Item:Prefix(int)", Patch = "prefix", System = "wand_slots", Purpose = "The prefix byte of a spell or wand item is which spell or wand: kept, never rolled.", Stage = "3" },
+            new HookDef { Id = "magic_item_name", Target = "Terraria.Item:get_Name()", Patch = "postfix", System = "wand_slots", Purpose = "Spell and wand names from the player's Noita (in the game's language).", Stage = "3" },
+            new HookDef { Id = "magic_item_affix", Target = "Terraria.Item:AffixName()", Patch = "postfix", System = "wand_slots", Purpose = "No prefix words before spell and wand names.", Stage = "3" },
+            new HookDef { Id = "magic_item_icon", Target = "Terraria.UI.ItemSlot:DrawItemIcon(Item, int, SpriteBatch, Vector2, float, float, Color, float, bool)", Patch = "prefix", System = "wand_slots", Purpose = "Spell and wand icons from the player's Noita in every slot.", Stage = "3" },
+            new HookDef { Id = "magic_item_world", Target = "Terraria.Main:DrawItem(WorldItem, int)", Patch = "prefix", System = "wand_slots", Purpose = "Spells and wands lying on the ground drawn with their Noita pictures.", Stage = "3" },
+            new HookDef { Id = "magic_item_tooltip", Target = "Terraria.Main:MouseText_DrawItemTooltip_GetLinesInfo(Item, ref int, float, ref int, string[], Color[])", Patch = "postfix", System = "wand_slots", Purpose = "Tooltips of spells and wands: Noita's stats.", Stage = "3" },
+            new HookDef { Id = "magic_held_wand", Target = "Terraria.Main:DrawPlayers_AfterProjectiles()", Patch = "postfix", System = "spells", Purpose = "The held wand drawn in the player's hand, pointing at the mouse.", Stage = "3" },
+            new HookDef { Id = "spell_shots_update", Target = "Terraria.Main:UpdateWorld_Projectiles()", Patch = "postfix", System = "spells", Purpose = "The player's spell projectiles move, hit and explode.", Stage = "3" },
+            new HookDef { Id = "spell_shots_draw", Target = "Terraria.Main:DrawProjectiles()", Patch = "postfix", System = "spells", Purpose = "The player's spell projectiles drawn.", Stage = "3" },
+            new HookDef { Id = "wand_window_draw", Target = "Terraria.Main:DrawInterface_27_Inventory()", Patch = "postfix", System = "wand_slots", Purpose = "The wand window (key U): wand slots, stats, spell slots.", Stage = "3" },
+            new HookDef { Id = "wand_enter_world", Target = "Terraria.Player+Hooks:EnterWorld(int)", Patch = "postfix", System = "wand_slots", Purpose = "The character's wand slots read; a new character gets Noita's starting wands.", Stage = "3" },
         };
     }
 }
