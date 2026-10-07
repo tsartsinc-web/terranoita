@@ -231,10 +231,13 @@ namespace Terranoita.Game.Magic
             // right of the coin and ammo slots (author), clear of crafting (left, below) and equipment (right)
             int x0 = 580, y = 105;
             var rows = new List<(string label, Item[] arr, int index)>();
-            if (Casting.HeldWand(p) != null)
-                rows.Add(("", p.inventory, p.selectedItem));
+            // every wand on the hotbar (Noita's quick inventory), whatever is in hand: taking a spell on the mouse makes
+            // it Terraria's held item, and the wand's row must stay (author)
+            for (int i = 0; i < 10; i++)
+                if (MagicItems.IsWand(p.inventory[i]))
+                    rows.Add((((i + 1) % 10).ToString(), p.inventory, i));
             for (int i = 0; i < WandSlotCount; i++)
-                rows.Add(((i + 1).ToString(), WandSlots, i));
+                rows.Add(("", WandSlots, i));   // the wand slots: their own frame, no number
 
             // look switch
             string look = _terrariaLook ? "[Terraria]" : "[Noita]";
@@ -264,7 +267,8 @@ namespace Terranoita.Game.Magic
             var wandRect = new Rectangle(x, y, box, box);
             DrawBox(sb, wandRect, arr[index], arr == WandSlots ? "full_inventory_box" : "quick_inventory_box");
             if (label.Length > 0)
-                Utils.DrawBorderString(sb, label, new Vector2(x + 2, y + 1), Color.White * 0.8f, 0.6f);
+                Utils.DrawBorderString(sb, label, new Vector2(x + 2, y + 1),
+                    arr == p.inventory && index == p.selectedItem ? Color.Gold : Color.White * 0.8f, 0.6f);   // the hotbar key; gold = selected
             if (wandRect.Contains(Main.mouseX, Main.mouseY))
             {
                 p.mouseInterface = true;

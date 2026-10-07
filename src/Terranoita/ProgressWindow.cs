@@ -229,7 +229,7 @@ namespace Terranoita.Game
         {
             if (!Main.playerInventory || Book == null)
                 return;
-            _button = new Rectangle(458, 292, 26, 26);
+            _button = new Rectangle(536, 254, 26, 26);   // right of Terraria's emote button, clear of the trash can
             var sb = Main.spriteBatch;
             var box = Ui("grid_box");
             if (box?.Texture != null)
