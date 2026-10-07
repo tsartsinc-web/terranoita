@@ -3,6 +3,7 @@
 #   powershell -File tools/game_test.ps1 -Mode magic            # MAGIC: wands, casting, screenshots
 #   powershell -File tools/game_test.ps1 -Mode fps -World test1 # PERF: physics time by cave pools
 #   powershell -File tools/game_test.ps1 -Mode enemies -Only worm,eel
+#   powershell -File tools/game_test.ps1 -Mode sandbox          # the author plays: arena, chests of every spell and wand
 # Modes: magic, fps, physics, gallery, audit, enemies. Screenshots: %LOCALAPPDATA%/Terranoita/shots/*.png
 param(
     [string]$Mode = "magic",
@@ -20,6 +21,7 @@ $log = Join-Path $data "logs\latest.log"
 if (Test-Path $log) { [IO.File]::Delete($log) }
 $env:TERRANOITA_AUTOTEST = "1"; $env:TERRANOITA_AUTOTEST_EXIT = "1"
 switch ($Mode) {
+    "sandbox" { $env:TERRANOITA_SANDBOX = "1"; $env:TERRANOITA_AUTOTEST_EXIT = "" }
     "magic"   { $env:TERRANOITA_AUTOTEST_MAGIC = "1"; $filter = "MAGIC|world loot|starting wands|screenshot" }
     "fps"     { $env:TERRANOITA_AUTOTEST_FPS = "1"; $filter = "PERF|cave pools|fluids:" }
     "physics" { $env:TERRANOITA_AUTOTEST_PHYSICS = "1"; $filter = "PHYSICS" }
@@ -29,6 +31,12 @@ switch ($Mode) {
 }
 if ($World) { $env:TERRANOITA_AUTOTEST_WORLD = $World }
 if ($Only) { $env:TERRANOITA_AUTOTEST_ONLY = $Only }
+if ($Mode -eq "sandbox") {
+    Start-Process -FilePath (Join-Path $Terraria "Terranoita.exe") -WorkingDirectory $Terraria `
+        -ArgumentList @("--noita-dir", "`"$Noita`"", "-savedirectory", "`"$data	estsave`"") | Out-Null
+    "sandbox started: the game stays open"
+    exit 0
+}
 $p = Start-Process -FilePath (Join-Path $Terraria "Terranoita.exe") -WorkingDirectory $Terraria -PassThru -WindowStyle Minimized `
     -ArgumentList @("--noita-dir", "`"$Noita`"", "-savedirectory", "`"$data\testsave`"")
 if (-not $p.WaitForExit($Minutes * 60000)) { Stop-Process -Id $p.Id -Force; "TIMEOUT" }

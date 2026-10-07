@@ -198,6 +198,11 @@ namespace Terranoita.Game
                 }
                 return;
             }
+            if (Magic.Sandbox.Enabled)
+            {
+                Magic.Sandbox.Frame(p, _worldFrames);
+                return;
+            }
             if (Magic.MagicTest.Enabled)
             {
                 Magic.MagicTest.Frame(p, _worldFrames);
