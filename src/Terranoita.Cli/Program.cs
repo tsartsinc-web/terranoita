@@ -22,6 +22,8 @@ namespace Terranoita.Cli
     {
         static int Main(string[] args)
         {
+            if (args.Length >= 3 && args[0] == "tr-methods")   // tr-methods <Terraria.exe> <Type> [regex]
+                return Terranoita.Cli.TerrariaMethods.Run(args[1], args[2], args.Length > 3 ? args[3] : null);
             if (args.Length < 2)
             {
                 Console.Error.WriteLine("usage: tncli wak-list|wak-cat|entity|facts|spells <noitaDir> ...");
@@ -73,6 +75,24 @@ namespace Terranoita.Cli
                             Console.WriteLine("spells " + ids.Count + ": ran " + ok + ", failed " + failed);
                             foreach (var kv in missing)
                                 Console.WriteLine("engine call " + kv.Key + " (" + kv.Value.Count + "): " + string.Join(" ", kv.Value.Take(12)));
+                            return 0;
+                        }
+                        case "lua-wand":   // lua-wand <noita> <script.lua> [count]: wands made by Noita's own procedural script
+                        {
+                            int n = args.Length > 3 ? int.Parse(args[3]) : 3;
+                            for (int k = 0; k < n; k++)
+                            {
+                                var maker = new Terranoita.Noita.LuaWandMaker(p => Text(files, p), k + 1);
+                                Terranoita.Noita.MadeWand w;
+                                try { w = maker.Make(args[2], 100 * k, 200 + 37 * k); }
+                                catch (MoonSharp.Interpreter.InterpreterException ex) { Console.WriteLine("lua error: " + ex.DecoratedMessage); return 1; }
+                                Console.WriteLine("'" + w.Name + "' " + w.Sprite + " | casts " + w.SpellsPerCast + " shuffle " + w.Shuffle + " delay " + w.CastDelay +
+                                                  " recharge " + w.RechargeTime + " mana " + w.ManaMax + "/" + w.ManaChargeSpeed + " capacity " + w.Capacity +
+                                                  " spread " + w.Spread + " speed " + w.SpeedMultiplier + " | spells " + string.Join(" ", w.Spells) +
+                                                  (w.AlwaysCast.Count > 0 ? " | always " + string.Join(" ", w.AlwaysCast) : "") +
+                                                  (w.Missing.Count > 0 ? " | engine calls we lack: " + string.Join(", ", w.Missing) : ""));
+                                if (Environment.GetEnvironmentVariable("TN_RAW") == "1") Console.WriteLine("   raw: " + string.Join("; ", w.Raw.Select(kv => kv.Key + "=" + kv.Value)));
+                            }
                             return 0;
                         }
                         case "lua-cast":   // lua-cast <noita> <SPELL,SPELL,...> [casts] [always,cast]: Noita's own gun.lua shooting a wand

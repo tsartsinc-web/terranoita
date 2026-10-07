@@ -169,7 +169,11 @@ namespace Terranoita.Noita
             string gunaction = _read("data/scripts/gun/gunaction_generated.lua") ?? throw new InvalidOperationException("no gunaction_generated.lua");
             var m = Regex.Match(gunaction, @"function\s+ConfigGunActionInfo_ReadToLua\s*\(([^)]*)\)");
             _actionFields = m.Groups[1].Value.Split(',').Select(s => s.Trim()).Where(s => s.Length > 0).ToArray();
-            DoFile("data/scripts/gun/gun.lua", true);
+            using (LuaCulture.Enter())
+            {
+                _lua.DoString(LuaCulture.Prelude);
+                DoFile("data/scripts/gun/gun.lua", true);
+            }
         }
 
         DynValue DoFile(string path, bool once)
@@ -300,6 +304,12 @@ namespace Terranoita.Noita
         /// <summary>Set the wand up and build its deck, as the engine does when a wand is made or changed.</summary>
         public void Load(LuaWand w)
         {
+            using (LuaCulture.Enter())
+                LoadInner(w);
+        }
+
+        void LoadInner(LuaWand w)
+        {
             Call("ConfigGun_ReadToLua", w.SpellsPerCast, w.Shuffle, w.RechargeTime, w.Capacity);
             Call("_set_gun");
             var state = new Table(_lua);
@@ -326,6 +336,7 @@ namespace Terranoita.Noita
             _scopes.Clear();
             _open.Clear();
             _lastConfig = null;
+            var culture = LuaCulture.Enter();
             try
             {
                 Call("_start_shot", mana);
@@ -335,7 +346,7 @@ namespace Terranoita.Noita
                 _cast.Mana = (float)_lua.Globals.Get("mana").CastToNumber().GetValueOrDefault(mana);
                 return _cast;
             }
-            finally { _cast = null; _frame++; }
+            finally { _cast = null; _frame++; culture.Dispose(); }
         }
 
         /// <summary>Ids of every spell in the player's gun_actions.lua.</summary>
