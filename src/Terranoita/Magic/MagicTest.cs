@@ -37,12 +37,12 @@ namespace Terranoita.Game.Magic
             if (frame == 100)
             {
                 Log("hotbar wands: " + string.Join(", ", Enumerable.Range(0, 10).Where(i => MagicItems.IsWand(p.inventory[i]))
-                    .Select(i => i + " " + p.inventory[i].Name + " [" + string.Join(" ", MagicItems.WandOf(p.inventory[i]).Slots.Select(s => s ?? "-")) + "]")));
+                    .Select(i => i + " " + p.inventory[i].Name + " [" + (MagicItems.WandOf(p.inventory[i]) == null ? "NUMBER LOST" : string.Join(" ", MagicItems.WandOf(p.inventory[i]).Slots.Select(s => s ?? "-"))) + "]")));
                 Log("wand slots: " + string.Join(", ", WandWindow.WandSlots.Select(it => it.IsAir ? "-" : it.Name)));
                 Log("hotbar raw: " + string.Join(" ", Enumerable.Range(0, 10).Select(i => p.inventory[i].type + ":" + p.inventory[i].prefix)) +
                     "; prefix calls while loading " + MagicItems.PrefixCalls + ", last " + MagicItems.LastPrefix);
                 // where would a wand's number get lost? straight Prefix calls and a Serialize/DeserializeFrom round trip
-                var probe = MagicItems.MakeWand(WandStore.NewWand());
+                var probe = MagicItems.MakeWand(new WandData { Id = 300 });   // not kept in the store
                 byte made = probe.prefix;
                 var a = new Item(); a.SetDefaults(probe.type); bool ok1 = a.Prefix(made);
                 var b = new Item(); b.SetDefaults(probe.type); bool ok2 = b.Prefix(made, out bool top);
@@ -90,6 +90,7 @@ namespace Terranoita.Game.Magic
                     w.Name = "test " + k; w.Sprite = "data/items_gfx/handgun.xml"; w.CastDelay = 10; w.RechargeTime = 30; w.SpellsPerCast = 1;
                     w.Slots = Sets[k].ToArray();
                     w.Uses = w.Slots.Select(s => -1).ToArray();
+                    WandStore.Save();   // the saved character carries its number: the next run must find it
                     slot = 1;
                     p.inventory[slot] = MagicItems.MakeWand(w);
                 }

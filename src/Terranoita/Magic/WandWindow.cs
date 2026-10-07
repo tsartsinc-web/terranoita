@@ -25,6 +25,18 @@ namespace Terranoita.Game.Magic
         static bool _open, _terrariaLook;
         static Rectangle _lookRect;
         static Texture2D _pixel;
+        static Texture2D Pixel
+        {
+            get
+            {
+                if (_pixel == null)
+                {
+                    _pixel = new Texture2D(Main.instance.GraphicsDevice, 1, 1);
+                    _pixel.SetData(new[] { Color.White });
+                }
+                return _pixel;
+            }
+        }
         static string _slotsFile;
         const float S = 2f;                         // Noita UI pixels -> screen pixels
 
@@ -212,21 +224,14 @@ namespace Terranoita.Game.Magic
             }
             float charge = Casting.Recharging(w.Id);
             if (charge >= 0)
-            {
-                if (_pixel == null)
-                {
-                    _pixel = new Texture2D(Main.instance.GraphicsDevice, 1, 1);
-                    _pixel.SetData(new[] { Color.White });
-                }
-                sb.Draw(_pixel, new Rectangle(sx, sy + 44, (int)(130 * charge), 3), Color.LightBlue);
-            }
+                sb.Draw(Pixel, new Rectangle(sx, sy + 44, (int)(130 * charge), 3), Color.LightBlue);
 
             // always-cast spells, then the slots
             int px = sx + 150, py = y, slot = (int)(20 * S * 0.9f);
             foreach (var ac in w.AlwaysCast)
             {
                 var r = new Rectangle(px, py, slot, slot);
-                DrawSpellBox(sb, r, ac, true);
+                DrawSpellBox(sb, r, ac, true, -1);
                 if (r.Contains(Main.mouseX, Main.mouseY))
                 {
                     p.mouseInterface = true;
@@ -241,7 +246,7 @@ namespace Terranoita.Game.Magic
             for (int i = 0; i < w.Slots.Length; i++)
             {
                 var r = new Rectangle(px + (i % perRow) * (slot + 2), py + (i / perRow) * (slot + 2), slot, slot);
-                DrawSpellBox(sb, r, w.Slots[i], false);
+                DrawSpellBox(sb, r, w.Slots[i], false, i < w.Uses.Length ? w.Uses[i] : -1);
                 if (!r.Contains(Main.mouseX, Main.mouseY))
                     continue;
                 p.mouseInterface = true;
@@ -306,7 +311,18 @@ namespace Terranoita.Game.Magic
                 ItemSlot.DrawItemIcon(item, ItemSlot.Context.ChestItem, sb, new Vector2(r.Center.X, r.Center.Y), 1f, r.Width * 0.8f, Color.White, 1f, false);
         }
 
-        static void DrawSpellBox(SpriteBatch sb, Rectangle r, string spell, bool always)
+        /// <summary>A spell slot; limited spells show their uses left (Noita), used-up ones are greyed.</summary>
+        static void DrawSpellBox(SpriteBatch sb, Rectangle r, string spell, bool always, int uses)
+        {
+            DrawSpellPicture(sb, r, spell, always);
+            if (spell == null || uses < 0)
+                return;
+            if (uses == 0)
+                sb.Draw(Pixel, r, Color.Black * 0.6f);
+            Utils.DrawBorderString(sb, uses.ToString(), new Vector2(r.X + 3, r.Y + 2), uses == 0 ? Color.Gray : Color.White, 0.55f);
+        }
+
+        static void DrawSpellPicture(SpriteBatch sb, Rectangle r, string spell, bool always)
         {
             if (_terrariaLook)
             {

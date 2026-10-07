@@ -569,3 +569,13 @@ Next steps (author's order: finish magic, then shops):
    ProjectileComponent), LuaWorld.Load (EntityLoad: summons, ALL_SPELLS).
 5. Later, author: two traders (spells, wands) for Noita gold.
 6. A new Melty release only with the author's permission (0.3.1 draft is still waiting for Play).
+
+## 2026-10-07 late: magic test run 1 (new chat)
+- Wand number "lost" after reload: the test's own wands were never written to wands.txt (WandStore.Save missing in
+  MagicTest), so the saved character pointed at numbers the store did not have; the test crashed on it. Fixed (test
+  saves the store; the probe wand is no longer added to the store; log line null-safe). The prefix itself survives
+  (hotbar raw 6143:9, round trip OK).
+- Wand window: limited spells show uses left; used-up spells greyed. Not seen in game yet.
+- Run 1 worries (check next): sets 2 and 3 cast (mana spent) but "spell shots 0" and the zombie not hurt.
+- Screenshots saved (held_wand, window_noita, window_terraria, black_hole): NOT looked at yet.
+- Next: run 2 (hotbar raw must show 6143:N and the test wand found), look at the 4 pictures, then HANDOFF steps 2-4.
