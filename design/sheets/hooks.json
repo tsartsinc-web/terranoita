@@ -215,6 +215,15 @@
    "stage": "2",
    "_unverified": {}
   },
+    {
+   "id": "player_spawn",
+   "target": "Terraria.Player:Spawn(PlayerSpawnContext)",
+   "patch": "postfix",
+   "system": "block_physics",
+   "purpose": "A respawned player loses all Noita status effects (author: burning went on after death).",
+   "stage": "2",
+   "_unverified": {}
+  },
   {
    "id": "projectile_update",
    "target": "Terraria.Projectile:Update(int)",

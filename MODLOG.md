@@ -483,3 +483,9 @@ Entry.Stage default 1b, version 0.2.0. Проверить на ПК also: worm l
 - Per-hit logs only in tests.
 - 0.3.1 submitted to Melty as a draft (terranoita-0.3.1.zip, 934983 bytes, sha256 2fd57554...f85f2); live once the author presses Play on it in the Melty app.
 
+
+## 2026-10-07 bugs from the author
+- Fish and lampreys spawn only in water (Spawning.Swims/Water).
+- Respawn clears all Noita status effects (hook player_spawn).
+- Not in the 0.3.1 draft yet.
+

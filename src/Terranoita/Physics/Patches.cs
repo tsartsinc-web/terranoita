@@ -104,6 +104,18 @@ namespace Terranoita.Game.Physics
             }
         }
 
+        [Hook("player_spawn")]
+        [HarmonyPatch(typeof(Player), nameof(Player.Spawn), new[] { typeof(PlayerSpawnContext) })]
+        static class SpawnPatch
+        {
+            // author: a respawned player starts clean, without the effects that killed them
+            static void Postfix(Player __instance)
+            {
+                if (On && __instance.whoAmI == Main.myPlayer)
+                    Status.Clear();
+            }
+        }
+
         [Hook("world_save")]
         [HarmonyPatch(typeof(WorldFile), nameof(WorldFile.SaveWorld), new[] { typeof(bool), typeof(bool), typeof(bool) })]
         static class SavePatch

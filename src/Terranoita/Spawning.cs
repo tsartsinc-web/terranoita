@@ -5,6 +5,7 @@ using HarmonyLib;
 using Microsoft.Xna.Framework;
 using Terranoita.Generated;
 using Terraria;
+using Terraria.ID;
 
 namespace Terranoita.Game
 {
@@ -91,6 +92,7 @@ namespace Terranoita.Game
                 bool grounded = Solid(x, floor + 1);
                 var options = _pool.Where(o => (only == null || o.def == only) &&
                                                (grounded || o.def.Flies) &&
+                                               (!Swims(o.def) || Water(x, floor)) &&
                                                o.where.Any(w => w(p, x, floor))).ToList();
                 if (only != null && options.Count == 0)
                     options = _pool.Where(o => o.def == only).ToList();
@@ -104,6 +106,15 @@ namespace Terranoita.Game
                 return Carriers.Spawn(pick, x * 16 + 8, (floor + 1) * 16);
             }
             return -1;
+        }
+
+        // fish and lampreys only come in water (author: a fish spawned on the surface)
+        static bool Swims(EnemyDef e) => e.Ai == "swimmer" || e.Ai == "worm_water";
+
+        static bool Water(int x, int y)
+        {
+            var t = Main.tile[x, y];
+            return t != null && t.liquid > 128 && t.liquidType() == LiquidID.Water;
         }
 
         static bool Solid(int x, int y)
