@@ -19,7 +19,7 @@ namespace Terranoita.Game.Magic
     /// lifetime, bounces, gravity, homing...). Triggers release their payload where they hit or expire.
     /// Units: 1 Noita pixel = 3 Terraria pixels, 1 Noita damage unit = 25 hp.
     /// </summary>
-    public static class SpellShots
+    public static partial class SpellShots
     {
         const float Px = Terranoita.Noita.Units.PixelScale;
         const int Max = 600;
@@ -31,8 +31,11 @@ namespace Terranoita.Game.Magic
             public LuaShot Lua;
             public Vector2 Pos, Vel;
             public int Life, Age, Bounces, TriggerIn;
+            public uint Born;                  // the game frame it was fired in (shots of one cast share it)
             public float Damage, ExplosionDamage, Radius, Gravity, Friction, Knockback;
-            public bool Fire, Homing, Penetrate;
+            public bool Fire, Penetrate;
+            public List<Extra> Extras;         // components of the modifiers' extra_entities (SpellShots.Extras.cs)
+            public string[] Trail;             // trail_material
             public Player Owner;
             public readonly HashSet<int> Hit = new HashSet<int>();
         }
@@ -85,7 +88,8 @@ namespace Terranoita.Game.Magic
                 Friction = d.AirFriction,
                 Knockback = d.Knockback + ls.Get("knockback_force"),
                 Fire = ls.Get("damage_fire_add") > 0 || d.FireDamage > 0 || (d.Material ?? "").Contains("fire"),
-                Homing = ls.Text("extra_entities").Contains("homing"),
+                Extras = ExtrasOf(ls), Born = Main.GameUpdateCount,
+                Trail = ls.Text("trail_material").Split(new[] { ',' }, StringSplitOptions.RemoveEmptyEntries),
                 Penetrate = d.Penetrate,
                 TriggerIn = ls.Trigger == "timer" ? Math.Max(1, ls.TriggerFrames) : -1,
             };
@@ -117,8 +121,7 @@ namespace Terranoita.Game.Magic
             s.Vel.Y += s.Gravity;
             if (s.Friction > 0)
                 s.Vel *= Math.Max(0f, 1f - s.Friction / 60f);
-            if (s.Homing)
-                Home(s);
+            StepExtras(s);
             // the timer of a timer trigger
             if (s.TriggerIn > 0 && --s.TriggerIn == 0)
                 Release(s);
@@ -141,9 +144,9 @@ namespace Terranoita.Game.Magic
             s.Pos = next;
             // Noita's CellEaterComponent (black holes, discs): the ground around it goes; AreaDamageComponent: creatures in its box
             if (s.Def.EatRadius > 0 && s.Age % 3 == 0)
-                Eat(s);
+                EatAt(s.Pos, s.Def.EatRadius * Px, s.Def.EatProbability);
             if (s.Def.AreaDamage > 0)
-                AreaDamage(s);
+                AreaDamageAt(s, Math.Max(4f, s.Def.AreaHalf) * Px, s.Def.AreaDamage * 25f);
             if (s.Def.Material != "none" && s.Age % 8 == 0 && Physics.Patches.On)
                 Physics.Fluids.Add((int)(s.Pos.X / 16), (int)(s.Pos.Y / 16), s.Def.Material, 12);
             // creatures
@@ -172,15 +175,14 @@ namespace Terranoita.Game.Magic
             return false;
         }
 
-        static void Eat(Shot s)
+        static void EatAt(Vector2 pos, float r, float probability)
         {
-            float r = s.Def.EatRadius * Px;
-            int cx = (int)(s.Pos.X / 16), cy = (int)(s.Pos.Y / 16), rt = (int)Math.Ceiling(r / 16f);
-            float chance = Math.Min(1f, s.Def.EatProbability / 100f * 3f);   // every 3rd frame
+            int cx = (int)(pos.X / 16), cy = (int)(pos.Y / 16), rt = (int)Math.Ceiling(r / 16f);
+            float chance = Math.Min(1f, probability / 100f * 3f);   // every 3rd frame
             for (int x = cx - rt; x <= cx + rt; x++)
                 for (int y = cy - rt; y <= cy + rt; y++)
                 {
-                    if (!Physics.Mats.InWorld(x, y) || Vector2.Distance(new Vector2(x * 16 + 8, y * 16 + 8), s.Pos) > r + 8)
+                    if (!Physics.Mats.InWorld(x, y) || Vector2.Distance(new Vector2(x * 16 + 8, y * 16 + 8), pos) > r + 8)
                         continue;
                     if (!Main.tile[x, y].active() || !Physics.Blast.Breakable(x, y) || Main.rand.NextFloat() >= chance)
                         continue;
@@ -190,9 +192,8 @@ namespace Terranoita.Game.Magic
 
         static readonly Dictionary<int, float> Owed = new Dictionary<int, float>();
 
-        static void AreaDamage(Shot s)
+        static void AreaDamageAt(Shot s, float half, float perFrame)
         {
-            float half = Math.Max(4f, s.Def.AreaHalf) * Px;
             var box = new Rectangle((int)(s.Pos.X - half), (int)(s.Pos.Y - half), (int)(half * 2), (int)(half * 2));
             for (int i = 0; i < Main.maxNPCs; i++)
             {
@@ -200,7 +201,7 @@ namespace Terranoita.Game.Magic
                 if (!n.active || n.friendly || n.dontTakeDamage || n.life <= 0 || !n.Hitbox.Intersects(box))
                     continue;
                 // per frame in Noita: added up and dealt every 10 frames, so the numbers stay readable
-                Owed[i] = (Owed.TryGetValue(i, out float o) ? o : 0) + s.Def.AreaDamage * 25f;
+                Owed[i] = (Owed.TryGetValue(i, out float o) ? o : 0) + perFrame;
                 if (s.Age % 10 == 0 && Owed[i] >= 1)
                 {
                     Strike(s, n, Owed[i]);
@@ -209,38 +210,16 @@ namespace Terranoita.Game.Magic
             }
         }
 
-        static void Home(Shot s)
-        {
-            NPC best = null;
-            float bestD = 480f;
-            for (int i = 0; i < Main.maxNPCs; i++)
-            {
-                var n = Main.npc[i];
-                if (!n.active || n.friendly || n.townNPC || n.life <= 0)
-                    continue;
-                float d = Vector2.Distance(n.Center, s.Pos);
-                if (d < bestD)
-                {
-                    bestD = d;
-                    best = n;
-                }
-            }
-            if (best == null)
-                return;
-            float speed = s.Vel.Length();
-            var want = Vector2.Normalize(best.Center - s.Pos) * speed;
-            s.Vel = Vector2.Lerp(s.Vel, want, 0.08f);
-        }
-
         static void Strike(Shot s, NPC n, float damage)
         {
             int dmg = (int)Math.Round(damage);
             if (dmg <= 0 || s.Owner == null)
                 return;
-            bool crit = Main.rand.NextFloat() * 100f < s.Lua.Get("damage_critical_chance");
+            bool crit = Main.rand.NextFloat() * 100f < s.Lua.Get("damage_critical_chance") + CritBoost(s, n);
             s.Owner.ApplyDamageToNPC(n, dmg, Math.Max(0f, s.Knockback / 10f), s.Vel.X >= 0 ? 1 : -1, crit, null, 0, -1);
             if (s.Fire)
                 n.AddBuff(BuffID.OnFire, 180);
+            ApplyStatuses(s, n);
         }
 
         /// <summary>The shot hits something or runs out: its explosion, its payload.</summary>

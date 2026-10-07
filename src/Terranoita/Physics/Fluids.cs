@@ -389,6 +389,41 @@ namespace Terranoita.Game.Physics
         }
 
         /// <summary>Set the liquid at x,y on fire if it burns.</summary>
+        /// <summary>Noita's MagicConvertMaterialComponent: the material "from" within r tiles of cx,cy becomes "to"
+        /// (Noita's liquids here, Terraria's water and lava too). How many tiles changed.</summary>
+        public static int ConvertMaterial(int cx, int cy, int r, string from, string to)
+        {
+            int kf = KindOf(from), kt = KindOf(to), n = 0;
+            int terrariaFrom = from == "water" ? LiquidID.Water : from == "lava" ? LiquidID.Lava : -1;
+            if (kf == 0 && terrariaFrom < 0)
+                return 0;
+            for (int x = cx - r; x <= cx + r; x++)
+                for (int y = cy - r; y <= cy + r; y++)
+                {
+                    if ((x - cx) * (x - cx) + (y - cy) * (y - cy) > r * r || !Mats.InWorld(x, y))
+                        continue;
+                    int k = Key(x, y);
+                    int amount = 0;
+                    if (kf > 0 && Cells.TryGetValue(k, out var c) && c.Kind == kf)
+                    {
+                        amount = c.Amount;
+                        Cells.Remove(k);
+                    }
+                    else if (terrariaFrom >= 0 && Main.tile[x, y].liquid > 0 && Main.tile[x, y].liquidType() == terrariaFrom)
+                    {
+                        amount = Main.tile[x, y].liquid;
+                        Main.tile[x, y].liquid = 0;
+                        Liquid.AddWater(x, y);
+                    }
+                    if (amount == 0)
+                        continue;
+                    n++;
+                    if (kt > 0 || to == "water" || to == "lava")
+                        Add(x, y, to, amount);
+                }
+            return n;
+        }
+
         public static void Ignite(int x, int y)
         {
             int k = Key(x, y);

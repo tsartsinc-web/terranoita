@@ -38,6 +38,9 @@ namespace Terranoita.Game
 
         public static void Clear() => Live.Clear();
 
+        /// <summary>Enemy shots within r of pos are stopped (a spell's energy shield); how many.</summary>
+        public static int StopNear(Vector2 pos, float r) => Live.RemoveAll(s => Vector2.Distance(s.Pos, pos) <= r);
+
         static float Part(AttackDef a, bool explosion)
         {
             float sum = 0;
