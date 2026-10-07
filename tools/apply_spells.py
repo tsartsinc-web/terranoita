@@ -36,6 +36,11 @@ SPELL_COLUMNS = {
     "reload_add": {"type": "number", "desc": "Added to the wand's recharge time, frames."},
     "config_add": {"type": "object", "desc": "Shot config fields it adds to (c.x = c.x + n), e.g. fire_rate_wait, spread_degrees."},
     "config_mul": {"type": "object", "desc": "Shot config fields it multiplies (c.x = c.x * n)."},
+    "config_set": {"type": "object", "desc": "Shot config fields it sets to a number (c.x = n), e.g. pattern_degrees."},
+    "game_effects": {"type": "string", "desc": "Game effect entities added to the shot (comma list), or none."},
+    "shot_add": {"type": "object", "desc": "shot_effects fields it adds to (recoil_knockback)."},
+    "shot_set": {"type": "object", "desc": "shot_effects fields it sets."},
+    "clamps": {"type": "string[]", "desc": "Config fields Noita keeps in a range after it (speed_multiplier 0..20, x >= 0)."},
     "extra_entities": {"type": "string", "desc": "Entities attached to every projectile of the shot (comma list), or none."},
     "port": {"type": "enum", "values": ["data", "hand"], "desc": "data = the columns describe it fully; hand = its Noita function does more (see _sources.port)."},
     "stage": {"type": "enum", "values": ["3"], "desc": "Spells come with stage 3."},
@@ -94,6 +99,14 @@ def spell_row(sid, s):
     t = trig[0] if trig else None
     cset = dict(s.get("config_set") or {})
     extra = cset.pop("extra_entities+", None)
+    effects = cset.pop("game_effect_entities+", None)
+    numbers = {}
+    for k in list(cset):
+        try:
+            numbers[k] = float(cset[k])
+        except ValueError:
+            continue
+        cset.pop(k)
     why = []
     if s.get("conditional"):
         why.append("has if/for")
@@ -112,7 +125,7 @@ def spell_row(sid, s):
         "name_en": s.get("name_en"),
         "type": s.get("type"),
         "sprite": s.get("sprite"),
-        "mana": s.get("mana"),
+        "mana": 10 if s.get("mana") is None else s.get("mana"),   # gun.lua ACTION_MANA_DRAIN_DEFAULT
         "max_uses": -1 if max_uses is None else max_uses,
         "price": s.get("price"),
         "spawn_level": s.get("spawn_level") or [],
@@ -126,6 +139,11 @@ def spell_row(sid, s):
         "reload_add": s.get("reload_add") or 0,
         "config_add": s.get("config_add") or {},
         "config_mul": s.get("config_mul") or {},
+        "config_set": numbers,
+        "game_effects": effects or "none",
+        "shot_add": s.get("shot_add") or {},
+        "shot_set": s.get("shot_set") or {},
+        "clamps": s.get("clamps") or [],
         "extra_entities": extra or "none",
         "port": "hand" if why else "data",
         "stage": "3",

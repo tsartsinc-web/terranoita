@@ -316,7 +316,8 @@ namespace Terranoita.Cli
             var translations = files.TryReadText("data/translations/common.csv", out var csv) ? NoitaTranslations.Parse(csv) : null;
             string En(string key) => key != null && key.StartsWith("$") ? translations?.Get(key.Substring(1), "en") : null;
             var lua = Text(files, GunActions.Path) ?? throw new FileNotFoundException(GunActions.Path);
-            var actions = GunActions.Parse(lua);
+            // gun.lua's constants (ACTION_DRAW_RELOAD_TIME_INCREASE...) for the action functions that use them
+            var actions = GunActions.Parse(lua, GunActions.Constants(Text(files, "data/scripts/gun/gun.lua")));
             var spells = new JsonObject();
             var projectileFiles = new SortedSet<string>(StringComparer.Ordinal);
             foreach (var a in actions)
@@ -340,6 +341,8 @@ namespace Terranoita.Cli
                     ["config_add"] = Dict(a.ConfigAdd), ["config_mul"] = Dict(a.ConfigMul),
                     ["config_set"] = new JsonObject(a.ConfigSet.Select(kv => new KeyValuePair<string, JsonNode>(kv.Key, kv.Value))),
                     ["reload_add"] = a.ReloadAdd,
+                    ["shot_add"] = Dict(a.ShotAdd), ["shot_set"] = Dict(a.ShotSet),
+                    ["clamps"] = new JsonArray(a.Clamps.Select(x => (JsonNode)x).ToArray()),
                     ["conditional"] = a.Conditional,
                     ["calls"] = new JsonArray(a.Calls.Select(x => (JsonNode)x).ToArray()),
                     ["unparsed"] = new JsonArray(a.Unparsed.Select(x => (JsonNode)x).ToArray()),

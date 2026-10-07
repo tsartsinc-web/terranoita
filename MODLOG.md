@@ -489,3 +489,20 @@ Entry.Stage default 1b, version 0.2.0. Проверить на ПК also: worm l
 - Respawn clears all Noita status effects (hook player_spawn).
 - Not in the 0.3.1 draft yet.
 
+
+## PC: spell facts (2026-10-07)
+- tncli spells on the author's Noita: 422 spells, 204 projectile files, 113 wand entities (design/sources/noita_spells.json).
+- Parser (Noita/GunActions.cs) now reads Noita's common shapes: shot_effects.x +=/= n (recoil, 51 spells), the guards
+  after a multiplier (if c.x >= 20 ... / if c.x < 0 ... -> clamps), gun.lua constants (ACTION_DRAW_RELOAD_TIME_INCREASE);
+  apply_spells: numeric c.x = n -> config_set, game_effect_entities -> game_effects, mana nil -> 10 (ACTION_MANA_DRAIN_DEFAULT).
+  Test ReadsRecoilGuardsAndConstants (made-up snippet).
+- spells.json: 361 by data, 61 by hand (real logic: random, recursion, deck tricks, entity calls).
+- wands.json: WAND_ATTRS names match the real entities; 18 wands with fixed stats (base_wand_level_1, wand_001..017),
+  the rest are made by scripts (stats unfilled, script named). spread/speed_multiplier are set in only 18 entities.
+- Gun.cs vs gun.lua, fixed: the wand's own draws do not wrap (instant_reload_if_empty false: the cast ends);
+  recharge time adds up across casts until a recharge (current_reload_time); uses spent at the end of the cast and only
+  if it fired something or the spell is other/utility, a spell with no uses leaves the deck (move_hand_to_discarded);
+  always-cast: no mana except mana-giving ones, a modifier's draw_actions(1) draws nothing (SPECIAL RULE).
+  Kept: skipped-card redraw (same as draw_actions), payload cast delay adds to the wand (gun.lua passes every shot's
+  state to the game), wait = max(cast delay, recharge). Not in gun.lua: when the wand's own draw finds the deck empty
+  gun.lua sets reloading and the game recharges; we recharge after that cast. Tests: 4 new (60 Core, 12 tools pass).

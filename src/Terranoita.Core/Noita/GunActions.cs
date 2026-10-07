@@ -30,6 +30,9 @@ namespace Terranoita.Noita
         public readonly Dictionary<string, float> ConfigMul = new Dictionary<string, float>(StringComparer.Ordinal);   // c.x = c.x * n
         public readonly Dictionary<string, string> ConfigSet = new Dictionary<string, string>(StringComparer.Ordinal); // c.x = value
         public float ReloadAdd;                                                 // current_reload_time + n
+        public readonly Dictionary<string, float> ShotAdd = new Dictionary<string, float>(StringComparer.Ordinal);    // shot_effects.x = shot_effects.x + n
+        public readonly Dictionary<string, float> ShotSet = new Dictionary<string, float>(StringComparer.Ordinal);    // shot_effects.x = n
+        public readonly List<string> Clamps = new List<string>();                // c.x kept in a range by an if block (Noita's guards)
         public bool Conditional;                                                // the function has if/for/while
         public readonly List<string> Calls = new List<string>();                // other functions it calls
         public readonly List<string> Unparsed = new List<string>();             // statements none of the above matched
@@ -48,8 +51,12 @@ namespace Terranoita.Noita
         public const string Path = "data/scripts/gun/gun_actions.lua";
 
         /// <summary>Every entry of the <c>actions = { {...}, ... }</c> table, in file order.</summary>
-        public static List<GunActionFacts> Parse(string lua)
+        public static List<GunActionFacts> Parse(string lua) => Parse(lua, null);
+
+        /// <summary>As Parse, with gun.lua's numeric constants (ACTION_DRAW_RELOAD_TIME_INCREASE = 0...) put in for their names.</summary>
+        public static List<GunActionFacts> Parse(string lua, IDictionary<string, float> constants)
         {
+            _constants = constants;
             string src = StripComments(lua);
             var list = new List<GunActionFacts>();
             var m = Regex.Match(src, @"(?m)^\s*actions\s*=\s*\{");
@@ -68,6 +75,35 @@ namespace Terranoita.Noita
                 i = end + 1;
             }
             return list;
+        }
+
+        [ThreadStatic] static IDictionary<string, float> _constants;
+
+        /// <summary>NAME = number lines of a Lua file (gun.lua's constants).</summary>
+        public static Dictionary<string, float> Constants(string lua)
+        {
+            var d = new Dictionary<string, float>(StringComparer.Ordinal);
+            foreach (Match m in Regex.Matches(StripComments(lua ?? ""), @"(?m)^\s*([A-Z][A-Z0-9_]+)\s*=\s*" + Number + @"\s*$"))
+                d[m.Groups[1].Value] = float.Parse(m.Groups[2].Value, CultureInfo.InvariantCulture);
+            return d;
+        }
+
+        // Noita's guards after a multiplier: if ( c.x >= 20 ) then c.x = math.min( c.x, 20 ) elseif ( c.x < 0 ) then c.x = 0 end,
+        // and if ( c.x < 0 ) then c.x = 0 end
+        static readonly Regex ClampBoth = new Regex(@"if\s*\(\s*c\.(\w+)\s*>=\s*(-?\d+(?:\.\d+)?)\s*\)\s*then\s*c\.\1\s*=\s*math\.min\(\s*c\.\1\s*,\s*\2\s*\)\s*elseif\s*\(\s*c\.\1\s*<\s*0\s*\)\s*then\s*c\.\1\s*=\s*0\s*end");
+        static readonly Regex ClampLow = new Regex(@"if\s*\(\s*c\.(\w+)\s*<\s*0\s*\)\s*then\s*c\.\1\s*=\s*0\s*end");
+
+        static string StripClamps(GunActionFacts a, string body)
+        {
+            body = ClampBoth.Replace(body, m => { a.Clamps.Add(m.Groups[1].Value + " 0.." + m.Groups[2].Value); return ""; });
+            return ClampLow.Replace(body, m => { a.Clamps.Add(m.Groups[1].Value + " >= 0"); return ""; });
+        }
+
+        static string PutConstants(string body)
+        {
+            if (_constants == null || _constants.Count == 0)
+                return body;
+            return Regex.Replace(body, @"\b[A-Z][A-Z0-9_]+\b", m => _constants.TryGetValue(m.Value, out float v) ? v.ToString(CultureInfo.InvariantCulture) : m.Value);
         }
 
         static GunActionFacts Entry(string body)
@@ -104,7 +140,7 @@ namespace Terranoita.Noita
                 a.Unparsed.Add(v);
                 return;
             }
-            string body = v.Substring(fm.Length, v.Length - fm.Length - 3);
+            string body = StripClamps(a, PutConstants(v.Substring(fm.Length, v.Length - fm.Length - 3)));
             a.Conditional = Regex.IsMatch(body, @"\b(if|for|while|repeat)\b");
             int depth = 0;
             foreach (var st in Statements(body))
@@ -164,10 +200,26 @@ namespace Terranoita.Noita
                     a.ConfigAdd[k] = (a.ConfigAdd.TryGetValue(k, out var x) ? x : 0) + (m.Groups[3].Value == "-" ? -n : n);
                 return true;
             }
-            if ((m = Regex.Match(s, @"^current_reload_time\s*=\s*current_reload_time\s*([-+])\s*" + Number + "$")).Success)
+            // current_reload_time = current_reload_time - 0 - 10 (constants already put in)
+            if ((m = Regex.Match(s, @"^current_reload_time\s*=\s*current_reload_time((?:\s*[-+]\s*-?\d+(?:\.\d+)?)+)$")).Success)
             {
-                float n = float.Parse(m.Groups[2].Value, CultureInfo.InvariantCulture);
-                a.ReloadAdd += m.Groups[1].Value == "-" ? -n : n;
+                foreach (Match t in Regex.Matches(m.Groups[1].Value, @"([-+])\s*(-?\d+(?:\.\d+)?)"))
+                {
+                    float n = float.Parse(t.Groups[2].Value, CultureInfo.InvariantCulture);
+                    a.ReloadAdd += t.Groups[1].Value == "-" ? -n : n;
+                }
+                return true;
+            }
+            if ((m = Regex.Match(s, @"^shot_effects\.(\w+)\s*=\s*shot_effects\.(\w+)\s*([-+])\s*" + Number + "$")).Success && m.Groups[1].Value == m.Groups[2].Value)
+            {
+                float n = float.Parse(m.Groups[4].Value, CultureInfo.InvariantCulture);
+                string k = m.Groups[1].Value;
+                a.ShotAdd[k] = (a.ShotAdd.TryGetValue(k, out var x) ? x : 0) + (m.Groups[3].Value == "-" ? -n : n);
+                return true;
+            }
+            if ((m = Regex.Match(s, @"^shot_effects\.(\w+)\s*=\s*" + Number + "$")).Success)
+            {
+                a.ShotSet[m.Groups[1].Value] = float.Parse(m.Groups[2].Value, CultureInfo.InvariantCulture);
                 return true;
             }
             if ((m = Regex.Match(s, @"^c\.(\w+)\s*=\s*(""[^""]*""|-?\d+(?:\.\d+)?|true|false)$")).Success)

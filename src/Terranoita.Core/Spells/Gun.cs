@@ -73,8 +73,13 @@ namespace Terranoita.Spells
     /// <summary>
     /// Noita's deck/hand/discard cast loop (data/scripts/gun/gun.lua in the player's Noita) for one held wand.
     /// Cards are drawn from the top of the deck; spells that cannot be paid or have no uses left are discarded
-    /// and the next card is tried; when the deck runs out mid-cast it wraps (discards back on top) and the wand
-    /// recharges after the cast. Pure logic: the game side turns Shot into Terraria projectiles.
+    /// and the next card is tried. The wand's own draws (spells per cast) stop when the deck runs out; draws made by
+    /// spells (modifiers, multicasts, trigger payloads) wrap: the discards go back into the deck and the wand
+    /// recharges after the cast (gun.lua draw_action, instant_reload_if_empty). The recharge time is kept across
+    /// casts until a recharge (current_reload_time). Uses are spent at the end of the cast, only if it fired
+    /// something or the spell is other/utility (move_hand_to_discarded); a spell with no uses left leaves the deck.
+    /// Always-cast spells are free and a modifier's extra draw does not happen for them (_play_permanent_card).
+    /// Pure logic: the game side turns Shot into Terraria projectiles.
     /// </summary>
     public sealed class Gun
     {
@@ -88,7 +93,8 @@ namespace Terranoita.Spells
         readonly Random _rng;
         Card[] _all;
         CastResult _result;
-        bool _wrapped;
+        bool _wrapped, _reloading, _gotProjectiles;
+        float _reload;                         // gun.lua current_reload_time: spells add to it until the next recharge
 
         public Gun(Wand wand, Random rng = null)
         {
@@ -108,8 +114,9 @@ namespace Terranoita.Spells
                 Uses = old != null && i < old.Length && old[i]?.Spell == s ? old[i].Uses : s.MaxUses,
             }).Where(c => c != null).ToArray();
             _deck.Clear(); _hand.Clear(); _discarded.Clear();
-            _deck.AddRange(_all);
+            _deck.AddRange(_all.Where(c => c.Uses != 0));
             Order(_deck);
+            _reload = Wand.RechargeTime;
         }
 
         public IEnumerable<string> Deck => _deck.Select(c => c.Spell.Id);
@@ -128,26 +135,35 @@ namespace Terranoita.Spells
             if (Cooldown > 0)
                 return null;
             _result = new CastResult { Shot = NewShot() };
-            _wrapped = false;
-            float reload = Wand.RechargeTime;
+            _wrapped = _reloading = _gotProjectiles = false;
             foreach (var s in Wand.AlwaysCast)
-                Play(new Card { Spell = s, Index = -1, Uses = -1 }, _result.Shot, ref reload, true);
-            DrawMany(Wand.SpellsPerCast, _result.Shot, ref reload);
+            {
+                if (s.Mana < 0)
+                    Mana -= s.Mana;            // handle_mana_addition: only mana-giving always-casts touch mana
+                Play(new Card { Spell = s, Index = -1, Uses = -1 }, _result.Shot, true);
+            }
+            DrawMany(Wand.SpellsPerCast, _result.Shot, false);
 
             _result.CastDelay = Math.Max(0, _result.Shot.Get("fire_rate_wait"));
             _result.Wrapped = _wrapped;
-            if (_wrapped || _deck.Count == 0)
+            // move_hand_to_discarded: uses are spent now; a spell with none left is not put back
+            foreach (var card in _hand)
             {
-                // recharge: everything goes back into the deck
-                _result.Recharge = Math.Max(0, reload);
-                _deck.AddRange(_hand); _deck.AddRange(_discarded);
-                _hand.Clear(); _discarded.Clear();
-                Order(_deck);
+                bool spends = _gotProjectiles || card.Spell.Type == "other" || card.Spell.Type == "utility";
+                if (spends && card.Uses > 0)
+                    card.Uses--;
+                if (card.Uses != 0)
+                    _discarded.Add(card);
             }
-            else
+            _hand.Clear();
+            // the deck ran out (the wand's own draw found it empty, or it is empty now) or a spell's draw wrapped
+            if (_wrapped || _reloading || _deck.Count == 0)
             {
-                _discarded.AddRange(_hand);
-                _hand.Clear();
+                _result.Recharge = Math.Max(0, _reload);
+                _deck.AddRange(_discarded);
+                _discarded.Clear();
+                Order(_deck);
+                _reload = Wand.RechargeTime;
             }
             Cooldown = _result.Wait;
             var r = _result;
@@ -164,28 +180,37 @@ namespace Terranoita.Spells
             return s;
         }
 
-        void DrawMany(int n, Shot shot, ref float reload)
+        /// <summary>gun.lua draw_actions: wrap = instant_reload_if_empty (true for draws made by spells).</summary>
+        void DrawMany(int n, Shot shot, bool wrap)
         {
             for (int i = 0; i < n; i++)
             {
-                if (Draw(shot, ref reload))
-                    continue;
-                // that card was skipped (no mana / no uses): try the following ones
-                while (_deck.Count > 0 && !Draw(shot, ref reload)) { }
+                if (!Draw(shot, wrap))
+                {
+                    // that card was skipped (no mana / no uses): try the following ones
+                    while (_deck.Count > 0 && !Draw(shot, wrap)) { }
+                }
+                if (_reloading)
+                    return;
             }
         }
 
-        /// <summary>Draws the top card and plays it; false when it was skipped or nothing could be drawn.</summary>
-        bool Draw(Shot shot, ref float reload)
+        /// <summary>Draws the top card and plays it; false when it was skipped.</summary>
+        bool Draw(Shot shot, bool wrap)
         {
             if (_deck.Count == 0)
             {
-                if (_discarded.Count == 0)
-                    return false;
+                if (!wrap)
+                {
+                    _reloading = true;         // the wand's own draw: the cast ends here
+                    return true;
+                }
                 _deck.AddRange(_discarded);
                 _discarded.Clear();
                 Order(_deck);
                 _wrapped = true;
+                if (_deck.Count == 0)
+                    return true;
             }
             var card = _deck[0];
             _deck.RemoveAt(0);
@@ -195,21 +220,19 @@ namespace Terranoita.Spells
                 return false;
             }
             Mana -= card.Spell.Mana;
-            Play(card, shot, ref reload, false);
+            Play(card, shot, false);
             return true;
         }
 
-        void Play(Card card, Shot shot, ref float reload, bool alwaysCast)
+        void Play(Card card, Shot shot, bool alwaysCast)
         {
             var s = card.Spell;
             if (!alwaysCast)
-            {
                 _hand.Add(card);
-                if (card.Uses > 0)
-                    card.Uses--;
-            }
+            if (s.Type == "projectile" || s.Type == "static_projectile" || s.Type == "material")
+                _gotProjectiles = true;
             _result.Played.Add(s.Id);
-            reload += s.ReloadAdd;
+            _reload += s.ReloadAdd;
             foreach (var kv in s.ConfigAdd)
                 shot.Config[kv.Key] = shot.Get(kv.Key) + kv.Value;
             foreach (var kv in s.ConfigMul)
@@ -218,15 +241,17 @@ namespace Terranoita.Spells
                 shot.Projectiles.Add(new ShotProjectile { File = p });
             foreach (var t in s.Triggers)
             {
-                // the payload is a shot of its own; its cast delay changes count for the wand (to check against gun.lua)
+                // the payload is a shot of its own (gun.lua draw_shot(create_shot(n), true)); its cast delay changes count
+                // for the wand: gun.lua passes every shot's state to the game, which adds them up (as players know it)
                 var payload = new Shot();
-                DrawMany(t.Draws, payload, ref reload);
+                DrawMany(t.Draws, payload, true);
                 if (payload.Config.TryGetValue("fire_rate_wait", out var fw))
                     shot.Config["fire_rate_wait"] = shot.Get("fire_rate_wait") + fw;
                 shot.Projectiles.Add(new ShotProjectile { File = t.File, Trigger = t, Payload = payload });
             }
-            if (s.Draws > 0)
-                DrawMany(s.Draws, shot, ref reload);
+            // SPECIAL RULE of gun.lua: an always-cast modifier's draw_actions(1) draws nothing
+            if (s.Draws > 0 && !(alwaysCast && s.Draws == 1))
+                DrawMany(s.Draws, shot, true);
         }
 
         void Order(List<Card> cards)

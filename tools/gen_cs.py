@@ -49,6 +49,9 @@ OBJECT_COLUMNS = {
     ("attacks", "damage"): "Dictionary<string, float[]>",
     ("spells", "config_add"): "Dictionary<string, float>",
     ("spells", "config_mul"): "Dictionary<string, float>",
+    ("spells", "shot_add"): "Dictionary<string, float>",
+    ("spells", "config_set"): "Dictionary<string, float>",
+    ("spells", "shot_set"): "Dictionary<string, float>",
 }
 
 
