@@ -506,3 +506,14 @@ Entry.Stage default 1b, version 0.2.0. Проверить на ПК also: worm l
   Kept: skipped-card redraw (same as draw_actions), payload cast delay adds to the wand (gun.lua passes every shot's
   state to the game), wait = max(cast delay, recharge). Not in gun.lua: when the wand's own draw finds the deck empty
   gun.lua sets reloading and the game recharges; we recharge after that cast. Tests: 4 new (60 Core, 12 tools pass).
+
+## 2026-10-07 worms and toxic ground (author)
+- Worm bodies are NPCs (carrier type, HeadOf table, realLife = head): every segment can be hit, the hit goes to the
+  head (Damage.Strike), buffs caught by the body go to the head, one health bar (npc_health_bars), body named as the
+  worm, segments go with their head (Carriers.Sweep). Only the head bites (Noita). Autotest TERRANOITA_AUTOTEST_ONLY:
+  all 7 worms have their segments, a hit on the middle one takes the head's life.
+- Worm sprites face left in Noita: head and body turned half round (author: heads back to front). Not seen in game yet.
+- Toxic ground (author's Noita screenshot): noita_solids.touch_effects; the natural blocks around toxic sludge and
+  poison pools become rock_static_radioactive / rock_static_poison (ToxicGround, kept in the .fluids file; 0.3.x worlds
+  get them once, pools version 3), also lava + sludge. Green glow on open sides; touching gives RADIOACTIVE / POISONED
+  and Noita's touch damage. test1 copy: 1541 toxic blocks. Not seen in game yet.
