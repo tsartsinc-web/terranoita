@@ -119,6 +119,7 @@ namespace Terranoita.Game.Magic
         static void FillChests()
         {
             int filled = 0, spells = 0;
+            var deep = new List<Chest>();
             for (int i = 0; i < Main.maxChests; i++)
             {
                 var c = Main.chest[i];
@@ -128,6 +129,11 @@ namespace Terranoita.Game.Magic
                 if (!t.active() || (t.type != TileID.Containers && t.type != TileID.Containers2))
                     continue;
                 int level = ChestLevel(t, c.y);
+                if (level >= 4)
+                    deep.Add(c);
+                // Noita's level 10 (giga holes, nukes...) sometimes in the best chests
+                if (level >= 6 && WorldGen.genRand.Next(100) < 15)
+                    level = 10;
                 int n = WorldGen.genRand.Next(100) < 30 ? 2 : 1;
                 bool any = false;
                 for (int k = 0; k < n; k++)
@@ -143,7 +149,23 @@ namespace Terranoita.Game.Magic
                 if (any)
                     filled++;
             }
-            Entry.Log("world loot: " + spells + " spells in " + filled + " chests");
+            // spells Noita never spawns by level (instrument notes, IF/ELSE, ALL_SPELLS, DIVIDE_10...): each once in a
+            // deep chest (dungeon, shadow, lihzahrd, biome), so every spell of Noita can be found
+            int rare = 0;
+            if (deep.Count > 0)
+                foreach (var a in Maker.Actions())
+                {
+                    bool spawns = a.levels.Select((l, i) => i < a.probs.Length && a.probs[i] > 0).Any(x => x);
+                    if (spawns)
+                        continue;
+                    var c = deep[WorldGen.genRand.Next(deep.Count)];
+                    int slot = Array.FindIndex(c.item, it => it == null || it.IsAir);
+                    if (slot < 0)
+                        continue;
+                    c.item[slot] = MagicItems.MakeSpell(a.id);
+                    rare++;
+                }
+            Entry.Log("world loot: " + spells + " spells in " + filled + " chests, " + rare + " rare ones in deep chests");
         }
 
         // ---- the wands in the caves: made when the player comes near, picked up by touching ----
