@@ -204,7 +204,8 @@
    "stage": "3",
    "hooks": [
     "progress_draw",
-    "progress_enter_world"
+    "progress_enter_world",
+    "chat_log"
    ],
    "code": "src/Terranoita/ProgressWindow.cs, src/Terranoita.Core/Progress/ProgressBook.cs",
    "_unverified": {}

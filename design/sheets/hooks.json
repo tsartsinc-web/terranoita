@@ -493,6 +493,15 @@
    "purpose": "The character's progress book loaded on entering a world.",
    "stage": "3",
    "_unverified": {}
+  },
+  {
+   "id": "chat_log",
+   "target": "Terraria.Main:NewText(string, Color)",
+   "patch": "postfix",
+   "system": "progress",
+   "purpose": "Chat lines into the log (the author's notes while testing line up with SLOW update lines).",
+   "stage": "3",
+   "_unverified": {}
   }
  ]
 }

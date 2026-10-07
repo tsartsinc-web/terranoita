@@ -107,8 +107,13 @@ namespace Terranoita.Game.Magic
         {
             if (Main.gameMenu)
                 return;
-            ScriptsUpdate();
+            SlowFrames.Time("shot scripts", ScriptsUpdate);
             ForgetMarks();
+            SlowFrames.Time("spell shots", StepAll);
+        }
+
+        static void StepAll()
+        {
             for (int i = Live.Count - 1; i >= 0; i--)
             {
                 var s = Live[i];

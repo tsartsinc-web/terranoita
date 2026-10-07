@@ -173,9 +173,9 @@ namespace Terranoita.Game.Physics
                             PerfTest.Update(() => { Falling.Update(); Fire.Update(); Fluids.Update(); });
                         else
                         {
-                            Falling.Update();
-                            Fire.Update();
-                            Fluids.Update();
+                            SlowFrames.Time("falling", Falling.Update);
+                            SlowFrames.Time("fire", Fire.Update);
+                            SlowFrames.Time("fluids", Fluids.Update);
                         }
                         ToxicGround.Touch(Main.LocalPlayer);
                     }
