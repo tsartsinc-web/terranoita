@@ -23,6 +23,7 @@ namespace Terranoita.Game.Magic
     {
         const float Px = Terranoita.Noita.Units.PixelScale;
         const int Max = 600;
+        static bool _capLogged;
         const int FriendlyFireAfter = 10;   // ours: frames before a friendly_fire shot can hit its caster (it starts at the wand)
 
         sealed class Shot
@@ -34,6 +35,7 @@ namespace Terranoita.Game.Magic
             public int Life, Age, Bounces, TriggerIn;
             public int Script, StartLife;      // its entity in Noita's shot scripts (0 = none), lifetime at start
             public bool Killed;                // a script killed it
+            public bool Evicted;               // ended quietly to make room at the cap (no explosion, no payload)
             public bool Triggered;             // its CollisionTriggerComponent went off (a mine: a creature came near)
             public uint Born;                  // the game frame it was fired in (shots of one cast share it)
             public float Damage, ExplosionDamage, Radius, Gravity, Friction, Knockback;
@@ -120,8 +122,19 @@ namespace Terranoita.Game.Magic
         /// <summary>A projectile of a cast, from pos toward dir.</summary>
         public static void Fire(LuaShot ls, Vector2 pos, Vector2 dir, Player owner, WandData wand)
         {
+            // the cap is ours (speed; Noita has none): the oldest shot makes room, the new one is never refused
+            // (refusing silently made every spell after a wall spell do nothing, 2026-10-09)
             if (Live.Count >= Max)
-                return;
+            {
+                var oldest = Live.FirstOrDefault(x => !x.Evicted);
+                if (oldest != null)
+                    oldest.Evicted = true;
+                if (!_capLogged)
+                {
+                    _capLogged = true;
+                    Entry.Log("spell shots: " + Max + " alive (our cap): the oldest end quietly to make room");
+                }
+            }
             var d = Def(ls.File);
             if (d == null)
             {
@@ -208,6 +221,8 @@ namespace Terranoita.Game.Magic
         /// <summary>One frame; true when the shot is gone.</summary>
         static bool Step(Shot s)
         {
+            if (s.Evicted)
+                return true;
             if (s.Killed)
             {
                 End(s, false);

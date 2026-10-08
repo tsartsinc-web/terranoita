@@ -34,8 +34,8 @@ How it works (author, 2026-10-08): the author only says "работай" to eith
   switch, into a release only when coverage >= the current path; Noita facts only from Noita's files or the Noita
   test mod; every session report "spells matching Noita / total"; tag claims verified in game / built only / assumed).
   Phase 0 (no silent failure): done: Core SpellRuntime.cs (component/field lists, NotRun, UnreadFields; built only).
-  Left: (a) SpellShots.Fire at the 600 cap: mark the oldest shot evicted (quiet, no End) instead of refusing the new
-  one, log once; (b) on first Fire of each file (and extra_entities files) log SpellRuntime.NotRun +
+  (a) done (built only): at the 600 cap the oldest shot is Evicted (quiet), the new one fires, log once.
+  Left: (b) on first Fire of each file (and extra_entities files) log SpellRuntime.NotRun +
   UnreadFields once; (c) `tncli magic-coverage <noita>`: per spell (LuaGun cast of [id] or [id,LIGHT_BULLET]) files +
   NotRun + UnreadFields -> design/sources/pc_magic_coverage.json + table. Check: tncli prints 280/486 static (today's
   python audit) or explains the difference; Core tests pass.
