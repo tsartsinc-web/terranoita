@@ -111,6 +111,20 @@ namespace Terranoita.Game
                 if (!NoitaSound.Play(s.Def.ExplosionSound, s.Pos) && (s.Def.Effect == "explosive" || radius >= 24))
                     SoundEngine.PlaySound(SoundID.Item14, s.Pos);
                 Physics.Blast.Explode(s.Pos, radius, s.Def.Effect == "fire" || s.Def.Effect == "explosive");
+                // Noita's explosions hurt every creature in reach, the thrower too (author: dynamite hurt only the player)
+                int blast = (int)Math.Round(Part(s.Attack, true) * mult);
+                if (blast > 0)
+                    for (int i = 0; i < Main.maxNPCs; i++)
+                    {
+                        var n = Main.npc[i];
+                        if (n.active && !n.friendly && !n.townNPC && !n.dontTakeDamage && n.life > 0 &&
+                            Vector2.Distance(n.Center, s.Pos) <= radius + n.width / 2f)
+                        {
+                            n.StrikeNPCNoInteraction(blast, 4f, n.Center.X >= s.Pos.X ? 1 : -1);
+                            if (s.Def.Effect == "fire")
+                                n.AddBuff(BuffID.OnFire, 180);
+                        }
+                    }
             }
             else
             {

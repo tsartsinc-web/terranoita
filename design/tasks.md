@@ -36,6 +36,9 @@ How it works (author, 2026-10-08): the author only says "работай" to eith
   swimmers keep the in-water rule. Check: autotest near a surface lake spawns a walker from Lake.
 - Rat done by cloud (sheet): melee range 1.88 -> 1.6 tiles (bites when touching), hitbox_mult 0.5 -> 1.0 (33x15,
   easier to hit). Only check it in play; no code change needed.
+- PC-12 new: build check of cloud's edit in src/Terranoita/Shots.cs (explosions of creature shots now hurt every
+  hostile NPC in the radius, the thrower too; author: miner's dynamite hurt only the player and blocks). Check:
+  builds; in play a miner's dynamite hurts creatures next to it.
 - PC-10 new, after PC-8 and CLOUD-7: worldgen per design/worldgen_plan.md sections 1, 3, 4, 5 (our passes in
   Terraria's worldgen, scenes, loot by Noita's chest_random.lua). Check: game_test -Mode worldgen (section 5).
 - PC-6 new: the 39 known spell failures (design/sources/magic_baseline.txt, MODLOG "memory leak, spells test"):
