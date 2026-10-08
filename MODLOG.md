@@ -648,3 +648,10 @@ Next steps (author's order: finish magic, then shops):
 - Most important: fluids/placed save is not atomic and can race Terraria's background autosave; a truncated
   .fluids file makes the next load regenerate cave pools on top of the old ones. Then: big building landing ->
   repeated 4000-tile flood fills (freeze), placed blocks lost without items, fire NPC check O(tiles x NPCs).
+
+## Cloud: progress book (Noita's Progress menu, per character) — design/progress_window.md
+- Author: known per character; creature when killed, liquid when touched, wand/spell when taken.
+- Core `Progress/ProgressBook.cs`: categories spell/creature/liquid/wand/item/perk, See/Count/Has/CountOf, Page (the
+  game's full list in order + unknown flags), text file (tab separated, bad lines skipped), FileFor (by player file
+  name, Windows-safe), atomic Save (tmp + File.Replace), Discovered event. ProgressBookTests (4); 74 Core tests pass.
+- Game part (hooks, window, key O, migration of known_<name>.txt) is for the PC session: see the design file.
