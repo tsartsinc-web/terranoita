@@ -24,15 +24,16 @@ How it works (author, 2026-10-08): the author only says "работай" to eith
 - PC-6 new: the 39 known spell failures (design/sources/magic_baseline.txt, MODLOG "memory leak, spells test"):
   test window for delayed/caster-centred spells (or expectations by kind), giga holes no shot (3-alive tag query in
   TerrariaWorld.WithTag), lasers/lightning (roadmap 0.4.x). Check: spells run shows them fixed or marked known.
-- PC-4 waits PC-3, CLOUD-2: Physics/Electricity.cs (section 3) + the pool test (section 4).
+- PC-4 new: Physics/Electricity.cs (section 3) on Core's Conduction (Emit/Tick/ForEach; IConductGrid = liquids'
+  and Terraria water's `conducts` + metal tiles; energy = the loaded file's ElectricityComponent energy, 1 = 1 tile,
+  tune) + the pool test (section 4). ELECTROCUTION row is in status_effects (0.667 s, creatures cannot move; the
+  player gets Terraria's Electrified, author). Check: the pool test.
+- PC-7 new: golden check: `TERRANOITA_NOITA_DIR=<noita> dotnet test tests/Terranoita.Core.Tests --filter LuaGolden`
+  or `tncli lua-golden <noita> --check design/sources/lua_cast_golden.txt` (exit 1 + the diff); add it to pc_step
+  or game_test. Check: "golden: no change".
 
 ## CLOUD queue
-- CLOUD-4 new: status_effects ELECTROCUTION row from design/sources/electricity_facts.json (GameEffect, 40 frames,
-  disable_movement) via a tool (seed_status_effects.py reads the facts file); Conduction (CLOUD-2) energy = the
-  ElectricityComponent energy of the loaded file (facts). Check: preflight 1a CLEAN, tools tests.
-- CLOUD-1 new: Core tests comparing LuaGun casts with lua_cast_golden.txt. Check: dotnet test green.
-- CLOUD-2 new: Core/Physics/Conduction.cs (grid-agnostic flood fill through conducting cells, charge timers, caps,
-  no allocations) + tests (one pool, two pools, cap, decay, refresh). Check: dotnet test green, preflight 1a CLEAN.
+- (empty)
 
 ## Author (questions; agents do not wait for answers)
 - Roadmap decisions: design/roadmap.md "Open author decisions" (trader, flasks, perks, bosses).
@@ -42,6 +43,9 @@ How it works (author, 2026-10-08): the author only says "работай" to eith
   never in a public repo).
 
 ## Done (last ~8)
+- done (this commit) CLOUD-1: LuaGolden (Core: lines, Diff) + tncli lua-golden --check + Core test on the PC.
+- done (this commit) CLOUD-2: Core/Physics/Conduction.cs + ConductionTests.
+- done (this commit) CLOUD-4: ELECTROCUTION row (seed_status_effects.py --electricity).
 - done (this commit) PC: memory leak (Lua state per wand -> max 6), fast shots hit along their path, spells test +
   baseline 383/422 OK.
 - done 78d3f25 PC: PC-1 cheaper magic tests (summary + problems + baseline diff in game_test.ps1; magic run prints 3

@@ -700,6 +700,27 @@
    "_sources": {
     "all": "status_list.lua"
    }
+  },
+  {
+   "id": "ELECTROCUTION",
+   "name_key": "none",
+   "desc_key": "none",
+   "icon": "none",
+   "harmful": true,
+   "protects_from_fire": false,
+   "removes_cause": false,
+   "cancels": [],
+   "mechanic": "creatures cannot move while it lasts (disable_movement); the player gets Terraria's Electrified buff instead (author 2026-10-08)",
+   "seconds": 0.667,
+   "stage": "3",
+   "_unverified": {
+    "name_key": "Noita shows no status for it; a name/icon from data/entities/misc/effect_electricity.xml if it has one (PC)",
+    "icon": "as name_key"
+   },
+   "_sources": {
+    "all": "data/entities/misc/effect_electricity.xml GameEffectComponent (frames 40) via electricity_facts.json",
+    "harmful": "it stuns and comes with electricity damage"
+   }
   }
  ]
 }

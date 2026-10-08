@@ -808,3 +808,17 @@ Next steps (author's order: finish magic, then shops):
   the 3-alive tag query), ALL_NUKES/ALL_SPELLS uses kept.
 - noita_solids touch_effects: my regeneration had dropped it; extract_liquids.py now writes it (SOLID_TOUCH, the
   author's toxic ground rocks), identical to before.
+
+## Cloud: CLOUD-4, CLOUD-2, CLOUD-1 (design/tasks.md)
+- CLOUD-4: tools/seed_status_effects.py: ELECTROCUTION row from design/sources/electricity_facts.json
+  (GameEffect of effect_electricity.xml: 40 frames = 0.667 s, disable_movement -> creatures cannot move; the
+  player gets Terraria's Electrified, author), stage 3; `--electricity` mode upserts it without status_list.lua,
+  a full seed adds it too. name/icon unverified (Noita shows no status for it). tests/tools/test_seed_status_effects.py.
+- CLOUD-2: Core/Physics/Conduction.cs: IConductGrid; Emit(grid, x, y, radius, energy, chargeFrames) charges the
+  conducting tiles within the radius and spreads 4-way through conducting neighbours, 1 energy = 1 tile (to tune on
+  the PC), caps MaxSpread per emission and MaxCharged in all, refresh keeps the longer charge; Tick counts down and
+  drops tiles that stopped conducting; ForEach without lists; buffers reused. ConductionTests (4).
+- CLOUD-1: Core/Noita/LuaGolden.cs (the lua-golden line, moved from tncli unchanged; Diff -> changed/gone/new);
+  `tncli lua-golden <noita> --check <golden>` prints up to 40 differences + "golden: no change"/count, exit 1 on any;
+  LuaGoldenTests: Diff, the golden file well formed, and the full comparison when TERRANOITA_NOITA_DIR is set (PC).
+- 96 Core tests pass; tools tests OK; gate 1a/1b CLEAN; StatusEffects.g.cs regenerated (only that table changed).

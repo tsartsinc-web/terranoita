@@ -70,6 +70,7 @@ namespace Terranoita.Generated
             new StatusEffectDef { Id = "FARTS", NameKey = "status_farts", DescKey = "statusdesc_farts", Icon = "data/ui_gfx/status_indicators/farts.png", Harmful = true, ProtectsFromFire = false, RemovesCause = false, Mechanic = "green puffs (Terraria stinky)", Cancels = new string[0], Seconds = 15.0f, Stage = "2" },
             new StatusEffectDef { Id = "RAINBOW_FARTS", NameKey = "status_rainbow_farts", DescKey = "statusdesc_rainbow_farts", Icon = "data/ui_gfx/status_indicators/farts.png", Harmful = false, ProtectsFromFire = false, RemovesCause = false, Mechanic = "rainbow puffs", Cancels = new string[0], Seconds = 15.0f, Stage = "2" },
             new StatusEffectDef { Id = "JARATE", NameKey = "status_jarate", DescKey = "statusdesc_jarate", Icon = "data/ui_gfx/status_indicators/jarate.png", Harmful = false, ProtectsFromFire = false, RemovesCause = false, Mechanic = "yellow drips", Cancels = new[] { "WET" }, Seconds = 15.0f, Stage = "2" },
+            new StatusEffectDef { Id = "ELECTROCUTION", NameKey = "none", DescKey = "none", Icon = "none", Harmful = true, ProtectsFromFire = false, RemovesCause = false, Mechanic = "creatures cannot move while it lasts (disable_movement); the player gets Terraria's Electrified buff instead (author 2026-10-08)", Cancels = new string[0], Seconds = 0.667f, Stage = "3" },
         };
     }
 }

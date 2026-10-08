@@ -4,6 +4,7 @@ effects in Terraria: Noita's icon and name (data/scripts/status_effects/status_l
 
   tncli wak-cat <noita> data/scripts/status_effects/status_list.lua > build/status_list.lua
   python tools/seed_status_effects.py build/status_list.lua
+  python tools/seed_status_effects.py --electricity [design/sources/electricity_facts.json]   # only ELECTROCUTION
 """
 import json
 import os
@@ -89,24 +90,75 @@ def parse_lua(path):
     return out
 
 
-lua = parse_lua(sys.argv[1])
-liquids = json.load(open(os.path.join(ROOT, "design", "sheets", "liquids.json"), encoding="utf-8"))
-used = {e.split(":")[0] for r in liquids["rows"] for e in r["touch_effects"] + r["ingestion"]}
-missing = sorted(used - set(ROWS))
-if missing:
-    raise SystemExit("no row for: " + ", ".join(missing))
-rows = []
-for k, (mech, secs) in ROWS.items():
-    n = lua.get(k) or lua.get(k.replace("INGESTION_", "")) or (lua.get("INGESTION_FREEZING") if k == "CHILLED" else None) or {}
-    rows.append({"id": k, "name_key": n.get("ui_name", "").lstrip("$") or "none",
-                 "desc_key": n.get("ui_description", "").lstrip("$") or "none",
-                 "icon": n.get("ui_icon") or "none", "harmful": bool(n.get("is_harmful", False)),
-                 "protects_from_fire": bool(n.get("protects_from_fire", False)),
-                 "removes_cause": bool(n.get("remove_cells_that_cause_when_activated", False)),
-                 "cancels": sorted({b for a, b in OPPOSITES if a == k} | {a for a, b in OPPOSITES if b == k}), "mechanic": mech, "seconds": secs,
-                 "stage": "2", "_unverified": {},
-                 "_sources": {"all": "status_list.lua" + ("" if lua.get(k) else " (" + (k.replace("INGESTION_", "") if n else "not listed") + ")")}})
-with open(OUT, "w", encoding="utf-8", newline="\n") as f:
-    f.write(json.dumps({"sheet": "status_effects", "description": "Stage 2: Noita status effects, run by our code with Noita's icons.",
-                        "key": "id", "columns": COLUMNS, "rows": rows}, ensure_ascii=False, indent=1) + "\n")
-print("wrote", len(rows), "rows;", sum(r["icon"] != "none" for r in rows), "with icons")
+ELECTRICITY_FACTS = os.path.join(ROOT, "design", "sources", "electricity_facts.json")
+
+
+def load_facts(path):
+    if not os.path.exists(path):
+        return None
+    with open(path, encoding="utf-8") as f:
+        return json.load(f)
+
+
+def electrocution_row(facts):
+    """ELECTROCUTION is a Noita GameEffect (data/entities/misc/effect_electricity.xml), not in status_list.lua."""
+    e = facts["electrocution_effect"]
+    g = e["GameEffectComponent"]
+    frames = float(g["frames"])
+    stun = g.get("disable_movement") == "1"
+    return {"id": g["effect"], "name_key": "none", "desc_key": "none", "icon": "none", "harmful": True,
+            "protects_from_fire": False, "removes_cause": False, "cancels": [],
+            "mechanic": ("creatures cannot move while it lasts (disable_movement); " if stun else "") +
+                        "the player gets Terraria's Electrified buff instead (author 2026-10-08)",
+            "seconds": round(frames / 60.0, 3), "stage": "3",
+            "_unverified": {"name_key": "Noita shows no status for it; a name/icon from " + e["file"] + " if it has one (PC)",
+                            "icon": "as name_key"},
+            "_sources": {"all": e["file"] + " GameEffectComponent (frames " + g["frames"] + ") via electricity_facts.json",
+                         "harmful": "it stuns and comes with electricity damage"}}
+
+
+def upsert_electrocution(facts_path=ELECTRICITY_FACTS, sheet_path=None):
+    """Adds or replaces the ELECTROCUTION row in the existing sheet (no status_list.lua needed)."""
+    sheet_path = sheet_path or OUT
+    with open(sheet_path, encoding="utf-8") as f:
+        sheet = json.load(f)
+    row = electrocution_row(load_facts(facts_path))
+    sheet["rows"] = [r for r in sheet["rows"] if r["id"] != row["id"]] + [row]
+    with open(sheet_path, "w", encoding="utf-8", newline="\n") as f:
+        f.write(json.dumps(sheet, ensure_ascii=False, indent=1) + "\n")
+    return row
+
+
+def seed(lua_path):
+    lua = parse_lua(lua_path)
+    liquids = json.load(open(os.path.join(ROOT, "design", "sheets", "liquids.json"), encoding="utf-8"))
+    used = {e.split(":")[0] for r in liquids["rows"] for e in r["touch_effects"] + r["ingestion"]}
+    missing = sorted(used - set(ROWS))
+    if missing:
+        raise SystemExit("no row for: " + ", ".join(missing))
+    rows = []
+    for k, (mech, secs) in ROWS.items():
+        n = lua.get(k) or lua.get(k.replace("INGESTION_", "")) or (lua.get("INGESTION_FREEZING") if k == "CHILLED" else None) or {}
+        rows.append({"id": k, "name_key": n.get("ui_name", "").lstrip("$") or "none",
+                     "desc_key": n.get("ui_description", "").lstrip("$") or "none",
+                     "icon": n.get("ui_icon") or "none", "harmful": bool(n.get("is_harmful", False)),
+                     "protects_from_fire": bool(n.get("protects_from_fire", False)),
+                     "removes_cause": bool(n.get("remove_cells_that_cause_when_activated", False)),
+                     "cancels": sorted({b for a, b in OPPOSITES if a == k} | {a for a, b in OPPOSITES if b == k}), "mechanic": mech, "seconds": secs,
+                     "stage": "2", "_unverified": {},
+                     "_sources": {"all": "status_list.lua" + ("" if lua.get(k) else " (" + (k.replace("INGESTION_", "") if n else "not listed") + ")")}})
+    facts = load_facts(ELECTRICITY_FACTS)
+    if facts:
+        rows.append(electrocution_row(facts))
+    with open(OUT, "w", encoding="utf-8", newline="\n") as f:
+        f.write(json.dumps({"sheet": "status_effects", "description": "Stage 2: Noita status effects, run by our code with Noita's icons.",
+                            "key": "id", "columns": COLUMNS, "rows": rows}, ensure_ascii=False, indent=1) + "\n")
+    print("wrote", len(rows), "rows;", sum(r["icon"] != "none" for r in rows), "with icons")
+
+
+if __name__ == "__main__":
+    if len(sys.argv) > 1 and sys.argv[1] == "--electricity":
+        r = upsert_electrocution(sys.argv[2] if len(sys.argv) > 2 else ELECTRICITY_FACTS)
+        print("ELECTROCUTION row:", r["seconds"], "s")
+    else:
+        seed(sys.argv[1])

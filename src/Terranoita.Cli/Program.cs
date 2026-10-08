@@ -46,28 +46,18 @@ namespace Terranoita.Cli
                         case "wak-cat":
                             Console.Write(Text(files, args[2]) ?? throw new FileNotFoundException(args[2]));
                             return 0;
-                        case "lua-golden":   // lua-golden <noita>: one line per spell, cast once through gun.lua (spell, bolt, bomb): the Core golden file
+                        case "lua-golden":   // lua-golden <noita> [--check golden.txt]: one line per spell through gun.lua (spell, bolt, bomb), or the diff against the golden file
                         {
-                            var probe = new Terranoita.Noita.LuaGun(p => Text(files, p));
-                            foreach (var id in probe.ActionIds())
+                            Func<string, string> read = p => Text(files, p);
+                            if (args.Length > 3 && args[2] == "--check")
                             {
-                                string line;
-                                try
-                                {
-                                    var gun = new Terranoita.Noita.LuaGun(p => Text(files, p), null, 1);
-                                    var w = new Terranoita.Noita.LuaWand { RechargeTime = 30, CastDelay = 10, Capacity = 4 };
-                                    w.Spells.Add((id, -1)); w.Spells.Add(("LIGHT_BULLET", -1)); w.Spells.Add(("BOMB", -1));
-                                    gun.Load(w);
-                                    var c = gun.Cast(1000);
-                                    var shots = c.Shots.GroupBy(x => System.IO.Path.GetFileNameWithoutExtension(x.File ?? "?")).OrderBy(g => g.Key, StringComparer.Ordinal)
-                                        .Select(g => g.Key + (g.Count() > 1 ? "x" + g.Count() : "") + (g.Any(x => x.Payload.Count > 0) ? "+payload" : ""));
-                                    line = id + " | shots " + c.Shots.Count + " " + string.Join(",", shots) + " | mana " + Math.Round(1000 - c.Mana, 1).ToString(System.Globalization.CultureInfo.InvariantCulture) +
-                                           " | delay " + Math.Round(c.CastDelay, 1).ToString(System.Globalization.CultureInfo.InvariantCulture) + " | recharge " + Math.Round(c.Recharge, 1).ToString(System.Globalization.CultureInfo.InvariantCulture) +
-                                           " | played " + string.Join(",", c.Played) + (c.Missing.Count > 0 ? " | missing " + string.Join(",", c.Missing.Distinct()) : "");
-                                }
-                                catch (Exception ex) { line = id + " | ERROR " + ex.Message.Split('\n')[0]; }
-                                Console.WriteLine(line);
+                                var diff = Terranoita.Noita.LuaGolden.Diff(File.ReadAllText(args[3]), Terranoita.Noita.LuaGolden.Lines(read));
+                                foreach (var d in diff.Take(40)) Console.WriteLine(d);
+                                Console.WriteLine(diff.Count == 0 ? "golden: no change" : "golden: " + diff.Count + " differences" + (diff.Count > 40 ? " (first 40 shown)" : ""));
+                                return diff.Count == 0 ? 0 : 1;
                             }
+                            foreach (var line in Terranoita.Noita.LuaGolden.Lines(read))
+                                Console.WriteLine(line);
                             return 0;
                         }
                         case "lua-all":   // lua-all <noita>: every spell cast through gun.lua (with a bolt after it), errors and engine calls we lack
