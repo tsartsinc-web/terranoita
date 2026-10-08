@@ -34,7 +34,7 @@ How it works (author, 2026-10-08): the author only says "работай" to eith
   500-600: castable now with 600 max mana.
 - PC-4 new: Physics/Electricity.cs on Core's Conduction (design/effect_interactions.md 0b, section 3) + pool test.
 - PC-10 waits CLOUD-7: worldgen per design/worldgen_plan.md sections 1, 3, 4, 5. Check: game_test -Mode worldgen.
-- Known gaps: the cart kicked against a wall does not move (game_test -Mode cart: 0 tiles, it only flips); flask powders (gunpowder_unstable, purifying_powder) do not pour (no Fluids kind); multiplayer still
+- Known gaps: flask powders (gunpowder_unstable, purifying_powder) do not pour (no Fluids kind); multiplayer still
   clamps synced mana at 400 (MessageBuffer.GetData).
 
 ## CLOUD queue
