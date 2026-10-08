@@ -1067,5 +1067,5 @@ unless asked.
   liquid change (all Liquid.AddWater calls of Falling/Fire/Fluids go through NetSync.AddWater) and sends them after
   the physics update: NetMessage.SendTileSquare (server applies it as sent, MessageBuffer case 20) and sendWater (48).
 - WandWindow: ItemSlot.Handle with ChestItem context sent SyncChestItem for chest -1 -> IndexOutOfRange in
-  SendData; BankItem context now (WandWindow.SlotContext).
+  SendData; InventoryItem context now (WandWindow.SlotContext; BankItem threw NullReference without an open container).
 - Sandbox: 600 max mana (ManaCap.TotalCap) for the author's spell tests.

@@ -31,7 +31,7 @@ How it works (author, 2026-10-08): the author only says "работай" to eith
 
 ## PC queue
 - PC-20 done-in-code (multiplayer): wand window clicks threw IndexOutOfRange in NetMessage.SendData (ChestItem
-  context syncs the open chest, -1): slots use BankItem context now (WandWindow.SlotContext). Check: author clicks
+  context syncs the open chest, -1): slots use InventoryItem context now (WandWindow.SlotContext; BankItem needs an open container). Check: author clicks
   wand/spell slots while hosting, no "ERROR in wand window".
 - PC-19 doing (multiplayer): physics runs on our client too (Patches.Live: netMode != 2); every tile/liquid our
   physics changes is sent (Physics/NetSync.cs: TileSquare for blocks/walls, sendWater for Terraria liquid, 120 per
