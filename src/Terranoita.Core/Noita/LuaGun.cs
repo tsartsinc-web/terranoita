@@ -55,7 +55,7 @@ namespace Terranoita.Noita
         readonly Func<string, string> _read;
         readonly HashSet<string> _loaded = new HashSet<string>(StringComparer.Ordinal);
         readonly string[] _actionFields;
-        readonly Random _rng = new Random();
+        readonly Random _rng;
         int _frame;
 
         // what the current cast builds
@@ -71,8 +71,10 @@ namespace Terranoita.Noita
         public Action<int, int> UsesChanged;
 
         /// <param name="readText">Reads a file of the player's Noita (data/scripts/...), null if missing.</param>
-        public LuaGun(Func<string, string> readText, LuaWorld world = null)
+        /// <param name="seed">a fixed seed makes random spells repeat (golden files, tests)</param>
+        public LuaGun(Func<string, string> readText, LuaWorld world = null, int? seed = null)
         {
+            _rng = seed.HasValue ? new Random(seed.Value) : new Random();
             _read = readText;
             World = world ?? new LuaWorld();
             _lua = new Script(CoreModules.Preset_SoftSandbox);

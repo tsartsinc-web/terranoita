@@ -223,6 +223,13 @@ namespace Terranoita.Game
                 }
                 return;
             }
+            if (Magic.SpellsTest.Enabled)
+            {
+                Magic.SpellsTest.Frame(p, _worldFrames);
+                if (Magic.SpellsTest.Done && ExitWhenDone)
+                    Main.instance.Exit();
+                return;
+            }
             if (Magic.WandsTest.Enabled)
             {
                 Magic.WandsTest.Frame(p, _worldFrames);
