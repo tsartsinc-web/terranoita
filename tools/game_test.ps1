@@ -9,6 +9,7 @@
 # magic/wands/spells print ONE summary, the problems (max 20 lines) and the change against
 # design/sources/magic_baseline.txt; the full log stays in %LOCALAPPDATA%/Terranoita/logs/latest.log.
 #   powershell -File tools/game_test.ps1 -Mode sandbox          # the author plays: arena, chests of every spell and wand
+#   powershell -File tools/game_test.ps1 -Mode play             # just the game (fresh build, own saves)
 #   powershell -File tools/game_test.ps1 -Mode tour             # a new medium world: Shine, 10 underground chests, death, flasks
 # Modes: magic, fps, physics, gallery, audit, enemies. Screenshots: %LOCALAPPDATA%/Terranoita/shots/*.png
 param(
@@ -35,6 +36,12 @@ Copy-Item (Join-Path $bin "Terranoita.Game.dll"), (Join-Path $bin "Terranoita.Co
 $data = Join-Path $env:LOCALAPPDATA "Terranoita"
 $log = Join-Path $data "logs\latest.log"
 if (Test-Path $log) { [IO.File]::Delete($log) }
+# play: just the game with the fresh build, the author's own characters and worlds (no test, no new world)
+if ($Mode -eq "play") {
+    Start-Process -FilePath (Join-Path $Terraria "Terranoita.exe") -WorkingDirectory $Terraria -ArgumentList @("--noita-dir", "`"$Noita`"") | Out-Null
+    "game started"
+    exit 0
+}
 $env:TERRANOITA_AUTOTEST = "1"; $env:TERRANOITA_AUTOTEST_EXIT = "1"
 switch ($Mode) {
     "spells"  { $env:TERRANOITA_AUTOTEST_SPELLS = "1"; $filter = "SPELLS" }
