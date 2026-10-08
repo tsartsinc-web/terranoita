@@ -19,7 +19,7 @@ namespace Terranoita.Game
                 return;
             try
             {
-                // player.bank: the kick, drinking; music*.bank: the main menu's music (event:/music/menu/main)
+                // player.bank: the kick, drinking; music*.bank: the main menu's music (event:/music/mountain/enter, "Kick the Cart")
                 var banks = new List<string> { "animals.bank", "projectiles.bank", "explosion.bank", "player.bank", "items.bank", "music.bank" };
                 for (int i = 1; i <= 11; i++)
                     banks.Add("music" + i.ToString("00") + ".bank");
@@ -54,7 +54,7 @@ namespace Terranoita.Game
             return false;
         }
 
-        const string MenuMusic = "music/menu/main";
+        const string MenuMusic = "music/mountain/enter";   // author: "Kick the Cart"
         static IntPtr _menuMusic;
         static bool _menuMissing;
 
