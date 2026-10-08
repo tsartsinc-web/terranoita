@@ -104,6 +104,8 @@ namespace Terranoita.Game
                 if (Book != null)
                 {
                     Save();
+                    WandWindow.SaveInventoryUses(Main.LocalPlayer);
+                    WandWindow.SaveSpellSlots();
                     Book = null;
                     _open = false;
                 }
@@ -117,7 +119,12 @@ namespace Terranoita.Game
             if (Main.GameUpdateCount % 30 == 0)
                 ScanTaken();
             if (Main.GameUpdateCount - _savedAt > 7200)
+            {
                 Save();
+                WandWindow.SaveInventoryUses(Main.LocalPlayer);
+                WandWindow.SaveSpellSlots();
+                _savedAt = Main.GameUpdateCount;
+            }
         }
 
         /// <summary>Tests: open on a tab, or close.</summary>

@@ -23,7 +23,7 @@ namespace Terranoita.Game.Magic
         public const int WandSlotCount = 4, SpellSlotCount = 16;
         public static Item[] WandSlots = NewSlots();
         public static Item[] SpellSlots = NewSpellSlots();   // Noita's 16 spell slots, left of the equipment (author)
-        static string _spellsFile;
+        static string _spellsFile, _usesFile;
         static bool _open, _terrariaLook;
         static Rectangle _lookRect;
         static Texture2D _pixel;
@@ -60,7 +60,9 @@ namespace Terranoita.Game.Magic
                 Directory.CreateDirectory(Path.Combine(Folder, "players"));
                 _slotsFile = Path.Combine(Folder, "players", name + ".wands");
                 _spellsFile = Path.Combine(Folder, "players", name + ".spells");
+                _usesFile = Path.Combine(Folder, "players", name + ".uses");
                 LoadSpellSlots();
+                LoadInventoryUses(p);
                 WandSlots = NewSlots();
                 if (File.Exists(_slotsFile))
                 {
@@ -95,6 +97,44 @@ namespace Terranoita.Game.Magic
                 }
             }
             catch (Exception ex) { Entry.Error("spell slots", ex); }
+        }
+
+        /// <summary>Uses left of the spells in Terraria's inventory (Terraria saves only the item): "slot:ID:uses".</summary>
+        public static void SaveInventoryUses(Player p)
+        {
+            if (_usesFile == null || p == null)
+                return;
+            try
+            {
+                var lines = new List<string>();
+                for (int i = 0; i < p.inventory.Length; i++)
+                {
+                    string id = MagicItems.SpellOf(p.inventory[i]);
+                    int uses = id == null ? -1 : MagicItems.UsesLeft(p.inventory[i]);
+                    int max = id == null ? -1 : MagicItems.Spell(id)?.MaxUses ?? -1;
+                    if (uses >= 0 && uses < max)
+                        lines.Add(i + ":" + id + ":" + uses);
+                }
+                File.WriteAllLines(_usesFile, lines);
+            }
+            catch (Exception ex) { Entry.Error("spell uses save", ex); }
+        }
+
+        static void LoadInventoryUses(Player p)
+        {
+            try
+            {
+                if (!File.Exists(_usesFile))
+                    return;
+                foreach (var line in File.ReadAllLines(_usesFile))
+                {
+                    var parts = line.Split(':');
+                    if (parts.Length == 3 && int.TryParse(parts[0], out int slot) && int.TryParse(parts[2], out int uses) &&
+                        slot >= 0 && slot < p.inventory.Length && MagicItems.SpellOf(p.inventory[slot]) == parts[1])
+                        MagicItems.SetUses(p.inventory[slot], uses);   // only if the same spell is still in that slot
+                }
+            }
+            catch (Exception ex) { Entry.Error("spell uses load", ex); }
         }
 
         public static void SaveSpellSlots()

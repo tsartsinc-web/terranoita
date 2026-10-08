@@ -123,6 +123,8 @@ namespace Terranoita.Game.Magic
                 dir = new Vector2(p.direction, 0);
             dir.Normalize();
             var tip = p.Center + dir * 24f;
+            foreach (var id in cast.Played)
+                ProgressWindow.Cast(id);   // the progress book counts casts per spell (Noita's OnActionPlayed)
             TestCasts++;
             TestShots += cast.Shots.Count;
             foreach (var s in cast.Shots)
