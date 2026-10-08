@@ -37,7 +37,10 @@ namespace Terranoita.Game
                     if (!ZoneChecks.All.TryGetValue(z.Id, out var check) || check == null)
                         continue;
                     var zone = z;
-                    checks.Add((p, x, y) => Unlocked(zone) && (!tough || Main.hardMode) && check(p, x, y));
+                    // on the surface the hostile ones come only at night (author: bombers and shooters by day killed him);
+                    // blood moon and eclipse count as night; peaceful animals and fish keep coming by day
+                    bool nightOnly = zone.Id.StartsWith("surface") && e.Ai != "helpless_walker" && !Swims(e);
+                    checks.Add((p, x, y) => Unlocked(zone) && (!tough || Main.hardMode) && (!nightOnly || !Main.dayTime || Main.eclipse || Main.bloodMoon) && check(p, x, y));
                 }
                 if (checks.Count > 0)
                     _pool.Add((e, checks.ToArray()));

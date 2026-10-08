@@ -21,10 +21,6 @@ How it works (author, 2026-10-08): the author only says "работай" to eith
   play without errors; traders/electricity/lasers come in 0.4.x.
 
 ## PC queue
-- PC-9 waits CLOUD-6: night spawns on the surface (author: crawlers/shooters/bombers kill him in the first minutes by day).
-  Needs CLOUD-6. Spawning: a creature whose zone row says `time: night` spawns only when !Main.dayTime (blood moon
-  and eclipse count as night); passive ones (sheet says `time: any`) keep spawning by day. Check: autotest day 10 min
-  -> 0 hostile Noita spawns on the surface, night -> spawns.
 - PC-11 code done (PC), needs an in-game check: Zones.NearWater(x, y, 12) in the surface_water row. Was: lake animals never spawn (author never saw a duck/deer/sheep/elk/wolf): surface_water check is
   "spawn tile in water", but walkers need ground there. Add Zones.NearWater(x, y, 12) (surface water within 12
   tiles) and set terraria_zones surface_water.terraria_check to it (sheet edit allowed by this row; gen_cs);
@@ -61,6 +57,9 @@ How it works (author, 2026-10-08): the author only says "работай" to eith
   never in a public repo).
 
 ## Done (last ~8)
+- done (PC) PC-9 without CLOUD-6 (author: bombers by day): Spawning: in surface_* zones every creature but
+  helpless_walker animals and swimmers spawns only at night (blood moon, eclipse count). CLOUD-6's `time` column is
+  no longer needed for this. Start cart is now Noita's wooden cart (physics_cart.xml), author's correction.
 - done (PC) the real bug behind PC-8's empty chests: Terraria saves a world once while making it; our world-save
   hook wrote an empty <world>.wld.magic then, so loading never filled chests or placed cave wands in ANY new world.
   WorldLoot.Save now writes only for the world it loaded (version 2); version-1 files without wand spots are filled

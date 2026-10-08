@@ -8,14 +8,15 @@ using Terraria;
 namespace Terranoita.Game
 {
     /// <summary>
-    /// The minecart of Noita's start (data/entities/props/physics_minecart.xml, its pictures data/props_gfx/minecart*.png),
+    /// The wooden cart of Noita's start (data/entities/props/physics_cart.xml: cart_top.png and its one small wheel
+    /// cart_wheel.png, both 27 x 13 and centered on each other, material wood_prop = data/materials_gfx/wood.png),
     /// put next to the player the first time a world is entered (author). It falls, rolls when kicked (F) and slows on
     /// the ground; the player can stand in it and ride. Kept with the world: &lt;world&gt;.wld.cart ("x y", or "none").
     /// </summary>
     public static class Cart
     {
         const float Px = Noita.Units.PixelScale;
-        static readonly int W = (int)(18 * Px), H = (int)(15 * Px);   // minecart.png is 18 x 15 Noita px
+        static readonly int W = (int)(27 * Px), H = (int)(13 * Px);   // cart_top.png is 27 x 13 Noita px
         static Vector2 _pos, _vel;     // top-left in world pixels
         static bool _has;
         static string _world;
@@ -125,17 +126,14 @@ namespace Terranoita.Game
             var sb = Main.spriteBatch;
             var color = Lighting.GetColor((int)((_pos.X + W / 2f) / 16), (int)((_pos.Y + H / 2f) / 16));
             var at = _pos - Main.screenPosition;
-            // Noita draws physics props as their material inside the shape: metal_rust = data/materials_gfx/steel.png;
-            // the body at its size, the wheels at theirs under its bottom corners
-            var body = Art("data/props_gfx/minecart.png");
-            if (body != null)
-                sb.Draw(body, new Rectangle((int)at.X, (int)at.Y, W, H), color);
-            var left = Art("data/props_gfx/minecart_wheel_left.png");
-            var right = Art("data/props_gfx/minecart_wheel_right.png");
-            if (left != null)
-                sb.Draw(left, new Rectangle((int)(at.X + 1 * Px), (int)(at.Y + H - left.Height * Px), (int)(left.Width * Px), (int)(left.Height * Px)), color);
-            if (right != null)
-                sb.Draw(right, new Rectangle((int)(at.X + W - (right.Width + 1) * Px), (int)(at.Y + H - right.Height * Px), (int)(right.Width * Px), (int)(right.Height * Px)), color);
+            // Noita draws physics props as their material inside the shape: wood_prop = data/materials_gfx/wood.png;
+            // the wheel's picture is the same size as the top, its wheel already in place
+            foreach (var file in new[] { "data/props_gfx/cart_wheel.png", "data/props_gfx/cart_top.png" })
+            {
+                var tex = Art(file);
+                if (tex != null)
+                    sb.Draw(tex, new Rectangle((int)at.X, (int)at.Y, W, H), color);
+            }
         }
 
         static bool _artLogged;
@@ -143,14 +141,14 @@ namespace Terranoita.Game
         /// <summary>The part filled with its material (Noita's look), else Noita's own picture of it.</summary>
         static Texture2D Art(string file)
         {
-            var tex = NoitaArt.Masked(file, "data/materials_gfx/steel.png");
-            string how = "steel";
+            var tex = NoitaArt.Masked(file, "data/materials_gfx/wood.png");
+            string how = "wood";
             if (tex == null)
             {
                 tex = NoitaArt.Get(file)?.Texture;
                 how = "plain";
             }
-            if (!_artLogged && file.EndsWith("minecart.png"))
+            if (!_artLogged && file.EndsWith("cart_top.png"))
             {
                 _artLogged = true;
                 Entry.Log("cart art: " + (tex == null ? "NONE" : how + " " + tex.Width + "x" + tex.Height) + ", cart at " + (int)(_pos.X / 16) + "," + (int)(_pos.Y / 16));
