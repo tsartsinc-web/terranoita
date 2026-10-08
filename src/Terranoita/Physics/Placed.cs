@@ -16,17 +16,19 @@ namespace Terranoita.Game.Physics
         public static int Count => Set.Count;
         static int Key(int x, int y) => x + y * Main.maxTilesX;
         public static bool Has(int x, int y) => Set.Contains(Key(x, y));
-        public static void Add(int x, int y) => Set.Add(Key(x, y));
-        public static void Remove(int x, int y) => Set.Remove(Key(x, y));
+        public static void Add(int x, int y) { lock (SaveSync.Gate) Set.Add(Key(x, y)); }
+        public static void Remove(int x, int y) { lock (SaveSync.Gate) Set.Remove(Key(x, y)); }
 
         static string FilePath => string.IsNullOrEmpty(Main.worldPathName) ? null : Main.worldPathName + ".terranoita";
 
         public static void Load()
         {
-            Set.Clear();
+            lock (SaveSync.Gate)
+                Set.Clear();
             var path = FilePath;
             if (path == null || !File.Exists(path))
                 return;
+            var read = new HashSet<int>();
             try
             {
                 using (var r = new BinaryReader(File.OpenRead(path)))
@@ -35,12 +37,19 @@ namespace Terranoita.Game.Physics
                     for (int i = 0; i < n; i++)
                     {
                         int k = r.ReadInt32();
-                        Set.Add(k % w + k / w * Main.maxTilesX);
+                        read.Add(k % w + k / w * Main.maxTilesX);
                     }
                 }
-                Entry.Log("physics: " + Set.Count + " placed tiles read from " + Path.GetFileName(path));
+                Entry.Log("physics: " + read.Count + " placed tiles read from " + Path.GetFileName(path));
             }
-            catch (Exception ex) { Entry.Error("placed load", ex); }
+            catch (Exception ex)
+            {
+                // a cut file: keep what was read (those tiles are the player's), set the file aside
+                Entry.Error("placed load", ex);
+                SaveSync.SetAside(path);
+            }
+            lock (SaveSync.Gate)
+                Set.UnionWith(read);
         }
 
         public static void Save()
@@ -50,13 +59,20 @@ namespace Terranoita.Game.Physics
                 return;
             try
             {
-                using (var w = new BinaryWriter(File.Create(path)))
+                int[] keys;
+                lock (SaveSync.Gate)
                 {
-                    w.Write(Main.maxTilesX);
-                    w.Write(Set.Count);
-                    foreach (int k in Set)
-                        w.Write(k);
+                    keys = new int[Set.Count];
+                    Set.CopyTo(keys);
                 }
+                int width = Main.maxTilesX;
+                SaveSync.WriteAtomic(path, w =>
+                {
+                    w.Write(width);
+                    w.Write(keys.Length);
+                    foreach (int k in keys)
+                        w.Write(k);
+                });
             }
             catch (Exception ex) { Entry.Error("placed save", ex); }
         }

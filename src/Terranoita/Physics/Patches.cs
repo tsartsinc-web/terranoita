@@ -71,8 +71,12 @@ namespace Terranoita.Game.Physics
             {
                 if (!Live || !__result || plr < 0)
                     return;
-                Placed.Add(i, j);
-                Falling.Disturb(i, j);   // placed in the air: it falls
+                try
+                {
+                    Placed.Add(i, j);
+                    Falling.Disturb(i, j);   // placed in the air: it falls
+                }
+                catch (Exception ex) { Entry.Error("tile_place", ex); }
             }
         }
 
@@ -162,15 +166,19 @@ namespace Terranoita.Game.Physics
                     return;
                 try
                 {
-                    if (PerfTest.Enabled)
-                        PerfTest.Update(() => { Falling.Update(); Fire.Update(); Fluids.Update(); });
-                    else
+                    // what is saved changes only under this lock (the autosave copies it from another thread)
+                    lock (SaveSync.Gate)
                     {
-                        Falling.Update();
-                        Fire.Update();
-                        Fluids.Update();
+                        if (PerfTest.Enabled)
+                            PerfTest.Update(() => { Falling.Update(); Fire.Update(); Fluids.Update(); });
+                        else
+                        {
+                            Falling.Update();
+                            Fire.Update();
+                            Fluids.Update();
+                        }
+                        ToxicGround.Touch(Main.LocalPlayer);
                     }
-                    ToxicGround.Touch(Main.LocalPlayer);
                 }
                 catch (Exception ex) { Entry.Error("physics update", ex); }
             }

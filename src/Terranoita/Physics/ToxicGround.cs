@@ -21,7 +21,7 @@ namespace Terranoita.Game.Physics
         static readonly bool[] Seen = new bool[256];
 
         public static int Count => Cells.Count;
-        public static void Clear() => Cells.Clear();
+        public static void Clear() { lock (SaveSync.Gate) Cells.Clear(); }
 
         static int Key(int x, int y) => x + y * Main.maxTilesX;
 
@@ -40,22 +40,34 @@ namespace Terranoita.Game.Physics
         {
             int k = Kind(solid);
             if (k > 0 && Mats.InWorld(x, y) && Main.tile[x, y].active() && Main.tileSolid[Main.tile[x, y].type])
-                Cells[Key(x, y)] = (byte)k;
+                lock (SaveSync.Gate)
+                    Cells[Key(x, y)] = (byte)k;
         }
 
         public static void Remove(int x, int y)
         {
             if (Cells.Count > 0)
-                Cells.Remove(Key(x, y));
+                lock (SaveSync.Gate)
+                    Cells.Remove(Key(x, y));
         }
 
-        public static void Write(System.IO.BinaryWriter w)
+        /// <summary>A copy to save (take it under SaveSync.Gate): tile key and material id.</summary>
+        public static KeyValuePair<int, string>[] Snapshot()
         {
-            w.Write(Cells.Count);
+            var list = new KeyValuePair<int, string>[Cells.Count];
+            int i = 0;
             foreach (var kv in Cells)
+                list[i++] = new KeyValuePair<int, string>(kv.Key, _defs[kv.Value - 1].Id);
+            return list;
+        }
+
+        public static void Write(System.IO.BinaryWriter w, KeyValuePair<int, string>[] snapshot)
+        {
+            w.Write(snapshot.Length);
+            foreach (var kv in snapshot)
             {
                 w.Write(kv.Key);
-                w.Write(_defs[kv.Value - 1].Id);
+                w.Write(kv.Value);
             }
         }
 

@@ -673,3 +673,23 @@ Next steps (author's order: finish magic, then shops):
   Component docs read from <Noita>/tools_modding/component_documentation.txt.
 - MAGIC test: new sets (sine wave + fire trail, electric arc, orbit discs + spiraling (scripts), wall, teleport);
   screenshots arc, orbit_scripts.
+
+## Cloud: physics review fixes (design/cloud_task_physics_fixes.md), game code not built here
+- 1 Save/Load: `Physics/SaveSync.cs` (Gate lock + WriteAtomic: tmp then File.Replace/Move + SetAside .bad).
+  Fluids/Placed/ToxicGround change under Gate (UpdatePatch body, Fluids.Add/ConvertMaterial/Ignite/Clear/Load,
+  Placed.Add/Remove/Load, ToxicGround.Mark/Remove/Clear); saves copy under Gate, write outside it.
+  Fluids.Load: PoolsVersion only after a complete read; a broken file -> kept as .bad, cells read so far kept,
+  PoolsVersion = CavePools.Version (no pools poured again). Placed.Load: same, keeps what was read.
+- 2 Falling: `Checked` set (tiles found held this frame; cleared each frame, on Start and Land).
+- 3 Falling: placed blocks that land on a taken tile, fail to replace one, or fall out of the world drop their item
+  (tile -> item table built once from every item's createTile/placeStyle; platforms by frameY/18; none -> lost).
+- 4 Fire: burnable NPCs collected once per tick (active, !friendly, !dontTakeDamage, !OnFire immune), a caught one
+  is not checked again that tick.
+- 5 PlaceTilePatch in try/catch; Land moves Terraria liquid up (first free tiles, up to 4) instead of deleting it.
+- Magic review 8-9: ConvertMaterial changes nothing when `to` is unknown (not a liquid, water, lava or air);
+  Ignite and ConvertMaterial have their own summaries.
+- Checked here: C# 7.3 syntax of the changed files (Roslyn), no build (needs Terraria.exe).
+- проверить на ПК: build; game_test -Mode physics; autosave while liquids flow (no "Collection was modified" in the
+  log); a cut .fluids file -> .bad and no new pools; a building landing on blocks drops items.
+- вопрос локальной сессии: confirm WorldGen.saveAndPlay runs WorldFile.SaveWorld on the ThreadPool
+  (`TN_IL=1 tncli tr-methods Terraria.exe WorldGen saveAndPlay`).

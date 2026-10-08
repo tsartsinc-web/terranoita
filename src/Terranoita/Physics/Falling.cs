@@ -41,6 +41,9 @@ namespace Terranoita.Game.Physics
         static readonly Queue<int> Queue = new Queue<int>();
         static readonly Dictionary<int, int> Queued = new Dictionary<int, int>();   // tile -> the break it came from
         static bool _busy;                // our own tile changes do not disturb through the KillTile hook
+        // placed tiles already found held this frame: a landed building disturbs every one of its tiles, and each would
+        // flood-fill the whole building again (up to MaxGroup steps each). Any tile change clears it.
+        static readonly HashSet<int> Checked = new HashSet<int>();
 
         public static int Active => Bodies.Count;
 
@@ -49,6 +52,7 @@ namespace Terranoita.Game.Physics
             Bodies.Clear();
             Queue.Clear();
             Queued.Clear();
+            Checked.Clear();
         }
 
         /// <summary>The tile at x,y changed or went away: the tiles around it look again.</summary>
@@ -97,6 +101,7 @@ namespace Terranoita.Game.Physics
 
         public static void Update()
         {
+            Checked.Clear();
             for (int n = 0; n < PerFrame && Queue.Count > 0; n++)
             {
                 int k = Queue.Dequeue();
@@ -120,7 +125,7 @@ namespace Terranoita.Game.Physics
                     Start(new List<(int, int)> { (x, y) }, true, origin);
                 return;
             }
-            if (Placed.Has(x, y) && IsBlock(t) && !Mats.Weightless(t))
+            if (Placed.Has(x, y) && IsBlock(t) && !Mats.Weightless(t) && !Checked.Contains(x + y * Main.maxTilesX))
                 CheckSupport(x, y, origin);
         }
 
@@ -138,16 +143,25 @@ namespace Terranoita.Game.Physics
                 var (x, y) = open.Pop();
                 group.Add((x, y));
                 if (group.Count > MaxGroup)
+                {
+                    Checked.UnionWith(seen);   // taken as held
                     return;
+                }
                 foreach (var (nx, ny) in new[] { (x, y + 1), (x - 1, y), (x + 1, y), (x, y - 1) })
                 {
                     if (!Mats.InWorld(nx, ny))
+                    {
+                        Checked.UnionWith(seen);
                         return;
+                    }
                     var t = Main.tile[nx, ny];
                     if (t == null || !t.active() || !IsBlock(t) || t.inActive())
                         continue;
                     if (Mats.Weightless(t) || !Placed.Has(nx, ny))
-                        return;   // anchored
+                    {
+                        Checked.UnionWith(seen);   // anchored: every tile reached so far hangs on it
+                        return;
+                    }
                     if (seen.Add(nx + ny * Main.maxTilesX))
                         open.Push((nx, ny));
                 }
@@ -157,6 +171,7 @@ namespace Terranoita.Game.Physics
 
         static void Start(List<(int x, int y)> tiles, bool powder, int origin)
         {
+            Checked.Clear();   // tiles go away: what held a moment ago may not now
             var b = new Body { X = tiles[0].x, Y = tiles[0].y, Powder = powder, Origin = origin };
             _busy = true;
             try
@@ -197,7 +212,13 @@ namespace Terranoita.Game.Physics
                 }
             b.Off = next;
             if (b.Y + b.Off / 16f > Main.maxTilesY - 10)
-                return true;   // fell out of the world
+            {
+                // fell out of the world: the player's blocks come back as items where it left
+                foreach (var p in b.Parts)
+                    if (p.Placed)
+                        DropAsItem(p.Tile, b.X + p.Dx, Math.Min(Main.maxTilesY - 12, (int)(b.Y + p.Dy + b.Off / 16f)));
+                return true;
+            }
             Crush(b);
             return false;
         }
@@ -232,6 +253,7 @@ namespace Terranoita.Game.Physics
 
         static void Land(Body b, int rows)
         {
+            Checked.Clear();
             // another grain may have settled where this one lands: it stacks on top instead of vanishing
             for (int up = 0; up < 6 && Blocked(b, 0, rows); up++)
                 rows--;
@@ -248,17 +270,29 @@ namespace Terranoita.Game.Physics
                     if (t.active())
                     {
                         if (Main.tileSolid[t.type])
-                            continue;          // taken meanwhile: this piece is lost
+                        {
+                            if (p.Placed)
+                                DropAsItem(p.Tile, x, y);   // taken meanwhile: the player's block comes back as an item
+                            continue;
+                        }
                         _busy = false;
                         WorldGen.KillTile(x, y);   // grass, plants, furniture under it break
                         _busy = true;
                         if (t.active())
+                        {
+                            if (p.Placed)
+                                DropAsItem(p.Tile, x, y);
                             continue;
+                        }
                     }
                     ushort wall = t.wall;
+                    byte liquid = t.liquid;
+                    int liquidType = t.liquidType();
                     t.CopyFrom(p.Tile);
                     t.wall = wall;
                     t.liquid = 0;
+                    if (liquid > 0)
+                        PushLiquidUp(x, y, liquid, liquidType);   // Terraria's water there is moved up, not deleted
                     if (b.Powder)
                         t.type = Mats.FallsAs(t.type);
                     if (p.Placed)
@@ -273,6 +307,63 @@ namespace Terranoita.Game.Physics
                 Terraria.Audio.SoundEngine.PlaySound(SoundID.Dig, new Vector2(b.X * 16, (b.Y + rows) * 16));
             foreach (var (x, y) in landed)
                 Disturb(x, y, b.Origin);
+        }
+
+        /// <summary>The liquid of a tile a block lands in goes to the first free tile above (up to 4 tiles), else it is lost.</summary>
+        static void PushLiquidUp(int x, int y, byte amount, int type)
+        {
+            for (int up = 1; up <= 4; up++)
+            {
+                int ty = y - up;
+                if (!Mats.InWorld(x, ty) || Mats.Solid(x, ty))
+                    return;
+                var a = Main.tile[x, ty];
+                if (a.liquid > 0 && a.liquidType() != type || a.liquid == 255)
+                    continue;
+                int put = Math.Min(255 - a.liquid, (int)amount);
+                a.liquidType(type);
+                a.liquid = (byte)(a.liquid + put);
+                Liquid.AddWater(x, ty);
+                amount = (byte)(amount - put);
+                if (amount == 0)
+                    return;
+            }
+        }
+
+        // tile type (and style for platforms) -> the item that places it, from every item's createTile/placeStyle
+        static Dictionary<int, int> _itemOfTile;
+
+        static int ItemOfTile(Tile tile)
+        {
+            if (_itemOfTile == null)
+            {
+                _itemOfTile = new Dictionary<int, int>();
+                var it = new Item();
+                for (int i = 1; i < ItemID.Count; i++)
+                {
+                    it.SetDefaults(i);
+                    if (it.createTile < 0)
+                        continue;
+                    int key = it.createTile * 1000 + it.placeStyle;
+                    if (!_itemOfTile.ContainsKey(key))
+                        _itemOfTile[key] = i;
+                }
+            }
+            int style = TileID.Sets.Platforms[tile.type] ? tile.frameY / 18 : 0;
+            return _itemOfTile.TryGetValue(tile.type * 1000 + style, out int item) ? item :
+                   _itemOfTile.TryGetValue(tile.type * 1000, out item) ? item : 0;
+        }
+
+        /// <summary>A placed block that cannot land comes back as its item (none known: lost, as before).</summary>
+        static void DropAsItem(Tile tile, int x, int y)
+        {
+            try
+            {
+                int item = ItemOfTile(tile);
+                if (item > 0)
+                    Item.NewItem(new EntitySource_WorldEvent(), x * 16, y * 16, 16, 16, item);
+            }
+            catch (Exception ex) { Entry.Error("falling drop", ex); }
         }
 
         /// <summary>Falling blocks hurt what they fall on.</summary>

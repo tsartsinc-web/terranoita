@@ -56,7 +56,7 @@ namespace Terranoita.Game.Physics
         static Texture2D _pixel;
 
         public static int Count => Cells.Count;
-        public static void Clear() => Cells.Clear();
+        public static void Clear() { lock (SaveSync.Gate) Cells.Clear(); }
 
         static void Build()
         {
@@ -124,6 +124,12 @@ namespace Terranoita.Game.Physics
 
         /// <summary>Pour amount of a Noita liquid or gas into the tile at x,y (spreads into free neighbours).</summary>
         public static void Add(int x, int y, string material, int amount)
+        {
+            lock (SaveSync.Gate)
+                AddLocked(x, y, material, amount);
+        }
+
+        static void AddLocked(int x, int y, string material, int amount)
         {
             // Terraria's own liquids are Terraria's
             if (material == "lava" || material == "water")
@@ -388,14 +394,22 @@ namespace Terranoita.Game.Physics
             return true;
         }
 
-        /// <summary>Set the liquid at x,y on fire if it burns.</summary>
         /// <summary>Noita's MagicConvertMaterialComponent: the material "from" within r tiles of cx,cy becomes "to"
-        /// (Noita's liquids here, Terraria's water and lava too). How many tiles changed.</summary>
+        /// (Noita's liquids here, Terraria's water and lava too; "air" removes it). How many tiles changed.
+        /// A "to" we do not have (a solid, an unknown material) changes nothing, so nothing vanishes.</summary>
         public static int ConvertMaterial(int cx, int cy, int r, string from, string to)
+        {
+            lock (SaveSync.Gate)
+                return ConvertLocked(cx, cy, r, from, to);
+        }
+
+        static int ConvertLocked(int cx, int cy, int r, string from, string to)
         {
             int kf = KindOf(from), kt = KindOf(to), n = 0;
             int terrariaFrom = from == "water" ? LiquidID.Water : from == "lava" ? LiquidID.Lava : -1;
             if (kf == 0 && terrariaFrom < 0)
+                return 0;
+            if (kt == 0 && to != "water" && to != "lava" && to != "air")
                 return 0;
             for (int x = cx - r; x <= cx + r; x++)
                 for (int y = cy - r; y <= cy + r; y++)
@@ -424,13 +438,15 @@ namespace Terranoita.Game.Physics
             return n;
         }
 
+        /// <summary>Set the liquid at x,y on fire if it burns.</summary>
         public static void Ignite(int x, int y)
         {
             int k = Key(x, y);
             if (Cells.TryGetValue(k, out var c) && _defs[c.Kind - 1].Burnable)
             {
                 c.Burn = 1;
-                Cells[k] = c;
+                lock (SaveSync.Gate)
+                    Cells[k] = c;
             }
         }
 
@@ -538,37 +554,49 @@ namespace Terranoita.Game.Physics
         {
             if (_defs == null)
                 Build();
-            Cells.Clear();
-            ToxicGround.Clear();
-            PoolsVersion = 0;
-            var path = FluidsFile;
-            if (path == null || !System.IO.File.Exists(path))
-                return false;
-            try
+            lock (SaveSync.Gate)
             {
-                using (var r = new System.IO.BinaryReader(System.IO.File.OpenRead(path)))
+                Cells.Clear();
+                ToxicGround.Clear();
+                PoolsVersion = 0;
+                var path = FluidsFile;
+                if (path == null || !System.IO.File.Exists(path))
+                    return false;
+                int version = 0;
+                try
                 {
-                    int w = r.ReadInt32(), kinds = r.ReadInt32();
-                    var map = new byte[kinds + 1];
-                    for (int i = 1; i <= kinds; i++)
-                        map[i] = (byte)KindOf(r.ReadString());
-                    int n = r.ReadInt32();
-                    for (int i = 0; i < n; i++)
+                    using (var r = new System.IO.BinaryReader(System.IO.File.OpenRead(path)))
                     {
-                        int k = r.ReadInt32();
-                        byte kind = r.ReadByte(), amount = r.ReadByte(), burn = r.ReadByte();
-                        if (kind <= kinds && map[kind] > 0)
-                            Cells[k % w + k / w * Main.maxTilesX] = new Cell { Kind = map[kind], Amount = amount, Burn = burn };
+                        int w = r.ReadInt32(), kinds = r.ReadInt32();
+                        var map = new byte[kinds + 1];
+                        for (int i = 1; i <= kinds; i++)
+                            map[i] = (byte)KindOf(r.ReadString());
+                        int n = r.ReadInt32();
+                        for (int i = 0; i < n; i++)
+                        {
+                            int k = r.ReadInt32();
+                            byte kind = r.ReadByte(), amount = r.ReadByte(), burn = r.ReadByte();
+                            if (kind <= kinds && map[kind] > 0)
+                                Cells[k % w + k / w * Main.maxTilesX] = new Cell { Kind = map[kind], Amount = amount, Burn = burn };
+                        }
+                        // 0.3.0 files end here: their caves have the first, sparse pools
+                        version = r.BaseStream.Position < r.BaseStream.Length ? r.ReadInt32() : 1;
+                        if (r.BaseStream.Position < r.BaseStream.Length)
+                            ToxicGround.Read(r, w);
                     }
-                    // 0.3.0 files end here: their caves have the first, sparse pools
-                    PoolsVersion = r.BaseStream.Position < r.BaseStream.Length ? r.ReadInt32() : 1;
-                    if (r.BaseStream.Position < r.BaseStream.Length)
-                        ToxicGround.Read(r, w);
+                    PoolsVersion = version;   // only after the whole file was read
+                    Entry.Log("fluids: " + Cells.Count + " cells read from " + System.IO.Path.GetFileName(path));
                 }
-                Entry.Log("fluids: " + Cells.Count + " cells read from " + System.IO.Path.GetFileName(path));
+                catch (Exception ex)
+                {
+                    // a cut or broken file: keep what was read, set the file aside, and never pour the cave pools
+                    // again on a world that already has them
+                    Entry.Error("fluids load", ex);
+                    SaveSync.SetAside(path);
+                    PoolsVersion = CavePools.Version;
+                }
+                return true;
             }
-            catch (Exception ex) { Entry.Error("fluids load", ex); }
-            return true;
         }
 
         public static void Save()
@@ -578,23 +606,35 @@ namespace Terranoita.Game.Physics
                 return;
             try
             {
-                using (var w = new System.IO.BinaryWriter(System.IO.File.Create(path)))
+                // may run on Terraria's autosave thread: copy under the lock, write outside it
+                KeyValuePair<int, Cell>[] cells;
+                KeyValuePair<int, string>[] toxic;
+                int pools, width = Main.maxTilesX;
+                lock (SaveSync.Gate)
                 {
-                    w.Write(Main.maxTilesX);
-                    w.Write(_defs.Length);
-                    foreach (var d in _defs)
+                    cells = new KeyValuePair<int, Cell>[Cells.Count];
+                    ((ICollection<KeyValuePair<int, Cell>>)Cells).CopyTo(cells, 0);
+                    toxic = ToxicGround.Snapshot();
+                    pools = PoolsVersion;
+                }
+                var defs = _defs;
+                SaveSync.WriteAtomic(path, w =>
+                {
+                    w.Write(width);
+                    w.Write(defs.Length);
+                    foreach (var d in defs)
                         w.Write(d.Id);
-                    w.Write(Cells.Count);
-                    foreach (var kv in Cells)
+                    w.Write(cells.Length);
+                    foreach (var kv in cells)
                     {
                         w.Write(kv.Key);
                         w.Write(kv.Value.Kind);
                         w.Write(kv.Value.Amount);
                         w.Write(kv.Value.Burn);
                     }
-                    w.Write(PoolsVersion);
-                    ToxicGround.Write(w);
-                }
+                    w.Write(pools);
+                    ToxicGround.Write(w, toxic);
+                });
             }
             catch (Exception ex) { Entry.Error("fluids save", ex); }
         }

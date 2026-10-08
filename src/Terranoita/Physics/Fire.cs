@@ -126,6 +126,14 @@ namespace Terranoita.Game.Physics
         {
             var done = new List<int>();
             var spread = new List<(int, int, bool)>();
+            // the creatures fire can still catch, once per tick (not every burning tile x every NPC slot)
+            var targets = new List<NPC>();
+            for (int i = 0; i < Main.maxNPCs; i++)
+            {
+                var n = Main.npc[i];
+                if (n.active && !n.friendly && !n.dontTakeDamage && !n.buffImmune[BuffID.OnFire])
+                    targets.Add(n);
+            }
             foreach (var k in Burning.Keys.ToList())
             {
                 int cell = k / 2, x = cell % Main.maxTilesX, y = cell / Main.maxTilesX;
@@ -154,7 +162,8 @@ namespace Terranoita.Game.Physics
                         if ((dx != 0 || dy != 0) && Mats.Melts(n) && Main.rand.NextFloat() < (n.type == TileID.SnowBlock ? MeltSnow : MeltIce))
                             Melt(x + dx, y + dy);
                     }
-                HurtNpcs(x, y);
+                if (targets.Count > 0)
+                    HurtNpcs(x, y, targets);
                 if ((Burning[k] -= Tick) <= 0)
                     done.Add(k);
             }
@@ -192,14 +201,18 @@ namespace Terranoita.Game.Physics
                     IgniteCell(x, y, SpreadChance * 2);
         }
 
-        static void HurtNpcs(int x, int y)
+        /// <summary>Creatures touching the burning tile catch fire; one caught is not looked at again this tick.</summary>
+        static void HurtNpcs(int x, int y, List<NPC> targets)
         {
             var r = new Rectangle(x * 16 - 4, y * 16 - 4, 24, 24);
-            for (int i = 0; i < Main.maxNPCs; i++)
+            for (int i = targets.Count - 1; i >= 0; i--)
             {
-                var n = Main.npc[i];
-                if (n.active && !n.friendly && !n.buffImmune[BuffID.OnFire] && n.Hitbox.Intersects(r))
+                var n = targets[i];
+                if (n.Hitbox.Intersects(r))
+                {
                     n.AddBuff(BuffID.OnFire, 180);
+                    targets.RemoveAt(i);
+                }
             }
         }
 
