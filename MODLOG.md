@@ -1021,3 +1021,12 @@ unless asked.
 - Memory: the game OOMs at start when Steam's webhelper holds ~5 GB (no page file); check free commit first.
 - Tests clear saved liquids in their area (Fluids.ClearArea); a paused world (window lost focus) gives 0 reactions:
   the reactions summary prints liquid updates.
+
+## PC-4 electricity in liquids (2026-10-09, PC)
+- src/Terranoita/Physics/Electricity.cs: Core Conduction over Fluids.Conducts (liquids.json conducts; Terraria water/lava
+  via the water/lava rows). Sources: LightningBurst end (energy 1000, radius 2), ARC_ELECTRIC lightning arcs every 10
+  frames (electricity_weak 50), shots with lightning_count in a liquid every 5 frames. Charge 40 frames (ours).
+- Effects: creatures in a charged tile take 0.4x25 electricity damage per 10 frames (same as the arc) + ELECTROCUTION
+  hold; the player gets Terraria's Electrified (40 frames), no extra damage. Not saved; cleared on world load.
+- PhysicsTest scene 15 (frame 300+18 s): 9x4 water pool at _x0+166, a zombie in it and one outside, Emit into the
+  pool; logs "electricity:" lines at +0, +0.5 s, +3 s (charge gone). Not run yet.

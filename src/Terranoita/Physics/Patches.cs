@@ -96,6 +96,7 @@ namespace Terranoita.Game.Physics
             {
                 Falling.Clear();
                 Fire.Clear();
+                Electricity.Clear();
                 Magic.SpellShots.Clear();
                 Magic.Flasks.Clear();
                 try { Magic.WorldLoot.Load(); }
@@ -194,12 +195,13 @@ namespace Terranoita.Game.Physics
                     lock (SaveSync.Gate)
                     {
                         if (PerfTest.Enabled)
-                            PerfTest.Update(() => { Falling.Update(); Fire.Update(); Fluids.Update(); });
+                            PerfTest.Update(() => { Falling.Update(); Fire.Update(); Fluids.Update(); Electricity.Update(); });
                         else
                         {
                             SlowFrames.Time("falling", Falling.Update);
                             SlowFrames.Time("fire", Fire.Update);
                             SlowFrames.Time("fluids", Fluids.Update);
+                            SlowFrames.Time("electricity", Electricity.Update);
                         }
                         ToxicGround.Touch(Main.LocalPlayer);
                     }

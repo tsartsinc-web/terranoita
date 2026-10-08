@@ -62,12 +62,48 @@ namespace Terranoita.Game.Physics
             }
             else if (frame == 300 + 60 * 14)
                 Log("statuses after 6 s: " + string.Join(", ", Status.Active) + "; hp " + p.statLife + "; move speed " + p.moveSpeed.ToString("0.00") + ", on fire " + p.onFire);
+            if (frame == 300 + 60 * 18)
+                ShockSetup();
+            else if (frame == 300 + 60 * 18 + 30)
+                Log("electricity: charged " + Electricity.Count + " tiles; in the pool " + Hp(_inPool) + ", outside " + Hp(_outside));
+            else if (frame == 300 + 60 * 21)
+                Log("electricity after 3 s: charged " + Electricity.Count + " tiles (0 expected); in the pool " + Hp(_inPool) + ", outside " + Hp(_outside));
             if (frame == 340)
                 Pour();
             else if (frame == 341 || frame == 346 || frame == 360 || frame == 400)
                 Log("smoke at frame " + (frame - 340) + ": " + Fluids.Where("smoke", _x0, _gy));
             else if (frame == 340 + 60 * 3 || frame == 340 + 60 * 12 || frame == 340 + 60 * 24)
                 Fluid((frame - 340) / 60 + " s");
+        }
+
+        static NPC _inPool, _outside;
+        static string Hp(NPC n) => n == null ? "none" : n.TypeName + " hp " + n.life + "/" + n.lifeMax + (n.active ? "" : " (gone)");
+
+        // 15. electricity: a pool of Terraria water with a creature in it and one beside it, lightning into the water
+        static void ShockSetup()
+        {
+            int x1 = _x0 + 166, x2 = _x0 + 174, gy = _gy;
+            for (int x = x1 - 4; x <= x2 + 6; x++)
+                for (int y = gy - 8; y <= gy + 4; y++)
+                {
+                    var t = Main.tile[x, y];
+                    t.ClearEverything();
+                    if (y >= gy + 1 || ((x == x1 - 1 || x == x2 + 1) && y >= gy - 4))
+                    {
+                        t.active(true);
+                        t.type = TileID.Stone;
+                    }
+                    else if (x >= x1 && x <= x2 && y >= gy - 3 && y <= gy)
+                    {
+                        t.liquid = 255;
+                        t.liquidType(LiquidID.Water);
+                    }
+                }
+            WorldGen.RangeFrame(x1 - 4, gy - 8, x2 + 6, gy + 4);
+            _inPool = Main.npc[NPC.NewNPC(new Terraria.DataStructures.EntitySource_SpawnNPC(), (x1 + 4) * 16, (gy + 1) * 16, NPCID.Zombie)];
+            _outside = Main.npc[NPC.NewNPC(new Terraria.DataStructures.EntitySource_SpawnNPC(), (x2 + 4) * 16, (gy + 1) * 16, NPCID.Zombie)];
+            int n = Electricity.Emit(new Microsoft.Xna.Framework.Vector2(x1 * 16 + 8, (gy - 3) * 16 + 8), 2, Electricity.Energy);
+            Log("electricity: lightning into a 9x4 pool charged " + n + " tiles; in the pool " + Hp(_inPool) + ", outside " + Hp(_outside));
         }
 
         // 6. acid on a dirt block, 7. oil in a stone basin set alight, 8. smoke, 9. slime poured onto oil (sinks)

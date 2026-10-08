@@ -355,6 +355,10 @@ namespace Terranoita.Game.Magic
             }
             if (s.Age % 10 != 0)
                 return;
+            // an electric arc through a pool charges it (Noita: electricity_weak.xml along the arc)
+            if (lightning)
+                for (float k = 0; k < len; k += 32)
+                    Physics.Electricity.Emit(Vector2.Lerp(s.Pos, other.Pos, k / Math.Max(1f, len)), 1, Physics.Electricity.WeakEnergy);
             for (int i = 0; i < Main.maxNPCs; i++)
             {
                 var n = Main.npc[i];
@@ -449,7 +453,7 @@ namespace Terranoita.Game.Magic
         const int ElectrocutionFrames = 40;   // Noita: effect_electricity.xml GameEffectComponent frames
 
         /// <summary>Noita's ELECTROCUTION: the creature cannot move while it lasts (status_effects.json).</summary>
-        static void Electrocute(NPC n)
+        internal static void Electrocute(NPC n)
         {
             Hold(n, "ELECTROCUTION", ElectrocutionFrames);
         }

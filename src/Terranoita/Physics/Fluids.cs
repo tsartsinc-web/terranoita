@@ -221,6 +221,20 @@ namespace Terranoita.Game.Physics
             return _defs != null && Cells.TryGetValue(Key(x, y), out var c) && c.Amount > 64 && !Gas(c.Kind);
         }
 
+        /// <summary>Electricity goes through this tile: a liquid that conducts in Noita (liquids.json conducts) fills a
+        /// good part of it, ours or Terraria's water/lava (Electricity.cs).</summary>
+        public static bool Conducts(int x, int y)
+        {
+            if (!Mats.InWorld(x, y) || _defs == null)
+                return false;
+            if (Cells.TryGetValue(Key(x, y), out var c) && c.Amount > 32)
+                return _defs[c.Kind - 1].Conducts && !Gas(c.Kind);
+            var t = Main.tile[x, y];
+            if (t.liquid <= 32 || (t.liquidType() != LiquidID.Water && t.liquidType() != LiquidID.Lava))
+                return false;
+            return _index.TryGetValue(t.liquidType() == LiquidID.Water ? "water" : "lava", out int k) && _defs[k - 1].Conducts;
+        }
+
         /// <summary>Not a block: liquids and gases can be here.</summary>
         static bool Open(int x, int y)
         {

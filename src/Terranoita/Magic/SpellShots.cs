@@ -228,6 +228,9 @@ namespace Terranoita.Game.Magic
             // liquids: die_on_liquid_collision ends it (the iceball); liquid_drag slows it down (author: shots slow in water)
             if (InLiquid(s.Pos))
             {
+                // an electric-charged shot (lightning_count: ELECTRIC_CHARGE...) charges the pool it flies through
+                if (s.Age % 5 == 0 && s.Lua.Get("lightning_count") > 0)
+                    Physics.Electricity.Emit(s.Pos, 1, Physics.Electricity.Energy);
                 if (ph.DieOnLiquid)
                 {
                     End(s, true);

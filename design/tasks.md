@@ -45,7 +45,10 @@ How it works (author, 2026-10-08): the author only says "работай" to eith
 - PC-6 doing: spells left: MINE_DEATH_TRIGGER, EXPLODING_DEER, BOMB_CART, DEATH_CROSS (moving/summoned entities,
   cross lasers); PIPE_BOMB* go off only in another blast (Noita), the test should expect that. Giga spells cost
   500-600: castable now with 600 max mana.
-- PC-4 new: Physics/Electricity.cs on Core's Conduction (design/effect_interactions.md 0b, section 3) + pool test.
+- PC-4 doing: Physics/Electricity.cs on Core's Conduction written (lightning ends, ARC_ELECTRIC arcs, lightning_count
+  shots in liquid charge conducting pools; creatures hurt + held, player Electrified); physics test scene 15 (pool,
+  2 zombies). Left: run `game_test -Mode physics` (author's OK), check the ELECTRICITY lines; metal tiles not yet
+  (no conducts column in materials.json).
 - PC-10 waits CLOUD-7: worldgen per design/worldgen_plan.md sections 1, 3, 4, 5. Check: game_test -Mode worldgen.
 - Known gaps: flask powders (gunpowder_unstable, purifying_powder) do not pour (no Fluids kind); multiplayer still
   clamps synced mana at 400 (MessageBuffer.GetData).

@@ -186,6 +186,8 @@ namespace Terranoita.Game.Magic
                     Dust.NewDustPerfect(Vector2.Lerp(a, b, k / Math.Max(1f, len)), DustID.Electric, Vector2.Zero, 0, default(Color), 0.9f).noGravity = true;
                 Lighting.AddLight(b, 0.4f, 0.7f, 1f);
             }
+            // where lightning ends, a conducting pool is charged (Noita: misc/electricity.xml, energy 1000)
+            Physics.Electricity.Emit(s.Pos, 2, Physics.Electricity.Energy);
             if (l.ExplosionRadius.HasValue)
                 s.Radius = Math.Max(0, l.ExplosionRadius.Value + s.Lua.Get("explosion_radius")) * Px;
             s.ExplosionDamage = Math.Max(0, (l.ExplosionDamage ?? ExplosionDefaultDamage) + s.Lua.Get("damage_explosion_add")) * 25f;
