@@ -1083,3 +1083,7 @@ unless asked.
 - Coverage now: matching Noita = unknown (no measure until PC-22/23); static (spells whose entities use only
   component types with code) = 280 of 486.
 - Exact next step: PC-21 (a) cap eviction in SpellShots.Fire, then (b) the not-run log, then (c) tncli magic-coverage.
+- PC-21 Phase 0 done: (a) cap eviction, (b) "spell runtime: ... not run yet" log (both built only, not run in game),
+  (c) tncli magic-coverage: static 311 of 422 spells (verified by tool run; python's 280/486 counted card files and
+  non-action ids). Top gaps by spells: AudioLoop 56, DamageModel 29, HitEffect 23, Hitbox 16, PhysicsBody 14,
+  PhysicsThrowable 13, GameAreaEffect 12, ExplodeOnDamage 9. Matching Noita: unknown until PC-22/23. Next: PC-22.

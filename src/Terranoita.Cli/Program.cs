@@ -185,6 +185,90 @@ namespace Terranoita.Cli
                             }
                             return 0;
                         }
+                        case "magic-coverage":   // magic-coverage <noita> [out.json]: per spell, what of its Noita entities our runtime runs (SpellRuntime; design/magic_plan.md)
+                        {
+                            Func<string, string> read = p => Text(files, p);
+                            var ids = new LuaGun(read).ActionIds();
+                            var entities = new Dictionary<string, XmlEntity>(StringComparer.OrdinalIgnoreCase);
+                            XmlEntity Ent(string f)
+                            {
+                                if (!entities.TryGetValue(f, out var e))
+                                {
+                                    try { e = read(f) == null ? null : NoitaEntityXml.Load(f, read); } catch { e = null; }
+                                    entities[f] = e;
+                                }
+                                return e;
+                            }
+                            var rows = new JsonObject();
+                            var byType = new Dictionary<string, List<string>>();
+                            int all = 0, fullyRun = 0, errors = 0;
+                            foreach (var id in ids)
+                            {
+                                all++;
+                                var fileSet = new SortedSet<string>(StringComparer.OrdinalIgnoreCase);
+                                string error = null;
+                                void Add(LuaShot sh)
+                                {
+                                    fileSet.Add(sh.File);
+                                    foreach (var key in new[] { "extra_entities", "game_effect_entities" })
+                                        foreach (var f in sh.Text(key).Split(',', StringSplitOptions.RemoveEmptyEntries))
+                                            fileSet.Add(f.Trim());
+                                    foreach (var pl in sh.Payload)
+                                        Add(pl);
+                                }
+                                try
+                                {
+                                    // the spell alone; a modifier or draw spell needs a projectile after it (LIGHT_BULLET)
+                                    foreach (var deck in new[] { new[] { id }, new[] { id, "LIGHT_BULLET" } })
+                                    {
+                                        var gun = new LuaGun(read, null, 1);
+                                        var w = new LuaWand { SpellsPerCast = 1, RechargeTime = 30, CastDelay = 10, Capacity = 26 };
+                                        foreach (var d in deck) w.Spells.Add((d, -1));
+                                        gun.Load(w);
+                                        var cast = gun.Cast(100000);
+                                        foreach (var sh in cast.Shots) Add(sh);
+                                        if (fileSet.Count > 0) break;
+                                    }
+                                }
+                                catch (Exception ex) { error = ex.GetType().Name + ": " + ex.Message; errors++; }
+                                fileSet.Remove("");
+                                var notRun = new SortedSet<string>(StringComparer.Ordinal);
+                                var unread = new SortedSet<string>(StringComparer.Ordinal);
+                                var missing = new List<string>();
+                                foreach (var f in fileSet)
+                                {
+                                    var e = Ent(f);
+                                    if (e == null) { missing.Add(f); continue; }
+                                    foreach (var t in SpellRuntime.NotRun(e)) notRun.Add(t);
+                                    foreach (var t in SpellRuntime.UnreadFields(e)) unread.Add(t);
+                                }
+                                if (notRun.Count == 0 && error == null && missing.Count == 0) fullyRun++;
+                                foreach (var t in notRun)
+                                    (byType.TryGetValue(t, out var l) ? l : byType[t] = new List<string>()).Add(id);
+                                rows[id] = new JsonObject
+                                {
+                                    ["files"] = new JsonArray(fileSet.Select(f => (JsonNode)f).ToArray()),
+                                    ["not_run"] = new JsonArray(notRun.Select(f => (JsonNode)f).ToArray()),
+                                    ["projectile_fields_not_read"] = new JsonArray(unread.Select(f => (JsonNode)f).ToArray()),
+                                    ["missing_files"] = new JsonArray(missing.Select(f => (JsonNode)f).ToArray()),
+                                    ["error"] = error,
+                                };
+                            }
+                            Console.WriteLine("static coverage (every component type of the spell's entities has code; not 'matches Noita'): " + fullyRun + " of " + all + " spells; cast errors " + errors);
+                            foreach (var kv in byType.OrderByDescending(kv => kv.Value.Count))
+                                Console.WriteLine("  " + kv.Key + ": " + kv.Value.Count + " spells, e.g. " + string.Join(",", kv.Value.Take(5)));
+                            if (args.Length > 3)
+                            {
+                                var doc = new JsonObject
+                                {
+                                    ["_sources"] = "tncli magic-coverage on the player's Noita (gun.lua casts of each spell, its entity files with Base, SpellRuntime lists)",
+                                    ["static_coverage"] = fullyRun + " of " + all,
+                                    ["spells"] = rows,
+                                };
+                                File.WriteAllText(args[3], doc.ToJsonString(new JsonSerializerOptions { WriteIndented = true }));
+                            }
+                            return 0;
+                        }
                         case "lua-cast":   // lua-cast <noita> <SPELL,SPELL,...> [casts] [always,cast]: Noita's own gun.lua shooting a wand
                         {
                             var gun = new Terranoita.Noita.LuaGun(p => Text(files, p));

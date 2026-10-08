@@ -36,9 +36,9 @@ How it works (author, 2026-10-08): the author only says "работай" to eith
   Phase 0 (no silent failure): done: Core SpellRuntime.cs (component/field lists, NotRun, UnreadFields; built only).
   (a) done (built only): at the 600 cap the oldest shot is Evicted (quiet), the new one fires, log once.
   (b) done (built only): first Fire of each file and its extra_entities logs "spell runtime: <file>: not run yet: ..."
-  (SpellShots.Physics.cs ReportRuntime). Left: (c) `tncli magic-coverage <noita>`: per spell (LuaGun cast of [id] or [id,LIGHT_BULLET]) files +
-  NotRun + UnreadFields -> design/sources/pc_magic_coverage.json + table. Check: tncli prints 280/486 static (today's
-  python audit) or explains the difference; Core tests pass.
+  (SpellShots.Physics.cs ReportRuntime). (c) done (verified by run): `tncli magic-coverage <noita> [out.json]`:
+  static coverage 311 of 422 spells (gun.lua's fired files + extra/game_effect entities; scripts' deeper children not
+  followed yet) -> design/sources/pc_magic_coverage.json. Phase 0 done; game run of (a)/(b) not yet. Next: PC-22.
 - PC-22 new: Noita test mod (author allowed: D:/steam/steamapps/common/Noita/mods/terranoita_probe; ask the author
   ONCE to start Noita with it): casts each spell alone, each modifier on LIGHT_BULLET/BOUNCY_ORB/GRENADE and the key
   combos (BURST_2/3/4, SCATTER_*, ADD_TRIGGER/TIMER/DEATH, DIVIDE_*), logs per projectile: file, speed, lifetime,
