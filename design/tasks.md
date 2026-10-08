@@ -17,6 +17,7 @@ How it works (author, 2026-10-08): the author only says "работай" to eith
   pass the wands test, spell shots from any entity file, progress window (key O), 16 spell slots.
 - Physics review fixes in (atomic saves under a lock, no pool regeneration on a broken file).
 - Open plans: cheaper magic tests (PC-1), effect interactions / electricity (design/effect_interactions.md).
+- Roadmap to 1.0: design/roadmap.md (M2 magic 0.4.0 -> M3 flasks/items 0.5.0 -> M4 bosses 0.6.0 -> M5 polish).
 
 ## PC queue
 - PC-1 new: cheaper magic tests. game_test -Mode magic/wands end with ONE summary (OK / no shot / error / not done
@@ -40,6 +41,7 @@ How it works (author, 2026-10-08): the author only says "работай" to eith
   in the game). Check: unit test in tests/tools.
 
 ## Author (questions; agents do not wait for answers)
+- Roadmap decisions: design/roadmap.md "Open author decisions" (trader, flasks, perks, bosses).
 - Electricity: do Terraria's lava, honey, shimmer conduct? Player stun: Terraria's Electrified buff or our status?
 - Optional: a signatures-only reference of Terraria.exe so the cloud can compile the game code (licence: your call,
   never in a public repo).
