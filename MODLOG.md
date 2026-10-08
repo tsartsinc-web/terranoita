@@ -637,3 +637,9 @@ Next steps (author's order: finish magic, then shops):
 - проверить на ПК: `shot-script` over the 125 extra_entities files (Missing list, errors); event function names for
   rarer script_* fields against Noita's docs; whether execute_on_added counts toward execute_times in Noita;
   Random(a) range (0..a assumed).
+
+## Cloud: review of the magic commits (design/review_magic_2026-10-08.md)
+- 9 findings in game code (not changed by the cloud): spell uses refill via the hand memory, stale NPC status marks,
+  crit-on-status condition, cave wand files unchecked, flat extra_entities reader, homing on critters, EntityLoad
+  velocity, ConvertMaterial to unknown material, a moved doc comment.
+- LuaShotScripts: own ids from 1,000,000; game ids (creatures, shots) go to the host. 70 Core tests pass.

@@ -323,3 +323,39 @@ ComponentSetValue2(EntityGetFirstComponent(me, ""VariableStorageComponent""), ""
         }
     }
 }
+
+namespace Terranoita.Tests
+{
+    public class LuaShotScriptsHostIdsTests
+    {
+        sealed class Creatures : Terranoita.Noita.ShotHostBase
+        {
+            public readonly System.Collections.Generic.List<int> Killed = new System.Collections.Generic.List<int>();
+            public override System.Collections.Generic.IEnumerable<int> InRadiusWithTag(float x, float y, float r, string tag) => new[] { 1005 };
+            public override bool GetPosition(int e, out float x, out float y) { x = e == 1005 ? 70 : 0; y = 0; return e == 1005; }
+            public override void Kill(int e) => Killed.Add(e);
+        }
+
+        [Fact]
+        public void GameEntitiesFromTheHostKeepTheirIds()
+        {
+            var files = new System.Collections.Generic.Dictionary<string, string>
+            {
+                ["k.xml"] = @"<Entity><VariableStorageComponent value_float=""0"" />
+  <LuaComponent script_source_file=""k.lua"" execute_on_added=""1"" execute_every_n_frame=""-1"" /></Entity>",
+                ["k.lua"] = @"local me = GetUpdatedEntityID()
+for _, id in ipairs(EntityGetInRadiusWithTag(0, 0, 100, ""enemy"")) do
+  local x = EntityGetTransform(id)
+  ComponentSetValue2(EntityGetFirstComponent(me, ""VariableStorageComponent""), ""value_float"", x)
+  EntityKill(id)
+end",
+            };
+            var host = new Creatures();
+            var lua = new Terranoita.Noita.LuaShotScripts(host, p => files.TryGetValue(p, out var s) ? s : null);
+            int e = lua.Spawn("k.xml", 0, 0);
+            Assert.True(e >= Terranoita.Noita.LuaShotScripts.FirstEntityId);
+            Assert.Equal("70", System.Linq.Enumerable.Single(lua.Components(e, "VariableStorageComponent")).Get("value_float"));
+            Assert.Equal(new[] { 1005 }, host.Killed);
+        }
+    }
+}

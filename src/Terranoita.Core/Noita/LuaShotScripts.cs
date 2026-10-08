@@ -114,8 +114,12 @@ namespace Terranoita.Noita
         readonly Dictionary<string, DynValue> _chunks = new Dictionary<string, DynValue>(StringComparer.Ordinal);
         readonly HashSet<string> _brokenFiles = new HashSet<string>(StringComparer.Ordinal);
         readonly Dictionary<string, int> _materials = new Dictionary<string, int>(StringComparer.Ordinal);
-        int _nextEntity = 1, _nextComp = 1, _frame, _curEntity, _curComp;
+        int _nextEntity = FirstEntityId, _nextComp = 1, _frame, _curEntity, _curComp;
         Random _rng = new Random(0);
+
+        /// <summary>Our entity ids start here, clear of the game's own numbers (creatures 1000+, spell shots 100000+):
+        /// ids below it that scripts pass back (from InRadiusWithTag, EntityLoad) are the game's and go to the host.</summary>
+        public const int FirstEntityId = 1000000;
 
         public readonly List<string> Missing = new List<string>();   // engine functions scripts called that we lack
         public readonly List<string> Errors = new List<string>();    // one line per broken script file
@@ -433,7 +437,13 @@ namespace Terranoita.Noita
 
         void Kill(int entity)
         {
-            if (!_ents.TryGetValue(entity, out var e) || e.Dead)
+            if (!_ents.TryGetValue(entity, out var e))
+            {
+                if (entity > 0)
+                    _host.Kill(entity);   // one of the game's entities
+                return;
+            }
+            if (e.Dead)
                 return;
             e.Dead = true;
             foreach (int ch in e.Children)
@@ -470,7 +480,10 @@ namespace Terranoita.Noita
         {
             x = y = rot = 0; sx = sy = 1;
             if (!_ents.TryGetValue(entity, out var e))
+            {
+                _host.GetPosition(entity, out x, out y);   // one of the game's entities
                 return;
+            }
             if (Inherits(e))
             {
                 Transform(e.Parent, out x, out y, out rot, out sx, out sy);
@@ -487,7 +500,10 @@ namespace Terranoita.Noita
         void SetTransform(int entity, float x, float y, float? rot, float? sx, float? sy)
         {
             if (!_ents.TryGetValue(entity, out var e))
+            {
+                _host.SetPosition(entity, x, y);
                 return;
+            }
             e.X = x; e.Y = y;
             if (rot.HasValue) e.Rot = rot.Value;
             if (sx.HasValue) e.Sx = sx.Value;
@@ -853,7 +869,7 @@ namespace Terranoita.Noita
                 int id = (int)N(a, 0);
                 var e = E(a);
                 float vx = 0, vy = 0;
-                if (e != null && e.Host && _host.GetVelocity(id, out vx, out vy)) { }
+                if ((e == null || e.Host) && _host.GetVelocity(id, out vx, out vy)) { }
                 else
                 {
                     var c = CompsOf(e, "VelocityComponent", null, true).FirstOrDefault();
