@@ -850,3 +850,36 @@ Next steps (author's order: finish magic, then shops):
   Game, Core, MoonSharp.Interpreter.dll (new, MIT notice added), 0Harmony, README (0.4.0 magic notes).
 - NOT uploaded: this session has no Melty connector. The author uploads it in the Melty app (recipe as before:
   design/melty.recipe.draft.json, fileName terranoita-*.zip), or a session with the Melty tools does.
+
+## PC 2026-10-08: handoff — magic polish, flasks, altars, menu (resume here)
+
+Done today (all committed, most not yet tried by hand; the list to try is PC-15 in design/tasks.md):
+- Magic: Terraria magic bonuses on wands (Casting: gun.lua sees statMana / manaCost; Mana Flower; magicDamage,
+  magicCrit in SpellShots.Strike); max mana 600 (Magic/ManaCap.cs transpilers: 15 crystals, cap 600, 15 stars of
+  20..40). Spells test 416/422 (target 3 tiles, window up to 5 s while shots fly, test mana 1000; mines trigger,
+  blasts set off "hittable" shots). Left: PC-6.
+- Flasks (Magic/Flasks.cs): a WandData with Flask/FlaskAmount on a wand carrier item; filled by Noita's
+  potion.lua / potion_starting.lua through LuaWandMaker.MakePotion (tncli lua-potion shows the odds).
+- Altars: WorldLoot spots have Flask; *_altar_visual.png drawn at Noita scale (3 px per Noita px, pedestal top 2
+  tiles above the floor); altars stay after pickup (Wand = -3); .wld.magic version 3.
+- WorldLoot bug: the world-gen save wrote an empty .wld.magic, so no new world ever got chest spells or cave
+  wands. Save now only for the loaded world; version-1 files without spots are refilled once.
+- Liquids: Fluids.Flow swaps ours with Terraria's water/lava by Noita density; similar densities mix (Mixes);
+  Fluids.Protected keeps oceans and Underworld lava out of all reactions/swaps/adds/drains.
+- Actions: kick = own push scaled by size and knockBackResist (<= ~5 tiles), no Terraria knockback; NoitaSound now
+  loads player/items/music banks (kick and drink sounds were silent before). Wooden start cart (physics_cart.xml,
+  own colors) with spin/tip-over; vertical-then-horizontal collision (a kick from the ground used to lose X).
+- Menu: MenuLogo.cs draws Noita's weather_gfx parallax sky in a DrawMenu prefix, "PRESS F TO KICK GID!";
+  NoitaSound plays event:/music/mountain/enter in the menu (author: "Kick the Cart") and mutes Terraria's;
+  SkipSplash.cs patches Main.DrawSplash by hand at launch (OnEngineLoad patches come too late for the splash).
+- Spawning: hostile creatures in surface_* zones only at night (PC-9).
+- game_test: modes play / tour / cart; memory check removed (author); run with -ExecutionPolicy Bypass.
+
+Unfinished / how to resume:
+1. PC-15: one play session (`game_test -Mode play`) or `-Mode tour` / `-Mode cart`, read the log, fix. Things
+   most likely to need work: menu music may be a one-shot (loop it), the splash skip binds at launch (log line
+   "RE-LOGIC intro skipped"), cart feel, flask spray rate.
+2. PC-16: rebuild 0.4.0 and upload only with the author's yes (Melty sign-in by the author).
+3. PC-6 spells, PC-4 electricity, PC-10 worldgen after CLOUD-7.
+Risks: no page file on the PC + 32-bit game: low free memory can hang the whole PC; do not take screenshots
+unless asked.

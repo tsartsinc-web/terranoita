@@ -12,94 +12,53 @@ How it works (author, 2026-10-08): the author only says "работай" to eith
 - Status words: new, doing, waits <row>, done <commit>.
 
 ## State (keep to ~12 lines; update when it changes)
-- Melty: 0.3.1 LIVE (146 players). 0.4.0 zip built, not uploaded (rebuild for the fixes since: PC-11..14, mana, magic bonuses).
-- Stage 3 magic in game: all spells via Noita's gun.lua (LuaGun), shot scripts (LuaShotScripts), all 48 wand files
-  pass the wands test, spell shots from any entity file, progress window (key O), 16 spell slots.
-- Physics review fixes in (atomic saves under a lock, no pool regeneration on a broken file).
-- Cheaper magic tests in (summary + baseline). Open plan: electricity (design/effect_interactions.md 0b, PC-4).
-- Roadmap to 1.0: design/roadmap.md (M2 magic, M3 flasks, M4 perks, M5 bosses, M6 polish). Next release M2 0.4.0 "Magic": Must = PC-1 summary OK, PC-5 FPS, an hour of
-  play without errors; traders/electricity/lasers come in 0.4.x.
+- Melty: 0.3.1 LIVE (146 players). 0.4.0 not uploaded: build/terranoita-0.4.0.zip (9f0e8e5) is OLD, rebuild (PC-16).
+- Stage 3 magic in game: all spells via Noita's gun.lua, shot scripts, all wands, wand window (U), progress window (O),
+  16 spell slots; Terraria magic bonuses apply (mana cost/damage/crit/regen/Mana Flower); max mana 600 (ManaCap.cs).
+- Spells test: 416/422 OK (design/sources/magic_baseline.txt), left in PC-6.
+- 2026-10-08 (PC, most untested by hand, PC-15): flasks (Magic/Flasks.cs), wand/potion altars (WorldLoot), Noita
+  main menu (sky, music, "PRESS F TO KICK GID!", no RE-LOGIC intro), wooden start cart with tip-over physics,
+  size-scaled kick with Noita's sounds, liquids sink/mix by density, oceans + Underworld lava protected,
+  hostile surface spawns only at night, new worlds' chests filled again (WorldLoot save bug).
+- PC: no page file, 16 GB, the game is 32-bit (~4 GB): a test with little free memory can hang the PC (11:33 today).
+  game_test has no memory check any more (author). Launch with `-ExecutionPolicy Bypass`.
+- Roadmap: design/roadmap.md. Worldgen plan: design/worldgen_plan.md (PC-10 after CLOUD-7).
 
 ## PC queue
-- PC-11 code done (PC), needs an in-game check: Zones.NearWater(x, y, 12) in the surface_water row. Was: lake animals never spawn (author never saw a duck/deer/sheep/elk/wolf): surface_water check is
-  "spawn tile in water", but walkers need ground there. Add Zones.NearWater(x, y, 12) (surface water within 12
-  tiles) and set terraria_zones surface_water.terraria_check to it (sheet edit allowed by this row; gen_cs);
-  swimmers keep the in-water rule. Check: autotest near a surface lake spawns a walker from Lake.
-- PC-10 new, after CLOUD-7: worldgen per design/worldgen_plan.md sections 1, 3, 4, 5 (our passes in
-  Terraria's worldgen, scenes, loot by Noita's chest_random.lua). Check: game_test -Mode worldgen (section 5).
-- PC-6 (PC) 30 of 39 fixed (spells run 2026-10-08: target 3 tiles, window up to 5 s while shots fly, test mana 1000).
-  MINE now passes (CollisionTriggerComponent: a creature near -> timer -> explodes). PIPE_BOMB*: Noita's crystal goes
-  off only when caught in another explosion (done: blasts set off "hittable" shots) - alone in the test it rightly does
-  nothing: expect it in the test. Left (baseline): MINE_DEATH_TRIGGER, EXPLODING_DEER,
-  BOMB_CART (moving entities), DEATH_CROSS (DEATH_CROSS_BIG, CURSED_ORB pass now). Author question: NUKE_GIGA, BOMB_HOLY_GIGA,
-  BLACK/WHITE_HOLE_GIGA, ALL_NUKES, ALL_SPELLS cost 500-600 mana, Terraria caps player mana at 400: never castable.
-- PC-4 new: Physics/Electricity.cs (section 3) on Core's Conduction (Emit/Tick/ForEach; IConductGrid = liquids'
-  and Terraria water's `conducts` + metal tiles; energy = the loaded file's ElectricityComponent energy, 1 = 1 tile,
-  tune) + the pool test (section 4). ELECTROCUTION row is in status_effects (0.667 s, creatures cannot move; the
-  player gets Terraria's Electrified, author). Check: the pool test.
-- PC-7 new: golden check: `TERRANOITA_NOITA_DIR=<noita> dotnet test tests/Terranoita.Core.Tests --filter LuaGolden`
-  or `tncli lua-golden <noita> --check design/sources/lua_cast_golden.txt` (exit 1 + the diff); add it to pc_step
-  or game_test. Check: "golden: no change".
+- PC-15 new: check by hand/tests what 2026-10-08 added (one `game_test -Mode play` session with the author, or
+  `-Mode tour` / `-Mode cart`): kick distance (<= 5 tiles, sound), cart (wooden, kick flies a few tiles and tips over,
+  riding), flasks (LMB spray, RMB throw, down drink, dip to fill), wand/potion altars in caves, menu (sky, music
+  event:/music/mountain/enter - loop it if it stops, text), intro skipped (log "RE-LOGIC intro skipped"), 15 mana
+  stars, magic bonuses, ocean protection, lake animals near water (PC-11). Fix what fails; MODLOG.
+- PC-16 new: rebuild the 0.4.0 package (MODLOG "0.4.0 package" steps) with everything since 9f0e8e5; upload to
+  Melty only when the author says so (the author signs in: browser pane / Claude in Chrome; recipe
+  design/melty.recipe.draft.json, mod c68ad4c6-f9db-40f5-802c-a4f9d7713e69).
+- PC-6 doing: spells left: MINE_DEATH_TRIGGER, EXPLODING_DEER, BOMB_CART, DEATH_CROSS (moving/summoned entities,
+  cross lasers); PIPE_BOMB* go off only in another blast (Noita), the test should expect that. Giga spells cost
+  500-600: castable now with 600 max mana.
+- PC-4 new: Physics/Electricity.cs on Core's Conduction (design/effect_interactions.md 0b, section 3) + pool test.
+- PC-10 waits CLOUD-7: worldgen per design/worldgen_plan.md sections 1, 3, 4, 5. Check: game_test -Mode worldgen.
+- Known gaps: flask powders (gunpowder_unstable, purifying_powder) do not pour (no Fluids kind); multiplayer still
+  clamps synced mana at 400 (MessageBuffer.GetData).
 
 ## CLOUD queue
-- CLOUD-6 new: column `time` (night|any) for surface spawns: terraria_zones surface_* rows = night; enemies with a
-  passive ai (duck, sheep, deer, elk, fish, eel) and rat (author: rats stay by day) = any (enemies.time overrides
-  zone); gen_cs; tests.
-  Check: preflight 1a CLEAN, gen_cs ok, unit tests.
 - CLOUD-7 new: Core NoitaBiomeSpawns + chest_random + pixel scene decode + biome_spawns.json by tools
   (design/worldgen_plan.md section 2). Check: Core tests; `tncli biome-spawns` for the PC.
+- (CLOUD-6 dropped: the PC did night-only surface spawns in Spawning.cs without a sheet column.)
 
 ## Author (questions; agents do not wait for answers)
 - Roadmap decisions: design/roadmap.md "Open author decisions" (trader, flasks, perks, bosses).
-- Noita sets no electrical_conductivity on water/blood/acid: we assume every liquid conducts (oil/glue do not). Right?
-- Electricity: do Terraria's lava, honey, shimmer conduct? Player stun: Terraria's Electrified buff or our status?
+- Answered: only what conducts in Noita conducts; the player's stun is Terraria's Electrified; max mana 600 (15 stars).
 - Optional: a signatures-only reference of Terraria.exe so the cloud can compile the game code (licence: your call,
   never in a public repo).
 
 ## Done (last ~8)
-- done (PC) PC-9 without CLOUD-6 (author: bombers by day): Spawning: in surface_* zones every creature but
-  helpless_walker animals and swimmers spawns only at night (blood moon, eclipse count). CLOUD-6's `time` column is
-  no longer needed for this. Start cart is now Noita's wooden cart (physics_cart.xml), author's correction.
-- done (PC) the real bug behind PC-8's empty chests: Terraria saves a world once while making it; our world-save
-  hook wrote an empty <world>.wld.magic then, so loading never filled chests or placed cave wands in ANY new world.
-  WorldLoot.Save now writes only for the world it loaded (version 2); version-1 files without wand spots are filled
-  once on load. (Tour run 2026-10-08: 10 underground chests, no spell.)
-- done (PC) oceans and the Underworld's lava are protected (author): Fluids.Protected (beach strips 380 tiles from
-  the edges above the caverns, y >= UnderworldLayer): no reactions with Terraria's liquid there, no swaps, no adding,
-  no draining (drinking leaves it), no conversions; ours that reaches it is lost in it. Untested in game.
-- note (PC): the game is a 32-bit process (launcher x86 + LAA, ~4 GB): one spells run 2026-10-08 hit OutOfMemory
-  while loading the world (49 s frame), the rerun was fine; one screenshot OOM earlier. Watch native memory.
-- done (PC) liquids mix (author: one floats over the other): ours heavier than Terraria's water/lava sink through it
-  (Noita densities: blood 4.1 > water 4.0; Fluids.Flow swaps with Terraria's liquid), liquids within 0.6 density swap
-  now and then up/down/sideways (Mixes, 1 in 6) so they stir and react through; oil-on-water stays layered (Noita too).
-  Physics run: blood at the bottom under Terraria water; salt water poured on blood reached the bottom row.
-- done (PC) PC-14: physics run 2026-10-08, 24 s: water+radioactive_liquid 11, blood+poison 17, lava+blood_cold 7, water+cement 5 reactions.
-- done (PC) mana cap (author): 15 Mana Crystals (300), total max mana 600, bars show 15 stars of 20..40 mana
-  (Magic/ManaCap.cs: transpilers on ItemCheck_UseManaCrystal, Deserialize, Player.Update, classic DrawMana; snapshot
-  postfix). Log shows every constant changed. Not done: MessageBuffer.GetData still clamps synced mana at 400 (multiplayer).
-- done (PC, untested in game) Terraria magic bonuses on Noita wands (author): mana cost x p.manaCost (gun.lua gets
-  statMana / manaCost), Mana Flower QuickMana before a cast it cannot pay (Held.LastCost), ApplyManaRegenerationDelay,
-  max mana = statManaMax2, damage x p.magicDamage (spell shots + script damage), crit + p.magicCrit (APIs by tr-methods).
-- not a bug (PC): PC-8. Entry.Stage only picks creatures (spawns, art preload); Harmony PatchAll applies EVERY patch
-  whatever the stage (log: "patches applied: 44 methods" with 14 "hook ok" lines). Sandbox run without
-  TERRANOITA_STAGE had chests, wands, cart. The hook log now lists all hooks. The 0.4.0 zip is fine on this.
-  Author's empty chests were most likely the Melty 0.3.x build (no magic there).
-- done (PC) PC-12: Shots.cs did not build (CS0136: `n` reused in the NPC loop) -> renamed to npc; builds.
-- done (PC) PC-13: builds; Player.GetBestPickaxe() and GetPickaxeDamage exist (tr-methods); RequiredPick values ok.
-- done (this commit) CLOUD-5: BeamFromEntity (LaserEmitter + ConfigLaser, Lightning + config_explosion) + LightningPath.
-- done (this commit) CLOUD-1: LuaGolden (Core: lines, Diff) + tncli lua-golden --check + Core test on the PC.
-- done (this commit) CLOUD-2: Core/Physics/Conduction.cs + ConductionTests.
-- done (this commit) CLOUD-4: ELECTROCUTION row (seed_status_effects.py --electricity).
-- done (this commit) PC: memory leak (Lua state per wand -> max 6), fast shots hit along their path, spells test +
-  baseline 383/422 OK.
-- done 78d3f25 PC: PC-1 cheaper magic tests (summary + problems + baseline diff in game_test.ps1; magic run prints 3
-  lines, a second run "baseline: no change"); CLOUD-3 not needed (the diff is in game_test.ps1).
-- done (this commit) PC: PC-5 shot scripts never over 8 ms in SlowFrames (77-289 scripted shots); "spell shots" up to
-  8.7 ms on explosions. Memory grows ~15 MB per set in the magic test (a Lua state per wand?) - watch.
-- done (this commit) PC: PC-3 conducts column (extract_liquids.py), electricity facts file, plan section 0b.
-- done f070180 PC: PC-2 golden file design/sources/lua_cast_golden.txt (tncli lua-golden, seeded LuaGun, 422 lines).
-- done bbfc632 CLOUD: SpellProjectileFromEntity (cloud_task_core_3).
-- done 63cdbfd CLOUD: faster LuaShotScripts + ProgressInfo (cloud_task_core_2).
-- done 2015bd5 CLOUD: physics review fixes (cloud_task_physics_fixes).
-- done 4472669 PC: spell shots from any entity file in game.
-- done 37fd01c PC: tests in their own world; wands test skips passed wands.
+- done (PC, 2026-10-08) flasks: Noita's potion.lua fills them (LuaWandMaker.MakePotion, tncli lua-potion), spray /
+  throw / drink / suck, starting flask, 1 in 4 chests, sandbox chest; WandData.Flask carries them.
+- done (PC) wand and potion altars (biome_impl/*_altar_visual.png at 3 px per Noita px), loot file version 3.
+- done (PC) menu: Noita sky layers, menu music, kick text; RE-LOGIC intro skipped (SkipSplash.cs, patched at launch).
+- done (PC) new worlds' chests were never filled (world-gen save wrote an empty .wld.magic): fixed, old files refilled.
+- done (PC) liquids sink/mix by Noita density; oceans + Underworld lava protected (Fluids.Protected).
+- done (PC) mana 600 (ManaCap.cs), Terraria magic bonuses on wands, PC-9 night-only hostile surface spawns.
+- done (PC) PC-14 liquid pairs in the physics test; PC-12/13 build checks; PC-7 golden check runs in game_test.
+- done (PC) game_test modes: play (just the game), tour (new medium world, chests, death, flask chest), cart.
