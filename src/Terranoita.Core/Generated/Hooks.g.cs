@@ -77,6 +77,7 @@ namespace Terranoita.Generated
             new HookDef { Id = "progress_draw", Target = "Terraria.Main:DrawInterface_33_MouseText()", Patch = "prefix", System = "progress", Purpose = "The progress window (key O) and its inventory button.", Stage = "3" },
             new HookDef { Id = "progress_enter_world", Target = "Terraria.Player+Hooks:EnterWorld(int)", Patch = "postfix", System = "progress", Purpose = "The character's progress book loaded on entering a world.", Stage = "3" },
             new HookDef { Id = "chat_log", Target = "Terraria.Main:NewText(string, Color)", Patch = "postfix", System = "progress", Purpose = "Chat lines into the log (the author's notes while testing line up with SLOW update lines).", Stage = "3" },
+            new HookDef { Id = "cart_draw", Target = "Terraria.Main:DrawProjectiles()", Patch = "postfix", System = "noita_actions", Purpose = "The minecart of Noita's start drawn.", Stage = "3" },
         };
     }
 }

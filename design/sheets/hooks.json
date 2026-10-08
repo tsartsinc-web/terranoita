@@ -502,6 +502,15 @@
    "purpose": "Chat lines into the log (the author's notes while testing line up with SLOW update lines).",
    "stage": "3",
    "_unverified": {}
+  },
+  {
+   "id": "cart_draw",
+   "target": "Terraria.Main:DrawProjectiles()",
+   "patch": "postfix",
+   "system": "noita_actions",
+   "purpose": "The minecart of Noita's start drawn.",
+   "stage": "3",
+   "_unverified": {}
   }
  ]
 }

@@ -221,6 +221,16 @@
    "_unverified": {}
   },
   {
+   "id": "noita_actions",
+   "description": "Stage 3: Noita's kick (F), drinking from a liquid (hold down), the start minecart.",
+   "stage": "3",
+   "hooks": [
+    "cart_draw"
+   ],
+   "code": "src/Terranoita/NoitaActions.cs, src/Terranoita/Cart.cs",
+   "_unverified": {}
+  },
+  {
    "id": "flasks_items",
    "description": "Stage 4: four flask/item slots, flasks and Noita items.",
    "stage": "4",

@@ -546,6 +546,40 @@ namespace Terranoita.Game.Physics
 
         public static bool Has(int x, int y) => Cells.ContainsKey(Key(x, y));
 
+        /// <summary>The player drinks from the tile (author: hold down in a liquid, as in Noita): takes up to amount of the
+        /// liquid there (ours, or Terraria's water/lava/honey) and says which; null if nothing to drink.</summary>
+        public static string Drink(int x, int y, int amount)
+        {
+            if (!Mats.InWorld(x, y))
+                return null;
+            lock (SaveSync.Gate)
+            {
+                int k = Key(x, y);
+                if (Cells.TryGetValue(k, out var c) && c.Amount > 0)
+                {
+                    var d = _defs[c.Kind - 1];
+                    if (d.Kind != "liquid")
+                        return null;
+                    int take = Math.Min(amount, (int)c.Amount);
+                    if (c.Amount - take <= 0)
+                        Cells.Remove(k);
+                    else
+                    {
+                        c.Amount = (byte)(c.Amount - take);
+                        Cells[k] = c;
+                    }
+                    return d.Id;
+                }
+            }
+            var t = Main.tile[x, y];
+            if (t.liquid == 0)
+                return null;
+            t.liquid = (byte)Math.Max(0, t.liquid - amount);
+            Liquid.AddWater(x, y);
+            int type = t.liquidType();
+            return type == LiquidID.Lava ? "lava" : type == LiquidID.Honey ? "honey" : "water";
+        }
+
         // ---- kept with the world: <world>.wld.fluids (material names, so the sheet may change) ----
 
         static string FluidsFile => string.IsNullOrEmpty(Main.worldPathName) ? null : Main.worldPathName + ".fluids";

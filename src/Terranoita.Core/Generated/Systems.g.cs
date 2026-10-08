@@ -40,6 +40,7 @@ namespace Terranoita.Generated
             new SystemDef { Id = "spells", Description = "Stage 3: Noita spells cast from wands. spells.json and wands.json come from the player's gun_actions.lua and wand entities (tncli spells, tools/apply_spells.py); Spells/Gun.cs is Noita's deck/hand/discard cast loop (mana, multicast, modifiers, triggers, wrap, recharge), tested without the game.", Stage = "3", Hooks = new[] { "magic_held_wand", "spell_shots_update", "spell_shots_draw" }, Code = "src/Terranoita.Core/Noita/LuaGun.cs, LuaWandMaker.cs; src/Terranoita/Magic/Casting.cs, SpellShots.cs" },
             new SystemDef { Id = "progress", Description = "Stage 3: Noita's Progress menu per character: spells, creatures, wands, liquids met (key O).", Stage = "3", Hooks = new[] { "progress_draw", "progress_enter_world", "chat_log" }, Code = "src/Terranoita/ProgressWindow.cs, src/Terranoita.Core/Progress/ProgressBook.cs" },
             new SystemDef { Id = "menu", Description = "Stage 3: the main menu reads TERRA NOITA.", Stage = "3", Hooks = new[] { "menu_logo" }, Code = "src/Terranoita/MenuLogo.cs" },
+            new SystemDef { Id = "noita_actions", Description = "Stage 3: Noita's kick (F), drinking from a liquid (hold down), the start minecart.", Stage = "3", Hooks = new[] { "cart_draw" }, Code = "src/Terranoita/NoitaActions.cs, src/Terranoita/Cart.cs" },
             new SystemDef { Id = "flasks_items", Description = "Stage 4: four flask/item slots, flasks and Noita items.", Stage = "4", Hooks = new string[0], Code = "-" },
         };
     }

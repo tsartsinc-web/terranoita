@@ -835,3 +835,12 @@ Next steps (author's order: finish magic, then shops):
   jitter, ends fixed, same seed = same path, stops at the first solid point (true when it hit). Segment length and
   jitter are the mod's look, not Noita numbers.
 - BeamFromEntityTests (3); 99 Core tests pass.
+## 2026-10-08 PC: Noita's kick, drinking, start cart (author)
+- NoitaActions.cs: F kicks (creatures 1 hp = KickComponent kick_damage 1/25, knockback; items on the ground; the
+  cart); holding down while standing in a liquid drinks it (Fluids.Drink: our liquids, Terraria water/lava/honey;
+  the liquid's ingestion statuses x cells drunk; over IngestionComponent capacity 7500 hurts 0.002 x25 per cell;
+  the liquid is learnt). Reach, force, drink speed: ours (not in Noita's data).
+- Cart.cs: Noita's start minecart (props_gfx/minecart + wheels), put next to the player on the first visit of a world
+  (<world>.wld.cart), falls, rolls when kicked, the player can stand in it and ride.
+- Wand window on from entering the world, shown whenever the inventory is open; U switches it (author).
+- проверить на ПК (author in the sandbox): kick, drinking, riding the cart.

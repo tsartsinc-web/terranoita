@@ -59,6 +59,7 @@ namespace Terranoita.Game.Magic
                 string name = Path.GetFileNameWithoutExtension(Main.ActivePlayerFileData?.Path ?? p.name);
                 Directory.CreateDirectory(Path.Combine(Folder, "players"));
                 _slotsFile = Path.Combine(Folder, "players", name + ".wands");
+                _open = true;   // the wand window is on when the world is entered (author)
                 _spellsFile = Path.Combine(Folder, "players", name + ".spells");
                 _usesFile = Path.Combine(Folder, "players", name + ".uses");
                 LoadSpellSlots();
@@ -253,8 +254,7 @@ namespace Terranoita.Game.Magic
                     Main.playerInventory = true;
                 Terraria.Audio.SoundEngine.PlaySound(Terraria.ID.SoundID.MenuTick);
             }
-            if (_open && !Main.playerInventory)
-                _open = false;   // closing the inventory closes the window
+            // the window is shown whenever the inventory is open; U switches it off and on (author: on from the start)
         }
 
         static NoitaArt.Art Ui(string name) => NoitaArt.Get("data/ui_gfx/inventory/" + name + ".png");
