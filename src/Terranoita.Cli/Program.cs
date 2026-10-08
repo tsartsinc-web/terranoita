@@ -185,6 +185,19 @@ namespace Terranoita.Cli
                             }
                             return 0;
                         }
+                        case "probe-tests":   // probe-tests <noita> <tests.lua> <tests.json>: the casts the Noita probe mod and our SpellsTest both measure
+                        {
+                            var actions = new LuaWandMaker(p => Text(files, p)).Actions().Select(a => (a.id, a.type));
+                            var tests = ProbeTests.Build(actions);
+                            File.WriteAllText(args[2], ProbeTests.ToLua(tests));
+                            File.WriteAllText(args[3], new JsonArray(tests.Select(t => (JsonNode)new JsonObject
+                            {
+                                ["name"] = t.Name,
+                                ["deck"] = new JsonArray(t.Deck.Select(d => (JsonNode)d).ToArray()),
+                            }).ToArray()).ToJsonString(new JsonSerializerOptions { WriteIndented = false }));
+                            Console.WriteLine(tests.Count + " tests: " + string.Join(", ", tests.GroupBy(t => t.Name.Split(':')[0]).Select(g => g.Key + " " + g.Count())));
+                            return 0;
+                        }
                         case "magic-coverage":   // magic-coverage <noita> [out.json]: per spell, what of its Noita entities our runtime runs (SpellRuntime; design/magic_plan.md)
                         {
                             Func<string, string> read = p => Text(files, p);
