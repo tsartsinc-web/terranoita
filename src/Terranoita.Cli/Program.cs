@@ -257,7 +257,7 @@ namespace Terranoita.Cli
                             Console.WriteLine("static coverage (every component type of the spell's entities has code; not 'matches Noita'): " + fullyRun + " of " + all + " spells; cast errors " + errors);
                             foreach (var kv in byType.OrderByDescending(kv => kv.Value.Count))
                                 Console.WriteLine("  " + kv.Key + ": " + kv.Value.Count + " spells, e.g. " + string.Join(",", kv.Value.Take(5)));
-                            if (args.Length > 3)
+                            if (args.Length > 2)
                             {
                                 var doc = new JsonObject
                                 {
@@ -265,7 +265,7 @@ namespace Terranoita.Cli
                                     ["static_coverage"] = fullyRun + " of " + all,
                                     ["spells"] = rows,
                                 };
-                                File.WriteAllText(args[3], doc.ToJsonString(new JsonSerializerOptions { WriteIndented = true }));
+                                File.WriteAllText(args[2], doc.ToJsonString(new JsonSerializerOptions { WriteIndented = true }));
                             }
                             return 0;
                         }

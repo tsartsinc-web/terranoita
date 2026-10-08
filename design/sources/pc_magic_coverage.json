@@ -1,0 +1,5999 @@
+{
+  "_sources": "tncli magic-coverage on the player\u0027s Noita (gun.lua casts of each spell, its entity files with Base, SpellRuntime lists)",
+  "static_coverage": "311 of 422",
+  "spells": {
+    "BOMB": {
+      "files": [
+        "data/entities/projectiles/bomb.xml"
+      ],
+      "not_run": [
+        "AudioLoopComponent",
+        "DamageModelComponent",
+        "PhysicsBodyComponent",
+        "PhysicsThrowableComponent"
+      ],
+      "projectile_fields_not_read": [
+        "do_moveto_update"
+      ],
+      "missing_files": [],
+      "error": null
+    },
+    "LIGHT_BULLET": {
+      "files": [
+        "data/entities/projectiles/deck/light_bullet.xml"
+      ],
+      "not_run": [],
+      "projectile_fields_not_read": [
+        "friction",
+        "lob_max",
+        "lob_min"
+      ],
+      "missing_files": [],
+      "error": null
+    },
+    "LIGHT_BULLET_TRIGGER": {
+      "files": [
+        "data/entities/projectiles/deck/light_bullet.xml"
+      ],
+      "not_run": [],
+      "projectile_fields_not_read": [
+        "friction",
+        "lob_max",
+        "lob_min"
+      ],
+      "missing_files": [],
+      "error": null
+    },
+    "LIGHT_BULLET_TRIGGER_2": {
+      "files": [
+        "data/entities/projectiles/deck/light_bullet_blue.xml"
+      ],
+      "not_run": [],
+      "projectile_fields_not_read": [
+        "friction",
+        "lob_max",
+        "lob_min"
+      ],
+      "missing_files": [],
+      "error": null
+    },
+    "LIGHT_BULLET_TIMER": {
+      "files": [
+        "data/entities/projectiles/deck/light_bullet.xml"
+      ],
+      "not_run": [],
+      "projectile_fields_not_read": [
+        "friction",
+        "lob_max",
+        "lob_min"
+      ],
+      "missing_files": [],
+      "error": null
+    },
+    "BULLET": {
+      "files": [
+        "data/entities/projectiles/deck/bullet.xml"
+      ],
+      "not_run": [],
+      "projectile_fields_not_read": [
+        "friction",
+        "lob_max",
+        "lob_min",
+        "physics_impulse_coeff"
+      ],
+      "missing_files": [],
+      "error": null
+    },
+    "BULLET_TRIGGER": {
+      "files": [
+        "data/entities/projectiles/deck/bullet.xml"
+      ],
+      "not_run": [],
+      "projectile_fields_not_read": [
+        "friction",
+        "lob_max",
+        "lob_min",
+        "physics_impulse_coeff"
+      ],
+      "missing_files": [],
+      "error": null
+    },
+    "BULLET_TIMER": {
+      "files": [
+        "data/entities/projectiles/deck/bullet.xml"
+      ],
+      "not_run": [],
+      "projectile_fields_not_read": [
+        "friction",
+        "lob_max",
+        "lob_min",
+        "physics_impulse_coeff"
+      ],
+      "missing_files": [],
+      "error": null
+    },
+    "HEAVY_BULLET": {
+      "files": [
+        "data/entities/projectiles/deck/bullet_heavy.xml"
+      ],
+      "not_run": [],
+      "projectile_fields_not_read": [
+        "friction",
+        "lob_max",
+        "lob_min",
+        "physics_impulse_coeff"
+      ],
+      "missing_files": [],
+      "error": null
+    },
+    "HEAVY_BULLET_TRIGGER": {
+      "files": [
+        "data/entities/projectiles/deck/bullet_heavy.xml"
+      ],
+      "not_run": [],
+      "projectile_fields_not_read": [
+        "friction",
+        "lob_max",
+        "lob_min",
+        "physics_impulse_coeff"
+      ],
+      "missing_files": [],
+      "error": null
+    },
+    "HEAVY_BULLET_TIMER": {
+      "files": [
+        "data/entities/projectiles/deck/bullet_heavy.xml"
+      ],
+      "not_run": [],
+      "projectile_fields_not_read": [
+        "friction",
+        "lob_max",
+        "lob_min",
+        "physics_impulse_coeff"
+      ],
+      "missing_files": [],
+      "error": null
+    },
+    "AIR_BULLET": {
+      "files": [
+        "data/entities/projectiles/deck/light_bullet_air.xml"
+      ],
+      "not_run": [],
+      "projectile_fields_not_read": [
+        "friction",
+        "lob_max",
+        "lob_min",
+        "physics_impulse_coeff"
+      ],
+      "missing_files": [],
+      "error": null
+    },
+    "SLOW_BULLET": {
+      "files": [
+        "data/entities/projectiles/deck/bullet_slow.xml"
+      ],
+      "not_run": [],
+      "projectile_fields_not_read": [
+        "friction",
+        "lob_max",
+        "lob_min",
+        "physics_impulse_coeff"
+      ],
+      "missing_files": [],
+      "error": null
+    },
+    "SLOW_BULLET_TRIGGER": {
+      "files": [
+        "data/entities/projectiles/deck/bullet_slow.xml"
+      ],
+      "not_run": [],
+      "projectile_fields_not_read": [
+        "friction",
+        "lob_max",
+        "lob_min",
+        "physics_impulse_coeff"
+      ],
+      "missing_files": [],
+      "error": null
+    },
+    "SLOW_BULLET_TIMER": {
+      "files": [
+        "data/entities/projectiles/deck/bullet_slow.xml"
+      ],
+      "not_run": [],
+      "projectile_fields_not_read": [
+        "friction",
+        "lob_max",
+        "lob_min",
+        "physics_impulse_coeff"
+      ],
+      "missing_files": [],
+      "error": null
+    },
+    "HOOK": {
+      "files": [
+        "data/entities/projectiles/deck/hook.xml"
+      ],
+      "not_run": [],
+      "projectile_fields_not_read": [
+        "friction",
+        "lob_max",
+        "lob_min",
+        "physics_impulse_coeff"
+      ],
+      "missing_files": [],
+      "error": null
+    },
+    "BLACK_HOLE": {
+      "files": [
+        "data/entities/projectiles/deck/black_hole.xml"
+      ],
+      "not_run": [
+        "AudioLoopComponent"
+      ],
+      "projectile_fields_not_read": [
+        "collide_with_entities",
+        "collide_with_shooter_frames",
+        "lob_max",
+        "lob_min"
+      ],
+      "missing_files": [],
+      "error": null
+    },
+    "BLACK_HOLE_DEATH_TRIGGER": {
+      "files": [
+        "data/entities/projectiles/deck/black_hole.xml"
+      ],
+      "not_run": [
+        "AudioLoopComponent"
+      ],
+      "projectile_fields_not_read": [
+        "collide_with_entities",
+        "collide_with_shooter_frames",
+        "lob_max",
+        "lob_min"
+      ],
+      "missing_files": [],
+      "error": null
+    },
+    "WHITE_HOLE": {
+      "files": [
+        "data/entities/projectiles/deck/white_hole.xml"
+      ],
+      "not_run": [
+        "AudioLoopComponent"
+      ],
+      "projectile_fields_not_read": [
+        "collide_with_entities",
+        "collide_with_shooter_frames",
+        "lob_max",
+        "lob_min"
+      ],
+      "missing_files": [],
+      "error": null
+    },
+    "BLACK_HOLE_BIG": {
+      "files": [
+        "data/entities/projectiles/deck/black_hole_big.xml"
+      ],
+      "not_run": [
+        "AudioLoopComponent",
+        "LooseGroundComponent",
+        "MusicEnergyAffectorComponent"
+      ],
+      "projectile_fields_not_read": [
+        "collide_with_entities",
+        "collide_with_shooter_frames",
+        "lob_max",
+        "lob_min"
+      ],
+      "missing_files": [],
+      "error": null
+    },
+    "WHITE_HOLE_BIG": {
+      "files": [
+        "data/entities/projectiles/deck/white_hole_big.xml"
+      ],
+      "not_run": [
+        "AudioLoopComponent",
+        "LooseGroundComponent",
+        "MusicEnergyAffectorComponent"
+      ],
+      "projectile_fields_not_read": [
+        "collide_with_entities",
+        "collide_with_shooter_frames",
+        "lob_max",
+        "lob_min"
+      ],
+      "missing_files": [],
+      "error": null
+    },
+    "BLACK_HOLE_GIGA": {
+      "files": [
+        "data/entities/projectiles/deck/black_hole_giga.xml"
+      ],
+      "not_run": [
+        "AudioLoopComponent",
+        "LooseGroundComponent",
+        "MusicEnergyAffectorComponent"
+      ],
+      "projectile_fields_not_read": [
+        "collide_with_entities",
+        "collide_with_shooter_frames",
+        "lob_max",
+        "lob_min"
+      ],
+      "missing_files": [],
+      "error": null
+    },
+    "WHITE_HOLE_GIGA": {
+      "files": [
+        "data/entities/projectiles/deck/white_hole_giga.xml"
+      ],
+      "not_run": [
+        "AudioLoopComponent",
+        "LooseGroundComponent",
+        "MusicEnergyAffectorComponent"
+      ],
+      "projectile_fields_not_read": [
+        "collide_with_entities",
+        "collide_with_shooter_frames",
+        "lob_max",
+        "lob_min"
+      ],
+      "missing_files": [],
+      "error": null
+    },
+    "TENTACLE_PORTAL": {
+      "files": [
+        "data/entities/projectiles/deck/tentacle_portal.xml"
+      ],
+      "not_run": [
+        "AudioLoopComponent",
+        "HitboxComponent",
+        "TeleportComponent"
+      ],
+      "projectile_fields_not_read": [],
+      "missing_files": [],
+      "error": null
+    },
+    "SPITTER": {
+      "files": [
+        "data/entities/projectiles/deck/spitter.xml"
+      ],
+      "not_run": [],
+      "projectile_fields_not_read": [
+        "bounce_always",
+        "friction",
+        "lob_max",
+        "lob_min",
+        "physics_impulse_coeff"
+      ],
+      "missing_files": [],
+      "error": null
+    },
+    "SPITTER_TIMER": {
+      "files": [
+        "data/entities/projectiles/deck/spitter.xml"
+      ],
+      "not_run": [],
+      "projectile_fields_not_read": [
+        "bounce_always",
+        "friction",
+        "lob_max",
+        "lob_min",
+        "physics_impulse_coeff"
+      ],
+      "missing_files": [],
+      "error": null
+    },
+    "SPITTER_TIER_2": {
+      "files": [
+        "data/entities/projectiles/deck/spitter_tier_2.xml"
+      ],
+      "not_run": [],
+      "projectile_fields_not_read": [
+        "bounce_always",
+        "friction",
+        "lob_max",
+        "lob_min",
+        "physics_impulse_coeff"
+      ],
+      "missing_files": [],
+      "error": null
+    },
+    "SPITTER_TIER_2_TIMER": {
+      "files": [
+        "data/entities/projectiles/deck/spitter_tier_2.xml"
+      ],
+      "not_run": [],
+      "projectile_fields_not_read": [
+        "bounce_always",
+        "friction",
+        "lob_max",
+        "lob_min",
+        "physics_impulse_coeff"
+      ],
+      "missing_files": [],
+      "error": null
+    },
+    "SPITTER_TIER_3": {
+      "files": [
+        "data/entities/projectiles/deck/spitter_tier_3.xml"
+      ],
+      "not_run": [],
+      "projectile_fields_not_read": [
+        "bounce_always",
+        "friction",
+        "lob_max",
+        "lob_min",
+        "physics_impulse_coeff"
+      ],
+      "missing_files": [],
+      "error": null
+    },
+    "SPITTER_TIER_3_TIMER": {
+      "files": [
+        "data/entities/projectiles/deck/spitter_tier_3.xml"
+      ],
+      "not_run": [],
+      "projectile_fields_not_read": [
+        "bounce_always",
+        "friction",
+        "lob_max",
+        "lob_min",
+        "physics_impulse_coeff"
+      ],
+      "missing_files": [],
+      "error": null
+    },
+    "BUBBLESHOT": {
+      "files": [
+        "data/entities/projectiles/deck/bubbleshot.xml"
+      ],
+      "not_run": [],
+      "projectile_fields_not_read": [
+        "bounce_always",
+        "friction",
+        "lob_max",
+        "lob_min",
+        "physics_impulse_coeff"
+      ],
+      "missing_files": [],
+      "error": null
+    },
+    "BUBBLESHOT_TRIGGER": {
+      "files": [
+        "data/entities/projectiles/deck/bubbleshot.xml"
+      ],
+      "not_run": [],
+      "projectile_fields_not_read": [
+        "bounce_always",
+        "friction",
+        "lob_max",
+        "lob_min",
+        "physics_impulse_coeff"
+      ],
+      "missing_files": [],
+      "error": null
+    },
+    "DISC_BULLET": {
+      "files": [
+        "data/entities/projectiles/deck/disc_bullet.xml"
+      ],
+      "not_run": [
+        "AudioLoopComponent"
+      ],
+      "projectile_fields_not_read": [
+        "bounce_at_any_angle",
+        "collide_with_shooter_frames",
+        "damage_scaled_by_speed",
+        "friction",
+        "lob_max",
+        "lob_min",
+        "on_collision_remove_projectile",
+        "physics_impulse_coeff"
+      ],
+      "missing_files": [],
+      "error": null
+    },
+    "DISC_BULLET_BIG": {
+      "files": [
+        "data/entities/projectiles/deck/disc_bullet_big.xml"
+      ],
+      "not_run": [
+        "AudioLoopComponent",
+        "MusicEnergyAffectorComponent"
+      ],
+      "projectile_fields_not_read": [
+        "bounce_at_any_angle",
+        "collide_with_shooter_frames",
+        "friction",
+        "lob_max",
+        "lob_min",
+        "on_collision_remove_projectile",
+        "physics_impulse_coeff"
+      ],
+      "missing_files": [],
+      "error": null
+    },
+    "DISC_BULLET_BIGGER": {
+      "files": [
+        "data/entities/projectiles/deck/disc_bullet_bigger.xml"
+      ],
+      "not_run": [
+        "AudioLoopComponent",
+        "MusicEnergyAffectorComponent"
+      ],
+      "projectile_fields_not_read": [
+        "bounce_at_any_angle",
+        "collide_with_shooter_frames",
+        "friction",
+        "lob_max",
+        "lob_min",
+        "on_collision_remove_projectile",
+        "physics_impulse_coeff"
+      ],
+      "missing_files": [],
+      "error": null
+    },
+    "BOUNCY_ORB": {
+      "files": [
+        "data/entities/projectiles/deck/bouncy_orb.xml"
+      ],
+      "not_run": [],
+      "projectile_fields_not_read": [
+        "damage_scaled_by_speed",
+        "friction",
+        "lob_max",
+        "lob_min",
+        "on_collision_remove_projectile",
+        "physics_impulse_coeff"
+      ],
+      "missing_files": [],
+      "error": null
+    },
+    "BOUNCY_ORB_TIMER": {
+      "files": [
+        "data/entities/projectiles/deck/bouncy_orb.xml"
+      ],
+      "not_run": [],
+      "projectile_fields_not_read": [
+        "damage_scaled_by_speed",
+        "friction",
+        "lob_max",
+        "lob_min",
+        "on_collision_remove_projectile",
+        "physics_impulse_coeff"
+      ],
+      "missing_files": [],
+      "error": null
+    },
+    "RUBBER_BALL": {
+      "files": [
+        "data/entities/projectiles/deck/rubber_ball.xml"
+      ],
+      "not_run": [],
+      "projectile_fields_not_read": [
+        "bounce_always",
+        "damage_scaled_by_speed",
+        "friction",
+        "lob_max",
+        "lob_min",
+        "on_collision_remove_projectile",
+        "physics_impulse_coeff"
+      ],
+      "missing_files": [],
+      "error": null
+    },
+    "ARROW": {
+      "files": [
+        "data/entities/projectiles/deck/arrow.xml"
+      ],
+      "not_run": [],
+      "projectile_fields_not_read": [
+        "collide_with_shooter_frames",
+        "damage_scaled_by_speed",
+        "friction",
+        "lob_max",
+        "lob_min",
+        "on_collision_remove_projectile",
+        "physics_impulse_coeff"
+      ],
+      "missing_files": [],
+      "error": null
+    },
+    "POLLEN": {
+      "files": [
+        "data/entities/projectiles/deck/pollen.xml"
+      ],
+      "not_run": [
+        "DamageModelComponent",
+        "GenomeDataComponent",
+        "HitboxComponent"
+      ],
+      "projectile_fields_not_read": [
+        "collide_with_shooter_frames",
+        "friction",
+        "lob_max",
+        "lob_min",
+        "physics_impulse_coeff"
+      ],
+      "missing_files": [],
+      "error": null
+    },
+    "LANCE": {
+      "files": [
+        "data/entities/projectiles/deck/lance.xml"
+      ],
+      "not_run": [],
+      "projectile_fields_not_read": [
+        "collide_with_shooter_frames",
+        "ground_penetration_coeff",
+        "lob_max",
+        "lob_min"
+      ],
+      "missing_files": [],
+      "error": null
+    },
+    "LANCE_HOLY": {
+      "files": [
+        "data/entities/projectiles/deck/lance_holy.xml"
+      ],
+      "not_run": [],
+      "projectile_fields_not_read": [
+        "collide_with_shooter_frames",
+        "ground_penetration_coeff",
+        "lob_max",
+        "lob_min"
+      ],
+      "missing_files": [],
+      "error": null
+    },
+    "ROCKET": {
+      "files": [
+        "data/entities/projectiles/deck/rocket.xml"
+      ],
+      "not_run": [],
+      "projectile_fields_not_read": [
+        "lob_max",
+        "lob_min",
+        "physics_impulse_coeff"
+      ],
+      "missing_files": [],
+      "error": null
+    },
+    "ROCKET_TIER_2": {
+      "files": [
+        "data/entities/projectiles/deck/rocket_tier_2.xml"
+      ],
+      "not_run": [],
+      "projectile_fields_not_read": [
+        "lob_max",
+        "lob_min",
+        "physics_impulse_coeff"
+      ],
+      "missing_files": [],
+      "error": null
+    },
+    "ROCKET_TIER_3": {
+      "files": [
+        "data/entities/projectiles/deck/rocket_tier_3.xml"
+      ],
+      "not_run": [],
+      "projectile_fields_not_read": [
+        "lob_max",
+        "lob_min",
+        "physics_impulse_coeff"
+      ],
+      "missing_files": [],
+      "error": null
+    },
+    "GRENADE": {
+      "files": [
+        "data/entities/projectiles/deck/grenade.xml"
+      ],
+      "not_run": [],
+      "projectile_fields_not_read": [
+        "friction",
+        "lob_max",
+        "lob_min",
+        "physics_impulse_coeff"
+      ],
+      "missing_files": [],
+      "error": null
+    },
+    "GRENADE_TRIGGER": {
+      "files": [
+        "data/entities/projectiles/deck/grenade.xml"
+      ],
+      "not_run": [],
+      "projectile_fields_not_read": [
+        "friction",
+        "lob_max",
+        "lob_min",
+        "physics_impulse_coeff"
+      ],
+      "missing_files": [],
+      "error": null
+    },
+    "GRENADE_TIER_2": {
+      "files": [
+        "data/entities/projectiles/deck/grenade_tier_2.xml"
+      ],
+      "not_run": [],
+      "projectile_fields_not_read": [
+        "friction",
+        "lob_max",
+        "lob_min",
+        "physics_impulse_coeff"
+      ],
+      "missing_files": [],
+      "error": null
+    },
+    "GRENADE_TIER_3": {
+      "files": [
+        "data/entities/projectiles/deck/grenade_tier_3.xml"
+      ],
+      "not_run": [],
+      "projectile_fields_not_read": [
+        "friction",
+        "lob_max",
+        "lob_min",
+        "physics_impulse_coeff"
+      ],
+      "missing_files": [],
+      "error": null
+    },
+    "GRENADE_ANTI": {
+      "files": [
+        "data/entities/projectiles/deck/grenade_anti.xml"
+      ],
+      "not_run": [],
+      "projectile_fields_not_read": [
+        "friction",
+        "lob_max",
+        "lob_min",
+        "physics_impulse_coeff"
+      ],
+      "missing_files": [],
+      "error": null
+    },
+    "GRENADE_LARGE": {
+      "files": [
+        "data/entities/projectiles/deck/grenade_large.xml"
+      ],
+      "not_run": [],
+      "projectile_fields_not_read": [
+        "friction",
+        "lob_max",
+        "lob_min"
+      ],
+      "missing_files": [],
+      "error": null
+    },
+    "MINE": {
+      "files": [
+        "data/entities/projectiles/deck/mine.xml"
+      ],
+      "not_run": [
+        "CameraBoundComponent",
+        "DamageModelComponent",
+        "ExplosionComponent",
+        "HitboxComponent"
+      ],
+      "projectile_fields_not_read": [
+        "friction",
+        "lob_max",
+        "lob_min",
+        "physics_impulse_coeff"
+      ],
+      "missing_files": [],
+      "error": null
+    },
+    "MINE_DEATH_TRIGGER": {
+      "files": [
+        "data/entities/projectiles/deck/mine.xml"
+      ],
+      "not_run": [
+        "CameraBoundComponent",
+        "DamageModelComponent",
+        "ExplosionComponent",
+        "HitboxComponent"
+      ],
+      "projectile_fields_not_read": [
+        "friction",
+        "lob_max",
+        "lob_min",
+        "physics_impulse_coeff"
+      ],
+      "missing_files": [],
+      "error": null
+    },
+    "PIPE_BOMB": {
+      "files": [
+        "data/entities/projectiles/deck/pipe_bomb.xml"
+      ],
+      "not_run": [
+        "DamageModelComponent",
+        "HitboxComponent"
+      ],
+      "projectile_fields_not_read": [
+        "friction",
+        "lob_max",
+        "lob_min",
+        "physics_impulse_coeff"
+      ],
+      "missing_files": [],
+      "error": null
+    },
+    "PIPE_BOMB_DEATH_TRIGGER": {
+      "files": [
+        "data/entities/projectiles/deck/pipe_bomb.xml"
+      ],
+      "not_run": [
+        "DamageModelComponent",
+        "HitboxComponent"
+      ],
+      "projectile_fields_not_read": [
+        "friction",
+        "lob_max",
+        "lob_min",
+        "physics_impulse_coeff"
+      ],
+      "missing_files": [],
+      "error": null
+    },
+    "FISH": {
+      "files": [
+        "data/entities/projectiles/deck/fish.xml"
+      ],
+      "not_run": [
+        "AdvancedFishAIComponent",
+        "CameraBoundComponent",
+        "CharacterCollisionComponent",
+        "CharacterDataComponent",
+        "CharacterPlatformingComponent",
+        "ControlsComponent",
+        "DamageModelComponent",
+        "GameStatsComponent",
+        "GenomeDataComponent",
+        "HitboxComponent",
+        "SpriteAnimatorComponent"
+      ],
+      "projectile_fields_not_read": [
+        "friction",
+        "lob_max",
+        "lob_min"
+      ],
+      "missing_files": [],
+      "error": null
+    },
+    "EXPLODING_DEER": {
+      "files": [
+        "data/entities/projectiles/deck/exploding_deer.xml"
+      ],
+      "not_run": [
+        "AnimalAIComponent",
+        "CameraBoundComponent",
+        "CharacterCollisionComponent",
+        "CharacterDataComponent",
+        "CharacterPlatformingComponent",
+        "ControlsComponent",
+        "DamageModelComponent",
+        "ExplosionComponent",
+        "GenomeDataComponent",
+        "HitboxComponent",
+        "PathFindingComponent",
+        "PathFindingGridMarkerComponent",
+        "SpriteAnimatorComponent",
+        "SpriteStainsComponent",
+        "StatusEffectDataComponent"
+      ],
+      "projectile_fields_not_read": [
+        "friction",
+        "lob_max",
+        "lob_min"
+      ],
+      "missing_files": [],
+      "error": null
+    },
+    "EXPLODING_DUCKS": {
+      "files": [
+        "data/entities/projectiles/deck/duck.xml"
+      ],
+      "not_run": [],
+      "projectile_fields_not_read": [
+        "bounce_always",
+        "friction",
+        "lob_max",
+        "lob_min",
+        "physics_impulse_coeff"
+      ],
+      "missing_files": [],
+      "error": null
+    },
+    "WORM_SHOT": {
+      "files": [
+        "data/entities/projectiles/deck/worm_shot.xml"
+      ],
+      "not_run": [
+        "AudioLoopComponent",
+        "VerletPhysicsComponent"
+      ],
+      "projectile_fields_not_read": [
+        "bounce_always",
+        "collide_with_shooter_frames",
+        "lob_max",
+        "lob_min"
+      ],
+      "missing_files": [],
+      "error": null
+    },
+    "BOMB_DETONATOR": {
+      "files": [
+        "data/entities/projectiles/deck/bomb_detonator.xml"
+      ],
+      "not_run": [],
+      "projectile_fields_not_read": [
+        "lob_max",
+        "lob_min",
+        "physics_impulse_coeff"
+      ],
+      "missing_files": [],
+      "error": null
+    },
+    "LASER": {
+      "files": [
+        "data/entities/misc/effect_disintegrated.xml",
+        "data/entities/projectiles/deck/laser.xml"
+      ],
+      "not_run": [],
+      "projectile_fields_not_read": [
+        "friction",
+        "lob_max",
+        "lob_min",
+        "physics_impulse_coeff"
+      ],
+      "missing_files": [],
+      "error": null
+    },
+    "MEGALASER": {
+      "files": [
+        "data/entities/misc/effect_disintegrated.xml",
+        "data/entities/projectiles/deck/megalaser.xml",
+        "data/entities/projectiles/deck/megalaser_beam.xml"
+      ],
+      "not_run": [],
+      "projectile_fields_not_read": [
+        "collide_with_tag",
+        "friction",
+        "lob_max",
+        "lob_min",
+        "on_collision_remove_projectile",
+        "physics_impulse_coeff"
+      ],
+      "missing_files": [],
+      "error": null
+    },
+    "LIGHTNING": {
+      "files": [
+        "data/entities/projectiles/deck/lightning.xml"
+      ],
+      "not_run": [],
+      "projectile_fields_not_read": [
+        "projectile_type"
+      ],
+      "missing_files": [],
+      "error": null
+    },
+    "BALL_LIGHTNING": {
+      "files": [
+        "data/entities/projectiles/deck/ball_lightning.xml"
+      ],
+      "not_run": [],
+      "projectile_fields_not_read": [
+        "bounce_always"
+      ],
+      "missing_files": [],
+      "error": null
+    },
+    "LASER_EMITTER": {
+      "files": [
+        "data/entities/misc/effect_disintegrated.xml",
+        "data/entities/projectiles/deck/orb_laseremitter.xml"
+      ],
+      "not_run": [
+        "LaserEmitterComponent"
+      ],
+      "projectile_fields_not_read": [
+        "lob_max",
+        "lob_min"
+      ],
+      "missing_files": [],
+      "error": null
+    },
+    "LASER_EMITTER_FOUR": {
+      "files": [
+        "data/entities/misc/effect_disintegrated.xml",
+        "data/entities/projectiles/deck/orb_laseremitter_four.xml"
+      ],
+      "not_run": [
+        "LaserEmitterComponent"
+      ],
+      "projectile_fields_not_read": [
+        "lob_max",
+        "lob_min"
+      ],
+      "missing_files": [],
+      "error": null
+    },
+    "LASER_EMITTER_CUTTER": {
+      "files": [
+        "data/entities/misc/effect_disintegrated.xml",
+        "data/entities/projectiles/deck/orb_laseremitter_cutter.xml"
+      ],
+      "not_run": [
+        "LaserEmitterComponent"
+      ],
+      "projectile_fields_not_read": [
+        "lob_max",
+        "lob_min"
+      ],
+      "missing_files": [],
+      "error": null
+    },
+    "DIGGER": {
+      "files": [
+        "data/entities/projectiles/deck/digger.xml"
+      ],
+      "not_run": [],
+      "projectile_fields_not_read": [
+        "collect_materials_to_shooter",
+        "collide_with_tag",
+        "friction",
+        "lob_max",
+        "lob_min",
+        "on_death_item_pickable_radius"
+      ],
+      "missing_files": [],
+      "error": null
+    },
+    "POWERDIGGER": {
+      "files": [
+        "data/entities/projectiles/deck/powerdigger.xml"
+      ],
+      "not_run": [],
+      "projectile_fields_not_read": [
+        "collect_materials_to_shooter",
+        "collide_with_tag",
+        "friction",
+        "lob_max",
+        "lob_min",
+        "on_death_item_pickable_radius"
+      ],
+      "missing_files": [],
+      "error": null
+    },
+    "CHAINSAW": {
+      "files": [
+        "data/entities/projectiles/deck/chainsaw.xml"
+      ],
+      "not_run": [
+        "AudioLoopComponent"
+      ],
+      "projectile_fields_not_read": [
+        "collect_materials_to_shooter",
+        "collide_with_tag",
+        "friction",
+        "lob_max",
+        "lob_min",
+        "on_death_item_pickable_radius"
+      ],
+      "missing_files": [],
+      "error": null
+    },
+    "LUMINOUS_DRILL": {
+      "files": [
+        "data/entities/projectiles/deck/luminous_drill.xml"
+      ],
+      "not_run": [],
+      "projectile_fields_not_read": [
+        "friction",
+        "ground_penetration_coeff",
+        "ground_penetration_max_durability_to_destroy",
+        "lob_max",
+        "lob_min"
+      ],
+      "missing_files": [],
+      "error": null
+    },
+    "LASER_LUMINOUS_DRILL": {
+      "files": [
+        "data/entities/projectiles/deck/luminous_drill.xml"
+      ],
+      "not_run": [],
+      "projectile_fields_not_read": [
+        "friction",
+        "ground_penetration_coeff",
+        "ground_penetration_max_durability_to_destroy",
+        "lob_max",
+        "lob_min"
+      ],
+      "missing_files": [],
+      "error": null
+    },
+    "TENTACLE": {
+      "files": [
+        "data/entities/projectiles/deck/tentacle.xml"
+      ],
+      "not_run": [
+        "VerletPhysicsComponent",
+        "VerletWeaponComponent"
+      ],
+      "projectile_fields_not_read": [
+        "attach_to_parent_trigger",
+        "projectile_type"
+      ],
+      "missing_files": [],
+      "error": null
+    },
+    "TENTACLE_TIMER": {
+      "files": [
+        "data/entities/projectiles/deck/tentacle.xml"
+      ],
+      "not_run": [
+        "VerletPhysicsComponent",
+        "VerletWeaponComponent"
+      ],
+      "projectile_fields_not_read": [
+        "attach_to_parent_trigger",
+        "projectile_type"
+      ],
+      "missing_files": [],
+      "error": null
+    },
+    "HEAL_BULLET": {
+      "files": [
+        "data/entities/projectiles/deck/heal_bullet.xml"
+      ],
+      "not_run": [],
+      "projectile_fields_not_read": [
+        "collide_with_shooter_frames",
+        "friction",
+        "lob_max",
+        "lob_min"
+      ],
+      "missing_files": [],
+      "error": null
+    },
+    "ANTIHEAL": {
+      "files": [
+        "data/entities/projectiles/deck/healhurt.xml"
+      ],
+      "not_run": [
+        "HitEffectComponent"
+      ],
+      "projectile_fields_not_read": [
+        "friction",
+        "lob_max",
+        "lob_min",
+        "physics_impulse_coeff"
+      ],
+      "missing_files": [],
+      "error": null
+    },
+    "SPIRAL_SHOT": {
+      "files": [
+        "data/entities/projectiles/deck/spiral_shot.xml"
+      ],
+      "not_run": [
+        "AudioLoopComponent"
+      ],
+      "projectile_fields_not_read": [
+        "collide_with_entities",
+        "lob_max",
+        "lob_min",
+        "physics_impulse_coeff"
+      ],
+      "missing_files": [],
+      "error": null
+    },
+    "MAGIC_SHIELD": {
+      "files": [
+        "data/entities/projectiles/deck/magic_shield_start.xml"
+      ],
+      "not_run": [],
+      "projectile_fields_not_read": [
+        "lob_max",
+        "lob_min"
+      ],
+      "missing_files": [],
+      "error": null
+    },
+    "BIG_MAGIC_SHIELD": {
+      "files": [
+        "data/entities/projectiles/deck/big_magic_shield_start.xml"
+      ],
+      "not_run": [],
+      "projectile_fields_not_read": [
+        "lob_max",
+        "lob_min"
+      ],
+      "missing_files": [],
+      "error": null
+    },
+    "CHAIN_BOLT": {
+      "files": [
+        "data/entities/projectiles/deck/chain_bolt.xml"
+      ],
+      "not_run": [],
+      "projectile_fields_not_read": [
+        "lob_max",
+        "lob_min"
+      ],
+      "missing_files": [],
+      "error": null
+    },
+    "FIREBALL": {
+      "files": [
+        "data/entities/projectiles/deck/fireball.xml"
+      ],
+      "not_run": [],
+      "projectile_fields_not_read": [
+        "lob_max",
+        "lob_min",
+        "physics_impulse_coeff"
+      ],
+      "missing_files": [],
+      "error": null
+    },
+    "METEOR": {
+      "files": [
+        "data/entities/projectiles/deck/meteor.xml"
+      ],
+      "not_run": [
+        "AudioLoopComponent"
+      ],
+      "projectile_fields_not_read": [
+        "lob_max",
+        "lob_min",
+        "physics_impulse_coeff"
+      ],
+      "missing_files": [],
+      "error": null
+    },
+    "FLAMETHROWER": {
+      "files": [
+        "data/entities/projectiles/deck/flamethrower.xml"
+      ],
+      "not_run": [],
+      "projectile_fields_not_read": [
+        "lob_max",
+        "lob_min",
+        "physics_impulse_coeff"
+      ],
+      "missing_files": [],
+      "error": null
+    },
+    "ICEBALL": {
+      "files": [
+        "data/entities/projectiles/deck/iceball.xml"
+      ],
+      "not_run": [],
+      "projectile_fields_not_read": [
+        "damage_game_effect_entities",
+        "lob_max",
+        "lob_min",
+        "physics_impulse_coeff"
+      ],
+      "missing_files": [],
+      "error": null
+    },
+    "SLIMEBALL": {
+      "files": [
+        "data/entities/projectiles/deck/slime.xml"
+      ],
+      "not_run": [
+        "DamageModelComponent"
+      ],
+      "projectile_fields_not_read": [
+        "physics_impulse_coeff"
+      ],
+      "missing_files": [],
+      "error": null
+    },
+    "DARKFLAME": {
+      "files": [
+        "data/entities/projectiles/darkflame.xml"
+      ],
+      "not_run": [],
+      "projectile_fields_not_read": [
+        "collide_with_entities"
+      ],
+      "missing_files": [],
+      "error": null
+    },
+    "MISSILE": {
+      "files": [
+        "data/entities/projectiles/deck/rocket_player.xml"
+      ],
+      "not_run": [
+        "AudioLoopComponent"
+      ],
+      "projectile_fields_not_read": [
+        "friction",
+        "lob_max",
+        "lob_min"
+      ],
+      "missing_files": [],
+      "error": null
+    },
+    "FUNKY_SPELL": {
+      "files": [
+        "data/entities/projectiles/deck/machinegun_bullet.xml"
+      ],
+      "not_run": [],
+      "projectile_fields_not_read": [
+        "friction",
+        "go_through_this_material",
+        "lob_max",
+        "lob_min"
+      ],
+      "missing_files": [],
+      "error": null
+    },
+    "PEBBLE": {
+      "files": [
+        "data/entities/projectiles/deck/pebble_player.xml"
+      ],
+      "not_run": [],
+      "projectile_fields_not_read": [
+        "friction",
+        "lob_max",
+        "lob_min"
+      ],
+      "missing_files": [],
+      "error": null
+    },
+    "DYNAMITE": {
+      "files": [
+        "data/entities/projectiles/deck/tnt.xml"
+      ],
+      "not_run": [
+        "AudioLoopComponent",
+        "DamageModelComponent",
+        "PhysicsBodyComponent",
+        "PhysicsThrowableComponent"
+      ],
+      "projectile_fields_not_read": [
+        "do_moveto_update"
+      ],
+      "missing_files": [],
+      "error": null
+    },
+    "GLITTER_BOMB": {
+      "files": [
+        "data/entities/projectiles/deck/glitter_bomb.xml"
+      ],
+      "not_run": [
+        "AudioLoopComponent",
+        "DamageModelComponent",
+        "PhysicsBodyComponent",
+        "PhysicsThrowableComponent"
+      ],
+      "projectile_fields_not_read": [
+        "do_moveto_update"
+      ],
+      "missing_files": [],
+      "error": null
+    },
+    "BUCKSHOT": {
+      "files": [
+        "data/entities/projectiles/deck/buckshot_player.xml"
+      ],
+      "not_run": [],
+      "projectile_fields_not_read": [
+        "lob_max",
+        "lob_min",
+        "physics_impulse_coeff"
+      ],
+      "missing_files": [],
+      "error": null
+    },
+    "FREEZING_GAZE": {
+      "files": [
+        "data/entities/projectiles/deck/freezing_gaze_beam.xml"
+      ],
+      "not_run": [],
+      "projectile_fields_not_read": [
+        "damage_game_effect_entities",
+        "lob_max",
+        "lob_min",
+        "physics_impulse_coeff"
+      ],
+      "missing_files": [],
+      "error": null
+    },
+    "GLOWING_BOLT": {
+      "files": [
+        "data/entities/projectiles/deck/glowing_bolt.xml"
+      ],
+      "not_run": [],
+      "projectile_fields_not_read": [
+        "collide_with_shooter_frames",
+        "friction",
+        "lob_max",
+        "lob_min",
+        "physics_impulse_coeff"
+      ],
+      "missing_files": [],
+      "error": null
+    },
+    "SPORE_POD": {
+      "files": [
+        "data/entities/projectiles/deck/spore_pod.xml"
+      ],
+      "not_run": [],
+      "projectile_fields_not_read": [
+        "friction",
+        "lob_max",
+        "lob_min",
+        "on_collision_remove_projectile",
+        "on_collision_spawn_entity",
+        "spawn_entity"
+      ],
+      "missing_files": [],
+      "error": null
+    },
+    "GLUE_SHOT": {
+      "files": [
+        "data/entities/projectiles/deck/glue_shot.xml"
+      ],
+      "not_run": [],
+      "projectile_fields_not_read": [
+        "bounce_at_any_angle",
+        "lob_max",
+        "lob_min",
+        "physics_impulse_coeff"
+      ],
+      "missing_files": [],
+      "error": null
+    },
+    "BOMB_HOLY": {
+      "files": [
+        "data/entities/projectiles/bomb_holy.xml"
+      ],
+      "not_run": [
+        "AudioLoopComponent",
+        "DamageModelComponent",
+        "PhysicsBodyComponent",
+        "PhysicsThrowableComponent"
+      ],
+      "projectile_fields_not_read": [
+        "do_moveto_update"
+      ],
+      "missing_files": [],
+      "error": null
+    },
+    "BOMB_HOLY_GIGA": {
+      "files": [
+        "data/entities/projectiles/bomb_holy_giga.xml"
+      ],
+      "not_run": [
+        "AudioLoopComponent",
+        "DamageModelComponent",
+        "PhysicsBodyComponent",
+        "PhysicsThrowableComponent"
+      ],
+      "projectile_fields_not_read": [
+        "do_moveto_update"
+      ],
+      "missing_files": [],
+      "error": null
+    },
+    "PROPANE_TANK": {
+      "files": [
+        "data/entities/projectiles/propane_tank.xml"
+      ],
+      "not_run": [
+        "AudioLoopComponent",
+        "DamageModelComponent",
+        "ExplodeOnDamageComponent",
+        "MaterialInventoryComponent",
+        "PhysicsBodyComponent",
+        "PhysicsThrowableComponent"
+      ],
+      "projectile_fields_not_read": [
+        "do_moveto_update"
+      ],
+      "missing_files": [],
+      "error": null
+    },
+    "BOMB_CART": {
+      "files": [
+        "data/entities/projectiles/bomb_cart.xml"
+      ],
+      "not_run": [
+        "AudioLoopComponent",
+        "ExplodeOnDamageComponent",
+        "PhysicsBody2Component",
+        "PhysicsJoint2Component",
+        "PhysicsJoint2MutatorComponent"
+      ],
+      "projectile_fields_not_read": [],
+      "missing_files": [],
+      "error": null
+    },
+    "CURSED_ORB": {
+      "files": [
+        "data/entities/projectiles/orb_cursed.xml"
+      ],
+      "not_run": [
+        "AudioLoopComponent"
+      ],
+      "projectile_fields_not_read": [
+        "bounce_always",
+        "bounce_at_any_angle",
+        "damage_game_effect_entities",
+        "lob_max",
+        "lob_min"
+      ],
+      "missing_files": [],
+      "error": null
+    },
+    "EXPANDING_ORB": {
+      "files": [
+        "data/entities/projectiles/orb_expanding.xml"
+      ],
+      "not_run": [],
+      "projectile_fields_not_read": [
+        "collide_with_entities",
+        "lob_max",
+        "lob_min"
+      ],
+      "missing_files": [],
+      "error": null
+    },
+    "CRUMBLING_EARTH": {
+      "files": [
+        "data/entities/projectiles/deck/crumbling_earth.xml"
+      ],
+      "not_run": [],
+      "projectile_fields_not_read": [
+        "friction"
+      ],
+      "missing_files": [],
+      "error": null
+    },
+    "SUMMON_ROCK": {
+      "files": [
+        "data/entities/projectiles/deck/rock.xml"
+      ],
+      "not_run": [
+        "DamageModelComponent",
+        "ExplodeOnDamageComponent",
+        "PhysicsBodyComponent",
+        "PhysicsThrowableComponent"
+      ],
+      "projectile_fields_not_read": [
+        "do_moveto_update"
+      ],
+      "missing_files": [],
+      "error": null
+    },
+    "SUMMON_EGG": {
+      "files": [
+        "data/entities/items/pickup/egg_monster.xml"
+      ],
+      "not_run": [
+        "AbilityComponent",
+        "DamageModelComponent",
+        "ExplodeOnDamageComponent",
+        "PhysicsBodyCollisionDamageComponent",
+        "PhysicsBodyComponent",
+        "PhysicsThrowableComponent"
+      ],
+      "projectile_fields_not_read": [
+        "damage_scale_max_speed",
+        "damage_scaled_by_speed",
+        "never_hit_player"
+      ],
+      "missing_files": [],
+      "error": null
+    },
+    "SUMMON_HOLLOW_EGG": {
+      "files": [
+        "data/entities/items/pickup/egg_hollow.xml"
+      ],
+      "not_run": [
+        "AbilityComponent",
+        "DamageModelComponent",
+        "ExplodeOnDamageComponent",
+        "PhysicsBodyCollisionDamageComponent",
+        "PhysicsBodyComponent",
+        "PhysicsThrowableComponent"
+      ],
+      "projectile_fields_not_read": [
+        "damage_scale_max_speed",
+        "damage_scaled_by_speed",
+        "never_hit_player"
+      ],
+      "missing_files": [],
+      "error": null
+    },
+    "TNTBOX": {
+      "files": [
+        "data/entities/projectiles/deck/tntbox.xml"
+      ],
+      "not_run": [
+        "DamageModelComponent",
+        "ExplodeOnDamageComponent",
+        "ExplosionComponent",
+        "GenomeDataComponent",
+        "PhysicsBodyComponent",
+        "PhysicsThrowableComponent"
+      ],
+      "projectile_fields_not_read": [
+        "do_moveto_update"
+      ],
+      "missing_files": [],
+      "error": null
+    },
+    "TNTBOX_BIG": {
+      "files": [
+        "data/entities/projectiles/deck/tntbox_big.xml"
+      ],
+      "not_run": [
+        "DamageModelComponent",
+        "ExplodeOnDamageComponent",
+        "ExplosionComponent",
+        "GenomeDataComponent",
+        "PhysicsBodyComponent",
+        "PhysicsThrowableComponent"
+      ],
+      "projectile_fields_not_read": [
+        "collide_with_shooter_frames",
+        "do_moveto_update"
+      ],
+      "missing_files": [],
+      "error": null
+    },
+    "SWARM_FLY": {
+      "files": [
+        "data/entities/projectiles/deck/swarm_fly.xml"
+      ],
+      "not_run": [
+        "AudioLoopComponent",
+        "DamageModelComponent",
+        "HitboxComponent"
+      ],
+      "projectile_fields_not_read": [
+        "bounce_always",
+        "friction",
+        "lob_max",
+        "lob_min",
+        "physics_impulse_coeff"
+      ],
+      "missing_files": [],
+      "error": null
+    },
+    "SWARM_FIREBUG": {
+      "files": [
+        "data/entities/projectiles/deck/swarm_firebug.xml"
+      ],
+      "not_run": [
+        "AudioLoopComponent",
+        "DamageModelComponent",
+        "HitboxComponent"
+      ],
+      "projectile_fields_not_read": [
+        "bounce_always",
+        "friction",
+        "lob_max",
+        "lob_min",
+        "physics_impulse_coeff"
+      ],
+      "missing_files": [],
+      "error": null
+    },
+    "SWARM_WASP": {
+      "files": [
+        "data/entities/projectiles/deck/swarm_wasp.xml"
+      ],
+      "not_run": [
+        "AudioLoopComponent",
+        "DamageModelComponent",
+        "HitboxComponent"
+      ],
+      "projectile_fields_not_read": [
+        "bounce_always",
+        "friction",
+        "lob_max",
+        "lob_min",
+        "physics_impulse_coeff"
+      ],
+      "missing_files": [],
+      "error": null
+    },
+    "FRIEND_FLY": {
+      "files": [
+        "data/entities/projectiles/deck/friend_fly.xml"
+      ],
+      "not_run": [
+        "AudioLoopComponent",
+        "DamageModelComponent",
+        "HitboxComponent"
+      ],
+      "projectile_fields_not_read": [
+        "bounce_always",
+        "friction",
+        "lob_max",
+        "lob_min",
+        "physics_impulse_coeff"
+      ],
+      "missing_files": [],
+      "error": null
+    },
+    "ACIDSHOT": {
+      "files": [
+        "data/entities/projectiles/deck/acidshot.xml"
+      ],
+      "not_run": [
+        "DamageModelComponent",
+        "HitboxComponent"
+      ],
+      "projectile_fields_not_read": [
+        "physics_impulse_coeff"
+      ],
+      "missing_files": [],
+      "error": null
+    },
+    "THUNDERBALL": {
+      "files": [
+        "data/entities/projectiles/thunderball.xml"
+      ],
+      "not_run": [
+        "AudioLoopComponent"
+      ],
+      "projectile_fields_not_read": [
+        "lob_max",
+        "lob_min",
+        "spawn_entity"
+      ],
+      "missing_files": [],
+      "error": null
+    },
+    "FIREBOMB": {
+      "files": [
+        "data/entities/projectiles/deck/firebomb.xml"
+      ],
+      "not_run": [],
+      "projectile_fields_not_read": [
+        "friction",
+        "lob_max",
+        "lob_min",
+        "physics_impulse_coeff"
+      ],
+      "missing_files": [],
+      "error": null
+    },
+    "SOILBALL": {
+      "files": [
+        "data/entities/projectiles/chunk_of_soil.xml"
+      ],
+      "not_run": [],
+      "projectile_fields_not_read": [
+        "lob_max",
+        "lob_min"
+      ],
+      "missing_files": [],
+      "error": null
+    },
+    "DEATH_CROSS": {
+      "files": [
+        "data/entities/projectiles/deck/death_cross.xml"
+      ],
+      "not_run": [],
+      "projectile_fields_not_read": [
+        "lob_max",
+        "lob_min"
+      ],
+      "missing_files": [],
+      "error": null
+    },
+    "DEATH_CROSS_BIG": {
+      "files": [
+        "data/entities/projectiles/deck/death_cross_big.xml"
+      ],
+      "not_run": [],
+      "projectile_fields_not_read": [
+        "lob_max",
+        "lob_min"
+      ],
+      "missing_files": [],
+      "error": null
+    },
+    "INFESTATION": {
+      "files": [
+        "data/entities/projectiles/deck/infestation.xml"
+      ],
+      "not_run": [],
+      "projectile_fields_not_read": [
+        "bounce_always",
+        "collide_with_shooter_frames",
+        "damage_scaled_by_speed",
+        "friction",
+        "lob_max",
+        "lob_min",
+        "on_collision_remove_projectile",
+        "physics_impulse_coeff"
+      ],
+      "missing_files": [],
+      "error": null
+    },
+    "WALL_HORIZONTAL": {
+      "files": [
+        "data/entities/projectiles/deck/wall_horizontal.xml"
+      ],
+      "not_run": [],
+      "projectile_fields_not_read": [
+        "lob_max",
+        "lob_min",
+        "physics_impulse_coeff"
+      ],
+      "missing_files": [],
+      "error": null
+    },
+    "WALL_VERTICAL": {
+      "files": [
+        "data/entities/projectiles/deck/wall_vertical.xml"
+      ],
+      "not_run": [],
+      "projectile_fields_not_read": [
+        "lob_max",
+        "lob_min",
+        "physics_impulse_coeff"
+      ],
+      "missing_files": [],
+      "error": null
+    },
+    "WALL_SQUARE": {
+      "files": [
+        "data/entities/projectiles/deck/wall_square.xml"
+      ],
+      "not_run": [],
+      "projectile_fields_not_read": [
+        "lob_max",
+        "lob_min",
+        "physics_impulse_coeff"
+      ],
+      "missing_files": [],
+      "error": null
+    },
+    "TEMPORARY_WALL": {
+      "files": [
+        "data/entities/projectiles/deck/temporary_wall.xml"
+      ],
+      "not_run": [
+        "AudioLoopComponent",
+        "PhysicsBody2Component"
+      ],
+      "projectile_fields_not_read": [
+        "lob_max",
+        "lob_min"
+      ],
+      "missing_files": [],
+      "error": null
+    },
+    "TEMPORARY_PLATFORM": {
+      "files": [
+        "data/entities/projectiles/deck/temporary_platform.xml"
+      ],
+      "not_run": [
+        "AudioLoopComponent",
+        "PhysicsBody2Component"
+      ],
+      "projectile_fields_not_read": [
+        "lob_max",
+        "lob_min"
+      ],
+      "missing_files": [],
+      "error": null
+    },
+    "PURPLE_EXPLOSION_FIELD": {
+      "files": [
+        "data/entities/projectiles/deck/purple_explosion_field.xml"
+      ],
+      "not_run": [],
+      "projectile_fields_not_read": [
+        "lob_max",
+        "lob_min"
+      ],
+      "missing_files": [],
+      "error": null
+    },
+    "DELAYED_SPELL": {
+      "files": [
+        "data/entities/projectiles/deck/delayed_spell.xml"
+      ],
+      "not_run": [
+        "AudioLoopComponent"
+      ],
+      "projectile_fields_not_read": [
+        "lob_max",
+        "lob_min",
+        "physics_impulse_coeff"
+      ],
+      "missing_files": [],
+      "error": null
+    },
+    "LONG_DISTANCE_CAST": {
+      "files": [
+        "data/entities/projectiles/deck/long_distance_cast.xml"
+      ],
+      "not_run": [],
+      "projectile_fields_not_read": [
+        "friction",
+        "lob_max",
+        "lob_min"
+      ],
+      "missing_files": [],
+      "error": null
+    },
+    "TELEPORT_CAST": {
+      "files": [
+        "data/entities/projectiles/deck/teleport_cast.xml"
+      ],
+      "not_run": [],
+      "projectile_fields_not_read": [
+        "lob_max",
+        "lob_min",
+        "physics_impulse_coeff"
+      ],
+      "missing_files": [],
+      "error": null
+    },
+    "SUPER_TELEPORT_CAST": {
+      "files": [
+        "data/entities/projectiles/deck/super_teleport_cast.xml"
+      ],
+      "not_run": [],
+      "projectile_fields_not_read": [
+        "lob_max",
+        "lob_min",
+        "physics_impulse_coeff"
+      ],
+      "missing_files": [],
+      "error": null
+    },
+    "CASTER_CAST": {
+      "files": [
+        "data/entities/misc/caster_cast.xml",
+        "data/entities/projectiles/deck/light_bullet.xml"
+      ],
+      "not_run": [],
+      "projectile_fields_not_read": [
+        "friction",
+        "lob_max",
+        "lob_min"
+      ],
+      "missing_files": [],
+      "error": null
+    },
+    "MIST_RADIOACTIVE": {
+      "files": [
+        "data/entities/projectiles/deck/mist_radioactive.xml"
+      ],
+      "not_run": [
+        "AudioLoopComponent"
+      ],
+      "projectile_fields_not_read": [
+        "lob_max",
+        "lob_min"
+      ],
+      "missing_files": [],
+      "error": null
+    },
+    "MIST_ALCOHOL": {
+      "files": [
+        "data/entities/projectiles/deck/mist_alcohol.xml"
+      ],
+      "not_run": [
+        "AudioLoopComponent"
+      ],
+      "projectile_fields_not_read": [
+        "lob_max",
+        "lob_min"
+      ],
+      "missing_files": [],
+      "error": null
+    },
+    "MIST_SLIME": {
+      "files": [
+        "data/entities/projectiles/deck/mist_slime.xml"
+      ],
+      "not_run": [
+        "AudioLoopComponent"
+      ],
+      "projectile_fields_not_read": [
+        "lob_max",
+        "lob_min"
+      ],
+      "missing_files": [],
+      "error": null
+    },
+    "MIST_BLOOD": {
+      "files": [
+        "data/entities/projectiles/deck/mist_blood.xml"
+      ],
+      "not_run": [
+        "AudioLoopComponent"
+      ],
+      "projectile_fields_not_read": [
+        "lob_max",
+        "lob_min"
+      ],
+      "missing_files": [],
+      "error": null
+    },
+    "CIRCLE_FIRE": {
+      "files": [
+        "data/entities/projectiles/deck/circle_fire.xml"
+      ],
+      "not_run": [],
+      "projectile_fields_not_read": [],
+      "missing_files": [],
+      "error": null
+    },
+    "CIRCLE_ACID": {
+      "files": [
+        "data/entities/projectiles/deck/circle_acid.xml"
+      ],
+      "not_run": [],
+      "projectile_fields_not_read": [],
+      "missing_files": [],
+      "error": null
+    },
+    "CIRCLE_OIL": {
+      "files": [
+        "data/entities/projectiles/deck/circle_oil.xml"
+      ],
+      "not_run": [],
+      "projectile_fields_not_read": [],
+      "missing_files": [],
+      "error": null
+    },
+    "CIRCLE_WATER": {
+      "files": [
+        "data/entities/projectiles/deck/circle_water.xml"
+      ],
+      "not_run": [],
+      "projectile_fields_not_read": [],
+      "missing_files": [],
+      "error": null
+    },
+    "MATERIAL_WATER": {
+      "files": [
+        "data/entities/misc/effect_apply_wet.xml",
+        "data/entities/projectiles/deck/material_water.xml"
+      ],
+      "not_run": [],
+      "projectile_fields_not_read": [
+        "friction",
+        "lob_max",
+        "lob_min",
+        "projectile_type"
+      ],
+      "missing_files": [],
+      "error": null
+    },
+    "MATERIAL_OIL": {
+      "files": [
+        "data/entities/misc/effect_apply_oiled.xml",
+        "data/entities/projectiles/deck/material_oil.xml"
+      ],
+      "not_run": [],
+      "projectile_fields_not_read": [
+        "friction",
+        "lob_max",
+        "lob_min",
+        "projectile_type"
+      ],
+      "missing_files": [],
+      "error": null
+    },
+    "MATERIAL_BLOOD": {
+      "files": [
+        "data/entities/misc/effect_apply_bloody.xml",
+        "data/entities/projectiles/deck/material_blood.xml"
+      ],
+      "not_run": [],
+      "projectile_fields_not_read": [
+        "friction",
+        "lob_max",
+        "lob_min",
+        "projectile_type"
+      ],
+      "missing_files": [],
+      "error": null
+    },
+    "MATERIAL_ACID": {
+      "files": [
+        "data/entities/projectiles/deck/material_acid.xml"
+      ],
+      "not_run": [],
+      "projectile_fields_not_read": [
+        "friction",
+        "lob_max",
+        "lob_min",
+        "projectile_type"
+      ],
+      "missing_files": [],
+      "error": null
+    },
+    "MATERIAL_CEMENT": {
+      "files": [
+        "data/entities/projectiles/deck/material_cement.xml"
+      ],
+      "not_run": [],
+      "projectile_fields_not_read": [
+        "friction",
+        "lob_max",
+        "lob_min",
+        "projectile_type"
+      ],
+      "missing_files": [],
+      "error": null
+    },
+    "TELEPORT_PROJECTILE": {
+      "files": [
+        "data/entities/projectiles/deck/teleport_projectile.xml"
+      ],
+      "not_run": [],
+      "projectile_fields_not_read": [
+        "friction",
+        "lob_max",
+        "lob_min",
+        "on_collision_remove_projectile"
+      ],
+      "missing_files": [],
+      "error": null
+    },
+    "TELEPORT_PROJECTILE_SHORT": {
+      "files": [
+        "data/entities/projectiles/deck/teleport_projectile_short.xml"
+      ],
+      "not_run": [],
+      "projectile_fields_not_read": [
+        "friction",
+        "lob_max",
+        "lob_min",
+        "on_collision_remove_projectile"
+      ],
+      "missing_files": [],
+      "error": null
+    },
+    "TELEPORT_PROJECTILE_STATIC": {
+      "files": [
+        "data/entities/projectiles/deck/teleport_projectile_static.xml"
+      ],
+      "not_run": [],
+      "projectile_fields_not_read": [
+        "friction",
+        "lob_max",
+        "lob_min",
+        "on_collision_remove_projectile"
+      ],
+      "missing_files": [],
+      "error": null
+    },
+    "SWAPPER_PROJECTILE": {
+      "files": [
+        "data/entities/projectiles/deck/swapper.xml"
+      ],
+      "not_run": [
+        "HitEffectComponent"
+      ],
+      "projectile_fields_not_read": [
+        "friction",
+        "lob_max",
+        "lob_min",
+        "on_collision_remove_projectile"
+      ],
+      "missing_files": [],
+      "error": null
+    },
+    "TELEPORT_PROJECTILE_CLOSER": {
+      "files": [
+        "data/entities/projectiles/deck/teleport_projectile_closer.xml"
+      ],
+      "not_run": [
+        "HitEffectComponent"
+      ],
+      "projectile_fields_not_read": [
+        "collide_with_shooter_frames",
+        "friction",
+        "lob_max",
+        "lob_min",
+        "on_collision_remove_projectile"
+      ],
+      "missing_files": [],
+      "error": null
+    },
+    "NUKE": {
+      "files": [
+        "data/entities/projectiles/deck/nuke.xml"
+      ],
+      "not_run": [
+        "AudioLoopComponent"
+      ],
+      "projectile_fields_not_read": [
+        "lob_max",
+        "lob_min"
+      ],
+      "missing_files": [],
+      "error": null
+    },
+    "NUKE_GIGA": {
+      "files": [
+        "data/entities/projectiles/deck/nuke_giga.xml"
+      ],
+      "not_run": [
+        "AudioLoopComponent"
+      ],
+      "projectile_fields_not_read": [
+        "lob_max",
+        "lob_min"
+      ],
+      "missing_files": [],
+      "error": null
+    },
+    "FIREWORK": {
+      "files": [
+        "data/entities/projectiles/deck/fireworks/firework_pink.xml"
+      ],
+      "not_run": [],
+      "projectile_fields_not_read": [
+        "lob_max",
+        "lob_min"
+      ],
+      "missing_files": [],
+      "error": null
+    },
+    "SUMMON_WANDGHOST": {
+      "files": [
+        "data/entities/particles/image_emitters/wand_effect.xml",
+        "data/entities/projectiles/deck/wand_ghost_player.xml"
+      ],
+      "not_run": [
+        "AnimalAIComponent",
+        "AudioLoopComponent",
+        "CameraBoundComponent",
+        "CharacterCollisionComponent",
+        "CharacterDataComponent",
+        "CharacterPlatformingComponent",
+        "ControlsComponent",
+        "DamageModelComponent",
+        "GameStatsComponent",
+        "GenomeDataComponent",
+        "HitboxComponent",
+        "HotspotComponent",
+        "ItemChestComponent",
+        "ItemPickUpperComponent",
+        "PathFindingComponent",
+        "PathFindingGridMarkerComponent",
+        "PhysicsAIComponent",
+        "PhysicsBodyComponent",
+        "PhysicsShapeComponent",
+        "SpriteAnimatorComponent",
+        "SpriteStainsComponent",
+        "StatusEffectDataComponent"
+      ],
+      "projectile_fields_not_read": [],
+      "missing_files": [],
+      "error": null
+    },
+    "TOUCH_GOLD": {
+      "files": [
+        "data/entities/projectiles/deck/touch_gold.xml"
+      ],
+      "not_run": [],
+      "projectile_fields_not_read": [],
+      "missing_files": [],
+      "error": null
+    },
+    "TOUCH_WATER": {
+      "files": [
+        "data/entities/projectiles/deck/touch_water.xml"
+      ],
+      "not_run": [],
+      "projectile_fields_not_read": [],
+      "missing_files": [],
+      "error": null
+    },
+    "TOUCH_OIL": {
+      "files": [
+        "data/entities/projectiles/deck/touch_oil.xml"
+      ],
+      "not_run": [],
+      "projectile_fields_not_read": [],
+      "missing_files": [],
+      "error": null
+    },
+    "TOUCH_ALCOHOL": {
+      "files": [
+        "data/entities/projectiles/deck/touch_alcohol.xml"
+      ],
+      "not_run": [],
+      "projectile_fields_not_read": [],
+      "missing_files": [],
+      "error": null
+    },
+    "TOUCH_PISS": {
+      "files": [
+        "data/entities/projectiles/deck/touch_piss.xml"
+      ],
+      "not_run": [],
+      "projectile_fields_not_read": [],
+      "missing_files": [],
+      "error": null
+    },
+    "TOUCH_GRASS": {
+      "files": [
+        "data/entities/projectiles/deck/touch_grass.xml"
+      ],
+      "not_run": [],
+      "projectile_fields_not_read": [],
+      "missing_files": [],
+      "error": null
+    },
+    "TOUCH_BLOOD": {
+      "files": [
+        "data/entities/projectiles/deck/touch_blood.xml"
+      ],
+      "not_run": [],
+      "projectile_fields_not_read": [],
+      "missing_files": [],
+      "error": null
+    },
+    "TOUCH_SMOKE": {
+      "files": [
+        "data/entities/projectiles/deck/touch_smoke.xml"
+      ],
+      "not_run": [],
+      "projectile_fields_not_read": [],
+      "missing_files": [],
+      "error": null
+    },
+    "DESTRUCTION": {
+      "files": [
+        "data/entities/projectiles/deck/destruction.xml"
+      ],
+      "not_run": [],
+      "projectile_fields_not_read": [],
+      "missing_files": [],
+      "error": null
+    },
+    "MASS_POLYMORPH": {
+      "files": [
+        "data/entities/projectiles/deck/mass_polymorph.xml"
+      ],
+      "not_run": [],
+      "projectile_fields_not_read": [],
+      "missing_files": [],
+      "error": null
+    },
+    "BURST_2": {
+      "files": [
+        "data/entities/projectiles/deck/light_bullet.xml"
+      ],
+      "not_run": [],
+      "projectile_fields_not_read": [
+        "friction",
+        "lob_max",
+        "lob_min"
+      ],
+      "missing_files": [],
+      "error": null
+    },
+    "BURST_3": {
+      "files": [
+        "data/entities/projectiles/deck/light_bullet.xml"
+      ],
+      "not_run": [],
+      "projectile_fields_not_read": [
+        "friction",
+        "lob_max",
+        "lob_min"
+      ],
+      "missing_files": [],
+      "error": null
+    },
+    "BURST_4": {
+      "files": [
+        "data/entities/projectiles/deck/light_bullet.xml"
+      ],
+      "not_run": [],
+      "projectile_fields_not_read": [
+        "friction",
+        "lob_max",
+        "lob_min"
+      ],
+      "missing_files": [],
+      "error": null
+    },
+    "BURST_8": {
+      "files": [
+        "data/entities/projectiles/deck/light_bullet.xml"
+      ],
+      "not_run": [],
+      "projectile_fields_not_read": [
+        "friction",
+        "lob_max",
+        "lob_min"
+      ],
+      "missing_files": [],
+      "error": null
+    },
+    "BURST_X": {
+      "files": [
+        "data/entities/projectiles/deck/light_bullet.xml"
+      ],
+      "not_run": [],
+      "projectile_fields_not_read": [
+        "friction",
+        "lob_max",
+        "lob_min"
+      ],
+      "missing_files": [],
+      "error": null
+    },
+    "SCATTER_2": {
+      "files": [
+        "data/entities/projectiles/deck/light_bullet.xml"
+      ],
+      "not_run": [],
+      "projectile_fields_not_read": [
+        "friction",
+        "lob_max",
+        "lob_min"
+      ],
+      "missing_files": [],
+      "error": null
+    },
+    "SCATTER_3": {
+      "files": [
+        "data/entities/projectiles/deck/light_bullet.xml"
+      ],
+      "not_run": [],
+      "projectile_fields_not_read": [
+        "friction",
+        "lob_max",
+        "lob_min"
+      ],
+      "missing_files": [],
+      "error": null
+    },
+    "SCATTER_4": {
+      "files": [
+        "data/entities/projectiles/deck/light_bullet.xml"
+      ],
+      "not_run": [],
+      "projectile_fields_not_read": [
+        "friction",
+        "lob_max",
+        "lob_min"
+      ],
+      "missing_files": [],
+      "error": null
+    },
+    "I_SHAPE": {
+      "files": [
+        "data/entities/projectiles/deck/light_bullet.xml"
+      ],
+      "not_run": [],
+      "projectile_fields_not_read": [
+        "friction",
+        "lob_max",
+        "lob_min"
+      ],
+      "missing_files": [],
+      "error": null
+    },
+    "Y_SHAPE": {
+      "files": [
+        "data/entities/projectiles/deck/light_bullet.xml"
+      ],
+      "not_run": [],
+      "projectile_fields_not_read": [
+        "friction",
+        "lob_max",
+        "lob_min"
+      ],
+      "missing_files": [],
+      "error": null
+    },
+    "T_SHAPE": {
+      "files": [
+        "data/entities/projectiles/deck/light_bullet.xml"
+      ],
+      "not_run": [],
+      "projectile_fields_not_read": [
+        "friction",
+        "lob_max",
+        "lob_min"
+      ],
+      "missing_files": [],
+      "error": null
+    },
+    "W_SHAPE": {
+      "files": [
+        "data/entities/projectiles/deck/light_bullet.xml"
+      ],
+      "not_run": [],
+      "projectile_fields_not_read": [
+        "friction",
+        "lob_max",
+        "lob_min"
+      ],
+      "missing_files": [],
+      "error": null
+    },
+    "CIRCLE_SHAPE": {
+      "files": [
+        "data/entities/projectiles/deck/light_bullet.xml"
+      ],
+      "not_run": [],
+      "projectile_fields_not_read": [
+        "friction",
+        "lob_max",
+        "lob_min"
+      ],
+      "missing_files": [],
+      "error": null
+    },
+    "PENTAGRAM_SHAPE": {
+      "files": [
+        "data/entities/projectiles/deck/light_bullet.xml"
+      ],
+      "not_run": [],
+      "projectile_fields_not_read": [
+        "friction",
+        "lob_max",
+        "lob_min"
+      ],
+      "missing_files": [],
+      "error": null
+    },
+    "I_SHOT": {
+      "files": [
+        "data/entities/projectiles/deck/light_bullet.xml"
+      ],
+      "not_run": [],
+      "projectile_fields_not_read": [
+        "friction",
+        "lob_max",
+        "lob_min"
+      ],
+      "missing_files": [],
+      "error": null
+    },
+    "Y_SHOT": {
+      "files": [
+        "data/entities/projectiles/deck/light_bullet.xml"
+      ],
+      "not_run": [],
+      "projectile_fields_not_read": [
+        "friction",
+        "lob_max",
+        "lob_min"
+      ],
+      "missing_files": [],
+      "error": null
+    },
+    "T_SHOT": {
+      "files": [
+        "data/entities/projectiles/deck/light_bullet.xml"
+      ],
+      "not_run": [],
+      "projectile_fields_not_read": [
+        "friction",
+        "lob_max",
+        "lob_min"
+      ],
+      "missing_files": [],
+      "error": null
+    },
+    "W_SHOT": {
+      "files": [
+        "data/entities/projectiles/deck/light_bullet.xml"
+      ],
+      "not_run": [],
+      "projectile_fields_not_read": [
+        "friction",
+        "lob_max",
+        "lob_min"
+      ],
+      "missing_files": [],
+      "error": null
+    },
+    "QUAD_SHOT": {
+      "files": [
+        "data/entities/projectiles/deck/light_bullet.xml"
+      ],
+      "not_run": [],
+      "projectile_fields_not_read": [
+        "friction",
+        "lob_max",
+        "lob_min"
+      ],
+      "missing_files": [],
+      "error": null
+    },
+    "PENTA_SHOT": {
+      "files": [
+        "data/entities/projectiles/deck/light_bullet.xml"
+      ],
+      "not_run": [],
+      "projectile_fields_not_read": [
+        "friction",
+        "lob_max",
+        "lob_min"
+      ],
+      "missing_files": [],
+      "error": null
+    },
+    "HEXA_SHOT": {
+      "files": [
+        "data/entities/projectiles/deck/light_bullet.xml"
+      ],
+      "not_run": [],
+      "projectile_fields_not_read": [
+        "friction",
+        "lob_max",
+        "lob_min"
+      ],
+      "missing_files": [],
+      "error": null
+    },
+    "SPREAD_REDUCE": {
+      "files": [
+        "data/entities/projectiles/deck/light_bullet.xml"
+      ],
+      "not_run": [],
+      "projectile_fields_not_read": [
+        "friction",
+        "lob_max",
+        "lob_min"
+      ],
+      "missing_files": [],
+      "error": null
+    },
+    "HEAVY_SPREAD": {
+      "files": [
+        "data/entities/projectiles/deck/light_bullet.xml"
+      ],
+      "not_run": [],
+      "projectile_fields_not_read": [
+        "friction",
+        "lob_max",
+        "lob_min"
+      ],
+      "missing_files": [],
+      "error": null
+    },
+    "RECHARGE": {
+      "files": [
+        "data/entities/projectiles/deck/light_bullet.xml"
+      ],
+      "not_run": [],
+      "projectile_fields_not_read": [
+        "friction",
+        "lob_max",
+        "lob_min"
+      ],
+      "missing_files": [],
+      "error": null
+    },
+    "LIFETIME": {
+      "files": [
+        "data/entities/projectiles/deck/light_bullet.xml"
+      ],
+      "not_run": [],
+      "projectile_fields_not_read": [
+        "friction",
+        "lob_max",
+        "lob_min"
+      ],
+      "missing_files": [],
+      "error": null
+    },
+    "LIFETIME_DOWN": {
+      "files": [
+        "data/entities/projectiles/deck/light_bullet.xml"
+      ],
+      "not_run": [],
+      "projectile_fields_not_read": [
+        "friction",
+        "lob_max",
+        "lob_min"
+      ],
+      "missing_files": [],
+      "error": null
+    },
+    "NOLLA": {
+      "files": [
+        "data/entities/misc/nolla.xml",
+        "data/entities/projectiles/deck/light_bullet.xml"
+      ],
+      "not_run": [],
+      "projectile_fields_not_read": [
+        "friction",
+        "lob_max",
+        "lob_min"
+      ],
+      "missing_files": [],
+      "error": null
+    },
+    "SLOW_BUT_STEADY": {
+      "files": [
+        "data/entities/projectiles/deck/light_bullet.xml"
+      ],
+      "not_run": [],
+      "projectile_fields_not_read": [
+        "friction",
+        "lob_max",
+        "lob_min"
+      ],
+      "missing_files": [],
+      "error": null
+    },
+    "EXPLOSION_REMOVE": {
+      "files": [
+        "data/entities/misc/explosion_remove.xml",
+        "data/entities/projectiles/deck/light_bullet.xml"
+      ],
+      "not_run": [],
+      "projectile_fields_not_read": [
+        "friction",
+        "lob_max",
+        "lob_min"
+      ],
+      "missing_files": [],
+      "error": null
+    },
+    "EXPLOSION_TINY": {
+      "files": [
+        "data/entities/misc/explosion_tiny.xml",
+        "data/entities/projectiles/deck/light_bullet.xml"
+      ],
+      "not_run": [],
+      "projectile_fields_not_read": [
+        "friction",
+        "lob_max",
+        "lob_min"
+      ],
+      "missing_files": [],
+      "error": null
+    },
+    "LASER_EMITTER_WIDER": {
+      "files": [
+        "data/entities/misc/laser_emitter_wider.xml",
+        "data/entities/projectiles/deck/light_bullet.xml"
+      ],
+      "not_run": [],
+      "projectile_fields_not_read": [
+        "friction",
+        "lob_max",
+        "lob_min"
+      ],
+      "missing_files": [],
+      "error": null
+    },
+    "MANA_REDUCE": {
+      "files": [
+        "data/entities/projectiles/deck/light_bullet.xml"
+      ],
+      "not_run": [],
+      "projectile_fields_not_read": [
+        "friction",
+        "lob_max",
+        "lob_min"
+      ],
+      "missing_files": [],
+      "error": null
+    },
+    "BLOOD_MAGIC": {
+      "files": [
+        "data/entities/particles/blood_sparks.xml",
+        "data/entities/projectiles/deck/light_bullet.xml"
+      ],
+      "not_run": [],
+      "projectile_fields_not_read": [
+        "friction",
+        "lob_max",
+        "lob_min"
+      ],
+      "missing_files": [],
+      "error": null
+    },
+    "MONEY_MAGIC": {
+      "files": [
+        "data/entities/projectiles/deck/light_bullet.xml"
+      ],
+      "not_run": [],
+      "projectile_fields_not_read": [
+        "friction",
+        "lob_max",
+        "lob_min"
+      ],
+      "missing_files": [],
+      "error": null
+    },
+    "BLOOD_TO_POWER": {
+      "files": [
+        "data/entities/particles/blood_sparks.xml",
+        "data/entities/projectiles/deck/light_bullet.xml"
+      ],
+      "not_run": [],
+      "projectile_fields_not_read": [
+        "friction",
+        "lob_max",
+        "lob_min"
+      ],
+      "missing_files": [],
+      "error": null
+    },
+    "DUPLICATE": {
+      "files": [
+        "data/entities/projectiles/deck/light_bullet.xml"
+      ],
+      "not_run": [],
+      "projectile_fields_not_read": [
+        "friction",
+        "lob_max",
+        "lob_min"
+      ],
+      "missing_files": [],
+      "error": null
+    },
+    "QUANTUM_SPLIT": {
+      "files": [
+        "data/entities/misc/quantum_split.xml",
+        "data/entities/projectiles/deck/light_bullet.xml"
+      ],
+      "not_run": [],
+      "projectile_fields_not_read": [
+        "friction",
+        "lob_max",
+        "lob_min"
+      ],
+      "missing_files": [],
+      "error": null
+    },
+    "GRAVITY": {
+      "files": [
+        "data/entities/projectiles/deck/light_bullet.xml"
+      ],
+      "not_run": [],
+      "projectile_fields_not_read": [
+        "friction",
+        "lob_max",
+        "lob_min"
+      ],
+      "missing_files": [],
+      "error": null
+    },
+    "GRAVITY_ANTI": {
+      "files": [
+        "data/entities/projectiles/deck/light_bullet.xml"
+      ],
+      "not_run": [],
+      "projectile_fields_not_read": [
+        "friction",
+        "lob_max",
+        "lob_min"
+      ],
+      "missing_files": [],
+      "error": null
+    },
+    "SINEWAVE": {
+      "files": [
+        "data/entities/misc/sinewave.xml",
+        "data/entities/projectiles/deck/light_bullet.xml"
+      ],
+      "not_run": [],
+      "projectile_fields_not_read": [
+        "friction",
+        "lob_max",
+        "lob_min"
+      ],
+      "missing_files": [],
+      "error": null
+    },
+    "CHAOTIC_ARC": {
+      "files": [
+        "data/entities/misc/chaotic_arc.xml",
+        "data/entities/projectiles/deck/light_bullet.xml"
+      ],
+      "not_run": [],
+      "projectile_fields_not_read": [
+        "friction",
+        "lob_max",
+        "lob_min"
+      ],
+      "missing_files": [],
+      "error": null
+    },
+    "PINGPONG_PATH": {
+      "files": [
+        "data/entities/misc/pingpong_path.xml",
+        "data/entities/projectiles/deck/light_bullet.xml"
+      ],
+      "not_run": [],
+      "projectile_fields_not_read": [
+        "friction",
+        "lob_max",
+        "lob_min"
+      ],
+      "missing_files": [],
+      "error": null
+    },
+    "AVOIDING_ARC": {
+      "files": [
+        "data/entities/misc/avoiding_arc.xml",
+        "data/entities/projectiles/deck/light_bullet.xml"
+      ],
+      "not_run": [],
+      "projectile_fields_not_read": [
+        "friction",
+        "lob_max",
+        "lob_min"
+      ],
+      "missing_files": [],
+      "error": null
+    },
+    "FLOATING_ARC": {
+      "files": [
+        "data/entities/misc/floating_arc.xml",
+        "data/entities/projectiles/deck/light_bullet.xml"
+      ],
+      "not_run": [],
+      "projectile_fields_not_read": [
+        "friction",
+        "lob_max",
+        "lob_min"
+      ],
+      "missing_files": [],
+      "error": null
+    },
+    "FLY_DOWNWARDS": {
+      "files": [
+        "data/entities/misc/fly_downwards.xml",
+        "data/entities/projectiles/deck/light_bullet.xml"
+      ],
+      "not_run": [],
+      "projectile_fields_not_read": [
+        "friction",
+        "lob_max",
+        "lob_min"
+      ],
+      "missing_files": [],
+      "error": null
+    },
+    "FLY_UPWARDS": {
+      "files": [
+        "data/entities/misc/fly_upwards.xml",
+        "data/entities/projectiles/deck/light_bullet.xml"
+      ],
+      "not_run": [],
+      "projectile_fields_not_read": [
+        "friction",
+        "lob_max",
+        "lob_min"
+      ],
+      "missing_files": [],
+      "error": null
+    },
+    "HORIZONTAL_ARC": {
+      "files": [
+        "data/entities/misc/horizontal_arc.xml",
+        "data/entities/projectiles/deck/light_bullet.xml"
+      ],
+      "not_run": [],
+      "projectile_fields_not_read": [
+        "friction",
+        "lob_max",
+        "lob_min"
+      ],
+      "missing_files": [],
+      "error": null
+    },
+    "LINE_ARC": {
+      "files": [
+        "data/entities/misc/line_arc.xml",
+        "data/entities/projectiles/deck/light_bullet.xml"
+      ],
+      "not_run": [],
+      "projectile_fields_not_read": [
+        "friction",
+        "lob_max",
+        "lob_min"
+      ],
+      "missing_files": [],
+      "error": null
+    },
+    "ORBIT_SHOT": {
+      "files": [
+        "data/entities/misc/spiraling_shot.xml",
+        "data/entities/projectiles/deck/light_bullet.xml"
+      ],
+      "not_run": [],
+      "projectile_fields_not_read": [
+        "friction",
+        "lob_max",
+        "lob_min"
+      ],
+      "missing_files": [],
+      "error": null
+    },
+    "SPIRALING_SHOT": {
+      "files": [
+        "data/entities/misc/orbit_shot.xml",
+        "data/entities/projectiles/deck/light_bullet.xml"
+      ],
+      "not_run": [],
+      "projectile_fields_not_read": [
+        "friction",
+        "lob_max",
+        "lob_min"
+      ],
+      "missing_files": [],
+      "error": null
+    },
+    "PHASING_ARC": {
+      "files": [
+        "data/entities/misc/phasing_arc.xml",
+        "data/entities/projectiles/deck/light_bullet.xml"
+      ],
+      "not_run": [],
+      "projectile_fields_not_read": [
+        "friction",
+        "lob_max",
+        "lob_min"
+      ],
+      "missing_files": [],
+      "error": null
+    },
+    "TRUE_ORBIT": {
+      "files": [
+        "data/entities/misc/true_orbit.xml",
+        "data/entities/projectiles/deck/light_bullet.xml"
+      ],
+      "not_run": [],
+      "projectile_fields_not_read": [
+        "friction",
+        "lob_max",
+        "lob_min"
+      ],
+      "missing_files": [],
+      "error": null
+    },
+    "BOUNCE": {
+      "files": [
+        "data/entities/projectiles/deck/light_bullet.xml"
+      ],
+      "not_run": [],
+      "projectile_fields_not_read": [
+        "friction",
+        "lob_max",
+        "lob_min"
+      ],
+      "missing_files": [],
+      "error": null
+    },
+    "REMOVE_BOUNCE": {
+      "files": [
+        "data/entities/misc/remove_bounce.xml",
+        "data/entities/projectiles/deck/light_bullet.xml"
+      ],
+      "not_run": [],
+      "projectile_fields_not_read": [
+        "friction",
+        "lob_max",
+        "lob_min"
+      ],
+      "missing_files": [],
+      "error": null
+    },
+    "HOMING": {
+      "files": [
+        "data/entities/misc/homing.xml",
+        "data/entities/particles/tinyspark_white.xml",
+        "data/entities/projectiles/deck/light_bullet.xml"
+      ],
+      "not_run": [],
+      "projectile_fields_not_read": [
+        "friction",
+        "lob_max",
+        "lob_min"
+      ],
+      "missing_files": [],
+      "error": null
+    },
+    "ANTI_HOMING": {
+      "files": [
+        "data/entities/misc/anti_homing.xml",
+        "data/entities/particles/tinyspark_white.xml",
+        "data/entities/projectiles/deck/light_bullet.xml"
+      ],
+      "not_run": [],
+      "projectile_fields_not_read": [
+        "friction",
+        "lob_max",
+        "lob_min"
+      ],
+      "missing_files": [],
+      "error": null
+    },
+    "HOMING_WAND": {
+      "files": [
+        "data/entities/misc/homing_wand.xml",
+        "data/entities/particles/tinyspark_white.xml",
+        "data/entities/projectiles/deck/light_bullet.xml"
+      ],
+      "not_run": [],
+      "projectile_fields_not_read": [
+        "friction",
+        "lob_max",
+        "lob_min"
+      ],
+      "missing_files": [],
+      "error": null
+    },
+    "HOMING_SHORT": {
+      "files": [
+        "data/entities/misc/homing_short.xml",
+        "data/entities/particles/tinyspark_white_weak.xml",
+        "data/entities/projectiles/deck/light_bullet.xml"
+      ],
+      "not_run": [],
+      "projectile_fields_not_read": [
+        "friction",
+        "lob_max",
+        "lob_min"
+      ],
+      "missing_files": [],
+      "error": null
+    },
+    "HOMING_ROTATE": {
+      "files": [
+        "data/entities/misc/homing_rotate.xml",
+        "data/entities/particles/tinyspark_white.xml",
+        "data/entities/projectiles/deck/light_bullet.xml"
+      ],
+      "not_run": [],
+      "projectile_fields_not_read": [
+        "friction",
+        "lob_max",
+        "lob_min"
+      ],
+      "missing_files": [],
+      "error": null
+    },
+    "HOMING_SHOOTER": {
+      "files": [
+        "data/entities/misc/homing_shooter.xml",
+        "data/entities/particles/tinyspark_white.xml",
+        "data/entities/projectiles/deck/light_bullet.xml"
+      ],
+      "not_run": [],
+      "projectile_fields_not_read": [
+        "friction",
+        "lob_max",
+        "lob_min"
+      ],
+      "missing_files": [],
+      "error": null
+    },
+    "AUTOAIM": {
+      "files": [
+        "data/entities/misc/autoaim.xml",
+        "data/entities/projectiles/deck/light_bullet.xml"
+      ],
+      "not_run": [],
+      "projectile_fields_not_read": [
+        "friction",
+        "lob_max",
+        "lob_min"
+      ],
+      "missing_files": [],
+      "error": null
+    },
+    "HOMING_ACCELERATING": {
+      "files": [
+        "data/entities/misc/homing_accelerating.xml",
+        "data/entities/particles/tinyspark_white_small.xml",
+        "data/entities/projectiles/deck/light_bullet.xml"
+      ],
+      "not_run": [],
+      "projectile_fields_not_read": [
+        "friction",
+        "lob_max",
+        "lob_min"
+      ],
+      "missing_files": [],
+      "error": null
+    },
+    "HOMING_CURSOR": {
+      "files": [
+        "data/entities/misc/homing_cursor.xml",
+        "data/entities/particles/tinyspark_white.xml",
+        "data/entities/projectiles/deck/light_bullet.xml"
+      ],
+      "not_run": [],
+      "projectile_fields_not_read": [
+        "friction",
+        "lob_max",
+        "lob_min"
+      ],
+      "missing_files": [],
+      "error": null
+    },
+    "HOMING_AREA": {
+      "files": [
+        "data/entities/misc/homing_area.xml",
+        "data/entities/particles/tinyspark_white.xml",
+        "data/entities/projectiles/deck/light_bullet.xml"
+      ],
+      "not_run": [],
+      "projectile_fields_not_read": [
+        "friction",
+        "lob_max",
+        "lob_min"
+      ],
+      "missing_files": [],
+      "error": null
+    },
+    "PIERCING_SHOT": {
+      "files": [
+        "data/entities/misc/piercing_shot.xml",
+        "data/entities/projectiles/deck/light_bullet.xml"
+      ],
+      "not_run": [],
+      "projectile_fields_not_read": [
+        "friction",
+        "lob_max",
+        "lob_min"
+      ],
+      "missing_files": [],
+      "error": null
+    },
+    "CLIPPING_SHOT": {
+      "files": [
+        "data/entities/misc/clipping_shot.xml",
+        "data/entities/projectiles/deck/light_bullet.xml"
+      ],
+      "not_run": [],
+      "projectile_fields_not_read": [
+        "friction",
+        "lob_max",
+        "lob_min"
+      ],
+      "missing_files": [],
+      "error": null
+    },
+    "DAMAGE": {
+      "files": [
+        "data/entities/particles/tinyspark_yellow.xml",
+        "data/entities/projectiles/deck/light_bullet.xml"
+      ],
+      "not_run": [],
+      "projectile_fields_not_read": [
+        "friction",
+        "lob_max",
+        "lob_min"
+      ],
+      "missing_files": [],
+      "error": null
+    },
+    "DAMAGE_RANDOM": {
+      "files": [
+        "data/entities/particles/tinyspark_yellow.xml",
+        "data/entities/projectiles/deck/light_bullet.xml"
+      ],
+      "not_run": [],
+      "projectile_fields_not_read": [
+        "friction",
+        "lob_max",
+        "lob_min"
+      ],
+      "missing_files": [],
+      "error": null
+    },
+    "BLOODLUST": {
+      "files": [
+        "data/entities/particles/tinyspark_red.xml",
+        "data/entities/projectiles/deck/light_bullet.xml"
+      ],
+      "not_run": [],
+      "projectile_fields_not_read": [
+        "friction",
+        "lob_max",
+        "lob_min"
+      ],
+      "missing_files": [],
+      "error": null
+    },
+    "DAMAGE_FOREVER": {
+      "files": [
+        "data/entities/particles/tinyspark_red.xml",
+        "data/entities/projectiles/deck/light_bullet.xml"
+      ],
+      "not_run": [],
+      "projectile_fields_not_read": [
+        "friction",
+        "lob_max",
+        "lob_min"
+      ],
+      "missing_files": [],
+      "error": null
+    },
+    "CRITICAL_HIT": {
+      "files": [
+        "data/entities/projectiles/deck/light_bullet.xml"
+      ],
+      "not_run": [],
+      "projectile_fields_not_read": [
+        "friction",
+        "lob_max",
+        "lob_min"
+      ],
+      "missing_files": [],
+      "error": null
+    },
+    "AREA_DAMAGE": {
+      "files": [
+        "data/entities/misc/area_damage.xml",
+        "data/entities/projectiles/deck/light_bullet.xml"
+      ],
+      "not_run": [],
+      "projectile_fields_not_read": [
+        "friction",
+        "lob_max",
+        "lob_min"
+      ],
+      "missing_files": [],
+      "error": null
+    },
+    "SPELLS_TO_POWER": {
+      "files": [
+        "data/entities/misc/spells_to_power.xml",
+        "data/entities/projectiles/deck/light_bullet.xml"
+      ],
+      "not_run": [],
+      "projectile_fields_not_read": [
+        "friction",
+        "lob_max",
+        "lob_min"
+      ],
+      "missing_files": [],
+      "error": null
+    },
+    "ESSENCE_TO_POWER": {
+      "files": [
+        "data/entities/misc/essence_to_power.xml",
+        "data/entities/projectiles/deck/light_bullet.xml"
+      ],
+      "not_run": [],
+      "projectile_fields_not_read": [
+        "friction",
+        "lob_max",
+        "lob_min"
+      ],
+      "missing_files": [],
+      "error": null
+    },
+    "ZERO_DAMAGE": {
+      "files": [
+        "data/entities/misc/zero_damage.xml",
+        "data/entities/particles/tinyspark_white_small.xml",
+        "data/entities/projectiles/deck/light_bullet.xml"
+      ],
+      "not_run": [],
+      "projectile_fields_not_read": [
+        "friction",
+        "lob_max",
+        "lob_min"
+      ],
+      "missing_files": [],
+      "error": null
+    },
+    "HEAVY_SHOT": {
+      "files": [
+        "data/entities/particles/heavy_shot.xml",
+        "data/entities/projectiles/deck/light_bullet.xml"
+      ],
+      "not_run": [],
+      "projectile_fields_not_read": [
+        "friction",
+        "lob_max",
+        "lob_min"
+      ],
+      "missing_files": [],
+      "error": null
+    },
+    "LIGHT_SHOT": {
+      "files": [
+        "data/entities/particles/light_shot.xml",
+        "data/entities/projectiles/deck/light_bullet.xml"
+      ],
+      "not_run": [],
+      "projectile_fields_not_read": [
+        "friction",
+        "lob_max",
+        "lob_min"
+      ],
+      "missing_files": [],
+      "error": null
+    },
+    "KNOCKBACK": {
+      "files": [
+        "data/entities/projectiles/deck/light_bullet.xml"
+      ],
+      "not_run": [],
+      "projectile_fields_not_read": [
+        "friction",
+        "lob_max",
+        "lob_min"
+      ],
+      "missing_files": [],
+      "error": null
+    },
+    "RECOIL": {
+      "files": [
+        "data/entities/projectiles/deck/light_bullet.xml"
+      ],
+      "not_run": [],
+      "projectile_fields_not_read": [
+        "friction",
+        "lob_max",
+        "lob_min"
+      ],
+      "missing_files": [],
+      "error": null
+    },
+    "RECOIL_DAMPER": {
+      "files": [
+        "data/entities/projectiles/deck/light_bullet.xml"
+      ],
+      "not_run": [],
+      "projectile_fields_not_read": [
+        "friction",
+        "lob_max",
+        "lob_min"
+      ],
+      "missing_files": [],
+      "error": null
+    },
+    "SPEED": {
+      "files": [
+        "data/entities/projectiles/deck/light_bullet.xml"
+      ],
+      "not_run": [],
+      "projectile_fields_not_read": [
+        "friction",
+        "lob_max",
+        "lob_min"
+      ],
+      "missing_files": [],
+      "error": null
+    },
+    "ACCELERATING_SHOT": {
+      "files": [
+        "data/entities/misc/accelerating_shot.xml",
+        "data/entities/projectiles/deck/light_bullet.xml"
+      ],
+      "not_run": [],
+      "projectile_fields_not_read": [
+        "friction",
+        "lob_max",
+        "lob_min"
+      ],
+      "missing_files": [],
+      "error": null
+    },
+    "DECELERATING_SHOT": {
+      "files": [
+        "data/entities/misc/decelerating_shot.xml",
+        "data/entities/projectiles/deck/light_bullet.xml"
+      ],
+      "not_run": [],
+      "projectile_fields_not_read": [
+        "friction",
+        "lob_max",
+        "lob_min"
+      ],
+      "missing_files": [],
+      "error": null
+    },
+    "EXPLOSIVE_PROJECTILE": {
+      "files": [
+        "data/entities/projectiles/deck/light_bullet.xml"
+      ],
+      "not_run": [],
+      "projectile_fields_not_read": [
+        "friction",
+        "lob_max",
+        "lob_min"
+      ],
+      "missing_files": [],
+      "error": null
+    },
+    "CLUSTERMOD": {
+      "files": [
+        "data/entities/misc/clusterbomb.xml",
+        "data/entities/projectiles/deck/light_bullet.xml"
+      ],
+      "not_run": [],
+      "projectile_fields_not_read": [
+        "friction",
+        "lob_max",
+        "lob_min"
+      ],
+      "missing_files": [],
+      "error": null
+    },
+    "WATER_TO_POISON": {
+      "files": [
+        "data/entities/misc/water_to_poison.xml",
+        "data/entities/particles/tinyspark_purple.xml",
+        "data/entities/projectiles/deck/light_bullet.xml"
+      ],
+      "not_run": [],
+      "projectile_fields_not_read": [
+        "friction",
+        "lob_max",
+        "lob_min"
+      ],
+      "missing_files": [],
+      "error": null
+    },
+    "BLOOD_TO_ACID": {
+      "files": [
+        "data/entities/misc/blood_to_acid.xml",
+        "data/entities/particles/tinyspark_red.xml",
+        "data/entities/projectiles/deck/light_bullet.xml"
+      ],
+      "not_run": [],
+      "projectile_fields_not_read": [
+        "friction",
+        "lob_max",
+        "lob_min"
+      ],
+      "missing_files": [],
+      "error": null
+    },
+    "LAVA_TO_BLOOD": {
+      "files": [
+        "data/entities/misc/lava_to_blood.xml",
+        "data/entities/particles/tinyspark_orange.xml",
+        "data/entities/projectiles/deck/light_bullet.xml"
+      ],
+      "not_run": [],
+      "projectile_fields_not_read": [
+        "friction",
+        "lob_max",
+        "lob_min"
+      ],
+      "missing_files": [],
+      "error": null
+    },
+    "LIQUID_TO_EXPLOSION": {
+      "files": [
+        "data/entities/misc/liquid_to_explosion.xml",
+        "data/entities/particles/tinyspark_red.xml",
+        "data/entities/projectiles/deck/light_bullet.xml"
+      ],
+      "not_run": [],
+      "projectile_fields_not_read": [
+        "friction",
+        "lob_max",
+        "lob_min"
+      ],
+      "missing_files": [],
+      "error": null
+    },
+    "TOXIC_TO_ACID": {
+      "files": [
+        "data/entities/misc/toxic_to_acid.xml",
+        "data/entities/particles/tinyspark_green.xml",
+        "data/entities/projectiles/deck/light_bullet.xml"
+      ],
+      "not_run": [],
+      "projectile_fields_not_read": [
+        "friction",
+        "lob_max",
+        "lob_min"
+      ],
+      "missing_files": [],
+      "error": null
+    },
+    "STATIC_TO_SAND": {
+      "files": [
+        "data/entities/misc/static_to_sand.xml",
+        "data/entities/particles/tinyspark_yellow.xml",
+        "data/entities/projectiles/deck/light_bullet.xml"
+      ],
+      "not_run": [],
+      "projectile_fields_not_read": [
+        "friction",
+        "lob_max",
+        "lob_min"
+      ],
+      "missing_files": [],
+      "error": null
+    },
+    "TRANSMUTATION": {
+      "files": [
+        "data/entities/misc/transmutation.xml",
+        "data/entities/particles/tinyspark_purple_bright.xml",
+        "data/entities/projectiles/deck/light_bullet.xml"
+      ],
+      "not_run": [],
+      "projectile_fields_not_read": [
+        "friction",
+        "lob_max",
+        "lob_min"
+      ],
+      "missing_files": [],
+      "error": null
+    },
+    "RANDOM_EXPLOSION": {
+      "files": [
+        "data/entities/misc/random_explosion.xml",
+        "data/entities/particles/tinyspark_purple_bright.xml",
+        "data/entities/projectiles/deck/light_bullet.xml"
+      ],
+      "not_run": [],
+      "projectile_fields_not_read": [
+        "friction",
+        "lob_max",
+        "lob_min"
+      ],
+      "missing_files": [],
+      "error": null
+    },
+    "NECROMANCY": {
+      "files": [
+        "data/entities/misc/effect_necromancy.xml",
+        "data/entities/projectiles/deck/light_bullet.xml"
+      ],
+      "not_run": [],
+      "projectile_fields_not_read": [
+        "friction",
+        "lob_max",
+        "lob_min"
+      ],
+      "missing_files": [],
+      "error": null
+    },
+    "LIGHT": {
+      "files": [
+        "data/entities/misc/light.xml",
+        "data/entities/projectiles/deck/light_bullet.xml"
+      ],
+      "not_run": [],
+      "projectile_fields_not_read": [
+        "friction",
+        "lob_max",
+        "lob_min"
+      ],
+      "missing_files": [],
+      "error": null
+    },
+    "EXPLOSION": {
+      "files": [
+        "data/entities/projectiles/deck/explosion.xml"
+      ],
+      "not_run": [],
+      "projectile_fields_not_read": [
+        "lob_max",
+        "lob_min"
+      ],
+      "missing_files": [],
+      "error": null
+    },
+    "EXPLOSION_LIGHT": {
+      "files": [
+        "data/entities/projectiles/deck/explosion_light.xml"
+      ],
+      "not_run": [],
+      "projectile_fields_not_read": [
+        "lob_max",
+        "lob_min"
+      ],
+      "missing_files": [],
+      "error": null
+    },
+    "FIRE_BLAST": {
+      "files": [
+        "data/entities/projectiles/deck/fireblast.xml"
+      ],
+      "not_run": [],
+      "projectile_fields_not_read": [
+        "lob_max",
+        "lob_min"
+      ],
+      "missing_files": [],
+      "error": null
+    },
+    "POISON_BLAST": {
+      "files": [
+        "data/entities/projectiles/deck/poison_blast.xml"
+      ],
+      "not_run": [],
+      "projectile_fields_not_read": [
+        "lob_max",
+        "lob_min"
+      ],
+      "missing_files": [],
+      "error": null
+    },
+    "ALCOHOL_BLAST": {
+      "files": [
+        "data/entities/projectiles/deck/alcohol_blast.xml"
+      ],
+      "not_run": [],
+      "projectile_fields_not_read": [
+        "lob_max",
+        "lob_min"
+      ],
+      "missing_files": [],
+      "error": null
+    },
+    "THUNDER_BLAST": {
+      "files": [
+        "data/entities/projectiles/deck/thunder_blast.xml"
+      ],
+      "not_run": [
+        "GameAreaEffectComponent"
+      ],
+      "projectile_fields_not_read": [
+        "damage_game_effect_entities",
+        "lob_max",
+        "lob_min"
+      ],
+      "missing_files": [],
+      "error": null
+    },
+    "BERSERK_FIELD": {
+      "files": [
+        "data/entities/projectiles/deck/berserk_field.xml"
+      ],
+      "not_run": [
+        "AudioLoopComponent",
+        "GameAreaEffectComponent"
+      ],
+      "projectile_fields_not_read": [
+        "blood_count_multiplier",
+        "damage_game_effect_entities",
+        "on_collision_remove_projectile",
+        "on_collision_spawn_entity",
+        "play_damage_sounds"
+      ],
+      "missing_files": [],
+      "error": null
+    },
+    "POLYMORPH_FIELD": {
+      "files": [
+        "data/entities/projectiles/deck/polymorph_field.xml"
+      ],
+      "not_run": [
+        "AudioLoopComponent",
+        "GameAreaEffectComponent"
+      ],
+      "projectile_fields_not_read": [
+        "blood_count_multiplier",
+        "damage_game_effect_entities",
+        "on_collision_remove_projectile",
+        "on_collision_spawn_entity",
+        "play_damage_sounds"
+      ],
+      "missing_files": [],
+      "error": null
+    },
+    "CHAOS_POLYMORPH_FIELD": {
+      "files": [
+        "data/entities/projectiles/deck/chaos_polymorph_field.xml"
+      ],
+      "not_run": [
+        "AudioLoopComponent",
+        "GameAreaEffectComponent"
+      ],
+      "projectile_fields_not_read": [
+        "blood_count_multiplier",
+        "damage_game_effect_entities",
+        "on_collision_remove_projectile",
+        "on_collision_spawn_entity",
+        "play_damage_sounds"
+      ],
+      "missing_files": [],
+      "error": null
+    },
+    "ELECTROCUTION_FIELD": {
+      "files": [
+        "data/entities/projectiles/deck/electrocution_field.xml"
+      ],
+      "not_run": [
+        "AudioLoopComponent",
+        "GameAreaEffectComponent"
+      ],
+      "projectile_fields_not_read": [
+        "blood_count_multiplier",
+        "damage_game_effect_entities",
+        "on_collision_remove_projectile",
+        "on_collision_spawn_entity",
+        "play_damage_sounds"
+      ],
+      "missing_files": [],
+      "error": null
+    },
+    "FREEZE_FIELD": {
+      "files": [
+        "data/entities/projectiles/deck/freeze_field.xml"
+      ],
+      "not_run": [
+        "AudioLoopComponent",
+        "GameAreaEffectComponent"
+      ],
+      "projectile_fields_not_read": [
+        "blood_count_multiplier",
+        "damage_game_effect_entities",
+        "on_collision_remove_projectile",
+        "on_collision_spawn_entity",
+        "play_damage_sounds"
+      ],
+      "missing_files": [],
+      "error": null
+    },
+    "REGENERATION_FIELD": {
+      "files": [
+        "data/entities/projectiles/deck/regeneration_field.xml"
+      ],
+      "not_run": [
+        "AudioLoopComponent",
+        "GameAreaEffectComponent"
+      ],
+      "projectile_fields_not_read": [
+        "blood_count_multiplier",
+        "collide_with_shooter_frames",
+        "damage_game_effect_entities",
+        "on_collision_remove_projectile",
+        "on_collision_spawn_entity",
+        "play_damage_sounds"
+      ],
+      "missing_files": [],
+      "error": null
+    },
+    "TELEPORTATION_FIELD": {
+      "files": [
+        "data/entities/projectiles/deck/teleportation_field.xml"
+      ],
+      "not_run": [
+        "AudioLoopComponent",
+        "GameAreaEffectComponent"
+      ],
+      "projectile_fields_not_read": [
+        "blood_count_multiplier",
+        "collide_with_shooter_frames",
+        "damage_game_effect_entities",
+        "on_collision_remove_projectile",
+        "on_collision_spawn_entity",
+        "play_damage_sounds"
+      ],
+      "missing_files": [],
+      "error": null
+    },
+    "LEVITATION_FIELD": {
+      "files": [
+        "data/entities/projectiles/deck/levitation_field.xml"
+      ],
+      "not_run": [
+        "AudioLoopComponent",
+        "GameAreaEffectComponent",
+        "LevitationComponent"
+      ],
+      "projectile_fields_not_read": [
+        "blood_count_multiplier",
+        "collide_with_shooter_frames",
+        "damage_game_effect_entities",
+        "on_collision_remove_projectile",
+        "on_collision_spawn_entity",
+        "play_damage_sounds"
+      ],
+      "missing_files": [],
+      "error": null
+    },
+    "SHIELD_FIELD": {
+      "files": [
+        "data/entities/projectiles/deck/shield_field.xml"
+      ],
+      "not_run": [
+        "AudioLoopComponent",
+        "GameAreaEffectComponent",
+        "SpriteAnimatorComponent"
+      ],
+      "projectile_fields_not_read": [
+        "blood_count_multiplier",
+        "collide_with_shooter_frames",
+        "damage_game_effect_entities",
+        "on_collision_remove_projectile",
+        "on_collision_spawn_entity",
+        "play_damage_sounds"
+      ],
+      "missing_files": [],
+      "error": null
+    },
+    "PROJECTILE_TRANSMUTATION_FIELD": {
+      "files": [
+        "data/entities/projectiles/deck/projectile_transmutation_field.xml"
+      ],
+      "not_run": [
+        "AudioLoopComponent"
+      ],
+      "projectile_fields_not_read": [
+        "blood_count_multiplier",
+        "damage_game_effect_entities",
+        "on_collision_remove_projectile",
+        "on_collision_spawn_entity",
+        "play_damage_sounds"
+      ],
+      "missing_files": [],
+      "error": null
+    },
+    "PROJECTILE_THUNDER_FIELD": {
+      "files": [
+        "data/entities/projectiles/deck/projectile_thunder_field.xml"
+      ],
+      "not_run": [
+        "AudioLoopComponent"
+      ],
+      "projectile_fields_not_read": [
+        "blood_count_multiplier",
+        "damage_game_effect_entities",
+        "on_collision_remove_projectile",
+        "on_collision_spawn_entity",
+        "play_damage_sounds"
+      ],
+      "missing_files": [],
+      "error": null
+    },
+    "PROJECTILE_GRAVITY_FIELD": {
+      "files": [
+        "data/entities/projectiles/deck/projectile_gravity_field.xml"
+      ],
+      "not_run": [
+        "AudioLoopComponent"
+      ],
+      "projectile_fields_not_read": [
+        "blood_count_multiplier",
+        "damage_game_effect_entities",
+        "on_collision_remove_projectile",
+        "on_collision_spawn_entity",
+        "play_damage_sounds"
+      ],
+      "missing_files": [],
+      "error": null
+    },
+    "VACUUM_POWDER": {
+      "files": [
+        "data/entities/projectiles/deck/vacuum_powder.xml"
+      ],
+      "not_run": [
+        "AudioLoopComponent",
+        "DamageModelComponent",
+        "GameAreaEffectComponent",
+        "HitboxComponent",
+        "MaterialInventoryComponent",
+        "MaterialSuckerComponent"
+      ],
+      "projectile_fields_not_read": [
+        "blood_count_multiplier",
+        "damage_game_effect_entities",
+        "on_collision_remove_projectile",
+        "on_collision_spawn_entity",
+        "play_damage_sounds"
+      ],
+      "missing_files": [],
+      "error": null
+    },
+    "VACUUM_LIQUID": {
+      "files": [
+        "data/entities/projectiles/deck/vacuum_liquid.xml"
+      ],
+      "not_run": [
+        "AudioLoopComponent",
+        "DamageModelComponent",
+        "GameAreaEffectComponent",
+        "HitboxComponent",
+        "MaterialInventoryComponent",
+        "MaterialSuckerComponent"
+      ],
+      "projectile_fields_not_read": [
+        "blood_count_multiplier",
+        "damage_game_effect_entities",
+        "on_collision_remove_projectile",
+        "on_collision_spawn_entity",
+        "play_damage_sounds"
+      ],
+      "missing_files": [],
+      "error": null
+    },
+    "VACUUM_ENTITIES": {
+      "files": [
+        "data/entities/projectiles/deck/vacuum_entities.xml"
+      ],
+      "not_run": [
+        "AudioLoopComponent"
+      ],
+      "projectile_fields_not_read": [
+        "blood_count_multiplier",
+        "damage_game_effect_entities",
+        "on_collision_remove_projectile",
+        "on_collision_spawn_entity",
+        "play_damage_sounds"
+      ],
+      "missing_files": [],
+      "error": null
+    },
+    "SEA_LAVA": {
+      "files": [
+        "data/entities/projectiles/deck/sea_lava.xml"
+      ],
+      "not_run": [
+        "MusicEnergyAffectorComponent"
+      ],
+      "projectile_fields_not_read": [],
+      "missing_files": [],
+      "error": null
+    },
+    "SEA_ALCOHOL": {
+      "files": [
+        "data/entities/projectiles/deck/sea_alcohol.xml"
+      ],
+      "not_run": [
+        "MusicEnergyAffectorComponent"
+      ],
+      "projectile_fields_not_read": [],
+      "missing_files": [],
+      "error": null
+    },
+    "SEA_OIL": {
+      "files": [
+        "data/entities/projectiles/deck/sea_oil.xml"
+      ],
+      "not_run": [
+        "MusicEnergyAffectorComponent"
+      ],
+      "projectile_fields_not_read": [],
+      "missing_files": [],
+      "error": null
+    },
+    "SEA_WATER": {
+      "files": [
+        "data/entities/projectiles/deck/sea_water.xml"
+      ],
+      "not_run": [
+        "MusicEnergyAffectorComponent"
+      ],
+      "projectile_fields_not_read": [],
+      "missing_files": [],
+      "error": null
+    },
+    "SEA_SWAMP": {
+      "files": [
+        "data/entities/projectiles/deck/sea_swamp.xml"
+      ],
+      "not_run": [
+        "MusicEnergyAffectorComponent"
+      ],
+      "projectile_fields_not_read": [],
+      "missing_files": [],
+      "error": null
+    },
+    "SEA_ACID": {
+      "files": [
+        "data/entities/projectiles/deck/sea_acid.xml"
+      ],
+      "not_run": [
+        "MusicEnergyAffectorComponent"
+      ],
+      "projectile_fields_not_read": [],
+      "missing_files": [],
+      "error": null
+    },
+    "SEA_ACID_GAS": {
+      "files": [
+        "data/entities/projectiles/deck/sea_acid_gas.xml"
+      ],
+      "not_run": [
+        "MusicEnergyAffectorComponent"
+      ],
+      "projectile_fields_not_read": [],
+      "missing_files": [],
+      "error": null
+    },
+    "SEA_MIMIC": {
+      "files": [
+        "data/entities/projectiles/deck/sea_mimic.xml"
+      ],
+      "not_run": [
+        "MusicEnergyAffectorComponent"
+      ],
+      "projectile_fields_not_read": [],
+      "missing_files": [],
+      "error": null
+    },
+    "CLOUD_WATER": {
+      "files": [
+        "data/entities/projectiles/deck/cloud_water.xml"
+      ],
+      "not_run": [],
+      "projectile_fields_not_read": [
+        "lob_max",
+        "lob_min"
+      ],
+      "missing_files": [],
+      "error": null
+    },
+    "CLOUD_OIL": {
+      "files": [
+        "data/entities/projectiles/deck/cloud_oil.xml"
+      ],
+      "not_run": [],
+      "projectile_fields_not_read": [
+        "lob_max",
+        "lob_min"
+      ],
+      "missing_files": [],
+      "error": null
+    },
+    "CLOUD_BLOOD": {
+      "files": [
+        "data/entities/projectiles/deck/cloud_blood.xml"
+      ],
+      "not_run": [],
+      "projectile_fields_not_read": [
+        "lob_max",
+        "lob_min"
+      ],
+      "missing_files": [],
+      "error": null
+    },
+    "CLOUD_ACID": {
+      "files": [
+        "data/entities/projectiles/deck/cloud_acid.xml"
+      ],
+      "not_run": [],
+      "projectile_fields_not_read": [
+        "lob_max",
+        "lob_min"
+      ],
+      "missing_files": [],
+      "error": null
+    },
+    "CLOUD_THUNDER": {
+      "files": [
+        "data/entities/projectiles/deck/cloud_thunder.xml"
+      ],
+      "not_run": [],
+      "projectile_fields_not_read": [
+        "lob_max",
+        "lob_min"
+      ],
+      "missing_files": [],
+      "error": null
+    },
+    "ELECTRIC_CHARGE": {
+      "files": [
+        "data/entities/particles/electricity.xml",
+        "data/entities/projectiles/deck/light_bullet.xml"
+      ],
+      "not_run": [],
+      "projectile_fields_not_read": [
+        "friction",
+        "lob_max",
+        "lob_min"
+      ],
+      "missing_files": [],
+      "error": null
+    },
+    "MATTER_EATER": {
+      "files": [
+        "data/entities/misc/matter_eater.xml",
+        "data/entities/projectiles/deck/light_bullet.xml"
+      ],
+      "not_run": [],
+      "projectile_fields_not_read": [
+        "friction",
+        "lob_max",
+        "lob_min"
+      ],
+      "missing_files": [],
+      "error": null
+    },
+    "FREEZE": {
+      "files": [
+        "data/entities/misc/effect_frozen.xml",
+        "data/entities/particles/freeze_charge.xml",
+        "data/entities/projectiles/deck/light_bullet.xml"
+      ],
+      "not_run": [],
+      "projectile_fields_not_read": [
+        "friction",
+        "lob_max",
+        "lob_min"
+      ],
+      "missing_files": [],
+      "error": null
+    },
+    "HITFX_BURNING_CRITICAL_HIT": {
+      "files": [
+        "data/entities/misc/hitfx_burning_critical_hit.xml",
+        "data/entities/projectiles/deck/light_bullet.xml"
+      ],
+      "not_run": [
+        "HitEffectComponent"
+      ],
+      "projectile_fields_not_read": [
+        "friction",
+        "lob_max",
+        "lob_min"
+      ],
+      "missing_files": [],
+      "error": null
+    },
+    "HITFX_CRITICAL_WATER": {
+      "files": [
+        "data/entities/misc/hitfx_critical_water.xml",
+        "data/entities/projectiles/deck/light_bullet.xml"
+      ],
+      "not_run": [
+        "HitEffectComponent"
+      ],
+      "projectile_fields_not_read": [
+        "friction",
+        "lob_max",
+        "lob_min"
+      ],
+      "missing_files": [],
+      "error": null
+    },
+    "HITFX_CRITICAL_OIL": {
+      "files": [
+        "data/entities/misc/hitfx_critical_oil.xml",
+        "data/entities/projectiles/deck/light_bullet.xml"
+      ],
+      "not_run": [
+        "HitEffectComponent"
+      ],
+      "projectile_fields_not_read": [
+        "friction",
+        "lob_max",
+        "lob_min"
+      ],
+      "missing_files": [],
+      "error": null
+    },
+    "HITFX_CRITICAL_BLOOD": {
+      "files": [
+        "data/entities/misc/hitfx_critical_blood.xml",
+        "data/entities/projectiles/deck/light_bullet.xml"
+      ],
+      "not_run": [
+        "HitEffectComponent"
+      ],
+      "projectile_fields_not_read": [
+        "friction",
+        "lob_max",
+        "lob_min"
+      ],
+      "missing_files": [],
+      "error": null
+    },
+    "HITFX_TOXIC_CHARM": {
+      "files": [
+        "data/entities/misc/hitfx_toxic_charm.xml",
+        "data/entities/projectiles/deck/light_bullet.xml"
+      ],
+      "not_run": [
+        "HitEffectComponent"
+      ],
+      "projectile_fields_not_read": [
+        "friction",
+        "lob_max",
+        "lob_min"
+      ],
+      "missing_files": [],
+      "error": null
+    },
+    "HITFX_EXPLOSION_SLIME": {
+      "files": [
+        "data/entities/misc/hitfx_explode_slime.xml",
+        "data/entities/projectiles/deck/light_bullet.xml"
+      ],
+      "not_run": [
+        "HitEffectComponent"
+      ],
+      "projectile_fields_not_read": [
+        "friction",
+        "lob_max",
+        "lob_min"
+      ],
+      "missing_files": [],
+      "error": null
+    },
+    "HITFX_EXPLOSION_SLIME_GIGA": {
+      "files": [
+        "data/entities/misc/hitfx_explode_slime_giga.xml",
+        "data/entities/particles/tinyspark_purple.xml",
+        "data/entities/projectiles/deck/light_bullet.xml"
+      ],
+      "not_run": [
+        "HitEffectComponent"
+      ],
+      "projectile_fields_not_read": [
+        "friction",
+        "lob_max",
+        "lob_min"
+      ],
+      "missing_files": [],
+      "error": null
+    },
+    "HITFX_EXPLOSION_ALCOHOL": {
+      "files": [
+        "data/entities/misc/hitfx_explode_alcohol.xml",
+        "data/entities/projectiles/deck/light_bullet.xml"
+      ],
+      "not_run": [
+        "HitEffectComponent"
+      ],
+      "projectile_fields_not_read": [
+        "friction",
+        "lob_max",
+        "lob_min"
+      ],
+      "missing_files": [],
+      "error": null
+    },
+    "HITFX_EXPLOSION_ALCOHOL_GIGA": {
+      "files": [
+        "data/entities/misc/hitfx_explode_alcohol_giga.xml",
+        "data/entities/particles/tinyspark_orange.xml",
+        "data/entities/projectiles/deck/light_bullet.xml"
+      ],
+      "not_run": [
+        "HitEffectComponent"
+      ],
+      "projectile_fields_not_read": [
+        "friction",
+        "lob_max",
+        "lob_min"
+      ],
+      "missing_files": [],
+      "error": null
+    },
+    "HITFX_PETRIFY": {
+      "files": [
+        "data/entities/misc/hitfx_petrify.xml",
+        "data/entities/projectiles/deck/light_bullet.xml"
+      ],
+      "not_run": [
+        "HitEffectComponent"
+      ],
+      "projectile_fields_not_read": [
+        "friction",
+        "lob_max",
+        "lob_min"
+      ],
+      "missing_files": [],
+      "error": null
+    },
+    "ROCKET_DOWNWARDS": {
+      "files": [
+        "data/entities/misc/rocket_downwards.xml",
+        "data/entities/projectiles/deck/light_bullet.xml"
+      ],
+      "not_run": [],
+      "projectile_fields_not_read": [
+        "friction",
+        "lob_max",
+        "lob_min"
+      ],
+      "missing_files": [],
+      "error": null
+    },
+    "ROCKET_OCTAGON": {
+      "files": [
+        "data/entities/misc/rocket_octagon.xml",
+        "data/entities/projectiles/deck/light_bullet.xml"
+      ],
+      "not_run": [],
+      "projectile_fields_not_read": [
+        "friction",
+        "lob_max",
+        "lob_min"
+      ],
+      "missing_files": [],
+      "error": null
+    },
+    "FIZZLE": {
+      "files": [
+        "data/entities/misc/fizzle.xml",
+        "data/entities/projectiles/deck/light_bullet.xml"
+      ],
+      "not_run": [],
+      "projectile_fields_not_read": [
+        "friction",
+        "lob_max",
+        "lob_min"
+      ],
+      "missing_files": [],
+      "error": null
+    },
+    "BOUNCE_EXPLOSION": {
+      "files": [
+        "data/entities/misc/bounce_explosion.xml",
+        "data/entities/projectiles/deck/light_bullet.xml"
+      ],
+      "not_run": [],
+      "projectile_fields_not_read": [
+        "friction",
+        "lob_max",
+        "lob_min"
+      ],
+      "missing_files": [],
+      "error": null
+    },
+    "BOUNCE_SPARK": {
+      "files": [
+        "data/entities/misc/bounce_spark.xml",
+        "data/entities/projectiles/deck/light_bullet.xml"
+      ],
+      "not_run": [],
+      "projectile_fields_not_read": [
+        "friction",
+        "lob_max",
+        "lob_min"
+      ],
+      "missing_files": [],
+      "error": null
+    },
+    "BOUNCE_LASER": {
+      "files": [
+        "data/entities/misc/bounce_laser.xml",
+        "data/entities/projectiles/deck/light_bullet.xml"
+      ],
+      "not_run": [],
+      "projectile_fields_not_read": [
+        "do_moveto_update",
+        "friction",
+        "lob_max",
+        "lob_min"
+      ],
+      "missing_files": [],
+      "error": null
+    },
+    "BOUNCE_LASER_EMITTER": {
+      "files": [
+        "data/entities/misc/bounce_laser_emitter.xml",
+        "data/entities/projectiles/deck/light_bullet.xml"
+      ],
+      "not_run": [],
+      "projectile_fields_not_read": [
+        "friction",
+        "lob_max",
+        "lob_min"
+      ],
+      "missing_files": [],
+      "error": null
+    },
+    "BOUNCE_LARPA": {
+      "files": [
+        "data/entities/misc/bounce_larpa.xml",
+        "data/entities/projectiles/deck/light_bullet.xml"
+      ],
+      "not_run": [],
+      "projectile_fields_not_read": [
+        "friction",
+        "lob_max",
+        "lob_min"
+      ],
+      "missing_files": [],
+      "error": null
+    },
+    "BOUNCE_SMALL_EXPLOSION": {
+      "files": [
+        "data/entities/misc/bounce_small_explosion.xml",
+        "data/entities/projectiles/deck/light_bullet.xml"
+      ],
+      "not_run": [],
+      "projectile_fields_not_read": [
+        "friction",
+        "lob_max",
+        "lob_min"
+      ],
+      "missing_files": [],
+      "error": null
+    },
+    "BOUNCE_LIGHTNING": {
+      "files": [
+        "data/entities/misc/bounce_lightning.xml",
+        "data/entities/projectiles/deck/light_bullet.xml"
+      ],
+      "not_run": [],
+      "projectile_fields_not_read": [
+        "do_moveto_update",
+        "friction",
+        "lob_max",
+        "lob_min"
+      ],
+      "missing_files": [],
+      "error": null
+    },
+    "BOUNCE_HOLE": {
+      "files": [
+        "data/entities/misc/bounce_hole.xml",
+        "data/entities/projectiles/deck/light_bullet.xml"
+      ],
+      "not_run": [],
+      "projectile_fields_not_read": [
+        "friction",
+        "lob_max",
+        "lob_min"
+      ],
+      "missing_files": [],
+      "error": null
+    },
+    "FIREBALL_RAY": {
+      "files": [
+        "data/entities/misc/fireball_ray.xml",
+        "data/entities/projectiles/deck/light_bullet.xml"
+      ],
+      "not_run": [],
+      "projectile_fields_not_read": [
+        "friction",
+        "lob_max",
+        "lob_min"
+      ],
+      "missing_files": [],
+      "error": null
+    },
+    "LIGHTNING_RAY": {
+      "files": [
+        "data/entities/misc/lightning_ray.xml",
+        "data/entities/projectiles/deck/light_bullet.xml"
+      ],
+      "not_run": [],
+      "projectile_fields_not_read": [
+        "friction",
+        "lob_max",
+        "lob_min"
+      ],
+      "missing_files": [],
+      "error": null
+    },
+    "TENTACLE_RAY": {
+      "files": [
+        "data/entities/misc/tentacle_ray.xml",
+        "data/entities/projectiles/deck/light_bullet.xml"
+      ],
+      "not_run": [],
+      "projectile_fields_not_read": [
+        "friction",
+        "lob_max",
+        "lob_min"
+      ],
+      "missing_files": [],
+      "error": null
+    },
+    "LASER_EMITTER_RAY": {
+      "files": [
+        "data/entities/misc/laser_emitter_ray.xml",
+        "data/entities/projectiles/deck/light_bullet.xml"
+      ],
+      "not_run": [],
+      "projectile_fields_not_read": [
+        "friction",
+        "lob_max",
+        "lob_min"
+      ],
+      "missing_files": [],
+      "error": null
+    },
+    "FIREBALL_RAY_LINE": {
+      "files": [
+        "data/entities/misc/fireball_ray_line.xml",
+        "data/entities/projectiles/deck/light_bullet.xml"
+      ],
+      "not_run": [],
+      "projectile_fields_not_read": [
+        "friction",
+        "lob_max",
+        "lob_min"
+      ],
+      "missing_files": [],
+      "error": null
+    },
+    "FIREBALL_RAY_ENEMY": {
+      "files": [
+        "data/entities/misc/hitfx_fireball_ray_enemy.xml",
+        "data/entities/projectiles/deck/light_bullet.xml"
+      ],
+      "not_run": [
+        "HitEffectComponent"
+      ],
+      "projectile_fields_not_read": [
+        "friction",
+        "lob_max",
+        "lob_min"
+      ],
+      "missing_files": [],
+      "error": null
+    },
+    "LIGHTNING_RAY_ENEMY": {
+      "files": [
+        "data/entities/misc/hitfx_lightning_ray_enemy.xml",
+        "data/entities/projectiles/deck/light_bullet.xml"
+      ],
+      "not_run": [
+        "HitEffectComponent"
+      ],
+      "projectile_fields_not_read": [
+        "friction",
+        "lob_max",
+        "lob_min"
+      ],
+      "missing_files": [],
+      "error": null
+    },
+    "TENTACLE_RAY_ENEMY": {
+      "files": [
+        "data/entities/misc/hitfx_tentacle_ray_enemy.xml",
+        "data/entities/projectiles/deck/light_bullet.xml"
+      ],
+      "not_run": [
+        "HitEffectComponent"
+      ],
+      "projectile_fields_not_read": [
+        "friction",
+        "lob_max",
+        "lob_min"
+      ],
+      "missing_files": [],
+      "error": null
+    },
+    "GRAVITY_FIELD_ENEMY": {
+      "files": [
+        "data/entities/misc/hitfx_gravity_field_enemy.xml",
+        "data/entities/projectiles/deck/light_bullet.xml"
+      ],
+      "not_run": [
+        "HitEffectComponent"
+      ],
+      "projectile_fields_not_read": [
+        "friction",
+        "lob_max",
+        "lob_min"
+      ],
+      "missing_files": [],
+      "error": null
+    },
+    "CURSE": {
+      "files": [
+        "data/entities/misc/hitfx_curse.xml",
+        "data/entities/projectiles/deck/light_bullet.xml"
+      ],
+      "not_run": [
+        "HitEffectComponent"
+      ],
+      "projectile_fields_not_read": [
+        "friction",
+        "lob_max",
+        "lob_min"
+      ],
+      "missing_files": [],
+      "error": null
+    },
+    "CURSE_WITHER_PROJECTILE": {
+      "files": [
+        "data/entities/misc/hitfx_curse_wither_projectile.xml",
+        "data/entities/projectiles/deck/light_bullet.xml"
+      ],
+      "not_run": [
+        "HitEffectComponent"
+      ],
+      "projectile_fields_not_read": [
+        "friction",
+        "lob_max",
+        "lob_min"
+      ],
+      "missing_files": [],
+      "error": null
+    },
+    "CURSE_WITHER_EXPLOSION": {
+      "files": [
+        "data/entities/misc/hitfx_curse_wither_explosion.xml",
+        "data/entities/projectiles/deck/light_bullet.xml"
+      ],
+      "not_run": [
+        "HitEffectComponent"
+      ],
+      "projectile_fields_not_read": [
+        "friction",
+        "lob_max",
+        "lob_min"
+      ],
+      "missing_files": [],
+      "error": null
+    },
+    "CURSE_WITHER_MELEE": {
+      "files": [
+        "data/entities/misc/hitfx_curse_wither_melee.xml",
+        "data/entities/projectiles/deck/light_bullet.xml"
+      ],
+      "not_run": [
+        "HitEffectComponent"
+      ],
+      "projectile_fields_not_read": [
+        "friction",
+        "lob_max",
+        "lob_min"
+      ],
+      "missing_files": [],
+      "error": null
+    },
+    "CURSE_WITHER_ELECTRICITY": {
+      "files": [
+        "data/entities/misc/hitfx_curse_wither_electricity.xml",
+        "data/entities/projectiles/deck/light_bullet.xml"
+      ],
+      "not_run": [
+        "HitEffectComponent"
+      ],
+      "projectile_fields_not_read": [
+        "friction",
+        "lob_max",
+        "lob_min"
+      ],
+      "missing_files": [],
+      "error": null
+    },
+    "ORBIT_DISCS": {
+      "files": [
+        "data/entities/misc/orbit_discs.xml",
+        "data/entities/projectiles/deck/light_bullet.xml"
+      ],
+      "not_run": [],
+      "projectile_fields_not_read": [
+        "friction",
+        "lob_max",
+        "lob_min"
+      ],
+      "missing_files": [],
+      "error": null
+    },
+    "ORBIT_FIREBALLS": {
+      "files": [
+        "data/entities/misc/orbit_fireballs.xml",
+        "data/entities/projectiles/deck/light_bullet.xml"
+      ],
+      "not_run": [],
+      "projectile_fields_not_read": [
+        "friction",
+        "lob_max",
+        "lob_min"
+      ],
+      "missing_files": [],
+      "error": null
+    },
+    "ORBIT_NUKES": {
+      "files": [
+        "data/entities/misc/orbit_nukes.xml",
+        "data/entities/projectiles/deck/light_bullet.xml"
+      ],
+      "not_run": [],
+      "projectile_fields_not_read": [
+        "friction",
+        "lob_max",
+        "lob_min"
+      ],
+      "missing_files": [],
+      "error": null
+    },
+    "ORBIT_LASERS": {
+      "files": [
+        "data/entities/misc/orbit_lasers.xml",
+        "data/entities/projectiles/deck/light_bullet.xml"
+      ],
+      "not_run": [],
+      "projectile_fields_not_read": [
+        "friction",
+        "lob_max",
+        "lob_min"
+      ],
+      "missing_files": [],
+      "error": null
+    },
+    "ORBIT_LARPA": {
+      "files": [
+        "data/entities/misc/orbit_larpa.xml",
+        "data/entities/projectiles/deck/light_bullet.xml"
+      ],
+      "not_run": [],
+      "projectile_fields_not_read": [
+        "friction",
+        "lob_max",
+        "lob_min"
+      ],
+      "missing_files": [],
+      "error": null
+    },
+    "CHAIN_SHOT": {
+      "files": [
+        "data/entities/misc/chain_shot.xml",
+        "data/entities/projectiles/deck/light_bullet.xml"
+      ],
+      "not_run": [],
+      "projectile_fields_not_read": [
+        "friction",
+        "lob_max",
+        "lob_min"
+      ],
+      "missing_files": [],
+      "error": null
+    },
+    "ARC_ELECTRIC": {
+      "files": [
+        "data/entities/misc/arc_electric.xml",
+        "data/entities/projectiles/deck/light_bullet.xml"
+      ],
+      "not_run": [],
+      "projectile_fields_not_read": [
+        "friction",
+        "lob_max",
+        "lob_min"
+      ],
+      "missing_files": [],
+      "error": null
+    },
+    "ARC_FIRE": {
+      "files": [
+        "data/entities/misc/arc_fire.xml",
+        "data/entities/projectiles/deck/light_bullet.xml"
+      ],
+      "not_run": [],
+      "projectile_fields_not_read": [
+        "friction",
+        "lob_max",
+        "lob_min"
+      ],
+      "missing_files": [],
+      "error": null
+    },
+    "ARC_GUNPOWDER": {
+      "files": [
+        "data/entities/misc/arc_gunpowder.xml",
+        "data/entities/projectiles/deck/light_bullet.xml"
+      ],
+      "not_run": [],
+      "projectile_fields_not_read": [
+        "friction",
+        "lob_max",
+        "lob_min"
+      ],
+      "missing_files": [],
+      "error": null
+    },
+    "ARC_POISON": {
+      "files": [
+        "data/entities/misc/arc_poison.xml",
+        "data/entities/projectiles/deck/light_bullet.xml"
+      ],
+      "not_run": [],
+      "projectile_fields_not_read": [
+        "friction",
+        "lob_max",
+        "lob_min"
+      ],
+      "missing_files": [],
+      "error": null
+    },
+    "CRUMBLING_EARTH_PROJECTILE": {
+      "files": [
+        "data/entities/misc/crumbling_earth_projectile.xml",
+        "data/entities/projectiles/deck/light_bullet.xml"
+      ],
+      "not_run": [],
+      "projectile_fields_not_read": [
+        "friction",
+        "lob_max",
+        "lob_min"
+      ],
+      "missing_files": [],
+      "error": null
+    },
+    "X_RAY": {
+      "files": [
+        "data/entities/projectiles/deck/xray.xml"
+      ],
+      "not_run": [
+        "MagicXRayComponent",
+        "MusicEnergyAffectorComponent"
+      ],
+      "projectile_fields_not_read": [
+        "collect_materials_to_shooter",
+        "collide_with_entities",
+        "collide_with_tag",
+        "friction",
+        "lob_max",
+        "lob_min",
+        "on_death_item_pickable_radius"
+      ],
+      "missing_files": [],
+      "error": null
+    },
+    "UNSTABLE_GUNPOWDER": {
+      "files": [
+        "data/entities/projectiles/deck/light_bullet.xml"
+      ],
+      "not_run": [],
+      "projectile_fields_not_read": [
+        "friction",
+        "lob_max",
+        "lob_min"
+      ],
+      "missing_files": [],
+      "error": null
+    },
+    "ACID_TRAIL": {
+      "files": [
+        "data/entities/projectiles/deck/light_bullet.xml"
+      ],
+      "not_run": [],
+      "projectile_fields_not_read": [
+        "friction",
+        "lob_max",
+        "lob_min"
+      ],
+      "missing_files": [],
+      "error": null
+    },
+    "POISON_TRAIL": {
+      "files": [
+        "data/entities/misc/effect_apply_poison.xml",
+        "data/entities/projectiles/deck/light_bullet.xml"
+      ],
+      "not_run": [],
+      "projectile_fields_not_read": [
+        "friction",
+        "lob_max",
+        "lob_min"
+      ],
+      "missing_files": [],
+      "error": null
+    },
+    "OIL_TRAIL": {
+      "files": [
+        "data/entities/misc/effect_apply_oiled.xml",
+        "data/entities/projectiles/deck/light_bullet.xml"
+      ],
+      "not_run": [],
+      "projectile_fields_not_read": [
+        "friction",
+        "lob_max",
+        "lob_min"
+      ],
+      "missing_files": [],
+      "error": null
+    },
+    "WATER_TRAIL": {
+      "files": [
+        "data/entities/misc/effect_apply_wet.xml",
+        "data/entities/projectiles/deck/light_bullet.xml"
+      ],
+      "not_run": [],
+      "projectile_fields_not_read": [
+        "friction",
+        "lob_max",
+        "lob_min"
+      ],
+      "missing_files": [],
+      "error": null
+    },
+    "GUNPOWDER_TRAIL": {
+      "files": [
+        "data/entities/projectiles/deck/light_bullet.xml"
+      ],
+      "not_run": [],
+      "projectile_fields_not_read": [
+        "friction",
+        "lob_max",
+        "lob_min"
+      ],
+      "missing_files": [],
+      "error": null
+    },
+    "FIRE_TRAIL": {
+      "files": [
+        "data/entities/misc/effect_apply_on_fire.xml",
+        "data/entities/projectiles/deck/light_bullet.xml"
+      ],
+      "not_run": [],
+      "projectile_fields_not_read": [
+        "friction",
+        "lob_max",
+        "lob_min"
+      ],
+      "missing_files": [],
+      "error": null
+    },
+    "BURN_TRAIL": {
+      "files": [
+        "data/entities/misc/burn.xml",
+        "data/entities/misc/effect_apply_on_fire.xml",
+        "data/entities/projectiles/deck/light_bullet.xml"
+      ],
+      "not_run": [],
+      "projectile_fields_not_read": [
+        "friction",
+        "lob_max",
+        "lob_min"
+      ],
+      "missing_files": [],
+      "error": null
+    },
+    "TORCH": {
+      "files": [
+        "data/entities/projectiles/deck/light_bullet.xml"
+      ],
+      "not_run": [],
+      "projectile_fields_not_read": [
+        "friction",
+        "lob_max",
+        "lob_min"
+      ],
+      "missing_files": [],
+      "error": null
+    },
+    "TORCH_ELECTRIC": {
+      "files": [
+        "data/entities/projectiles/deck/light_bullet.xml"
+      ],
+      "not_run": [],
+      "projectile_fields_not_read": [
+        "friction",
+        "lob_max",
+        "lob_min"
+      ],
+      "missing_files": [],
+      "error": null
+    },
+    "ENERGY_SHIELD": {
+      "files": [
+        "data/entities/projectiles/deck/light_bullet.xml"
+      ],
+      "not_run": [],
+      "projectile_fields_not_read": [
+        "friction",
+        "lob_max",
+        "lob_min"
+      ],
+      "missing_files": [],
+      "error": null
+    },
+    "ENERGY_SHIELD_SECTOR": {
+      "files": [
+        "data/entities/projectiles/deck/light_bullet.xml"
+      ],
+      "not_run": [],
+      "projectile_fields_not_read": [
+        "friction",
+        "lob_max",
+        "lob_min"
+      ],
+      "missing_files": [],
+      "error": null
+    },
+    "ENERGY_SHIELD_SHOT": {
+      "files": [
+        "data/entities/misc/energy_shield_shot.xml",
+        "data/entities/projectiles/deck/light_bullet.xml"
+      ],
+      "not_run": [],
+      "projectile_fields_not_read": [
+        "friction",
+        "lob_max",
+        "lob_min"
+      ],
+      "missing_files": [],
+      "error": null
+    },
+    "TINY_GHOST": {
+      "files": [
+        "data/entities/projectiles/deck/light_bullet.xml"
+      ],
+      "not_run": [],
+      "projectile_fields_not_read": [
+        "friction",
+        "lob_max",
+        "lob_min"
+      ],
+      "missing_files": [],
+      "error": null
+    },
+    "OCARINA_A": {
+      "files": [
+        "data/entities/projectiles/deck/ocarina/ocarina_a.xml"
+      ],
+      "not_run": [],
+      "projectile_fields_not_read": [
+        "lob_max",
+        "lob_min",
+        "physics_impulse_coeff"
+      ],
+      "missing_files": [],
+      "error": null
+    },
+    "OCARINA_B": {
+      "files": [
+        "data/entities/projectiles/deck/ocarina/ocarina_b.xml"
+      ],
+      "not_run": [],
+      "projectile_fields_not_read": [
+        "lob_max",
+        "lob_min",
+        "physics_impulse_coeff"
+      ],
+      "missing_files": [],
+      "error": null
+    },
+    "OCARINA_C": {
+      "files": [
+        "data/entities/projectiles/deck/ocarina/ocarina_c.xml"
+      ],
+      "not_run": [],
+      "projectile_fields_not_read": [
+        "lob_max",
+        "lob_min",
+        "physics_impulse_coeff"
+      ],
+      "missing_files": [],
+      "error": null
+    },
+    "OCARINA_D": {
+      "files": [
+        "data/entities/projectiles/deck/ocarina/ocarina_d.xml"
+      ],
+      "not_run": [],
+      "projectile_fields_not_read": [
+        "lob_max",
+        "lob_min",
+        "physics_impulse_coeff"
+      ],
+      "missing_files": [],
+      "error": null
+    },
+    "OCARINA_E": {
+      "files": [
+        "data/entities/projectiles/deck/ocarina/ocarina_e.xml"
+      ],
+      "not_run": [],
+      "projectile_fields_not_read": [
+        "lob_max",
+        "lob_min",
+        "physics_impulse_coeff"
+      ],
+      "missing_files": [],
+      "error": null
+    },
+    "OCARINA_F": {
+      "files": [
+        "data/entities/projectiles/deck/ocarina/ocarina_f.xml"
+      ],
+      "not_run": [],
+      "projectile_fields_not_read": [
+        "lob_max",
+        "lob_min",
+        "physics_impulse_coeff"
+      ],
+      "missing_files": [],
+      "error": null
+    },
+    "OCARINA_GSHARP": {
+      "files": [
+        "data/entities/projectiles/deck/ocarina/ocarina_gsharp.xml"
+      ],
+      "not_run": [],
+      "projectile_fields_not_read": [
+        "lob_max",
+        "lob_min",
+        "physics_impulse_coeff"
+      ],
+      "missing_files": [],
+      "error": null
+    },
+    "OCARINA_A2": {
+      "files": [
+        "data/entities/projectiles/deck/ocarina/ocarina_a2.xml"
+      ],
+      "not_run": [],
+      "projectile_fields_not_read": [
+        "lob_max",
+        "lob_min",
+        "physics_impulse_coeff"
+      ],
+      "missing_files": [],
+      "error": null
+    },
+    "KANTELE_A": {
+      "files": [
+        "data/entities/projectiles/deck/kantele/kantele_a.xml"
+      ],
+      "not_run": [],
+      "projectile_fields_not_read": [
+        "lob_max",
+        "lob_min",
+        "physics_impulse_coeff"
+      ],
+      "missing_files": [],
+      "error": null
+    },
+    "KANTELE_D": {
+      "files": [
+        "data/entities/projectiles/deck/kantele/kantele_d.xml"
+      ],
+      "not_run": [],
+      "projectile_fields_not_read": [
+        "lob_max",
+        "lob_min",
+        "physics_impulse_coeff"
+      ],
+      "missing_files": [],
+      "error": null
+    },
+    "KANTELE_DIS": {
+      "files": [
+        "data/entities/projectiles/deck/kantele/kantele_dis.xml"
+      ],
+      "not_run": [],
+      "projectile_fields_not_read": [
+        "lob_max",
+        "lob_min",
+        "physics_impulse_coeff"
+      ],
+      "missing_files": [],
+      "error": null
+    },
+    "KANTELE_E": {
+      "files": [
+        "data/entities/projectiles/deck/kantele/kantele_e.xml"
+      ],
+      "not_run": [],
+      "projectile_fields_not_read": [
+        "lob_max",
+        "lob_min",
+        "physics_impulse_coeff"
+      ],
+      "missing_files": [],
+      "error": null
+    },
+    "KANTELE_G": {
+      "files": [
+        "data/entities/projectiles/deck/kantele/kantele_g.xml"
+      ],
+      "not_run": [],
+      "projectile_fields_not_read": [
+        "lob_max",
+        "lob_min",
+        "physics_impulse_coeff"
+      ],
+      "missing_files": [],
+      "error": null
+    },
+    "RANDOM_SPELL": {
+      "files": [
+        "data/entities/items/pickup/egg_monster.xml"
+      ],
+      "not_run": [
+        "AbilityComponent",
+        "DamageModelComponent",
+        "ExplodeOnDamageComponent",
+        "PhysicsBodyCollisionDamageComponent",
+        "PhysicsBodyComponent",
+        "PhysicsThrowableComponent"
+      ],
+      "projectile_fields_not_read": [
+        "damage_scale_max_speed",
+        "damage_scaled_by_speed",
+        "never_hit_player"
+      ],
+      "missing_files": [],
+      "error": null
+    },
+    "RANDOM_PROJECTILE": {
+      "files": [
+        "data/entities/items/pickup/egg_monster.xml"
+      ],
+      "not_run": [
+        "AbilityComponent",
+        "DamageModelComponent",
+        "ExplodeOnDamageComponent",
+        "PhysicsBodyCollisionDamageComponent",
+        "PhysicsBodyComponent",
+        "PhysicsThrowableComponent"
+      ],
+      "projectile_fields_not_read": [
+        "damage_scale_max_speed",
+        "damage_scaled_by_speed",
+        "never_hit_player"
+      ],
+      "missing_files": [],
+      "error": null
+    },
+    "RANDOM_MODIFIER": {
+      "files": [
+        "data/entities/misc/hitfx_curse_wither_projectile.xml",
+        "data/entities/projectiles/deck/light_bullet.xml"
+      ],
+      "not_run": [
+        "HitEffectComponent"
+      ],
+      "projectile_fields_not_read": [
+        "friction",
+        "lob_max",
+        "lob_min"
+      ],
+      "missing_files": [],
+      "error": null
+    },
+    "RANDOM_STATIC_PROJECTILE": {
+      "files": [
+        "data/entities/projectiles/deck/vacuum_entities.xml"
+      ],
+      "not_run": [
+        "AudioLoopComponent"
+      ],
+      "projectile_fields_not_read": [
+        "blood_count_multiplier",
+        "damage_game_effect_entities",
+        "on_collision_remove_projectile",
+        "on_collision_spawn_entity",
+        "play_damage_sounds"
+      ],
+      "missing_files": [],
+      "error": null
+    },
+    "DRAW_RANDOM": {
+      "files": [
+        "data/entities/projectiles/deck/light_bullet.xml"
+      ],
+      "not_run": [],
+      "projectile_fields_not_read": [
+        "friction",
+        "lob_max",
+        "lob_min"
+      ],
+      "missing_files": [],
+      "error": null
+    },
+    "DRAW_RANDOM_X3": {
+      "files": [
+        "data/entities/projectiles/deck/light_bullet.xml"
+      ],
+      "not_run": [],
+      "projectile_fields_not_read": [
+        "friction",
+        "lob_max",
+        "lob_min"
+      ],
+      "missing_files": [],
+      "error": null
+    },
+    "DRAW_3_RANDOM": {
+      "files": [
+        "data/entities/projectiles/deck/light_bullet.xml"
+      ],
+      "not_run": [],
+      "projectile_fields_not_read": [
+        "friction",
+        "lob_max",
+        "lob_min"
+      ],
+      "missing_files": [],
+      "error": null
+    },
+    "ALL_NUKES": {
+      "files": [
+        "data/entities/projectiles/deck/all_nukes.xml"
+      ],
+      "not_run": [],
+      "projectile_fields_not_read": [],
+      "missing_files": [],
+      "error": null
+    },
+    "ALL_DISCS": {
+      "files": [
+        "data/entities/projectiles/deck/all_discs.xml"
+      ],
+      "not_run": [],
+      "projectile_fields_not_read": [],
+      "missing_files": [],
+      "error": null
+    },
+    "ALL_ROCKETS": {
+      "files": [
+        "data/entities/projectiles/deck/all_rockets.xml"
+      ],
+      "not_run": [],
+      "projectile_fields_not_read": [],
+      "missing_files": [],
+      "error": null
+    },
+    "ALL_DEATHCROSSES": {
+      "files": [
+        "data/entities/projectiles/deck/all_deathcrosses.xml"
+      ],
+      "not_run": [],
+      "projectile_fields_not_read": [],
+      "missing_files": [],
+      "error": null
+    },
+    "ALL_BLACKHOLES": {
+      "files": [
+        "data/entities/projectiles/deck/all_blackholes.xml"
+      ],
+      "not_run": [],
+      "projectile_fields_not_read": [],
+      "missing_files": [],
+      "error": null
+    },
+    "ALL_ACID": {
+      "files": [
+        "data/entities/projectiles/deck/all_acid.xml"
+      ],
+      "not_run": [],
+      "projectile_fields_not_read": [],
+      "missing_files": [],
+      "error": null
+    },
+    "ALL_SPELLS": {
+      "files": [],
+      "not_run": [],
+      "projectile_fields_not_read": [],
+      "missing_files": [],
+      "error": null
+    },
+    "SUMMON_PORTAL": {
+      "files": [
+        "data/entities/projectiles/deck/summon_portal.xml"
+      ],
+      "not_run": [
+        "AudioLoopComponent"
+      ],
+      "projectile_fields_not_read": [],
+      "missing_files": [],
+      "error": null
+    },
+    "ADD_TRIGGER": {
+      "files": [
+        "data/entities/projectiles/deck/light_bullet.xml"
+      ],
+      "not_run": [],
+      "projectile_fields_not_read": [
+        "friction",
+        "lob_max",
+        "lob_min"
+      ],
+      "missing_files": [],
+      "error": null
+    },
+    "ADD_TIMER": {
+      "files": [
+        "data/entities/projectiles/deck/light_bullet.xml"
+      ],
+      "not_run": [],
+      "projectile_fields_not_read": [
+        "friction",
+        "lob_max",
+        "lob_min"
+      ],
+      "missing_files": [],
+      "error": null
+    },
+    "ADD_DEATH_TRIGGER": {
+      "files": [
+        "data/entities/projectiles/deck/light_bullet.xml"
+      ],
+      "not_run": [],
+      "projectile_fields_not_read": [
+        "friction",
+        "lob_max",
+        "lob_min"
+      ],
+      "missing_files": [],
+      "error": null
+    },
+    "LARPA_CHAOS": {
+      "files": [
+        "data/entities/misc/larpa_chaos.xml",
+        "data/entities/projectiles/deck/light_bullet.xml"
+      ],
+      "not_run": [],
+      "projectile_fields_not_read": [
+        "friction",
+        "lob_max",
+        "lob_min"
+      ],
+      "missing_files": [],
+      "error": null
+    },
+    "LARPA_DOWNWARDS": {
+      "files": [
+        "data/entities/misc/larpa_downwards.xml",
+        "data/entities/projectiles/deck/light_bullet.xml"
+      ],
+      "not_run": [],
+      "projectile_fields_not_read": [
+        "friction",
+        "lob_max",
+        "lob_min"
+      ],
+      "missing_files": [],
+      "error": null
+    },
+    "LARPA_UPWARDS": {
+      "files": [
+        "data/entities/misc/larpa_upwards.xml",
+        "data/entities/projectiles/deck/light_bullet.xml"
+      ],
+      "not_run": [],
+      "projectile_fields_not_read": [
+        "friction",
+        "lob_max",
+        "lob_min"
+      ],
+      "missing_files": [],
+      "error": null
+    },
+    "LARPA_CHAOS_2": {
+      "files": [
+        "data/entities/misc/larpa_chaos_2.xml",
+        "data/entities/projectiles/deck/light_bullet.xml"
+      ],
+      "not_run": [],
+      "projectile_fields_not_read": [
+        "friction",
+        "lob_max",
+        "lob_min"
+      ],
+      "missing_files": [],
+      "error": null
+    },
+    "LARPA_DEATH": {
+      "files": [
+        "data/entities/misc/larpa_death.xml",
+        "data/entities/projectiles/deck/light_bullet.xml"
+      ],
+      "not_run": [],
+      "projectile_fields_not_read": [
+        "friction",
+        "lob_max",
+        "lob_min"
+      ],
+      "missing_files": [],
+      "error": null
+    },
+    "ALPHA": {
+      "files": [],
+      "not_run": [],
+      "projectile_fields_not_read": [],
+      "missing_files": [],
+      "error": null
+    },
+    "GAMMA": {
+      "files": [
+        "data/entities/projectiles/deck/light_bullet.xml"
+      ],
+      "not_run": [],
+      "projectile_fields_not_read": [
+        "friction",
+        "lob_max",
+        "lob_min"
+      ],
+      "missing_files": [],
+      "error": null
+    },
+    "TAU": {
+      "files": [
+        "data/entities/projectiles/deck/light_bullet.xml"
+      ],
+      "not_run": [],
+      "projectile_fields_not_read": [
+        "friction",
+        "lob_max",
+        "lob_min"
+      ],
+      "missing_files": [],
+      "error": null
+    },
+    "OMEGA": {
+      "files": [
+        "data/entities/projectiles/deck/light_bullet.xml"
+      ],
+      "not_run": [],
+      "projectile_fields_not_read": [
+        "friction",
+        "lob_max",
+        "lob_min"
+      ],
+      "missing_files": [],
+      "error": null
+    },
+    "MU": {
+      "files": [
+        "data/entities/projectiles/deck/light_bullet.xml"
+      ],
+      "not_run": [],
+      "projectile_fields_not_read": [
+        "friction",
+        "lob_max",
+        "lob_min"
+      ],
+      "missing_files": [],
+      "error": null
+    },
+    "PHI": {
+      "files": [
+        "data/entities/projectiles/deck/light_bullet.xml"
+      ],
+      "not_run": [],
+      "projectile_fields_not_read": [
+        "friction",
+        "lob_max",
+        "lob_min"
+      ],
+      "missing_files": [],
+      "error": null
+    },
+    "SIGMA": {
+      "files": [
+        "data/entities/projectiles/deck/light_bullet.xml"
+      ],
+      "not_run": [],
+      "projectile_fields_not_read": [
+        "friction",
+        "lob_max",
+        "lob_min"
+      ],
+      "missing_files": [],
+      "error": null
+    },
+    "ZETA": {
+      "files": [
+        "data/entities/projectiles/deck/light_bullet.xml"
+      ],
+      "not_run": [],
+      "projectile_fields_not_read": [
+        "friction",
+        "lob_max",
+        "lob_min"
+      ],
+      "missing_files": [],
+      "error": null
+    },
+    "DIVIDE_2": {
+      "files": [
+        "data/entities/projectiles/deck/light_bullet.xml"
+      ],
+      "not_run": [],
+      "projectile_fields_not_read": [
+        "friction",
+        "lob_max",
+        "lob_min"
+      ],
+      "missing_files": [],
+      "error": null
+    },
+    "DIVIDE_3": {
+      "files": [
+        "data/entities/projectiles/deck/light_bullet.xml"
+      ],
+      "not_run": [],
+      "projectile_fields_not_read": [
+        "friction",
+        "lob_max",
+        "lob_min"
+      ],
+      "missing_files": [],
+      "error": null
+    },
+    "DIVIDE_4": {
+      "files": [
+        "data/entities/projectiles/deck/light_bullet.xml"
+      ],
+      "not_run": [],
+      "projectile_fields_not_read": [
+        "friction",
+        "lob_max",
+        "lob_min"
+      ],
+      "missing_files": [],
+      "error": null
+    },
+    "DIVIDE_10": {
+      "files": [
+        "data/entities/projectiles/deck/light_bullet.xml"
+      ],
+      "not_run": [],
+      "projectile_fields_not_read": [
+        "friction",
+        "lob_max",
+        "lob_min"
+      ],
+      "missing_files": [],
+      "error": null
+    },
+    "METEOR_RAIN": {
+      "files": [
+        "data/entities/misc/effect_meteor_rain.xml",
+        "data/entities/projectiles/deck/meteor_rain.xml"
+      ],
+      "not_run": [],
+      "projectile_fields_not_read": [
+        "lob_max",
+        "lob_min"
+      ],
+      "missing_files": [],
+      "error": null
+    },
+    "WORM_RAIN": {
+      "files": [
+        "data/entities/projectiles/deck/worm_rain.xml"
+      ],
+      "not_run": [
+        "LoadEntitiesComponent"
+      ],
+      "projectile_fields_not_read": [],
+      "missing_files": [],
+      "error": null
+    },
+    "RESET": {
+      "files": [],
+      "not_run": [],
+      "projectile_fields_not_read": [],
+      "missing_files": [],
+      "error": null
+    },
+    "IF_ENEMY": {
+      "files": [
+        "data/entities/projectiles/deck/light_bullet.xml"
+      ],
+      "not_run": [],
+      "projectile_fields_not_read": [
+        "friction",
+        "lob_max",
+        "lob_min"
+      ],
+      "missing_files": [],
+      "error": null
+    },
+    "IF_PROJECTILE": {
+      "files": [
+        "data/entities/projectiles/deck/light_bullet.xml"
+      ],
+      "not_run": [],
+      "projectile_fields_not_read": [
+        "friction",
+        "lob_max",
+        "lob_min"
+      ],
+      "missing_files": [],
+      "error": null
+    },
+    "IF_HP": {
+      "files": [
+        "data/entities/projectiles/deck/light_bullet.xml"
+      ],
+      "not_run": [],
+      "projectile_fields_not_read": [
+        "friction",
+        "lob_max",
+        "lob_min"
+      ],
+      "missing_files": [],
+      "error": null
+    },
+    "IF_HALF": {
+      "files": [
+        "data/entities/projectiles/deck/light_bullet.xml"
+      ],
+      "not_run": [],
+      "projectile_fields_not_read": [
+        "friction",
+        "lob_max",
+        "lob_min"
+      ],
+      "missing_files": [],
+      "error": null
+    },
+    "IF_END": {
+      "files": [
+        "data/entities/projectiles/deck/light_bullet.xml"
+      ],
+      "not_run": [],
+      "projectile_fields_not_read": [
+        "friction",
+        "lob_max",
+        "lob_min"
+      ],
+      "missing_files": [],
+      "error": null
+    },
+    "IF_ELSE": {
+      "files": [
+        "data/entities/projectiles/deck/light_bullet.xml"
+      ],
+      "not_run": [],
+      "projectile_fields_not_read": [
+        "friction",
+        "lob_max",
+        "lob_min"
+      ],
+      "missing_files": [],
+      "error": null
+    },
+    "COLOUR_RED": {
+      "files": [
+        "data/entities/misc/colour_red.xml",
+        "data/entities/particles/tinyspark_red.xml",
+        "data/entities/projectiles/deck/light_bullet.xml"
+      ],
+      "not_run": [],
+      "projectile_fields_not_read": [
+        "friction",
+        "lob_max",
+        "lob_min"
+      ],
+      "missing_files": [],
+      "error": null
+    },
+    "COLOUR_ORANGE": {
+      "files": [
+        "data/entities/misc/colour_orange.xml",
+        "data/entities/particles/tinyspark_red.xml",
+        "data/entities/projectiles/deck/light_bullet.xml"
+      ],
+      "not_run": [],
+      "projectile_fields_not_read": [
+        "friction",
+        "lob_max",
+        "lob_min"
+      ],
+      "missing_files": [],
+      "error": null
+    },
+    "COLOUR_GREEN": {
+      "files": [
+        "data/entities/misc/colour_green.xml",
+        "data/entities/particles/tinyspark_red.xml",
+        "data/entities/projectiles/deck/light_bullet.xml"
+      ],
+      "not_run": [],
+      "projectile_fields_not_read": [
+        "friction",
+        "lob_max",
+        "lob_min"
+      ],
+      "missing_files": [],
+      "error": null
+    },
+    "COLOUR_YELLOW": {
+      "files": [
+        "data/entities/misc/colour_yellow.xml",
+        "data/entities/particles/tinyspark_red.xml",
+        "data/entities/projectiles/deck/light_bullet.xml"
+      ],
+      "not_run": [],
+      "projectile_fields_not_read": [
+        "friction",
+        "lob_max",
+        "lob_min"
+      ],
+      "missing_files": [],
+      "error": null
+    },
+    "COLOUR_PURPLE": {
+      "files": [
+        "data/entities/misc/colour_purple.xml",
+        "data/entities/particles/tinyspark_red.xml",
+        "data/entities/projectiles/deck/light_bullet.xml"
+      ],
+      "not_run": [],
+      "projectile_fields_not_read": [
+        "friction",
+        "lob_max",
+        "lob_min"
+      ],
+      "missing_files": [],
+      "error": null
+    },
+    "COLOUR_BLUE": {
+      "files": [
+        "data/entities/misc/colour_blue.xml",
+        "data/entities/particles/tinyspark_red.xml",
+        "data/entities/projectiles/deck/light_bullet.xml"
+      ],
+      "not_run": [],
+      "projectile_fields_not_read": [
+        "friction",
+        "lob_max",
+        "lob_min"
+      ],
+      "missing_files": [],
+      "error": null
+    },
+    "COLOUR_RAINBOW": {
+      "files": [
+        "data/entities/misc/colour_rainbow.xml",
+        "data/entities/particles/tinyspark_red.xml",
+        "data/entities/projectiles/deck/light_bullet.xml"
+      ],
+      "not_run": [],
+      "projectile_fields_not_read": [
+        "friction",
+        "lob_max",
+        "lob_min"
+      ],
+      "missing_files": [],
+      "error": null
+    },
+    "COLOUR_INVIS": {
+      "files": [
+        "data/entities/misc/colour_invis.xml",
+        "data/entities/projectiles/deck/light_bullet.xml"
+      ],
+      "not_run": [],
+      "projectile_fields_not_read": [
+        "friction",
+        "lob_max",
+        "lob_min"
+      ],
+      "missing_files": [],
+      "error": null
+    },
+    "RAINBOW_TRAIL": {
+      "files": [
+        "data/entities/misc/effect_rainbow_farts.xml",
+        "data/entities/projectiles/deck/light_bullet.xml"
+      ],
+      "not_run": [],
+      "projectile_fields_not_read": [
+        "friction",
+        "lob_max",
+        "lob_min"
+      ],
+      "missing_files": [],
+      "error": null
+    },
+    "CESSATION": {
+      "files": [],
+      "not_run": [],
+      "projectile_fields_not_read": [],
+      "missing_files": [],
+      "error": null
+    }
+  }
+}
