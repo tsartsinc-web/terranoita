@@ -18,7 +18,10 @@ namespace Terranoita.Game.Magic
         const int Each = 90;
         static List<(string file, WandData wand)> _wands;
         static Vector2 _start;
-        static int _casts, _shots, _mana;
+        static int _casts, _shots, _mana, _errors, _skipped;
+        static readonly bool All = Environment.GetEnvironmentVariable("TERRANOITA_WANDS_ALL") == "1";
+        // wand files that already passed (cast, shots, no error): not tested again (author); TERRANOITA_WANDS_ALL=1 tests all
+        static string PassedFile => System.IO.Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData), "Terranoita", "wands_passed.txt");
         public static bool Done { get; private set; }
 
         static void Log(string s) => Entry.Log("WANDS " + s);
@@ -31,12 +34,19 @@ namespace Terranoita.Game.Magic
                 _start = p.position;
                 var maker = new LuaWandMaker(NoitaArt.ReadText, 12345);
                 _wands = new List<(string, WandData)>();
+                var passed = new HashSet<string>();
+                try { if (!All && System.IO.File.Exists(PassedFile)) passed.UnionWith(System.IO.File.ReadAllLines(PassedFile)); } catch { }
                 foreach (var f in Sandbox.WandFiles())
                 {
+                    if (passed.Contains(f))
+                    {
+                        _skipped++;
+                        continue;
+                    }
                     try { _wands.Add((f, WandWindow.Store(maker.MakeEntity(f, p.Center.X / 3, p.Center.Y / 3)))); }
                     catch (Exception ex) { Log("wand " + f + " not made: " + ex.Message); }
                 }
-                Log(_wands.Count + " wands made");
+                Log(_wands.Count + " wands made, " + _skipped + " passed before and skipped");
             }
             if (frame < 120 || _wands == null || Done)
                 return;
@@ -60,14 +70,20 @@ namespace Terranoita.Game.Magic
                 _casts = Casting.TestCasts;
                 _shots = Casting.TestShots;
                 _mana = Casting.TestMana;
+                _errors = Entry.Errors;
                 Casting.TestFire = true;
             }
             p.statMana = p.statManaMax2;   // never runs dry
             if (t == Each - 1)
-                Log((k + 1) + "/" + _wands.Count + " " + System.IO.Path.GetFileNameWithoutExtension(file) + " '" + MagicItems.WandName(w) + "' [" +
+            {
+                int casts = Casting.TestCasts - _casts, shots = Casting.TestShots - _shots, errors = Entry.Errors - _errors;
+                if (casts > 0 && errors == 0)
+                    try { System.IO.File.AppendAllText(PassedFile, file + Environment.NewLine); } catch { }
+                Log((casts > 0 && errors == 0 ? "ok " : "FAIL ") + (k + 1) + "/" + _wands.Count + " " + System.IO.Path.GetFileNameWithoutExtension(file) + " '" + MagicItems.WandName(w) + "' [" +
                     string.Join(" ", w.Slots.Select(s => s ?? "-")) + (w.AlwaysCast.Count > 0 ? " | always " + string.Join(" ", w.AlwaysCast) : "") +
                     "]: casts " + (Casting.TestCasts - _casts) + ", shots " + (Casting.TestShots - _shots) + ", mana " + (Casting.TestMana - _mana) +
-                    ", live " + SpellShots.Ids().Count);
+                    ", live " + SpellShots.Ids().Count + (errors > 0 ? ", errors " + errors : ""));
+            }
         }
     }
 }

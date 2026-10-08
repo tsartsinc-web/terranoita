@@ -760,3 +760,15 @@ Next steps (author's order: finish magic, then shops):
   (`SpellProjectileFromEntity.From(NoitaEntityXml.Load(file, NoitaArt.ReadText))`, cached per file, null cached
   too), then game_test -Mode magic / wands; the "spell EntityLoad not done yet" lines for files with a
   ProjectileComponent should go.
+
+## 2026-10-08 PC: all wands, test world, spell shots from any entity file
+- game_test -Mode wands: all 48 Noita wand files (levels 1-6, better, _p, unshuffle, 10, daily, 9 unique,
+  digger_01) made, held and cast: casts and shots for every one, no ERROR. Passed files go to
+  %LOCALAPPDATA%/Terranoita/wands_passed.txt and are not tested again (author); TERRANOITA_WANDS_ALL=1 retests all.
+- SpellShots.Def falls back to Core's SpellProjectileFromEntity (cached per file): the "EntityLoad not done yet"
+  lines (orbit discs, wall builder/piece, chain bolt explosion, magic shield part...) are gone. MAGIC run: no errors.
+- Magic tests and the sandbox play in their own world "Terranoita Magic" (author), made by the game the first time
+  (TERRANOITA_AUTOTEST_NEWWORLD: WorldFile.CreateMetadata + WorldGen.CreateNewWorld, small, random seed).
+- Sandbox: plain grassy ground with trees (author), old items and liquids cleared. Explosions drop at most 4 blocks
+  (SLOW frame lines showed 336 items + 928 dust with the mod's parts at ~0 ms: Terraria's own item updates).
+- Casts per spell counted in the progress book; inventory spell uses and spell slots kept across sessions.

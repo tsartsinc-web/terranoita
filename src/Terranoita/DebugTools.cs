@@ -77,7 +77,7 @@ namespace Terranoita.Game
             }
             Entry.Log("AUTOTEST: place " + place.name + " not found");
         }
-        static bool _entering;
+        static bool _entering, _generating;
         const string TestPlayer = "Terranoita Test";
         static readonly NoitaNpc[] _seen = new NoitaNpc[Main.maxNPCs];
 
@@ -142,6 +142,18 @@ namespace Terranoita.Game
         {
             if (Main.gameMenu)
             {
+                if (_generating)
+                {
+                    // a new world is being made on Terraria's own thread; then back to the main menu and in
+                    if (WorldGen.generatingWorld)
+                        return;
+                    _generating = false;
+                    _entering = false;
+                    _menuFrames = 0;
+                    Main.menuMode = 0;
+                    Entry.Log("AUTOTEST: new world made");
+                    return;
+                }
                 if (_entering || Main.menuMode != 0 || ++_menuFrames < 120)
                     return;
                 _entering = true;
@@ -158,6 +170,19 @@ namespace Terranoita.Game
                     Entry.Log("AUTOTEST: created test character " + TestPlayer);
                 }
                 Main.LoadWorlds();
+                // TERRANOITA_AUTOTEST_NEWWORLD=name: tests in a fresh world of their own (author), made once
+                string fresh = Environment.GetEnvironmentVariable("TERRANOITA_AUTOTEST_NEWWORLD");
+                if (!string.IsNullOrEmpty(fresh) && !Main.WorldList.Any(w => w.Name == fresh))
+                {
+                    Entry.Log("AUTOTEST: making a new small world " + fresh);
+                    Main.worldName = fresh;
+                    WorldGen.SetWorldSize(0);
+                    Main.ActiveWorldFileData = Terraria.IO.WorldFile.CreateMetadata(fresh, false, 0);
+                    Main.ActiveWorldFileData.SetSeedToRandom();
+                    WorldGen.CreateNewWorld(null, null, null);
+                    _generating = true;
+                    return;
+                }
                 if (Main.PlayerList.Count == 0 || Main.WorldList.Count == 0)
                 {
                     Entry.Log("AUTOTEST: no player or world in " + Main.SavePath);
@@ -165,7 +190,7 @@ namespace Terranoita.Game
                 }
                 var who = Main.PlayerList.First(f => f.Name == TestPlayer);
                 // TERRANOITA_AUTOTEST_WORLD: a world by name (a copy of the author's), else the first one
-                string wanted = Environment.GetEnvironmentVariable("TERRANOITA_AUTOTEST_WORLD");
+                string wanted = fresh ?? Environment.GetEnvironmentVariable("TERRANOITA_AUTOTEST_WORLD");
                 var world = Main.WorldList.FirstOrDefault(w => w.Name == wanted || System.IO.Path.GetFileNameWithoutExtension(w.Path) == wanted) ?? Main.WorldList[0];
                 Entry.Log("AUTOTEST: entering " + world.Name + " as " + who.Name);
                 Main.SelectPlayer(who);

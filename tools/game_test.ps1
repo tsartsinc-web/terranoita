@@ -10,7 +10,7 @@ param(
     [string]$Mode = "magic",
     [string]$World = "",
     [string]$Only = "",
-    [int]$Minutes = 4,
+    [int]$Minutes = 6,
     [string]$Terraria = "D:\steam\steamapps\common\Terraria",
     [string]$Noita = "D:\steam\steamapps\common\Noita"
 )
@@ -32,6 +32,8 @@ switch ($Mode) {
     "enemies" { $env:TERRANOITA_AUTOTEST_PLACES = "1"; $env:TERRANOITA_AUTOTEST_SECONDS = "8"; $filter = "AUTOTEST|loot of|worm " }
 }
 if ($World) { $env:TERRANOITA_AUTOTEST_WORLD = $World }
+# magic tests play in a world of their own, made by the game the first time (author: "test in a new world")
+if (-not $World -and $Mode -in @("magic", "wands", "sandbox")) { $env:TERRANOITA_AUTOTEST_NEWWORLD = "Terranoita Magic" }
 if ($Only) { $env:TERRANOITA_AUTOTEST_ONLY = $Only }
 if ($Mode -eq "sandbox") {
     Start-Process -FilePath (Join-Path $Terraria "Terranoita.exe") -WorkingDirectory $Terraria `

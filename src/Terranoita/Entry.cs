@@ -30,8 +30,12 @@ namespace Terranoita.Game
         static readonly System.Collections.Generic.HashSet<string> Reported = new System.Collections.Generic.HashSet<string>();
 
         /// <summary>Log an exception from a patch once per place and kind (Terraria swallows them silently).</summary>
+        /// <summary>Errors so far (tests see whether one happened during a step).</summary>
+        public static int Errors;
+
         public static void Error(string where, Exception ex)
         {
+            Errors++;
             if (Reported.Add(where + ex.GetType().Name))
                 Log("ERROR in " + where + ": " + ex);
         }
