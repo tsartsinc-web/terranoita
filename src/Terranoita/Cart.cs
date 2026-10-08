@@ -96,7 +96,10 @@ namespace Terranoita.Game
                 _from = _kicked.Select(n => n.Center.X).ToArray();
             }
             if (frame == 62)
+            {
+                p.direction = -1;
                 NoitaActions.Kick(p);
+            }
             if (frame == 180)
             {
                 for (int i = 0; i < _kicked.Length; i++)
@@ -119,7 +122,10 @@ namespace Terranoita.Game
                 Entry.Log("CART before: box " + Box + " rot " + _rot.ToString("0.00"));
             }
             if (frame == 210)
+            {
+                p.direction = 1;   // the game turns the player between frames: set it right before the kick
                 NoitaActions.Kick(p);
+            }
             if (frame == 390)
             {
                 Entry.Log("CART kick cart: " + ((_pos.X - _cartFrom) / 16).ToString("0.0") + " tiles, rot " + _rot.ToString("0.00"));

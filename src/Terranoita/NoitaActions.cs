@@ -69,10 +69,18 @@ namespace Terranoita.Game
                 var n = Main.npc[i];
                 if (!n.active || n.life <= 0 || Vector2.Distance(n.Center, foot) > KickReach + n.width / 2f)
                     continue;
+                // hostile creatures (a zombie): our own push by size, at most ~5 tiles (author); critters, town NPCs and
+                // friendly ones (a bunny) keep the first kick: Terraria's knockback plus the push (author)
+                bool hostile = !n.friendly && !n.townNPC && !n.CountsAsACritter;
                 if (!n.friendly && !n.townNPC && !n.dontTakeDamage)
-                    p.ApplyDamageToNPC(n, 1, 0f, p.direction, false, null, 0, -1);   // kick_damage 1/25 Noita = 1 hp; our own push below
-                float s = KickScale(n.width, n.height) * MathHelper.Clamp(n.knockBackResist, 0.2f, 1f) * (n.boss ? 0.2f : 1f);
-                n.velocity = new Vector2(p.direction * KickX * s, -KickUp * s);
+                    p.ApplyDamageToNPC(n, 1, hostile ? 0f : KickForce, p.direction, false, null, 0, -1);   // kick_damage 1/25 Noita = 1 hp
+                if (hostile)
+                {
+                    float s = KickScale(n.width, n.height) * MathHelper.Clamp(n.knockBackResist, 0.2f, 1f) * (n.boss ? 0.2f : 1f);
+                    n.velocity = new Vector2(p.direction * KickX * s, -KickUp * s);
+                }
+                else
+                    n.velocity += push;
                 n.netUpdate = true;
             }
             for (int i = 0; i < Main.maxPlayers; i++)
@@ -80,8 +88,7 @@ namespace Terranoita.Game
                 var o = Main.player[i];
                 if (i == p.whoAmI || !o.active || o.dead || Vector2.Distance(o.Center, foot) > KickReach + o.width / 2f)
                     continue;
-                float s = KickScale(o.width, o.height);
-                o.velocity = new Vector2(p.direction * KickX * s, -KickUp * s);
+                o.velocity += push;
             }
             for (int i = 0; i < Main.maxItems; i++)
             {

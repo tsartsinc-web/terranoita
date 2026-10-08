@@ -892,3 +892,9 @@ unless asked.
   (here against a wall: 0 tiles, flipped). NoitaActions.Kick is internal for it.
 - build/terranoita-0.4.0.zip rebuilt (1256961 bytes, sha256 cf370b84db2ff73d..), README mentions flasks, altars,
   mana 600, menu. Not uploaded (PC-16 waits the author).
+
+## PC 2026-10-08: kick reverted for critters (author)
+- Hostile creatures keep the size-scaled push (zombie 4.2, slime 5.2 tiles); critters, town NPCs, friendly ones
+  and players get the first kick back (Terraria knockback + push). Cart test: the kick direction is set right before
+  each kick (the game turned the player, so the cart was kicked into the player: 0 tiles). Now the cart flies 33.9
+  tiles and lands on its back (rot 3.14). Bunny moves only 0.4 tiles: its own AI keeps its speed.
