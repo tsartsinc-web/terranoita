@@ -911,3 +911,13 @@ unless asked.
 - 0.4.0: recipe as 0.3.1 with fileName terranoita-0.4.0.zip, validate + one_click_check with entries: one click yes.
   Uploaded (1256961 bytes), submit_release: draft, findings review-only. Publish not called (permission check):
   goes live when the author plays it in the Melty app.
+
+## PC 2026-10-08: 0.4.1 (author's bugs)
+- ELECTRIC_CHARGE ("Электрический разряд", action_electric_charge): Noita's lightning_count was ignored; a hit now
+  electrocutes (ELECTROCUTION 40 frames: the creature is held in place, sparks). FREEZE: FROZEN holds it too (was a
+  one-time slowdown). ApplyStatuses applies every GameEffectComponent of a status file (effect_disintegrated's
+  first one is NONE). Not done: DISINTEGRATED, necromancy (CUSTOM), RAINBOW_FARTS (logged "not done yet").
+- Kick and spell shots cut what a sword cuts: NoitaActions.CutTiles -> DelegateMethods.CutTiles (Main.tileCut).
+  Tested: spells ELECTRIC_CHARGE/FREEZE "held" lines; cart test kick cut grass tile 3. Shots' cut not seen in a
+  test (no grass at the spells target), same function.
+- Showcase test removed (author). 0.4.1 uploaded and submitted (draft, one click yes).

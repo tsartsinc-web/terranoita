@@ -12,7 +12,7 @@ How it works (author, 2026-10-08): the author only says "работай" to eith
 - Status words: new, doing, waits <row>, done <commit>.
 
 ## State (keep to ~12 lines; update when it changes)
-- Melty: 0.3.1 LIVE (146 players). 0.4.0 submitted as a draft 2026-10-08, not live yet (PC-16).
+- Melty: 0.3.1 LIVE (146 players). 0.4.1 submitted as a draft 2026-10-08, not live yet (PC-16).
 - Stage 3 magic in game: all spells via Noita's gun.lua, shot scripts, all wands, wand window (U), progress window (O),
   16 spell slots; Terraria magic bonuses apply (mana cost/damage/crit/regen/Mana Flower); max mana 600 (ManaCap.cs).
 - Spells test: 416/422 OK (design/sources/magic_baseline.txt), left in PC-6.
@@ -26,9 +26,9 @@ How it works (author, 2026-10-08): the author only says "работай" to eith
 - Roadmap: design/roadmap.md. Worldgen plan: design/worldgen_plan.md (PC-10 after CLOUD-7).
 
 ## PC queue
-- PC-16 waits author: 0.4.0 submitted to Melty 2026-10-08 as a draft (release dc84f74c, upload 3d0ca84b, sha256
-  2f6f0b54..., one click yes); new description and 7 showcase screenshots on the listing. Left: publish (the
-  author presses Play on it in the Melty app; the agent's publish call was blocked by the permission check).
+- PC-16 waits author: 0.4.1 submitted to Melty 2026-10-08 as a draft (upload df544dac, 1257696 bytes, sha256
+  a10770c157e3b9d6..., one click yes; 0.4.0 draft before it). Left: the author presses Play on 0.4.1 in the Melty
+  app (the agent's publish call is blocked by the permission check).
 - PC-6 doing: spells left: MINE_DEATH_TRIGGER, EXPLODING_DEER, BOMB_CART, DEATH_CROSS (moving/summoned entities,
   cross lasers); PIPE_BOMB* go off only in another blast (Noita), the test should expect that. Giga spells cost
   500-600: castable now with 600 max mana.
