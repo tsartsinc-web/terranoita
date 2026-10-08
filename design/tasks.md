@@ -30,9 +30,27 @@ How it works (author, 2026-10-08): the author only says "работай" to eith
 - Roadmap: design/roadmap.md. Worldgen plan: design/worldgen_plan.md (PC-10 after CLOUD-7).
 
 ## PC queue
-- PC-21 new (FIRST; author 2026-10-09: magic is the core, most spells do not work as in Noita): follow
-  design/magic_plan.md phase by phase (0: no silent failure, 1: a test that compares with Noita, 2: component
-  runtime, 3: missing components by impact, 4: author plays). Check: the plan's section 5.
+- PC-21 doing (FIRST, author 2026-10-09; plan design/magic_plan.md; author's rules: new component path behind a
+  switch, into a release only when coverage >= the current path; Noita facts only from Noita's files or the Noita
+  test mod; every session report "spells matching Noita / total"; tag claims verified in game / built only / assumed).
+  Phase 0 (no silent failure): done: Core SpellRuntime.cs (component/field lists, NotRun, UnreadFields; built only).
+  Left: (a) SpellShots.Fire at the 600 cap: mark the oldest shot evicted (quiet, no End) instead of refusing the new
+  one, log once; (b) on first Fire of each file (and extra_entities files) log SpellRuntime.NotRun +
+  UnreadFields once; (c) `tncli magic-coverage <noita>`: per spell (LuaGun cast of [id] or [id,LIGHT_BULLET]) files +
+  NotRun + UnreadFields -> design/sources/pc_magic_coverage.json + table. Check: tncli prints 280/486 static (today's
+  python audit) or explains the difference; Core tests pass.
+- PC-22 new: Noita test mod (author allowed: D:/steam/steamapps/common/Noita/mods/terranoita_probe; ask the author
+  ONCE to start Noita with it): casts each spell alone, each modifier on LIGHT_BULLET/BOUNCY_ORB/GRENADE and the key
+  combos (BURST_2/3/4, SCATTER_*, ADD_TRIGGER/TIMER/DEATH, DIVIDE_*), logs per projectile: file, speed, lifetime,
+  damage by type to a target, explosions, children spawned -> design/sources/noita_probe.json.
+  Check: the file has a row per spell id of gun_actions.lua.
+- PC-23 new (Phase 1): SpellsTest records the same fields in Terraria and compares with noita_probe.json per field
+  (scale 1 Noita px = 3 px); baseline rows per field; report "matching Noita: N of M". Check: rows show the
+  author's list (draw-many, utility, TENTACLE, ROCKET_TIER_3) before fixes.
+- PC-24 new (Phase 2): component runtime in Core behind a switch (TERRANOITA_RUNTIME=components); move existing
+  behaviour type by type. Check: PC-23 number equal or better per step.
+- PC-25 new (Phase 3-4): missing components by spells affected (magic_plan Phase 3 order), then the author plays.
+  Check: magic_plan section 5.
 - PC-20 done-in-code (multiplayer): wand window clicks threw IndexOutOfRange in NetMessage.SendData (ChestItem
   context syncs the open chest, -1): slots use InventoryItem context now (WandWindow.SlotContext; BankItem needs an open container). Check: author clicks
   wand/spell slots while hosting, no "ERROR in wand window".

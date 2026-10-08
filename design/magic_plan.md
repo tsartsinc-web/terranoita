@@ -36,6 +36,12 @@ tools_modding/component_documentation.txt (every component's fields, types, defa
 The engine that runs the components is not. Component behaviour is rebuilt from those files, from what the Lua
 scripts do with the fields, and from checks in Noita by the author when a rule cannot be read anywhere.
 
+## 1b. Author's conditions (2026-10-09)
+- The component path sits behind a switch; it goes into a release only when the coverage tool shows at least as many
+  spells working as the current path. Players never lose anything.
+- Ground truth is a Noita Lua test mod (PC-22) run in the author's Noita, not hand checks and not memory.
+- Every session reports "spells matching Noita / total"; every claim is tagged verified in game / built only / assumed.
+
 ## 2. Approaches
 
 - A. Keep fixing spells one at a time inside SpellShots. This is how it got here: every spell a special case, no

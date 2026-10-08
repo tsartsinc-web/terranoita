@@ -1069,3 +1069,17 @@ unless asked.
 - WandWindow: ItemSlot.Handle with ChestItem context sent SyncChestItem for chest -1 -> IndexOutOfRange in
   SendData; InventoryItem context now (WandWindow.SlotContext; BankItem threw NullReference without an open container).
 - Sandbox: 600 max mana (ManaCap.TotalCap) for the author's spell tests.
+
+## Magic handoff 2026-10-09 (PC-21..25; read design/magic_plan.md first)
+- Measured (tncli + log): gun.lua casting is right (BURST_2, ADD_TRIGGER, DIVIDE_2, MANA_REDUCE, TENTACLE,
+  ROCKET_TIER_3 give Noita's shots). Broken after the cast: SpellShots.Fire silently refuses shots at 600 alive
+  (walls filled it in the author's run); 46 of 72 component types used by spells have no code (VerletWeapon for
+  TENTACLE, HitEffect, DamageModel, PhysicsBody, GameAreaEffect...); ProjectileComponent: 21 of 70 fields read;
+  the spells test only checks "a shot + any damage". Spell ids: Spark Bolt = LIGHT_BULLET, Double Spell = BURST_2,
+  Add Mana = MANA_REDUCE (check ids with tncli wak-cat, never from memory).
+- Done this session: design/magic_plan.md; Core SpellRuntime.cs (built only). Also today, built only, not run:
+  PC-19 multiplayer physics (NetSync), wand window InventoryItem context, shot-scripts sweep fix (Core test passes),
+  potion_random_material (CLI checked). Verified in game: worldgen loot pass filled 312 chests.
+- Coverage now: matching Noita = unknown (no measure until PC-22/23); static (spells whose entities use only
+  component types with code) = 280 of 486.
+- Exact next step: PC-21 (a) cap eviction in SpellShots.Fire, then (b) the not-run log, then (c) tncli magic-coverage.
