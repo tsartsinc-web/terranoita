@@ -13,7 +13,8 @@ namespace Terranoita.Game.Physics
         /// <summary>On while stage 2 is being built; TERRANOITA_PHYSICS=0 turns it off.</summary>
         public static readonly bool On = Environment.GetEnvironmentVariable("TERRANOITA_PHYSICS") != "0";
 
-        static bool Live => On && !Main.gameMenu && !WorldGen.generatingWorld && Main.netMode == 0;
+        // single player and, in multiplayer, our client (Terraria's own server runs none of this: NetSync sends our changes)
+        static bool Live => On && !Main.gameMenu && !WorldGen.generatingWorld && Main.netMode != 2;   // 2 = server
 
         // Terraria projectiles that set wood and grass on fire: the ones Terraria's own hit code (Projectile.StatusNPC,
         // read with ilspycmd) gives On Fire / Hellfire / Cursed Inferno, and fire weapons that burn in other ways
@@ -97,6 +98,7 @@ namespace Terranoita.Game.Physics
                 Falling.Clear();
                 Fire.Clear();
                 Electricity.Clear();
+                NetSync.Clear();
                 Magic.SpellShots.Clear();
                 Magic.Flasks.Clear();
                 try { Magic.WorldLoot.Load(); }
@@ -203,6 +205,7 @@ namespace Terranoita.Game.Physics
                             SlowFrames.Time("fluids", Fluids.Update);
                             SlowFrames.Time("electricity", Electricity.Update);
                         }
+                        NetSync.Flush();
                         ToxicGround.Touch(Main.LocalPlayer);
                     }
                 }

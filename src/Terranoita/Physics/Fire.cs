@@ -228,10 +228,14 @@ namespace Terranoita.Game.Physics
             {
                 t.type = to;
                 WorldGen.SquareTileFrame(x, y, true);
+                NetSync.Tile(x, y);
                 Falling.Disturb(x, y);
             }
             else
+            {
                 WorldGen.KillTile(x, y, false, false, true);   // burned away: nothing drops; the hook disturbs around it
+                NetSync.Tile(x, y);
+            }
         }
 
         static void WallBurnOut(int x, int y)
@@ -243,6 +247,7 @@ namespace Terranoita.Game.Physics
                 Dust.NewDust(new Vector2(x * 16, y * 16), 16, 16, DustID.Smoke, 0f, -1f, 100, default(Color), 1.1f);
             t.wall = 0;            // burned away: nothing drops
             WorldGen.SquareWallFrame(x, y, true);
+            NetSync.Tile(x, y);
         }
 
         static void Melt(int x, int y)
@@ -252,11 +257,12 @@ namespace Terranoita.Game.Physics
                 return;
             Placed.Remove(x, y);
             WorldGen.KillTile(x, y, false, false, true);
+            NetSync.Tile(x, y);
             if (t.active())
                 return;
             t.liquidType(LiquidID.Water);
             t.liquid = 255;
-            Liquid.AddWater(x, y);
+            NetSync.AddWater(x, y);
             for (int s = 0; s < 3; s++)
                 Dust.NewDust(new Vector2(x * 16, y * 16), 16, 16, DustID.Cloud, 0f, -1f, 150);
         }

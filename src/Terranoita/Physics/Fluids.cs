@@ -204,7 +204,7 @@ namespace Terranoita.Game.Physics
                 return 0;
             t.liquidType(type);
             t.liquid = (byte)(t.liquid + put);
-            Liquid.AddWater(x, y);
+            NetSync.AddWater(x, y);
             return put;
         }
 
@@ -374,8 +374,8 @@ namespace Terranoita.Game.Physics
                         here.liquidType(side.liquidType());
                         here.liquid = side.liquid;
                         side.liquid = 0;
-                        Liquid.AddWater(x, y);
-                        Liquid.AddWater(x + dx, y);
+                        NetSync.AddWater(x, y);
+                        NetSync.AddWater(x + dx, y);
                         c.Stamp = _stamp;
                         Cells.Remove(k);
                         Cells[nk] = c;
@@ -437,8 +437,8 @@ namespace Terranoita.Game.Physics
                 here.liquidType(below.liquidType());
                 here.liquid = below.liquid;
                 below.liquid = 0;
-                Liquid.AddWater(x, y);
-                Liquid.AddWater(x2, y2);
+                NetSync.AddWater(x, y);
+                NetSync.AddWater(x2, y2);
                 c.Stamp = _stamp;
                 Cells.Remove(k);
                 Cells[nk] = c;
@@ -608,7 +608,7 @@ namespace Terranoita.Game.Physics
                     {
                         amount = Main.tile[x, y].liquid;
                         Main.tile[x, y].liquid = 0;
-                        Liquid.AddWater(x, y);
+                        NetSync.AddWater(x, y);
                     }
                     if (amount == 0)
                         continue;
@@ -770,7 +770,7 @@ namespace Terranoita.Game.Physics
                 return null;
             if (!Protected(x, y))   // the ocean is drunk from, never drained
                 t.liquid = (byte)Math.Max(0, t.liquid - amount);
-            Liquid.AddWater(x, y);
+            NetSync.AddWater(x, y);
             int type = t.liquidType();
             return type == LiquidID.Lava ? "lava" : type == LiquidID.Honey ? "honey" : "water";
         }
@@ -1180,11 +1180,12 @@ namespace Terranoita.Game.Physics
                         }
                         return;
                     }
-                    Liquid.AddWater(x, y);
+                    NetSync.AddWater(x, y);
                     break;
                 case What.Tile:
                     Placed.Remove(x, y);
                     WorldGen.KillTile(x, y, false, false, true);
+                    NetSync.Tile(x, y);
                     if (t.active())
                         return;
                     if (IsSolidOutput(output))
@@ -1234,6 +1235,7 @@ namespace Terranoita.Game.Physics
             if (_tileOfSolid.TryGetValue(output, out ushort tile) && !Main.tile[x, y].active())
             {
                 WorldGen.PlaceTile(x, y, tile, true, true);
+                NetSync.Tile(x, y);
                 ToxicGround.Mark(x, y, output);   // lava + toxic sludge: toxic rock
                 Falling.Disturb(x, y);
             }

@@ -1059,3 +1059,13 @@ unless asked.
   Healing Potion, bomb_small -> Bomb (ours). The rest is counted in the log line ("not made yet"). Rare spells once in
   deep chests as before. No Noita files -> skipped, the load-time fill does it. WorldLoot.Save: a generated world's
   first save writes .wld.magic (so the load-time FillChests never runs on it).
+
+## PC-19 multiplayer physics + wand window (2026-10-09, PC; built, not run)
+- Host & Play = Terraria's own server; our game is a client (netMode 1) and physics was off there (Live needed
+  netMode 0): flask water hung in the air. Now Live = netMode != 2. Physics/NetSync.cs queues every tile our physics
+  changes (Falling lift/land, Fire burn/convert/melt/walls, Fluids reactions and solids, Blast) and every Terraria
+  liquid change (all Liquid.AddWater calls of Falling/Fire/Fluids go through NetSync.AddWater) and sends them after
+  the physics update: NetMessage.SendTileSquare (server applies it as sent, MessageBuffer case 20) and sendWater (48).
+- WandWindow: ItemSlot.Handle with ChestItem context sent SyncChestItem for chest -1 -> IndexOutOfRange in
+  SendData; BankItem context now (WandWindow.SlotContext).
+- Sandbox: 600 max mana (ManaCap.TotalCap) for the author's spell tests.

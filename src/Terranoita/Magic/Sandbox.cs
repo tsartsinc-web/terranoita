@@ -36,7 +36,9 @@ namespace Terranoita.Game.Magic
         {
             Main.dayTime = true;
             Main.time = 27000;
-            p.statManaMax = p.statManaMax2 = 400;
+            // the most mana a player can have (ManaCap, 15 stars; author: try every spell, the giga ones cost 500-600)
+            p.statManaMax = p.statManaMax2 = ManaCap.TotalCap;
+            p.statMana = ManaCap.TotalCap;
             _x0 = (int)(p.Center.X / 16) - 12;
             _floor = (int)((p.position.Y + p.height) / 16) + 1;
             // plain ground like a normal forest (author): dirt with grass, a few trees, open air above; the pits and

@@ -191,6 +191,7 @@ namespace Terranoita.Game.Physics
                     b.Parts.Add(new Part { Dx = x - b.X, Dy = y - b.Y, Tile = copy, Placed = Placed.Has(x, y) });
                     Placed.Remove(x, y);
                     t.ClearTile();
+                    NetSync.Tile(x, y);
                 }
                 foreach (var (x, y) in tiles)
                     WorldGen.SquareTileFrame(x, y, true);
@@ -284,6 +285,7 @@ namespace Terranoita.Game.Physics
                         }
                         _busy = false;
                         WorldGen.KillTile(x, y);   // grass, plants, furniture under it break
+                        NetSync.Tile(x, y);
                         _busy = true;
                         if (t.active())
                         {
@@ -302,6 +304,7 @@ namespace Terranoita.Game.Physics
                         PushLiquidUp(x, y, liquid, liquidType);   // Terraria's water there is moved up, not deleted
                     if (b.Powder)
                         t.type = Mats.FallsAs(t.type);
+                    NetSync.Tile(x, y);
                     if (p.Placed)
                         Placed.Add(x, y);
                     landed.Add((x, y));
@@ -330,7 +333,7 @@ namespace Terranoita.Game.Physics
                 int put = Math.Min(255 - a.liquid, (int)amount);
                 a.liquidType(type);
                 a.liquid = (byte)(a.liquid + put);
-                Liquid.AddWater(x, ty);
+                NetSync.AddWater(x, ty);
                 amount = (byte)(amount - put);
                 if (amount == 0)
                     return;

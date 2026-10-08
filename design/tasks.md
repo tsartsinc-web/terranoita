@@ -33,10 +33,10 @@ How it works (author, 2026-10-08): the author only says "работай" to eith
 - PC-20 done-in-code (multiplayer): wand window clicks threw IndexOutOfRange in NetMessage.SendData (ChestItem
   context syncs the open chest, -1): slots use BankItem context now (WandWindow.SlotContext). Check: author clicks
   wand/spell slots while hosting, no "ERROR in wand window".
-- PC-19 new (multiplayer, author 2026-10-09): physics is off in multiplayer (Physics/Patches.cs Live needs netMode 0;
-  Host & Play = vanilla TerrariaServer.exe, our game is netMode 1): flask water hangs in the air. Run our physics on
-  the client too; tile changes it makes (Falling, Fire, Fluids reactions) must be sent (NetMessage 17/20) or skipped.
-  Check: author hosts alone, pours a flask, liquids flow; latest.log has no errors.
+- PC-19 doing (multiplayer): physics runs on our client too (Patches.Live: netMode != 2); every tile/liquid our
+  physics changes is sent (Physics/NetSync.cs: TileSquare for blocks/walls, sendWater for Terraria liquid, 120 per
+  frame). Our liquids (Fluids cells) stay per player; blocks dropped by blasts are client-side items. Check: author
+  hosts, pours a flask (flows), sand falls, fire burns wood; no errors; a second player sees the block changes.
 - PC-16 waits author: 0.4.2 submitted to Melty 2026-10-08 as a draft (upload d67636aa, 1272555 bytes, sha256
   45bd55f3ee081346..., one click yes; multiplayer maxPlayers 255 + host address "Hosting at " in latest.log, no join
   args: joining untested). Live after the author presses Play on 0.4.2 in the Melty app. Next: test Host & Play +

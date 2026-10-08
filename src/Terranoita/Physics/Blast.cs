@@ -30,6 +30,7 @@ namespace Terranoita.Game.Physics
                         if (drop)
                             drops++;
                         WorldGen.KillTile(x, y, false, false, !drop);   // like Noita, most of it is just gone
+                        NetSync.Tile(x, y);
                     }
                 }
             if (fiery)
