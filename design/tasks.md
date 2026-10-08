@@ -30,13 +30,10 @@ How it works (author, 2026-10-08): the author only says "работай" to eith
 - Roadmap: design/roadmap.md. Worldgen plan: design/worldgen_plan.md (PC-10 after CLOUD-7).
 
 ## PC queue
-- PC-15 new (before PC-10): check CLOUD-7 on the real files: `tncli wak-list <noita> data/scripts/biomes` -> fix
-  SCRIPTS in tools/seed_biome_spawns.py (rerun it; author numbers stay) and clear `_unverified`; `tncli biome-spawns
-  <noita> data/scripts/biomes/coalmine.lua 50` and the same for 3-4 more biomes plus
-  `... data/scripts/items/chest_random.lua 50 drop_random_reward` (needs args: x,y,entity,rand_x,rand_y: add if
-  it errors); list the engine calls we lack (add them to NoitaBiomeSpawns.NewEnv if a script needs a value);
-  `tncli pixel-scene <noita> <a scene png from the output>`. Check: placements look like Noita's (wands, potions,
-  chests, scenes), no Lua errors.
+- PC-19 new (multiplayer, author 2026-10-09): physics is off in multiplayer (Physics/Patches.cs Live needs netMode 0;
+  Host & Play = vanilla TerrariaServer.exe, our game is netMode 1): flask water hangs in the air. Run our physics on
+  the client too; tile changes it makes (Falling, Fire, Fluids reactions) must be sent (NetMessage 17/20) or skipped.
+  Check: author hosts alone, pours a flask, liquids flow; latest.log has no errors.
 - PC-16 waits author: 0.4.2 submitted to Melty 2026-10-08 as a draft (upload d67636aa, 1272555 bytes, sha256
   45bd55f3ee081346..., one click yes; multiplayer maxPlayers 255 + host address "Hosting at " in latest.log, no join
   args: joining untested). Live after the author presses Play on 0.4.2 in the Melty app. Next: test Host & Play +
@@ -57,7 +54,7 @@ How it works (author, 2026-10-08): the author only says "работай" to eith
   impacts; creatures hurt + held, player Electrified; physics test scene 15 (pool, 2 zombies). Left: run
   `game_test -Mode physics` (author's OK); metal tiles (no conducts column in materials.json); tanks'
   in_liquid_shooting_electrify_prob; the electrocution loop sound.
-- PC-10 waits CLOUD-7: worldgen per design/worldgen_plan.md sections 1, 3, 4, 5. Check: game_test -Mode worldgen.
+- PC-10 new: worldgen per design/worldgen_plan.md sections 1, 3, 4, 5. Check: game_test -Mode worldgen.
 - Known gaps: flask powders (gunpowder_unstable, purifying_powder) do not pour (no Fluids kind); multiplayer still
   clamps synced mana at 400 (MessageBuffer.GetData).
 
@@ -74,6 +71,10 @@ How it works (author, 2026-10-08): the author only says "работай" to eith
   never in a public repo).
 
 ## Done (last ~8)
+- done (PC) PC-15: biome scripts checked on the player's Noita: SCRIPTS fixed from data/biome/*.xml + common.csv
+  (Lukki Lair = rainforest_dark, Overgrown Cavern = fungiforest, Ancient Laboratory = liquidcave, Magical Temple =
+  wandcave, Snowy Chasm = winter, Cloudscape = clouds, Sky = the_end.lua); probe -> design/sources/
+  pc_biome_functions.json, absent functions per_10k 0; init(x,y,w,h); chest_random runs clean; color_material.
 - done (CLOUD) CLOUD-7: Core NoitaPng (8-bit PNG reader), PixelScene (WangColors from materials.xml, Decode,
   Downscale 16/3 px per tile, mostly-air = air), NoitaBiomeSpawns (runs a biome script or chest_random.lua with a
   recording host: EntityLoad/LoadPixelScene/CreateItemActionEntity/LoadBackgroundSprite -> Placements,

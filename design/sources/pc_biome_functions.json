@@ -1,0 +1,155 @@
+{
+ "_sources": "tncli biome-spawns <noita> data/scripts/biomes/<script>.lua 30 (PC 2026-10-09): what each function places in 30 calls; 'error' = the script lacks that function's data (Noita never calls it there)",
+ "scripts": {
+  "clouds": {
+   "spawn_wands": "nothing",
+   "spawn_potions": "nothing",
+   "spawn_items": "nothing",
+   "spawn_chest": "error: no such function"
+  },
+  "coalmine": {
+   "spawn_wands": "entity data/entities/items/wand_level_01.xml, entity data/entities/items/wands/level_01/wand_010.xml, entity data/entities/items/wands/level_01/wand_012.xml",
+   "spawn_potions": "entity data/entities/items/pickup/potion.xml, entity data/entities/items/pickup/physics_gold_orb.xml, entity data/entities/items/pickup/egg_monster.xml",
+   "spawn_items": "scene data/biome_impl/wand_altar.png",
+   "spawn_chest": "entity data/entities/items/pickup/chest_random.xml, entity data/entities/items/pickup/chest_random_super.xml"
+  },
+  "coalmine_alt": {
+   "spawn_wands": "entity data/entities/items/wands/level_01/wand_006.xml, entity data/entities/items/wands/level_01/wand_009.xml, entity data/entities/items/wands/level_01/wand_004.xml",
+   "spawn_potions": "entity data/entities/items/pickup/potion.xml, entity data/entities/items/pickup/physics_gold_orb.xml, entity data/entities/items/pickup/egg_monster.xml",
+   "spawn_items": "scene data/biome_impl/wand_altar.png",
+   "spawn_chest": "error: no such function"
+  },
+  "crypt": {
+   "spawn_wands": "entity data/entities/items/wand_level_06_better.xml, entity data/entities/items/wand_level_06.xml, entity data/entities/items/wand_unshuffle_06.xml",
+   "spawn_potions": "entity data/entities/items/pickup/potion.xml, entity data/entities/items/pickup/physics_gold_orb.xml, entity data/entities/items/pickup/egg_monster.xml",
+   "spawn_items": "scene data/biome_impl/wand_altar.png",
+   "spawn_chest": "error: no such function"
+  },
+  "desert": {
+   "spawn_wands": "error: data/scripts/director_helpers.lua:(29,1-33): attempt to index a nil value",
+   "spawn_potions": "entity data/entities/items/pickup/potion.xml, entity data/entities/items/pickup/physics_gold_orb.xml, entity data/entities/items/pickup/egg_monster.xml",
+   "spawn_items": "nothing",
+   "spawn_chest": "nothing"
+  },
+  "excavationsite": {
+   "spawn_wands": "entity data/entities/items/wand_level_02.xml, entity data/entities/items/wand_level_02_better.xml, entity data/entities/items/wand_unshuffle_01.xml",
+   "spawn_potions": "entity data/entities/items/pickup/potion.xml, entity data/entities/items/pickup/physics_gold_orb.xml, entity data/entities/items/pickup/egg_monster.xml",
+   "spawn_items": "scene data/biome_impl/wand_altar.png",
+   "spawn_chest": "error: no such function"
+  },
+  "fungicave": {
+   "spawn_wands": "entity data/entities/items/wand_unshuffle_01.xml, entity data/entities/items/wand_unshuffle_02.xml",
+   "spawn_potions": "entity data/entities/items/pickup/potion.xml, entity data/entities/items/pickup/physics_gold_orb.xml, entity data/entities/items/pickup/egg_monster.xml",
+   "spawn_items": "scene data/biome_impl/wand_altar.png",
+   "spawn_chest": "error: no such function"
+  },
+  "fungiforest": {
+   "spawn_wands": "entity data/entities/items/wand_unshuffle_04.xml, entity data/entities/items/wand_level_05_better.xml, entity data/entities/items/wand_unshuffle_03.xml",
+   "spawn_potions": "entity data/entities/items/pickup/potion.xml, entity data/entities/items/pickup/physics_gold_orb.xml, entity data/entities/items/pickup/egg_monster.xml",
+   "spawn_items": "scene data/biome_impl/wand_altar.png",
+   "spawn_chest": "error: no such function"
+  },
+  "hills": {
+   "spawn_wands": "nothing",
+   "spawn_potions": "nothing",
+   "spawn_items": "nothing",
+   "spawn_chest": "error: no such function"
+  },
+  "lake": {
+   "spawn_wands": "entity data/entities/items/shotgun.xml, entity data/entities/items/machinegun.xml",
+   "spawn_potions": "nothing",
+   "spawn_items": "nothing",
+   "spawn_chest": "error: no such function"
+  },
+  "liquidcave": {
+   "spawn_wands": "error: data/scripts/director_helpers.lua:(29,1-33): attempt to index a nil value",
+   "spawn_potions": "entity data/entities/items/pickup/potion.xml, entity data/entities/items/pickup/thunderstone.xml, entity data/entities/items/pickup/egg_fire.xml",
+   "spawn_items": "nothing",
+   "spawn_chest": "nothing"
+  },
+  "meat": {
+   "spawn_wands": "entity data/entities/items/wand_unshuffle_04.xml, entity data/entities/items/wand_level_06.xml, entity data/entities/items/wand_unshuffle_05.xml",
+   "spawn_potions": "entity data/entities/items/pickup/potion.xml, entity data/entities/items/pickup/physics_gold_orb.xml, entity data/entities/items/pickup/egg_monster.xml",
+   "spawn_items": "scene data/biome_impl/wand_altar.png, entity data/entities/items/pickup/utility_box.xml",
+   "spawn_chest": "error: no such function"
+  },
+  "pyramid": {
+   "spawn_wands": "error: data/scripts/director_helpers.lua:(29,1-33): attempt to index a nil value",
+   "spawn_potions": "entity data/entities/items/pickup/potion.xml, entity data/entities/items/pickup/physics_gold_orb.xml, entity data/entities/items/pickup/egg_monster.xml",
+   "spawn_items": "nothing",
+   "spawn_chest": "nothing"
+  },
+  "rainforest": {
+   "spawn_wands": "entity data/entities/items/wand_level_04.xml, entity data/entities/items/wand_level_04_better.xml, entity data/entities/items/wand_unshuffle_03.xml",
+   "spawn_potions": "entity data/entities/items/pickup/potion.xml, entity data/entities/items/pickup/physics_gold_orb.xml, entity data/entities/items/pickup/egg_monster.xml",
+   "spawn_items": "scene data/biome_impl/wand_altar.png",
+   "spawn_chest": "error: no such function"
+  },
+  "rainforest_dark": {
+   "spawn_wands": "entity data/entities/items/wand_level_04.xml, entity data/entities/items/wand_level_05_better.xml, entity data/entities/items/wand_unshuffle_04.xml",
+   "spawn_potions": "entity data/entities/items/pickup/potion.xml, entity data/entities/items/pickup/physics_gold_orb.xml, entity data/entities/items/pickup/egg_monster.xml",
+   "spawn_items": "scene data/biome_impl/wand_altar.png",
+   "spawn_chest": "error: no such function"
+  },
+  "robobase": {
+   "spawn_wands": "entity data/entities/items/wand_level_05_better.xml, entity data/entities/items/wand_level_05.xml, entity data/entities/items/wand_unshuffle_04.xml",
+   "spawn_potions": "entity data/entities/items/pickup/potion.xml, entity data/entities/items/pickup/physics_gold_orb.xml, entity data/entities/items/pickup/egg_monster.xml",
+   "spawn_items": "scene data/biome_impl/wand_altar_vault.png",
+   "spawn_chest": "error: no such function"
+  },
+  "sandcave": {
+   "spawn_wands": "entity data/entities/items/wand_unshuffle_02.xml, entity data/entities/items/wand_level_04.xml",
+   "spawn_potions": "entity data/entities/items/pickup/potion.xml, entity data/entities/items/pickup/physics_gold_orb.xml, entity data/entities/items/pickup/egg_monster.xml",
+   "spawn_items": "scene data/biome_impl/wand_altar.png",
+   "spawn_chest": "error: no such function"
+  },
+  "snowcastle": {
+   "spawn_wands": "entity data/entities/items/wand_level_03_better.xml, entity data/entities/items/wand_unshuffle_03.xml, entity data/entities/items/wand_level_03.xml",
+   "spawn_potions": "entity data/entities/items/pickup/potion.xml, entity data/entities/items/pickup/physics_gold_orb.xml, entity data/entities/items/pickup/egg_monster.xml",
+   "spawn_items": "scene data/biome_impl/wand_altar_vault.png",
+   "spawn_chest": "error: no such function"
+  },
+  "snowcave": {
+   "spawn_wands": "entity data/entities/items/wand_level_02_better.xml, entity data/entities/items/wand_unshuffle_02.xml, entity data/entities/items/wand_level_02.xml",
+   "spawn_potions": "entity data/entities/items/pickup/potion.xml, entity data/entities/items/pickup/physics_gold_orb.xml, entity data/entities/items/pickup/egg_monster.xml",
+   "spawn_items": "scene data/biome_impl/wand_altar.png",
+   "spawn_chest": "error: no such function"
+  },
+  "the_end": {
+   "spawn_wands": "nothing",
+   "spawn_potions": "nothing",
+   "spawn_items": "scene data/biome_impl/wand_altar.png",
+   "spawn_chest": "entity data/entities/items/pickup/chest_random.xml, entity data/entities/items/pickup/chest_random_super.xml"
+  },
+  "vault": {
+   "spawn_wands": "entity data/entities/items/wand_level_05_better.xml, entity data/entities/items/wand_level_05.xml, entity data/entities/items/wand_unshuffle_04.xml",
+   "spawn_potions": "entity data/entities/items/pickup/potion.xml, entity data/entities/items/pickup/physics_gold_orb.xml, entity data/entities/items/pickup/egg_monster.xml",
+   "spawn_items": "scene data/biome_impl/wand_altar_vault.png",
+   "spawn_chest": "error: no such function"
+  },
+  "vault_frozen": {
+   "spawn_wands": "entity data/entities/items/wand_level_05.xml, entity data/entities/items/wand_unshuffle_03.xml, entity data/entities/items/wand_unshuffle_04.xml",
+   "spawn_potions": "entity data/entities/items/pickup/potion.xml, entity data/entities/items/pickup/physics_gold_orb.xml, entity data/entities/items/pickup/egg_monster.xml",
+   "spawn_items": "scene data/biome_impl/wand_altar_vault.png, entity data/entities/items/pickup/utility_box.xml",
+   "spawn_chest": "error: no such function"
+  },
+  "wandcave": {
+   "spawn_wands": "nothing",
+   "spawn_potions": "nothing",
+   "spawn_items": "scene data/biome_impl/wand_altar.png",
+   "spawn_chest": "error: no such function"
+  },
+  "winter": {
+   "spawn_wands": "nothing",
+   "spawn_potions": "nothing",
+   "spawn_items": "nothing",
+   "spawn_chest": "error: no such function"
+  },
+  "wizardcave": {
+   "spawn_wands": "entity data/entities/items/wand_level_06_better.xml, entity data/entities/items/wand_level_06.xml, entity data/entities/items/wand_unshuffle_06.xml",
+   "spawn_potions": "entity data/entities/items/pickup/potion.xml, entity data/entities/items/pickup/physics_gold_orb.xml, entity data/entities/items/pickup/egg_monster.xml",
+   "spawn_items": "scene data/biome_impl/wand_altar.png",
+   "spawn_chest": "error: no such function"
+  }
+ }
+}

@@ -44,9 +44,7 @@
    "function": "spawn_wands",
    "per_10k_tiles": 1.0,
    "stage": "4",
-   "_unverified": {
-    "script": "name from memory; check data/scripts/biomes on the PC"
-   },
+   "_unverified": {},
    "_sources": {
     "all": "tools/seed_biome_spawns.py defaults; numbers: author"
    }
@@ -58,9 +56,7 @@
    "function": "spawn_potions",
    "per_10k_tiles": 2.0,
    "stage": "4",
-   "_unverified": {
-    "script": "name from memory; check data/scripts/biomes on the PC"
-   },
+   "_unverified": {},
    "_sources": {
     "all": "tools/seed_biome_spawns.py defaults; numbers: author"
    }
@@ -72,9 +68,7 @@
    "function": "spawn_items",
    "per_10k_tiles": 1.5,
    "stage": "4",
-   "_unverified": {
-    "script": "name from memory; check data/scripts/biomes on the PC"
-   },
+   "_unverified": {},
    "_sources": {
     "all": "tools/seed_biome_spawns.py defaults; numbers: author"
    }
@@ -84,27 +78,12 @@
    "biome": "Forest",
    "script": "hills",
    "function": "spawn_chest",
-   "per_10k_tiles": 0.5,
+   "per_10k_tiles": 0,
    "stage": "4",
-   "_unverified": {
-    "script": "name from memory; check data/scripts/biomes on the PC"
-   },
+   "_unverified": {},
    "_sources": {
-    "all": "tools/seed_biome_spawns.py defaults; numbers: author"
-   }
-  },
-  {
-   "id": "Forest:spawn_pixel_scenes",
-   "biome": "Forest",
-   "script": "hills",
-   "function": "spawn_pixel_scenes",
-   "per_10k_tiles": 1.0,
-   "stage": "4",
-   "_unverified": {
-    "script": "name from memory; check data/scripts/biomes on the PC"
-   },
-   "_sources": {
-    "all": "tools/seed_biome_spawns.py defaults; numbers: author"
+    "all": "tools/seed_biome_spawns.py defaults; numbers: author",
+    "per_10k_tiles": "0: error: no such function (pc_biome_functions.json)"
    }
   },
   {
@@ -114,9 +93,7 @@
    "function": "spawn_wands",
    "per_10k_tiles": 1.0,
    "stage": "4",
-   "_unverified": {
-    "script": "name from memory; check data/scripts/biomes on the PC"
-   },
+   "_unverified": {},
    "_sources": {
     "all": "tools/seed_biome_spawns.py defaults; numbers: author"
    }
@@ -128,9 +105,7 @@
    "function": "spawn_potions",
    "per_10k_tiles": 2.0,
    "stage": "4",
-   "_unverified": {
-    "script": "name from memory; check data/scripts/biomes on the PC"
-   },
+   "_unverified": {},
    "_sources": {
     "all": "tools/seed_biome_spawns.py defaults; numbers: author"
    }
@@ -142,9 +117,7 @@
    "function": "spawn_items",
    "per_10k_tiles": 1.5,
    "stage": "4",
-   "_unverified": {
-    "script": "name from memory; check data/scripts/biomes on the PC"
-   },
+   "_unverified": {},
    "_sources": {
     "all": "tools/seed_biome_spawns.py defaults; numbers: author"
    }
@@ -154,27 +127,12 @@
    "biome": "Lake",
    "script": "lake",
    "function": "spawn_chest",
-   "per_10k_tiles": 0.5,
+   "per_10k_tiles": 0,
    "stage": "4",
-   "_unverified": {
-    "script": "name from memory; check data/scripts/biomes on the PC"
-   },
+   "_unverified": {},
    "_sources": {
-    "all": "tools/seed_biome_spawns.py defaults; numbers: author"
-   }
-  },
-  {
-   "id": "Lake:spawn_pixel_scenes",
-   "biome": "Lake",
-   "script": "lake",
-   "function": "spawn_pixel_scenes",
-   "per_10k_tiles": 1.0,
-   "stage": "4",
-   "_unverified": {
-    "script": "name from memory; check data/scripts/biomes on the PC"
-   },
-   "_sources": {
-    "all": "tools/seed_biome_spawns.py defaults; numbers: author"
+    "all": "tools/seed_biome_spawns.py defaults; numbers: author",
+    "per_10k_tiles": "0: error: no such function (pc_biome_functions.json)"
    }
   },
   {
@@ -184,9 +142,7 @@
    "function": "spawn_wands",
    "per_10k_tiles": 1.0,
    "stage": "4",
-   "_unverified": {
-    "script": "name from memory; check data/scripts/biomes on the PC"
-   },
+   "_unverified": {},
    "_sources": {
     "all": "tools/seed_biome_spawns.py defaults; numbers: author"
    }
@@ -198,9 +154,7 @@
    "function": "spawn_potions",
    "per_10k_tiles": 2.0,
    "stage": "4",
-   "_unverified": {
-    "script": "name from memory; check data/scripts/biomes on the PC"
-   },
+   "_unverified": {},
    "_sources": {
     "all": "tools/seed_biome_spawns.py defaults; numbers: author"
    }
@@ -212,9 +166,7 @@
    "function": "spawn_items",
    "per_10k_tiles": 1.5,
    "stage": "4",
-   "_unverified": {
-    "script": "name from memory; check data/scripts/biomes on the PC"
-   },
+   "_unverified": {},
    "_sources": {
     "all": "tools/seed_biome_spawns.py defaults; numbers: author"
    }
@@ -226,23 +178,7 @@
    "function": "spawn_chest",
    "per_10k_tiles": 0.5,
    "stage": "4",
-   "_unverified": {
-    "script": "name from memory; check data/scripts/biomes on the PC"
-   },
-   "_sources": {
-    "all": "tools/seed_biome_spawns.py defaults; numbers: author"
-   }
-  },
-  {
-   "id": "Mines:spawn_pixel_scenes",
-   "biome": "Mines",
-   "script": "coalmine",
-   "function": "spawn_pixel_scenes",
-   "per_10k_tiles": 1.0,
-   "stage": "4",
-   "_unverified": {
-    "script": "name from memory; check data/scripts/biomes on the PC"
-   },
+   "_unverified": {},
    "_sources": {
     "all": "tools/seed_biome_spawns.py defaults; numbers: author"
    }
@@ -254,9 +190,7 @@
    "function": "spawn_wands",
    "per_10k_tiles": 1.0,
    "stage": "4",
-   "_unverified": {
-    "script": "name from memory; check data/scripts/biomes on the PC"
-   },
+   "_unverified": {},
    "_sources": {
     "all": "tools/seed_biome_spawns.py defaults; numbers: author"
    }
@@ -268,9 +202,7 @@
    "function": "spawn_potions",
    "per_10k_tiles": 2.0,
    "stage": "4",
-   "_unverified": {
-    "script": "name from memory; check data/scripts/biomes on the PC"
-   },
+   "_unverified": {},
    "_sources": {
     "all": "tools/seed_biome_spawns.py defaults; numbers: author"
    }
@@ -282,9 +214,7 @@
    "function": "spawn_items",
    "per_10k_tiles": 1.5,
    "stage": "4",
-   "_unverified": {
-    "script": "name from memory; check data/scripts/biomes on the PC"
-   },
+   "_unverified": {},
    "_sources": {
     "all": "tools/seed_biome_spawns.py defaults; numbers: author"
    }
@@ -294,27 +224,12 @@
    "biome": "Collapsed Mines",
    "script": "coalmine_alt",
    "function": "spawn_chest",
-   "per_10k_tiles": 0.5,
+   "per_10k_tiles": 0,
    "stage": "4",
-   "_unverified": {
-    "script": "name from memory; check data/scripts/biomes on the PC"
-   },
+   "_unverified": {},
    "_sources": {
-    "all": "tools/seed_biome_spawns.py defaults; numbers: author"
-   }
-  },
-  {
-   "id": "Collapsed Mines:spawn_pixel_scenes",
-   "biome": "Collapsed Mines",
-   "script": "coalmine_alt",
-   "function": "spawn_pixel_scenes",
-   "per_10k_tiles": 1.0,
-   "stage": "4",
-   "_unverified": {
-    "script": "name from memory; check data/scripts/biomes on the PC"
-   },
-   "_sources": {
-    "all": "tools/seed_biome_spawns.py defaults; numbers: author"
+    "all": "tools/seed_biome_spawns.py defaults; numbers: author",
+    "per_10k_tiles": "0: error: no such function (pc_biome_functions.json)"
    }
   },
   {
@@ -322,13 +237,12 @@
    "biome": "Desert",
    "script": "desert",
    "function": "spawn_wands",
-   "per_10k_tiles": 1.0,
+   "per_10k_tiles": 0,
    "stage": "4",
-   "_unverified": {
-    "script": "name from memory; check data/scripts/biomes on the PC"
-   },
+   "_unverified": {},
    "_sources": {
-    "all": "tools/seed_biome_spawns.py defaults; numbers: author"
+    "all": "tools/seed_biome_spawns.py defaults; numbers: author",
+    "per_10k_tiles": "0: error: data/scripts/director_helpers.lua:(29,1-33): attempt to index a nil value (pc_biome_functions.json)"
    }
   },
   {
@@ -338,9 +252,7 @@
    "function": "spawn_potions",
    "per_10k_tiles": 2.0,
    "stage": "4",
-   "_unverified": {
-    "script": "name from memory; check data/scripts/biomes on the PC"
-   },
+   "_unverified": {},
    "_sources": {
     "all": "tools/seed_biome_spawns.py defaults; numbers: author"
    }
@@ -352,9 +264,7 @@
    "function": "spawn_items",
    "per_10k_tiles": 1.5,
    "stage": "4",
-   "_unverified": {
-    "script": "name from memory; check data/scripts/biomes on the PC"
-   },
+   "_unverified": {},
    "_sources": {
     "all": "tools/seed_biome_spawns.py defaults; numbers: author"
    }
@@ -366,23 +276,7 @@
    "function": "spawn_chest",
    "per_10k_tiles": 0.5,
    "stage": "4",
-   "_unverified": {
-    "script": "name from memory; check data/scripts/biomes on the PC"
-   },
-   "_sources": {
-    "all": "tools/seed_biome_spawns.py defaults; numbers: author"
-   }
-  },
-  {
-   "id": "Desert:spawn_pixel_scenes",
-   "biome": "Desert",
-   "script": "desert",
-   "function": "spawn_pixel_scenes",
-   "per_10k_tiles": 1.0,
-   "stage": "4",
-   "_unverified": {
-    "script": "name from memory; check data/scripts/biomes on the PC"
-   },
+   "_unverified": {},
    "_sources": {
     "all": "tools/seed_biome_spawns.py defaults; numbers: author"
    }
@@ -394,9 +288,7 @@
    "function": "spawn_wands",
    "per_10k_tiles": 1.0,
    "stage": "4",
-   "_unverified": {
-    "script": "name from memory; check data/scripts/biomes on the PC"
-   },
+   "_unverified": {},
    "_sources": {
     "all": "tools/seed_biome_spawns.py defaults; numbers: author"
    }
@@ -408,9 +300,7 @@
    "function": "spawn_potions",
    "per_10k_tiles": 2.0,
    "stage": "4",
-   "_unverified": {
-    "script": "name from memory; check data/scripts/biomes on the PC"
-   },
+   "_unverified": {},
    "_sources": {
     "all": "tools/seed_biome_spawns.py defaults; numbers: author"
    }
@@ -422,9 +312,7 @@
    "function": "spawn_items",
    "per_10k_tiles": 1.5,
    "stage": "4",
-   "_unverified": {
-    "script": "name from memory; check data/scripts/biomes on the PC"
-   },
+   "_unverified": {},
    "_sources": {
     "all": "tools/seed_biome_spawns.py defaults; numbers: author"
    }
@@ -434,27 +322,12 @@
    "biome": "Snowy Wasteland",
    "script": "winter",
    "function": "spawn_chest",
-   "per_10k_tiles": 0.5,
+   "per_10k_tiles": 0,
    "stage": "4",
-   "_unverified": {
-    "script": "name from memory; check data/scripts/biomes on the PC"
-   },
+   "_unverified": {},
    "_sources": {
-    "all": "tools/seed_biome_spawns.py defaults; numbers: author"
-   }
-  },
-  {
-   "id": "Snowy Wasteland:spawn_pixel_scenes",
-   "biome": "Snowy Wasteland",
-   "script": "winter",
-   "function": "spawn_pixel_scenes",
-   "per_10k_tiles": 1.0,
-   "stage": "4",
-   "_unverified": {
-    "script": "name from memory; check data/scripts/biomes on the PC"
-   },
-   "_sources": {
-    "all": "tools/seed_biome_spawns.py defaults; numbers: author"
+    "all": "tools/seed_biome_spawns.py defaults; numbers: author",
+    "per_10k_tiles": "0: error: no such function (pc_biome_functions.json)"
    }
   },
   {
@@ -464,9 +337,7 @@
    "function": "spawn_wands",
    "per_10k_tiles": 1.0,
    "stage": "4",
-   "_unverified": {
-    "script": "name from memory; check data/scripts/biomes on the PC"
-   },
+   "_unverified": {},
    "_sources": {
     "all": "tools/seed_biome_spawns.py defaults; numbers: author"
    }
@@ -478,9 +349,7 @@
    "function": "spawn_potions",
    "per_10k_tiles": 2.0,
    "stage": "4",
-   "_unverified": {
-    "script": "name from memory; check data/scripts/biomes on the PC"
-   },
+   "_unverified": {},
    "_sources": {
     "all": "tools/seed_biome_spawns.py defaults; numbers: author"
    }
@@ -492,9 +361,7 @@
    "function": "spawn_items",
    "per_10k_tiles": 1.5,
    "stage": "4",
-   "_unverified": {
-    "script": "name from memory; check data/scripts/biomes on the PC"
-   },
+   "_unverified": {},
    "_sources": {
     "all": "tools/seed_biome_spawns.py defaults; numbers: author"
    }
@@ -504,27 +371,12 @@
    "biome": "Coal Pits",
    "script": "excavationsite",
    "function": "spawn_chest",
-   "per_10k_tiles": 0.5,
+   "per_10k_tiles": 0,
    "stage": "4",
-   "_unverified": {
-    "script": "name from memory; check data/scripts/biomes on the PC"
-   },
+   "_unverified": {},
    "_sources": {
-    "all": "tools/seed_biome_spawns.py defaults; numbers: author"
-   }
-  },
-  {
-   "id": "Coal Pits:spawn_pixel_scenes",
-   "biome": "Coal Pits",
-   "script": "excavationsite",
-   "function": "spawn_pixel_scenes",
-   "per_10k_tiles": 1.0,
-   "stage": "4",
-   "_unverified": {
-    "script": "name from memory; check data/scripts/biomes on the PC"
-   },
-   "_sources": {
-    "all": "tools/seed_biome_spawns.py defaults; numbers: author"
+    "all": "tools/seed_biome_spawns.py defaults; numbers: author",
+    "per_10k_tiles": "0: error: no such function (pc_biome_functions.json)"
    }
   },
   {
@@ -534,9 +386,7 @@
    "function": "spawn_wands",
    "per_10k_tiles": 1.0,
    "stage": "4",
-   "_unverified": {
-    "script": "name from memory; check data/scripts/biomes on the PC"
-   },
+   "_unverified": {},
    "_sources": {
     "all": "tools/seed_biome_spawns.py defaults; numbers: author"
    }
@@ -548,9 +398,7 @@
    "function": "spawn_potions",
    "per_10k_tiles": 2.0,
    "stage": "4",
-   "_unverified": {
-    "script": "name from memory; check data/scripts/biomes on the PC"
-   },
+   "_unverified": {},
    "_sources": {
     "all": "tools/seed_biome_spawns.py defaults; numbers: author"
    }
@@ -562,9 +410,7 @@
    "function": "spawn_items",
    "per_10k_tiles": 1.5,
    "stage": "4",
-   "_unverified": {
-    "script": "name from memory; check data/scripts/biomes on the PC"
-   },
+   "_unverified": {},
    "_sources": {
     "all": "tools/seed_biome_spawns.py defaults; numbers: author"
    }
@@ -574,27 +420,12 @@
    "biome": "Snowy Depths",
    "script": "snowcave",
    "function": "spawn_chest",
-   "per_10k_tiles": 0.5,
+   "per_10k_tiles": 0,
    "stage": "4",
-   "_unverified": {
-    "script": "name from memory; check data/scripts/biomes on the PC"
-   },
+   "_unverified": {},
    "_sources": {
-    "all": "tools/seed_biome_spawns.py defaults; numbers: author"
-   }
-  },
-  {
-   "id": "Snowy Depths:spawn_pixel_scenes",
-   "biome": "Snowy Depths",
-   "script": "snowcave",
-   "function": "spawn_pixel_scenes",
-   "per_10k_tiles": 1.0,
-   "stage": "4",
-   "_unverified": {
-    "script": "name from memory; check data/scripts/biomes on the PC"
-   },
-   "_sources": {
-    "all": "tools/seed_biome_spawns.py defaults; numbers: author"
+    "all": "tools/seed_biome_spawns.py defaults; numbers: author",
+    "per_10k_tiles": "0: error: no such function (pc_biome_functions.json)"
    }
   },
   {
@@ -604,9 +435,7 @@
    "function": "spawn_wands",
    "per_10k_tiles": 1.0,
    "stage": "4",
-   "_unverified": {
-    "script": "name from memory; check data/scripts/biomes on the PC"
-   },
+   "_unverified": {},
    "_sources": {
     "all": "tools/seed_biome_spawns.py defaults; numbers: author"
    }
@@ -618,9 +447,7 @@
    "function": "spawn_potions",
    "per_10k_tiles": 2.0,
    "stage": "4",
-   "_unverified": {
-    "script": "name from memory; check data/scripts/biomes on the PC"
-   },
+   "_unverified": {},
    "_sources": {
     "all": "tools/seed_biome_spawns.py defaults; numbers: author"
    }
@@ -632,9 +459,7 @@
    "function": "spawn_items",
    "per_10k_tiles": 1.5,
    "stage": "4",
-   "_unverified": {
-    "script": "name from memory; check data/scripts/biomes on the PC"
-   },
+   "_unverified": {},
    "_sources": {
     "all": "tools/seed_biome_spawns.py defaults; numbers: author"
    }
@@ -644,27 +469,12 @@
    "biome": "Hiisi Base",
    "script": "snowcastle",
    "function": "spawn_chest",
-   "per_10k_tiles": 0.5,
+   "per_10k_tiles": 0,
    "stage": "4",
-   "_unverified": {
-    "script": "name from memory; check data/scripts/biomes on the PC"
-   },
+   "_unverified": {},
    "_sources": {
-    "all": "tools/seed_biome_spawns.py defaults; numbers: author"
-   }
-  },
-  {
-   "id": "Hiisi Base:spawn_pixel_scenes",
-   "biome": "Hiisi Base",
-   "script": "snowcastle",
-   "function": "spawn_pixel_scenes",
-   "per_10k_tiles": 1.0,
-   "stage": "4",
-   "_unverified": {
-    "script": "name from memory; check data/scripts/biomes on the PC"
-   },
-   "_sources": {
-    "all": "tools/seed_biome_spawns.py defaults; numbers: author"
+    "all": "tools/seed_biome_spawns.py defaults; numbers: author",
+    "per_10k_tiles": "0: error: no such function (pc_biome_functions.json)"
    }
   },
   {
@@ -674,9 +484,7 @@
    "function": "spawn_wands",
    "per_10k_tiles": 1.0,
    "stage": "4",
-   "_unverified": {
-    "script": "name from memory; check data/scripts/biomes on the PC"
-   },
+   "_unverified": {},
    "_sources": {
     "all": "tools/seed_biome_spawns.py defaults; numbers: author"
    }
@@ -688,9 +496,7 @@
    "function": "spawn_potions",
    "per_10k_tiles": 2.0,
    "stage": "4",
-   "_unverified": {
-    "script": "name from memory; check data/scripts/biomes on the PC"
-   },
+   "_unverified": {},
    "_sources": {
     "all": "tools/seed_biome_spawns.py defaults; numbers: author"
    }
@@ -702,9 +508,7 @@
    "function": "spawn_items",
    "per_10k_tiles": 1.5,
    "stage": "4",
-   "_unverified": {
-    "script": "name from memory; check data/scripts/biomes on the PC"
-   },
+   "_unverified": {},
    "_sources": {
     "all": "tools/seed_biome_spawns.py defaults; numbers: author"
    }
@@ -714,27 +518,12 @@
    "biome": "Underground Jungle",
    "script": "rainforest",
    "function": "spawn_chest",
-   "per_10k_tiles": 0.5,
+   "per_10k_tiles": 0,
    "stage": "4",
-   "_unverified": {
-    "script": "name from memory; check data/scripts/biomes on the PC"
-   },
+   "_unverified": {},
    "_sources": {
-    "all": "tools/seed_biome_spawns.py defaults; numbers: author"
-   }
-  },
-  {
-   "id": "Underground Jungle:spawn_pixel_scenes",
-   "biome": "Underground Jungle",
-   "script": "rainforest",
-   "function": "spawn_pixel_scenes",
-   "per_10k_tiles": 1.0,
-   "stage": "4",
-   "_unverified": {
-    "script": "name from memory; check data/scripts/biomes on the PC"
-   },
-   "_sources": {
-    "all": "tools/seed_biome_spawns.py defaults; numbers: author"
+    "all": "tools/seed_biome_spawns.py defaults; numbers: author",
+    "per_10k_tiles": "0: error: no such function (pc_biome_functions.json)"
    }
   },
   {
@@ -744,9 +533,7 @@
    "function": "spawn_wands",
    "per_10k_tiles": 1.0,
    "stage": "4",
-   "_unverified": {
-    "script": "name from memory; check data/scripts/biomes on the PC"
-   },
+   "_unverified": {},
    "_sources": {
     "all": "tools/seed_biome_spawns.py defaults; numbers: author"
    }
@@ -758,9 +545,7 @@
    "function": "spawn_potions",
    "per_10k_tiles": 2.0,
    "stage": "4",
-   "_unverified": {
-    "script": "name from memory; check data/scripts/biomes on the PC"
-   },
+   "_unverified": {},
    "_sources": {
     "all": "tools/seed_biome_spawns.py defaults; numbers: author"
    }
@@ -772,9 +557,7 @@
    "function": "spawn_items",
    "per_10k_tiles": 1.5,
    "stage": "4",
-   "_unverified": {
-    "script": "name from memory; check data/scripts/biomes on the PC"
-   },
+   "_unverified": {},
    "_sources": {
     "all": "tools/seed_biome_spawns.py defaults; numbers: author"
    }
@@ -784,27 +567,12 @@
    "biome": "Fungal Caverns",
    "script": "fungicave",
    "function": "spawn_chest",
-   "per_10k_tiles": 0.5,
+   "per_10k_tiles": 0,
    "stage": "4",
-   "_unverified": {
-    "script": "name from memory; check data/scripts/biomes on the PC"
-   },
+   "_unverified": {},
    "_sources": {
-    "all": "tools/seed_biome_spawns.py defaults; numbers: author"
-   }
-  },
-  {
-   "id": "Fungal Caverns:spawn_pixel_scenes",
-   "biome": "Fungal Caverns",
-   "script": "fungicave",
-   "function": "spawn_pixel_scenes",
-   "per_10k_tiles": 1.0,
-   "stage": "4",
-   "_unverified": {
-    "script": "name from memory; check data/scripts/biomes on the PC"
-   },
-   "_sources": {
-    "all": "tools/seed_biome_spawns.py defaults; numbers: author"
+    "all": "tools/seed_biome_spawns.py defaults; numbers: author",
+    "per_10k_tiles": "0: error: no such function (pc_biome_functions.json)"
    }
   },
   {
@@ -814,9 +582,7 @@
    "function": "spawn_wands",
    "per_10k_tiles": 1.0,
    "stage": "4",
-   "_unverified": {
-    "script": "name from memory; check data/scripts/biomes on the PC"
-   },
+   "_unverified": {},
    "_sources": {
     "all": "tools/seed_biome_spawns.py defaults; numbers: author"
    }
@@ -828,9 +594,7 @@
    "function": "spawn_potions",
    "per_10k_tiles": 2.0,
    "stage": "4",
-   "_unverified": {
-    "script": "name from memory; check data/scripts/biomes on the PC"
-   },
+   "_unverified": {},
    "_sources": {
     "all": "tools/seed_biome_spawns.py defaults; numbers: author"
    }
@@ -842,9 +606,7 @@
    "function": "spawn_items",
    "per_10k_tiles": 1.5,
    "stage": "4",
-   "_unverified": {
-    "script": "name from memory; check data/scripts/biomes on the PC"
-   },
+   "_unverified": {},
    "_sources": {
     "all": "tools/seed_biome_spawns.py defaults; numbers: author"
    }
@@ -854,39 +616,22 @@
    "biome": "Sandcave",
    "script": "sandcave",
    "function": "spawn_chest",
-   "per_10k_tiles": 0.5,
+   "per_10k_tiles": 0,
    "stage": "4",
-   "_unverified": {
-    "script": "name from memory; check data/scripts/biomes on the PC"
-   },
+   "_unverified": {},
    "_sources": {
-    "all": "tools/seed_biome_spawns.py defaults; numbers: author"
-   }
-  },
-  {
-   "id": "Sandcave:spawn_pixel_scenes",
-   "biome": "Sandcave",
-   "script": "sandcave",
-   "function": "spawn_pixel_scenes",
-   "per_10k_tiles": 1.0,
-   "stage": "4",
-   "_unverified": {
-    "script": "name from memory; check data/scripts/biomes on the PC"
-   },
-   "_sources": {
-    "all": "tools/seed_biome_spawns.py defaults; numbers: author"
+    "all": "tools/seed_biome_spawns.py defaults; numbers: author",
+    "per_10k_tiles": "0: error: no such function (pc_biome_functions.json)"
    }
   },
   {
    "id": "Magical Temple:spawn_wands",
    "biome": "Magical Temple",
-   "script": "wizardcave",
+   "script": "wandcave",
    "function": "spawn_wands",
    "per_10k_tiles": 1.0,
    "stage": "4",
-   "_unverified": {
-    "script": "name from memory; check data/scripts/biomes on the PC"
-   },
+   "_unverified": {},
    "_sources": {
     "all": "tools/seed_biome_spawns.py defaults; numbers: author"
    }
@@ -894,13 +639,11 @@
   {
    "id": "Magical Temple:spawn_potions",
    "biome": "Magical Temple",
-   "script": "wizardcave",
+   "script": "wandcave",
    "function": "spawn_potions",
    "per_10k_tiles": 2.0,
    "stage": "4",
-   "_unverified": {
-    "script": "name from memory; check data/scripts/biomes on the PC"
-   },
+   "_unverified": {},
    "_sources": {
     "all": "tools/seed_biome_spawns.py defaults; numbers: author"
    }
@@ -908,13 +651,11 @@
   {
    "id": "Magical Temple:spawn_items",
    "biome": "Magical Temple",
-   "script": "wizardcave",
+   "script": "wandcave",
    "function": "spawn_items",
    "per_10k_tiles": 1.5,
    "stage": "4",
-   "_unverified": {
-    "script": "name from memory; check data/scripts/biomes on the PC"
-   },
+   "_unverified": {},
    "_sources": {
     "all": "tools/seed_biome_spawns.py defaults; numbers: author"
    }
@@ -922,55 +663,37 @@
   {
    "id": "Magical Temple:spawn_chest",
    "biome": "Magical Temple",
-   "script": "wizardcave",
+   "script": "wandcave",
    "function": "spawn_chest",
-   "per_10k_tiles": 0.5,
+   "per_10k_tiles": 0,
    "stage": "4",
-   "_unverified": {
-    "script": "name from memory; check data/scripts/biomes on the PC"
-   },
+   "_unverified": {},
    "_sources": {
-    "all": "tools/seed_biome_spawns.py defaults; numbers: author"
-   }
-  },
-  {
-   "id": "Magical Temple:spawn_pixel_scenes",
-   "biome": "Magical Temple",
-   "script": "wizardcave",
-   "function": "spawn_pixel_scenes",
-   "per_10k_tiles": 1.0,
-   "stage": "4",
-   "_unverified": {
-    "script": "name from memory; check data/scripts/biomes on the PC"
-   },
-   "_sources": {
-    "all": "tools/seed_biome_spawns.py defaults; numbers: author"
+    "all": "tools/seed_biome_spawns.py defaults; numbers: author",
+    "per_10k_tiles": "0: error: no such function (pc_biome_functions.json)"
    }
   },
   {
    "id": "Ancient Laboratory:spawn_wands",
    "biome": "Ancient Laboratory",
-   "script": "robobase",
+   "script": "liquidcave",
    "function": "spawn_wands",
-   "per_10k_tiles": 1.0,
+   "per_10k_tiles": 0,
    "stage": "4",
-   "_unverified": {
-    "script": "name from memory; check data/scripts/biomes on the PC"
-   },
+   "_unverified": {},
    "_sources": {
-    "all": "tools/seed_biome_spawns.py defaults; numbers: author"
+    "all": "tools/seed_biome_spawns.py defaults; numbers: author",
+    "per_10k_tiles": "0: error: data/scripts/director_helpers.lua:(29,1-33): attempt to index a nil value (pc_biome_functions.json)"
    }
   },
   {
    "id": "Ancient Laboratory:spawn_potions",
    "biome": "Ancient Laboratory",
-   "script": "robobase",
+   "script": "liquidcave",
    "function": "spawn_potions",
    "per_10k_tiles": 2.0,
    "stage": "4",
-   "_unverified": {
-    "script": "name from memory; check data/scripts/biomes on the PC"
-   },
+   "_unverified": {},
    "_sources": {
     "all": "tools/seed_biome_spawns.py defaults; numbers: author"
    }
@@ -978,13 +701,11 @@
   {
    "id": "Ancient Laboratory:spawn_items",
    "biome": "Ancient Laboratory",
-   "script": "robobase",
+   "script": "liquidcave",
    "function": "spawn_items",
    "per_10k_tiles": 1.5,
    "stage": "4",
-   "_unverified": {
-    "script": "name from memory; check data/scripts/biomes on the PC"
-   },
+   "_unverified": {},
    "_sources": {
     "all": "tools/seed_biome_spawns.py defaults; numbers: author"
    }
@@ -992,27 +713,11 @@
   {
    "id": "Ancient Laboratory:spawn_chest",
    "biome": "Ancient Laboratory",
-   "script": "robobase",
+   "script": "liquidcave",
    "function": "spawn_chest",
    "per_10k_tiles": 0.5,
    "stage": "4",
-   "_unverified": {
-    "script": "name from memory; check data/scripts/biomes on the PC"
-   },
-   "_sources": {
-    "all": "tools/seed_biome_spawns.py defaults; numbers: author"
-   }
-  },
-  {
-   "id": "Ancient Laboratory:spawn_pixel_scenes",
-   "biome": "Ancient Laboratory",
-   "script": "robobase",
-   "function": "spawn_pixel_scenes",
-   "per_10k_tiles": 1.0,
-   "stage": "4",
-   "_unverified": {
-    "script": "name from memory; check data/scripts/biomes on the PC"
-   },
+   "_unverified": {},
    "_sources": {
     "all": "tools/seed_biome_spawns.py defaults; numbers: author"
    }
@@ -1022,13 +727,12 @@
    "biome": "Pyramid",
    "script": "pyramid",
    "function": "spawn_wands",
-   "per_10k_tiles": 1.0,
+   "per_10k_tiles": 0,
    "stage": "4",
-   "_unverified": {
-    "script": "name from memory; check data/scripts/biomes on the PC"
-   },
+   "_unverified": {},
    "_sources": {
-    "all": "tools/seed_biome_spawns.py defaults; numbers: author"
+    "all": "tools/seed_biome_spawns.py defaults; numbers: author",
+    "per_10k_tiles": "0: error: data/scripts/director_helpers.lua:(29,1-33): attempt to index a nil value (pc_biome_functions.json)"
    }
   },
   {
@@ -1038,9 +742,7 @@
    "function": "spawn_potions",
    "per_10k_tiles": 2.0,
    "stage": "4",
-   "_unverified": {
-    "script": "name from memory; check data/scripts/biomes on the PC"
-   },
+   "_unverified": {},
    "_sources": {
     "all": "tools/seed_biome_spawns.py defaults; numbers: author"
    }
@@ -1052,9 +754,7 @@
    "function": "spawn_items",
    "per_10k_tiles": 1.5,
    "stage": "4",
-   "_unverified": {
-    "script": "name from memory; check data/scripts/biomes on the PC"
-   },
+   "_unverified": {},
    "_sources": {
     "all": "tools/seed_biome_spawns.py defaults; numbers: author"
    }
@@ -1066,23 +766,7 @@
    "function": "spawn_chest",
    "per_10k_tiles": 0.5,
    "stage": "4",
-   "_unverified": {
-    "script": "name from memory; check data/scripts/biomes on the PC"
-   },
-   "_sources": {
-    "all": "tools/seed_biome_spawns.py defaults; numbers: author"
-   }
-  },
-  {
-   "id": "Pyramid:spawn_pixel_scenes",
-   "biome": "Pyramid",
-   "script": "pyramid",
-   "function": "spawn_pixel_scenes",
-   "per_10k_tiles": 1.0,
-   "stage": "4",
-   "_unverified": {
-    "script": "name from memory; check data/scripts/biomes on the PC"
-   },
+   "_unverified": {},
    "_sources": {
     "all": "tools/seed_biome_spawns.py defaults; numbers: author"
    }
@@ -1092,13 +776,14 @@
    "biome": "Desert Chasm",
    "script": "desert",
    "function": "spawn_wands",
-   "per_10k_tiles": 1.0,
+   "per_10k_tiles": 0,
    "stage": "4",
    "_unverified": {
-    "script": "name from memory; check data/scripts/biomes on the PC"
+    "script": "no biome_* name in common.csv; desert.lua assumed"
    },
    "_sources": {
-    "all": "tools/seed_biome_spawns.py defaults; numbers: author"
+    "all": "tools/seed_biome_spawns.py defaults; numbers: author",
+    "per_10k_tiles": "0: error: data/scripts/director_helpers.lua:(29,1-33): attempt to index a nil value (pc_biome_functions.json)"
    }
   },
   {
@@ -1109,7 +794,7 @@
    "per_10k_tiles": 2.0,
    "stage": "4",
    "_unverified": {
-    "script": "name from memory; check data/scripts/biomes on the PC"
+    "script": "no biome_* name in common.csv; desert.lua assumed"
    },
    "_sources": {
     "all": "tools/seed_biome_spawns.py defaults; numbers: author"
@@ -1123,7 +808,7 @@
    "per_10k_tiles": 1.5,
    "stage": "4",
    "_unverified": {
-    "script": "name from memory; check data/scripts/biomes on the PC"
+    "script": "no biome_* name in common.csv; desert.lua assumed"
    },
    "_sources": {
     "all": "tools/seed_biome_spawns.py defaults; numbers: author"
@@ -1137,21 +822,7 @@
    "per_10k_tiles": 0.5,
    "stage": "4",
    "_unverified": {
-    "script": "name from memory; check data/scripts/biomes on the PC"
-   },
-   "_sources": {
-    "all": "tools/seed_biome_spawns.py defaults; numbers: author"
-   }
-  },
-  {
-   "id": "Desert Chasm:spawn_pixel_scenes",
-   "biome": "Desert Chasm",
-   "script": "desert",
-   "function": "spawn_pixel_scenes",
-   "per_10k_tiles": 1.0,
-   "stage": "4",
-   "_unverified": {
-    "script": "name from memory; check data/scripts/biomes on the PC"
+    "script": "no biome_* name in common.csv; desert.lua assumed"
    },
    "_sources": {
     "all": "tools/seed_biome_spawns.py defaults; numbers: author"
@@ -1164,9 +835,7 @@
    "function": "spawn_wands",
    "per_10k_tiles": 1.0,
    "stage": "4",
-   "_unverified": {
-    "script": "name from memory; check data/scripts/biomes on the PC"
-   },
+   "_unverified": {},
    "_sources": {
     "all": "tools/seed_biome_spawns.py defaults; numbers: author"
    }
@@ -1178,9 +847,7 @@
    "function": "spawn_potions",
    "per_10k_tiles": 2.0,
    "stage": "4",
-   "_unverified": {
-    "script": "name from memory; check data/scripts/biomes on the PC"
-   },
+   "_unverified": {},
    "_sources": {
     "all": "tools/seed_biome_spawns.py defaults; numbers: author"
    }
@@ -1192,9 +859,7 @@
    "function": "spawn_items",
    "per_10k_tiles": 1.5,
    "stage": "4",
-   "_unverified": {
-    "script": "name from memory; check data/scripts/biomes on the PC"
-   },
+   "_unverified": {},
    "_sources": {
     "all": "tools/seed_biome_spawns.py defaults; numbers: author"
    }
@@ -1204,27 +869,12 @@
    "biome": "The Vault",
    "script": "vault",
    "function": "spawn_chest",
-   "per_10k_tiles": 0.5,
+   "per_10k_tiles": 0,
    "stage": "4",
-   "_unverified": {
-    "script": "name from memory; check data/scripts/biomes on the PC"
-   },
+   "_unverified": {},
    "_sources": {
-    "all": "tools/seed_biome_spawns.py defaults; numbers: author"
-   }
-  },
-  {
-   "id": "The Vault:spawn_pixel_scenes",
-   "biome": "The Vault",
-   "script": "vault",
-   "function": "spawn_pixel_scenes",
-   "per_10k_tiles": 1.0,
-   "stage": "4",
-   "_unverified": {
-    "script": "name from memory; check data/scripts/biomes on the PC"
-   },
-   "_sources": {
-    "all": "tools/seed_biome_spawns.py defaults; numbers: author"
+    "all": "tools/seed_biome_spawns.py defaults; numbers: author",
+    "per_10k_tiles": "0: error: no such function (pc_biome_functions.json)"
    }
   },
   {
@@ -1234,9 +884,7 @@
    "function": "spawn_wands",
    "per_10k_tiles": 1.0,
    "stage": "4",
-   "_unverified": {
-    "script": "name from memory; check data/scripts/biomes on the PC"
-   },
+   "_unverified": {},
    "_sources": {
     "all": "tools/seed_biome_spawns.py defaults; numbers: author"
    }
@@ -1248,9 +896,7 @@
    "function": "spawn_potions",
    "per_10k_tiles": 2.0,
    "stage": "4",
-   "_unverified": {
-    "script": "name from memory; check data/scripts/biomes on the PC"
-   },
+   "_unverified": {},
    "_sources": {
     "all": "tools/seed_biome_spawns.py defaults; numbers: author"
    }
@@ -1262,9 +908,7 @@
    "function": "spawn_items",
    "per_10k_tiles": 1.5,
    "stage": "4",
-   "_unverified": {
-    "script": "name from memory; check data/scripts/biomes on the PC"
-   },
+   "_unverified": {},
    "_sources": {
     "all": "tools/seed_biome_spawns.py defaults; numbers: author"
    }
@@ -1274,39 +918,22 @@
    "biome": "Frozen Vault",
    "script": "vault_frozen",
    "function": "spawn_chest",
-   "per_10k_tiles": 0.5,
+   "per_10k_tiles": 0,
    "stage": "4",
-   "_unverified": {
-    "script": "name from memory; check data/scripts/biomes on the PC"
-   },
+   "_unverified": {},
    "_sources": {
-    "all": "tools/seed_biome_spawns.py defaults; numbers: author"
-   }
-  },
-  {
-   "id": "Frozen Vault:spawn_pixel_scenes",
-   "biome": "Frozen Vault",
-   "script": "vault_frozen",
-   "function": "spawn_pixel_scenes",
-   "per_10k_tiles": 1.0,
-   "stage": "4",
-   "_unverified": {
-    "script": "name from memory; check data/scripts/biomes on the PC"
-   },
-   "_sources": {
-    "all": "tools/seed_biome_spawns.py defaults; numbers: author"
+    "all": "tools/seed_biome_spawns.py defaults; numbers: author",
+    "per_10k_tiles": "0: error: no such function (pc_biome_functions.json)"
    }
   },
   {
    "id": "Snowy Chasm:spawn_wands",
    "biome": "Snowy Chasm",
-   "script": "snowcave",
+   "script": "winter",
    "function": "spawn_wands",
    "per_10k_tiles": 1.0,
    "stage": "4",
-   "_unverified": {
-    "script": "name from memory; check data/scripts/biomes on the PC"
-   },
+   "_unverified": {},
    "_sources": {
     "all": "tools/seed_biome_spawns.py defaults; numbers: author"
    }
@@ -1314,13 +941,11 @@
   {
    "id": "Snowy Chasm:spawn_potions",
    "biome": "Snowy Chasm",
-   "script": "snowcave",
+   "script": "winter",
    "function": "spawn_potions",
    "per_10k_tiles": 2.0,
    "stage": "4",
-   "_unverified": {
-    "script": "name from memory; check data/scripts/biomes on the PC"
-   },
+   "_unverified": {},
    "_sources": {
     "all": "tools/seed_biome_spawns.py defaults; numbers: author"
    }
@@ -1328,13 +953,11 @@
   {
    "id": "Snowy Chasm:spawn_items",
    "biome": "Snowy Chasm",
-   "script": "snowcave",
+   "script": "winter",
    "function": "spawn_items",
    "per_10k_tiles": 1.5,
    "stage": "4",
-   "_unverified": {
-    "script": "name from memory; check data/scripts/biomes on the PC"
-   },
+   "_unverified": {},
    "_sources": {
     "all": "tools/seed_biome_spawns.py defaults; numbers: author"
    }
@@ -1342,29 +965,14 @@
   {
    "id": "Snowy Chasm:spawn_chest",
    "biome": "Snowy Chasm",
-   "script": "snowcave",
+   "script": "winter",
    "function": "spawn_chest",
-   "per_10k_tiles": 0.5,
+   "per_10k_tiles": 0,
    "stage": "4",
-   "_unverified": {
-    "script": "name from memory; check data/scripts/biomes on the PC"
-   },
+   "_unverified": {},
    "_sources": {
-    "all": "tools/seed_biome_spawns.py defaults; numbers: author"
-   }
-  },
-  {
-   "id": "Snowy Chasm:spawn_pixel_scenes",
-   "biome": "Snowy Chasm",
-   "script": "snowcave",
-   "function": "spawn_pixel_scenes",
-   "per_10k_tiles": 1.0,
-   "stage": "4",
-   "_unverified": {
-    "script": "name from memory; check data/scripts/biomes on the PC"
-   },
-   "_sources": {
-    "all": "tools/seed_biome_spawns.py defaults; numbers: author"
+    "all": "tools/seed_biome_spawns.py defaults; numbers: author",
+    "per_10k_tiles": "0: error: no such function (pc_biome_functions.json)"
    }
   },
   {
@@ -1374,9 +982,7 @@
    "function": "spawn_wands",
    "per_10k_tiles": 1.0,
    "stage": "4",
-   "_unverified": {
-    "script": "name from memory; check data/scripts/biomes on the PC"
-   },
+   "_unverified": {},
    "_sources": {
     "all": "tools/seed_biome_spawns.py defaults; numbers: author"
    }
@@ -1388,9 +994,7 @@
    "function": "spawn_potions",
    "per_10k_tiles": 2.0,
    "stage": "4",
-   "_unverified": {
-    "script": "name from memory; check data/scripts/biomes on the PC"
-   },
+   "_unverified": {},
    "_sources": {
     "all": "tools/seed_biome_spawns.py defaults; numbers: author"
    }
@@ -1402,9 +1006,7 @@
    "function": "spawn_items",
    "per_10k_tiles": 1.5,
    "stage": "4",
-   "_unverified": {
-    "script": "name from memory; check data/scripts/biomes on the PC"
-   },
+   "_unverified": {},
    "_sources": {
     "all": "tools/seed_biome_spawns.py defaults; numbers: author"
    }
@@ -1414,27 +1016,12 @@
    "biome": "Temple of the Art",
    "script": "crypt",
    "function": "spawn_chest",
-   "per_10k_tiles": 0.5,
+   "per_10k_tiles": 0,
    "stage": "4",
-   "_unverified": {
-    "script": "name from memory; check data/scripts/biomes on the PC"
-   },
+   "_unverified": {},
    "_sources": {
-    "all": "tools/seed_biome_spawns.py defaults; numbers: author"
-   }
-  },
-  {
-   "id": "Temple of the Art:spawn_pixel_scenes",
-   "biome": "Temple of the Art",
-   "script": "crypt",
-   "function": "spawn_pixel_scenes",
-   "per_10k_tiles": 1.0,
-   "stage": "4",
-   "_unverified": {
-    "script": "name from memory; check data/scripts/biomes on the PC"
-   },
-   "_sources": {
-    "all": "tools/seed_biome_spawns.py defaults; numbers: author"
+    "all": "tools/seed_biome_spawns.py defaults; numbers: author",
+    "per_10k_tiles": "0: error: no such function (pc_biome_functions.json)"
    }
   },
   {
@@ -1444,9 +1031,7 @@
    "function": "spawn_wands",
    "per_10k_tiles": 1.0,
    "stage": "4",
-   "_unverified": {
-    "script": "name from memory; check data/scripts/biomes on the PC"
-   },
+   "_unverified": {},
    "_sources": {
     "all": "tools/seed_biome_spawns.py defaults; numbers: author"
    }
@@ -1458,9 +1043,7 @@
    "function": "spawn_potions",
    "per_10k_tiles": 2.0,
    "stage": "4",
-   "_unverified": {
-    "script": "name from memory; check data/scripts/biomes on the PC"
-   },
+   "_unverified": {},
    "_sources": {
     "all": "tools/seed_biome_spawns.py defaults; numbers: author"
    }
@@ -1472,9 +1055,7 @@
    "function": "spawn_items",
    "per_10k_tiles": 1.5,
    "stage": "4",
-   "_unverified": {
-    "script": "name from memory; check data/scripts/biomes on the PC"
-   },
+   "_unverified": {},
    "_sources": {
     "all": "tools/seed_biome_spawns.py defaults; numbers: author"
    }
@@ -1484,39 +1065,22 @@
    "biome": "Wizards' Den",
    "script": "wizardcave",
    "function": "spawn_chest",
-   "per_10k_tiles": 0.5,
+   "per_10k_tiles": 0,
    "stage": "4",
-   "_unverified": {
-    "script": "name from memory; check data/scripts/biomes on the PC"
-   },
+   "_unverified": {},
    "_sources": {
-    "all": "tools/seed_biome_spawns.py defaults; numbers: author"
-   }
-  },
-  {
-   "id": "Wizards' Den:spawn_pixel_scenes",
-   "biome": "Wizards' Den",
-   "script": "wizardcave",
-   "function": "spawn_pixel_scenes",
-   "per_10k_tiles": 1.0,
-   "stage": "4",
-   "_unverified": {
-    "script": "name from memory; check data/scripts/biomes on the PC"
-   },
-   "_sources": {
-    "all": "tools/seed_biome_spawns.py defaults; numbers: author"
+    "all": "tools/seed_biome_spawns.py defaults; numbers: author",
+    "per_10k_tiles": "0: error: no such function (pc_biome_functions.json)"
    }
   },
   {
    "id": "Overgrown Cavern:spawn_wands",
    "biome": "Overgrown Cavern",
-   "script": "rainforest_dark",
+   "script": "fungiforest",
    "function": "spawn_wands",
    "per_10k_tiles": 1.0,
    "stage": "4",
-   "_unverified": {
-    "script": "name from memory; check data/scripts/biomes on the PC"
-   },
+   "_unverified": {},
    "_sources": {
     "all": "tools/seed_biome_spawns.py defaults; numbers: author"
    }
@@ -1524,13 +1088,11 @@
   {
    "id": "Overgrown Cavern:spawn_potions",
    "biome": "Overgrown Cavern",
-   "script": "rainforest_dark",
+   "script": "fungiforest",
    "function": "spawn_potions",
    "per_10k_tiles": 2.0,
    "stage": "4",
-   "_unverified": {
-    "script": "name from memory; check data/scripts/biomes on the PC"
-   },
+   "_unverified": {},
    "_sources": {
     "all": "tools/seed_biome_spawns.py defaults; numbers: author"
    }
@@ -1538,13 +1100,11 @@
   {
    "id": "Overgrown Cavern:spawn_items",
    "biome": "Overgrown Cavern",
-   "script": "rainforest_dark",
+   "script": "fungiforest",
    "function": "spawn_items",
    "per_10k_tiles": 1.5,
    "stage": "4",
-   "_unverified": {
-    "script": "name from memory; check data/scripts/biomes on the PC"
-   },
+   "_unverified": {},
    "_sources": {
     "all": "tools/seed_biome_spawns.py defaults; numbers: author"
    }
@@ -1552,41 +1112,24 @@
   {
    "id": "Overgrown Cavern:spawn_chest",
    "biome": "Overgrown Cavern",
-   "script": "rainforest_dark",
+   "script": "fungiforest",
    "function": "spawn_chest",
-   "per_10k_tiles": 0.5,
+   "per_10k_tiles": 0,
    "stage": "4",
-   "_unverified": {
-    "script": "name from memory; check data/scripts/biomes on the PC"
-   },
+   "_unverified": {},
    "_sources": {
-    "all": "tools/seed_biome_spawns.py defaults; numbers: author"
-   }
-  },
-  {
-   "id": "Overgrown Cavern:spawn_pixel_scenes",
-   "biome": "Overgrown Cavern",
-   "script": "rainforest_dark",
-   "function": "spawn_pixel_scenes",
-   "per_10k_tiles": 1.0,
-   "stage": "4",
-   "_unverified": {
-    "script": "name from memory; check data/scripts/biomes on the PC"
-   },
-   "_sources": {
-    "all": "tools/seed_biome_spawns.py defaults; numbers: author"
+    "all": "tools/seed_biome_spawns.py defaults; numbers: author",
+    "per_10k_tiles": "0: error: no such function (pc_biome_functions.json)"
    }
   },
   {
    "id": "Lukki Lair:spawn_wands",
    "biome": "Lukki Lair",
-   "script": "fungiforest",
+   "script": "rainforest_dark",
    "function": "spawn_wands",
    "per_10k_tiles": 1.0,
    "stage": "4",
-   "_unverified": {
-    "script": "name from memory; check data/scripts/biomes on the PC"
-   },
+   "_unverified": {},
    "_sources": {
     "all": "tools/seed_biome_spawns.py defaults; numbers: author"
    }
@@ -1594,13 +1137,11 @@
   {
    "id": "Lukki Lair:spawn_potions",
    "biome": "Lukki Lair",
-   "script": "fungiforest",
+   "script": "rainforest_dark",
    "function": "spawn_potions",
    "per_10k_tiles": 2.0,
    "stage": "4",
-   "_unverified": {
-    "script": "name from memory; check data/scripts/biomes on the PC"
-   },
+   "_unverified": {},
    "_sources": {
     "all": "tools/seed_biome_spawns.py defaults; numbers: author"
    }
@@ -1608,13 +1149,11 @@
   {
    "id": "Lukki Lair:spawn_items",
    "biome": "Lukki Lair",
-   "script": "fungiforest",
+   "script": "rainforest_dark",
    "function": "spawn_items",
    "per_10k_tiles": 1.5,
    "stage": "4",
-   "_unverified": {
-    "script": "name from memory; check data/scripts/biomes on the PC"
-   },
+   "_unverified": {},
    "_sources": {
     "all": "tools/seed_biome_spawns.py defaults; numbers: author"
    }
@@ -1622,29 +1161,14 @@
   {
    "id": "Lukki Lair:spawn_chest",
    "biome": "Lukki Lair",
-   "script": "fungiforest",
+   "script": "rainforest_dark",
    "function": "spawn_chest",
-   "per_10k_tiles": 0.5,
+   "per_10k_tiles": 0,
    "stage": "4",
-   "_unverified": {
-    "script": "name from memory; check data/scripts/biomes on the PC"
-   },
+   "_unverified": {},
    "_sources": {
-    "all": "tools/seed_biome_spawns.py defaults; numbers: author"
-   }
-  },
-  {
-   "id": "Lukki Lair:spawn_pixel_scenes",
-   "biome": "Lukki Lair",
-   "script": "fungiforest",
-   "function": "spawn_pixel_scenes",
-   "per_10k_tiles": 1.0,
-   "stage": "4",
-   "_unverified": {
-    "script": "name from memory; check data/scripts/biomes on the PC"
-   },
-   "_sources": {
-    "all": "tools/seed_biome_spawns.py defaults; numbers: author"
+    "all": "tools/seed_biome_spawns.py defaults; numbers: author",
+    "per_10k_tiles": "0: error: no such function (pc_biome_functions.json)"
    }
   },
   {
@@ -1654,9 +1178,7 @@
    "function": "spawn_wands",
    "per_10k_tiles": 1.0,
    "stage": "4",
-   "_unverified": {
-    "script": "name from memory; check data/scripts/biomes on the PC"
-   },
+   "_unverified": {},
    "_sources": {
     "all": "tools/seed_biome_spawns.py defaults; numbers: author"
    }
@@ -1668,9 +1190,7 @@
    "function": "spawn_potions",
    "per_10k_tiles": 2.0,
    "stage": "4",
-   "_unverified": {
-    "script": "name from memory; check data/scripts/biomes on the PC"
-   },
+   "_unverified": {},
    "_sources": {
     "all": "tools/seed_biome_spawns.py defaults; numbers: author"
    }
@@ -1682,9 +1202,7 @@
    "function": "spawn_items",
    "per_10k_tiles": 1.5,
    "stage": "4",
-   "_unverified": {
-    "script": "name from memory; check data/scripts/biomes on the PC"
-   },
+   "_unverified": {},
    "_sources": {
     "all": "tools/seed_biome_spawns.py defaults; numbers: author"
    }
@@ -1694,39 +1212,22 @@
    "biome": "Meat Realm",
    "script": "meat",
    "function": "spawn_chest",
-   "per_10k_tiles": 0.5,
+   "per_10k_tiles": 0,
    "stage": "4",
-   "_unverified": {
-    "script": "name from memory; check data/scripts/biomes on the PC"
-   },
+   "_unverified": {},
    "_sources": {
-    "all": "tools/seed_biome_spawns.py defaults; numbers: author"
-   }
-  },
-  {
-   "id": "Meat Realm:spawn_pixel_scenes",
-   "biome": "Meat Realm",
-   "script": "meat",
-   "function": "spawn_pixel_scenes",
-   "per_10k_tiles": 1.0,
-   "stage": "4",
-   "_unverified": {
-    "script": "name from memory; check data/scripts/biomes on the PC"
-   },
-   "_sources": {
-    "all": "tools/seed_biome_spawns.py defaults; numbers: author"
+    "all": "tools/seed_biome_spawns.py defaults; numbers: author",
+    "per_10k_tiles": "0: error: no such function (pc_biome_functions.json)"
    }
   },
   {
    "id": "Cloudscape:spawn_wands",
    "biome": "Cloudscape",
-   "script": "cloudscape",
+   "script": "clouds",
    "function": "spawn_wands",
    "per_10k_tiles": 1.0,
    "stage": "4",
-   "_unverified": {
-    "script": "name from memory; check data/scripts/biomes on the PC"
-   },
+   "_unverified": {},
    "_sources": {
     "all": "tools/seed_biome_spawns.py defaults; numbers: author"
    }
@@ -1734,13 +1235,11 @@
   {
    "id": "Cloudscape:spawn_potions",
    "biome": "Cloudscape",
-   "script": "cloudscape",
+   "script": "clouds",
    "function": "spawn_potions",
    "per_10k_tiles": 2.0,
    "stage": "4",
-   "_unverified": {
-    "script": "name from memory; check data/scripts/biomes on the PC"
-   },
+   "_unverified": {},
    "_sources": {
     "all": "tools/seed_biome_spawns.py defaults; numbers: author"
    }
@@ -1748,13 +1247,11 @@
   {
    "id": "Cloudscape:spawn_items",
    "biome": "Cloudscape",
-   "script": "cloudscape",
+   "script": "clouds",
    "function": "spawn_items",
    "per_10k_tiles": 1.5,
    "stage": "4",
-   "_unverified": {
-    "script": "name from memory; check data/scripts/biomes on the PC"
-   },
+   "_unverified": {},
    "_sources": {
     "all": "tools/seed_biome_spawns.py defaults; numbers: author"
    }
@@ -1762,29 +1259,14 @@
   {
    "id": "Cloudscape:spawn_chest",
    "biome": "Cloudscape",
-   "script": "cloudscape",
+   "script": "clouds",
    "function": "spawn_chest",
-   "per_10k_tiles": 0.5,
+   "per_10k_tiles": 0,
    "stage": "4",
-   "_unverified": {
-    "script": "name from memory; check data/scripts/biomes on the PC"
-   },
+   "_unverified": {},
    "_sources": {
-    "all": "tools/seed_biome_spawns.py defaults; numbers: author"
-   }
-  },
-  {
-   "id": "Cloudscape:spawn_pixel_scenes",
-   "biome": "Cloudscape",
-   "script": "cloudscape",
-   "function": "spawn_pixel_scenes",
-   "per_10k_tiles": 1.0,
-   "stage": "4",
-   "_unverified": {
-    "script": "name from memory; check data/scripts/biomes on the PC"
-   },
-   "_sources": {
-    "all": "tools/seed_biome_spawns.py defaults; numbers: author"
+    "all": "tools/seed_biome_spawns.py defaults; numbers: author",
+    "per_10k_tiles": "0: error: no such function (pc_biome_functions.json)"
    }
   },
   {
@@ -1794,9 +1276,7 @@
    "function": "spawn_wands",
    "per_10k_tiles": 1.0,
    "stage": "4",
-   "_unverified": {
-    "script": "name from memory; check data/scripts/biomes on the PC"
-   },
+   "_unverified": {},
    "_sources": {
     "all": "tools/seed_biome_spawns.py defaults; numbers: author"
    }
@@ -1808,9 +1288,7 @@
    "function": "spawn_potions",
    "per_10k_tiles": 2.0,
    "stage": "4",
-   "_unverified": {
-    "script": "name from memory; check data/scripts/biomes on the PC"
-   },
+   "_unverified": {},
    "_sources": {
     "all": "tools/seed_biome_spawns.py defaults; numbers: author"
    }
@@ -1822,9 +1300,7 @@
    "function": "spawn_items",
    "per_10k_tiles": 1.5,
    "stage": "4",
-   "_unverified": {
-    "script": "name from memory; check data/scripts/biomes on the PC"
-   },
+   "_unverified": {},
    "_sources": {
     "all": "tools/seed_biome_spawns.py defaults; numbers: author"
    }
@@ -1834,27 +1310,12 @@
    "biome": "Power Plant",
    "script": "robobase",
    "function": "spawn_chest",
-   "per_10k_tiles": 0.5,
+   "per_10k_tiles": 0,
    "stage": "4",
-   "_unverified": {
-    "script": "name from memory; check data/scripts/biomes on the PC"
-   },
+   "_unverified": {},
    "_sources": {
-    "all": "tools/seed_biome_spawns.py defaults; numbers: author"
-   }
-  },
-  {
-   "id": "Power Plant:spawn_pixel_scenes",
-   "biome": "Power Plant",
-   "script": "robobase",
-   "function": "spawn_pixel_scenes",
-   "per_10k_tiles": 1.0,
-   "stage": "4",
-   "_unverified": {
-    "script": "name from memory; check data/scripts/biomes on the PC"
-   },
-   "_sources": {
-    "all": "tools/seed_biome_spawns.py defaults; numbers: author"
+    "all": "tools/seed_biome_spawns.py defaults; numbers: author",
+    "per_10k_tiles": "0: error: no such function (pc_biome_functions.json)"
    }
   },
   {
@@ -1864,9 +1325,7 @@
    "function": "spawn_wands",
    "per_10k_tiles": 1.0,
    "stage": "4",
-   "_unverified": {
-    "script": "name from memory; check data/scripts/biomes on the PC"
-   },
+   "_unverified": {},
    "_sources": {
     "all": "tools/seed_biome_spawns.py defaults; numbers: author"
    }
@@ -1878,9 +1337,7 @@
    "function": "spawn_potions",
    "per_10k_tiles": 2.0,
    "stage": "4",
-   "_unverified": {
-    "script": "name from memory; check data/scripts/biomes on the PC"
-   },
+   "_unverified": {},
    "_sources": {
     "all": "tools/seed_biome_spawns.py defaults; numbers: author"
    }
@@ -1892,9 +1349,7 @@
    "function": "spawn_items",
    "per_10k_tiles": 1.5,
    "stage": "4",
-   "_unverified": {
-    "script": "name from memory; check data/scripts/biomes on the PC"
-   },
+   "_unverified": {},
    "_sources": {
     "all": "tools/seed_biome_spawns.py defaults; numbers: author"
    }
@@ -1906,23 +1361,7 @@
    "function": "spawn_chest",
    "per_10k_tiles": 0.5,
    "stage": "4",
-   "_unverified": {
-    "script": "name from memory; check data/scripts/biomes on the PC"
-   },
-   "_sources": {
-    "all": "tools/seed_biome_spawns.py defaults; numbers: author"
-   }
-  },
-  {
-   "id": "The Work (Hell):spawn_pixel_scenes",
-   "biome": "The Work (Hell)",
-   "script": "the_end",
-   "function": "spawn_pixel_scenes",
-   "per_10k_tiles": 1.0,
-   "stage": "4",
-   "_unverified": {
-    "script": "name from memory; check data/scripts/biomes on the PC"
-   },
+   "_unverified": {},
    "_sources": {
     "all": "tools/seed_biome_spawns.py defaults; numbers: author"
    }
@@ -1930,13 +1369,11 @@
   {
    "id": "The Work (Sky):spawn_wands",
    "biome": "The Work (Sky)",
-   "script": "the_sky",
+   "script": "the_end",
    "function": "spawn_wands",
    "per_10k_tiles": 1.0,
    "stage": "4",
-   "_unverified": {
-    "script": "name from memory; check data/scripts/biomes on the PC"
-   },
+   "_unverified": {},
    "_sources": {
     "all": "tools/seed_biome_spawns.py defaults; numbers: author"
    }
@@ -1944,13 +1381,11 @@
   {
    "id": "The Work (Sky):spawn_potions",
    "biome": "The Work (Sky)",
-   "script": "the_sky",
+   "script": "the_end",
    "function": "spawn_potions",
    "per_10k_tiles": 2.0,
    "stage": "4",
-   "_unverified": {
-    "script": "name from memory; check data/scripts/biomes on the PC"
-   },
+   "_unverified": {},
    "_sources": {
     "all": "tools/seed_biome_spawns.py defaults; numbers: author"
    }
@@ -1958,13 +1393,11 @@
   {
    "id": "The Work (Sky):spawn_items",
    "biome": "The Work (Sky)",
-   "script": "the_sky",
+   "script": "the_end",
    "function": "spawn_items",
    "per_10k_tiles": 1.5,
    "stage": "4",
-   "_unverified": {
-    "script": "name from memory; check data/scripts/biomes on the PC"
-   },
+   "_unverified": {},
    "_sources": {
     "all": "tools/seed_biome_spawns.py defaults; numbers: author"
    }
@@ -1972,27 +1405,11 @@
   {
    "id": "The Work (Sky):spawn_chest",
    "biome": "The Work (Sky)",
-   "script": "the_sky",
+   "script": "the_end",
    "function": "spawn_chest",
    "per_10k_tiles": 0.5,
    "stage": "4",
-   "_unverified": {
-    "script": "name from memory; check data/scripts/biomes on the PC"
-   },
-   "_sources": {
-    "all": "tools/seed_biome_spawns.py defaults; numbers: author"
-   }
-  },
-  {
-   "id": "The Work (Sky):spawn_pixel_scenes",
-   "biome": "The Work (Sky)",
-   "script": "the_sky",
-   "function": "spawn_pixel_scenes",
-   "per_10k_tiles": 1.0,
-   "stage": "4",
-   "_unverified": {
-    "script": "name from memory; check data/scripts/biomes on the PC"
-   },
+   "_unverified": {},
    "_sources": {
     "all": "tools/seed_biome_spawns.py defaults; numbers: author"
    }

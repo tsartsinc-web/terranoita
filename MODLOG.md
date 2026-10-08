@@ -1034,3 +1034,17 @@ unless asked.
   removed (their files load no electricity); sources now: SpellShots.LoadEntity of a file with ElectricityComponent
   (energy from the file, default from component docs), LightningComponent config_explosion load_this_entity, and
   ELECTRIC_CHARGE (lightning_count) on impact. Electricity.Emit(pos, energy): tiles = energy x 3 / 16 (assumed).
+
+## PC-15 worldgen Core on the player's Noita (2026-10-09, PC)
+- tools/seed_biome_spawns.py: SCRIPTS from data/biome/<x>.xml lua_script + data/translations/common.csv names (several
+  were wrong, see tasks Done); "spawn_pixel_scenes" dropped (no such Noita function). PROBE: design/sources/
+  pc_biome_functions.json (tncli biome-spawns per script): a function that errors there (no function, or no g_items)
+  is never called by Noita in that biome -> per_10k_tiles 0 (25 of 112 rows). Desert Chasm: no Noita name, desert.lua.
+- NoitaBiomeSpawns: EntityAddComponent(2)/EntityAddTag (no-op), SessionNumbersGetValue "0", GameGetDateAndTimeLocal
+  (local clock), EntityApplyTransform moves the placement (chest_random loads at rand_x,rand_y then moves),
+  EntityConvertToMaterial -> "material" placement, GameGetWorldStateEntity 0 / EntityGetFirstComponent nil.
+  LoadPixelScene's color_to_material_table -> Placement.Materials; PixelScene.Decode(png, wang, overrides): the
+  oil tank's fff0bbee becomes the picked liquid. CLI: init gets (x,y,512,512); drop_random_reward gets its 5 args;
+  pixel-scene takes aarrggbb=material pairs and lists colours that are no material.
+- Open: in scene PNGs ff000000 (black) and ffffffff (white) are no material and not in Noita's docs: left unplaced
+  (keep vs carve unknown). Single marker pixels (ffffff00, ff00ff00) likewise.

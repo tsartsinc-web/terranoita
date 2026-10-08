@@ -120,7 +120,11 @@ namespace Terranoita.Cli
                             {
                                 var counts = new Dictionary<string, int>();
                                 for (int k = 0; k < n; k++)
-                                    foreach (var p in b.Call(fn, 512 * (k % 10) + 13 * k, 1024 + 37 * k))
+                                    foreach (var p in fn == "init"   // Noita's engine: init(x, y, w, h) once per 512x512 chunk
+                                        ? b.Call(fn, 512 * (k % 10), 512 * (2 + k / 10), 512, 512)
+                                        : fn == "drop_random_reward"   // chest_random.lua: (x, y, entity_id, rand_x, rand_y)
+                                        ? b.Call(fn, 512 * (k % 10) + 13 * k, 1024 + 37 * k, b.NewEntity(512 * (k % 10) + 13 * k, 1024 + 37 * k), 0, -2000)
+                                        : b.Call(fn, 512 * (k % 10) + 13 * k, 1024 + 37 * k))
                                         counts[p.Kind + " " + p.File] = (counts.TryGetValue(p.Kind + " " + p.File, out int c) ? c : 0) + 1;
                                 Console.WriteLine(fn + ": " + (counts.Count == 0 ? "nothing" : string.Join(", ", counts.OrderByDescending(kv => kv.Value).Select(kv => kv.Value + "x " + kv.Key))));
                             }
@@ -128,11 +132,24 @@ namespace Terranoita.Cli
                             foreach (var e in b.Errors.Take(10)) Console.WriteLine("error: " + e);
                             return b.Errors.Count > 0 ? 1 : 0;
                         }
-                        case "pixel-scene":   // pixel-scene <noita> <materials.png>: the scene as Terraria tiles (one letter per material)
+                        case "pixel-scene":   // pixel-scene <noita> <materials.png> [aarrggbb=material ...]: the scene as Terraria tiles (one letter per material); the pairs = the script's color_material
                         {
                             if (!files.TryRead(args[2], out var png)) throw new FileNotFoundException(args[2]);
-                            var grid = Terranoita.Noita.PixelScene.Decode(Terranoita.Noita.NoitaPng.Read(png),
-                                Terranoita.Noita.PixelScene.WangColors(Text(files, "data/materials.xml")));
+                            var pngImg = Terranoita.Noita.NoitaPng.Read(png);
+                            var wang = Terranoita.Noita.PixelScene.WangColors(Text(files, "data/materials.xml"));
+                            var overrides = args.Skip(3).Select(x => x.Split('=')).Where(x => x.Length == 2)
+                                .ToDictionary(x => uint.Parse(x[0], System.Globalization.NumberStyles.HexNumber), x => x[1]);
+                            var grid = Terranoita.Noita.PixelScene.Decode(pngImg, wang, overrides);
+                            var unmapped = new Dictionary<uint, int>();
+                            for (int y = 0; y < pngImg.Height; y++)
+                                for (int x = 0; x < pngImg.Width; x++)
+                                {
+                                    uint c = pngImg.At(x, y);
+                                    if ((c >> 24) != 0 && !wang.ContainsKey(c & 0xFFFFFF) && !overrides.ContainsKey(c))
+                                        unmapped[c] = unmapped.TryGetValue(c, out int u) ? u + 1 : 1;
+                                }
+                            if (unmapped.Count > 0)
+                                Console.WriteLine("colours that are no material: " + string.Join(", ", unmapped.OrderByDescending(kv => kv.Value).Take(12).Select(kv => kv.Key.ToString("x8") + " x" + kv.Value)));
                             var tiles = Terranoita.Noita.PixelScene.Downscale(grid);
                             var letters = new Dictionary<string, char>();
                             for (int y = 0; y < tiles.GetLength(1); y++)

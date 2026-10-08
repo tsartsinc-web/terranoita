@@ -36,7 +36,9 @@ namespace Terranoita.Noita
             return map;
         }
 
-        public static string[,] Decode(NoitaPng png, Dictionary<uint, string> colors)
+        /// <summary>The scene's cells as Noita material names. overrides: the script's color_to_material_table (full ARGB
+        /// colour -> material, Noita's LoadPixelScene), looked at before the wang colours.</summary>
+        public static string[,] Decode(NoitaPng png, Dictionary<uint, string> colors, Dictionary<uint, string> overrides = null)
         {
             var grid = new string[png.Width, png.Height];
             for (int y = 0; y < png.Height; y++)
@@ -45,7 +47,9 @@ namespace Terranoita.Noita
                     uint c = png.At(x, y);
                     if ((c >> 24) == 0)
                         continue;   // transparent: nothing placed
-                    if (colors.TryGetValue(c & 0xFFFFFF, out var m) && m != "air")
+                    if (overrides != null && overrides.TryGetValue(c, out var o))
+                        grid[x, y] = o == "air" ? null : o;
+                    else if (colors.TryGetValue(c & 0xFFFFFF, out var m) && m != "air")
                         grid[x, y] = m;
                 }
             return grid;

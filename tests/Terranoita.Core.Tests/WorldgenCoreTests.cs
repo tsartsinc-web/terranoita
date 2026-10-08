@@ -153,7 +153,15 @@ function spawn_altar(x, y)
   CreateItemActionEntity(GetRandomAction(ex, ey, 1, 0), ex, ey - 5)
   GameDoSomethingWeLack(1)
 end
-function broken(x, y) error(""boom"") end",
+function broken(x, y) error(""boom"") end
+function spawn_tank(x, y)
+  LoadPixelScene(""data/biome_impl/tank.png"", """", x, y, """", false, false, { [""fff0bbee""] = ""oil"" })
+end
+function moved(x, y)
+  local e = EntityLoad(""data/entities/items/pickup/potion.xml"", 0, -2000)
+  EntityApplyTransform(e, x, y - 4)
+  EntityConvertToMaterial(e, ""gold"")
+end",
             ["data/scripts/items/chest_random.lua"] = @"
 function drop_random_reward(x, y, entity_id, rand_x, rand_y, set_rnd)
   SetRandomSeed(rand_x, rand_y)
@@ -192,6 +200,31 @@ end",
             Assert.Contains(altar[2].File, new[] { "LIGHT_BULLET", "BOMB" });
             Assert.Equal((50f, 55f), (altar[2].X, altar[2].Y));   // EntityGetTransform gave the chest's place back
             Assert.Contains("GameDoSomethingWeLack", b.Missing);
+        }
+
+        [Fact]
+        public void SceneColourTableAndMovedEntities()
+        {
+            var b = Biome();
+            var tank = b.Call("spawn_tank", 10, 20).Single();
+            Assert.Equal("oil", tank.Materials[0xFFF0BBEE]);
+            // chest_random.lua loads at rand_x, rand_y, then moves the reward to the chest; a chest that turns to gold
+            var moved = b.Call("moved", 30, 40);
+            Assert.Equal(new[] { ("entity", 30f, 36f), ("material", 30f, 36f) }, moved.Select(p => (p.Kind, p.X, p.Y)));
+            Assert.Equal("gold", moved[1].File);
+            Assert.Empty(b.Errors);
+        }
+
+        [Fact]
+        public void SceneColourTableOverridesWangColours()
+        {
+            // Noita's color_material placeholder colour (not a material) becomes the material the script picked
+            const uint slot = 0xFFF0BBEE, rock = 0xFF786C42;
+            var png = NoitaPng.Read(Png(2, 1, new[] { slot, rock }));
+            var plain = PixelScene.Decode(png, PixelScene.WangColors(Materials));
+            Assert.Null(plain[0, 0]);
+            var picked = PixelScene.Decode(png, PixelScene.WangColors(Materials), new Dictionary<uint, string> { [slot] = "oil" });
+            Assert.Equal(("oil", "rock_static"), (picked[0, 0], picked[1, 0]));
         }
 
         [Fact]

@@ -11,6 +11,8 @@ namespace Terranoita.Noita
         public string Kind;    // entity | scene | spell | background
         public string File;    // entity xml, scene materials png, spell id, sprite png
         public string Extra;   // scene: its colours png ("" when none)
+        // scene: Noita's color_to_material_table (colour -> the material the script picked, e.g. fff0bbee -> oil)
+        public Dictionary<uint, string> Materials;
         public float X, Y;
 
         public override string ToString() =>
@@ -35,6 +37,7 @@ namespace Terranoita.Noita
         int _nextEntity = 1;
         readonly Dictionary<int, (float x, float y)> _entities = new Dictionary<int, (float, float)>();
         List<Placement> _placed = new List<Placement>();
+        readonly Dictionary<int, Placement> _placements = new Dictionary<int, Placement>();   // entity id -> its placement
 
         public readonly List<string> Missing = new List<string>();
         public readonly List<string> Errors = new List<string>();
@@ -108,8 +111,11 @@ namespace Terranoita.Noita
             {
                 string file = a.Count > 0 ? a[0].CastToString() ?? "" : "";
                 float x = a.Count > 1 ? (float)(a[1].CastToNumber() ?? 0) : 0, y = a.Count > 2 ? (float)(a[2].CastToNumber() ?? 0) : 0;
-                _placed.Add(new Placement { Kind = kind, File = file, X = x, Y = y, Extra = "" });
-                return DynValue.NewNumber(NewEntity(x, y));
+                var placed = new Placement { Kind = kind, File = file, X = x, Y = y, Extra = "" };
+                _placed.Add(placed);
+                int id = NewEntity(x, y);
+                _placements[id] = placed;
+                return DynValue.NewNumber(id);
             }
             g["EntityLoad"] = DynValue.NewCallback((c, a) => Record("entity", a));
             g["EntityLoadCameraBound"] = DynValue.NewCallback((c, a) => Record("entity", a));
@@ -117,11 +123,17 @@ namespace Terranoita.Noita
             g["LoadBackgroundSprite"] = DynValue.NewCallback((c, a) => { Record("background", a); return DynValue.Nil; });
             g["LoadPixelScene"] = DynValue.NewCallback((c, a) =>
             {
-                // LoadPixelScene(materials, colors, x, y, background, ...)
+                // LoadPixelScene(materials, colors, x, y, background, skip_biome_checks, skip_edge_textures, color_to_material_table)
+                Dictionary<uint, string> mats = null;
+                if (a.Count > 7 && a[7].Type == DataType.Table)
+                    foreach (var kv in a[7].Table.Pairs)
+                        if (uint.TryParse(kv.Key.CastToString(), NumberStyles.HexNumber, CultureInfo.InvariantCulture, out uint col) && kv.Value.Type == DataType.String)
+                            (mats ?? (mats = new Dictionary<uint, string>()))[col] = kv.Value.String;
                 _placed.Add(new Placement
                 {
                     Kind = "scene", File = a.Count > 0 ? a[0].CastToString() ?? "" : "", Extra = a.Count > 1 ? a[1].CastToString() ?? "" : "",
                     X = a.Count > 2 ? (float)(a[2].CastToNumber() ?? 0) : 0, Y = a.Count > 3 ? (float)(a[3].CastToNumber() ?? 0) : 0,
+                    Materials = mats,
                 });
                 return DynValue.Nil;
             });
@@ -173,6 +185,44 @@ namespace Terranoita.Noita
             g["GetParallelWorldPosition"] = DynValue.NewCallback((c, a) => DynValue.NewTuple(DynValue.NewNumber(0), DynValue.NewNumber(0)));
             g["EntityGetInRadiusWithTag"] = DynValue.NewCallback((c, a) => DynValue.NewTable(lua));
             g["EntityGetWithTag"] = DynValue.NewCallback((c, a) => DynValue.NewTable(lua));
+            // chest_random.lua loads its rewards at rand_x, rand_y and moves them to the chest
+            g["EntityApplyTransform"] = DynValue.NewCallback((c, a) =>
+            {
+                int id = (int)(a.Count > 0 ? a[0].CastToNumber() ?? 0 : 0);
+                float x = (float)(a.Count > 1 ? a[1].CastToNumber() ?? 0 : 0), y = (float)(a.Count > 2 ? a[2].CastToNumber() ?? 0 : 0);
+                if (_entities.ContainsKey(id))
+                    _entities[id] = (x, y);
+                if (_placements.TryGetValue(id, out var pl))
+                {
+                    pl.X = x;
+                    pl.Y = y;
+                }
+                return DynValue.Nil;
+            });
+            // the chest turns into a material (chest_random.lua: gold): a "material" placement where the entity is
+            g["EntityConvertToMaterial"] = DynValue.NewCallback((c, a) =>
+            {
+                var pos = _entities.TryGetValue((int)(a.Count > 0 ? a[0].CastToNumber() ?? 0 : 0), out var p) ? p : (0f, 0f);
+                _placed.Add(new Placement { Kind = "material", File = a.Count > 1 ? a[1].CastToString() ?? "" : "", X = pos.Item1, Y = pos.Item2, Extra = "" });
+                return DynValue.Nil;
+            });
+            // no world state or components here: scripts check for nil (perk_gold_is_forever...)
+            g["GameGetWorldStateEntity"] = DynValue.NewCallback((c, a) => DynValue.NewNumber(0));
+            g["EntityGetFirstComponent"] = DynValue.NewCallback((c, a) => DynValue.Nil);
+            g["EntityGetFirstComponentIncludingDisabled"] = g.Get("EntityGetFirstComponent");
+            // components and tags on what was placed: not kept (the game makes its own entities); a component id back
+            g["EntityAddComponent"] = DynValue.NewCallback((c, a) => DynValue.NewNumber(1));
+            g["EntityAddComponent2"] = g.Get("EntityAddComponent");
+            g["EntityAddTag"] = DynValue.NewCallback((c, a) => DynValue.Nil);
+            // a fresh run: no New Game+ (Noita's session numbers are strings)
+            g["SessionNumbersGetValue"] = DynValue.NewCallback((c, a) => DynValue.NewString("0"));
+            // Noita reads the player's clock (Christmas, Halloween, ... spawns)
+            g["GameGetDateAndTimeLocal"] = DynValue.NewCallback((c, a) =>
+            {
+                var t = DateTime.Now;
+                return DynValue.NewTuple(DynValue.NewNumber(t.Year), DynValue.NewNumber(t.Month), DynValue.NewNumber(t.Day),
+                                         DynValue.NewNumber(t.Hour), DynValue.NewNumber(t.Minute), DynValue.NewNumber(t.Second));
+            });
             g.MetaTable = Stubs(lua);
             return lua;
         }

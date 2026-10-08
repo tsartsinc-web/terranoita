@@ -15,19 +15,27 @@ ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 SHEETS = os.path.join(ROOT, "design", "sheets")
 
 # Noita biome (biome_map.json id) -> its script in data/scripts/biomes (best known names; checked on the PC)
+# biome -> its Noita script: data/biome/<x>.xml lua_script, English names from data/translations/common.csv
+# (checked on the PC 2026-10-09 with tncli wak-cat)
 SCRIPTS = {
     "Forest": "hills", "Lake": "lake", "Mines": "coalmine", "Collapsed Mines": "coalmine_alt", "Desert": "desert",
     "Snowy Wasteland": "winter", "Coal Pits": "excavationsite", "Snowy Depths": "snowcave", "Hiisi Base": "snowcastle",
     "Underground Jungle": "rainforest", "Fungal Caverns": "fungicave", "Sandcave": "sandcave",
-    "Magical Temple": "wizardcave", "Ancient Laboratory": "robobase", "Pyramid": "pyramid", "Desert Chasm": "desert",
-    "The Vault": "vault", "Frozen Vault": "vault_frozen", "Snowy Chasm": "snowcave", "Temple of the Art": "crypt",
-    "Wizards' Den": "wizardcave", "Overgrown Cavern": "rainforest_dark", "Lukki Lair": "fungiforest",
-    "Meat Realm": "meat", "Cloudscape": "cloudscape", "Power Plant": "robobase", "The Work (Hell)": "the_end",
-    "The Work (Sky)": "the_sky",
+    "Magical Temple": "wandcave", "Ancient Laboratory": "liquidcave", "Pyramid": "pyramid", "Desert Chasm": "desert",
+    "The Vault": "vault", "Frozen Vault": "vault_frozen", "Snowy Chasm": "winter", "Temple of the Art": "crypt",
+    "Wizards' Den": "wizardcave", "Overgrown Cavern": "fungiforest", "Lukki Lair": "rainforest_dark",
+    "Meat Realm": "meat", "Cloudscape": "clouds", "Power Plant": "robobase", "The Work (Hell)": "the_end",
+    "The Work (Sky)": "the_end",
 }
+# not a Noita biome name (no biome_* text): the nearest script, to check by eye
+GUESSED = {"Desert Chasm": "no biome_* name in common.csv; desert.lua assumed"}
 
 # function -> default calls per 10 000 tiles (author tunes)
-FUNCTIONS = {"spawn_wands": 1.0, "spawn_potions": 2.0, "spawn_items": 1.5, "spawn_chest": 0.5, "spawn_pixel_scenes": 1.0}
+# (no spawn_pixel_scenes: not a Noita function; scenes come from spawn_items and the scripts' load_* functions)
+FUNCTIONS = {"spawn_wands": 1.0, "spawn_potions": 2.0, "spawn_items": 1.5, "spawn_chest": 0.5}
+# what each function does in each script on the player's Noita (tncli biome-spawns on the PC): an "error" there means
+# the script lacks the function or its table (g_items...), so Noita never calls it in that biome -> 0
+PROBE = os.path.join(os.path.dirname(SHEETS), "sources", "pc_biome_functions.json")
 
 COLUMNS = {
     "id": {"type": "string", "desc": "<biome>:<function>."},
@@ -37,6 +45,23 @@ COLUMNS = {
     "per_10k_tiles": {"type": "number", "desc": "Calls per 10 000 tiles of the biome's Terraria zone (author tunes; 0 = off)."},
     "stage": {"type": "enum", "values": ["1a", "1b", "1c", "2", "3", "4"], "desc": "Stage that builds it (worldgen: 4)."},
 }
+
+
+_probe = None
+
+
+def probe():
+    global _probe
+    if _probe is None:
+        _probe = {}
+        if os.path.exists(PROBE):
+            with open(PROBE, encoding="utf-8") as f:
+                _probe = json.load(f)["scripts"]
+    return _probe
+
+
+def absent(script, fn):
+    return str(probe().get(script or "", {}).get(fn, "")).startswith("error")
 
 
 def rows(biomes, old):
@@ -50,10 +75,10 @@ def rows(biomes, old):
             prev = old.get(rid, {})
             out.append({
                 "id": rid, "biome": b["id"], "script": script or "none", "function": fn,
-                "per_10k_tiles": prev.get("per_10k_tiles", n), "stage": "4",
-                "_unverified": prev.get("_unverified", {"script": "name from memory; check data/scripts/biomes on the PC"}
-                                         if script else {"script": "no known script"}),
-                "_sources": {"all": "tools/seed_biome_spawns.py defaults; numbers: author"},
+                "per_10k_tiles": 0 if absent(script, fn) else prev.get("per_10k_tiles", n), "stage": "4",
+                "_unverified": {"script": GUESSED[b["id"]]} if b["id"] in GUESSED else {} if script else {"script": "no known script"},
+                "_sources": {"all": "tools/seed_biome_spawns.py defaults; numbers: author",
+                             **({"per_10k_tiles": "0: " + probe()[script][fn] + " (pc_biome_functions.json)"} if absent(script, fn) else {})},
             })
     return out
 
