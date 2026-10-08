@@ -898,3 +898,9 @@ unless asked.
   and players get the first kick back (Terraria knockback + push). Cart test: the kick direction is set right before
   each kick (the game turned the player, so the cart was kicked into the player: 0 tiles). Now the cart flies 33.9
   tiles and lands on its back (rot 3.14). Bunny moves only 0.4 tiles: its own AI keeps its speed.
+
+## PC 2026-10-08: showcase for the Melty page
+- game_test -Mode showcase (TERRANOITA_SHOWCASE=1, Magic/Showcase.cs; normal window): noon, hidden UI, each scene on
+  its own flat grass far from the test world's spawn (no test arenas/chests in view), fresh creatures; scenes fireballs,
+  lightning, bombs, black hole, liquids (acid, liquid fire, water, blood), wand window. Pictures shots/show_*.png.
+- Known: Main.GameZoomTarget 1.8 does not seem to take effect; fireballs dig a pit in the first second.

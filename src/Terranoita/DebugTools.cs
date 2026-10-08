@@ -23,7 +23,6 @@ namespace Terranoita.Game
         static readonly bool Auto = Environment.GetEnvironmentVariable("TERRANOITA_AUTOTEST") == "1";
         /// <summary>The autotest is running: natural Noita spawns are off.</summary>
         public static bool Testing => Auto;
-        static readonly bool Showcase = Environment.GetEnvironmentVariable("TERRANOITA_SHOWCASE") == "1";
         static readonly string OnlyStage = Environment.GetEnvironmentVariable("TERRANOITA_AUTOTEST_STAGE");
         static readonly bool ExitWhenDone = Environment.GetEnvironmentVariable("TERRANOITA_AUTOTEST_EXIT") == "1";
         /// <summary>TERRANOITA_AUTOTEST_SECONDS: how long each enemy is watched (default 6).</summary>
@@ -90,7 +89,7 @@ namespace Terranoita.Game
             return screen.Intersects(n.Hitbox) && !Collision.SolidCollision(n.position + new Vector2(n.width / 4f, n.height / 4f), n.width / 2, n.height / 2);
         }
 
-        static void SpawnInFront(EnemyDef e, int tiles)
+        internal static void SpawnInFront(EnemyDef e, int tiles)
         {
             var p = Main.LocalPlayer;
             int x = (int)p.Center.X + p.direction * tiles * 16;
@@ -202,6 +201,13 @@ namespace Terranoita.Game
                 return;
             }
             var p = Main.LocalPlayer;
+            if (Magic.Showcase.Enabled)
+            {
+                Magic.Showcase.Frame(p, ++_worldFrames);
+                if (_worldFrames == Magic.Showcase.Length + 30 && ExitWhenDone)
+                    Main.instance.Exit();
+                return;
+            }
             if (Cart.TestOn)
             {
                 Cart.Test(p, ++_worldFrames);
@@ -281,24 +287,6 @@ namespace Terranoita.Game
                 all = all.Where(e => only.Split(',').Contains(e.Id)).ToArray();
             if (_worldFrames >= 300 && (_worldFrames - 300) % Each == Each / 2)
                 WormBodyCheck();
-            if (Showcase)
-            {
-                // TERRANOITA_SHOWCASE=1: noon, and a group of Noita enemies around the player, for the listing's screenshots
-                if (_worldFrames == 120)
-                {
-                    Main.dayTime = true;
-                    Main.time = 27000;
-                    foreach (var (id, tiles) in new[] { ("shotgunner_weak", 9), ("miner_weak", 14), ("zombie_weak", -6), ("firemage_weak", -11), ("bat", 5) })
-                    {
-                        int dir = p.direction;
-                        p.direction = Math.Sign(tiles);
-                        SpawnInFront(Defs.Enemy[id], Math.Abs(tiles));
-                        p.direction = dir;
-                    }
-                    Entry.Log("AUTOTEST: showcase ready");
-                }
-                return;
-            }
             // one enemy every 6 seconds, starting 5 seconds in; then a natural-spawn check
             if (_worldFrames >= 300 && (_worldFrames - 300) % Each == 0 && _autoIndex < all.Length)
             {
