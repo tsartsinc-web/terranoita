@@ -33,7 +33,7 @@ Rule of the project: Noita's own data and rules, read from the player's Noita; n
 
 ## 1. Sheets first
 - liquids.json + noita_solids.json: new column `conducts` (bool, from materials.xml electrical_conductivity).
-  Terraria's own liquids: water conducts (Noita water does); lava/honey/shimmer -> ask the author.
+  Terraria's own liquids: water conducts (Noita water does); lava/honey/shimmer do not (author 2026-10-08).
 - materials.json (Terraria tiles mapped to Noita materials): `conducts` for metal tiles (ores, bars, metal bricks)
   from the mapped Noita material.
 - status_effects.json: ELECTROCUTION row from status_list.lua.
@@ -67,7 +67,7 @@ State: `Dictionary<int cellKey, int framesLeft> Charged` (one entry per tile), c
 3. Every 6 frames (like Fire): for each charged tile on/near screen: dust (DustID.Electric) + light; creatures whose
    hitbox overlaps it: electricity damage (Noita number x 25 hp, x tier for our creatures as elsewhere) once per
    tick per creature (collect NPC hitboxes once per tick, as in Fire.HurtNpcs after the fix), ELECTROCUTION status
-   (stun: velocity *= 0, or Terraria's Electrified buff for players if the author agrees). The player: Status.Apply
+   (stun: velocity *= 0 for creatures; the player gets Terraria's Electrified buff, author 2026-10-08). The player: Status.Apply
    ("ELECTROCUTION") + damage; WET (status or standing in water) -> the multiplier from Noita (status_list / damage
    multipliers), else none.
 4. framesLeft -= 6; 0 -> removed. A charged cell that stops conducting (liquid moved/dried) -> removed.
