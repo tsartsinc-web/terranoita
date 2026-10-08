@@ -2,8 +2,8 @@
 
 Terraria 1.4.5 mod (own launcher + Harmony, no tModLoader) that brings Noita's creatures into the player's Terraria,
 read from the player's Noita at runtime. On Melty as "Terranoita: Invasion" (modId
-c68ad4c6-f9db-40f5-802c-a4f9d7713e69): 0.3.1 LIVE (146 players on 2026-10-08). Releases so far run stage 1b only (see design/tasks.md PC-8): stage 2/3 hooks
-are off for players until that is fixed; stage 3 work is in no release. Author writes Russian: reply in simple Russian, short,
+c68ad4c6-f9db-40f5-802c-a4f9d7713e69): 0.3.1 LIVE (146 players on 2026-10-08). Entry.Stage only picks creatures; every Harmony patch applies whatever the stage (PC-8 checked).
+Stage 3 work (magic) is in no release yet. Author writes Russian: reply in simple Russian, short,
 answer questions immediately (yes/no first). Decisions in README are final: do not ask again. Nothing on Melty without
 the author's explicit permission.
 
