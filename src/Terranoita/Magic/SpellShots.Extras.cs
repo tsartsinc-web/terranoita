@@ -445,6 +445,53 @@ namespace Terranoita.Game.Magic
             m.until[status] = Main.GameUpdateCount + (uint)frames;
         }
 
+        const int ElectrocutionFrames = 40;   // Noita: effect_electricity.xml GameEffectComponent frames
+
+        /// <summary>Noita's ELECTROCUTION: the creature cannot move while it lasts (status_effects.json).</summary>
+        static void Electrocute(NPC n)
+        {
+            Hold(n, "ELECTROCUTION", ElectrocutionFrames);
+        }
+
+        /// <summary>A status that keeps the creature where it is (ELECTROCUTION, FROZEN); not bosses.</summary>
+        static void Hold(NPC n, string status, int frames)
+        {
+            if (n.boss)
+                return;
+            if (!HasStatus(n, "ELECTROCUTION") && !HasStatus(n, "FROZEN"))
+            {
+                HeldAt[n.whoAmI] = n.position.X;
+                if (DebugTools.Testing)
+                    Entry.Log("SPELLS held " + n.TypeName + ": " + status + " " + frames + " frames");
+            }
+            Mark(n, status, frames);
+        }
+
+        static readonly Dictionary<int, float> HeldAt = new Dictionary<int, float>();
+
+        /// <summary>Electrocuted and frozen creatures stand still (falling still works), sparking.</summary>
+        static void HoldElectrocuted()
+        {
+            foreach (var kv in Marks)
+            {
+                var n = Main.npc[kv.Key];
+                bool shocked = HasStatus(n, "ELECTROCUTION"), frozen = HasStatus(n, "FROZEN");
+                if (!n.active || n.type != kv.Value.type || !shocked && !frozen)
+                {
+                    HeldAt.Remove(kv.Key);
+                    continue;
+                }
+                // its own AI moves it after this: put it back where it was struck
+                if (HeldAt.TryGetValue(kv.Key, out float x))
+                    n.position.X = x;
+                n.velocity.X = 0;
+                if (n.velocity.Y < 0)
+                    n.velocity.Y = 0;
+                if (Main.rand.Next(3) == 0)
+                    Dust.NewDust(n.position, n.width, n.height, shocked ? DustID.Electric : DustID.IceTorch, 0, 0, 0, default, 0.7f);
+            }
+        }
+
         /// <summary>Critical chance added by HitEffectComponents (CRITICAL_HIT_BOOST when the target is wet...).</summary>
         static float CritBoost(Shot s, NPC n)
         {
@@ -468,28 +515,29 @@ namespace Terranoita.Game.Magic
         static void ApplyStatuses(Shot s, NPC n)
         {
             foreach (var f in s.Lua.Text("game_effect_entities").Split(new[] { ',' }, StringSplitOptions.RemoveEmptyEntries))
-            {
-                var g = ReadExtra(f.Trim()).FirstOrDefault(c => c.Type == "GameEffectComponent");
-                string effect = g?.S("effect") ?? "";
-                int frames = (int)(g?.N("frames", 600) ?? 600);
-                if (frames <= 0)
-                    frames = 600;
-                switch (effect)
+                foreach (var g in ReadExtra(f.Trim()).Where(c => c.Type == "GameEffectComponent"))
                 {
-                    case "ON_FIRE": n.AddBuff(BuffID.OnFire, frames); break;
-                    case "WET": n.AddBuff(BuffID.Wet, frames); break;
-                    case "OILED": n.AddBuff(BuffID.Oiled, frames); break;
-                    case "POISON": n.AddBuff(BuffID.Poisoned, frames); break;
-                    case "FROZEN": n.AddBuff(BuffID.Frostburn, frames); n.velocity *= 0.2f; break;
-                    case "BLOODY": Mark(n, "BLOODY", frames); break;
-                    default:
-                        if (effect.Length > 0 && NotYet.Add("effect:" + effect))
-                            Entry.Log("spell status not done yet: " + effect + " (" + f + ")");
-                        break;
-                }
-                if (effect.Length > 0)
+                    string effect = g.S("effect") ?? "";
+                    int frames = (int)g.N("frames", 600);
+                    if (frames <= 0)
+                        frames = 600;
+                    switch (effect)
+                    {
+                        case "NONE": case "": continue;
+                        case "ON_FIRE": n.AddBuff(BuffID.OnFire, frames); break;
+                        case "WET": n.AddBuff(BuffID.Wet, frames); break;
+                        case "OILED": n.AddBuff(BuffID.Oiled, frames); break;
+                        case "POISON": n.AddBuff(BuffID.Poisoned, frames); break;
+                        // Noita: a frozen creature cannot move while it lasts (held like ELECTROCUTION)
+                        case "FROZEN": n.AddBuff(BuffID.Frostburn, frames); Hold(n, "FROZEN", frames); break;
+                        case "BLOODY": Mark(n, "BLOODY", frames); break;
+                        default:
+                            if (NotYet.Add("effect:" + effect))
+                                Entry.Log("spell status not done yet: " + effect + " (" + f + ")");
+                            break;
+                    }
                     Mark(n, effect == "POISON" ? "POISONED" : effect, frames);
-            }
+                }
         }
     }
 }

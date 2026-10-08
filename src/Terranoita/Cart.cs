@@ -94,6 +94,10 @@ namespace Terranoita.Game
                 foreach (var n in _kicked)
                     n.velocity = Vector2.Zero;
                 _from = _kicked.Select(n => n.Center.X).ToArray();
+                // a plant at the foot: the kick cuts it like a sword (log "cut tile")
+                int fx = (int)((p.Center.X - p.width / 2f - 8) / 16), fy = (int)((p.position.Y + p.height) / 16) - 1;
+                WorldGen.PlaceTile(fx, fy, Terraria.ID.TileID.Pots, true, true);
+                Entry.Log("CART pot placed: " + (Main.tile[fx, fy].active() ? "yes, tile " + Main.tile[fx, fy].type : "no"));
             }
             if (frame == 62)
             {

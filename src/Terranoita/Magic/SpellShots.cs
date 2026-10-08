@@ -127,6 +127,7 @@ namespace Terranoita.Game.Magic
                 return;
             SlowFrames.Time("shot scripts", ScriptsUpdate);
             ForgetMarks();
+            HoldElectrocuted();
             SlowFrames.Time("spell shots", StepAll);
         }
 
@@ -159,6 +160,8 @@ namespace Terranoita.Game.Magic
             if (s.Friction > 0)
                 s.Vel *= Math.Max(0f, 1f - s.Friction / 60f);
             StepExtras(s);
+            // shots cut grass, flowers, vines and pots like a sword does (author)
+            NoitaActions.CutTiles(s.Pos, 6, Terraria.Enums.TileCuttingContext.AttackProjectile);
             // the timer of a timer trigger
             if (s.TriggerIn > 0 && --s.TriggerIn == 0)
                 Release(s);
@@ -261,6 +264,9 @@ namespace Terranoita.Game.Magic
             if (s.Fire)
                 n.AddBuff(BuffID.OnFire, 180);
             ApplyStatuses(s, n);
+            // Noita's lightning_count (ELECTRIC_CHARGE...): the hit electrocutes (effect_electricity.xml, 40 frames)
+            if (s.Lua.Get("lightning_count") > 0)
+                Electrocute(n);
         }
 
         /// <summary>The shot hits something or runs out: its explosion, its payload.</summary>

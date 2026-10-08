@@ -97,6 +97,29 @@ namespace Terranoita.Game
                     it.velocity += push;
             }
             Cart.Kick(foot, push);
+            CutTiles(foot, KickReach, Terraria.Enums.TileCuttingContext.AttackMelee);
+        }
+
+        /// <summary>What a sword cuts (grass, flowers, vines, pots...: Main.tileCut), by Terraria's own CutTiles, within
+        /// radius pixels of at: the kick and spell shots (author).</summary>
+        static int _cutLogged;
+
+        internal static void CutTiles(Vector2 at, float radius, Terraria.Enums.TileCuttingContext how)
+        {
+            int x0 = Math.Max(1, (int)((at.X - radius) / 16)), x1 = Math.Min(Main.maxTilesX - 2, (int)((at.X + radius) / 16));
+            int y0 = Math.Max(1, (int)((at.Y - radius) / 16)), y1 = Math.Min(Main.maxTilesY - 2, (int)((at.Y + radius) / 16));
+            DelegateMethods.tilecut_0 = how;
+            for (int x = x0; x <= x1; x++)
+                for (int y = y0; y <= y1; y++)
+                {
+                    var t = Main.tile[x, y];
+                    if (t != null && t.active() && Main.tileCut[t.type])
+                    {
+                        if (DebugTools.Testing && _cutLogged++ < 5)
+                            Entry.Log("cut tile " + t.type + " at " + x + "," + y + " (" + how + ")");
+                        DelegateMethods.CutTiles(x, y);
+                    }
+                }
         }
 
         // ---- drink ----
