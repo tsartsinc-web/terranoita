@@ -51,7 +51,23 @@ namespace Terranoita.Game.Magic
         {
             if (_defs == null)
                 _defs = SpellProjectiles.All.ToDictionary(x => x.Id, StringComparer.OrdinalIgnoreCase);
-            return file != null && _defs.TryGetValue(file, out var def) ? def : null;
+            if (string.IsNullOrEmpty(file))
+                return null;
+            if (_defs.TryGetValue(file, out var def))
+                return def;
+            // not in the sheet (files spell scripts load): built from the entity file by the sheet's own rules, cached
+            // per file, a file without a ProjectileComponent too (null)
+            try
+            {
+                def = NoitaArt.ReadText(file) == null ? null : SpellProjectileFromEntity.From(NoitaEntityXml.Load(file, NoitaArt.ReadText));
+            }
+            catch (Exception ex)
+            {
+                Entry.Error("spell projectile " + file, ex);
+                def = null;
+            }
+            _defs[file] = def;
+            return def;
         }
 
         public static List<int> Ids() => Live.Select(s => s.Id).ToList();
