@@ -26,7 +26,7 @@ How it works (author, 2026-10-08): the author only says "работай" to eith
 - Roadmap: design/roadmap.md. Worldgen plan: design/worldgen_plan.md (PC-10 after CLOUD-7).
 
 ## PC queue
-- PC-16 waits author: build/terranoita-0.4.0.zip rebuilt 2026-10-08 13:05 (1256961 bytes, sha256 cf370b84db2ff73d..);
+- PC-16 waits author: build/terranoita-0.4.0.zip rebuilt 2026-10-08 after 79c0f21 (1256961 bytes, sha256 2f6f0b54a011195b..), author said post it;
   upload to Melty only when the author says so (the author signs in; recipe design/melty.recipe.draft.json,
   mod c68ad4c6-f9db-40f5-802c-a4f9d7713e69). Rebuild it first if game code changed since.
 - PC-6 doing: spells left: MINE_DEATH_TRIGGER, EXPLODING_DEER, BOMB_CART, DEATH_CROSS (moving/summoned entities,
