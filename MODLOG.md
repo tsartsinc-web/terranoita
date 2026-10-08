@@ -822,3 +822,16 @@ Next steps (author's order: finish magic, then shops):
   `tncli lua-golden <noita> --check <golden>` prints up to 40 differences + "golden: no change"/count, exit 1 on any;
   LuaGoldenTests: Diff, the golden file well formed, and the full comparison when TERRANOITA_NOITA_DIR is set (PC).
 - 96 Core tests pass; tools tests OK; gate 1a/1b CLEAN; StatusEffects.g.cs regenerated (only that table changed).
+
+## Cloud: CLOUD-5 beams and lightning in Core
+- `Core/Noita/BeamFromEntity.cs`: `BeamFromEntity.From(XmlEntity, ComponentFieldTypes docs = null) -> BeamDef`
+  (null without LaserEmitterComponent and LightningComponent; the first of each in the entity or its children,
+  3 levels). Laser: is_emitting, emit_until_frame, laser_angle_add_rad (unset -> documented defaults 1, -1, 0),
+  every `laser.*` field kept raw + max_length, beam_radius, damage_to_entities, damage_to_cells,
+  max_cell_durability_to_destroy, beam_particle_type (ConfigLaser is not in the docs we have: unset stays null).
+  Lightning: sprite_lightning_file, is_projectile, explosion_type, arc_lifetime (documented defaults
+  lightning_ray.png, 0, 1, 60; docs passed in win), every `config_explosion.*` raw + explosion_radius, damage.
+- `LightningPath.Build(a, b, seed, list, ISolidGrid, segmentLength 8, jitter 0.5)`: one point per segment, sideways
+  jitter, ends fixed, same seed = same path, stops at the first solid point (true when it hit). Segment length and
+  jitter are the mod's look, not Noita numbers.
+- BeamFromEntityTests (3); 99 Core tests pass.

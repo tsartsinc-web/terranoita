@@ -33,14 +33,7 @@ How it works (author, 2026-10-08): the author only says "работай" to eith
   or game_test. Check: "golden: no change".
 
 ## CLOUD queue
-- CLOUD-5 new: Core for the spells without a ProjectileComponent (lasers, lightning; roadmap 0.4.x, PC-6):
-  `Core/Noita/BeamFromEntity.cs`: from XmlEntity read LaserEmitterComponent (laser.* nested fields: max_length,
-  beam_radius, damage_to_entities, damage_to_cells, max_cell_durability_to_destroy, beam_particle_type...,
-  is_emitting, emit_until_frame) and LightningComponent (sprite_lightning_file, is_projectile, explosion_type and
-  config_explosion.*, arc_lifetime) into a BeamDef (fields named after Noita's, units as the docs say; docs in
-  NoitaEntityXml's ComponentFieldTypes); plus `LightningPath` (deterministic for a seed: a jagged path from a to b
-  like Noita's arcs, segment count from length, IConductGrid-like `Solid(x,y)` stop). Tests with synthetic XML.
-  Check: dotnet test green, preflight 1a CLEAN.
+- (empty)
 
 ## Author (questions; agents do not wait for answers)
 - Roadmap decisions: design/roadmap.md "Open author decisions" (trader, flasks, perks, bosses).
@@ -50,6 +43,7 @@ How it works (author, 2026-10-08): the author only says "работай" to eith
   never in a public repo).
 
 ## Done (last ~8)
+- done (this commit) CLOUD-5: BeamFromEntity (LaserEmitter + ConfigLaser, Lightning + config_explosion) + LightningPath.
 - done (this commit) CLOUD-1: LuaGolden (Core: lines, Diff) + tncli lua-golden --check + Core test on the PC.
 - done (this commit) CLOUD-2: Core/Physics/Conduction.cs + ConductionTests.
 - done (this commit) CLOUD-4: ELECTROCUTION row (seed_status_effects.py --electricity).
