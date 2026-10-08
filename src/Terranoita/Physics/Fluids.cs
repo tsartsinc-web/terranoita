@@ -122,24 +122,23 @@ namespace Terranoita.Game.Physics
 
         static int Key(int x, int y) => x + y * Main.maxTilesX;
 
-        /// <summary>Pour amount of a Noita liquid or gas into the tile at x,y (spreads into free neighbours).</summary>
-        public static void Add(int x, int y, string material, int amount)
+        /// <summary>Pour amount of a Noita liquid or gas into the tile at x,y (spreads into free neighbours).
+        /// Returns how much went in (the rest did not fit: a flask keeps it).</summary>
+        public static int Add(int x, int y, string material, int amount)
         {
             lock (SaveSync.Gate)
-                AddLocked(x, y, material, amount);
+                return AddLocked(x, y, material, amount);
         }
 
-        static void AddLocked(int x, int y, string material, int amount)
+        static int AddLocked(int x, int y, string material, int amount)
         {
             // Terraria's own liquids are Terraria's
             if (material == "lava" || material == "water")
-            {
-                AddTerraria(x, y, material == "lava" ? LiquidID.Lava : LiquidID.Water, amount);
-                return;
-            }
+                return AddTerraria(x, y, material == "lava" ? LiquidID.Lava : LiquidID.Water, amount);
             int kind = KindOf(material);
             if (kind == 0 || amount <= 0)
-                return;
+                return 0;
+            int wanted = amount;
             // spread over the open tiles connected to x,y (never through a wall)
             var open = new Queue<(int, int)>();
             var seen = new HashSet<int>();
@@ -165,6 +164,7 @@ namespace Terranoita.Game.Physics
                     if (seen.Add(Key(nx, ny)) && Open(nx, ny))
                         open.Enqueue((nx, ny));
             }
+            return wanted - amount;
         }
 
         /// <summary>
@@ -175,16 +175,30 @@ namespace Terranoita.Game.Physics
             y >= Main.UnderworldLayer || (x < OceanWidth || x >= Main.maxTilesX - OceanWidth) && y < Main.rockLayer;
         const int OceanWidth = 380;   // Terraria's beach zone (Player.ZoneBeach: 380 tiles from either edge)
 
-        static void AddTerraria(int x, int y, int type, int amount)
+        static int AddTerraria(int x, int y, int type, int amount)
         {
             if (!Mats.InWorld(x, y) || Mats.Solid(x, y) || Protected(x, y))
-                return;
+                return 0;
             var t = Main.tile[x, y];
             if (t.liquid > 0 && t.liquidType() != type)
-                return;
+                return 0;
+            int put = Math.Min(255 - t.liquid, amount);
+            if (put <= 0)
+                return 0;
             t.liquidType(type);
-            t.liquid = (byte)Math.Min(255, t.liquid + amount);
+            t.liquid = (byte)(t.liquid + put);
             Liquid.AddWater(x, y);
+            return put;
+        }
+
+        /// <summary>A liquid (ours, not a gas, or Terraria's) fills a good part of the tile: spell shots slow down in it.</summary>
+        public static bool LiquidAt(int x, int y)
+        {
+            if (!Mats.InWorld(x, y))
+                return false;
+            if (Main.tile[x, y].liquid > 64)
+                return true;
+            return _defs != null && Cells.TryGetValue(Key(x, y), out var c) && c.Amount > 64 && !Gas(c.Kind);
         }
 
         /// <summary>Not a block: liquids and gases can be here.</summary>
@@ -308,12 +322,37 @@ namespace Terranoita.Game.Physics
                 int dx = s == 0 ? first : -first;
                 int nk = Key(x + dx, y);
                 Cells.TryGetValue(nk, out var n);
-                if (!Open(x + dx, y) || (!gas && Main.tile[x + dx, y].liquid > 32))
+                if (!Open(x + dx, y))
                     continue;
+                var side = Main.tile[x + dx, y];
+                if (!gas && side.liquid > 32)
+                {
+                    // Terraria's water or lava beside: ours goes under it sideways when heavier (Noita: the heavier liquid
+                    // creeps under the lighter one) and Terraria's liquid takes our place; no wall between them (author)
+                    var here = Main.tile[x, y];
+                    if (n.Amount == 0 && here.liquid <= 32 && !Protected(x, y) && !Protected(x + dx, y) &&
+                        HeavierThanTerraria(c.Kind, side.liquidType()) && Main.rand.Next(3) == 0)
+                    {
+                        here.liquidType(side.liquidType());
+                        here.liquid = side.liquid;
+                        side.liquid = 0;
+                        Liquid.AddWater(x, y);
+                        Liquid.AddWater(x + dx, y);
+                        c.Stamp = _stamp;
+                        Cells.Remove(k);
+                        Cells[nk] = c;
+                        return;
+                    }
+                    continue;
+                }
                 if (n.Amount > 0 && n.Kind != c.Kind)
                 {
-                    // liquids of about the same density mix (Noita: blood and water stir together); others stay layered
-                    if (!gas && Mixes(c.Kind, n.Kind))
+                    // two different liquids side by side: about the same density mix (Noita: blood and water stir together);
+                    // otherwise the heavier creeps under the lighter (takes its place; the lighter then floats up over it):
+                    // no invisible wall between two liquids (author). Gases drift through each other.
+                    bool swap = gas ? Gas(n.Kind) && Main.rand.Next(4) == 0
+                                    : !Gas(n.Kind) && (Mixes(c.Kind, n.Kind) || Heavier(c.Kind, n.Kind) && Main.rand.Next(3) == 0);
+                    if (swap)
                     {
                         c.Stamp = n.Stamp = _stamp;
                         Cells[nk] = c;

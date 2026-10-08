@@ -512,7 +512,16 @@ namespace Terranoita.Cli
             public readonly Dictionary<int, float[]> Shots = new Dictionary<int, float[]>();
             public readonly List<string> Events = new List<string>();
             public override int FrameNum => Frame;
-            public override bool GetPosition(int e, out float x, out float y) { x = y = 0; if (!Shots.TryGetValue(e, out var s)) return false; x = s[0]; y = s[1]; return true; }
+            // entity 1 = the caster, standing at 0,0 (scripts reach it through ProjectileComponent.mWhoShot)
+            public override bool GetPosition(int e, out float x, out float y) { x = y = 0; if (e == 1) return true; if (!Shots.TryGetValue(e, out var s)) return false; x = s[0]; y = s[1]; return true; }
+            public override string GetField(int e, string component, string field) =>
+                Shots.ContainsKey(e) && component == "ProjectileComponent" && (field == "mWhoShot" || field == "mShooterHerdId") ? "1" : null;
+            public override bool SetField(int e, string component, string field, string value)
+            {
+                if (component == "ProjectileComponent")
+                    Events.Add($"frame {Frame}: {component}.{field} = {value}");
+                return false;
+            }
             public override void SetPosition(int e, float x, float y) { if (Shots.TryGetValue(e, out var s)) { s[0] = x; s[1] = y; } }
             public override bool GetVelocity(int e, out float vx, out float vy) { vx = vy = 0; if (!Shots.TryGetValue(e, out var s)) return false; vx = s[2]; vy = s[3]; return true; }
             public override void SetVelocity(int e, float vx, float vy) { if (Shots.TryGetValue(e, out var s)) { s[2] = vx; s[3] = vy; } }

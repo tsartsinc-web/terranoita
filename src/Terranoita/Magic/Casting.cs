@@ -171,8 +171,7 @@ namespace Terranoita.Game.Magic
             TestCasts++;
             TestMana += Math.Max(0, spent);
             TestShots += cast.Shots.Count;
-            foreach (var s in cast.Shots)
-                SpellShots.Fire(s, tip, dir, p, w);
+            SpellShots.FireAll(cast.Shots, tip, dir, p, w);
             // recoil: Noita's shot effects push the caster back
             if (cast.Recoil != 0)
                 p.velocity -= dir * cast.Recoil / 20f;

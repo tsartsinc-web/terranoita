@@ -36,6 +36,8 @@ namespace Terranoita.Noita
         float SkyVisibility(float x, float y);
         /// <summary>GamePlaySound (bank, event, x, y).</summary>
         void PlaySound(string bank, string evt, float x, float y);
+        /// <summary>EntityGetTransform's scale_x of a game entity: the caster's facing, 1 or -1 (true_orbit.lua reads it).</summary>
+        float ScaleX(int entity);
     }
 
     /// <summary>An IShotHost that owns nothing: override what the game (or a test) needs.</summary>
@@ -59,6 +61,7 @@ namespace Terranoita.Noita
         public virtual void Shoot(int shooter, int entity, float x, float y, float tx, float ty) { }
         public virtual float SkyVisibility(float x, float y) => 0;
         public virtual void PlaySound(string bank, string evt, float x, float y) { }
+        public virtual float ScaleX(int entity) => 1;
     }
 
     /// <summary>
@@ -200,11 +203,23 @@ namespace Terranoita.Noita
             return id;
         }
 
-        /// <summary>Noita's extra_entities: the file becomes a child of the shot, placed where the shot is.</summary>
+        /// <summary>Noita's extra_entities: loaded INTO the shot (as EntityLoadToEntity): the file's components and tags
+        /// join the shot entity itself, its child entities become the shot's children. Noita's modifier scripts rely
+        /// on it: true_orbit.lua, spiraling_shot.lua, horizontal_arc.lua read the ProjectileComponent and
+        /// VelocityComponent of GetUpdatedEntityID(). Returns the shot entity.</summary>
         public int AttachExtra(int shotEntity, string xmlFile)
         {
-            Transform(shotEntity, out float x, out float y, out _, out _, out _);
-            return Spawn(xmlFile, x, y, shotEntity);
+            if (!_ents.TryGetValue(shotEntity, out var e) || e.Dead)
+                return 0;
+            var xml = NoitaEntityXml.Load(xmlFile, _read);
+            AddTags(e, xml.Tags);
+            var added = new List<Comp>();
+            foreach (var c in xml.Components)
+                added.Add(AddComp(e, c));
+            foreach (var child in xml.Children)
+                Build(child, e.Id, added);
+            Added(added);
+            return shotEntity;
         }
 
         public bool Alive(int entity) => _ents.TryGetValue(entity, out var e) && !e.Dead;
@@ -371,13 +386,14 @@ namespace Terranoita.Noita
                 set.Remove(e.Id);
         }
 
-        /// <summary>Our live entities with the tag (not the game's, the host answers for those), in id order.</summary>
+        /// <summary>Live entities of the store with the tag, in id order: the game's shots too (extra entities merge their
+        /// tags into them, e.g. orbit_shot); callers drop the ones the host already reported.</summary>
         List<int> Tagged(string tag)
         {
             var list = new List<int>();
             if (tag != null && _byTag.TryGetValue(tag, out var set))
                 foreach (int id in set)
-                    if (_ents.TryGetValue(id, out var e) && !e.Dead && !e.Host)
+                    if (_ents.TryGetValue(id, out var e) && !e.Dead)
                         list.Add(id);
             list.Sort();
             return list;
@@ -600,6 +616,7 @@ namespace Terranoita.Noita
             if (!_ents.TryGetValue(entity, out var e))
             {
                 _host.GetPosition(entity, out x, out y);   // one of the game's entities
+                sx = _host.ScaleX(entity);
                 return;
             }
             if (Inherits(e))

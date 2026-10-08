@@ -131,7 +131,8 @@ namespace Terranoita.Game.Physics
 
         static bool IsBlock(Tile t) => Main.tileSolid[t.type] || TileID.Sets.Platforms[t.type];
 
-        /// <summary>A connected group of placed blocks holds if it touches a natural solid tile or a weightless one.</summary>
+        /// <summary>A connected group of placed blocks holds if it touches a natural solid tile or a weightless one, or
+        /// has a platform hanging on a background wall (Terraria lets platforms be placed on walls; author: they hold).</summary>
         static void CheckSupport(int x0, int y0, int origin)
         {
             var group = new List<(int, int)>();
@@ -142,6 +143,12 @@ namespace Terranoita.Game.Physics
             {
                 var (x, y) = open.Pop();
                 group.Add((x, y));
+                var here = Main.tile[x, y];
+                if (here.wall > 0 && TileID.Sets.Platforms[here.type])
+                {
+                    Checked.UnionWith(seen);   // a platform on a wall: held, and all that hangs on it
+                    return;
+                }
                 if (group.Count > MaxGroup)
                 {
                     Checked.UnionWith(seen);   // taken as held

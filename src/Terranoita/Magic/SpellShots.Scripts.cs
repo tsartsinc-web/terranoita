@@ -28,16 +28,7 @@ namespace Terranoita.Game.Magic
             {
                 if (_scripts == null && NoitaArt.Ready)
                 {
-                    ComponentFieldTypes types = null;
-                    try
-                    {
-                        string doc = NoitaArt.GameDir == null ? null : Path.Combine(NoitaArt.GameDir, "tools_modding", "component_documentation.txt");
-                        if (doc != null && File.Exists(doc))
-                            types = ComponentFieldTypes.Parse(File.ReadAllText(doc));
-                        else
-                            Entry.Log("shot scripts: no component_documentation.txt, field types guessed");
-                    }
-                    catch (Exception ex) { Entry.Error("component docs", ex); }
+                    var types = Docs;   // component_documentation.txt (SpellShots.Physics.cs)
                     _host = new GameShotHost();
                     _scripts = new LuaShotScripts(_host, NoitaArt.ReadText, types) { Log = m => Entry.Log("shot script: " + m) };
                 }
@@ -181,33 +172,68 @@ namespace Terranoita.Game.Magic
                     Caster.velocity = v;
             }
 
+            static string Num(float f) => f.ToString(System.Globalization.CultureInfo.InvariantCulture);
+            static string Flag(bool b) => b ? "1" : "0";
+
             public override string GetField(int entity, string component, string field)
             {
                 var s = ShotOf(entity);
-                if (s == null || component != "ProjectileComponent")
+                if (s == null)
+                    return null;
+                if (component == "VelocityComponent")
+                    switch (field)
+                    {
+                        case "air_friction": return Num(s.Friction);
+                        case "gravity_y": return Num(s.Gravity * 3600f / Px);
+                    }
+                if (component != "ProjectileComponent")
                     return null;
                 switch (field)
                 {
                     case "mWhoShot": case "mShooterHerdId": return CasterEntity.ToString();
                     case "lifetime": return s.Life.ToString();
                     case "mStartingLifetime": return s.StartLife.ToString();
-                    case "damage": return (s.Damage / 25f).ToString(System.Globalization.CultureInfo.InvariantCulture);
+                    case "damage": return Num(s.Damage / 25f);
                     case "bounces_left": return s.Bounces.ToString();
+                    case "collide_with_world": return Flag(!s.NoWorld);
+                    case "on_collision_die": return Flag(s.DieOnCollision);
+                    case "penetrate_world": return Flag(s.PenetrateWorld);
+                    case "die_on_low_velocity": return Flag(s.DieOnLow);
+                    case "on_death_explode": case "on_lifetime_out_explode": return Flag(s.ExplodeOnDeath);
+                    case "config_explosion.explosion_radius": return Num(s.Radius / Px);
+                    case "config_explosion.damage": return Num(s.ExplosionDamage / 25f);
                 }
                 return null;
             }
 
+            /// <summary>Fields Noita's shot scripts switch on the shot (true_orbit.lua: collide_with_world 0, ...).</summary>
             public override bool SetField(int entity, string component, string field, string value)
             {
                 var s = ShotOf(entity);
-                if (s == null || component != "ProjectileComponent" ||
-                    !float.TryParse(value, System.Globalization.NumberStyles.Float, System.Globalization.CultureInfo.InvariantCulture, out float f))
+                if (s == null)
+                    return false;
+                bool isFlag = Bool(value, out bool b);
+                bool isNum = float.TryParse(value, System.Globalization.NumberStyles.Float, System.Globalization.CultureInfo.InvariantCulture, out float f);
+                if (component == "VelocityComponent" && isNum)
+                    switch (field)
+                    {
+                        case "air_friction": s.Friction = f; return true;
+                        case "gravity_y": s.Gravity = f * Px / 3600f; return true;
+                    }
+                if (component != "ProjectileComponent")
                     return false;
                 switch (field)
                 {
-                    case "lifetime": s.Life = Math.Max(1, (int)f); return true;
-                    case "damage": s.Damage = f * 25f; return true;
-                    case "bounces_left": s.Bounces = (int)f; return true;
+                    case "lifetime": if (isNum) s.Life = Math.Max(1, (int)f); return isNum;
+                    case "damage": if (isNum) s.Damage = f * 25f; return isNum;
+                    case "bounces_left": if (isNum) s.Bounces = (int)f; return isNum;
+                    case "collide_with_world": if (isFlag) s.NoWorld = !b; return isFlag;
+                    case "on_collision_die": if (isFlag) s.DieOnCollision = b; return isFlag;
+                    case "penetrate_world": if (isFlag) s.PenetrateWorld = b; return isFlag;
+                    case "die_on_low_velocity": if (isFlag) s.DieOnLow = b; return isFlag;
+                    case "on_death_explode": case "on_lifetime_out_explode": if (isFlag) s.ExplodeOnDeath = b; return isFlag;
+                    case "config_explosion.explosion_radius": if (isNum) s.Radius = Math.Max(0, f) * Px; return isNum;
+                    case "config_explosion.damage": if (isNum) s.ExplosionDamage = Math.Max(0, f) * 25f; return isNum;
                 }
                 return false;
             }
@@ -304,6 +330,9 @@ namespace Terranoita.Game.Magic
 
             public override void PlaySound(string bank, string evt, float x, float y) =>
                 NoitaSound.Play(evt, new Vector2(x, y) * Px);
+
+            public override float ScaleX(int entity) =>
+                entity == CasterEntity && Caster != null ? Caster.direction : NpcOf(entity) is NPC n ? n.direction : 1;
         }
     }
 }

@@ -228,7 +228,8 @@ ComponentSetValue2(c, ""randoms"", (r1 >= 0 and r1 < 1 and r2 >= 0 and r2 <= 5 a
             var (lua, host, shot) = Shot();
             int child = lua.AttachExtra(shot, "data/entities/misc/test_child.xml");
             Assert.Single(lua.Components(shot, "HomingComponent"));   // the game finds it through the shot
-            Assert.Empty(lua.Components(shot, "HomingComponent", false));
+            Assert.Single(lua.Components(shot, "HomingComponent", false));   // merged into the shot itself (Noita: EntityLoadToEntity)
+            Assert.Equal(shot, child);
             int grandchild = lua.ChildrenOf(child).Single();
             Run(lua, host, 3);
             Assert.False(lua.Alive(grandchild));                      // its LifetimeComponent ran out
@@ -256,7 +257,7 @@ ComponentSetValue2(c, ""randoms"", (r1 >= 0 and r1 < 1 and r2 >= 0 and r2 <= 5 a
             var types = ComponentFieldTypes.Parse(docs);
             Assert.Equal("bool", types.Kind("ProjectileComponent", "on_death_explode"));
             var (lua, host, shot) = Shot(types);
-            int child = lua.AttachExtra(shot, "data/entities/misc/test_types.xml");
+            int child = lua.Spawn("data/entities/misc/test_types.xml", 0, 0);   // an entity of its own: one ProjectileComponent
             var p = lua.Components(child, "ProjectileComponent").Single();
             Assert.Equal("7", p.Get("lifetime"));                     // "0" is false for a bool field, not the number 0
             Assert.Equal("string", p.Get("seen"));
@@ -264,7 +265,7 @@ ComponentSetValue2(c, ""randoms"", (r1 >= 0 and r1 < 1 and r2 >= 0 and r2 <= 5 a
 
             // without the documentation "0" stays a number, and Lua's 0 is true
             var (lua2, _, shot2) = Shot();
-            int child2 = lua2.AttachExtra(shot2, "data/entities/misc/test_types.xml");
+            int child2 = lua2.Spawn("data/entities/misc/test_types.xml", 0, 0);
             Assert.Equal("99", lua2.Components(child2, "ProjectileComponent").Single().Get("lifetime"));
         }
 

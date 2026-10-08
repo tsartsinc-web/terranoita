@@ -29,6 +29,9 @@ How it works (author, 2026-10-08): the author only says "работай" to eith
 - PC-16 waits author: 0.4.1 submitted to Melty 2026-10-08 as a draft (upload df544dac, 1257696 bytes, sha256
   a10770c157e3b9d6..., one click yes; 0.4.0 draft before it). Left: the author presses Play on 0.4.1 in the Melty
   app (the agent's publish call is blocked by the permission check).
+- PC-17 new: test the author's spell/physics fixes in the game (MODLOG "spells and physics from the author's list"):
+  game_test physics (side-by-side basin, flask, platform), spells ONLY the reported ones, then the full spells run.
+  Blocked 2026-10-08 by memory (game OOM at start); ICEBALL cause still open.
 - PC-6 doing: spells left: MINE_DEATH_TRIGGER, EXPLODING_DEER, BOMB_CART, DEATH_CROSS (moving/summoned entities,
   cross lasers); PIPE_BOMB* go off only in another blast (Noita), the test should expect that. Giga spells cost
   500-600: castable now with 600 max mana.
@@ -38,6 +41,11 @@ How it works (author, 2026-10-08): the author only says "работай" to eith
   clamps synced mana at 400 (MessageBuffer.GetData).
 
 ## CLOUD queue
+- CLOUD-8 new: spell_projectiles.json from the PC's runtime rules (MODLOG "spells and physics from the author's
+  list"): air_friction default 0.55 when a file sets none (now 0 in the sheet), new columns liquid_drag,
+  die_on_liquid_collision, die_on_low_velocity(+limit), on_collision_die, bounce_energy, penetrate_world,
+  terminal_velocity; and the LightningComponent blast (radius/damage) for lightning files. Also note: Core
+  LuaShotScripts.AttachExtra now merges extras into the shot (PC changed Core + tests, 99 pass). Check: Core tests.
 - CLOUD-7 new: Core NoitaBiomeSpawns + chest_random + pixel scene decode + biome_spawns.json by tools
   (design/worldgen_plan.md section 2). Check: Core tests; `tncli biome-spawns` for the PC.
 - (CLOUD-6 dropped: the PC did night-only surface spawns in Spawning.cs without a sheet column.)

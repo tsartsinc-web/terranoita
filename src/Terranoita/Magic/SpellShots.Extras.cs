@@ -217,7 +217,8 @@ namespace Terranoita.Game.Magic
                 int before = _nextId;
                 var config = new Dictionary<string, MoonSharp.Interpreter.DynValue> { ["speed_multiplier"] = MoonSharp.Interpreter.DynValue.NewNumber(1) };
                 Fire(new LuaShot { File = file, Config = config }, pos, new Vector2(owner != null && owner.direction < 0 ? -1 : 1, 0), owner, null);
-                var made = _nextId > before ? Live.LastOrDefault() : null;
+                // the shot just made (an instant lightning strikes at once and is never kept: none then)
+                var made = _nextId > before && Live.Count > 0 && Live[Live.Count - 1].Id == before ? Live[Live.Count - 1] : null;
                 if (made == null)
                     return 0;
                 made.Vel = Vector2.Zero;   // Noita: EntityLoad makes it at rest; the script (GameShootProjectile) sends it

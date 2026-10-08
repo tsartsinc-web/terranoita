@@ -942,3 +942,35 @@ unless asked.
   (Main.maxNetPlayers), connect.address log latest.log after "Hosting at ", joinArgs ["+connect_lobby","{address}"]}.
 - NOT tested: hosting (needs Host & Play with Steam by hand) and joining (needs a second Steam account). Package
   build/terranoita-0.4.2.zip built, not uploaded (author: nothing on Melty without consent).
+
+## PC 2026-10-08: spells and physics from the author's list (Noita's engine rules)
+- Core LuaShotScripts.AttachExtra: extra_entities are loaded INTO the shot (Noita's EntityLoadToEntity), not as a
+  child: true_orbit.lua, spiraling_shot.lua, horizontal_arc.lua... read ProjectileComponent/VelocityComponent of
+  GetUpdatedEntityID() and did nothing before (TRUE_ORBIT only got its +80 lifetime). Tagged() includes the game's
+  shots (merged tags). IShotHost.ScaleX (caster facing: true_orbit's direction). Tests adapted (99 pass); all 71
+  modifier scripts run in `tncli shot-script` without errors or missing API (CLI host now has a caster, entity 1).
+- SpellShots.Physics.cs: per projectile file, with component_documentation defaults: air_friction (0.55 when unset;
+  the sheet had 0), liquid_drag (shots slow in liquids, 12%/frame at 1: ours), die_on_liquid_collision (ICEBALL),
+  die_on_low_velocity (+limit), on_collision_die 0 = the shot lives on at a wall (DELAYED_SPELL released at once
+  before, BALL_LIGHTNING/LIGHTNING ended on the ground), bounce_energy, penetrate_world, terminal_velocity.
+  Script-set fields go to the shot (collide_with_world, on_collision_die, penetrate_world, die_on_low_velocity,
+  on_death_explode, config_explosion radius/damage, VelocityComponent air_friction/gravity_y).
+- LIGHTNING (lightning.xml: speed 60, lifetime 2): instant bolt along the aim to the first wall/creature, reach 300 px
+  (ours: wraith lightning range), then its LightningComponent blast (radius 35, damage = Noita's ConfigExplosion
+  default, taken as 5 since the file sets none and ~56 spell files set damage 0 explicitly: CHECK in Noita).
+  Every LightningComponent is_projectile shot ends in a lightning trail from its start + that blast (BALL_LIGHTNING).
+- TELEPORT_PROJECTILE_CLOSER (tag teleport_projectile_closer): the creature hit is moved to where the bolt was fired.
+- pattern_degrees (I/Y/T/W/circle/pentagram shapes, DIVIDE_*, I_SHOT): SpellShots.FireAll fans each shot's
+  projectiles (grouped by their shared config) over -P..+P (P 180: 360/N); payloads too. damage_null_all
+  (ZERO_DAMAGE). friendly_fire (PIERCING_SHOT hits its caster once). c.damage_explosion / c.damage_projectile are not
+  ConfigGunActionInfo fields: ignored, as Noita does.
+- Fluids: different liquids no longer stand side by side behind an invisible wall: the heavier creeps under the
+  lighter sideways (also under Terraria's water/lava when heavier); gases drift through each other. Fluids.Add
+  returns what went in: flask spray/shatter keep what did not fit, a shatter spreads up to 12 rings until all is out.
+- Falling: a player's platform with a background wall behind it holds (and what hangs on it).
+- PhysicsTest: side-by-side slime/oil basin, a shattered flask (units that did not land), a platform on a wall.
+- NOT tested in the game: both test games died at start with OutOfMemoryException (steamwebhelper ~4.7 GB, commit
+  12.5/16.3 GB). Next: game_test physics, then spells with TERRANOITA_SPELLS_ONLY for the reported spells
+  (log lines "SPELLS shot end/lightning/pulled"), then the full spells run against the baseline.
+- ICEBALL "disappears too fast": its file gives 60 frames at 160-170 px/s (about 28 tiles) - same as ours; cause not
+  found yet, the test's "shot end" line will tell. ilspycmd 9.1 installed (dotnet tool, SDK 8).

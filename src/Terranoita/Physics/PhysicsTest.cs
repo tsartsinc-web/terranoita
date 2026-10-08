@@ -111,7 +111,30 @@ namespace Terranoita.Game.Physics
                     Fluids.Add(bx + s, _gy - 3, Pairs[c].b, 200);
                 }
             }
-            Log("poured: cells " + Fluids.Count + ", smoke " + Fluids.Total(_x0 + 70, _x0 + 80, _gy - 10, _gy, "smoke"));
+            // 10. two liquids side by side in one basin (slime 5.0 left, oil 1.0 right): no wall between them, the
+            // heavier creeps under the lighter (author: "an invisible barrier stays between them")
+            int sb = _x0 + 126;
+            for (int y = _gy - 4; y <= _gy - 1; y++)
+            {
+                Place(sb, y, TileID.Stone, false);
+                Place(sb + 8, y, TileID.Stone, false);
+            }
+            for (int y = _gy - 3; y <= _gy - 1; y++)
+            {
+                for (int x = sb + 1; x <= sb + 3; x++)
+                    Fluids.Add(x, y, "slime", 255);
+                for (int x = sb + 4; x <= sb + 7; x++)
+                    Fluids.Add(x, y, "oil", 255);
+            }
+            // 11. a full flask shatters in the open: all of it must land (author: less than pouring it out)
+            int left = Magic.Flasks.TestShatter("blood", new Vector2((_x0 + 145) * 16 + 8, (_gy - 3) * 16));
+            Log("flask of blood shattered: " + left + " units did not land (want 0)");
+            // 12. a player's platform in the air with a wooden wall behind it: it holds (author)
+            Main.tile[_x0 + 152, _gy - 9].wall = WallID.Wood;
+            Place(_x0 + 152, _gy - 9, TileID.Platforms, true);
+            Falling.Disturb(_x0 + 152, _gy - 9);
+            Log("poured: cells " + Fluids.Count + ", smoke " + Fluids.Total(_x0 + 70, _x0 + 80, _gy - 10, _gy, "smoke") +
+                "; platform on the wall placed " + Main.tile[_x0 + 152, _gy - 9].active());
         }
 
         static readonly (string a, string b)[] Pairs = { ("water", "radioactive_liquid"), ("blood", "poison"), ("lava", "blood_cold"), ("water", "cement"), ("water", "blood"), ("blood", "water_salt") };
@@ -123,6 +146,12 @@ namespace Terranoita.Game.Physics
                 "; cement basin: cement " + Fluids.Total(_x0 + 103, _x0 + 107, _gy - 6, _gy - 1, "cement") + ", water " + Count(_x0 + 103, _x0 + 107, _gy - 6, _gy - 1, tl => tl.liquid > 32) + " tiles, concrete " + Count(_x0 + 103, _x0 + 107, _gy - 6, _gy - 1, tl => tl.active() && tl.type != TileID.Stone) +
                 "; blood in the bottom row under Terraria water " + Fluids.Total(_x0 + 109, _x0 + 113, _gy - 1, _gy - 1, "blood") +
                 "; blood+water_salt mixed: blood in the top rows " + Fluids.Total(_x0 + 115, _x0 + 119, _gy - 4, _gy - 3, "blood") + ", salt water in the bottom row " + Fluids.Total(_x0 + 115, _x0 + 119, _gy - 1, _gy - 1, "water_salt"));
+            int sb = _x0 + 126;
+            Log(when + ": side by side basin: bottom row slime " + Fluids.Total(sb + 1, sb + 7, _gy - 1, _gy - 1, "slime") +
+                " (right half " + Fluids.Total(sb + 4, sb + 7, _gy - 1, _gy - 1, "slime") + "), oil " + Fluids.Total(sb + 1, sb + 7, _gy - 1, _gy - 1, "oil") +
+                "; top row oil " + Fluids.Total(sb + 1, sb + 7, _gy - 3, _gy - 3, "oil") + " (left half " + Fluids.Total(sb + 1, sb + 3, _gy - 3, _gy - 3, "oil") + ")" +
+                "; blood from the flask " + Fluids.Total(_x0 + 125, _x0 + 165, _gy - 30, _gy, "blood") +
+                "; platform on the wall " + (Main.tile[_x0 + 152, _gy - 9].active() ? "holds" : "FELL"));
             if (when.StartsWith("3"))
                 Fluids.Ignite(_x0 + 60, _gy - 1);
             int dirt = Count(_x0 + 48, _x0 + 53, _gy - 3, _gy - 1, t => t.type == TileID.Dirt);

@@ -23,6 +23,7 @@ namespace Terranoita.Game.Magic
     {
         const float Px = Terranoita.Noita.Units.PixelScale;
         const int Max = 600;
+        const int FriendlyFireAfter = 10;   // ours: frames before a friendly_fire shot can hit its caster (it starts at the wand)
 
         sealed class Shot
         {
@@ -40,6 +41,11 @@ namespace Terranoita.Game.Magic
             public List<Extra> Extras;         // components of the modifiers' extra_entities (SpellShots.Extras.cs)
             public string[] Trail;             // trail_material
             public Player Owner;
+            public ShotPhys Phys;              // Noita's engine rules for its file (SpellShots.Physics.cs)
+            public Vector2 Origin;             // where it was fired (lightning trails start there; the homebringer bolt pulls to it)
+            // ProjectileComponent fields Noita's scripts may switch (true_orbit.lua: collide_with_world 0)
+            public bool NoWorld, DieOnCollision, PenetrateWorld, DieOnLow, ExplodeOnDeath, NullDamage;
+            public bool FriendlyFire, HitOwner;   // friendly_fire (PIERCING_SHOT): it can hit its caster, once
             public readonly HashSet<int> Hit = new HashSet<int>();
         }
 
@@ -75,6 +81,42 @@ namespace Terranoita.Game.Magic
         public static List<int> Ids() => Live.Select(s => s.Id).ToList();
         public static Vector2 Position(int id) => Live.FirstOrDefault(s => s.Id == id)?.Pos ?? Vector2.Zero;
 
+        /// <summary>The projectiles of a cast (or a trigger's payload), from pos toward dir. Noita's pattern_degrees
+        /// (I/Y/T/W/circle/pentagram shapes, the divide spells): the projectiles of one shot (they share its config)
+        /// fan out evenly over -P..+P degrees; a whole circle (P 180) spaces them 360/N apart, so the first and last
+        /// do not overlap (I_SHAPE: forward and back).</summary>
+        public static void FireAll(IList<LuaShot> shots, Vector2 pos, Vector2 dir, Player owner, WandData wand)
+        {
+            var groups = new Dictionary<object, List<LuaShot>>();
+            var order = new List<object>();
+            foreach (var ls in shots)
+            {
+                object key = (object)ls.Config ?? ls;
+                if (!groups.TryGetValue(key, out var g))
+                {
+                    groups[key] = g = new List<LuaShot>();
+                    order.Add(key);
+                }
+                g.Add(ls);
+            }
+            foreach (var key in order)
+            {
+                var g = groups[key];
+                float pattern = g[0].Get("pattern_degrees");
+                int n = g.Count;
+                for (int i = 0; i < n; i++)
+                {
+                    var d = dir;
+                    if (pattern > 0 && n > 1)
+                    {
+                        float step = pattern >= 180 ? 2 * pattern / n : 2 * pattern / (n - 1);
+                        d = Vector2.Transform(dir, Matrix.CreateRotationZ(MathHelper.ToRadians(-pattern + step * i)));
+                    }
+                    Fire(g[i], pos, d, owner, wand);
+                }
+            }
+        }
+
         /// <summary>A projectile of a cast, from pos toward dir.</summary>
         public static void Fire(LuaShot ls, Vector2 pos, Vector2 dir, Player owner, WandData wand)
         {
@@ -93,19 +135,28 @@ namespace Terranoita.Game.Magic
             float spreadDeg = Math.Max(0f, ls.Get("spread_degrees"));
             float angle = (float)Math.Atan2(dir.Y, dir.X) + MathHelper.ToRadians(((float)rng.NextDouble() * 2 - 1) * spreadDeg)
                           + ((float)rng.NextDouble() * 2 - 1) * d.SpreadRad;
+            var phys = PhysOf(ls.File);
+            // ZERO_DAMAGE: damage_null_all (c.damage_explosion / c.damage_projectile that HIGH_EXPLOSIVE and BERSERK set
+            // are not ConfigGunActionInfo fields, gunaction_generated.lua: Noita's engine never reads them)
+            bool nullAll = ls.Get("damage_null_all") > 0;
             var s = new Shot
             {
-                Id = _nextId++, Def = d, Lua = ls, Pos = pos, Owner = owner,
+                Id = _nextId++, Def = d, Lua = ls, Pos = pos, Owner = owner, Phys = phys, Origin = pos,
+                NoWorld = !d.CollideWithWorld, DieOnCollision = phys.OnCollisionDie, PenetrateWorld = phys.PenetrateWorld,
+                DieOnLow = phys.DieOnLowVelocity, ExplodeOnDeath = d.ExplodeOnDeath, NullDamage = nullAll,
+                FriendlyFire = ls.Config != null && ls.Config.TryGetValue("friendly_fire", out var ff) &&
+                               (ff.Type == MoonSharp.Interpreter.DataType.Boolean ? ff.Boolean : ff.Type == MoonSharp.Interpreter.DataType.Number && ff.Number != 0),
                 Vel = new Vector2((float)Math.Cos(angle), (float)Math.Sin(angle)) * speed * Px / 60f,
                 Life = (d.Lifetime > 0 ? d.Lifetime : 600) + (int)ls.Get("lifetime_add") + rng.Next(-d.LifetimeRandom, d.LifetimeRandom + 1),
                 Bounces = d.Bounces + (int)ls.Get("bounces"),
-                Damage = Math.Max(0, d.Damage + d.TypedDamage + ls.Get("damage_projectile_add") + ls.Get("damage_fire_add") + ls.Get("damage_ice_add") +
+                Damage = nullAll ? 0 : Math.Max(0, d.Damage + d.TypedDamage + ls.Get("damage_projectile_add") +
+                                     ls.Get("damage_fire_add") + ls.Get("damage_ice_add") +
                                      ls.Get("damage_electricity_add") + ls.Get("damage_slice_add") + ls.Get("damage_curse_add") +
                                      ls.Get("damage_drill_add") + ls.Get("damage_melee_add")) * 25f,
-                ExplosionDamage = Math.Max(0, d.ExplosionDamage + ls.Get("damage_explosion_add")) * 25f,
+                ExplosionDamage = nullAll ? 0 : Math.Max(0, d.ExplosionDamage + ls.Get("damage_explosion_add")) * 25f,
                 Radius = Math.Max(0, d.ExplosionRadius + ls.Get("explosion_radius")) * Px,
                 Gravity = (d.Gravity + ls.Get("gravity")) * Px / 3600f,
-                Friction = d.AirFriction,
+                Friction = phys.AirFriction,   // the file's air_friction, or Noita's default 0.55 when it sets none
                 Knockback = d.Knockback + ls.Get("knockback_force"),
                 Fire = ls.Get("damage_fire_add") > 0 || d.FireDamage > 0 || (d.Material ?? "").Contains("fire"),
                 Extras = ExtrasOf(ls), Born = Main.GameUpdateCount,
@@ -116,9 +167,16 @@ namespace Terranoita.Game.Magic
             if (s.Life < 1)
                 s.Life = 1;
             s.StartLife = s.Life;
+            NoitaSound.PlayFirst(d.Audio, pos, "create");
+            if (Instant(s))
+            {
+                // Noita's lightning bolt: it strikes at once (its own flight is a frame or two)
+                StrikeLightning(s);
+                End(s, true);
+                return;
+            }
             Live.Add(s);
             ScriptsAdd(s, false);
-            NoitaSound.PlayFirst(d.Audio, pos, "create");
         }
 
         static void Update()
@@ -159,27 +217,73 @@ namespace Terranoita.Game.Magic
             s.Vel.Y += s.Gravity;
             if (s.Friction > 0)
                 s.Vel *= Math.Max(0f, 1f - s.Friction / 60f);
+            var ph = s.Phys;
+            // Noita's terminal_velocity (px/s)
+            if (ph.ApplyTerminal && ph.TerminalVelocity > 0)
+            {
+                float max = ph.TerminalVelocity * Px / 60f;
+                if (s.Vel.LengthSquared() > max * max)
+                    s.Vel = Vector2.Normalize(s.Vel) * max;
+            }
+            // liquids: die_on_liquid_collision ends it (the iceball); liquid_drag slows it down (author: shots slow in water)
+            if (InLiquid(s.Pos))
+            {
+                if (ph.DieOnLiquid)
+                {
+                    End(s, true);
+                    return true;
+                }
+                if (ph.LiquidDrag > 0)
+                    s.Vel *= Math.Max(0f, 1f - LiquidSlow * ph.LiquidDrag);
+            }
             StepExtras(s);
             // shots cut grass, flowers, vines and pots like a sword does (author)
             NoitaActions.CutTiles(s.Pos, 6, Terraria.Enums.TileCuttingContext.AttackProjectile);
             // the timer of a timer trigger
             if (s.TriggerIn > 0 && --s.TriggerIn == 0)
                 Release(s);
-            var next = s.Pos + s.Vel;
-            if (s.Def.CollideWithWorld && Collision.SolidCollision(next - new Vector2(2, 2), 4, 4))
+            // die_on_low_velocity (limit in px/s)
+            if (s.DieOnLow && s.Age > 2 && s.Vel.Length() * 60f / Px < ph.LowVelocityLimit)
             {
-                if (s.Bounces > 0)
+                End(s, false);
+                return true;
+            }
+            var next = s.Pos + s.Vel;
+            if (!s.NoWorld && Collision.SolidCollision(next - new Vector2(2, 2), 4, 4))
+            {
+                if (s.PenetrateWorld)
+                    next = s.Pos + s.Vel * ph.PenetrateCoeff;   // through the ground, slower inside it
+                else if (s.Bounces > 0)
                 {
                     s.Bounces--;
-                    // bounce off the side it hit
+                    // bounce off the side it hit, with Noita's bounce_energy
                     if (Collision.SolidCollision(new Vector2(next.X, s.Pos.Y) - new Vector2(2, 2), 4, 4))
-                        s.Vel.X = -s.Vel.X * 0.8f;
+                        s.Vel.X = -s.Vel.X * ph.BounceEnergy;
                     if (Collision.SolidCollision(new Vector2(s.Pos.X, next.Y) - new Vector2(2, 2), 4, 4))
-                        s.Vel.Y = -s.Vel.Y * 0.8f;
+                        s.Vel.Y = -s.Vel.Y * ph.BounceEnergy;
                     return false;
                 }
-                End(s, true);
-                return true;
+                else if (!s.DieOnCollision)
+                {
+                    // on_collision_die 0 (delayed spellcast, ball lightning...): it lives on against the ground, sliding
+                    // along it and stopping where it cannot go
+                    bool hitX = Collision.SolidCollision(new Vector2(next.X, s.Pos.Y) - new Vector2(2, 2), 4, 4);
+                    bool hitY = Collision.SolidCollision(new Vector2(s.Pos.X, next.Y) - new Vector2(2, 2), 4, 4);
+                    if (hitX)
+                        s.Vel.X = 0;
+                    if (hitY)
+                        s.Vel.Y = 0;
+                    if (!hitX && !hitY)
+                        s.Vel = Vector2.Zero;
+                    next = s.Pos + s.Vel;
+                    if (Collision.SolidCollision(next - new Vector2(2, 2), 4, 4))
+                        next = s.Pos;
+                }
+                else
+                {
+                    End(s, true);
+                    return true;
+                }
             }
             var from = s.Pos;   // the path this frame: fast shots (bullets, lances) must not jump past a creature
             s.Pos = next;
@@ -198,9 +302,24 @@ namespace Terranoita.Game.Magic
                     !Collision.CheckAABBvLineCollision(n.position - new Vector2(4, 4), n.Size + new Vector2(8, 8), from, s.Pos))
                     continue;
                 Strike(s, n, s.Damage);
+                if (ph.PullsToCaster)
+                    PullToCaster(s, n);
                 if (s.Def.DamageEveryFrames <= 0)
                     s.Hit.Add(i);
-                if (!s.Penetrate && s.Def.DieOnHit)
+                if (!s.Penetrate && s.DieOnCollision)
+                {
+                    End(s, true);
+                    return true;
+                }
+            }
+            // friendly_fire (PIERCING_SHOT): the shot hurts its own caster too, once, after it has left the wand
+            var me = s.Owner;
+            if (s.FriendlyFire && !s.HitOwner && s.Age > FriendlyFireAfter && s.Damage > 0 && me != null && me.active && !me.dead &&
+                Collision.CheckAABBvLineCollision(me.position, me.Size, from, s.Pos))
+            {
+                s.HitOwner = true;
+                me.Hurt(Terraria.DataStructures.PlayerDeathReason.ByCustomReason(me.name + " was hit by their own spell."), (int)Math.Round(s.Damage), s.Vel.X >= 0 ? 1 : -1);
+                if (!s.Penetrate && s.DieOnCollision)
                 {
                     End(s, true);
                     return true;
@@ -275,7 +394,12 @@ namespace Terranoita.Game.Magic
             TeleportOwner(s);
             if (s.Lua.Trigger == "hit_world" && hit || s.Lua.Trigger == "death" || s.Lua.Trigger == "timer" && s.TriggerIn > 0)
                 Release(s);
-            if (s.Radius > 0 && (hit || s.Def.ExplodeOnDeath))
+            if (DebugTools.Testing)
+                Entry.Log("SPELLS shot end " + System.IO.Path.GetFileNameWithoutExtension(s.Lua.File) + ": age " + s.Age + " of " + s.StartLife +
+                          ", " + (Vector2.Distance(s.Origin, s.Pos) / 16).ToString("0.0") + " tiles from its start" + (hit ? ", hit" : s.Life <= 0 ? ", life out" : ""));
+            if (s.Phys.Lightning != null)
+                LightningBurst(s);   // a lightning projectile ends in its lightning trail and blast, whatever ends it
+            else if (s.Radius > 0 && (hit || s.ExplodeOnDeath))
                 Explode(s);
             else
                 NoitaSound.PlayFirst(s.Def.Audio, s.Pos, "destroy");
@@ -304,8 +428,7 @@ namespace Terranoita.Game.Magic
             var dir = s.Vel.LengthSquared() > 0.01f ? Vector2.Normalize(s.Vel) : new Vector2(1, 0);
             var payload = s.Lua.Payload.ToList();
             s.Lua.Payload.Clear();   // released once
-            foreach (var p in payload)
-                Fire(p, s.Pos - s.Vel, dir, s.Owner, null);
+            FireAll(payload, s.Pos - s.Vel, dir, s.Owner, null);
         }
 
         static void Explode(Shot s)

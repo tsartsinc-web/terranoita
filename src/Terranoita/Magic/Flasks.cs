@@ -28,6 +28,7 @@ namespace Terranoita.Game.Magic
         const int DrinkUnits = 12;               // as drinking from a pool (NoitaActions)
         const float CellsPerUnit = 16f / 255f;   // a full tile holds about 16 Noita cells (NoitaActions)
         const float ThrowSpeed = 12f;            // ours (Noita max_throw_speed 180 px/s)
+        const int SpillRings = 12;               // ours: how far around the break a flask's contents may land
 
         sealed class Thrown { public Vector2 Pos, Vel; public float Rot; public string Material; public float Amount; public int Age; }
         static readonly List<Thrown> Flying = new List<Thrown>();
@@ -166,9 +167,10 @@ namespace Terranoita.Game.Magic
             int units = (int)Math.Min(SprayUnits, w.FlaskAmount / CellsPerUnit);
             if (units <= 0)
                 return;
-            Physics.Fluids.Add(x, y, w.Flask, units);
+            // only what went in leaves the flask (a full tile takes nothing: it stays in the flask)
+            int put = Physics.Fluids.Add(x, y, w.Flask, units);
             Physics.Fluids.Learn(w.Flask);
-            w.FlaskAmount -= units * CellsPerUnit;
+            w.FlaskAmount = Math.Max(0, w.FlaskAmount - put * CellsPerUnit);
             Changed(w);
             p.SetCompositeArmFront(true, Player.CompositeArmStretchAmount.Full, (float)Math.Atan2(dir.Y, dir.X) - MathHelper.PiOver2);
         }
@@ -207,27 +209,40 @@ namespace Terranoita.Game.Magic
             }
         }
 
-        static void Break(Thrown f)
+        /// <summary>Tests: a full flask of the material shatters at pos; the units that did not land (0 = all of it did).</summary>
+        public static int TestShatter(string material, Vector2 pos) =>
+            Break(new Thrown { Pos = pos, Material = material, Amount = Capacity });
+
+        /// <summary>Shatters: what was in it spills; returns the liquid units that found no room.</summary>
+        static int Break(Thrown f)
         {
             SoundEngine.PlaySound(SoundID.Shatter, f.Pos);
             for (int k = 0; k < 8; k++)
                 Dust.NewDust(f.Pos - new Vector2(6, 6), 12, 12, DustID.Glass, Main.rand.NextFloat() * 6 - 3, Main.rand.NextFloat() * 4 - 3);
             if (string.IsNullOrEmpty(f.Material) || f.Amount <= 0)
-                return;
-            // what was in it lands around where it broke (Noita: death_throw_particle_velocity_coeff)
-            int left = (int)(f.Amount / CellsPerUnit);
+                return 0;
+            // all that was in it lands around where it broke (Noita: death_throw_particle_velocity_coeff): ring by ring
+            // until it is all out, counting only what went in (a cell full of another liquid takes nothing), so a
+            // thrown flask spills as much as pouring it out (author)
+            int left = (int)Math.Round(f.Amount / CellsPerUnit);
             int cx = (int)(f.Pos.X / 16), cy = (int)(f.Pos.Y / 16);
-            for (int r = 0; r <= 3 && left > 0; r++)
+            if (Physics.Mats.Solid(cx, cy))
+            {
+                // it broke against a wall: spill from the side it came from
+                var back = f.Vel.LengthSquared() > 0.01f ? -Vector2.Normalize(f.Vel) : new Vector2(0, -1);
+                cx = (int)((f.Pos.X + back.X * 12) / 16);
+                cy = (int)((f.Pos.Y + back.Y * 12) / 16);
+            }
+            for (int r = 0; r <= SpillRings && left > 0; r++)
                 for (int dy = -r; dy <= r && left > 0; dy++)
                     for (int dx = -r; dx <= r && left > 0; dx++)
                     {
                         if (Math.Max(Math.Abs(dx), Math.Abs(dy)) != r || Physics.Mats.Solid(cx + dx, cy + dy))
                             continue;
-                        int put = Math.Min(255, left);
-                        Physics.Fluids.Add(cx + dx, cy + dy, f.Material, put);
-                        left -= put;
+                        left -= Physics.Fluids.Add(cx + dx, cy + dy, f.Material, Math.Min(255, left));
                     }
             Physics.Fluids.Learn(f.Material);
+            return left;
         }
 
         public static void Clear() => Flying.Clear();
