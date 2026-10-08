@@ -19,7 +19,11 @@ namespace Terranoita.Game.Magic
     public static class SpellsTest
     {
         public static readonly bool Enabled = Environment.GetEnvironmentVariable("TERRANOITA_AUTOTEST_SPELLS") == "1";
-        const int Each = 45;
+        const int Each = 40;
+        // spells that passed are not tested again (author: "do not check everything ten times");
+        // TERRANOITA_SPELLS_ALL=1 tests all, TERRANOITA_SPELLS_ONLY=A,B just these
+        static string PassedFile => Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData), "Terranoita", "spells_passed.txt");
+        static long _memory0;
         static List<string> _ids;
         static Vector2 _start;
         static NPC _target;
@@ -51,8 +55,17 @@ namespace Terranoita.Game.Magic
             {
                 _start = p.position;
                 var only = Environment.GetEnvironmentVariable("TERRANOITA_SPELLS_ONLY");
-                _ids = new LuaWandMaker(NoitaArt.ReadText, 1).Actions().Select(a => a.id)
-                    .Where(a => string.IsNullOrEmpty(only) || only.Split(',').Contains(a)).ToList();
+                var passed = new HashSet<string>();
+                try
+                {
+                    if (string.IsNullOrEmpty(only) && Environment.GetEnvironmentVariable("TERRANOITA_SPELLS_ALL") != "1" && File.Exists(PassedFile))
+                        passed.UnionWith(File.ReadAllLines(PassedFile));
+                }
+                catch { }
+                var all = new LuaWandMaker(NoitaArt.ReadText, 1).Actions().Select(a => a.id).ToList();
+                _ids = all.Where(a => (string.IsNullOrEmpty(only) || only.Split(',').Contains(a)) && !passed.Contains(a)).ToList();
+                _memory0 = GC.GetTotalMemory(true) >> 20;
+                Entry.Log("SPELLS " + _ids.Count + " to test, " + (all.Count - _ids.Count) + " passed before");
                 try { File.WriteAllText(RowsFile, ""); } catch { }
                 Entry.Log("SPELLS " + _ids.Count + " spells");
             }
@@ -63,7 +76,7 @@ namespace Terranoita.Game.Magic
             {
                 Casting.TestFire = false;
                 Casting.TestAim = null;
-                Entry.Log("SPELLS done");
+                Entry.Log("SPELLS memory " + _memory0 + " -> " + (GC.GetTotalMemory(true) >> 20) + " MB, Lua states " + Casting.GunCount);
                 Done = true;
                 return;
             }
@@ -83,7 +96,10 @@ namespace Terranoita.Game.Magic
                     _life = _target.life;
                 }
                 var type = MagicItems.Spell(id)?.Type ?? "";
-                _wand = WandStore.NewWand();
+                // one test wand for every spell (its slots change): no new wand, no new Lua state per spell
+                if (_wand == null)
+                    _wand = WandStore.NewWand();
+                Casting.Changed(_wand);
                 _wand.Name = "spell test"; _wand.Sprite = "data/items_gfx/handgun.xml"; _wand.CastDelay = 10; _wand.RechargeTime = 20; _wand.SpellsPerCast = 1;
                 _wand.Slots = type == "projectile" || type == "static_projectile" || type == "material" ? new[] { id } : new[] { id, "LIGHT_BULLET" };
                 _wand.Uses = _wand.Slots.Select(s => MagicItems.Spell(s)?.MaxUses ?? -1).ToArray();
@@ -106,7 +122,13 @@ namespace Terranoita.Game.Magic
             string status = errors > 0 ? "error" : casts == 0 ? "no cast" : fires && shots == 0 ? "no shot" :
                             hurts && hurt <= 0 ? "no damage" : uses && !usesSpent ? "uses kept" : "OK";
             string row = id + " " + status + " shots " + shots + " mana " + mana + " hurt " + hurt;
-            try { File.AppendAllText(RowsFile, row + Environment.NewLine); } catch { }
+            try
+            {
+                File.AppendAllText(RowsFile, row + Environment.NewLine);
+                if (status == "OK")
+                    File.AppendAllText(PassedFile, id + Environment.NewLine);
+            }
+            catch { }
             if (status != "OK")
             {
                 Entry.Log("SPELLS " + row);

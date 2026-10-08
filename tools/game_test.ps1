@@ -68,6 +68,7 @@ $rows | Where-Object { (Status $_) -ne "OK" } | Select-Object -First 12 | ForEac
 $errors = Get-Content $log -Encoding UTF8 | Select-String "ERROR in [^:]+: .{0,80}|hook MISSING \S+|TIMEOUT" -AllMatches |
     ForEach-Object { $_.Matches[0].Value } | Group-Object | Sort-Object Count -Descending | Select-Object -First 5
 $errors | ForEach-Object { "  x$($_.Count) $($_.Name)" }
+Get-Content $log -Encoding UTF8 | Select-String "SPELLS memory|WANDS \d+ wands made|SPELLS \d+ to test" | ForEach-Object { "  " + $_.Line.Substring(13) }
 $basePath = Join-Path $PSScriptRoot "..\design\sources\magic_baseline.txt"
 $base = @{}
 if (Test-Path $basePath) {

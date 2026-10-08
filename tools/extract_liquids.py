@@ -59,6 +59,10 @@ def load(path):
     return {n: resolved(n) for n in mats}, root
 
 
+# solids that hurt on touch (author 2026-10-07 "toxic ground": the poison and radioactive rocks of Noita)
+SOLID_TOUCH = {"rock_static_poison": ["POISONED"], "rock_static_radioactive": ["RADIOACTIVE"]}
+
+
 def conducts(a):
     """electrical_conductivity as materials.xml sets it (children inherit). Unset: the engine's default is not in
     data.wak; oil and glue set 0 while water sets nothing, so liquids are taken to conduct and other cells not."""
@@ -203,7 +207,8 @@ def main():
         a = mats[n]
         solids.append({"id": n, "cell_type": a.get("cell_type", "solid"),
                        "tags": [t.strip("[]") for t in (a.get("tags") or "").split(",") if t.strip()],
-                       "terraria_tile": terraria_tile(n), "touch_damage": damage.get(n, 0.0), "conducts": conducts(a),
+                       "terraria_tile": terraria_tile(n), "touch_damage": damage.get(n, 0.0), "touch_effects": SOLID_TOUCH.get(n, []),
+                       "conducts": conducts(a),
                        "stage": "2", "_unverified": conducts_unverified(a),
                        "_sources": {"all": "materials.xml; terraria_tile by name (tools/extract_liquids.py terraria_tile)"}})
 
@@ -247,6 +252,7 @@ def main():
         "tags": {"type": "string[]", "desc": "Noita tags."},
         "terraria_tile": {"type": "string", "desc": "TileID a reaction leaves when it makes this ('none' = nothing)."},
         "touch_damage": {"type": "number", "desc": "Noita hp units per frame while touching (player_base.xml)."},
+        "touch_effects": {"type": "string[]", "desc": "Noita status effects (status_effects.json) while touching it."},
         "conducts": {"type": "bool", "desc": "Carries electricity (materials.xml electrical_conductivity; unset = Noita's engine default, see _unverified)."},
         "stage": {"type": "enum", "values": ["1a", "1b", "1c", "2", "3", "4"], "desc": "Stage that builds it."},
     }

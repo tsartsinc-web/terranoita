@@ -21,9 +21,28 @@ namespace Terranoita.Game.Magic
             public System.Threading.Tasks.Task<LuaGun> Loading;   // gun.lua + gun_actions.lua parsed off the game thread
             public int ReadyAt;            // Main.GameUpdateCount when it can cast again
             public int Version;            // WandData changes reload the deck
+            public int LastUsed;           // _now when it was last asked for
         }
 
         static readonly Dictionary<int, Held> Guns = new Dictionary<int, Held>();
+        // each Lua state holds Noita's whole spell code (~15 MB): only the wands used last keep one (the magic test's
+        // memory grew by a state per wand); a wand taken up again gets a new state in the background
+        const int MaxGuns = 6;
+
+        /// <summary>Tests: how many wands hold a Lua state now.</summary>
+        public static int GunCount => Guns.Count;
+
+        static void Evict()
+        {
+            while (Guns.Count > MaxGuns)
+            {
+                var oldest = Guns.OrderBy(g => g.Value.LastUsed).First();
+                Guns.Remove(oldest.Key);
+            }
+        }
+
+        /// <summary>Leaving the world: every Lua state goes.</summary>
+        public static void Forget() => Guns.Clear();
         static readonly Dictionary<int, int> Versions = new Dictionary<int, int>();
         static int _now;
 
@@ -51,7 +70,10 @@ namespace Terranoita.Game.Magic
             {
                 Guns[w.Id] = h = new Held { Version = -1 };
                 h.Loading = System.Threading.Tasks.Task.Run(() => new LuaGun(NoitaArt.ReadText, new TerrariaWorld()));
+                h.LastUsed = _now;
+                Evict();
             }
+            h.LastUsed = _now;
             if (h.Gun == null)
             {
                 if (!h.Loading.IsCompleted)
@@ -88,6 +110,8 @@ namespace Terranoita.Game.Magic
         {
             _now++;
             var p = Main.LocalPlayer;
+            if (Main.gameMenu && Guns.Count > 0)
+                Forget();
             if (Main.gameMenu || p == null || !p.active || p.dead || !NoitaArt.Ready)
                 return;
             var item = HeldWand(p);
