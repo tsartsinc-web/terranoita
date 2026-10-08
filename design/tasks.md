@@ -12,7 +12,7 @@ How it works (author, 2026-10-08): the author only says "работай" to eith
 - Status words: new, doing, waits <row>, done <commit>.
 
 ## State (keep to ~12 lines; update when it changes)
-- Melty: 0.3.1 LIVE (146 players). 0.4.0 zip built but NOT uploaded and must be rebuilt (PC-8: release runs stage 1b).
+- Melty: 0.3.1 LIVE (146 players). 0.4.0 zip built, not uploaded (rebuild for the fixes since: PC-11..14, mana, magic bonuses).
 - Stage 3 magic in game: all spells via Noita's gun.lua (LuaGun), shot scripts (LuaShotScripts), all 48 wand files
   pass the wands test, spell shots from any entity file, progress window (key O), 16 spell slots.
 - Physics review fixes in (atomic saves under a lock, no pool regeneration on a broken file).

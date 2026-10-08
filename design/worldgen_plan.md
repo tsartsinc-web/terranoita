@@ -6,17 +6,10 @@ by step: loot pass, then a few scenes; stop when it is fun, not when every Noita
 Author: "checked many chests, no wands, no spells; worldgen is the big problem". Goal: Noita's content is placed by
 Noita's own biome code during Terraria's own world generation, not sprinkled over a finished world.
 
-## 0. Why chests were empty (fix first, PC-8)
-- `Entry.Stage` defaults to "1b" (commit 4e17e91, 2026-10-06). The release and the recipe set no TERRANOITA_STAGE, so
-  every hook with stage 2/3 is off for players: `world_load` (2) never binds -> `WorldLoot.Load` never runs -> no
-  cave wands, no chest spells. Same for all `magic_*` hooks (3). The 0.4.0 zip built from 026b8bb has this too:
-  do not upload it as is.
-- `WorldLoot.Load` returns silently when `NoitaArt.Ready` is false at world load and never retries; when the
-  `.wld.magic` file exists it never fills chests again (new chests, worlds from older versions).
-- 0.3.1 (live) has no magic at all. Likely worse: the 14 stage-2 hooks (physics, liquids, world_load) are off for
-  players since 0.3.0 too (Patches.On is true, but its hooks never bind). Verify: a Melty-installed copy's log,
-  the "hooks" line. Root cause in the process: every game test sets TERRANOITA_STAGE, so no test ever ran the
-  release the way Melty starts it (no env vars). PC-8 adds that test.
+## 0. Why chests were empty
+- Not the stage (PC-8 checked: every patch applies whatever Entry.Stage; a run without env had chests, wands, cart).
+  Most likely the author played the Melty 0.3.x build, which has no magic. Keep: WorldLoot.Load retries when
+  NoitaArt was not Ready; `version N` line so old worlds are filled once.
 
 ## 1. Where it hooks in Terraria (PC)
 - Terraria builds a world as a list of passes (`WorldGen.GenerateWorld` -> `AddGenerationPass(name, ...)`; names
