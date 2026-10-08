@@ -1030,3 +1030,7 @@ unless asked.
   hold; the player gets Terraria's Electrified (40 frames), no extra damage. Not saved; cleared on world load.
 - PhysicsTest scene 15 (frame 300+18 s): 9x4 water pool at _x0+166, a zombie in it and one outside, Emit into the
   pool; logs "electricity:" lines at +0, +0.5 s, +3 s (charge gone). Not run yet.
+- Same day, after checking Noita's data (design/effect_interactions.md 0c): plain LIGHTNING and ARC_ELECTRIC sources
+  removed (their files load no electricity); sources now: SpellShots.LoadEntity of a file with ElectricityComponent
+  (energy from the file, default from component docs), LightningComponent config_explosion load_this_entity, and
+  ELECTRIC_CHARGE (lightning_count) on impact. Electricity.Emit(pos, energy): tiles = energy x 3 / 16 (assumed).

@@ -6,17 +6,18 @@ using Terranoita.Physics;
 namespace Terranoita.Game.Physics
 {
     /// <summary>
-    /// Electricity in conducting liquids (design/effect_interactions.md section 3, on Core's Conduction): lightning that
-    /// hits, electric arcs and electric-charged shots in a liquid charge the connected pool; whoever stands in a charged
+    /// Electricity in conducting liquids (design/effect_interactions.md section 3, on Core's Conduction): Noita's
+    /// electricity entities (ElectricityComponent: misc/electricity*.xml, shot by scripts and blasts) and ELECTRIC_CHARGE
+    /// impacts charge the connected pool; whoever stands in a charged
     /// tile is electrocuted (creatures: hurt and held, Noita's ELECTROCUTION; the player: Terraria's Electrified, author
     /// 2026-10-08). Only what conducts in Noita conducts (liquids.json conducts). Transient: not saved.
     /// </summary>
     public static class Electricity
     {
         const int Tick = 6;
-        // Noita: misc/electricity.xml ElectricityComponent energy 1000 (1 energy = 1 tile here, capped by MaxSpread);
-        // electricity_weak.xml 50 for arcs
-        public const int Energy = 1000, WeakEnergy = 50;
+        // Noita's electricity walks through conducting cells (ElectricityComponent speed 32, energy 1000 by default); ours
+        // floods the pool at once. Assumed: energy = Noita pixels it walks -> tiles x PixelScale / 16 (capped by MaxSpread)
+        const float Px = Terranoita.Noita.Units.PixelScale;
         // ours: how long a charged tile stays charged after the last emission (effect_electricity.xml frames 40)
         const int ChargeFrames = 40;
         const int ShockFrames = 40;              // Noita: effect_electricity.xml GameEffectComponent frames
@@ -36,14 +37,15 @@ namespace Terranoita.Game.Physics
         public static bool ChargedAt(int x, int y) => _c != null && _c.Charged(x, y);
         public static void Clear() { _c = null; }
 
-        /// <summary>Electricity at a world position (pixels): charges the pool within radius tiles; how many tiles.</summary>
-        public static int Emit(Vector2 pos, int radius, int energy)
+        /// <summary>Noita's electricity (its ElectricityComponent energy) at a world position (pixels): charges the
+        /// conducting pool it starts in or next to; how many tiles.</summary>
+        public static int Emit(Vector2 pos, int energy, int radius = 1)
         {
             if (!Patches.On)
                 return 0;
             if (_c == null || _c.Width != Main.maxTilesX)
                 _c = new Conduction(Main.maxTilesX);
-            int n = _c.Emit(TheGrid, (int)(pos.X / 16), (int)(pos.Y / 16), radius, energy, ChargeFrames);
+            int n = _c.Emit(TheGrid, (int)(pos.X / 16), (int)(pos.Y / 16), radius, (int)(energy * Px / 16f), ChargeFrames);
             if (n > 0 && DebugTools.Testing)
                 Entry.Log("ELECTRICITY emit at " + (int)(pos.X / 16) + "," + (int)(pos.Y / 16) + ": " + n + " tiles, " + _c.Count + " charged");
             return n;

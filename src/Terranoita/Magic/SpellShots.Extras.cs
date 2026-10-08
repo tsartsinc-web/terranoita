@@ -247,6 +247,14 @@ namespace Terranoita.Game.Magic
                 int who = Carriers.Spawn(def, (int)pos.X, (int)pos.Y);
                 return who >= 0 ? 1000 + who : 0;
             }
+            // Noita's electricity (misc/electricity*.xml: ElectricityComponent), shot by scripts such as electrocution_blast.lua
+            // and thundermage.lua: it runs through the conducting liquid there
+            int energy = ElectricEnergy(file);
+            if (energy > 0)
+            {
+                Physics.Electricity.Emit(pos, energy);
+                return 0;
+            }
             if (NotYet.Add("load:" + file))
                 Entry.Log("spell EntityLoad not done yet: " + file);
             return 0;
@@ -355,10 +363,6 @@ namespace Terranoita.Game.Magic
             }
             if (s.Age % 10 != 0)
                 return;
-            // an electric arc through a pool charges it (Noita: electricity_weak.xml along the arc)
-            if (lightning)
-                for (float k = 0; k < len; k += 32)
-                    Physics.Electricity.Emit(Vector2.Lerp(s.Pos, other.Pos, k / Math.Max(1f, len)), 1, Physics.Electricity.WeakEnergy);
             for (int i = 0; i < Main.maxNPCs; i++)
             {
                 var n = Main.npc[i];

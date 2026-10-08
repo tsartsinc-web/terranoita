@@ -228,9 +228,6 @@ namespace Terranoita.Game.Magic
             // liquids: die_on_liquid_collision ends it (the iceball); liquid_drag slows it down (author: shots slow in water)
             if (InLiquid(s.Pos))
             {
-                // an electric-charged shot (lightning_count: ELECTRIC_CHARGE...) charges the pool it flies through
-                if (s.Age % 5 == 0 && s.Lua.Get("lightning_count") > 0)
-                    Physics.Electricity.Emit(s.Pos, 1, Physics.Electricity.Energy);
                 if (ph.DieOnLiquid)
                 {
                     End(s, true);
@@ -406,6 +403,10 @@ namespace Terranoita.Game.Magic
             // a fire spell that hits a block sets the burnable ones around it alight (author: fire weapons light wood)
             if (hit && s.Fire && Physics.Patches.On)
                 Physics.Fire.IgniteArea(s.Pos, 24f, 0.8f);
+            // Noita's ELECTRIC_CHARGE (lightning_count): "releases an electric charge on impact" (the engine's electricity,
+            // misc/electricity.xml) - into the conducting liquid there
+            if (hit && s.Lua.Get("lightning_count") > 0)
+                Physics.Electricity.Emit(s.Pos, ElectricEnergy(ElectricityFile));
             if (s.Phys.Lightning != null)
                 LightningBurst(s);   // a lightning projectile ends in its lightning trail and blast, whatever ends it
             else if (s.Radius > 0 && (hit || s.ExplodeOnDeath))

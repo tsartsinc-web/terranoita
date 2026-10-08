@@ -61,7 +61,7 @@ namespace Terranoita.Game.Magic
             ["ProjectileComponent.die_on_liquid_collision"] = "0", ["ProjectileComponent.die_on_low_velocity"] = "0",
             ["ProjectileComponent.die_on_low_velocity_limit"] = "50", ["ProjectileComponent.on_collision_die"] = "1",
             ["ProjectileComponent.bounce_energy"] = "0.5", ["ProjectileComponent.penetrate_world"] = "0",
-            ["ProjectileComponent.penetrate_world_velocity_coeff"] = "0.6",
+            ["ProjectileComponent.penetrate_world_velocity_coeff"] = "0.6", ["ElectricityComponent.energy"] = "1000",
         };
 
         static ShotPhys PhysOf(string file)
@@ -186,8 +186,9 @@ namespace Terranoita.Game.Magic
                     Dust.NewDustPerfect(Vector2.Lerp(a, b, k / Math.Max(1f, len)), DustID.Electric, Vector2.Zero, 0, default(Color), 0.9f).noGravity = true;
                 Lighting.AddLight(b, 0.4f, 0.7f, 1f);
             }
-            // where lightning ends, a conducting pool is charged (Noita: misc/electricity.xml, energy 1000)
-            Physics.Electricity.Emit(s.Pos, 2, Physics.Electricity.Energy);
+            // its blast's load_this_entity: electricity there runs through the liquid (lightning_extra_arcs.xml)
+            if (l.Explosion.TryGetValue("load_this_entity", out var load))
+                LoadElectricity(load, s.Pos);
             if (l.ExplosionRadius.HasValue)
                 s.Radius = Math.Max(0, l.ExplosionRadius.Value + s.Lua.Get("explosion_radius")) * Px;
             s.ExplosionDamage = Math.Max(0, (l.ExplosionDamage ?? ExplosionDefaultDamage) + s.Lua.Get("damage_explosion_add")) * 25f;
@@ -195,6 +196,45 @@ namespace Terranoita.Game.Magic
                 s.ExplosionDamage = 0;
             if (s.Radius > 0)
                 Explode(s);
+        }
+
+        // ---- electricity ----
+
+        const string ElectricityFile = "data/entities/misc/electricity.xml";
+        static readonly Dictionary<string, int> Electric = new Dictionary<string, int>(StringComparer.OrdinalIgnoreCase);
+
+        /// <summary>Noita's ElectricityComponent energy of an entity file (its default from the component docs), or 0 when
+        /// the file has no ElectricityComponent.</summary>
+        static int ElectricEnergy(string file)
+        {
+            file = file ?? "";
+            if (Electric.TryGetValue(file, out int e))
+                return e;
+            e = 0;
+            try
+            {
+                var c = NoitaArt.ReadText(file) == null ? null
+                    : NoitaEntityXml.Load(file, NoitaArt.ReadText).Components.FirstOrDefault(x => x.Type == "ElectricityComponent");
+                if (c != null)
+                {
+                    string v = c.Get("energy") ?? Docs?.Default("ElectricityComponent", "energy") ?? Fallback["ElectricityComponent.energy"];
+                    e = int.TryParse(v, NumberStyles.Integer, CultureInfo.InvariantCulture, out int n) ? n : 0;
+                }
+            }
+            catch (Exception ex) { Entry.Error("electricity " + file, ex); }
+            Electric[file] = e;
+            return e;
+        }
+
+        /// <summary>A config_explosion's load_this_entity list: its electricity entities go off at the blast.</summary>
+        static void LoadElectricity(string files, Vector2 pos)
+        {
+            foreach (var f in files.Split(','))
+            {
+                int e = ElectricEnergy(f.Trim());
+                if (e > 0)
+                    Physics.Electricity.Emit(pos, e);
+            }
         }
 
         // ---- the homebringer bolt ----

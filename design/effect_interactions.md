@@ -31,6 +31,24 @@ Rule of the project: Noita's own data and rules, read from the player's Noita; n
 - So section 3's sources are: EntityLoad/shoot of a file with ElectricityComponent (energy = how far it crawls),
   LIGHTNING projectiles where they hit, ARC_ELECTRIC arcs. Spell_projectiles needs no electricity columns.
 
+### 0c. Checked in Noita's data again (2026-10-09, PC; tncli wak-cat, component_documentation.txt)
+- ElectricityComponent (docs): energy 1000, speed 32, splittings 0, probability_to_heat 0 by default: a walker that
+  runs through conducting cells. Ours floods the pool at once; energy -> tiles assumed = Noita px x 3 / 16.
+- Who makes electricity (data): shoot_projectile of misc/electricity.xml by electrocution_blast.lua (ELECTROCUTION_FIELD
+  explosion script) and thundermage.lua; config_explosion load_this_entity in lightning_extra_arcs.xml; traps/lamps
+  (electricity_medium/weak). Plain LIGHTNING (deck/lightning.xml) loads NO electricity: its blast has only main_blue
+  particles, damage_by_type electricity 1.0. ARC_ELECTRIC (misc/arc_electric.xml) has none either.
+- ELECTRIC_CHARGE: lightning_count +1, damage_electricity_add 0.1, extra entity particles/electricity.xml (sparks +
+  blue light only); its old text "Projectile releases an electric charge on impact" (_gun_actions_unlimited.lua) is
+  the engine's lightning_count ("how many times do we do our awesome lightning effect"); nukes/holy bombs have
+  lightning_count 5.
+- DamageModelComponent: in_liquid_shooting_electrify_prob (tanks, turret: 30 = shooting underwater electrifies the
+  water), mElectricityDamageThisFrame, mLastElectricityResistanceFrame (electricity damage is engine-side: no number in
+  data). ELECTROCUTION = effect_electricity.xml (40 frames, disable_movement, ragdoll part, audio
+  game_effect/electrocution/loop, spark particles). STUN_PROTECTION_ELECTRICITY 7200 frames (effect entity).
+- Conductivity: materials.xml electrical_conductivity on 48 materials: solid metals 1, oil/glue 0, teleportatium 1
+  (liquids); everything else unset (default engine-side). Biome modifier CONDUCTIVE: everything_is_conductive.
+
 ## 1. Sheets first
 - liquids.json + noita_solids.json: new column `conducts` (bool, from materials.xml electrical_conductivity).
   Terraria's own liquids: water conducts (Noita water does); lava/honey/shimmer do not (author 2026-10-08).

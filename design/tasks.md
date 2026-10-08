@@ -52,10 +52,11 @@ How it works (author, 2026-10-08): the author only says "работай" to eith
 - PC-6 doing: spells left: MINE_DEATH_TRIGGER, EXPLODING_DEER, BOMB_CART, DEATH_CROSS (moving/summoned entities,
   cross lasers); PIPE_BOMB* go off only in another blast (Noita), the test should expect that. Giga spells cost
   500-600: castable now with 600 max mana.
-- PC-4 doing: Physics/Electricity.cs on Core's Conduction written (lightning ends, ARC_ELECTRIC arcs, lightning_count
-  shots in liquid charge conducting pools; creatures hurt + held, player Electrified); physics test scene 15 (pool,
-  2 zombies). Left: run `game_test -Mode physics` (author's OK), check the ELECTRICITY lines; metal tiles not yet
-  (no conducts column in materials.json).
+- PC-4 doing: Physics/Electricity.cs on Core's Conduction; sources as in Noita's data (effect_interactions.md 0c):
+  entities with ElectricityComponent (Lua EntityLoad/shoot_projectile, blast load_this_entity) + ELECTRIC_CHARGE
+  impacts; creatures hurt + held, player Electrified; physics test scene 15 (pool, 2 zombies). Left: run
+  `game_test -Mode physics` (author's OK); metal tiles (no conducts column in materials.json); tanks'
+  in_liquid_shooting_electrify_prob; the electrocution loop sound.
 - PC-10 waits CLOUD-7: worldgen per design/worldgen_plan.md sections 1, 3, 4, 5. Check: game_test -Mode worldgen.
 - Known gaps: flask powders (gunpowder_unstable, purifying_powder) do not pour (no Fluids kind); multiplayer still
   clamps synced mana at 400 (MessageBuffer.GetData).
@@ -66,6 +67,9 @@ How it works (author, 2026-10-08): the author only says "работай" to eith
 ## Author (questions; agents do not wait for answers)
 - Roadmap decisions: design/roadmap.md "Open author decisions" (trader, flasks, perks, bosses).
 - Answered: only what conducts in Noita conducts; the player's stun is Terraria's Electrified; max mana 600 (15 stars).
+- Electricity (0c): plain LIGHTNING and ARC_ELECTRIC load no electricity in Noita's data, so they do not electrify
+  water here (only ELECTRIC_CHARGE, ELECTROCUTION_FIELD, thunder mages...). In your Noita, does a plain lightning bolt
+  electrify water? If yes, it is engine-side and we add it.
 - Optional: a signatures-only reference of Terraria.exe so the cloud can compile the game code (licence: your call,
   never in a public repo).
 

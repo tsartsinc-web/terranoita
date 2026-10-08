@@ -102,8 +102,8 @@ namespace Terranoita.Game.Physics
             WorldGen.RangeFrame(x1 - 4, gy - 8, x2 + 6, gy + 4);
             _inPool = Main.npc[NPC.NewNPC(new Terraria.DataStructures.EntitySource_SpawnNPC(), (x1 + 4) * 16, (gy + 1) * 16, NPCID.Zombie)];
             _outside = Main.npc[NPC.NewNPC(new Terraria.DataStructures.EntitySource_SpawnNPC(), (x2 + 4) * 16, (gy + 1) * 16, NPCID.Zombie)];
-            int n = Electricity.Emit(new Microsoft.Xna.Framework.Vector2(x1 * 16 + 8, (gy - 3) * 16 + 8), 2, Electricity.Energy);
-            Log("electricity: lightning into a 9x4 pool charged " + n + " tiles; in the pool " + Hp(_inPool) + ", outside " + Hp(_outside));
+            int n = Electricity.Emit(new Microsoft.Xna.Framework.Vector2(x1 * 16 + 8, (gy - 3) * 16 + 8), 1000);
+            Log("electricity: misc/electricity.xml (energy 1000) into a 9x4 pool charged " + n + " tiles; in the pool " + Hp(_inPool) + ", outside " + Hp(_outside));
         }
 
         // 6. acid on a dirt block, 7. oil in a stone basin set alight, 8. smoke, 9. slime poured onto oil (sinks)
