@@ -932,3 +932,13 @@ unless asked.
 - Fix: spell shots with grass in the way threw in DelegateMethods.CutTiles (tileCutIgnore was null; the shot
   vanished): set from Player.GetTileCutIgnorance. This bug is in the 0.4.1 draft on Melty: resubmit before publishing.
 - Test (enemies, 6 places): surface1, winter2, desert/enter, rainforest/05, snowcastle/04, snowcave/09, fungicave/04.
+
+## PC 2026-10-08: multiplayer through Melty and Steam (author)
+- Multiplayer.cs: in a game (netMode 1) reads Terraria's Steam lobby by reflection (SocialAPI.Network._lobby Id/Owner,
+  Steamworks.SteamUser.GetSteamID) and logs "Hosting at <lobby id>" on the host (owner == me), else "Steam lobby <id>
+  (joined)". Joiners: Terraria's own "+connect_lobby <id>" (NetClientSocialModule.CheckParameters); Terranoita.exe
+  passes unknown args on. Host & Play starts vanilla TerrariaServer.exe: Noita content is per player, not synced.
+- Melty recipe (scratchpad recipe042.json, validate_recipe: valid, one click yes): multiplayer {maxPlayers 255
+  (Main.maxNetPlayers), connect.address log latest.log after "Hosting at ", joinArgs ["+connect_lobby","{address}"]}.
+- NOT tested: hosting (needs Host & Play with Steam by hand) and joining (needs a second Steam account). Package
+  build/terranoita-0.4.2.zip built, not uploaded (author: nothing on Melty without consent).

@@ -104,6 +104,7 @@ namespace Terranoita.Game
         static void Update()
         {
             NoitaSound.Update();
+            Multiplayer.Update();
             try { Carriers.Sweep(); }
             catch (Exception ex) { Entry.Error("segments sweep", ex); }
             try { Magic.WandWindow.Update(); Magic.Casting.Update(); if (!Main.gameMenu) Magic.WorldLoot.Update(); ProgressWindow.Update(); NoitaActions.Update(); SlowFrames.EndUpdate(); }
