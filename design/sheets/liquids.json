@@ -87,6 +87,10 @@
    "type": "bool",
    "desc": "Carries electricity (materials.xml electrical_conductivity; unset = Noita's engine default, see _unverified)."
   },
+  "reacts_as": {
+   "type": "string[]",
+   "desc": "Materials whose reactions it takes part in too (Noita _inherit_reactions up the _parent chain)."
+  },
   "stage": {
    "type": "enum",
    "values": [
@@ -129,6 +133,7 @@
     "chaotic_transmutation"
    ],
    "creative": true,
+   "reacts_as": [],
    "conducts": true,
    "stage": "2",
    "_unverified": {
@@ -161,6 +166,7 @@
     "burnable_fast"
    ],
    "creative": true,
+   "reacts_as": [],
    "conducts": false,
    "stage": "2",
    "_unverified": {
@@ -193,6 +199,7 @@
     "burnable_fast"
    ],
    "creative": false,
+   "reacts_as": [],
    "conducts": false,
    "stage": "2",
    "_unverified": {
@@ -232,6 +239,7 @@
     "chaotic_transmutation"
    ],
    "creative": true,
+   "reacts_as": [],
    "conducts": true,
    "stage": "2",
    "_unverified": {
@@ -267,6 +275,7 @@
     "evaporable"
    ],
    "creative": false,
+   "reacts_as": [],
    "conducts": false,
    "stage": "2",
    "_unverified": {
@@ -310,6 +319,7 @@
     "earth"
    ],
    "creative": true,
+   "reacts_as": [],
    "conducts": true,
    "stage": "2",
    "_unverified": {
@@ -353,6 +363,7 @@
     "earth"
    ],
    "creative": true,
+   "reacts_as": [],
    "conducts": true,
    "stage": "2",
    "_unverified": {
@@ -396,6 +407,7 @@
     "earth"
    ],
    "creative": true,
+   "reacts_as": [],
    "conducts": true,
    "stage": "2",
    "_unverified": {
@@ -434,6 +446,7 @@
     "liquid_common"
    ],
    "creative": true,
+   "reacts_as": [],
    "conducts": true,
    "stage": "2",
    "_unverified": {
@@ -474,6 +487,7 @@
     "chaotic_transmutation"
    ],
    "creative": true,
+   "reacts_as": [],
    "conducts": true,
    "stage": "2",
    "_unverified": {
@@ -516,6 +530,7 @@
     "liquid_common"
    ],
    "creative": true,
+   "reacts_as": [],
    "conducts": true,
    "stage": "2",
    "_unverified": {
@@ -551,6 +566,7 @@
     "cold"
    ],
    "creative": true,
+   "reacts_as": [],
    "conducts": false,
    "stage": "2",
    "_unverified": {
@@ -591,6 +607,7 @@
     "food"
    ],
    "creative": false,
+   "reacts_as": [],
    "conducts": true,
    "stage": "2",
    "_unverified": {
@@ -631,6 +648,7 @@
     "chaotic_transmutation"
    ],
    "creative": true,
+   "reacts_as": [],
    "conducts": true,
    "stage": "2",
    "_unverified": {
@@ -675,6 +693,7 @@
     "chaotic_transmutation"
    ],
    "creative": true,
+   "reacts_as": [],
    "conducts": true,
    "stage": "2",
    "_unverified": {
@@ -715,6 +734,7 @@
     "chaotic_transmutation"
    ],
    "creative": true,
+   "reacts_as": [],
    "conducts": true,
    "stage": "2",
    "_unverified": {
@@ -757,6 +777,7 @@
     "earth"
    ],
    "creative": true,
+   "reacts_as": [],
    "conducts": true,
    "stage": "2",
    "_unverified": {
@@ -793,6 +814,7 @@
     "earth"
    ],
    "creative": true,
+   "reacts_as": [],
    "conducts": true,
    "stage": "2",
    "_unverified": {
@@ -824,6 +846,7 @@
     "gas"
    ],
    "creative": false,
+   "reacts_as": [],
    "conducts": false,
    "stage": "2",
    "_unverified": {
@@ -860,6 +883,7 @@
     "liquid_common"
    ],
    "creative": false,
+   "reacts_as": [],
    "conducts": true,
    "stage": "2",
    "_unverified": {
@@ -891,6 +915,7 @@
     "gas"
    ],
    "creative": false,
+   "reacts_as": [],
    "conducts": false,
    "stage": "2",
    "_unverified": {
@@ -929,6 +954,7 @@
     "liquid_common"
    ],
    "creative": false,
+   "reacts_as": [],
    "conducts": true,
    "stage": "2",
    "_unverified": {
@@ -967,6 +993,7 @@
     "liquid_common"
    ],
    "creative": false,
+   "reacts_as": [],
    "conducts": true,
    "stage": "2",
    "_unverified": {
@@ -1009,6 +1036,7 @@
     "earth"
    ],
    "creative": true,
+   "reacts_as": [],
    "conducts": true,
    "stage": "2",
    "_unverified": {
@@ -1041,6 +1069,7 @@
     "impure"
    ],
    "creative": false,
+   "reacts_as": [],
    "conducts": true,
    "stage": "2",
    "_unverified": {
@@ -1078,6 +1107,7 @@
     "impure"
    ],
    "creative": true,
+   "reacts_as": [],
    "conducts": true,
    "stage": "2",
    "_unverified": {
@@ -1114,6 +1144,7 @@
     "earth"
    ],
    "creative": false,
+   "reacts_as": [],
    "conducts": true,
    "stage": "2",
    "_unverified": {
@@ -1147,6 +1178,9 @@
     "fungus"
    ],
    "creative": true,
+   "reacts_as": [
+    "acid_gas"
+   ],
    "conducts": false,
    "stage": "2",
    "_unverified": {
@@ -1189,6 +1223,7 @@
     "earth"
    ],
    "creative": false,
+   "reacts_as": [],
    "conducts": true,
    "stage": "2",
    "_unverified": {
@@ -1231,6 +1266,7 @@
     "earth"
    ],
    "creative": false,
+   "reacts_as": [],
    "conducts": true,
    "stage": "2",
    "_unverified": {
@@ -1274,6 +1310,7 @@
     "earth"
    ],
    "creative": true,
+   "reacts_as": [],
    "conducts": true,
    "stage": "2",
    "_unverified": {
@@ -1312,6 +1349,7 @@
     "liquid_common"
    ],
    "creative": true,
+   "reacts_as": [],
    "conducts": true,
    "stage": "2",
    "_unverified": {
@@ -1346,6 +1384,7 @@
     "magic"
    ],
    "creative": true,
+   "reacts_as": [],
    "conducts": true,
    "stage": "2",
    "_unverified": {
@@ -1385,6 +1424,7 @@
     "chaotic_transmutation"
    ],
    "creative": true,
+   "reacts_as": [],
    "conducts": true,
    "stage": "2",
    "_unverified": {
@@ -1425,6 +1465,7 @@
     "liquid_common"
    ],
    "creative": true,
+   "reacts_as": [],
    "conducts": false,
    "stage": "2",
    "_unverified": {},
@@ -1464,6 +1505,7 @@
     "liquid_common"
    ],
    "creative": true,
+   "reacts_as": [],
    "conducts": false,
    "stage": "2",
    "_unverified": {},
@@ -1497,6 +1539,7 @@
     "alchemy"
    ],
    "creative": true,
+   "reacts_as": [],
    "conducts": false,
    "stage": "2",
    "_unverified": {
@@ -1532,6 +1575,7 @@
     "regenerative_gas"
    ],
    "creative": true,
+   "reacts_as": [],
    "conducts": false,
    "stage": "2",
    "_unverified": {
@@ -1564,6 +1608,7 @@
     "vapour"
    ],
    "creative": true,
+   "reacts_as": [],
    "conducts": false,
    "stage": "2",
    "_unverified": {
@@ -1599,6 +1644,7 @@
     "alchemy"
    ],
    "creative": true,
+   "reacts_as": [],
    "conducts": false,
    "stage": "2",
    "_unverified": {
@@ -1634,6 +1680,7 @@
     "alchemy"
    ],
    "creative": true,
+   "reacts_as": [],
    "conducts": false,
    "stage": "2",
    "_unverified": {
@@ -1669,6 +1716,7 @@
     "alchemy"
    ],
    "creative": true,
+   "reacts_as": [],
    "conducts": false,
    "stage": "2",
    "_unverified": {
@@ -1703,6 +1751,7 @@
     "vapour"
    ],
    "creative": true,
+   "reacts_as": [],
    "conducts": false,
    "stage": "2",
    "_unverified": {
@@ -1739,6 +1788,7 @@
     "impure"
    ],
    "creative": false,
+   "reacts_as": [],
    "conducts": true,
    "stage": "2",
    "_unverified": {
@@ -1777,6 +1827,7 @@
     "impure"
    ],
    "creative": true,
+   "reacts_as": [],
    "conducts": true,
    "stage": "2",
    "_unverified": {
@@ -1815,6 +1866,7 @@
     "impure"
    ],
    "creative": true,
+   "reacts_as": [],
    "conducts": true,
    "stage": "2",
    "_unverified": {
@@ -1854,6 +1906,7 @@
     "magic_faster"
    ],
    "creative": true,
+   "reacts_as": [],
    "conducts": true,
    "stage": "2",
    "_unverified": {
@@ -1895,6 +1948,7 @@
     "magic_faster"
    ],
    "creative": true,
+   "reacts_as": [],
    "conducts": true,
    "stage": "2",
    "_unverified": {
@@ -1933,6 +1987,7 @@
     "regenerative"
    ],
    "creative": true,
+   "reacts_as": [],
    "conducts": true,
    "stage": "2",
    "_unverified": {
@@ -1971,6 +2026,7 @@
     "regenerative"
    ],
    "creative": true,
+   "reacts_as": [],
    "conducts": true,
    "stage": "2",
    "_unverified": {
@@ -2009,6 +2065,7 @@
     "impure"
    ],
    "creative": true,
+   "reacts_as": [],
    "conducts": true,
    "stage": "2",
    "_unverified": {
@@ -2047,6 +2104,7 @@
     "impure"
    ],
    "creative": true,
+   "reacts_as": [],
    "conducts": true,
    "stage": "2",
    "_unverified": {
@@ -2086,6 +2144,7 @@
     "magic_faster"
    ],
    "creative": true,
+   "reacts_as": [],
    "conducts": true,
    "stage": "2",
    "_unverified": {
@@ -2125,6 +2184,7 @@
     "impure"
    ],
    "creative": true,
+   "reacts_as": [],
    "conducts": true,
    "stage": "2",
    "_unverified": {
@@ -2163,6 +2223,7 @@
     "impure"
    ],
    "creative": true,
+   "reacts_as": [],
    "conducts": true,
    "stage": "2",
    "_unverified": {
@@ -2202,6 +2263,7 @@
     "impure"
    ],
    "creative": true,
+   "reacts_as": [],
    "conducts": true,
    "stage": "2",
    "_unverified": {
@@ -2240,6 +2302,7 @@
     "impure"
    ],
    "creative": true,
+   "reacts_as": [],
    "conducts": true,
    "stage": "2",
    "_unverified": {},
@@ -2277,6 +2340,7 @@
     "impure"
    ],
    "creative": true,
+   "reacts_as": [],
    "conducts": true,
    "stage": "2",
    "_unverified": {
@@ -2315,6 +2379,7 @@
     "impure"
    ],
    "creative": true,
+   "reacts_as": [],
    "conducts": true,
    "stage": "2",
    "_unverified": {},
@@ -2352,6 +2417,7 @@
     "magic_faster"
    ],
    "creative": true,
+   "reacts_as": [],
    "conducts": true,
    "stage": "2",
    "_unverified": {
@@ -2390,6 +2456,7 @@
     "impure"
    ],
    "creative": true,
+   "reacts_as": [],
    "conducts": true,
    "stage": "2",
    "_unverified": {
@@ -2428,6 +2495,7 @@
     "impure"
    ],
    "creative": true,
+   "reacts_as": [],
    "conducts": true,
    "stage": "2",
    "_unverified": {
@@ -2466,6 +2534,7 @@
     "impure"
    ],
    "creative": true,
+   "reacts_as": [],
    "conducts": true,
    "stage": "2",
    "_unverified": {
@@ -2502,6 +2571,7 @@
     "impure"
    ],
    "creative": true,
+   "reacts_as": [],
    "conducts": true,
    "stage": "2",
    "_unverified": {
@@ -2545,6 +2615,7 @@
     "earth"
    ],
    "creative": true,
+   "reacts_as": [],
    "conducts": true,
    "stage": "2",
    "_unverified": {
@@ -2588,6 +2659,7 @@
     "earth"
    ],
    "creative": true,
+   "reacts_as": [],
    "conducts": true,
    "stage": "2",
    "_unverified": {
@@ -2631,6 +2703,7 @@
     "earth"
    ],
    "creative": true,
+   "reacts_as": [],
    "conducts": true,
    "stage": "2",
    "_unverified": {
@@ -2674,6 +2747,7 @@
     "earth"
    ],
    "creative": true,
+   "reacts_as": [],
    "conducts": true,
    "stage": "2",
    "_unverified": {
@@ -2717,6 +2791,7 @@
     "earth"
    ],
    "creative": true,
+   "reacts_as": [],
    "conducts": true,
    "stage": "2",
    "_unverified": {
@@ -2755,6 +2830,7 @@
     "water"
    ],
    "creative": true,
+   "reacts_as": [],
    "conducts": true,
    "stage": "2",
    "_unverified": {
@@ -2793,6 +2869,7 @@
     "water"
    ],
    "creative": true,
+   "reacts_as": [],
    "conducts": true,
    "stage": "2",
    "_unverified": {
@@ -2829,6 +2906,7 @@
     "liquid_common"
    ],
    "creative": true,
+   "reacts_as": [],
    "conducts": true,
    "stage": "2",
    "_unverified": {
@@ -2865,6 +2943,7 @@
     "mimic_liquid"
    ],
    "creative": true,
+   "reacts_as": [],
    "conducts": true,
    "stage": "2",
    "_unverified": {
@@ -2904,6 +2983,7 @@
     "liquid_common"
    ],
    "creative": true,
+   "reacts_as": [],
    "conducts": true,
    "stage": "2",
    "_unverified": {
@@ -2944,6 +3024,7 @@
     "chaotic_transmutation"
    ],
    "creative": true,
+   "reacts_as": [],
    "conducts": false,
    "stage": "2",
    "_unverified": {},
@@ -2983,6 +3064,7 @@
     "chaotic_transmutation"
    ],
    "creative": true,
+   "reacts_as": [],
    "conducts": true,
    "stage": "2",
    "_unverified": {
@@ -3020,6 +3102,9 @@
     "impure"
    ],
    "creative": true,
+   "reacts_as": [
+    "moss"
+   ],
    "conducts": true,
    "stage": "2",
    "_unverified": {
@@ -3056,6 +3141,7 @@
     "liquid_common"
    ],
    "creative": false,
+   "reacts_as": [],
    "conducts": true,
    "stage": "2",
    "_unverified": {
@@ -3092,6 +3178,7 @@
     "liquid_common"
    ],
    "creative": false,
+   "reacts_as": [],
    "conducts": true,
    "stage": "2",
    "_unverified": {
@@ -3128,6 +3215,7 @@
     "liquid_common"
    ],
    "creative": false,
+   "reacts_as": [],
    "conducts": true,
    "stage": "2",
    "_unverified": {
@@ -3164,6 +3252,7 @@
     "liquid_common"
    ],
    "creative": false,
+   "reacts_as": [],
    "conducts": true,
    "stage": "2",
    "_unverified": {
@@ -3200,6 +3289,7 @@
     "liquid_common"
    ],
    "creative": false,
+   "reacts_as": [],
    "conducts": true,
    "stage": "2",
    "_unverified": {
@@ -3236,6 +3326,7 @@
     "liquid_common"
    ],
    "creative": false,
+   "reacts_as": [],
    "conducts": true,
    "stage": "2",
    "_unverified": {
@@ -3275,6 +3366,7 @@
     "liquid_common"
    ],
    "creative": true,
+   "reacts_as": [],
    "conducts": true,
    "stage": "2",
    "_unverified": {
@@ -3307,6 +3399,7 @@
     "burnable_fast"
    ],
    "creative": true,
+   "reacts_as": [],
    "conducts": false,
    "stage": "2",
    "_unverified": {
@@ -3343,6 +3436,7 @@
     "gas"
    ],
    "creative": true,
+   "reacts_as": [],
    "conducts": false,
    "stage": "2",
    "_unverified": {
@@ -3382,6 +3476,7 @@
     "food"
    ],
    "creative": true,
+   "reacts_as": [],
    "conducts": true,
    "stage": "2",
    "_unverified": {
@@ -3420,6 +3515,9 @@
     "impure"
    ],
    "creative": true,
+   "reacts_as": [
+    "material_darkness"
+   ],
    "conducts": true,
    "stage": "2",
    "_unverified": {
@@ -3451,6 +3549,7 @@
     "gas"
    ],
    "creative": true,
+   "reacts_as": [],
    "conducts": false,
    "stage": "2",
    "_unverified": {
@@ -3482,6 +3581,7 @@
     "gas"
    ],
    "creative": false,
+   "reacts_as": [],
    "conducts": false,
    "stage": "2",
    "_unverified": {
@@ -3523,6 +3623,7 @@
     "chaotic_transmutation"
    ],
    "creative": true,
+   "reacts_as": [],
    "conducts": true,
    "stage": "2",
    "_unverified": {
@@ -3562,6 +3663,7 @@
     "liquid_common"
    ],
    "creative": false,
+   "reacts_as": [],
    "conducts": true,
    "stage": "2",
    "_unverified": {
@@ -3603,6 +3705,7 @@
     "chaotic_transmutation"
    ],
    "creative": true,
+   "reacts_as": [],
    "conducts": true,
    "stage": "2",
    "_unverified": {
@@ -3634,6 +3737,7 @@
     "gas"
    ],
    "creative": true,
+   "reacts_as": [],
    "conducts": false,
    "stage": "2",
    "_unverified": {
@@ -3665,6 +3769,7 @@
     "liquid"
    ],
    "creative": false,
+   "reacts_as": [],
    "conducts": true,
    "stage": "2",
    "_unverified": {
@@ -3697,6 +3802,7 @@
     "vapour"
    ],
    "creative": true,
+   "reacts_as": [],
    "conducts": false,
    "stage": "2",
    "_unverified": {
@@ -3739,6 +3845,7 @@
     "earth"
    ],
    "creative": true,
+   "reacts_as": [],
    "conducts": true,
    "stage": "2",
    "_unverified": {
@@ -3777,6 +3884,7 @@
     "liquid_common"
    ],
    "creative": true,
+   "reacts_as": [],
    "conducts": true,
    "stage": "2",
    "_unverified": {
@@ -3818,6 +3926,7 @@
     "chaotic_transmutation"
    ],
    "creative": true,
+   "reacts_as": [],
    "conducts": true,
    "stage": "2",
    "_unverified": {
@@ -3859,6 +3968,7 @@
     "chaotic_transmutation"
    ],
    "creative": true,
+   "reacts_as": [],
    "conducts": true,
    "stage": "2",
    "_unverified": {
@@ -3896,6 +4006,7 @@
     "food"
    ],
    "creative": false,
+   "reacts_as": [],
    "conducts": true,
    "stage": "2",
    "_unverified": {
@@ -3936,6 +4047,7 @@
     "food"
    ],
    "creative": true,
+   "reacts_as": [],
    "conducts": true,
    "stage": "2",
    "_unverified": {
@@ -3973,6 +4085,7 @@
     "chaotic_transmutation"
    ],
    "creative": true,
+   "reacts_as": [],
    "conducts": true,
    "stage": "2",
    "_unverified": {
@@ -4004,6 +4117,7 @@
     "gas"
    ],
    "creative": true,
+   "reacts_as": [],
    "conducts": false,
    "stage": "2",
    "_unverified": {
@@ -4035,6 +4149,7 @@
     "gas"
    ],
    "creative": false,
+   "reacts_as": [],
    "conducts": false,
    "stage": "2",
    "_unverified": {
@@ -4066,6 +4181,7 @@
     "gas"
    ],
    "creative": true,
+   "reacts_as": [],
    "conducts": false,
    "stage": "2",
    "_unverified": {
@@ -4097,6 +4213,7 @@
     "gas"
    ],
    "creative": false,
+   "reacts_as": [],
    "conducts": false,
    "stage": "2",
    "_unverified": {
@@ -4135,6 +4252,7 @@
     "fungus"
    ],
    "creative": false,
+   "reacts_as": [],
    "conducts": true,
    "stage": "2",
    "_unverified": {
@@ -4166,6 +4284,7 @@
     "gas"
    ],
    "creative": true,
+   "reacts_as": [],
    "conducts": false,
    "stage": "2",
    "_unverified": {
@@ -4197,6 +4316,7 @@
     "gas"
    ],
    "creative": true,
+   "reacts_as": [],
    "conducts": false,
    "stage": "2",
    "_unverified": {
@@ -4238,6 +4358,7 @@
     "earth"
    ],
    "creative": true,
+   "reacts_as": [],
    "conducts": true,
    "stage": "2",
    "_unverified": {
@@ -4281,6 +4402,7 @@
     "earth"
    ],
    "creative": true,
+   "reacts_as": [],
    "conducts": true,
    "stage": "2",
    "_unverified": {
@@ -4324,6 +4446,7 @@
     "earth"
    ],
    "creative": true,
+   "reacts_as": [],
    "conducts": true,
    "stage": "2",
    "_unverified": {
@@ -4367,6 +4490,7 @@
     "earth"
    ],
    "creative": true,
+   "reacts_as": [],
    "conducts": true,
    "stage": "2",
    "_unverified": {
@@ -4410,6 +4534,7 @@
     "earth"
    ],
    "creative": true,
+   "reacts_as": [],
    "conducts": true,
    "stage": "2",
    "_unverified": {
@@ -4453,6 +4578,7 @@
     "earth"
    ],
    "creative": true,
+   "reacts_as": [],
    "conducts": true,
    "stage": "2",
    "_unverified": {
@@ -4496,6 +4622,7 @@
     "chaotic_transmutation"
    ],
    "creative": true,
+   "reacts_as": [],
    "conducts": true,
    "stage": "2",
    "_unverified": {
@@ -4534,6 +4661,7 @@
     "liquid_common"
    ],
    "creative": false,
+   "reacts_as": [],
    "conducts": true,
    "stage": "2",
    "_unverified": {
@@ -4567,6 +4695,7 @@
     "liquid"
    ],
    "creative": true,
+   "reacts_as": [],
    "conducts": true,
    "stage": "2",
    "_unverified": {
@@ -4603,6 +4732,7 @@
     "food"
    ],
    "creative": true,
+   "reacts_as": [],
    "conducts": true,
    "stage": "2",
    "_unverified": {
@@ -4641,6 +4771,7 @@
     "chaotic_transmutation"
    ],
    "creative": true,
+   "reacts_as": [],
    "conducts": true,
    "stage": "2",
    "_unverified": {
@@ -4679,6 +4810,7 @@
     "chaotic_transmutation"
    ],
    "creative": true,
+   "reacts_as": [],
    "conducts": true,
    "stage": "2",
    "_unverified": {
@@ -4720,6 +4852,7 @@
     "chaotic_transmutation"
    ],
    "creative": true,
+   "reacts_as": [],
    "conducts": true,
    "stage": "2",
    "_unverified": {
@@ -4757,6 +4890,7 @@
     "liquid_common"
    ],
    "creative": true,
+   "reacts_as": [],
    "conducts": true,
    "stage": "2",
    "_unverified": {
@@ -4790,6 +4924,7 @@
     "static"
    ],
    "creative": false,
+   "reacts_as": [],
    "conducts": true,
    "stage": "2",
    "_unverified": {
@@ -4830,6 +4965,7 @@
     "liquid_common"
    ],
    "creative": true,
+   "reacts_as": [],
    "conducts": true,
    "stage": "2",
    "_unverified": {
@@ -4867,6 +5003,7 @@
     "liquid_common"
    ],
    "creative": false,
+   "reacts_as": [],
    "conducts": true,
    "stage": "2",
    "_unverified": {
@@ -4907,6 +5044,7 @@
     "earth"
    ],
    "creative": true,
+   "reacts_as": [],
    "conducts": true,
    "stage": "2",
    "_unverified": {

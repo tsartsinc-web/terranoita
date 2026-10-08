@@ -150,6 +150,7 @@
     "world_load",
     "world_save",
     "projectile_update",
+    "projectile_kill",
     "main_update",
     "shots_draw"
    ],

@@ -133,6 +133,19 @@ namespace Terranoita.Game.Physics
             Main.tile[_x0 + 152, _gy - 9].wall = WallID.Wood;
             Place(_x0 + 152, _gy - 9, TileID.Platforms, true);
             Falling.Disturb(_x0 + 152, _gy - 9);
+            // and one with no wall behind it: it falls (the scene has a stone wall everywhere: taken away here)
+            Main.tile[_x0 + 156, _gy - 9].wall = 0;
+            Place(_x0 + 156, _gy - 9, TileID.Platforms, true);
+            Falling.Disturb(_x0 + 156, _gy - 9);
+            // 13. a flare and a fire arrow shot into a wooden wall: it catches fire where they hit (author)
+            for (int y = _gy - 5; y <= _gy - 1; y++)
+            {
+                Place(_x0 + 159, y, TileID.WoodBlock, true);
+                Place(_x0 + 160, y, TileID.WoodBlock, true);
+            }
+            var src = new Terraria.DataStructures.EntitySource_WorldEvent();
+            Projectile.NewProjectile(src, new Vector2((_x0 + 150) * 16, (_gy - 2) * 16 + 8), new Vector2(8, 0), ProjectileID.Flare, 7, 0f, Main.myPlayer);
+            Projectile.NewProjectile(src, new Vector2((_x0 + 150) * 16, (_gy - 4) * 16 + 8), new Vector2(10, 0), ProjectileID.FireArrow, 7, 0f, Main.myPlayer);
             Log("poured: cells " + Fluids.Count + ", smoke " + Fluids.Total(_x0 + 70, _x0 + 80, _gy - 10, _gy, "smoke") +
                 "; platform on the wall placed " + Main.tile[_x0 + 152, _gy - 9].active());
         }
@@ -151,7 +164,13 @@ namespace Terranoita.Game.Physics
                 " (right half " + Fluids.Total(sb + 4, sb + 7, _gy - 1, _gy - 1, "slime") + "), oil " + Fluids.Total(sb + 1, sb + 7, _gy - 1, _gy - 1, "oil") +
                 "; top row oil " + Fluids.Total(sb + 1, sb + 7, _gy - 3, _gy - 3, "oil") + " (left half " + Fluids.Total(sb + 1, sb + 3, _gy - 3, _gy - 3, "oil") + ")" +
                 "; blood from the flask " + Fluids.Total(_x0 + 125, _x0 + 165, _gy - 30, _gy, "blood") +
-                "; platform on the wall " + (Main.tile[_x0 + 152, _gy - 9].active() ? "holds" : "FELL"));
+                "; platform on the wall " + (Main.tile[_x0 + 152, _gy - 9].active() ? "holds" : "FELL") +
+                ", without a wall " + (Main.tile[_x0 + 156, _gy - 9].active() ? "still there" : "fell") +
+                "; wooden wall hit by a flare and a fire arrow: burning " + Enumerable.Range(_gy - 5, 5).Sum(y => (Fire.BurningAt(_x0 + 159, y) ? 1 : 0) + (Fire.BurningAt(_x0 + 160, y) ? 1 : 0)) +
+                ", burnt away " + Enumerable.Range(_gy - 5, 5).Sum(y => (Main.tile[_x0 + 159, y].active() ? 0 : 1) + (Main.tile[_x0 + 160, y].active() ? 0 : 1)) + " of 10" +
+                "; liquid swaps since the last check " + Fluids.Swaps + ", lifts out of Terraria's liquid " + Fluids.Bobs + " (settled liquids: few)");
+            Fluids.Swaps = 0;
+            Fluids.Bobs = 0;
             if (when.StartsWith("3"))
                 Fluids.Ignite(_x0 + 60, _gy - 1);
             int dirt = Count(_x0 + 48, _x0 + 53, _gy - 3, _gy - 1, t => t.type == TileID.Dirt);
@@ -173,7 +192,8 @@ namespace Terranoita.Game.Physics
                 gy++;
             _gy = gy;
             // a flat floor of stone and clear air above, so every scene starts the same
-            for (int x = _x0 - 2; x <= _x0 + 122; x++)
+            Fluids.ClearArea(_x0 - 2, gy - 25, _x0 + 162, gy + 2);   // our liquids from earlier runs are saved with the world
+            for (int x = _x0 - 2; x <= _x0 + 162; x++)   // to the wooden wall of scene 13
             {
                 for (int y = gy - 25; y < gy; y++)
                 {

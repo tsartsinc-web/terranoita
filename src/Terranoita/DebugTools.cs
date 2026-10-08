@@ -263,6 +263,13 @@ namespace Terranoita.Game
                     Main.instance.Exit();
                 return;
             }
+            if (Physics.ReactionTest.Enabled)
+            {
+                Physics.ReactionTest.Frame(p, _worldFrames);
+                if (_worldFrames == Physics.ReactionTest.Length && ExitWhenDone)
+                    Main.instance.Exit();
+                return;
+            }
             if (Physics.PhysicsTest.Enabled)
             {
                 Physics.PhysicsTest.Frame(p, _worldFrames);

@@ -974,3 +974,33 @@ unless asked.
   (log lines "SPELLS shot end/lightning/pulled"), then the full spells run against the baseline.
 - ICEBALL "disappears too fast": its file gives 60 frames at 160-170 px/s (about 28 tiles) - same as ours; cause not
   found yet, the test's "shot end" line will tell. ilspycmd 9.1 installed (dotnet tool, SDK 8).
+
+## PC 2026-10-08: fire weapons, calm liquids, Noita's reactions audited (author)
+- Fire: Terraria's fire projectiles set burnable blocks alight: the list (Patches.FireProjectiles) now has every
+  projectile Terraria's own Projectile.StatusNPC gives On Fire / Hellfire / Cursed Inferno (read with ilspycmd, kept
+  local) + flares (all six), Hellwing, Daybreak, Solar Eruption, Betsy, Firecracker...; new hook projectile_kill
+  (Projectile.Kill prefix): a fire projectile that dies on a block ignites around it (hooks.json + systems.json,
+  gen_cs). Fire spell shots ignite what they pass (1/4 every 6 frames) and what they hit. Test: a flare and a fire
+  arrow set a 10-block wooden wall alight, it burnt away.
+- Liquids "jump endlessly" (author): (1) a sideways swap heavier-into-lighter at one height lowers nothing, so it
+  ping-ponged: now only where the heavier can sink next (CanSink); (2) similar-density stirring only for pairs that
+  react (Reacts, from reactions.json); (3) ours on Terraria's water bobbed with its wobbling surface: dead band
+  (pushed up only past half a tile, falls only into a tile with no Terraria liquid; PushUp 128), MoveAll no longer
+  deletes the cell when the tile above is taken. Physics test: swaps 233 -> 27 -> 1, lifts 14 -> 0.
+- Reactions audit (author: "does not work at all") vs Noita's materials.xml (325 rules):
+  - tools/extract_liquids.py dropped every rule written only with tags ([lava]+[burnable] -> fire,
+    [evaporable]+air, [fire]/[lava]+[evaporable_custom] -> _vapour, [molten_metal]+[cold]...): now kept when any
+    cell is ours by name or tag; new columns input3/output3, direction, blob_radius1/2, blob_restrict1/2,
+    req_lifetime, entity; liquids.reacts_as (Noita _inherit_reactions). 260 -> 298 rules; liquids/solids data
+    unchanged (13 solids added). The 27 left involve none of our liquids (plant growth...).
+  - Fluids runtime: rate was 15-30x too slow (a 13% rule took ~40 s per tile): now chance per check =
+    probability x 2 (blocks x 0.25), amount Portion x max(1, that); a cell that moved this tick still reacts
+    (moving liquids never reacted); Terraria's water/lava in the cell's own tile counts as touching (Terraria's
+    liquid flows into our cells' tiles: a heavier liquid under lava never reacted); [tag] outputs resolved
+    ([evaporable_custom]_vapour of blood_cold = blood_cold_vapour, [fire] = fire); direction and the third cell
+    done; reacts_as tags. Not done: blob_radius (<= 1 tile here), entity spawning, req_lifetime (ReqReaction).
+  - New test: game_test -Mode reactions (Physics/ReactionTest.cs): every rule we can set up (126) in a sealed
+    Lihzahrd-brick box; log per rule. Result: 117/126 in 12 s; the 9 others are expected (mirror duplicate,
+    probability 0, Terraria's own lava+water = obsidian, or another rule for the same pair wins). Tests clear the
+    world's saved liquids first (Fluids.ClearArea): stale liquids from earlier runs had filled the boxes.
+  - Watch in play: acid eats blocks ~4x faster, evaporable gases/vapours fade by Noita's rules now.

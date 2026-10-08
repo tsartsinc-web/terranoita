@@ -29,9 +29,11 @@ How it works (author, 2026-10-08): the author only says "работай" to eith
 - PC-16 waits author: 0.4.1 submitted to Melty 2026-10-08 as a draft (upload df544dac, 1257696 bytes, sha256
   a10770c157e3b9d6..., one click yes; 0.4.0 draft before it). Left: the author presses Play on 0.4.1 in the Melty
   app (the agent's publish call is blocked by the permission check).
-- PC-17 new: test the author's spell/physics fixes in the game (MODLOG "spells and physics from the author's list"):
-  game_test physics (side-by-side basin, flask, platform), spells ONLY the reported ones, then the full spells run.
-  Blocked 2026-10-08 by memory (game OOM at start); ICEBALL cause still open.
+- PC-17 doing: in-game checks of the author's spell list (MODLOG "spells and physics from the author's list"):
+  done by test: physics (layering, flask, platforms), spells ONLY (13 OK: LIGHTNING strikes, homebringer pulls,
+  DELAYED_SPELL lives 100 frames), fire projectiles, reactions 117/126. Left: BALL_LIGHTNING fan and ICEBALL range by
+  eye (the spells test cannot show them; ICEBALL cause unknown), the full spells run against the baseline, the
+  LIGHTNING blast damage default (5 assumed).
 - PC-6 doing: spells left: MINE_DEATH_TRIGGER, EXPLODING_DEER, BOMB_CART, DEATH_CROSS (moving/summoned entities,
   cross lasers); PIPE_BOMB* go off only in another blast (Noita), the test should expect that. Giga spells cost
   500-600: castable now with 600 max mana.
@@ -41,6 +43,9 @@ How it works (author, 2026-10-08): the author only says "работай" to eith
   clamps synced mana at 400 (MessageBuffer.GetData).
 
 ## CLOUD queue
+- CLOUD-9 new: reactions.json/liquids.json have new columns (input3/output3, direction, blob_radius1/2,
+  blob_restrict1/2, req_lifetime, entity; reacts_as) from tools/extract_liquids.py (PC changed it, 298 rules):
+  add tests/tools coverage for the tag-based rule selection and reacts_as. Check: python tests.
 - CLOUD-8 new: spell_projectiles.json from the PC's runtime rules (MODLOG "spells and physics from the author's
   list"): air_friction default 0.55 when a file sets none (now 0 in the sheet), new columns liquid_drag,
   die_on_liquid_collision, die_on_low_velocity(+limit), on_collision_die, bounce_energy, penetrate_world,

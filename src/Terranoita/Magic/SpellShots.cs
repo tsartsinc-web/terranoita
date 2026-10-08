@@ -237,6 +237,9 @@ namespace Terranoita.Game.Magic
                     s.Vel *= Math.Max(0f, 1f - LiquidSlow * ph.LiquidDrag);
             }
             StepExtras(s);
+            // fire spells set burnable blocks and walls they pass on fire, now and then (as Terraria's fire projectiles do)
+            if (s.Fire && s.Age % 6 == 0 && Physics.Patches.On)
+                Physics.Fire.IgniteArea(s.Pos, 12f, 0.25f);
             // shots cut grass, flowers, vines and pots like a sword does (author)
             NoitaActions.CutTiles(s.Pos, 6, Terraria.Enums.TileCuttingContext.AttackProjectile);
             // the timer of a timer trigger
@@ -397,6 +400,9 @@ namespace Terranoita.Game.Magic
             if (DebugTools.Testing)
                 Entry.Log("SPELLS shot end " + System.IO.Path.GetFileNameWithoutExtension(s.Lua.File) + ": age " + s.Age + " of " + s.StartLife +
                           ", " + (Vector2.Distance(s.Origin, s.Pos) / 16).ToString("0.0") + " tiles from its start" + (hit ? ", hit" : s.Life <= 0 ? ", life out" : ""));
+            // a fire spell that hits a block sets the burnable ones around it alight (author: fire weapons light wood)
+            if (hit && s.Fire && Physics.Patches.On)
+                Physics.Fire.IgniteArea(s.Pos, 24f, 0.8f);
             if (s.Phys.Lightning != null)
                 LightningBurst(s);   // a lightning projectile ends in its lightning trail and blast, whatever ends it
             else if (s.Radius > 0 && (hit || s.ExplodeOnDeath))

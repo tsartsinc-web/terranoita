@@ -196,6 +196,27 @@
    }
   },
   {
+   "id": "burning_powder",
+   "cell_type": "liquid",
+   "tags": [
+    "sand_other",
+    "corrodible",
+    "alchemy",
+    "chaotic_transmutation"
+   ],
+   "terraria_tile": "none",
+   "touch_damage": 0.0,
+   "touch_effects": [],
+   "conducts": false,
+   "stage": "2",
+   "_unverified": {
+    "conducts": "materials.xml does not set electrical_conductivity: default assumed (liquid yes, powders and others no); ask the author"
+   },
+   "_sources": {
+    "all": "materials.xml; terraria_tile by name (tools/extract_liquids.py terraria_tile)"
+   }
+  },
+  {
    "id": "cactus",
    "cell_type": "solid",
    "tags": [
@@ -302,6 +323,25 @@
    "conducts": true,
    "stage": "2",
    "_unverified": {},
+   "_sources": {
+    "all": "materials.xml; terraria_tile by name (tools/extract_liquids.py terraria_tile)"
+   }
+  },
+  {
+   "id": "corruption_static",
+   "cell_type": "liquid",
+   "tags": [
+    "static",
+    "corrodible"
+   ],
+   "terraria_tile": "none",
+   "touch_damage": 0.0,
+   "touch_effects": [],
+   "conducts": false,
+   "stage": "2",
+   "_unverified": {
+    "conducts": "materials.xml does not set electrical_conductivity: default assumed (liquid yes, powders and others no); ask the author"
+   },
    "_sources": {
     "all": "materials.xml; terraria_tile by name (tools/extract_liquids.py terraria_tile)"
    }
@@ -434,6 +474,26 @@
   },
   {
    "id": "fungi_creeping",
+   "cell_type": "liquid",
+   "tags": [
+    "plant",
+    "corrodible",
+    "burnable"
+   ],
+   "terraria_tile": "MushroomBlock",
+   "touch_damage": 0.0,
+   "touch_effects": [],
+   "conducts": false,
+   "stage": "2",
+   "_unverified": {
+    "conducts": "materials.xml does not set electrical_conductivity: default assumed (liquid yes, powders and others no); ask the author"
+   },
+   "_sources": {
+    "all": "materials.xml; terraria_tile by name (tools/extract_liquids.py terraria_tile)"
+   }
+  },
+  {
+   "id": "fungi_creeping_secret",
    "cell_type": "liquid",
    "tags": [
     "plant",
@@ -628,6 +688,29 @@
    }
   },
   {
+   "id": "grass_dry",
+   "cell_type": "liquid",
+   "tags": [
+    "plant",
+    "requires_air",
+    "corrodible",
+    "burnable",
+    "alchemy",
+    "impure"
+   ],
+   "terraria_tile": "Grass",
+   "touch_damage": 0.0,
+   "touch_effects": [],
+   "conducts": false,
+   "stage": "2",
+   "_unverified": {
+    "conducts": "materials.xml does not set electrical_conductivity: default assumed (liquid yes, powders and others no); ask the author"
+   },
+   "_sources": {
+    "all": "materials.xml; terraria_tile by name (tools/extract_liquids.py terraria_tile)"
+   }
+  },
+  {
    "id": "grass_holy",
    "cell_type": "liquid",
    "tags": [
@@ -638,6 +721,48 @@
     "alchemy"
    ],
    "terraria_tile": "Grass",
+   "touch_damage": 0.0,
+   "touch_effects": [],
+   "conducts": false,
+   "stage": "2",
+   "_unverified": {
+    "conducts": "materials.xml does not set electrical_conductivity: default assumed (liquid yes, powders and others no); ask the author"
+   },
+   "_sources": {
+    "all": "materials.xml; terraria_tile by name (tools/extract_liquids.py terraria_tile)"
+   }
+  },
+  {
+   "id": "gunpowder",
+   "cell_type": "liquid",
+   "tags": [
+    "sand_other",
+    "corrodible",
+    "alchemy",
+    "chaotic_transmutation"
+   ],
+   "terraria_tile": "none",
+   "touch_damage": 0.0,
+   "touch_effects": [],
+   "conducts": false,
+   "stage": "2",
+   "_unverified": {
+    "conducts": "materials.xml does not set electrical_conductivity: default assumed (liquid yes, powders and others no); ask the author"
+   },
+   "_sources": {
+    "all": "materials.xml; terraria_tile by name (tools/extract_liquids.py terraria_tile)"
+   }
+  },
+  {
+   "id": "gunpowder_explosive",
+   "cell_type": "liquid",
+   "tags": [
+    "sand_other",
+    "corrodible",
+    "alchemy",
+    "chaotic_transmutation"
+   ],
+   "terraria_tile": "none",
    "touch_damage": 0.0,
    "touch_effects": [],
    "conducts": false,
@@ -807,7 +932,103 @@
    }
   },
   {
+   "id": "meat_burned",
+   "cell_type": "solid",
+   "tags": [
+    "box2d",
+    "corrodible",
+    "alchemy",
+    "meat",
+    "solid",
+    "earth",
+    "food"
+   ],
+   "terraria_tile": "FleshBlock",
+   "touch_damage": 0.0,
+   "touch_effects": [],
+   "conducts": false,
+   "stage": "2",
+   "_unverified": {
+    "conducts": "materials.xml does not set electrical_conductivity: default assumed (liquid yes, powders and others no); ask the author"
+   },
+   "_sources": {
+    "all": "materials.xml; terraria_tile by name (tools/extract_liquids.py terraria_tile)"
+   }
+  },
+  {
+   "id": "meat_done",
+   "cell_type": "solid",
+   "tags": [
+    "box2d",
+    "corrodible",
+    "alchemy",
+    "meat",
+    "solid",
+    "earth",
+    "food"
+   ],
+   "terraria_tile": "FleshBlock",
+   "touch_damage": 0.0,
+   "touch_effects": [],
+   "conducts": false,
+   "stage": "2",
+   "_unverified": {
+    "conducts": "materials.xml does not set electrical_conductivity: default assumed (liquid yes, powders and others no); ask the author"
+   },
+   "_sources": {
+    "all": "materials.xml; terraria_tile by name (tools/extract_liquids.py terraria_tile)"
+   }
+  },
+  {
    "id": "meat_frog",
+   "cell_type": "solid",
+   "tags": [
+    "box2d",
+    "corrodible",
+    "alchemy",
+    "meat",
+    "solid",
+    "earth",
+    "food"
+   ],
+   "terraria_tile": "FleshBlock",
+   "touch_damage": 0.0,
+   "touch_effects": [],
+   "conducts": false,
+   "stage": "2",
+   "_unverified": {
+    "conducts": "materials.xml does not set electrical_conductivity: default assumed (liquid yes, powders and others no); ask the author"
+   },
+   "_sources": {
+    "all": "materials.xml; terraria_tile by name (tools/extract_liquids.py terraria_tile)"
+   }
+  },
+  {
+   "id": "meat_hot",
+   "cell_type": "solid",
+   "tags": [
+    "box2d",
+    "corrodible",
+    "alchemy",
+    "meat",
+    "solid",
+    "earth",
+    "food"
+   ],
+   "terraria_tile": "FleshBlock",
+   "touch_damage": 0.0,
+   "touch_effects": [],
+   "conducts": false,
+   "stage": "2",
+   "_unverified": {
+    "conducts": "materials.xml does not set electrical_conductivity: default assumed (liquid yes, powders and others no); ask the author"
+   },
+   "_sources": {
+    "all": "materials.xml; terraria_tile by name (tools/extract_liquids.py terraria_tile)"
+   }
+  },
+  {
+   "id": "meat_warm",
    "cell_type": "solid",
    "tags": [
     "box2d",
@@ -1305,6 +1526,28 @@
    }
   },
   {
+   "id": "rust_static",
+   "cell_type": "liquid",
+   "tags": [
+    "static",
+    "corrodible",
+    "alchemy",
+    "solid",
+    "earth"
+   ],
+   "terraria_tile": "none",
+   "touch_damage": 0.0,
+   "touch_effects": [],
+   "conducts": false,
+   "stage": "2",
+   "_unverified": {
+    "conducts": "materials.xml does not set electrical_conductivity: default assumed (liquid yes, powders and others no); ask the author"
+   },
+   "_sources": {
+    "all": "materials.xml; terraria_tile by name (tools/extract_liquids.py terraria_tile)"
+   }
+  },
+  {
    "id": "salt",
    "cell_type": "liquid",
    "tags": [
@@ -1402,6 +1645,25 @@
     "earth"
    ],
    "terraria_tile": "Sand",
+   "touch_damage": 0.0,
+   "touch_effects": [],
+   "conducts": false,
+   "stage": "2",
+   "_unverified": {
+    "conducts": "materials.xml does not set electrical_conductivity: default assumed (liquid yes, powders and others no); ask the author"
+   },
+   "_sources": {
+    "all": "materials.xml; terraria_tile by name (tools/extract_liquids.py terraria_tile)"
+   }
+  },
+  {
+   "id": "shock_powder",
+   "cell_type": "liquid",
+   "tags": [
+    "sand_other",
+    "fungus"
+   ],
+   "terraria_tile": "none",
    "touch_damage": 0.0,
    "touch_effects": [],
    "conducts": false,
@@ -1731,6 +1993,28 @@
     "earth"
    ],
    "terraria_tile": "Gold",
+   "touch_damage": 0.0,
+   "touch_effects": [],
+   "conducts": false,
+   "stage": "2",
+   "_unverified": {
+    "conducts": "materials.xml does not set electrical_conductivity: default assumed (liquid yes, powders and others no); ask the author"
+   },
+   "_sources": {
+    "all": "materials.xml; terraria_tile by name (tools/extract_liquids.py terraria_tile)"
+   }
+  },
+  {
+   "id": "templebrick_moss_static",
+   "cell_type": "liquid",
+   "tags": [
+    "static",
+    "corrodible",
+    "alchemy",
+    "solid",
+    "earth"
+   ],
+   "terraria_tile": "GrayBrick",
    "touch_damage": 0.0,
    "touch_effects": [],
    "conducts": false,

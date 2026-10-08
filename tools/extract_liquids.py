@@ -7,7 +7,10 @@
 
 Everything is read from Noita's materials.xml: every material whose cell_type is liquid without liquid_sand
 (liquid_sand ones are powders: materials.json) or gas, with CellDataChild inheritance resolved; and every reaction
-that involves at least one of them. Terraria effects of Noita's status effects are filled by hand later
+that involves at least one of them, by name or by a tag one of them carries ([lava] + [burnable] -> fire,
+[fire] + [evaporable_custom] -> [evaporable_custom]_vapour...), with all of Noita's reaction fields (third cell,
+direction, blob radius, required lifetime, entity). A child material with _inherit_reactions="1" also takes part in
+the reactions that name its parent (reacts_as). Terraria effects of Noita's status effects are filled by hand later
 (status_effects column of liquids: Noita names; mapping to Terraria buffs is its own sheet).
 """
 import json
@@ -46,6 +49,8 @@ def load(path):
         if stains is not None:
             a["stains"] = [s.get("type") for s in stains.findall("StatusEffect")]
         a["_child"] = el.tag == "CellDataChild"
+        a["_raw_parent"] = el.attrib.get("_parent")
+        a["_raw_inherit"] = el.attrib.get("_inherit_reactions") == "1"
         mats[a["name"]] = a
     # inheritance: a child takes its parent's attributes unless it sets them
     def resolved(name, seen=()):
@@ -55,6 +60,7 @@ def load(path):
             return a
         base = dict(resolved(p, seen + (name,)))
         base.update({k: v for k, v in a.items() if k != "_parent"})
+        base["_raw_parent"], base["_raw_inherit"] = a.get("_raw_parent"), a.get("_raw_inherit")
         return base
     return {n: resolved(n) for n in mats}, root
 
@@ -138,6 +144,18 @@ def touch_damage(path):
     return dict(zip(m.group(1).split(","), (float(v) for v in h.group(1).split(","))))
 
 
+def reacts_as(mats, n):
+    """The materials whose reactions this one takes part in too: up its _parent chain while each link sets
+    _inherit_reactions="1" (Noita: CellDataChild)."""
+    out, a, seen = [], mats.get(n), {n}
+    while a and a.get("_raw_inherit") and a.get("_raw_parent") and a["_raw_parent"] not in seen:
+        p = a["_raw_parent"]
+        out.append(p)
+        seen.add(p)
+        a = mats.get(p)
+    return out
+
+
 def main():
     mats, root = load(sys.argv[1])
     damage = touch_damage(sys.argv[2] if len(sys.argv) > 2 else None)
@@ -170,23 +188,38 @@ def main():
             "melts_to": a.get("warmth_melts_to_material") or "none",
             "tags": tags,
             "creative": a.get("show_in_creative_mode") == "1",
+            "reacts_as": reacts_as(mats, n),
             "conducts": conducts(a),
             "stage": "2",
             "_unverified": conducts_unverified(a),
             "_sources": {"all": "materials.xml " + ("CellDataChild of " + a["_parent"] if a.get("_parent") else "CellData")},
         })
-    names = {r["id"] for r in rows}
+    names = {r["id"] for r in rows} | {p for r in rows for p in r["reacts_as"]}
+    liquid_tags = {"[" + t + "]" for r in rows for t in r["tags"]}
+
+    def ours(c):
+        # a material of ours, or a [tag] one of ours carries ("[evaporable_custom]_vapour": its tag part)
+        return c in names or (c.startswith("[") and c[:c.index("]") + 1] in liquid_tags)
+
     reactions = []
     for el in root.iter("Reaction"):
         a = el.attrib
         cells = [a.get(k, "") for k in ("input_cell1", "input_cell2", "output_cell1", "output_cell2")]
-        if not any(c in names for c in cells):
+        third = [a.get("input_cell3", ""), a.get("output_cell3", "")]
+        if not any(ours(c) for c in cells + third if c):
             continue
         reactions.append({
             "id": "r%03d" % len(reactions),
             "probability": num(a.get("probability")),
             "input1": cells[0], "input2": cells[1], "output1": cells[2], "output2": cells[3],
+            "input3": third[0] or "none", "output3": third[1] or "none",
             "fast": el.tag == "ReactionFast" or a.get("fast_reaction") == "1",
+            "direction": a.get("direction") or "none",
+            "blob_radius1": num(a.get("blob_radius1")), "blob_radius2": num(a.get("blob_radius2")),
+            "blob_restrict1": a.get("blob_restrict_to_input_material1") == "1",
+            "blob_restrict2": a.get("blob_restrict_to_input_material2") == "1",
+            "req_lifetime": num(a.get("req_lifetime")),
+            "entity": a.get("entity") or "none",
             "explosion": num(a.get("explosion_power") or (el.find("ExplosionConfig").get("explosion_radius")
                                                            if el.find("ExplosionConfig") is not None else 0)),
             "stage": "2", "_unverified": {}, "_sources": {"all": "materials.xml Reaction"},
@@ -197,7 +230,7 @@ def main():
     mats_sheet = json.load(open(os.path.join(SHEETS, "materials.json"), encoding="utf-8"))
     wanted = {"rock_static"} | {r["noita_material"] for r in mats_sheet["rows"]}
     for r in reactions:
-        for c in (r["input1"], r["input2"], r["output1"], r["output2"]):
+        for c in (r["input1"], r["input2"], r["output1"], r["output2"], r["input3"], r["output3"]):
             if c and not c.startswith("[") and c in mats and c not in names and c != "air":
                 wanted.add(c)
     solids = []
@@ -233,6 +266,7 @@ def main():
         "tags": {"type": "string[]", "desc": "Noita tags."},
         "creative": {"type": "bool", "desc": "Shown in Noita's creative mode (a 'real' material, not an effect)."},
         "conducts": {"type": "bool", "desc": "Carries electricity (materials.xml electrical_conductivity; unset = Noita's engine default, see _unverified)."},
+        "reacts_as": {"type": "string[]", "desc": "Materials whose reactions it takes part in too (Noita _inherit_reactions up the _parent chain)."},
         "stage": {"type": "enum", "values": ["1a", "1b", "1c", "2", "3", "4"], "desc": "Stage that builds it."},
     }
     reaction_cols = {
@@ -242,7 +276,16 @@ def main():
         "input2": {"type": "string", "desc": "Material or [tag]."},
         "output1": {"type": "string", "desc": "Material input1 turns into."},
         "output2": {"type": "string", "desc": "Material input2 turns into."},
+        "input3": {"type": "string", "desc": "A third cell that must touch too ('none')."},
+        "output3": {"type": "string", "desc": "What the third cell turns into ('none')."},
         "fast": {"type": "bool", "desc": "Noita fast reaction."},
+        "direction": {"type": "enum", "values": ["none", "top", "bottom", "left", "right"], "desc": "Where input2 must be from input1 ('none' = any side)."},
+        "blob_radius1": {"type": "number", "desc": "Noita px around input1 that change with it (0 = the cell only)."},
+        "blob_radius2": {"type": "number", "desc": "Noita px around input2 that change with it (0 = the cell only)."},
+        "blob_restrict1": {"type": "bool", "desc": "The blob of input1 changes only cells of input1's material."},
+        "blob_restrict2": {"type": "bool", "desc": "The blob of input2 changes only cells of input2's material."},
+        "req_lifetime": {"type": "number", "desc": "Frames input1 must have existed (0 = any)."},
+        "entity": {"type": "string", "desc": "Entity file loaded where it happens ('none')."},
         "explosion": {"type": "number", "desc": "Explosion radius (0 = none)."},
         "stage": {"type": "enum", "values": ["1a", "1b", "1c", "2", "3", "4"], "desc": "Stage that builds it."},
     }

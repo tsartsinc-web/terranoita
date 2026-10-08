@@ -234,6 +234,15 @@
    "_unverified": {}
   },
   {
+   "id": "projectile_kill",
+   "target": "Terraria.Projectile:Kill()",
+   "patch": "prefix",
+   "system": "block_physics",
+   "purpose": "A fire projectile (flare, fire arrow, fireball...) that dies on a block sets the burnable tiles around it on fire (author).",
+   "stage": "2",
+   "_unverified": {}
+  },
+  {
    "id": "player_buffs",
    "target": "Terraria.Player:UpdateBuffs(int)",
    "patch": "postfix",

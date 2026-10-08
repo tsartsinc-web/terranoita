@@ -15,13 +15,21 @@ namespace Terranoita.Game.Physics
 
         static bool Live => On && !Main.gameMenu && !WorldGen.generatingWorld && Main.netMode == 0;
 
-        // Terraria projectiles that set wood and grass on fire
+        // Terraria projectiles that set wood and grass on fire: the ones Terraria's own hit code (Projectile.StatusNPC,
+        // read with ilspycmd) gives On Fire / Hellfire / Cursed Inferno, and fire weapons that burn in other ways
+        // (author: "the flare gun and every fire weapon"). Shadowflame and frostburn are not fire here.
         static readonly string[] FireProjectiles =
         {
             "FireArrow", "HellfireArrow", "BallofFire", "Flamelash", "Flames", "MolotovCocktail", "MolotovFire",
-            "MolotovFire2", "MolotovFire3", "Flamarang", "FlamethrowerTrap", "GreekFire1", "GreekFire2", "GreekFire3",
+            "MolotovFire2", "MolotovFire3", "Flamarang", "FlamethrowerTrap", "FlamesTrap", "GreekFire1", "GreekFire2", "GreekFire3",
             "ImpFireball", "Fireball", "CursedFlameFriendly", "CursedFlameHostile", "InfernoFriendlyBolt",
-            "InfernoFriendlyBlast", "InfernoHostileBolt", "InfernoHostileBlast", "Spark", "HellfireArrow",
+            "InfernoFriendlyBlast", "InfernoHostileBolt", "InfernoHostileBlast", "Spark", "Sunfury",
+            "Flare", "BlueFlare", "SpelunkerFlare", "CursedFlare", "RainbowFlare", "ShimmerFlare",
+            "CursedArrow", "CursedBullet", "CursedDart", "CursedDartFlame", "ClingerStaff", "Cascade", "CascadeExplosion",
+            "HelFire", "DD2FlameBurstTowerT1Shot", "DD2FlameBurstTowerT2Shot", "DD2FlameBurstTowerT3Shot",
+            "DD2PhoenixBowShot", "FlamingMace", "Volcano", "LavaBoulder", "Hellwing", "Daybreak", "SolarWhipSword",
+            "SolarWhipSwordExplosion", "DD2BetsyFireball", "DD2BetsyFlameBreath", "FireWhip", "FireWhipProj",
+            "FlamingJack", "FlamingScythe", "Meteor1", "Meteor2", "Meteor3",
         };
         static bool[] _fiery;
 
@@ -154,6 +162,21 @@ namespace Terranoita.Game.Physics
                     for (int dy = -1; dy <= 1; dy++)
                         if (Main.rand.Next(4) == 0)
                             Fire.Ignite(x + dx, y + dy);
+            }
+        }
+
+        /// <summary>A fire projectile dies where it hit (a fire arrow in a wooden wall, a fireball on grass): the burnable
+        /// blocks and walls around it catch fire (author). Projectile.Update's postfix never sees it: it is gone by then.</summary>
+        [Hook("projectile_kill")]
+        [HarmonyPatch(typeof(Projectile), nameof(Projectile.Kill))]
+        static class ProjectileKillPatch
+        {
+            static void Prefix(Projectile __instance)
+            {
+                if (!__instance.active || !Fiery(__instance.type) || !Live)
+                    return;
+                try { Fire.IgniteArea(__instance.Center, 20f, 0.8f); }
+                catch (Exception ex) { Entry.Error("fire projectile", ex); }
             }
         }
 

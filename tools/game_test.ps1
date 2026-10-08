@@ -53,6 +53,7 @@ switch ($Mode) {
     "magic"   { $env:TERRANOITA_AUTOTEST_MAGIC = "1"; $filter = "MAGIC|world loot|starting wands|screenshot" }
     "fps"     { $env:TERRANOITA_AUTOTEST_FPS = "1"; $filter = "PERF|cave pools|fluids:" }
     "physics" { $env:TERRANOITA_AUTOTEST_PHYSICS = "1"; $filter = "PHYSICS" }
+    "reactions" { $env:TERRANOITA_AUTOTEST_REACTIONS = "1"; $filter = "REACTIONS" }   # every Noita reaction we can set up, in boxes
     "gallery" { $env:TERRANOITA_AUTOTEST_LIQUIDS = "1"; $env:TERRANOITA_AUTOTEST_EXIT = ""; $filter = "GALLERY" }
     "audit"   { $env:TERRANOITA_AUTOTEST_LIQUIDS = "1"; $env:TERRANOITA_AUTOTEST_AUDIT = "1"; $filter = "AUDIT" }
     "enemies" { $env:TERRANOITA_AUTOTEST_PLACES = "1"; $env:TERRANOITA_AUTOTEST_SECONDS = "8"; $filter = "AUTOTEST|loot of|worm " }

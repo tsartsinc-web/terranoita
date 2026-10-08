@@ -20,10 +20,13 @@ namespace Terranoita.Game.Physics
     public static class Fluids
     {
         const int MaxCells = 40000;
-        const float CellReaction = 0.03f;   // Noita's probability is per pixel pair and frame: a tile is ~5x5 Noita px
-        const float TileReaction = 0.03f;   // eating or changing a whole block takes longer
-        const float AirReaction = 0.02f;    // evaporating into the air is slow
-        const int Portion = 48;             // a reaction changes this much of a cell at a time
+        // Noita's reaction probability (0..100) is per touching pixel pair and frame; a tile is ~5x5 Noita px and a cell
+        // looks for reactions every ReactEvery-th pass (8 frames). Ours: a check reacts with chance probability x
+        // ReactRate (capped at 1) and changes Portion x max(1, that) of the cell: water + lava (80) turns a tile in ~0.4 s,
+        // toxic sludge + water (13) in ~2.6 s, evaporation (15) ~2 s (was 15-30 times slower: author "it does not work")
+        const float ReactRate = 2f;
+        const float TileReaction = 0.25f;   // eating or changing a whole block: a quarter of that
+        const int Portion = 48;             // a reaction changes at least this much of a cell at a time
         const int TileCost = 24;            // what eating a block uses up of an unchanged liquid (acid)
         const int TouchAmount = 24;
 
@@ -58,8 +61,19 @@ namespace Terranoita.Game.Physics
         public static int Count => Cells.Count;
         public static void Clear() { lock (SaveSync.Gate) Cells.Clear(); }
 
+        /// <summary>Tests: our liquids and gases in a box of tiles go (they are saved with the world: a test scene built
+        /// again on the same spot found the last run's liquids still there).</summary>
+        public static void ClearArea(int x1, int y1, int x2, int y2)
+        {
+            lock (SaveSync.Gate)
+                for (int x = x1; x <= x2; x++)
+                    for (int y = y1; y <= y2; y++)
+                        Cells.Remove(Key(x, y));
+        }
+
         static void Build()
         {
+            _reacts = null;   // built again from the new tables when first asked
             _defs = Liquids.All;
             _index = new Dictionary<string, int>();
             _tags = new HashSet<string>[_defs.Length + 1];
@@ -70,6 +84,9 @@ namespace Terranoita.Game.Physics
             {
                 _index[_defs[i].Id] = i + 1;
                 _tags[i + 1] = new HashSet<string>(_defs[i].Tags ?? new string[0]) { "=" + _defs[i].Id };
+                // Noita's _inherit_reactions: it takes part in the reactions that name its parent too
+                foreach (var parent in _defs[i].ReactsAs ?? new string[0])
+                    _tags[i + 1].Add("=" + parent);
                 _fading[i + 1] = _defs[i].Id.EndsWith("_fading", StringComparison.Ordinal);
                 _burningTags[i + 1] = new HashSet<string>(_tags[i + 1]) { "fire", "=fire" };
                 _colors[i + 1] = ParseColor(_defs[i].Color);
@@ -191,6 +208,9 @@ namespace Terranoita.Game.Physics
             return put;
         }
 
+        /// <summary>Tests: cells that swapped places with another liquid (settled liquids stop swapping).</summary>
+        public static int Swaps, Bobs;
+
         /// <summary>A liquid (ours, not a gas, or Terraria's) fills a good part of the tile: spell shots slow down in it.</summary>
         public static bool LiquidAt(int x, int y)
         {
@@ -254,7 +274,9 @@ namespace Terranoita.Game.Physics
         static void Step(int k)
         {
             var c = Cells[k];
-            if (c.Stamp == _stamp)
+            if (c.Stamp == _stamp && !_far && (k + _pass) % ReactEvery == 0)
+                React(k % Main.maxTilesX, k / Main.maxTilesX);   // it moved this tick: no second move, but it reacts
+            if (!Cells.TryGetValue(k, out c) || c.Stamp == _stamp)
                 return;   // arrived here this tick
             int x = k % Main.maxTilesX, y = k / Main.maxTilesX;
             var d = _defs[c.Kind - 1];
@@ -303,10 +325,12 @@ namespace Terranoita.Game.Physics
                 Cells.Remove(k);   // it reached the ocean or the Underworld's lava: lost in it, nothing changes there
                 return;
             }
-            if (!gas && t.liquid > 32 && !HeavierThanTerraria(c.Kind, t.liquidType()))
+            // Terraria's liquid filled this tile (more than half: its surface wobbles, a lower mark made ours bob up and
+            // down for ever, author: "liquids jump endlessly"): ours, lighter, goes up on top of it
+            if (!gas && t.liquid > PushUp && !HeavierThanTerraria(c.Kind, t.liquidType()))
             {
-                MoveAll(k, x, y - 1, c);
-                return;
+                if (MoveAll(k, x, y - 1, c))
+                    return;
             }
             int dy = gas ? -1 : 1;
             // gases rise about 7 tiles a second, liquids fall like Terraria's
@@ -331,7 +355,7 @@ namespace Terranoita.Game.Physics
                     // creeps under the lighter one) and Terraria's liquid takes our place; no wall between them (author)
                     var here = Main.tile[x, y];
                     if (n.Amount == 0 && here.liquid <= 32 && !Protected(x, y) && !Protected(x + dx, y) &&
-                        HeavierThanTerraria(c.Kind, side.liquidType()) && Main.rand.Next(3) == 0)
+                        HeavierThanTerraria(c.Kind, side.liquidType()) && CanSink(c.Kind, x + dx, y) && Main.rand.Next(3) == 0)
                     {
                         here.liquidType(side.liquidType());
                         here.liquid = side.liquid;
@@ -341,22 +365,26 @@ namespace Terranoita.Game.Physics
                         c.Stamp = _stamp;
                         Cells.Remove(k);
                         Cells[nk] = c;
+                        Swaps++;
                         return;
                     }
                     continue;
                 }
                 if (n.Amount > 0 && n.Kind != c.Kind)
                 {
-                    // two different liquids side by side: about the same density mix (Noita: blood and water stir together);
-                    // otherwise the heavier creeps under the lighter (takes its place; the lighter then floats up over it):
-                    // no invisible wall between two liquids (author). Gases drift through each other.
-                    bool swap = gas ? Gas(n.Kind) && Main.rand.Next(4) == 0
-                                    : !Gas(n.Kind) && (Mixes(c.Kind, n.Kind) || Heavier(c.Kind, n.Kind) && Main.rand.Next(3) == 0);
+                    // two different liquids side by side: about the same density and reacting, they stir together (Noita:
+                    // blood and water); otherwise the heavier creeps under the lighter (takes its place; the lighter then
+                    // floats up over it): no invisible wall between two liquids (author). A sideways swap at one height
+                    // changes nothing by itself, so the heavier only moves where it can sink next (else two liquids in one
+                    // row swapped back and forth for ever, author: "liquids jump endlessly"). Gases drift through each other.
+                    bool swap = gas ? Gas(n.Kind) && Main.rand.Next(12) == 0
+                                    : !Gas(n.Kind) && (Mixes(c.Kind, n.Kind) || Heavier(c.Kind, n.Kind) && CanSink(c.Kind, x + dx, y) && Main.rand.Next(3) == 0);
                     if (swap)
                     {
                         c.Stamp = n.Stamp = _stamp;
                         Cells[nk] = c;
                         Cells[k] = n;
+                        Swaps++;
                         return;
                     }
                     continue;
@@ -384,10 +412,12 @@ namespace Terranoita.Game.Physics
             int nk = Key(x2, y2);
             Cells.TryGetValue(nk, out var n);
             var below = Main.tile[x2, y2];
-            if (!gas && below.liquid > 32)
+            if (!gas && below.liquid > 0)
             {
                 // ours sinks through Terraria's water or lava when heavier: Terraria's liquid takes our place above
                 var here = Main.tile[x, y];
+                if (below.liquid <= 32 && y2 > y && HeavierThanTerraria(c.Kind, below.liquidType()) == false)
+                    return false;   // a lighter one rests on Terraria's liquid, even a thin film of it
                 if (y2 <= y || n.Amount > 0 || here.liquid > 32 || Protected(x, y) || Protected(x2, y2) || !HeavierThanTerraria(c.Kind, below.liquidType()) || Main.rand.Next(2) != 0)
                     return false;
                 here.liquidType(below.liquidType());
@@ -409,6 +439,7 @@ namespace Terranoita.Game.Physics
                     c.Stamp = n.Stamp = _stamp;
                     Cells[nk] = c;
                     Cells[k] = n;
+                    Swaps++;
                     return true;
                 }
                 return false;
@@ -429,21 +460,61 @@ namespace Terranoita.Game.Physics
             return false;
         }
 
-        static void MoveAll(int k, int x, int y, Cell c)
+        /// <summary>The whole cell moves to x,y (up out of Terraria's liquid); false (and it stays) when there is no room:
+        /// a cell above full of Terraria's liquid, another liquid or too little space (it used to vanish then).</summary>
+        static bool MoveAll(int k, int x, int y, Cell c)
         {
+            if (!Open(x, y) || Main.tile[x, y].liquid > PushUp)
+                return false;
+            int nk = Key(x, y);
+            Cells.TryGetValue(nk, out var n);
+            if (n.Amount > 0 && (n.Kind != c.Kind || n.Amount + c.Amount > 255))
+                return false;
             Cells.Remove(k);
-            if (Open(x, y) && Main.tile[x, y].liquid <= 32)
-            {
-                int nk = Key(x, y);
-                Cells.TryGetValue(nk, out var n);
-                if (n.Amount == 0 || n.Kind == c.Kind)
-                    Cells[nk] = new Cell { Kind = c.Kind, Amount = (byte)Math.Min(255, n.Amount + c.Amount), Burn = c.Burn };
-            }
+            Cells[nk] = new Cell { Kind = c.Kind, Amount = (byte)(n.Amount + c.Amount), Burn = c.Burn, Stamp = _stamp };
+            Bobs++;
+            return true;
         }
 
-        /// <summary>Two liquids of about the same density swap now and then, so they mix (and react all through).</summary>
+        // ours is pushed up out of a tile once Terraria's liquid fills more than half of it, and falls only into a tile
+        // with none at all: between the two it stays put (a dead band, so Terraria's wobbling surface does not toss it)
+        const int PushUp = 128;
+
+        /// <summary>Two liquids of about the same density that react swap now and then, so they mix and react all through.
+        /// Ones that do not react settle by density instead: stirring them only made them jump about for ever (author).</summary>
         static bool Mixes(int a, int b) =>
-            !Gas(a) && !Gas(b) && Math.Abs(_defs[a - 1].Density - _defs[b - 1].Density) < MixDensity && Main.rand.Next(MixEvery) == 0;
+            !Gas(a) && !Gas(b) && Math.Abs(_defs[a - 1].Density - _defs[b - 1].Density) < MixDensity && Reacts(a, b) && Main.rand.Next(MixEvery) == 0;
+
+        static bool[,] _reacts;
+
+        /// <summary>reactions.json has a reaction between these two kinds (either way round).</summary>
+        static bool Reacts(int a, int b)
+        {
+            if (_reacts == null)
+            {
+                int n = _defs.Length + 1;
+                _reacts = new bool[n, n];
+                for (int i = 1; i < n; i++)
+                    foreach (var r in _reactions[i])
+                        for (int j = 1; j < n; j++)
+                            if (Matches(r.Input1, _tags[i]) && Matches(r.Input2, _tags[j]) || Matches(r.Input2, _tags[i]) && Matches(r.Input1, _tags[j]))
+                                _reacts[i, j] = _reacts[j, i] = true;
+            }
+            return _reacts[a, b];
+        }
+
+        /// <summary>A liquid of this kind put at x,y could go down from there: the cell below is open and empty, or holds a
+        /// lighter liquid of ours or of Terraria's.</summary>
+        static bool CanSink(int kind, int x, int y)
+        {
+            if (!Open(x, y + 1))
+                return false;
+            Cells.TryGetValue(Key(x, y + 1), out var b);
+            if (b.Amount > 0)
+                return Heavier(kind, b.Kind);
+            var t = Main.tile[x, y + 1];
+            return t.liquid <= 32 || !Protected(x, y + 1) && HeavierThanTerraria(kind, t.liquidType());
+        }
         const float MixDensity = 0.6f;   // ours: water 4.0, blood 4.1, swamp 3.5 mix; oil 1.0 stays on top
         const int MixEvery = 6;
 
@@ -843,7 +914,10 @@ namespace Terranoita.Game.Physics
             var list = _reactions[c.Kind];
             var me = _tags[c.Kind];
             var d = _defs[c.Kind - 1];
-            for (int s = 0; s < 4; s++)
+            // the four neighbours, and Terraria's water or lava in this very tile: Terraria's liquid flows into our
+            // cells' tiles (it does not see them), so a heavier liquid of ours under lava never touched it otherwise
+            bool shared = Main.tile[x, y].liquid > 32;
+            for (int s = 0; s < (shared ? 5 : 4); s++)
             {
                 int nx = x + (s == 0 ? 1 : s == 1 ? -1 : 0), ny = y + (s == 2 ? 1 : s == 3 ? -1 : 0);
                 if (!Mats.InWorld(nx, ny))
@@ -856,7 +930,8 @@ namespace Terranoita.Game.Physics
                 }
                 if (list.Count == 0)
                     continue;
-                var other = TagsAt(nx, ny, out var what);
+                What what;
+                var other = s == 4 ? TerrariaTags(x, y, out what) : TagsAt(nx, ny, out what);
                 if (other == null)
                     continue;
                 foreach (var r in list)
@@ -865,17 +940,38 @@ namespace Terranoita.Game.Physics
                     bool second = !first && Matches(r.Input2, me) && Matches(r.Input1, other);
                     if (!first && !second)
                         continue;
-                    float p = ReactEvery * r.Probability / 100f * (what == What.Tile ? TileReaction : what == What.Air ? AirReaction : CellReaction);
-                    if (Main.rand.NextFloat() >= p)
+                    // Noita's direction: where input2 is from input1 (fungi grow up into the air above them)
+                    if (!DirectionOk(r.Direction, nx - x, ny - y, first))
                         continue;
+                    // the share of a check this reaction happens in, and how much it changes then
+                    float q = r.Probability / 100f * ReactRate * (what == What.Tile ? TileReaction : 1f);
+                    if (Main.rand.NextFloat() >= q)
+                        continue;
+                    // Noita's third cell (input_cell3): it must touch too, and becomes output_cell3
+                    int tx = 0, ty = 0;
+                    What tw = What.Air;
+                    if (r.Input3 != "none" && !FindThird(x, y, nx, ny, r.Input3, out tx, out ty, out tw))
+                        continue;
+                    int amount = (int)Math.Min(255f, Portion * Math.Max(1f, q));
                     string mine = first ? r.Output1 : r.Output2, theirs = first ? r.Output2 : r.Output1;
                     string myIn = first ? r.Input1 : r.Input2, theirIn = first ? r.Input2 : r.Input1;
-                    if (PhysicsTest.Enabled)
+                    // outputs written with a tag stand for the material that matched it: [evaporable_custom]_vapour of
+                    // blood_cold is blood_cold_vapour, [lava] stays what it was
+                    mine = Resolve(myIn, mine, _defs[c.Kind - 1].Id);
+                    theirs = Resolve(theirIn, theirs, NameAt(nx, ny, what));
+                    if (PhysicsTest.Enabled || ReactionTest.Enabled)
+                    {
                         Fired[r.Id + " " + r.Input1 + "+" + r.Input2] = (Fired.TryGetValue(r.Id + " " + r.Input1 + "+" + r.Input2, out int fc) ? fc : 0) + 1;
+                        if (!FiredAt.TryGetValue(k, out var at))
+                            FiredAt[k] = at = new Dictionary<string, int>();
+                        at[r.Id] = (at.TryGetValue(r.Id, out int ac) ? ac : 0) + 1;
+                    }
                     bool iChange = Changes(myIn, mine);
-                    Change(nx, ny, what, theirIn, theirs, x, y);
+                    Change(nx, ny, what, theirIn, theirs, x, y, amount);
+                    if (r.Input3 != "none")
+                        Change(tx, ty, tw, r.Input3, Resolve(r.Input3, r.Output3, NameAt(tx, ty, tw)), x, y, amount);
                     if (iChange)
-                        Change(x, y, What.Cell, myIn, mine, nx, ny);
+                        Change(x, y, What.Cell, myIn, mine, nx, ny, amount);
                     else if (what == What.Tile && Cells.TryGetValue(k, out c))
                     {
                         // eating a block uses some up (Noita keeps the acid; here a pool would eat half the world)
@@ -889,13 +985,25 @@ namespace Terranoita.Game.Physics
             }
         }
 
-        /// <summary>Reactions that happened (tests).</summary>
+        /// <summary>Reactions that happened (tests), and where (tile key -> rule id -> times).</summary>
         public static readonly Dictionary<string, int> Fired = new Dictionary<string, int>();
+        public static readonly Dictionary<int, Dictionary<string, int>> FiredAt = new Dictionary<int, Dictionary<string, int>>();
 
         enum What { Cell, Terraria, Tile, Air }
 
         static readonly HashSet<string> Air = new HashSet<string> { "=air" };
         static readonly HashSet<string> FireTags = new HashSet<string> { "fire", "=fire" };
+
+        /// <summary>Terraria's water or lava in a tile (not the ocean's or the Underworld's), as Noita tags.</summary>
+        static HashSet<string> TerrariaTags(int x, int y, out What what)
+        {
+            what = What.Terraria;
+            var t = Main.tile[x, y];
+            if (t.liquid <= 32 || Protected(x, y))
+                return null;
+            int lt = t.liquidType();
+            return lt == LiquidID.Lava ? _tags[KindOf("lava")] : lt == LiquidID.Water ? _tags[KindOf("water")] : null;
+        }
 
         /// <summary>What is at x,y as Noita sees it: our cell, Terraria's water or lava, a block's material, or air.</summary>
         static HashSet<string> TagsAt(int x, int y, out What what)
@@ -946,7 +1054,74 @@ namespace Terranoita.Game.Physics
             Fire.BurningAt(x, y) || BurningAt(x, y) || (Main.tile[x, y].liquid > 32 && Main.tile[x, y].liquidType() == LiquidID.Lava);
 
         static bool Changes(string input, string output) =>
-            !string.IsNullOrEmpty(output) && output != input && !output.StartsWith("[");   // [fire] stays fire, [acid] stays acid
+            !string.IsNullOrEmpty(output) && output != input && output != "none" && !output.StartsWith("[");   // [fire] stays fire, [acid] stays acid
+
+        /// <summary>An output written with a tag means the material that matched that tag: "[evaporable_custom]_vapour"
+        /// for blood_cold is blood_cold_vapour (when Noita has that material), "[lava]" for lava stays lava. A tag output
+        /// that cannot be made concrete leaves it as it was.</summary>
+        static string Resolve(string input, string output, string actual)
+        {
+            if (string.IsNullOrEmpty(output) || output[0] != '[' || actual == null)
+                return output;
+            int end = output.IndexOf(']');
+            if (end < 0)
+                return input;
+            if (output.Substring(0, end + 1) != input)
+                return output == "[fire]" ? "fire" : input;   // alcohol + lava -> [fire]: it burns; another tag: unknown material, no change
+            string made = actual + output.Substring(end + 1);
+            return made == actual ? input : KindOf(made) > 0 || made == "water" || made == "lava" || _solids.ContainsKey(made) ? made : input;
+        }
+
+        /// <summary>Noita material at x,y as the reaction saw it (our cell, Terraria's water or lava, a block's material).</summary>
+        static string NameAt(int x, int y, What what)
+        {
+            switch (what)
+            {
+                case What.Cell: return Cells.TryGetValue(Key(x, y), out var c) ? _defs[c.Kind - 1].Id : null;
+                case What.Terraria: return Main.tile[x, y].liquidType() == LiquidID.Lava ? "lava" : "water";
+                case What.Tile: var m = Mats.Of(Main.tile[x, y]); return m != null && m.NoitaMaterial != "-" ? m.NoitaMaterial : "rock_static";
+                default: return "air";
+            }
+        }
+
+        /// <summary>Noita's reaction direction: input2 must be on that side of input1 (dx, dy: the other cell from this
+        /// one; meFirst: this cell is input1).</summary>
+        static bool DirectionOk(string direction, int dx, int dy, bool meFirst)
+        {
+            if (string.IsNullOrEmpty(direction) || direction == "none")
+                return true;
+            if (!meFirst)
+            {
+                dx = -dx;
+                dy = -dy;
+            }
+            switch (direction)
+            {
+                case "top": return dy == -1;
+                case "bottom": return dy == 1;
+                case "left": return dx == -1;
+                case "right": return dx == 1;
+            }
+            return true;
+        }
+
+        /// <summary>A cell of input3 touching this one (not the other input's cell).</summary>
+        static bool FindThird(int x, int y, int ox, int oy, string input3, out int tx, out int ty, out What what)
+        {
+            for (int s = 0; s < 4; s++)
+            {
+                tx = x + (s == 0 ? 1 : s == 1 ? -1 : 0);
+                ty = y + (s == 2 ? 1 : s == 3 ? -1 : 0);
+                if ((tx == ox && ty == oy) || !Mats.InWorld(tx, ty))
+                    continue;
+                var tags = TagsAt(tx, ty, out what);
+                if (Matches(input3, tags))
+                    return true;
+            }
+            tx = ty = 0;
+            what = What.Air;
+            return false;
+        }
 
         static bool IsSolidOutput(string output) =>
             output != "air" && output != "fire" && KindOf(output) == 0;
@@ -955,13 +1130,13 @@ namespace Terranoita.Game.Physics
         /// A reaction turns what is at x,y into output. Liquids and gases change a portion at a time (Noita reacts pixel
         /// by pixel); the new material goes into the same cell if it emptied, else next door (sx,sy) or above.
         /// </summary>
-        static void Change(int x, int y, What what, string input, string output, int sx, int sy)
+        static void Change(int x, int y, What what, string input, string output, int sx, int sy, int portion = Portion)
         {
             if (!Changes(input, output))
                 return;
             int k = Key(x, y);
             var t = Main.tile[x, y];
-            int amount = Portion;
+            int amount = portion;
             switch (what)
             {
                 case What.Cell:
@@ -973,14 +1148,14 @@ namespace Terranoita.Game.Physics
                         PlaceSolid(x, y, output);
                         return;
                     }
-                    amount = Math.Min((int)c.Amount, Portion);
+                    amount = Math.Min((int)c.Amount, portion);
                     if (c.Amount <= amount) Cells.Remove(k);
                     else { c.Amount -= (byte)amount; Cells[k] = c; }
                     break;
                 case What.Terraria:
                     if (Protected(x, y))
                         return;
-                    amount = Math.Min((int)t.liquid, Portion);
+                    amount = Math.Min((int)t.liquid, portion);
                     t.liquid -= (byte)amount;
                     if (IsSolidOutput(output))
                     {
