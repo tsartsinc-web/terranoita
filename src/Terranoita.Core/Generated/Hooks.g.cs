@@ -78,6 +78,11 @@ namespace Terranoita.Generated
             new HookDef { Id = "progress_enter_world", Target = "Terraria.Player+Hooks:EnterWorld(int)", Patch = "postfix", System = "progress", Purpose = "The character's progress book loaded on entering a world.", Stage = "3" },
             new HookDef { Id = "chat_log", Target = "Terraria.Main:NewText(string, Color)", Patch = "postfix", System = "progress", Purpose = "Chat lines into the log (the author's notes while testing line up with SLOW update lines).", Stage = "3" },
             new HookDef { Id = "cart_draw", Target = "Terraria.Main:DrawProjectiles()", Patch = "postfix", System = "noita_actions", Purpose = "The minecart of Noita's start drawn.", Stage = "3" },
+            new HookDef { Id = "mana_crystal_cap", Target = "Terraria.Player:ItemCheck_UseManaCrystal(Item)", Patch = "transpiler", System = "mana_cap", Purpose = "15 Mana Crystals instead of 10 (cap 300).", Stage = "3" },
+            new HookDef { Id = "mana_load_cap", Target = "Terraria.Player:Deserialize(PlayerFileData, Player, BinaryReader, int, ref bool)", Patch = "transpiler", System = "mana_cap", Purpose = "A loaded player keeps up to 300 crystal mana and 600 mana.", Stage = "3" },
+            new HookDef { Id = "mana_total_cap", Target = "Terraria.Player:Update(int)", Patch = "transpiler", System = "mana_cap", Purpose = "Total max mana capped at 600 instead of 400.", Stage = "3" },
+            new HookDef { Id = "mana_stars_classic", Target = "Terraria.GameContent.UI.ResourceSets.ClassicPlayerResourcesDisplaySet:DrawMana()", Patch = "transpiler", System = "mana_cap", Purpose = "Classic bar: 15 stars, 20 to 40 mana each.", Stage = "3" },
+            new HookDef { Id = "mana_stars_snapshot", Target = "Terraria.GameContent.UI.ResourceSets.PlayerStatsSnapshot:.ctor(Player)", Patch = "postfix", System = "mana_cap", Purpose = "Fancy and bar styles: 15 stars, 20 to 40 mana each.", Stage = "3" },
         };
     }
 }

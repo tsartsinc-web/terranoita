@@ -511,6 +511,51 @@
    "purpose": "The minecart of Noita's start drawn.",
    "stage": "3",
    "_unverified": {}
+  },
+  {
+   "id": "mana_crystal_cap",
+   "target": "Terraria.Player:ItemCheck_UseManaCrystal(Item)",
+   "patch": "transpiler",
+   "system": "mana_cap",
+   "purpose": "15 Mana Crystals instead of 10 (cap 300).",
+   "stage": "3",
+   "_unverified": {}
+  },
+  {
+   "id": "mana_load_cap",
+   "target": "Terraria.Player:Deserialize(PlayerFileData, Player, BinaryReader, int, ref bool)",
+   "patch": "transpiler",
+   "system": "mana_cap",
+   "purpose": "A loaded player keeps up to 300 crystal mana and 600 mana.",
+   "stage": "3",
+   "_unverified": {}
+  },
+  {
+   "id": "mana_total_cap",
+   "target": "Terraria.Player:Update(int)",
+   "patch": "transpiler",
+   "system": "mana_cap",
+   "purpose": "Total max mana capped at 600 instead of 400.",
+   "stage": "3",
+   "_unverified": {}
+  },
+  {
+   "id": "mana_stars_classic",
+   "target": "Terraria.GameContent.UI.ResourceSets.ClassicPlayerResourcesDisplaySet:DrawMana()",
+   "patch": "transpiler",
+   "system": "mana_cap",
+   "purpose": "Classic bar: 15 stars, 20 to 40 mana each.",
+   "stage": "3",
+   "_unverified": {}
+  },
+  {
+   "id": "mana_stars_snapshot",
+   "target": "Terraria.GameContent.UI.ResourceSets.PlayerStatsSnapshot:.ctor(Player)",
+   "patch": "postfix",
+   "system": "mana_cap",
+   "purpose": "Fancy and bar styles: 15 stars, 20 to 40 mana each.",
+   "stage": "3",
+   "_unverified": {}
   }
  ]
 }

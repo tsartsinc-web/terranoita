@@ -42,6 +42,7 @@ namespace Terranoita.Generated
             new SystemDef { Id = "menu", Description = "Stage 3: the main menu reads TERRA NOITA.", Stage = "3", Hooks = new[] { "menu_logo" }, Code = "src/Terranoita/MenuLogo.cs" },
             new SystemDef { Id = "noita_actions", Description = "Stage 3: Noita's kick (F), drinking from a liquid (hold down), the start minecart.", Stage = "3", Hooks = new[] { "cart_draw" }, Code = "src/Terranoita/NoitaActions.cs, src/Terranoita/Cart.cs" },
             new SystemDef { Id = "flasks_items", Description = "Stage 4: four flask/item slots, flasks and Noita items.", Stage = "4", Hooks = new string[0], Code = "-" },
+            new SystemDef { Id = "mana_cap", Description = "Stage 3: max mana 600 (15 Mana Crystals, 15 stars of 20 to 40 mana) for Noita's dear spells (author).", Stage = "3", Hooks = new[] { "mana_crystal_cap", "mana_load_cap", "mana_total_cap", "mana_stars_classic", "mana_stars_snapshot" }, Code = "src/Terranoita/Magic/ManaCap.cs" },
         };
     }
 }

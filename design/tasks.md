@@ -37,7 +37,7 @@ How it works (author, 2026-10-08): the author only says "работай" to eith
   Terraria's worldgen, scenes, loot by Noita's chest_random.lua). Check: game_test -Mode worldgen (section 5).
 - PC-6 (PC) 30 of 39 fixed (spells run 2026-10-08: target 3 tiles, window up to 5 s while shots fly, test mana 1000).
   Left (baseline): MINE, MINE_DEATH_TRIGGER, PIPE_BOMB, PIPE_BOMB_DEATH_TRIGGER (no explosion in 5 s), EXPLODING_DEER,
-  BOMB_CART, CURSED_ORB (moving entities), DEATH_CROSS, DEATH_CROSS_BIG. Author question: NUKE_GIGA, BOMB_HOLY_GIGA,
+  BOMB_CART (moving entities), DEATH_CROSS (DEATH_CROSS_BIG, CURSED_ORB pass now). Author question: NUKE_GIGA, BOMB_HOLY_GIGA,
   BLACK/WHITE_HOLE_GIGA, ALL_NUKES, ALL_SPELLS cost 500-600 mana, Terraria caps player mana at 400: never castable.
 - PC-4 new: Physics/Electricity.cs (section 3) on Core's Conduction (Emit/Tick/ForEach; IConductGrid = liquids'
   and Terraria water's `conducts` + metal tiles; energy = the loaded file's ElectricityComponent energy, 1 = 1 tile,
@@ -63,6 +63,9 @@ How it works (author, 2026-10-08): the author only says "работай" to eith
   never in a public repo).
 
 ## Done (last ~8)
+- done (PC) mana cap (author): 15 Mana Crystals (300), total max mana 600, bars show 15 stars of 20..40 mana
+  (Magic/ManaCap.cs: transpilers on ItemCheck_UseManaCrystal, Deserialize, Player.Update, classic DrawMana; snapshot
+  postfix). Log shows every constant changed. Not done: MessageBuffer.GetData still clamps synced mana at 400 (multiplayer).
 - done (PC, untested in game) Terraria magic bonuses on Noita wands (author): mana cost x p.manaCost (gun.lua gets
   statMana / manaCost), Mana Flower QuickMana before a cast it cannot pay (Held.LastCost), ApplyManaRegenerationDelay,
   max mana = statManaMax2, damage x p.magicDamage (spell shots + script damage), crit + p.magicCrit (APIs by tr-methods).

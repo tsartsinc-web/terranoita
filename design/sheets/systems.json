@@ -237,6 +237,20 @@
    "hooks": [],
    "code": "-",
    "_unverified": {}
+  },
+  {
+   "id": "mana_cap",
+   "description": "Stage 3: max mana 600 (15 Mana Crystals, 15 stars of 20 to 40 mana) for Noita's dear spells (author).",
+   "stage": "3",
+   "hooks": [
+    "mana_crystal_cap",
+    "mana_load_cap",
+    "mana_total_cap",
+    "mana_stars_classic",
+    "mana_stars_snapshot"
+   ],
+   "code": "src/Terranoita/Magic/ManaCap.cs",
+   "_unverified": {}
   }
  ]
 }
