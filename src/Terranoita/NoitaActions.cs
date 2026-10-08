@@ -27,6 +27,7 @@ namespace Terranoita.Game
         const float Capacity = 7500, OverDamage = 0.002f * 25f;
         static float _stomach;               // Noita's ingestion_size, in cells
         static int _kickCooldown, _drinkSound;
+        static readonly HashSet<string> _soundMissing = new HashSet<string>();
 
         public static void Update()
         {
@@ -52,17 +53,28 @@ namespace Terranoita.Game
         {
             _kickCooldown = 20;
             var foot = new Vector2(p.Center.X + p.direction * (p.width / 2f + 8), p.position.Y + p.height - 10);
-            if (!NoitaSound.Play("player/kick", foot))
-                Terraria.Audio.SoundEngine.PlaySound(SoundID.Item1, foot);
+            // Noita's kick sound (player.bank, the player's AudioComponent event_root "player")
+            if (!NoitaSound.Play("player/kick", foot) && _soundMissing.Add("kick"))
+                Entry.Log("Noita sound player/kick not found");
             p.SetCompositeArmBack(true, Player.CompositeArmStretchAmount.Full, -MathHelper.PiOver2 * p.direction);
             var push = new Vector2(p.direction * KickForce, -2.5f);
+            // everyone in reach is knocked away (author): creatures, town NPCs, critters, other players; only hostiles are hurt
             for (int i = 0; i < Main.maxNPCs; i++)
             {
                 var n = Main.npc[i];
-                if (!n.active || n.friendly || n.townNPC || n.life <= 0 || Vector2.Distance(n.Center, foot) > KickReach + n.width / 2f)
+                if (!n.active || n.life <= 0 || Vector2.Distance(n.Center, foot) > KickReach + n.width / 2f)
                     continue;
-                p.ApplyDamageToNPC(n, 1, KickForce, p.direction, false, null, 0, -1);   // kick_damage 1/25 Noita = 1 hp
-                n.velocity += push * (n.knockBackResist > 0 ? n.knockBackResist : 0.2f);
+                if (!n.friendly && !n.townNPC && !n.dontTakeDamage)
+                    p.ApplyDamageToNPC(n, 1, KickForce, p.direction, false, null, 0, -1);   // kick_damage 1/25 Noita = 1 hp
+                n.velocity += push * (n.boss ? 0.2f : 1f);
+                n.netUpdate = true;
+            }
+            for (int i = 0; i < Main.maxPlayers; i++)
+            {
+                var o = Main.player[i];
+                if (i == p.whoAmI || !o.active || o.dead || Vector2.Distance(o.Center, foot) > KickReach + o.width / 2f)
+                    continue;
+                o.velocity += push;
             }
             for (int i = 0; i < Main.maxItems; i++)
             {
@@ -101,8 +113,8 @@ namespace Terranoita.Game
             if (--_drinkSound <= 0)
             {
                 _drinkSound = 20;
-                if (!NoitaSound.Play("player/drink", p.Center))
-                    Terraria.Audio.SoundEngine.PlaySound(SoundID.Item3, p.Center);
+                if (!NoitaSound.Play("player/potion_drink", p.Center) && _soundMissing.Add("drink"))
+                    Entry.Log("Noita sound player/potion_drink not found");
             }
         }
     }
