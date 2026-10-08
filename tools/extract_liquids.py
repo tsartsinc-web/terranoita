@@ -19,7 +19,7 @@ import xml.etree.ElementTree as ET
 ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 SHEETS = os.path.join(ROOT, "design", "sheets")
 
-KEEP = ["cell_type", "density", "liquid_gravity", "liquid_viscosity", "liquid_stains", "liquid_slime", "burnable",
+KEEP = ["electrical_conductivity", "liquid_sand", "cell_type", "density", "liquid_gravity", "liquid_viscosity", "liquid_stains", "liquid_slime", "burnable",
         "on_fire", "fire_hp", "autoignition_temperature", "temperature_of_fire", "generates_smoke", "generates_flames",
         "requires_oxygen", "lifetime", "gas_upwards_speed", "gas_horizontal_speed", "gas_downwards_speed",
         "status_effects", "cold_freezes_to_material", "warmth_melts_to_material", "always_ignites_damagemodel",
@@ -57,6 +57,21 @@ def load(path):
         base.update({k: v for k, v in a.items() if k != "_parent"})
         return base
     return {n: resolved(n) for n in mats}, root
+
+
+def conducts(a):
+    """electrical_conductivity as materials.xml sets it (children inherit). Unset: the engine's default is not in
+    data.wak; oil and glue set 0 while water sets nothing, so liquids are taken to conduct and other cells not."""
+    v = a.get("electrical_conductivity")
+    if v is not None:
+        return v == "1"
+    return a.get("cell_type") == "liquid" and a.get("liquid_sand") != "1"   # powders are liquid cells with liquid_sand
+
+
+def conducts_unverified(a):
+    if a.get("electrical_conductivity") is not None:
+        return {}
+    return {"conducts": "materials.xml does not set electrical_conductivity: default assumed (liquid yes, powders and others no); ask the author"}
 
 
 def num(v, default=0.0):
@@ -151,8 +166,9 @@ def main():
             "melts_to": a.get("warmth_melts_to_material") or "none",
             "tags": tags,
             "creative": a.get("show_in_creative_mode") == "1",
+            "conducts": conducts(a),
             "stage": "2",
-            "_unverified": {},
+            "_unverified": conducts_unverified(a),
             "_sources": {"all": "materials.xml " + ("CellDataChild of " + a["_parent"] if a.get("_parent") else "CellData")},
         })
     names = {r["id"] for r in rows}
@@ -187,7 +203,8 @@ def main():
         a = mats[n]
         solids.append({"id": n, "cell_type": a.get("cell_type", "solid"),
                        "tags": [t.strip("[]") for t in (a.get("tags") or "").split(",") if t.strip()],
-                       "terraria_tile": terraria_tile(n), "touch_damage": damage.get(n, 0.0), "stage": "2", "_unverified": {},
+                       "terraria_tile": terraria_tile(n), "touch_damage": damage.get(n, 0.0), "conducts": conducts(a),
+                       "stage": "2", "_unverified": conducts_unverified(a),
                        "_sources": {"all": "materials.xml; terraria_tile by name (tools/extract_liquids.py terraria_tile)"}})
 
     liquid_cols = {
@@ -210,6 +227,7 @@ def main():
         "melts_to": {"type": "string", "desc": "Material it melts into ('none')."},
         "tags": {"type": "string[]", "desc": "Noita tags."},
         "creative": {"type": "bool", "desc": "Shown in Noita's creative mode (a 'real' material, not an effect)."},
+        "conducts": {"type": "bool", "desc": "Carries electricity (materials.xml electrical_conductivity; unset = Noita's engine default, see _unverified)."},
         "stage": {"type": "enum", "values": ["1a", "1b", "1c", "2", "3", "4"], "desc": "Stage that builds it."},
     }
     reaction_cols = {
@@ -229,6 +247,7 @@ def main():
         "tags": {"type": "string[]", "desc": "Noita tags."},
         "terraria_tile": {"type": "string", "desc": "TileID a reaction leaves when it makes this ('none' = nothing)."},
         "touch_damage": {"type": "number", "desc": "Noita hp units per frame while touching (player_base.xml)."},
+        "conducts": {"type": "bool", "desc": "Carries electricity (materials.xml electrical_conductivity; unset = Noita's engine default, see _unverified)."},
         "stage": {"type": "enum", "values": ["1a", "1b", "1c", "2", "3", "4"], "desc": "Stage that builds it."},
     }
     for name, desc, cols, data in (

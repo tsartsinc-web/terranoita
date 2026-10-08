@@ -26,16 +26,15 @@ How it works (author, 2026-10-08): the author only says "работай" to eith
   later runs print only the diff; OK/FAIL decided from the sheets (projectile -> fires, damage -> target hurt,
   uses -> spent, wand -> mana spent + recharge); screenshots only on FAIL and not opened unless asked.
   Check: a run prints <= 25 lines; a second run without changes prints one "no change" line.
-- PC-2 new: golden file for Core tests: `tncli lua-all <noita>` -> design/sources/lua_cast_golden.txt (per spell:
-  shots, mana, delay, errors, missing APIs), committed. Check: file exists, one line per spell.
-- PC-3 new: effect interactions, sections 0-1 of design/effect_interactions.md (Noita data -> sheets:
-  `conducts`, ELECTROCUTION, electricity columns of spell projectiles). Check: preflight clean for the new columns.
 - PC-4 waits PC-3, CLOUD-2: Physics/Electricity.cs (section 3) + the pool test (section 4).
 - PC-5 new: FPS with ~20 scripted shots (Core is ~1 us per script run now): if still slow, profile GameShotHost
   (InRadiusWithTag, positions). Check: SlowFrames shows no mod part over 8 ms with 20 shots.
 
 ## CLOUD queue
-- CLOUD-1 waits PC-2: Core tests comparing LuaGun casts with lua_cast_golden.txt. Check: dotnet test green.
+- CLOUD-4 new: status_effects ELECTROCUTION row from design/sources/electricity_facts.json (GameEffect, 40 frames,
+  disable_movement) via a tool (seed_status_effects.py reads the facts file); Conduction (CLOUD-2) energy = the
+  ElectricityComponent energy of the loaded file (facts). Check: preflight 1a CLEAN, tools tests.
+- CLOUD-1 new: Core tests comparing LuaGun casts with lua_cast_golden.txt. Check: dotnet test green.
 - CLOUD-2 new: Core/Physics/Conduction.cs (grid-agnostic flood fill through conducting cells, charge timers, caps,
   no allocations) + tests (one pool, two pools, cap, decay, refresh). Check: dotnet test green, preflight 1a CLEAN.
 - CLOUD-3 waits PC-1: tools script that diffs a magic summary against magic_baseline.txt (if PC-1 does not do it
@@ -43,11 +42,14 @@ How it works (author, 2026-10-08): the author only says "работай" to eith
 
 ## Author (questions; agents do not wait for answers)
 - Roadmap decisions: design/roadmap.md "Open author decisions" (trader, flasks, perks, bosses).
+- Noita sets no electrical_conductivity on water/blood/acid: we assume every liquid conducts (oil/glue do not). Right?
 - Electricity: do Terraria's lava, honey, shimmer conduct? Player stun: Terraria's Electrified buff or our status?
 - Optional: a signatures-only reference of Terraria.exe so the cloud can compile the game code (licence: your call,
   never in a public repo).
 
 ## Done (last ~8)
+- done (this commit) PC: PC-3 conducts column (extract_liquids.py), electricity facts file, plan section 0b.
+- done f070180 PC: PC-2 golden file design/sources/lua_cast_golden.txt (tncli lua-golden, seeded LuaGun, 422 lines).
 - done bbfc632 CLOUD: SpellProjectileFromEntity (cloud_task_core_3).
 - done 63cdbfd CLOUD: faster LuaShotScripts + ProgressInfo (cloud_task_core_2).
 - done 2015bd5 CLOUD: physics review fixes (cloud_task_physics_fixes).

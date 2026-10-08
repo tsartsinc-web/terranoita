@@ -785,3 +785,12 @@ Next steps (author's order: finish magic, then shops):
   agents start there; the author only says "работай".
 - .gitattributes: `MODLOG.md merge=union` (both agents append sections; no more conflict markers).
 - CLAUDE.md points to design/tasks.md first; MODLOG UTF-8 only.
+
+## 2026-10-08 PC: PC-2 golden file, PC-3 conductivity facts
+- PC-2: tncli lua-golden <noita> (LuaGun with a fixed seed: random spells repeat) -> design/sources/lua_cast_golden.txt,
+  one line per spell: shots by file, mana, delay, recharge, played, missing; 422 lines, two runs identical.
+- PC-3: liquids.json / noita_solids.json `conducts` (tools/extract_liquids.py from materials.xml): explicit
+  electrical_conductivity, else liquid (not powder) = yes, `_unverified`. 99/128 liquids, 11/84 solids.
+  Facts: design/sources/electricity_facts.json; the plan's section 0 corrected (0b): no ElectricitySource on spells,
+  electricity = ElectricityComponent entities shot by scripts + LIGHTNING projectiles; ELECTROCUTION = GameEffect
+  (effect_electricity.xml, 40 frames, disable_movement), not a status_list status.

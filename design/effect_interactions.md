@@ -15,6 +15,22 @@ Rule of the project: Noita's own data and rules, read from the player's Noita; n
   ELECTROCUTION row (name, icon, seconds) from status_list.lua; which spell projectile files carry
   ElectricitySourceComponent / ElectricChargeComponent / damage_by_type electricity (noita_spells.json components).
 
+### 0b. Confirmed on the PC (2026-10-08; facts in design/sources/electricity_facts.json)
+- materials.xml sets electrical_conductivity on 48 materials only: metals (steel, aluminium, gold, silver, copper...)
+  = 1; oil, glue and box2d props = 0; water, blood, acid etc. set NOTHING. Water conducts in Noita, oil/glue are set
+  to 0 explicitly, so the engine default looks like "liquid conducts" — not in data.wak: assumed, `_unverified`
+  (liquids/noita_solids `conducts`, tools/extract_liquids.py), question for the author.
+- ELECTROCUTION is not a status of status_list.lua: it is a GameEffect, data/entities/misc/effect_electricity.xml
+  (GameEffectComponent effect=ELECTROCUTION frames=40 disable_movement=1).
+- No spell projectile has ElectricitySourceComponent / ElectricChargeComponent. Electricity is an entity with
+  ElectricityComponent (misc/electricity.xml energy 1000 default, electricity_medium 250, electricity_weak 50 speed 16;
+  splittings, probability_to_heat) that travels through conducting cells; it is shot by scripts
+  (scripts/projectiles/electrocution_blast.lua, deck/lightning_extra_arcs.xml, thundermage.lua, traps), plus the
+  engine's LIGHTNING projectiles (9 files, projectile_type="LIGHTNING"). ElectricitySource only on torch_electric and
+  the electricity perk; ElectricCharge only on shock_powder.
+- So section 3's sources are: EntityLoad/shoot of a file with ElectricityComponent (energy = how far it crawls),
+  LIGHTNING projectiles where they hit, ARC_ELECTRIC arcs. Spell_projectiles needs no electricity columns.
+
 ## 1. Sheets first
 - liquids.json + noita_solids.json: new column `conducts` (bool, from materials.xml electrical_conductivity).
   Terraria's own liquids: water conducts (Noita water does); lava/honey/shimmer -> ask the author.

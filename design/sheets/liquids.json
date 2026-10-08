@@ -83,6 +83,10 @@
    "type": "bool",
    "desc": "Shown in Noita's creative mode (a 'real' material, not an effect)."
   },
+  "conducts": {
+   "type": "bool",
+   "desc": "Carries electricity (materials.xml electrical_conductivity; unset = Noita's engine default, see _unverified)."
+  },
   "stage": {
    "type": "enum",
    "values": [
@@ -125,8 +129,11 @@
     "chaotic_transmutation"
    ],
    "creative": true,
+   "conducts": true,
    "stage": "2",
-   "_unverified": {},
+   "_unverified": {
+    "conducts": "materials.xml does not set electrical_conductivity: default assumed (liquid yes, powders and others no); ask the author"
+   },
    "_sources": {
     "all": "materials.xml CellData"
    }
@@ -154,8 +161,11 @@
     "burnable_fast"
    ],
    "creative": true,
+   "conducts": false,
    "stage": "2",
-   "_unverified": {},
+   "_unverified": {
+    "conducts": "materials.xml does not set electrical_conductivity: default assumed (liquid yes, powders and others no); ask the author"
+   },
    "_sources": {
     "all": "materials.xml CellData"
    }
@@ -183,8 +193,11 @@
     "burnable_fast"
    ],
    "creative": false,
+   "conducts": false,
    "stage": "2",
-   "_unverified": {},
+   "_unverified": {
+    "conducts": "materials.xml does not set electrical_conductivity: default assumed (liquid yes, powders and others no); ask the author"
+   },
    "_sources": {
     "all": "materials.xml CellData"
    }
@@ -219,8 +232,11 @@
     "chaotic_transmutation"
    ],
    "creative": true,
+   "conducts": true,
    "stage": "2",
-   "_unverified": {},
+   "_unverified": {
+    "conducts": "materials.xml does not set electrical_conductivity: default assumed (liquid yes, powders and others no); ask the author"
+   },
    "_sources": {
     "all": "materials.xml CellData"
    }
@@ -251,8 +267,11 @@
     "evaporable"
    ],
    "creative": false,
+   "conducts": false,
    "stage": "2",
-   "_unverified": {},
+   "_unverified": {
+    "conducts": "materials.xml does not set electrical_conductivity: default assumed (liquid yes, powders and others no); ask the author"
+   },
    "_sources": {
     "all": "materials.xml CellData"
    }
@@ -291,8 +310,11 @@
     "earth"
    ],
    "creative": true,
+   "conducts": true,
    "stage": "2",
-   "_unverified": {},
+   "_unverified": {
+    "conducts": "materials.xml does not set electrical_conductivity: default assumed (liquid yes, powders and others no); ask the author"
+   },
    "_sources": {
     "all": "materials.xml CellData"
    }
@@ -331,8 +353,11 @@
     "earth"
    ],
    "creative": true,
+   "conducts": true,
    "stage": "2",
-   "_unverified": {},
+   "_unverified": {
+    "conducts": "materials.xml does not set electrical_conductivity: default assumed (liquid yes, powders and others no); ask the author"
+   },
    "_sources": {
     "all": "materials.xml CellData"
    }
@@ -371,8 +396,11 @@
     "earth"
    ],
    "creative": true,
+   "conducts": true,
    "stage": "2",
-   "_unverified": {},
+   "_unverified": {
+    "conducts": "materials.xml does not set electrical_conductivity: default assumed (liquid yes, powders and others no); ask the author"
+   },
    "_sources": {
     "all": "materials.xml CellData"
    }
@@ -406,8 +434,11 @@
     "liquid_common"
    ],
    "creative": true,
+   "conducts": true,
    "stage": "2",
-   "_unverified": {},
+   "_unverified": {
+    "conducts": "materials.xml does not set electrical_conductivity: default assumed (liquid yes, powders and others no); ask the author"
+   },
    "_sources": {
     "all": "materials.xml CellData"
    }
@@ -443,8 +474,11 @@
     "chaotic_transmutation"
    ],
    "creative": true,
+   "conducts": true,
    "stage": "2",
-   "_unverified": {},
+   "_unverified": {
+    "conducts": "materials.xml does not set electrical_conductivity: default assumed (liquid yes, powders and others no); ask the author"
+   },
    "_sources": {
     "all": "materials.xml CellData"
    }
@@ -482,8 +516,11 @@
     "liquid_common"
    ],
    "creative": true,
+   "conducts": true,
    "stage": "2",
-   "_unverified": {},
+   "_unverified": {
+    "conducts": "materials.xml does not set electrical_conductivity: default assumed (liquid yes, powders and others no); ask the author"
+   },
    "_sources": {
     "all": "materials.xml CellData"
    }
@@ -514,8 +551,11 @@
     "cold"
    ],
    "creative": true,
+   "conducts": false,
    "stage": "2",
-   "_unverified": {},
+   "_unverified": {
+    "conducts": "materials.xml does not set electrical_conductivity: default assumed (liquid yes, powders and others no); ask the author"
+   },
    "_sources": {
     "all": "materials.xml CellData"
    }
@@ -551,8 +591,11 @@
     "food"
    ],
    "creative": false,
+   "conducts": true,
    "stage": "2",
-   "_unverified": {},
+   "_unverified": {
+    "conducts": "materials.xml does not set electrical_conductivity: default assumed (liquid yes, powders and others no); ask the author"
+   },
    "_sources": {
     "all": "materials.xml CellData"
    }
@@ -588,8 +631,11 @@
     "chaotic_transmutation"
    ],
    "creative": true,
+   "conducts": true,
    "stage": "2",
-   "_unverified": {},
+   "_unverified": {
+    "conducts": "materials.xml does not set electrical_conductivity: default assumed (liquid yes, powders and others no); ask the author"
+   },
    "_sources": {
     "all": "materials.xml CellData"
    }
@@ -629,8 +675,11 @@
     "chaotic_transmutation"
    ],
    "creative": true,
+   "conducts": true,
    "stage": "2",
-   "_unverified": {},
+   "_unverified": {
+    "conducts": "materials.xml does not set electrical_conductivity: default assumed (liquid yes, powders and others no); ask the author"
+   },
    "_sources": {
     "all": "materials.xml CellData"
    }
@@ -666,8 +715,11 @@
     "chaotic_transmutation"
    ],
    "creative": true,
+   "conducts": true,
    "stage": "2",
-   "_unverified": {},
+   "_unverified": {
+    "conducts": "materials.xml does not set electrical_conductivity: default assumed (liquid yes, powders and others no); ask the author"
+   },
    "_sources": {
     "all": "materials.xml CellData"
    }
@@ -705,8 +757,11 @@
     "earth"
    ],
    "creative": true,
+   "conducts": true,
    "stage": "2",
-   "_unverified": {},
+   "_unverified": {
+    "conducts": "materials.xml does not set electrical_conductivity: default assumed (liquid yes, powders and others no); ask the author"
+   },
    "_sources": {
     "all": "materials.xml CellData"
    }
@@ -738,8 +793,11 @@
     "earth"
    ],
    "creative": true,
+   "conducts": true,
    "stage": "2",
-   "_unverified": {},
+   "_unverified": {
+    "conducts": "materials.xml does not set electrical_conductivity: default assumed (liquid yes, powders and others no); ask the author"
+   },
    "_sources": {
     "all": "materials.xml CellData"
    }
@@ -766,8 +824,11 @@
     "gas"
    ],
    "creative": false,
+   "conducts": false,
    "stage": "2",
-   "_unverified": {},
+   "_unverified": {
+    "conducts": "materials.xml does not set electrical_conductivity: default assumed (liquid yes, powders and others no); ask the author"
+   },
    "_sources": {
     "all": "materials.xml CellData"
    }
@@ -799,8 +860,11 @@
     "liquid_common"
    ],
    "creative": false,
+   "conducts": true,
    "stage": "2",
-   "_unverified": {},
+   "_unverified": {
+    "conducts": "materials.xml does not set electrical_conductivity: default assumed (liquid yes, powders and others no); ask the author"
+   },
    "_sources": {
     "all": "materials.xml CellData"
    }
@@ -827,8 +891,11 @@
     "gas"
    ],
    "creative": false,
+   "conducts": false,
    "stage": "2",
-   "_unverified": {},
+   "_unverified": {
+    "conducts": "materials.xml does not set electrical_conductivity: default assumed (liquid yes, powders and others no); ask the author"
+   },
    "_sources": {
     "all": "materials.xml CellData"
    }
@@ -862,8 +929,11 @@
     "liquid_common"
    ],
    "creative": false,
+   "conducts": true,
    "stage": "2",
-   "_unverified": {},
+   "_unverified": {
+    "conducts": "materials.xml does not set electrical_conductivity: default assumed (liquid yes, powders and others no); ask the author"
+   },
    "_sources": {
     "all": "materials.xml CellData"
    }
@@ -897,8 +967,11 @@
     "liquid_common"
    ],
    "creative": false,
+   "conducts": true,
    "stage": "2",
-   "_unverified": {},
+   "_unverified": {
+    "conducts": "materials.xml does not set electrical_conductivity: default assumed (liquid yes, powders and others no); ask the author"
+   },
    "_sources": {
     "all": "materials.xml CellData"
    }
@@ -936,8 +1009,11 @@
     "earth"
    ],
    "creative": true,
+   "conducts": true,
    "stage": "2",
-   "_unverified": {},
+   "_unverified": {
+    "conducts": "materials.xml does not set electrical_conductivity: default assumed (liquid yes, powders and others no); ask the author"
+   },
    "_sources": {
     "all": "materials.xml CellData"
    }
@@ -965,8 +1041,11 @@
     "impure"
    ],
    "creative": false,
+   "conducts": true,
    "stage": "2",
-   "_unverified": {},
+   "_unverified": {
+    "conducts": "materials.xml does not set electrical_conductivity: default assumed (liquid yes, powders and others no); ask the author"
+   },
    "_sources": {
     "all": "materials.xml CellData"
    }
@@ -999,8 +1078,11 @@
     "impure"
    ],
    "creative": true,
+   "conducts": true,
    "stage": "2",
-   "_unverified": {},
+   "_unverified": {
+    "conducts": "materials.xml does not set electrical_conductivity: default assumed (liquid yes, powders and others no); ask the author"
+   },
    "_sources": {
     "all": "materials.xml CellData"
    }
@@ -1032,8 +1114,11 @@
     "earth"
    ],
    "creative": false,
+   "conducts": true,
    "stage": "2",
-   "_unverified": {},
+   "_unverified": {
+    "conducts": "materials.xml does not set electrical_conductivity: default assumed (liquid yes, powders and others no); ask the author"
+   },
    "_sources": {
     "all": "materials.xml CellData"
    }
@@ -1062,8 +1147,11 @@
     "fungus"
    ],
    "creative": true,
+   "conducts": false,
    "stage": "2",
-   "_unverified": {},
+   "_unverified": {
+    "conducts": "materials.xml does not set electrical_conductivity: default assumed (liquid yes, powders and others no); ask the author"
+   },
    "_sources": {
     "all": "materials.xml CellData"
    }
@@ -1101,8 +1189,11 @@
     "earth"
    ],
    "creative": false,
+   "conducts": true,
    "stage": "2",
-   "_unverified": {},
+   "_unverified": {
+    "conducts": "materials.xml does not set electrical_conductivity: default assumed (liquid yes, powders and others no); ask the author"
+   },
    "_sources": {
     "all": "materials.xml CellData"
    }
@@ -1140,8 +1231,11 @@
     "earth"
    ],
    "creative": false,
+   "conducts": true,
    "stage": "2",
-   "_unverified": {},
+   "_unverified": {
+    "conducts": "materials.xml does not set electrical_conductivity: default assumed (liquid yes, powders and others no); ask the author"
+   },
    "_sources": {
     "all": "materials.xml CellData"
    }
@@ -1180,8 +1274,11 @@
     "earth"
    ],
    "creative": true,
+   "conducts": true,
    "stage": "2",
-   "_unverified": {},
+   "_unverified": {
+    "conducts": "materials.xml does not set electrical_conductivity: default assumed (liquid yes, powders and others no); ask the author"
+   },
    "_sources": {
     "all": "materials.xml CellData"
    }
@@ -1215,8 +1312,11 @@
     "liquid_common"
    ],
    "creative": true,
+   "conducts": true,
    "stage": "2",
-   "_unverified": {},
+   "_unverified": {
+    "conducts": "materials.xml does not set electrical_conductivity: default assumed (liquid yes, powders and others no); ask the author"
+   },
    "_sources": {
     "all": "materials.xml CellData"
    }
@@ -1246,8 +1346,11 @@
     "magic"
    ],
    "creative": true,
+   "conducts": true,
    "stage": "2",
-   "_unverified": {},
+   "_unverified": {
+    "conducts": "materials.xml does not set electrical_conductivity: default assumed (liquid yes, powders and others no); ask the author"
+   },
    "_sources": {
     "all": "materials.xml CellData"
    }
@@ -1282,8 +1385,11 @@
     "chaotic_transmutation"
    ],
    "creative": true,
+   "conducts": true,
    "stage": "2",
-   "_unverified": {},
+   "_unverified": {
+    "conducts": "materials.xml does not set electrical_conductivity: default assumed (liquid yes, powders and others no); ask the author"
+   },
    "_sources": {
     "all": "materials.xml CellData"
    }
@@ -1319,6 +1425,7 @@
     "liquid_common"
    ],
    "creative": true,
+   "conducts": false,
    "stage": "2",
    "_unverified": {},
    "_sources": {
@@ -1357,6 +1464,7 @@
     "liquid_common"
    ],
    "creative": true,
+   "conducts": false,
    "stage": "2",
    "_unverified": {},
    "_sources": {
@@ -1389,8 +1497,11 @@
     "alchemy"
    ],
    "creative": true,
+   "conducts": false,
    "stage": "2",
-   "_unverified": {},
+   "_unverified": {
+    "conducts": "materials.xml does not set electrical_conductivity: default assumed (liquid yes, powders and others no); ask the author"
+   },
    "_sources": {
     "all": "materials.xml CellData"
    }
@@ -1421,8 +1532,11 @@
     "regenerative_gas"
    ],
    "creative": true,
+   "conducts": false,
    "stage": "2",
-   "_unverified": {},
+   "_unverified": {
+    "conducts": "materials.xml does not set electrical_conductivity: default assumed (liquid yes, powders and others no); ask the author"
+   },
    "_sources": {
     "all": "materials.xml CellData"
    }
@@ -1450,8 +1564,11 @@
     "vapour"
    ],
    "creative": true,
+   "conducts": false,
    "stage": "2",
-   "_unverified": {},
+   "_unverified": {
+    "conducts": "materials.xml does not set electrical_conductivity: default assumed (liquid yes, powders and others no); ask the author"
+   },
    "_sources": {
     "all": "materials.xml CellData"
    }
@@ -1482,8 +1599,11 @@
     "alchemy"
    ],
    "creative": true,
+   "conducts": false,
    "stage": "2",
-   "_unverified": {},
+   "_unverified": {
+    "conducts": "materials.xml does not set electrical_conductivity: default assumed (liquid yes, powders and others no); ask the author"
+   },
    "_sources": {
     "all": "materials.xml CellData"
    }
@@ -1514,8 +1634,11 @@
     "alchemy"
    ],
    "creative": true,
+   "conducts": false,
    "stage": "2",
-   "_unverified": {},
+   "_unverified": {
+    "conducts": "materials.xml does not set electrical_conductivity: default assumed (liquid yes, powders and others no); ask the author"
+   },
    "_sources": {
     "all": "materials.xml CellData"
    }
@@ -1546,8 +1669,11 @@
     "alchemy"
    ],
    "creative": true,
+   "conducts": false,
    "stage": "2",
-   "_unverified": {},
+   "_unverified": {
+    "conducts": "materials.xml does not set electrical_conductivity: default assumed (liquid yes, powders and others no); ask the author"
+   },
    "_sources": {
     "all": "materials.xml CellData"
    }
@@ -1577,8 +1703,11 @@
     "vapour"
    ],
    "creative": true,
+   "conducts": false,
    "stage": "2",
-   "_unverified": {},
+   "_unverified": {
+    "conducts": "materials.xml does not set electrical_conductivity: default assumed (liquid yes, powders and others no); ask the author"
+   },
    "_sources": {
     "all": "materials.xml CellData"
    }
@@ -1610,8 +1739,11 @@
     "impure"
    ],
    "creative": false,
+   "conducts": true,
    "stage": "2",
-   "_unverified": {},
+   "_unverified": {
+    "conducts": "materials.xml does not set electrical_conductivity: default assumed (liquid yes, powders and others no); ask the author"
+   },
    "_sources": {
     "all": "materials.xml CellData"
    }
@@ -1645,8 +1777,11 @@
     "impure"
    ],
    "creative": true,
+   "conducts": true,
    "stage": "2",
-   "_unverified": {},
+   "_unverified": {
+    "conducts": "materials.xml does not set electrical_conductivity: default assumed (liquid yes, powders and others no); ask the author"
+   },
    "_sources": {
     "all": "materials.xml CellData"
    }
@@ -1680,8 +1815,11 @@
     "impure"
    ],
    "creative": true,
+   "conducts": true,
    "stage": "2",
-   "_unverified": {},
+   "_unverified": {
+    "conducts": "materials.xml does not set electrical_conductivity: default assumed (liquid yes, powders and others no); ask the author"
+   },
    "_sources": {
     "all": "materials.xml CellData"
    }
@@ -1716,8 +1854,11 @@
     "magic_faster"
    ],
    "creative": true,
+   "conducts": true,
    "stage": "2",
-   "_unverified": {},
+   "_unverified": {
+    "conducts": "materials.xml does not set electrical_conductivity: default assumed (liquid yes, powders and others no); ask the author"
+   },
    "_sources": {
     "all": "materials.xml CellData"
    }
@@ -1754,8 +1895,11 @@
     "magic_faster"
    ],
    "creative": true,
+   "conducts": true,
    "stage": "2",
-   "_unverified": {},
+   "_unverified": {
+    "conducts": "materials.xml does not set electrical_conductivity: default assumed (liquid yes, powders and others no); ask the author"
+   },
    "_sources": {
     "all": "materials.xml CellData"
    }
@@ -1789,8 +1933,11 @@
     "regenerative"
    ],
    "creative": true,
+   "conducts": true,
    "stage": "2",
-   "_unverified": {},
+   "_unverified": {
+    "conducts": "materials.xml does not set electrical_conductivity: default assumed (liquid yes, powders and others no); ask the author"
+   },
    "_sources": {
     "all": "materials.xml CellData"
    }
@@ -1824,8 +1971,11 @@
     "regenerative"
    ],
    "creative": true,
+   "conducts": true,
    "stage": "2",
-   "_unverified": {},
+   "_unverified": {
+    "conducts": "materials.xml does not set electrical_conductivity: default assumed (liquid yes, powders and others no); ask the author"
+   },
    "_sources": {
     "all": "materials.xml CellData"
    }
@@ -1859,8 +2009,11 @@
     "impure"
    ],
    "creative": true,
+   "conducts": true,
    "stage": "2",
-   "_unverified": {},
+   "_unverified": {
+    "conducts": "materials.xml does not set electrical_conductivity: default assumed (liquid yes, powders and others no); ask the author"
+   },
    "_sources": {
     "all": "materials.xml CellData"
    }
@@ -1894,8 +2047,11 @@
     "impure"
    ],
    "creative": true,
+   "conducts": true,
    "stage": "2",
-   "_unverified": {},
+   "_unverified": {
+    "conducts": "materials.xml does not set electrical_conductivity: default assumed (liquid yes, powders and others no); ask the author"
+   },
    "_sources": {
     "all": "materials.xml CellData"
    }
@@ -1930,8 +2086,11 @@
     "magic_faster"
    ],
    "creative": true,
+   "conducts": true,
    "stage": "2",
-   "_unverified": {},
+   "_unverified": {
+    "conducts": "materials.xml does not set electrical_conductivity: default assumed (liquid yes, powders and others no); ask the author"
+   },
    "_sources": {
     "all": "materials.xml CellData"
    }
@@ -1966,8 +2125,11 @@
     "impure"
    ],
    "creative": true,
+   "conducts": true,
    "stage": "2",
-   "_unverified": {},
+   "_unverified": {
+    "conducts": "materials.xml does not set electrical_conductivity: default assumed (liquid yes, powders and others no); ask the author"
+   },
    "_sources": {
     "all": "materials.xml CellData"
    }
@@ -2001,8 +2163,11 @@
     "impure"
    ],
    "creative": true,
+   "conducts": true,
    "stage": "2",
-   "_unverified": {},
+   "_unverified": {
+    "conducts": "materials.xml does not set electrical_conductivity: default assumed (liquid yes, powders and others no); ask the author"
+   },
    "_sources": {
     "all": "materials.xml CellData"
    }
@@ -2037,8 +2202,11 @@
     "impure"
    ],
    "creative": true,
+   "conducts": true,
    "stage": "2",
-   "_unverified": {},
+   "_unverified": {
+    "conducts": "materials.xml does not set electrical_conductivity: default assumed (liquid yes, powders and others no); ask the author"
+   },
    "_sources": {
     "all": "materials.xml CellData"
    }
@@ -2072,6 +2240,7 @@
     "impure"
    ],
    "creative": true,
+   "conducts": true,
    "stage": "2",
    "_unverified": {},
    "_sources": {
@@ -2108,8 +2277,11 @@
     "impure"
    ],
    "creative": true,
+   "conducts": true,
    "stage": "2",
-   "_unverified": {},
+   "_unverified": {
+    "conducts": "materials.xml does not set electrical_conductivity: default assumed (liquid yes, powders and others no); ask the author"
+   },
    "_sources": {
     "all": "materials.xml CellData"
    }
@@ -2143,6 +2315,7 @@
     "impure"
    ],
    "creative": true,
+   "conducts": true,
    "stage": "2",
    "_unverified": {},
    "_sources": {
@@ -2179,8 +2352,11 @@
     "magic_faster"
    ],
    "creative": true,
+   "conducts": true,
    "stage": "2",
-   "_unverified": {},
+   "_unverified": {
+    "conducts": "materials.xml does not set electrical_conductivity: default assumed (liquid yes, powders and others no); ask the author"
+   },
    "_sources": {
     "all": "materials.xml CellData"
    }
@@ -2214,8 +2390,11 @@
     "impure"
    ],
    "creative": true,
+   "conducts": true,
    "stage": "2",
-   "_unverified": {},
+   "_unverified": {
+    "conducts": "materials.xml does not set electrical_conductivity: default assumed (liquid yes, powders and others no); ask the author"
+   },
    "_sources": {
     "all": "materials.xml CellData"
    }
@@ -2249,8 +2428,11 @@
     "impure"
    ],
    "creative": true,
+   "conducts": true,
    "stage": "2",
-   "_unverified": {},
+   "_unverified": {
+    "conducts": "materials.xml does not set electrical_conductivity: default assumed (liquid yes, powders and others no); ask the author"
+   },
    "_sources": {
     "all": "materials.xml CellData"
    }
@@ -2284,8 +2466,11 @@
     "impure"
    ],
    "creative": true,
+   "conducts": true,
    "stage": "2",
-   "_unverified": {},
+   "_unverified": {
+    "conducts": "materials.xml does not set electrical_conductivity: default assumed (liquid yes, powders and others no); ask the author"
+   },
    "_sources": {
     "all": "materials.xml CellData"
    }
@@ -2317,8 +2502,11 @@
     "impure"
    ],
    "creative": true,
+   "conducts": true,
    "stage": "2",
-   "_unverified": {},
+   "_unverified": {
+    "conducts": "materials.xml does not set electrical_conductivity: default assumed (liquid yes, powders and others no); ask the author"
+   },
    "_sources": {
     "all": "materials.xml CellData"
    }
@@ -2357,8 +2545,11 @@
     "earth"
    ],
    "creative": true,
+   "conducts": true,
    "stage": "2",
-   "_unverified": {},
+   "_unverified": {
+    "conducts": "materials.xml does not set electrical_conductivity: default assumed (liquid yes, powders and others no); ask the author"
+   },
    "_sources": {
     "all": "materials.xml CellData"
    }
@@ -2397,8 +2588,11 @@
     "earth"
    ],
    "creative": true,
+   "conducts": true,
    "stage": "2",
-   "_unverified": {},
+   "_unverified": {
+    "conducts": "materials.xml does not set electrical_conductivity: default assumed (liquid yes, powders and others no); ask the author"
+   },
    "_sources": {
     "all": "materials.xml CellData"
    }
@@ -2437,8 +2631,11 @@
     "earth"
    ],
    "creative": true,
+   "conducts": true,
    "stage": "2",
-   "_unverified": {},
+   "_unverified": {
+    "conducts": "materials.xml does not set electrical_conductivity: default assumed (liquid yes, powders and others no); ask the author"
+   },
    "_sources": {
     "all": "materials.xml CellData"
    }
@@ -2477,8 +2674,11 @@
     "earth"
    ],
    "creative": true,
+   "conducts": true,
    "stage": "2",
-   "_unverified": {},
+   "_unverified": {
+    "conducts": "materials.xml does not set electrical_conductivity: default assumed (liquid yes, powders and others no); ask the author"
+   },
    "_sources": {
     "all": "materials.xml CellData"
    }
@@ -2517,8 +2717,11 @@
     "earth"
    ],
    "creative": true,
+   "conducts": true,
    "stage": "2",
-   "_unverified": {},
+   "_unverified": {
+    "conducts": "materials.xml does not set electrical_conductivity: default assumed (liquid yes, powders and others no); ask the author"
+   },
    "_sources": {
     "all": "materials.xml CellData"
    }
@@ -2552,8 +2755,11 @@
     "water"
    ],
    "creative": true,
+   "conducts": true,
    "stage": "2",
-   "_unverified": {},
+   "_unverified": {
+    "conducts": "materials.xml does not set electrical_conductivity: default assumed (liquid yes, powders and others no); ask the author"
+   },
    "_sources": {
     "all": "materials.xml CellData"
    }
@@ -2587,8 +2793,11 @@
     "water"
    ],
    "creative": true,
+   "conducts": true,
    "stage": "2",
-   "_unverified": {},
+   "_unverified": {
+    "conducts": "materials.xml does not set electrical_conductivity: default assumed (liquid yes, powders and others no); ask the author"
+   },
    "_sources": {
     "all": "materials.xml CellData"
    }
@@ -2620,8 +2829,11 @@
     "liquid_common"
    ],
    "creative": true,
+   "conducts": true,
    "stage": "2",
-   "_unverified": {},
+   "_unverified": {
+    "conducts": "materials.xml does not set electrical_conductivity: default assumed (liquid yes, powders and others no); ask the author"
+   },
    "_sources": {
     "all": "materials.xml CellData"
    }
@@ -2653,8 +2865,11 @@
     "mimic_liquid"
    ],
    "creative": true,
+   "conducts": true,
    "stage": "2",
-   "_unverified": {},
+   "_unverified": {
+    "conducts": "materials.xml does not set electrical_conductivity: default assumed (liquid yes, powders and others no); ask the author"
+   },
    "_sources": {
     "all": "materials.xml CellData"
    }
@@ -2689,8 +2904,11 @@
     "liquid_common"
    ],
    "creative": true,
+   "conducts": true,
    "stage": "2",
-   "_unverified": {},
+   "_unverified": {
+    "conducts": "materials.xml does not set electrical_conductivity: default assumed (liquid yes, powders and others no); ask the author"
+   },
    "_sources": {
     "all": "materials.xml CellData"
    }
@@ -2726,6 +2944,7 @@
     "chaotic_transmutation"
    ],
    "creative": true,
+   "conducts": false,
    "stage": "2",
    "_unverified": {},
    "_sources": {
@@ -2764,8 +2983,11 @@
     "chaotic_transmutation"
    ],
    "creative": true,
+   "conducts": true,
    "stage": "2",
-   "_unverified": {},
+   "_unverified": {
+    "conducts": "materials.xml does not set electrical_conductivity: default assumed (liquid yes, powders and others no); ask the author"
+   },
    "_sources": {
     "all": "materials.xml CellData"
    }
@@ -2798,8 +3020,11 @@
     "impure"
    ],
    "creative": true,
+   "conducts": true,
    "stage": "2",
-   "_unverified": {},
+   "_unverified": {
+    "conducts": "materials.xml does not set electrical_conductivity: default assumed (liquid yes, powders and others no); ask the author"
+   },
    "_sources": {
     "all": "materials.xml CellData"
    }
@@ -2831,8 +3056,11 @@
     "liquid_common"
    ],
    "creative": false,
+   "conducts": true,
    "stage": "2",
-   "_unverified": {},
+   "_unverified": {
+    "conducts": "materials.xml does not set electrical_conductivity: default assumed (liquid yes, powders and others no); ask the author"
+   },
    "_sources": {
     "all": "materials.xml CellData"
    }
@@ -2864,8 +3092,11 @@
     "liquid_common"
    ],
    "creative": false,
+   "conducts": true,
    "stage": "2",
-   "_unverified": {},
+   "_unverified": {
+    "conducts": "materials.xml does not set electrical_conductivity: default assumed (liquid yes, powders and others no); ask the author"
+   },
    "_sources": {
     "all": "materials.xml CellData"
    }
@@ -2897,8 +3128,11 @@
     "liquid_common"
    ],
    "creative": false,
+   "conducts": true,
    "stage": "2",
-   "_unverified": {},
+   "_unverified": {
+    "conducts": "materials.xml does not set electrical_conductivity: default assumed (liquid yes, powders and others no); ask the author"
+   },
    "_sources": {
     "all": "materials.xml CellData"
    }
@@ -2930,8 +3164,11 @@
     "liquid_common"
    ],
    "creative": false,
+   "conducts": true,
    "stage": "2",
-   "_unverified": {},
+   "_unverified": {
+    "conducts": "materials.xml does not set electrical_conductivity: default assumed (liquid yes, powders and others no); ask the author"
+   },
    "_sources": {
     "all": "materials.xml CellData"
    }
@@ -2963,8 +3200,11 @@
     "liquid_common"
    ],
    "creative": false,
+   "conducts": true,
    "stage": "2",
-   "_unverified": {},
+   "_unverified": {
+    "conducts": "materials.xml does not set electrical_conductivity: default assumed (liquid yes, powders and others no); ask the author"
+   },
    "_sources": {
     "all": "materials.xml CellData"
    }
@@ -2996,8 +3236,11 @@
     "liquid_common"
    ],
    "creative": false,
+   "conducts": true,
    "stage": "2",
-   "_unverified": {},
+   "_unverified": {
+    "conducts": "materials.xml does not set electrical_conductivity: default assumed (liquid yes, powders and others no); ask the author"
+   },
    "_sources": {
     "all": "materials.xml CellData"
    }
@@ -3032,8 +3275,11 @@
     "liquid_common"
    ],
    "creative": true,
+   "conducts": true,
    "stage": "2",
-   "_unverified": {},
+   "_unverified": {
+    "conducts": "materials.xml does not set electrical_conductivity: default assumed (liquid yes, powders and others no); ask the author"
+   },
    "_sources": {
     "all": "materials.xml CellData"
    }
@@ -3061,8 +3307,11 @@
     "burnable_fast"
    ],
    "creative": true,
+   "conducts": false,
    "stage": "2",
-   "_unverified": {},
+   "_unverified": {
+    "conducts": "materials.xml does not set electrical_conductivity: default assumed (liquid yes, powders and others no); ask the author"
+   },
    "_sources": {
     "all": "materials.xml CellData"
    }
@@ -3094,8 +3343,11 @@
     "gas"
    ],
    "creative": true,
+   "conducts": false,
    "stage": "2",
-   "_unverified": {},
+   "_unverified": {
+    "conducts": "materials.xml does not set electrical_conductivity: default assumed (liquid yes, powders and others no); ask the author"
+   },
    "_sources": {
     "all": "materials.xml CellData"
    }
@@ -3130,8 +3382,11 @@
     "food"
    ],
    "creative": true,
+   "conducts": true,
    "stage": "2",
-   "_unverified": {},
+   "_unverified": {
+    "conducts": "materials.xml does not set electrical_conductivity: default assumed (liquid yes, powders and others no); ask the author"
+   },
    "_sources": {
     "all": "materials.xml CellData"
    }
@@ -3165,8 +3420,11 @@
     "impure"
    ],
    "creative": true,
+   "conducts": true,
    "stage": "2",
-   "_unverified": {},
+   "_unverified": {
+    "conducts": "materials.xml does not set electrical_conductivity: default assumed (liquid yes, powders and others no); ask the author"
+   },
    "_sources": {
     "all": "materials.xml CellData"
    }
@@ -3193,8 +3451,11 @@
     "gas"
    ],
    "creative": true,
+   "conducts": false,
    "stage": "2",
-   "_unverified": {},
+   "_unverified": {
+    "conducts": "materials.xml does not set electrical_conductivity: default assumed (liquid yes, powders and others no); ask the author"
+   },
    "_sources": {
     "all": "materials.xml CellData"
    }
@@ -3221,8 +3482,11 @@
     "gas"
    ],
    "creative": false,
+   "conducts": false,
    "stage": "2",
-   "_unverified": {},
+   "_unverified": {
+    "conducts": "materials.xml does not set electrical_conductivity: default assumed (liquid yes, powders and others no); ask the author"
+   },
    "_sources": {
     "all": "materials.xml CellData"
    }
@@ -3259,8 +3523,11 @@
     "chaotic_transmutation"
    ],
    "creative": true,
+   "conducts": true,
    "stage": "2",
-   "_unverified": {},
+   "_unverified": {
+    "conducts": "materials.xml does not set electrical_conductivity: default assumed (liquid yes, powders and others no); ask the author"
+   },
    "_sources": {
     "all": "materials.xml CellData"
    }
@@ -3295,8 +3562,11 @@
     "liquid_common"
    ],
    "creative": false,
+   "conducts": true,
    "stage": "2",
-   "_unverified": {},
+   "_unverified": {
+    "conducts": "materials.xml does not set electrical_conductivity: default assumed (liquid yes, powders and others no); ask the author"
+   },
    "_sources": {
     "all": "materials.xml CellData"
    }
@@ -3333,8 +3603,11 @@
     "chaotic_transmutation"
    ],
    "creative": true,
+   "conducts": true,
    "stage": "2",
-   "_unverified": {},
+   "_unverified": {
+    "conducts": "materials.xml does not set electrical_conductivity: default assumed (liquid yes, powders and others no); ask the author"
+   },
    "_sources": {
     "all": "materials.xml CellData"
    }
@@ -3361,8 +3634,11 @@
     "gas"
    ],
    "creative": true,
+   "conducts": false,
    "stage": "2",
-   "_unverified": {},
+   "_unverified": {
+    "conducts": "materials.xml does not set electrical_conductivity: default assumed (liquid yes, powders and others no); ask the author"
+   },
    "_sources": {
     "all": "materials.xml CellData"
    }
@@ -3389,8 +3665,11 @@
     "liquid"
    ],
    "creative": false,
+   "conducts": true,
    "stage": "2",
-   "_unverified": {},
+   "_unverified": {
+    "conducts": "materials.xml does not set electrical_conductivity: default assumed (liquid yes, powders and others no); ask the author"
+   },
    "_sources": {
     "all": "materials.xml CellData"
    }
@@ -3418,8 +3697,11 @@
     "vapour"
    ],
    "creative": true,
+   "conducts": false,
    "stage": "2",
-   "_unverified": {},
+   "_unverified": {
+    "conducts": "materials.xml does not set electrical_conductivity: default assumed (liquid yes, powders and others no); ask the author"
+   },
    "_sources": {
     "all": "materials.xml CellData"
    }
@@ -3457,8 +3739,11 @@
     "earth"
    ],
    "creative": true,
+   "conducts": true,
    "stage": "2",
-   "_unverified": {},
+   "_unverified": {
+    "conducts": "materials.xml does not set electrical_conductivity: default assumed (liquid yes, powders and others no); ask the author"
+   },
    "_sources": {
     "all": "materials.xml CellData"
    }
@@ -3492,8 +3777,11 @@
     "liquid_common"
    ],
    "creative": true,
+   "conducts": true,
    "stage": "2",
-   "_unverified": {},
+   "_unverified": {
+    "conducts": "materials.xml does not set electrical_conductivity: default assumed (liquid yes, powders and others no); ask the author"
+   },
    "_sources": {
     "all": "materials.xml CellData"
    }
@@ -3530,8 +3818,11 @@
     "chaotic_transmutation"
    ],
    "creative": true,
+   "conducts": true,
    "stage": "2",
-   "_unverified": {},
+   "_unverified": {
+    "conducts": "materials.xml does not set electrical_conductivity: default assumed (liquid yes, powders and others no); ask the author"
+   },
    "_sources": {
     "all": "materials.xml CellData"
    }
@@ -3568,8 +3859,11 @@
     "chaotic_transmutation"
    ],
    "creative": true,
+   "conducts": true,
    "stage": "2",
-   "_unverified": {},
+   "_unverified": {
+    "conducts": "materials.xml does not set electrical_conductivity: default assumed (liquid yes, powders and others no); ask the author"
+   },
    "_sources": {
     "all": "materials.xml CellData"
    }
@@ -3602,8 +3896,11 @@
     "food"
    ],
    "creative": false,
+   "conducts": true,
    "stage": "2",
-   "_unverified": {},
+   "_unverified": {
+    "conducts": "materials.xml does not set electrical_conductivity: default assumed (liquid yes, powders and others no); ask the author"
+   },
    "_sources": {
     "all": "materials.xml CellData"
    }
@@ -3639,8 +3936,11 @@
     "food"
    ],
    "creative": true,
+   "conducts": true,
    "stage": "2",
-   "_unverified": {},
+   "_unverified": {
+    "conducts": "materials.xml does not set electrical_conductivity: default assumed (liquid yes, powders and others no); ask the author"
+   },
    "_sources": {
     "all": "materials.xml CellData"
    }
@@ -3673,8 +3973,11 @@
     "chaotic_transmutation"
    ],
    "creative": true,
+   "conducts": true,
    "stage": "2",
-   "_unverified": {},
+   "_unverified": {
+    "conducts": "materials.xml does not set electrical_conductivity: default assumed (liquid yes, powders and others no); ask the author"
+   },
    "_sources": {
     "all": "materials.xml CellData"
    }
@@ -3701,8 +4004,11 @@
     "gas"
    ],
    "creative": true,
+   "conducts": false,
    "stage": "2",
-   "_unverified": {},
+   "_unverified": {
+    "conducts": "materials.xml does not set electrical_conductivity: default assumed (liquid yes, powders and others no); ask the author"
+   },
    "_sources": {
     "all": "materials.xml CellData"
    }
@@ -3729,8 +4035,11 @@
     "gas"
    ],
    "creative": false,
+   "conducts": false,
    "stage": "2",
-   "_unverified": {},
+   "_unverified": {
+    "conducts": "materials.xml does not set electrical_conductivity: default assumed (liquid yes, powders and others no); ask the author"
+   },
    "_sources": {
     "all": "materials.xml CellData"
    }
@@ -3757,8 +4066,11 @@
     "gas"
    ],
    "creative": true,
+   "conducts": false,
    "stage": "2",
-   "_unverified": {},
+   "_unverified": {
+    "conducts": "materials.xml does not set electrical_conductivity: default assumed (liquid yes, powders and others no); ask the author"
+   },
    "_sources": {
     "all": "materials.xml CellData"
    }
@@ -3785,8 +4097,11 @@
     "gas"
    ],
    "creative": false,
+   "conducts": false,
    "stage": "2",
-   "_unverified": {},
+   "_unverified": {
+    "conducts": "materials.xml does not set electrical_conductivity: default assumed (liquid yes, powders and others no); ask the author"
+   },
    "_sources": {
     "all": "materials.xml CellData"
    }
@@ -3820,8 +4135,11 @@
     "fungus"
    ],
    "creative": false,
+   "conducts": true,
    "stage": "2",
-   "_unverified": {},
+   "_unverified": {
+    "conducts": "materials.xml does not set electrical_conductivity: default assumed (liquid yes, powders and others no); ask the author"
+   },
    "_sources": {
     "all": "materials.xml CellData"
    }
@@ -3848,8 +4166,11 @@
     "gas"
    ],
    "creative": true,
+   "conducts": false,
    "stage": "2",
-   "_unverified": {},
+   "_unverified": {
+    "conducts": "materials.xml does not set electrical_conductivity: default assumed (liquid yes, powders and others no); ask the author"
+   },
    "_sources": {
     "all": "materials.xml CellData"
    }
@@ -3876,8 +4197,11 @@
     "gas"
    ],
    "creative": true,
+   "conducts": false,
    "stage": "2",
-   "_unverified": {},
+   "_unverified": {
+    "conducts": "materials.xml does not set electrical_conductivity: default assumed (liquid yes, powders and others no); ask the author"
+   },
    "_sources": {
     "all": "materials.xml CellData"
    }
@@ -3914,8 +4238,11 @@
     "earth"
    ],
    "creative": true,
+   "conducts": true,
    "stage": "2",
-   "_unverified": {},
+   "_unverified": {
+    "conducts": "materials.xml does not set electrical_conductivity: default assumed (liquid yes, powders and others no); ask the author"
+   },
    "_sources": {
     "all": "materials.xml CellData"
    }
@@ -3954,8 +4281,11 @@
     "earth"
    ],
    "creative": true,
+   "conducts": true,
    "stage": "2",
-   "_unverified": {},
+   "_unverified": {
+    "conducts": "materials.xml does not set electrical_conductivity: default assumed (liquid yes, powders and others no); ask the author"
+   },
    "_sources": {
     "all": "materials.xml CellData"
    }
@@ -3994,8 +4324,11 @@
     "earth"
    ],
    "creative": true,
+   "conducts": true,
    "stage": "2",
-   "_unverified": {},
+   "_unverified": {
+    "conducts": "materials.xml does not set electrical_conductivity: default assumed (liquid yes, powders and others no); ask the author"
+   },
    "_sources": {
     "all": "materials.xml CellData"
    }
@@ -4034,8 +4367,11 @@
     "earth"
    ],
    "creative": true,
+   "conducts": true,
    "stage": "2",
-   "_unverified": {},
+   "_unverified": {
+    "conducts": "materials.xml does not set electrical_conductivity: default assumed (liquid yes, powders and others no); ask the author"
+   },
    "_sources": {
     "all": "materials.xml CellData"
    }
@@ -4074,8 +4410,11 @@
     "earth"
    ],
    "creative": true,
+   "conducts": true,
    "stage": "2",
-   "_unverified": {},
+   "_unverified": {
+    "conducts": "materials.xml does not set electrical_conductivity: default assumed (liquid yes, powders and others no); ask the author"
+   },
    "_sources": {
     "all": "materials.xml CellData"
    }
@@ -4114,8 +4453,11 @@
     "earth"
    ],
    "creative": true,
+   "conducts": true,
    "stage": "2",
-   "_unverified": {},
+   "_unverified": {
+    "conducts": "materials.xml does not set electrical_conductivity: default assumed (liquid yes, powders and others no); ask the author"
+   },
    "_sources": {
     "all": "materials.xml CellData"
    }
@@ -4154,8 +4496,11 @@
     "chaotic_transmutation"
    ],
    "creative": true,
+   "conducts": true,
    "stage": "2",
-   "_unverified": {},
+   "_unverified": {
+    "conducts": "materials.xml does not set electrical_conductivity: default assumed (liquid yes, powders and others no); ask the author"
+   },
    "_sources": {
     "all": "materials.xml CellData"
    }
@@ -4189,8 +4534,11 @@
     "liquid_common"
    ],
    "creative": false,
+   "conducts": true,
    "stage": "2",
-   "_unverified": {},
+   "_unverified": {
+    "conducts": "materials.xml does not set electrical_conductivity: default assumed (liquid yes, powders and others no); ask the author"
+   },
    "_sources": {
     "all": "materials.xml CellData"
    }
@@ -4219,8 +4567,11 @@
     "liquid"
    ],
    "creative": true,
+   "conducts": true,
    "stage": "2",
-   "_unverified": {},
+   "_unverified": {
+    "conducts": "materials.xml does not set electrical_conductivity: default assumed (liquid yes, powders and others no); ask the author"
+   },
    "_sources": {
     "all": "materials.xml CellData"
    }
@@ -4252,8 +4603,11 @@
     "food"
    ],
    "creative": true,
+   "conducts": true,
    "stage": "2",
-   "_unverified": {},
+   "_unverified": {
+    "conducts": "materials.xml does not set electrical_conductivity: default assumed (liquid yes, powders and others no); ask the author"
+   },
    "_sources": {
     "all": "materials.xml CellData"
    }
@@ -4287,8 +4641,11 @@
     "chaotic_transmutation"
    ],
    "creative": true,
+   "conducts": true,
    "stage": "2",
-   "_unverified": {},
+   "_unverified": {
+    "conducts": "materials.xml does not set electrical_conductivity: default assumed (liquid yes, powders and others no); ask the author"
+   },
    "_sources": {
     "all": "materials.xml CellData"
    }
@@ -4322,8 +4679,11 @@
     "chaotic_transmutation"
    ],
    "creative": true,
+   "conducts": true,
    "stage": "2",
-   "_unverified": {},
+   "_unverified": {
+    "conducts": "materials.xml does not set electrical_conductivity: default assumed (liquid yes, powders and others no); ask the author"
+   },
    "_sources": {
     "all": "materials.xml CellData"
    }
@@ -4360,8 +4720,11 @@
     "chaotic_transmutation"
    ],
    "creative": true,
+   "conducts": true,
    "stage": "2",
-   "_unverified": {},
+   "_unverified": {
+    "conducts": "materials.xml does not set electrical_conductivity: default assumed (liquid yes, powders and others no); ask the author"
+   },
    "_sources": {
     "all": "materials.xml CellData"
    }
@@ -4394,8 +4757,11 @@
     "liquid_common"
    ],
    "creative": true,
+   "conducts": true,
    "stage": "2",
-   "_unverified": {},
+   "_unverified": {
+    "conducts": "materials.xml does not set electrical_conductivity: default assumed (liquid yes, powders and others no); ask the author"
+   },
    "_sources": {
     "all": "materials.xml CellData"
    }
@@ -4424,8 +4790,11 @@
     "static"
    ],
    "creative": false,
+   "conducts": true,
    "stage": "2",
-   "_unverified": {},
+   "_unverified": {
+    "conducts": "materials.xml does not set electrical_conductivity: default assumed (liquid yes, powders and others no); ask the author"
+   },
    "_sources": {
     "all": "materials.xml CellData"
    }
@@ -4461,8 +4830,11 @@
     "liquid_common"
    ],
    "creative": true,
+   "conducts": true,
    "stage": "2",
-   "_unverified": {},
+   "_unverified": {
+    "conducts": "materials.xml does not set electrical_conductivity: default assumed (liquid yes, powders and others no); ask the author"
+   },
    "_sources": {
     "all": "materials.xml CellData"
    }
@@ -4495,8 +4867,11 @@
     "liquid_common"
    ],
    "creative": false,
+   "conducts": true,
    "stage": "2",
-   "_unverified": {},
+   "_unverified": {
+    "conducts": "materials.xml does not set electrical_conductivity: default assumed (liquid yes, powders and others no); ask the author"
+   },
    "_sources": {
     "all": "materials.xml CellData"
    }
@@ -4532,8 +4907,11 @@
     "earth"
    ],
    "creative": true,
+   "conducts": true,
    "stage": "2",
-   "_unverified": {},
+   "_unverified": {
+    "conducts": "materials.xml does not set electrical_conductivity: default assumed (liquid yes, powders and others no); ask the author"
+   },
    "_sources": {
     "all": "materials.xml CellData"
    }
