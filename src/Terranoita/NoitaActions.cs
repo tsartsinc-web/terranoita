@@ -22,7 +22,10 @@ namespace Terranoita.Game
     {
         const float Px = Noita.Units.PixelScale;
         const float KickReach = 3 * 16;      // ours: Noita's kick_radius is 3 px around the foot, too small at our scale
-        const float KickForce = 7f;          // ours
+        const float KickForce = 7f;          // ours: things on the ground and the cart
+        // ours (author: at most ~5 tiles, less for big ones): a small creature (up to 30 px) flies about 5 tiles
+        const float KickX = 4f, KickUp = 3f;
+        static float KickScale(int w, int h) => MathHelper.Clamp(30f / Math.Max(16, Math.Max(w, h)), 0.25f, 1f);
         const int DrinkPerFrame = 12;        // ours: liquid units (of 255 a tile) a frame
         const float Capacity = 7500, OverDamage = 0.002f * 25f;
         static float _stomach;               // Noita's ingestion_size, in cells
@@ -67,8 +70,9 @@ namespace Terranoita.Game
                 if (!n.active || n.life <= 0 || Vector2.Distance(n.Center, foot) > KickReach + n.width / 2f)
                     continue;
                 if (!n.friendly && !n.townNPC && !n.dontTakeDamage)
-                    p.ApplyDamageToNPC(n, 1, KickForce, p.direction, false, null, 0, -1);   // kick_damage 1/25 Noita = 1 hp
-                n.velocity += push * (n.boss ? 0.2f : 1f);
+                    p.ApplyDamageToNPC(n, 1, 0f, p.direction, false, null, 0, -1);   // kick_damage 1/25 Noita = 1 hp; our own push below
+                float s = KickScale(n.width, n.height) * MathHelper.Clamp(n.knockBackResist, 0.2f, 1f) * (n.boss ? 0.2f : 1f);
+                n.velocity = new Vector2(p.direction * KickX * s, -KickUp * s);
                 n.netUpdate = true;
             }
             for (int i = 0; i < Main.maxPlayers; i++)
@@ -76,7 +80,8 @@ namespace Terranoita.Game
                 var o = Main.player[i];
                 if (i == p.whoAmI || !o.active || o.dead || Vector2.Distance(o.Center, foot) > KickReach + o.width / 2f)
                     continue;
-                o.velocity += push;
+                float s = KickScale(o.width, o.height);
+                o.velocity = new Vector2(p.direction * KickX * s, -KickUp * s);
             }
             for (int i = 0; i < Main.maxItems; i++)
             {
