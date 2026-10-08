@@ -124,11 +124,12 @@ namespace Terranoita.Game
                 return;
             var sb = Main.spriteBatch;
             var color = Lighting.GetColor((int)((_pos.X + W / 2f) / 16), (int)((_pos.Y + H / 2f) / 16));
+            // Noita draws physics props as their material inside the shape: metal_rust = data/materials_gfx/steel.png
             foreach (var file in new[] { "data/props_gfx/minecart_wheel_left.png", "data/props_gfx/minecart_wheel_right.png", "data/props_gfx/minecart.png" })
             {
-                var art = NoitaArt.Get(file);
-                if (art?.Texture != null)
-                    sb.Draw(art.Texture, new Rectangle((int)(_pos.X - Main.screenPosition.X), (int)(_pos.Y - Main.screenPosition.Y), W, H), color);
+                var tex = NoitaArt.Masked(file, "data/materials_gfx/steel.png");
+                if (tex != null)
+                    sb.Draw(tex, new Rectangle((int)(_pos.X - Main.screenPosition.X), (int)(_pos.Y - Main.screenPosition.Y), W, H), color);
             }
         }
 

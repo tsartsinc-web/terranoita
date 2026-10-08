@@ -316,6 +316,41 @@ namespace Terranoita.Game.Magic
             return l;
         }
 
+        /// <summary>Spell names for a tooltip: repeats folded ("Amortizer x3"), lines of ~60 letters, at most 4 lines
+        /// (author: a long wand's line ran off the screen).</summary>
+        static IEnumerable<string> Wrap(string head, List<string> names)
+        {
+            if (names.Count == 0)
+                yield break;
+            var parts = new List<string>();
+            for (int i = 0; i < names.Count;)
+            {
+                int j = i;
+                while (j < names.Count && names[j] == names[i])
+                    j++;
+                parts.Add(j - i > 1 ? names[i] + " x" + (j - i) : names[i]);
+                i = j;
+            }
+            var line = head;
+            int lines = 0, k = 0;
+            for (; k < parts.Count; k++)
+            {
+                string add = (line.Length > head.Length || lines > 0 && line.Length > 0 ? ", " : "") + parts[k];
+                if (line.Length + add.Length > 60 && line.Length > 0)
+                {
+                    if (++lines == 4)
+                        break;
+                    yield return line + ",";
+                    line = parts[k];
+                }
+                else
+                    line += add;
+            }
+            if (k < parts.Count)
+                line += " (+" + (parts.Count - k) + ")";
+            yield return line;
+        }
+
         public static List<string> WandLines(WandData w)
         {
             var l = new List<string>();
@@ -327,11 +362,9 @@ namespace Terranoita.Game.Magic
             l.Add(NoitaArt.Text("$inventory_rechargetime", "Rechrg. Time") + ": " + (w.RechargeTime / 60f).ToString("0.00") + " s");
             l.Add(NoitaArt.Text("$inventory_capacity", "Capacity") + ": " + w.Capacity);
             l.Add(NoitaArt.Text("$inventory_spread", "Spread") + ": " + w.Spread.ToString("0.#") + " DEG");
-            var spells = w.Slots.Where(s => s != null).Select(SpellName).ToList();
             if (w.AlwaysCast.Count > 0)
-                l.Add(NoitaArt.Text("$inventory_alwayscasts", "Always casts") + ": " + string.Join(", ", w.AlwaysCast.Select(SpellName)));
-            if (spells.Count > 0)
-                l.Add(string.Join(", ", spells));
+                l.AddRange(Wrap(NoitaArt.Text("$inventory_alwayscasts", "Always casts") + ": ", w.AlwaysCast.Select(SpellName).ToList()));
+            l.AddRange(Wrap("", w.Slots.Where(s => s != null).Select(SpellName).ToList()));
             return l;
         }
     }

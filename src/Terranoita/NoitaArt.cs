@@ -101,6 +101,39 @@ namespace Terranoita.Game
             return 0;
         }
 
+        static readonly Dictionary<string, Texture2D> MaskedCache = new Dictionary<string, Texture2D>(StringComparer.OrdinalIgnoreCase);
+
+        /// <summary>A physics prop as Noita shows it: the shape picture (PhysicsImageShapeComponent image_file) filled with
+        /// its material's texture (materials.xml Graphics texture_file), tiled from the picture's corner. Null if missing.</summary>
+        public static Texture2D Masked(string shape, string materialTexture)
+        {
+            string key = shape + "|" + materialTexture;
+            if (MaskedCache.TryGetValue(key, out var done))
+                return done;
+            Texture2D tex = null;
+            try
+            {
+                if (_files != null && _files.TryRead(shape, out var png) && _files.TryRead(materialTexture, out var mat))
+                {
+                    LoadTexture(png, out var mask).Dispose();
+                    var m = LoadTexture(mat, out var matPx);
+                    int w, h, mw = m.Width, mh = m.Height;
+                    m.Dispose();
+                    using (var ms = new MemoryStream(png))
+                    using (var probe = Texture2D.FromStream(Main.instance.GraphicsDevice, ms)) { w = probe.Width; h = probe.Height; }
+                    var px = new Color[w * h];
+                    for (int y = 0; y < h; y++)
+                        for (int x = 0; x < w; x++)
+                            px[y * w + x] = mask[y * w + x].A < 8 ? Color.Transparent : matPx[(y % mh) * mw + x % mw];
+                    tex = new Texture2D(Main.instance.GraphicsDevice, w, h);
+                    tex.SetData(px);
+                }
+            }
+            catch (Exception ex) { Entry.Error("masked sprite " + shape, ex); }
+            MaskedCache[key] = tex;
+            return tex;
+        }
+
         static Texture2D LoadTexture(byte[] png, out Color[] px)
         {
             Texture2D tex;
