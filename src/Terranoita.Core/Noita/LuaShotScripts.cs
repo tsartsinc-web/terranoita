@@ -89,6 +89,11 @@ namespace Terranoita.Noita
             public bool Enabled = true, Removed;
             public readonly Dictionary<string, string> Fields = new Dictionary<string, string>(StringComparer.Ordinal);
             public int AddedFrame, NextFrame = int.MaxValue, Executed;
+            public int KillFrame = -1;     // LifetimeComponent: kill_frame, kept parsed
+            // LuaComponent settings, parsed again only after a field of the component was set
+            public bool SettingsDirty = true, RemoveAfter;
+            public string Script;
+            public int EveryN = 1, Times = -1;
             public bool AddedPending;
         }
 
@@ -121,6 +126,11 @@ namespace Terranoita.Noita
         readonly Script _lua;
         readonly Dictionary<int, Ent> _ents = new Dictionary<int, Ent>();
         readonly Dictionary<int, Comp> _comps = new Dictionary<int, Comp>();
+        // hot path: the LuaComponents and LifetimeComponents in id order (ids only grow, so appending keeps the order);
+        // removed ones are dropped by Sweep, which runs only when something died or was removed
+        readonly List<Comp> _luaComps = new List<Comp>(), _lifeComps = new List<Comp>();
+        readonly Dictionary<string, HashSet<int>> _byTag = new Dictionary<string, HashSet<int>>(StringComparer.Ordinal);
+        bool _sweep, _cultured;
         readonly Dictionary<string, DynValue> _chunks = new Dictionary<string, DynValue>(StringComparer.Ordinal);
         readonly HashSet<string> _brokenFiles = new HashSet<string>(StringComparer.Ordinal);
         readonly Dictionary<string, int> _materials = new Dictionary<string, int>(StringComparer.Ordinal);
@@ -228,26 +238,42 @@ namespace Terranoita.Noita
                 return;
             foreach (int ch in e.Children.ToList())
                 Forget(ch);
-            foreach (int c in e.Comps)
-                _comps.Remove(c);
+            foreach (int ci in e.Comps)
+                if (_comps.TryGetValue(ci, out var c))
+                {
+                    c.Removed = true;
+                    _comps.Remove(ci);
+                }
+            foreach (var t in e.Tags)
+                if (_byTag.TryGetValue(t, out var set))
+                    set.Remove(entity);
             if (_ents.TryGetValue(e.Parent, out var p))
                 p.Children.Remove(entity);
             _ents.Remove(entity);
+            _sweep = true;
         }
 
         /// <summary>One frame: lifetimes, then every due LuaComponent (script_source_file).</summary>
         public void Update(int frame)
         {
             _frame = frame;
-            foreach (var c in _comps.Values.Where(c => c.Type == "LifetimeComponent" && c.Enabled && !c.Removed).ToList())
+            int lives = _lifeComps.Count;   // components added during this frame wait for the next one
+            for (int i = 0; i < lives; i++)
             {
-                int kill = (int)Num(c.Fields, "kill_frame", -1);
-                if (kill >= 0 && frame >= kill && Alive(c.Entity))
+                var c = _lifeComps[i];
+                if (!c.Removed && c.Enabled && c.KillFrame >= 0 && frame >= c.KillFrame && Alive(c.Entity))
                     Kill(c.Entity);
             }
-            foreach (var c in _comps.Values.Where(c => c.Type == "LuaComponent").OrderBy(c => c.Id).ToList())
+            int scripts = _luaComps.Count;
+            using (LuaCulture.Enter())
             {
-                if (c.Removed || !c.Enabled || !Alive(c.Entity))
+            _cultured = true;
+            try
+            {
+            for (int i = 0; i < scripts; i++)
+            {
+                var c = _luaComps[i];
+                if (c.Removed || !c.Enabled || !c.AddedPending && frame < c.NextFrame || !Alive(c.Entity))
                     continue;
                 if (c.AddedPending)
                 {
@@ -255,10 +281,13 @@ namespace Terranoita.Noita
                     RunSource(c);
                     continue;
                 }
-                if (frame >= c.NextFrame)
-                    RunSource(c);
+                RunSource(c);
             }
-            Sweep();
+            }
+            finally { _cultured = false; }
+            }
+            if (_sweep)
+                Sweep();
         }
 
         /// <summary>An engine event on the entity and its children: runs each LuaComponent that has this script field
@@ -283,7 +312,8 @@ namespace Terranoita.Noita
             string fn = EventFunctions.TryGetValue(scriptField, out var f) ? f : scriptField.StartsWith("script_") ? scriptField.Substring(7) : scriptField;
             foreach (var c in targets)
                 Run(c, Str(c.Fields, scriptField), fn, args);
-            Sweep();
+            if (_sweep)
+                Sweep();
         }
 
         // ---------------- building ----------------
@@ -317,14 +347,40 @@ namespace Terranoita.Noita
             return e.Id;
         }
 
-        static void AddTags(Ent e, string tags)
+        void AddTags(Ent e, string tags)
         {
             foreach (var t in (tags ?? "").Split(','))
-            {
-                string s = t.Trim();
-                if (s.Length > 0 && !e.Tags.Contains(s))
-                    e.Tags.Add(s);
-            }
+                AddTag(e, t.Trim());
+        }
+
+        void AddTag(Ent e, string tag)
+        {
+            if (e == null || string.IsNullOrEmpty(tag) || e.Tags.Contains(tag))
+                return;
+            e.Tags.Add(tag);
+            if (!_byTag.TryGetValue(tag, out var set))
+                _byTag[tag] = set = new HashSet<int>();
+            set.Add(e.Id);
+        }
+
+        void RemoveTag(Ent e, string tag)
+        {
+            if (e == null || tag == null || !e.Tags.Remove(tag))
+                return;
+            if (_byTag.TryGetValue(tag, out var set))
+                set.Remove(e.Id);
+        }
+
+        /// <summary>Our live entities with the tag (not the game's, the host answers for those), in id order.</summary>
+        List<int> Tagged(string tag)
+        {
+            var list = new List<int>();
+            if (tag != null && _byTag.TryGetValue(tag, out var set))
+                foreach (int id in set)
+                    if (_ents.TryGetValue(id, out var e) && !e.Dead && !e.Host)
+                        list.Add(id);
+            list.Sort();
+            return list;
         }
 
         Comp AddComp(Ent e, XmlComponent x)
@@ -343,6 +399,10 @@ namespace Terranoita.Noita
             var c = new Comp { Id = _nextComp++, Entity = e.Id, Type = type, AddedFrame = _frame };
             _comps[c.Id] = c;
             e.Comps.Add(c.Id);
+            if (type == "LuaComponent")
+                _luaComps.Add(c);
+            else if (type == "LifetimeComponent")
+                _lifeComps.Add(c);
             return c;
         }
 
@@ -357,6 +417,7 @@ namespace Terranoita.Noita
                     c.Fields["creation_frame"] = Itos(_frame);
                     if (life > 0)
                         c.Fields["kill_frame"] = Itos(_frame + life);
+                    c.KillFrame = (int)Num(c.Fields, "kill_frame", -1);
                 }
                 if (c.Type == "LuaComponent")
                 {
@@ -373,27 +434,39 @@ namespace Terranoita.Noita
                 if (c.Enabled && !c.Removed && Alive(c.Entity))
                     RunSource(c);
             }
-            Sweep();
+            if (_sweep)
+                Sweep();
         }
 
         // ---------------- running scripts ----------------
 
         void RunSource(Comp c)
         {
-            string file = Str(c.Fields, "script_source_file");
-            int n = (int)Num(c.Fields, "execute_every_n_frame", 1);
-            c.NextFrame = n < 0 ? int.MaxValue : _frame + Math.Max(1, n);
-            if (string.IsNullOrEmpty(file))
+            if (c.SettingsDirty)
+            {
+                c.Script = Str(c.Fields, "script_source_file");
+                c.EveryN = (int)Num(c.Fields, "execute_every_n_frame", 1);
+                c.Times = (int)Num(c.Fields, "execute_times", -1);
+                c.RemoveAfter = Flag(c, "remove_after_executed");
+                c.SettingsDirty = false;
+            }
+            c.NextFrame = c.EveryN < 0 ? int.MaxValue : _frame + Math.Max(1, c.EveryN);
+            if (string.IsNullOrEmpty(c.Script))
                 return;
-            Run(c, file, null, null);
+            Run(c, c.Script, null, null);
             c.Executed++;
             c.Fields["mTimesExecuted"] = Itos(c.Executed);
             c.Fields["mLastExecutionFrame"] = Itos(_frame);
-            int times = (int)Num(c.Fields, "execute_times", -1);
-            if (times > 0 && c.Executed >= times)
+            if (c.SettingsDirty)
+            {
+                // the script changed its own settings: next time they are read again; times/removal use the new ones
+                c.Times = (int)Num(c.Fields, "execute_times", -1);
+                c.RemoveAfter = Flag(c, "remove_after_executed");
+            }
+            if (c.Times > 0 && c.Executed >= c.Times)
             {
                 c.NextFrame = int.MaxValue;
-                if (Flag(c, "remove_after_executed"))
+                if (c.RemoveAfter)
                     RemoveComp(c);
             }
         }
@@ -410,16 +483,11 @@ namespace Terranoita.Noita
             _curComp = c.Id;
             try
             {
-                using (LuaCulture.Enter())
-                {
-                    _lua.Call(Chunk(file));
-                    if (function != null)
-                    {
-                        var fn = _lua.Globals.RawGet(function);
-                        if (fn != null && fn.Type == DataType.Function)
-                            _lua.Call(fn, (args ?? new object[0]).Select(a => DynValue.FromObject(_lua, a)).ToArray());
-                    }
-                }
+                if (_cultured)
+                    Call(file, function, args);
+                else
+                    using (LuaCulture.Enter())
+                        Call(file, function, args);
             }
             catch (Exception ex)
             {
@@ -435,6 +503,17 @@ namespace Terranoita.Noita
             {
                 _curEntity = oldE;
                 _curComp = oldC;
+            }
+        }
+
+        void Call(string file, string function, object[] args)
+        {
+            _lua.Call(Chunk(file));
+            if (function != null)
+            {
+                var fn = _lua.Globals.RawGet(function);
+                if (fn != null && fn.Type == DataType.Function)
+                    _lua.Call(fn, (args ?? new object[0]).Select(a => DynValue.FromObject(_lua, a)).ToArray());
             }
         }
 
@@ -459,6 +538,7 @@ namespace Terranoita.Noita
             if (e.Dead)
                 return;
             e.Dead = true;
+            _sweep = true;
             foreach (int ch in e.Children)
                 Kill(ch);
             if (e.Host)
@@ -469,11 +549,13 @@ namespace Terranoita.Noita
         {
             c.Removed = true;
             c.Enabled = false;
+            _sweep = true;
         }
 
         /// <summary>Drops dead entities and removed components (after a run, so scripts never see ids vanish mid-run).</summary>
         void Sweep()
         {
+            _sweep = false;
             foreach (var c in _comps.Values.Where(c => c.Removed).ToList())
             {
                 _comps.Remove(c.Id);
@@ -483,11 +565,34 @@ namespace Terranoita.Noita
             // the top-most dead entities; Forget takes their children with them
             foreach (var e in _ents.Values.Where(e => e.Dead && !(_ents.TryGetValue(e.Parent, out var p) && p.Dead)).ToList())
                 Forget(e.Id);
+            _luaComps.RemoveAll(c => c.Removed);
+            _lifeComps.RemoveAll(c => c.Removed);
+            _sweep = false;
         }
 
         // ---------------- transforms and fields ----------------
 
-        bool Inherits(Ent e) => e.Parent != 0 && e.Comps.Any(ci => _comps[ci].Type == "InheritTransformComponent" && _comps[ci].Enabled);
+        bool Inherits(Ent e)
+        {
+            if (e.Parent == 0)
+                return false;
+            foreach (int ci in e.Comps)
+                if (_comps.TryGetValue(ci, out var c) && c.Enabled && c.Type == "InheritTransformComponent")
+                    return true;
+            return false;
+        }
+
+        /// <summary>The first component of a type (and tag), without allocating (hot: most scripts start with it).</summary>
+        Comp FirstComp(Ent e, string type, string tag, bool includeDisabled)
+        {
+            if (e == null || e.Dead)
+                return null;
+            foreach (int ci in e.Comps)
+                if (_comps.TryGetValue(ci, out var c) && !c.Removed && (type == null || c.Type == type) && (includeDisabled || c.Enabled) &&
+                    (string.IsNullOrEmpty(tag) || c.Tags.Contains(tag)))
+                    return c;
+            return null;
+        }
 
         void Transform(int entity, out float x, out float y, out float rot, out float sx, out float sy)
         {
@@ -546,10 +651,14 @@ namespace Terranoita.Noita
         void SetRaw(Comp c, string field, string value)
         {
             c.Fields[field] = value;
+            if (c.Type == "LuaComponent")
+                c.SettingsDirty = true;
             if (_ents.TryGetValue(c.Entity, out var e) && e.Host)
                 _host.SetField(c.Entity, c.Type, field, value);
             if (c.Type == "LifetimeComponent" && field == "lifetime" && int.TryParse(value, NumberStyles.Integer, CultureInfo.InvariantCulture, out int life))
                 c.Fields["kill_frame"] = Itos(life > 0 ? _frame + life : -1);
+            if (c.Type == "LifetimeComponent" && (field == "lifetime" || field == "kill_frame"))
+                c.KillFrame = (int)Num(c.Fields, "kill_frame", -1);
         }
 
         bool GetVec(Comp c, string field, out double x, out double y)
@@ -666,7 +775,12 @@ namespace Terranoita.Noita
         void Api(Table g)
         {
             var loaded = new HashSet<string>(StringComparer.Ordinal);
-            g["dofile"] = DynValue.NewCallback((ctx, a) => _lua.DoString(_read(S(a, 0)) ?? "", null, S(a, 0)));
+            // dofile runs the file every time (Noita), but it is compiled once; a missing file runs nothing
+            g["dofile"] = DynValue.NewCallback((ctx, a) =>
+            {
+                string p = S(a, 0) ?? "";
+                return _chunks.ContainsKey(p) || _read(p) != null ? _lua.Call(Chunk(p)) : DynValue.Nil;
+            });
             g["dofile_once"] = DynValue.NewCallback((ctx, a) =>
             {
                 string p = S(a, 0);
@@ -721,8 +835,8 @@ namespace Terranoita.Noita
             Def(g, "EntitySetName", a => { var e = E(a); if (e != null) e.Name = S(a, 1) ?? ""; return null; });
             Def(g, "EntityGetFilename", a => DynValue.NewString(E(a)?.File ?? ""));
             Def(g, "EntityGetIsAlive", a => DynValue.NewBoolean(Alive((int)N(a, 0))));
-            Def(g, "EntityAddTag", a => { var e = E(a); string t = S(a, 1); if (e != null && !string.IsNullOrEmpty(t) && !e.Tags.Contains(t)) e.Tags.Add(t); return null; });
-            Def(g, "EntityRemoveTag", a => { E(a)?.Tags.Remove(S(a, 1)); return null; });
+            Def(g, "EntityAddTag", a => { AddTag(E(a), S(a, 1)); return null; });
+            Def(g, "EntityRemoveTag", a => { RemoveTag(E(a), S(a, 1)); return null; });
             Def(g, "EntityHasTag", a => DynValue.NewBoolean(E(a)?.Tags.Contains(S(a, 1)) ?? false));
             Def(g, "EntityGetTags", a => DynValue.NewString(string.Join(",", E(a)?.Tags ?? new List<string>())));
             Def(g, "EntityGetWithTag", a =>
@@ -730,7 +844,10 @@ namespace Terranoita.Noita
                 // Noita: a table, empty when none; the game's shots/creatures with the tag too
                 string tag = S(a, 0);
                 var ids = new List<int>(_host.InRadiusWithTag(0, 0, float.MaxValue, tag));
-                ids.AddRange(_ents.Values.Where(e => !e.Dead && !e.Host && e.Tags.Contains(tag) && !ids.Contains(e.Id)).Select(e => e.Id));
+                var have = new HashSet<int>(ids);
+                foreach (int id in Tagged(tag))
+                    if (have.Add(id))
+                        ids.Add(id);
                 var t = new Table(_lua);
                 foreach (int i in ids) t.Append(DynValue.NewNumber(i));
                 return DynValue.NewTable(t);
@@ -772,7 +889,7 @@ namespace Terranoita.Noita
                 int best = 0;
                 float bestD = float.MaxValue;
                 var ids = new List<int>(_host.InRadiusWithTag(x, y, float.MaxValue, tag));
-                ids.AddRange(_ents.Values.Where(e => !e.Dead && !e.Host && e.Tags.Contains(tag)).Select(e => e.Id));
+                ids.AddRange(Tagged(tag));
                 foreach (int id in ids)
                 {
                     Transform(id, out float ex, out float ey, out _, out _, out _);
@@ -824,11 +941,12 @@ namespace Terranoita.Noita
                 float x = (float)N(a, 0), y = (float)N(a, 1), r = (float)N(a, 2);
                 string tag = S(a, 3);
                 var ids = new List<int>(_host.InRadiusWithTag(x, y, r, tag));
-                foreach (var e in _ents.Values.Where(e => !e.Dead && !e.Host && e.Tags.Contains(tag)))
+                var have = new HashSet<int>(ids);
+                foreach (int id in Tagged(tag))
                 {
-                    Transform(e.Id, out float ex, out float ey, out _, out _, out _);
-                    if ((ex - x) * (ex - x) + (ey - y) * (ey - y) <= r * r && !ids.Contains(e.Id))
-                        ids.Add(e.Id);
+                    Transform(id, out float ex, out float ey, out _, out _, out _);
+                    if ((ex - x) * (ex - x) + (ey - y) * (ey - y) <= r * r && have.Add(id))
+                        ids.Add(id);
                 }
                 var t = new Table(_lua);
                 foreach (int i in ids) t.Append(DynValue.NewNumber(i));
@@ -850,12 +968,12 @@ namespace Terranoita.Noita
             Def(g, "EntityGetAllComponents", a => Ids(CompsOf(E(a), null, null, true).Select(c => c.Id)));
             Def(g, "EntityGetFirstComponent", a =>
             {
-                var c = CompsOf(E(a), S(a, 1), S(a, 2), false).FirstOrDefault();
+                var c = FirstComp(E(a), S(a, 1), S(a, 2), false);
                 return c == null ? DynValue.Nil : DynValue.NewNumber(c.Id);
             });
             Def(g, "EntityGetFirstComponentIncludingDisabled", a =>
             {
-                var c = CompsOf(E(a), S(a, 1), S(a, 2), true).FirstOrDefault();
+                var c = FirstComp(E(a), S(a, 1), S(a, 2), true);
                 return c == null ? DynValue.Nil : DynValue.NewNumber(c.Id);
             });
             Func<CallbackArguments, DynValue> addComp = a =>

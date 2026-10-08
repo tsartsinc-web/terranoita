@@ -715,3 +715,23 @@ Next steps (author's order: finish magic, then shops):
   30 FPS from the black hole set to set 7 (ground eaten -> support checks; cloud's Falling fix was not in that run).
   Not done yet (logged): EntityLoad of orbit_discs_disc.xml, wall_builder/piece/sound.xml (not in spell_projectiles).
 - Cloud task now: design/cloud_task_core_2.md (faster LuaShotScripts, progress tooltip lines).
+
+## Cloud: design/cloud_task_core_2.md (Core only)
+- LuaShotScripts faster: LuaComponents / LifetimeComponents kept in id-ordered lists (no LINQ, no per-frame
+  allocations), due check (`NextFrame`) before any work, kill_frame and the LuaComponent settings (script, every n,
+  times, remove) kept parsed (parsed again only after a field of that component is set), one culture switch per
+  Update, Sweep only when something died or was removed, tag index (tag -> entities) for EntityGetWithTag /
+  InRadiusWithTag / ClosestWithTag (results in id order, as before), EntityGetFirstComponent and
+  InheritTransform checks without LINQ, `dofile` compiled once per file (it was recompiled on every call).
+  Bench (LuaShotScriptsBenchTests: 300 shots x 2 scripts x 600 frames): same 164900 runs and results;
+  1587 ms -> 940 ms here. The runtime itself now costs ~1 us per script run over MoonSharp's own call
+  (~1.1 us for an empty chunk); a heavy script (InRadius + table) dominates. If the game is still slow with ~20
+  shots, measure the game side (GameShotHost, its InRadiusWithTag/positions) — проверить на ПК.
+- `Core/Progress/ProgressInfo.cs`: `Lines(category, id)` for creature (life = noita_hp x tier hp_mult; where it lives:
+  Noita place -> Terraria zone, hardmode for zone or life > 1000; attacks with damage = Noita x tier dmg_mult and
+  damage kinds/effect), liquid (gas/liquid, touch statuses, touch damage per second = x25x60, if drunk, burns,
+  reactions up to 5), spell (type, mana, uses, damage x25 and explosion of its first projectile, cast delay /
+  recharge in seconds, multicast). English labels; ids as text (the game may swap in Noita's translations).
+  Note: the task said damage = Noita x 25 for creatures; the sheets' noita_hp / attack damage are already in
+  Noita's shown units, so the lines use the game's own formulas (Carriers: x tier mult).
+- Tests: LuaShotScriptsBenchTests (1), ProgressInfoTests (3). 80 Core tests pass; gate 1a CLEAN; tools tests OK.
