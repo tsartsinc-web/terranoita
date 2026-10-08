@@ -210,6 +210,10 @@ namespace Terranoita.Game.Magic
             else
                 WandSlots[1] = MagicItems.MakeWand(bolt);
             WandSlots[0] = MagicItems.MakeWand(bomb);
+            // and Noita's starting flask (potion_starting.lua: water in a first run)
+            int slot = Enumerable.Range(0, 50).FirstOrDefault(i => p.inventory[i].IsAir);
+            if (p.inventory[slot].IsAir)
+                p.inventory[slot] = Flasks.Make(p.Center, "data/scripts/items/potion_starting.lua");
             Entry.Log("starting wands: " + MagicItems.WandName(bolt) + " (" + string.Join(" ", bolt.Slots) + "), " + MagicItems.WandName(bomb));
         }
 

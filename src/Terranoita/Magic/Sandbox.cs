@@ -86,7 +86,10 @@ namespace Terranoita.Game.Magic
                 made += Fill(ref cx, "Spells " + (i / 40 + 1), spells.Skip(i).Take(40).Select(id => MagicItems.MakeSpell(id)).ToList());
             for (int i = 0; i < wands.Count; i += 40)
                 made += Fill(ref cx, "Wands " + (i / 40 + 1), wands.Skip(i).Take(40).ToList());
-            Log("arena at " + _x0 + "," + _floor + ": " + spells.Count + " spells, " + wands.Count + " wands in " + made + " chests");
+            // a flask of every material Noita's potion.lua can fill one with
+            var flasks = maker.PotionMaterials().Select(m => MagicItems.MakeFlask(m, Flasks.Capacity)).ToList();
+            made += Fill(ref cx, "Flasks", flasks.Take(40).ToList());
+            Log("arena at " + _x0 + "," + _floor + ": " + spells.Count + " spells, " + wands.Count + " wands, " + flasks.Count + " flasks in " + made + " chests");
         }
 
         /// <summary>A tree as the forest grows them: a sapling on the grass, grown at once.</summary>

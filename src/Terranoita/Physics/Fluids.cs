@@ -603,6 +603,19 @@ namespace Terranoita.Game.Physics
 
         public static bool Has(int x, int y) => Cells.ContainsKey(Key(x, y));
 
+        /// <summary>The liquid at a tile: ours, else Terraria's water or lava (honey is no Noita material: null).</summary>
+        public static string MaterialAt(int x, int y)
+        {
+            if (!Mats.InWorld(x, y))
+                return null;
+            if (Cells.TryGetValue(Key(x, y), out var c) && c.Amount > 8)
+                return _defs[c.Kind - 1].Id;
+            var t = Main.tile[x, y];
+            if (t.liquid > 32)
+                return t.liquidType() == LiquidID.Lava ? "lava" : t.liquidType() == LiquidID.Water ? "water" : null;
+            return null;
+        }
+
         /// <summary>The player drinks from the tile (author: hold down in a liquid, as in Noita): takes up to amount of the
         /// liquid there (ours, or Terraria's water/lava/honey) and says which; null if nothing to drink.</summary>
         public static string Drink(int x, int y, int amount)

@@ -17,6 +17,8 @@ namespace Terranoita.Game.Magic
         public List<string> AlwaysCast = new List<string>();
         public string[] Slots = new string[0];       // action ids, null = empty slot
         public int[] Uses = new int[0];              // uses left per slot (-1 = unlimited)
+        public string Flask;                          // not a wand but Noita's flask (potion.xml): its material, "" = empty
+        public float FlaskAmount;                     // cells in it (Noita's barrel_size 1000)
 
         public int Capacity => Slots.Length;
     }
@@ -113,6 +115,7 @@ namespace Terranoita.Game.Magic
                     w.Shuffle ? "1" : "0", F(w.CastDelay), F(w.RechargeTime), F(w.ManaMax), F(w.ManaChargeSpeed), F(w.Spread), F(w.SpeedMultiplier),
                     string.Join(",", w.AlwaysCast),
                     string.Join(",", w.Slots.Select((s, i) => s == null ? "-" : s + ":" + (i < w.Uses.Length ? w.Uses[i] : -1).ToString(CultureInfo.InvariantCulture))),
+                    w.Flask == null ? "" : "flask:" + Clean(w.Flask), F(w.FlaskAmount),
                 }));
                 File.WriteAllLines(WandsFile + ".tmp", lines);
                 if (File.Exists(WandsFile))
@@ -150,6 +153,11 @@ namespace Terranoita.Game.Magic
                     var slots = p[12].Length == 0 ? new string[0] : p[12].Split(',');
                     w.Slots = slots.Select(s => s == "-" ? null : s.Split(':')[0]).ToArray();
                     w.Uses = slots.Select(s => s == "-" || !s.Contains(":") ? -1 : (int)P(s.Split(':')[1])).ToArray();
+                    if (p.Length >= 15 && p[13].StartsWith("flask:"))
+                    {
+                        w.Flask = p[13].Substring(6);
+                        w.FlaskAmount = P(p[14]);
+                    }
                     _wands[w.Id] = w;
                 }
             }

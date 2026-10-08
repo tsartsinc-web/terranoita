@@ -118,7 +118,7 @@ namespace Terranoita.Game.Magic
 
         static void FillChests()
         {
-            int filled = 0, spells = 0;
+            int filled = 0, spells = 0, flasks = 0;
             var deep = new List<Chest>();
             for (int i = 0; i < Main.maxChests; i++)
             {
@@ -146,6 +146,14 @@ namespace Terranoita.Game.Magic
                     spells++;
                     any = true;
                 }
+                // Noita's chests hold potions too (chest_random.lua): one in four, filled by Noita's potion.lua
+                int free = Array.FindIndex(c.item, it => it == null || it.IsAir);
+                if (free >= 0 && WorldGen.genRand.Next(4) == 0)
+                {
+                    c.item[free] = Flasks.Make(new Microsoft.Xna.Framework.Vector2(c.x * 16, c.y * 16));
+                    flasks++;
+                    any = true;
+                }
                 if (any)
                     filled++;
             }
@@ -165,7 +173,7 @@ namespace Terranoita.Game.Magic
                     c.item[slot] = MagicItems.MakeSpell(a.id);
                     rare++;
                 }
-            Entry.Log("world loot: " + spells + " spells in " + filled + " chests, " + rare + " rare ones in deep chests");
+            Entry.Log("world loot: " + spells + " spells, " + flasks + " flasks in " + filled + " chests, " + rare + " rare ones in deep chests");
         }
 
         // ---- the wands in the caves: made when the player comes near, picked up by touching ----

@@ -206,9 +206,18 @@ namespace Terranoita.Game.Magic
                 var item = HeldWand(p);
                 var w = item == null ? null : MagicItems.WandOf(item);
                 var art = w == null ? null : NoitaArt.Get(w.Sprite);
+                var sb = Main.spriteBatch;
+                var flask = MagicItems.FlaskOf(p.inventory[p.selectedItem]);
+                if (flask != null)
+                {
+                    sb.Begin(SpriteSortMode.Deferred, BlendState.AlphaBlend, Main.DefaultSamplerState, DepthStencilState.None, Main.Rasterizer, null, Main.Transform);
+                    try { Flasks.DrawHeld(p, flask); }
+                    catch (Exception ex) { Entry.Error("held flask", ex); }
+                    finally { sb.End(); }
+                    return;
+                }
                 if (art?.Texture == null)
                     return;
-                var sb = Main.spriteBatch;
                 try
                 {
                     sb.Begin(SpriteSortMode.Deferred, BlendState.AlphaBlend, Main.DefaultSamplerState, DepthStencilState.None, Main.Rasterizer, null, Main.Transform);

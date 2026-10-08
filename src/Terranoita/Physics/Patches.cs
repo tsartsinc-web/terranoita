@@ -89,6 +89,7 @@ namespace Terranoita.Game.Physics
                 Falling.Clear();
                 Fire.Clear();
                 Magic.SpellShots.Clear();
+                Magic.Flasks.Clear();
                 try { Magic.WorldLoot.Load(); }
                 catch (Exception ex) { Entry.Error("world loot", ex); }
                 Status.Clear();

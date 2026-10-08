@@ -158,6 +158,18 @@ namespace Terranoita.Noita
             _values.Clear(); _comps.Clear(); _cards.Clear(); _permanent.Clear(); _children.Clear();
             _made = new MadeWand();
             Actions();
+            var lua = NewEnv(x, y);
+            var g = lua.Globals;
+            g.MetaTable = Stubs(lua, _made.Missing);
+            lua.DoString(LuaCulture.Prelude);
+            foreach (var script in scripts)
+                lua.DoString(_read(script) ?? throw new InvalidOperationException("Noita file missing: " + script), null, script);
+            return Read();
+        }
+
+        /// <summary>A Lua state with the engine functions Noita's item scripts call, for an entity at x, y.</summary>
+        Script NewEnv(float x, float y)
+        {
             var lua = new Script(CoreModules.Preset_SoftSandbox);
             var g = lua.Globals;
             var loaded = new HashSet<string>();
@@ -219,11 +231,62 @@ namespace Terranoita.Noita
             g["StatsGlobalGetValue"] = DynValue.NewCallback((c, a) => DynValue.NewString("0"));
             g["HasFlagPersistent"] = DynValue.NewCallback((c, a) => DynValue.True);
             g["GameGetFrameNum"] = (Func<double>)(() => 0);
-            g.MetaTable = Stubs(lua, _made.Missing);
-            lua.DoString(LuaCulture.Prelude);
-            foreach (var script in scripts)
+            return lua;
+        }
+
+        /// <summary>Every material of potion.lua's tables (materials_standard, materials_magic): a flask of each, for tests.</summary>
+        public List<string> PotionMaterials(string script = "data/scripts/items/potion.lua")
+        {
+            using (LuaCulture.Enter())
+            {
+                var lua = NewEnv(0, 0);
+                lua.Globals.MetaTable = Stubs(lua, new List<string>());
+                lua.DoString(LuaCulture.Prelude);
+                lua.DoString(_read(script) ?? "", null, script);
+                var list = new List<string>();
+                foreach (var name in new[] { "materials_standard", "materials_magic" })
+                    if (lua.Globals.Get(name).Table is Table tbl)
+                        foreach (var row in tbl.Values)
+                            if (row.Table?.Get("material").CastToString() is string m && !list.Contains(m))
+                                list.Add(m);
+                return list;
+            }
+        }
+
+        /// <summary>
+        /// A flask as Noita fills it: data/scripts/items/potion.lua's init (its material tables, its odds, the seed from
+        /// the position, the holiday drinks by the real date). Material and amount (barrel 1000).
+        /// </summary>
+        public (string material, int amount) MakePotion(float x, float y, string script = "data/scripts/items/potion.lua")
+        {
+            using (LuaCulture.Enter())
+            {
+                _values.Clear(); _comps.Clear(); _cards.Clear(); _permanent.Clear(); _children.Clear();
+                _made = new MadeWand();
+                var lua = NewEnv(x, y);
+                var g = lua.Globals;
+                string material = null;
+                int amount = 0;
+                g["AddMaterialInventoryMaterial"] = DynValue.NewCallback((c, a) =>
+                {
+                    material = a[1].CastToString();
+                    amount = (int)a[2].CastToNumber().GetValueOrDefault(1000);
+                    return DynValue.Nil;
+                });
+                g["GameGetDateAndTimeLocal"] = DynValue.NewCallback((c, a) =>
+                {
+                    var n = DateTime.Now;
+                    return DynValue.NewTuple(DynValue.NewNumber(n.Year), DynValue.NewNumber(n.Month), DynValue.NewNumber(n.Day),
+                        DynValue.NewNumber(n.Hour), DynValue.NewNumber(n.Minute), DynValue.NewNumber(n.Second), DynValue.False, DynValue.False);
+                });
+                g["EntityGetComponent"] = DynValue.NewCallback((c, a) => DynValue.Nil);
+                g["EntityAddTag"] = DynValue.NewCallback((c, a) => DynValue.Nil);
+                g.MetaTable = Stubs(lua, _made.Missing);
+                lua.DoString(LuaCulture.Prelude);
                 lua.DoString(_read(script) ?? throw new InvalidOperationException("Noita file missing: " + script), null, script);
-            return Read();
+                lua.Call(g.Get("init"), DynValue.NewNumber(WandEntity));
+                return (material ?? "water", amount > 0 ? amount : 1000);
+            }
         }
 
         double Distribution(CallbackArguments a)

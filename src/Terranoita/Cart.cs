@@ -139,11 +139,11 @@ namespace Terranoita.Game
         {
             static void Postfix()
             {
-                if (!_has || Main.gameMenu)
+                if (Main.gameMenu || !_has && Magic.Flasks.FlyingCount == 0)
                     return;
                 var sb = Main.spriteBatch;
                 sb.Begin(SpriteSortMode.Deferred, BlendState.AlphaBlend, Main.DefaultSamplerState, DepthStencilState.None, Main.Rasterizer, null, Main.Transform);
-                try { Draw(); }
+                try { Draw(); Magic.Flasks.DrawThrown(); }
                 catch (Exception ex) { Entry.Error("cart draw", ex); }
                 finally { sb.End(); }
             }

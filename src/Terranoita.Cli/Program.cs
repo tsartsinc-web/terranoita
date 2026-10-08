@@ -93,6 +93,20 @@ namespace Terranoita.Cli
                                 Console.WriteLine("engine call " + kv.Key + " (" + kv.Value.Count + "): " + string.Join(" ", kv.Value.Take(12)));
                             return 0;
                         }
+                        case "lua-potion":   // lua-potion <noita> [count] [script]: flasks filled by Noita's potion.lua, materials counted
+                        {
+                            int n = args.Length > 2 ? int.Parse(args[2]) : 200;
+                            var maker = new Terranoita.Noita.LuaWandMaker(p => Text(files, p), 1);
+                            var counts = new Dictionary<string, int>();
+                            for (int k = 0; k < n; k++)
+                            {
+                                var (m, amount) = args.Length > 3 ? maker.MakePotion(13 * k, 200 + 37 * k, args[3]) : maker.MakePotion(13 * k, 200 + 37 * k);
+                                counts[m + " " + amount] = (counts.TryGetValue(m + " " + amount, out int c) ? c : 0) + 1;
+                            }
+                            foreach (var kv in counts.OrderByDescending(kv => kv.Value))
+                                Console.WriteLine(kv.Value + " " + kv.Key);
+                            return 0;
+                        }
                         case "lua-wand":   // lua-wand <noita> <script.lua> [count]: wands made by Noita's own procedural script
                         {
                             int n = args.Length > 3 ? int.Parse(args[3]) : 3;

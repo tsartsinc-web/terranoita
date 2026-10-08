@@ -31,14 +31,36 @@ namespace Terranoita.Game.Magic
         public static int PrefixCalls, LastPrefix;
 
         public static bool IsSpell(Item i) => i != null && !i.IsAir && Array.IndexOf(SpellTypes, i.type) >= 0 && i.prefix > 0;
-        public static bool IsWand(Item i) => i != null && !i.IsAir && Array.IndexOf(WandTypes, i.type) >= 0 && i.prefix > 0;
+        public static bool IsWand(Item i) => WandOf(i) != null;
+        public static bool IsFlask(Item i) => FlaskOf(i) != null;
+        static WandData CarriedOf(Item i) =>
+            i != null && !i.IsAir && Array.IndexOf(WandTypes, i.type) >= 0 && i.prefix > 0 ? WandStore.Wand(Array.IndexOf(WandTypes, i.type) * 255 + i.prefix - 1) : null;
         static bool IsCarrier(int type) => Array.IndexOf(SpellTypes, type) >= 0 || Array.IndexOf(WandTypes, type) >= 0;
 
         public static string SpellOf(Item i) =>
             IsSpell(i) ? WandStore.SpellId(Array.IndexOf(SpellTypes, i.type) * 255 + i.prefix - 1) : null;
 
-        public static WandData WandOf(Item i) =>
-            IsWand(i) ? WandStore.Wand(Array.IndexOf(WandTypes, i.type) * 255 + i.prefix - 1) : null;
+        public static WandData WandOf(Item i)
+        {
+            var w = CarriedOf(i);
+            return w != null && w.Flask == null ? w : null;
+        }
+
+        /// <summary>Noita's flask on a wand carrier item (WandData with Flask set): material and amount ride in the wand store.</summary>
+        public static WandData FlaskOf(Item i)
+        {
+            var w = CarriedOf(i);
+            return w != null && w.Flask != null ? w : null;
+        }
+
+        public static Item MakeFlask(string material, float amount)
+        {
+            var w = WandStore.NewWand();
+            w.Name = "flask"; w.Sprite = Flasks.Sprite; w.Flask = material ?? ""; w.FlaskAmount = amount;
+            w.Slots = new string[0]; w.Uses = new int[0];
+            WandStore.Save();
+            return MakeWand(w);
+        }
 
         public static Item MakeSpell(string actionId)
         {
@@ -120,6 +142,8 @@ namespace Terranoita.Game.Magic
                 return NoitaArt.Get(Spell(SpellOf(item))?.Sprite)?.Texture;
             if (IsWand(item))
                 return NoitaArt.Get(WandOf(item)?.Sprite)?.Texture;
+            if (IsFlask(item))
+                return NoitaArt.Get(Flasks.Sprite)?.Texture;
             return null;
         }
 
@@ -134,7 +158,8 @@ namespace Terranoita.Game.Magic
         }
 
         static NoitaArt.Art ArtOf(Item item) =>
-            IsSpell(item) ? NoitaArt.Get(Spell(SpellOf(item))?.Sprite) : IsWand(item) ? NoitaArt.Get(WandOf(item)?.Sprite) : null;
+            IsSpell(item) ? NoitaArt.Get(Spell(SpellOf(item))?.Sprite) : IsWand(item) ? NoitaArt.Get(WandOf(item)?.Sprite) :
+            IsFlask(item) ? NoitaArt.Get(Flasks.Sprite) : null;
 
         // ---- patches ----
 
@@ -216,6 +241,8 @@ namespace Terranoita.Game.Magic
                     __result = SpellName(SpellOf(__instance));
                 else if (IsWand(__instance))
                     __result = WandName(WandOf(__instance));
+                else if (IsFlask(__instance))
+                    __result = Flasks.Name(FlaskOf(__instance));
             }
         }
 
@@ -225,7 +252,7 @@ namespace Terranoita.Game.Magic
         {
             static void Postfix(Item __instance, ref string __result)
             {
-                if (IsSpell(__instance) || IsWand(__instance))
+                if (IsSpell(__instance) || IsWand(__instance) || IsFlask(__instance))
                     __result = __instance.Name;
             }
         }
@@ -236,7 +263,7 @@ namespace Terranoita.Game.Magic
         {
             static bool Prefix(Item item, SpriteBatch spriteBatch, Vector2 screenPositionForItemCenter, float scale, float sizeLimit, Color environmentColor, ref float __result)
             {
-                if (!IsSpell(item) && !IsWand(item))
+                if (!IsSpell(item) && !IsWand(item) && !IsFlask(item))
                     return true;
                 try
                 {
@@ -260,7 +287,7 @@ namespace Terranoita.Game.Magic
             static bool Prefix(WorldItem item)
             {
                 var inner = item?.inner;
-                if (!IsSpell(inner) && !IsWand(inner))
+                if (!IsSpell(inner) && !IsWand(inner) && !IsFlask(inner))
                     return true;
                 try
                 {
@@ -286,7 +313,8 @@ namespace Terranoita.Game.Magic
             {
                 try
                 {
-                    var lines = IsSpell(item) ? SpellLines(SpellOf(item), UsesLeft(item)) : IsWand(item) ? WandLines(WandOf(item)) : null;
+                    var lines = IsSpell(item) ? SpellLines(SpellOf(item), UsesLeft(item)) : IsWand(item) ? WandLines(WandOf(item)) :
+                                IsFlask(item) ? Flasks.Lines(FlaskOf(item)) : null;
                     if (lines == null)
                         return;
                     numLines = 1;

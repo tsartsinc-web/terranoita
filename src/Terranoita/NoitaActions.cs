@@ -39,8 +39,10 @@ namespace Terranoita.Game
             bool typing = Main.drawingPlayerChat || Main.editSign || Main.editChest || Main.blockInput;
             if (!typing && Main.keyState.IsKeyDown(Keys.F) && !Main.oldKeyState.IsKeyDown(Keys.F) && _kickCooldown == 0)
                 Kick(p);
-            if (!typing && p.controlDown && p.velocity.Y == 0)
+            // holding a flask, down drinks from it (Flasks); else from the liquid stood in
+            if (!typing && p.controlDown && p.velocity.Y == 0 && !Magic.MagicItems.IsFlask(p.inventory[p.selectedItem]))
                 Drink(p);
+            Magic.Flasks.Update(p, typing);
             // the stomach empties slowly (Noita: ingestion_reduce_every_n_frame 5)
             if (_stomach > 0 && Main.GameUpdateCount % 5 == 0)
                 _stomach--;
@@ -93,7 +95,12 @@ namespace Terranoita.Game
             string liquid = Physics.Fluids.Drink(x, y, DrinkPerFrame) ?? Physics.Fluids.Drink(x, y - 1, DrinkPerFrame);
             if (liquid == null)
                 return;
-            float cells = DrinkPerFrame / 255f * 16;   // a tile is 16 Terraria px tall: about 16 Noita cells of it
+            Ingest(p, liquid, DrinkPerFrame / 255f * 16);   // a tile is 16 Terraria px tall: about 16 Noita cells of it
+        }
+
+        /// <summary>Noita's ingestion: cells of a material eaten (from a pool or a flask): its statuses, too much hurts.</summary>
+        public static void Ingest(Player p, string liquid, float cells)
+        {
             _stomach += cells;
             var def = Liquids.All.FirstOrDefault(l => l.Id == liquid);
             if (def != null)
