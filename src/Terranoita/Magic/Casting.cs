@@ -22,6 +22,7 @@ namespace Terranoita.Game.Magic
             public int ReadyAt;            // Main.GameUpdateCount when it can cast again
             public int Version;            // WandData changes reload the deck
             public int LastUsed;           // _now when it was last asked for
+            public int LastCost;           // Terraria mana its last paid cast cost (Mana Flower drinks before a cast it cannot pay)
         }
 
         static readonly Dictionary<int, Held> Guns = new Dictionary<int, Held>();
@@ -140,17 +141,26 @@ namespace Terranoita.Game.Magic
             if (h == null || _now < h.ReadyAt)
                 return;
             LuaCast cast;
-            int have = TestFire ? Math.Max(p.statMana, 1000) : p.statMana;   // tests: Terraria caps mana at 400, giga spells cost 500+
+            // Terraria's magic bonuses apply to Noita wands (author): mana cost (p.manaCost: armour, Magic Cuffs, Mana
+            // Flower...) scales what the spells cost; Mana Flower drinks a potion when the next cast cannot be paid
+            if (p.manaFlower && h.LastCost > 0 && p.statMana < h.LastCost)
+                p.QuickMana();
+            float costMult = Math.Max(0.05f, p.manaCost);
+            int real = TestFire ? Math.Max(p.statMana, 1000) : p.statMana;   // tests: Terraria caps mana at 400, giga spells cost 500+
+            int have = (int)(real / costMult);   // the budget gun.lua sees, in Noita mana
             try
             {
                 ((TerrariaWorld)h.Gun.World).Player = p;
                 cast = h.Gun.Cast(have);
             }
             catch (Exception ex) { Entry.Error("cast " + w.Id, ex); h.ReadyAt = _now + 30; return; }
-            int spent = have - (int)Math.Round(cast.Mana);
-            p.statMana = Math.Max(0, Math.Min(p.statManaMax2, (int)Math.Round(cast.Mana)));
+            int spent = (int)Math.Round((have - cast.Mana) * costMult);   // Terraria mana paid
+            p.statMana = Math.Max(0, Math.Min(p.statManaMax2, real - spent));   // some spells give mana back (spent < 0)
             if (spent > 0)
-                p.manaRegenDelay = 60;
+            {
+                h.LastCost = spent;
+                p.ApplyManaRegenerationDelay();   // Terraria's own delay (Mana Regeneration Band, Celestial Cuffs...)
+            }
             var dir = Aim - p.Center;
             if (dir.LengthSquared() < 1)
                 dir = new Vector2(p.direction, 0);
@@ -278,7 +288,7 @@ namespace Terranoita.Game.Magic
             if (entity == Caster && Player != null && dmg > 0)
                 Player.Hurt(Terraria.DataStructures.PlayerDeathReason.ByCustomReason(Player.name + " cast too much."), dmg, 0);
             else if (entity >= 1000 && entity < 1000 + Main.maxNPCs && dmg > 0 && Player != null)
-                Player.ApplyDamageToNPC(Main.npc[entity - 1000], dmg, 0f, 0, false, null, 0, -1);
+                Player.ApplyDamageToNPC(Main.npc[entity - 1000], (int)Math.Round(dmg * Player.magicDamage), 0f, 0, false, null, 0, -1);
         }
 
         public override List<string> WandSpells()

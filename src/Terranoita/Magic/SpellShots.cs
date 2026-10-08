@@ -249,10 +249,13 @@ namespace Terranoita.Game.Magic
 
         static void Strike(Shot s, NPC n, float damage)
         {
-            int dmg = (int)Math.Round(damage);
-            if (dmg <= 0 || s.Owner == null)
+            if (s.Owner == null)
                 return;
-            bool crit = Main.rand.NextFloat() * 100f < s.Lua.Get("damage_critical_chance") + CritBoost(s, n);
+            // Terraria's magic damage and crit (armour, potions, accessories, mana sickness) on top of Noita's numbers
+            int dmg = (int)Math.Round(damage * s.Owner.magicDamage);
+            if (dmg <= 0)
+                return;
+            bool crit = Main.rand.NextFloat() * 100f < s.Lua.Get("damage_critical_chance") + CritBoost(s, n) + s.Owner.magicCrit;
             s.Owner.ApplyDamageToNPC(n, dmg, Math.Max(0f, s.Knockback / 10f), s.Vel.X >= 0 ? 1 : -1, crit, null, 0, -1);
             if (s.Fire)
                 n.AddBuff(BuffID.OnFire, 180);

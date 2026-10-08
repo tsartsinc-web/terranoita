@@ -63,6 +63,9 @@ How it works (author, 2026-10-08): the author only says "работай" to eith
   never in a public repo).
 
 ## Done (last ~8)
+- done (PC, untested in game) Terraria magic bonuses on Noita wands (author): mana cost x p.manaCost (gun.lua gets
+  statMana / manaCost), Mana Flower QuickMana before a cast it cannot pay (Held.LastCost), ApplyManaRegenerationDelay,
+  max mana = statManaMax2, damage x p.magicDamage (spell shots + script damage), crit + p.magicCrit (APIs by tr-methods).
 - not a bug (PC): PC-8. Entry.Stage only picks creatures (spawns, art preload); Harmony PatchAll applies EVERY patch
   whatever the stage (log: "patches applied: 44 methods" with 14 "hook ok" lines). Sandbox run without
   TERRANOITA_STAGE had chests, wands, cart. The hook log now lists all hooks. The 0.4.0 zip is fine on this.
