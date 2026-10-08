@@ -21,7 +21,8 @@ namespace Terranoita.Game.Magic
     {
         sealed class Spot
         {
-            public int X, Y, Level, Wand = -1;   // tile of the floor under it; wand number once made
+            public int X, Y, Level, Wand = -1;   // the air tile on the floor; wand (or flask) number once made, -3 taken
+            public bool Flask;                   // Noita's potion altar (potion_altar.png) instead of the wand altar
         }
 
         static readonly List<Spot> Spots = new List<Spot>();
@@ -32,7 +33,7 @@ namespace Terranoita.Game.Magic
         // the world whose loot is loaded: a world is saved once while Terraria makes it, before it is ever played, and
         // that save must not write an empty file (it made every new world's chests stay empty, 2026-10-08)
         static string _loadedFor;
-        const string Version = "2";
+        const string Version = "3";   // 3: flask pedestals (older files get them once)
 
         public static void Load()
         {
@@ -50,11 +51,17 @@ namespace Terranoita.Game.Magic
                 {
                     var p = line.Split(' ');
                     if (p.Length >= 4)
-                        Spots.Add(new Spot { X = int.Parse(p[0]), Y = int.Parse(p[1]), Level = int.Parse(p[2]), Wand = int.Parse(p[3]) });
+                        Spots.Add(new Spot { X = int.Parse(p[0]), Y = int.Parse(p[1]), Level = int.Parse(p[2]), Wand = int.Parse(p[3]), Flask = p.Length > 4 && p[4] == "f" });
+                }
+                if (lines[0].Trim() != Version)
+                {
+                    PlaceFlaskAltars();
+                    Save();
                 }
                 return;
             }
             PlaceWands();
+            PlaceFlaskAltars();
             FillChests();
             Save();
         }
@@ -66,7 +73,7 @@ namespace Terranoita.Game.Magic
                 return;
             try
             {
-                File.WriteAllLines(path, new[] { Version }.Concat(Spots.Select(s => s.X + " " + s.Y + " " + s.Level + " " + s.Wand)));
+                File.WriteAllLines(path, new[] { Version }.Concat(Spots.Select(s => s.X + " " + s.Y + " " + s.Level + " " + s.Wand + (s.Flask ? " f" : ""))));
             }
             catch (Exception ex) { Entry.Error("world loot save", ex); }
         }
@@ -89,7 +96,22 @@ namespace Terranoita.Game.Magic
         static void PlaceWands()
         {
             int want = Math.Max(8, Main.maxTilesX * 6 / 1000);
-            for (int tries = 0; tries < want * 400 && Spots.Count < want; tries++)
+            PlaceAltars(want, false);
+            Entry.Log("world loot: " + Spots.Count(s => !s.Flask) + " wand altars in the caves (levels " + string.Join(",", Spots.Where(s => !s.Flask).GroupBy(s => s.Level).OrderBy(g => g.Key).Select(g => g.Key + ":" + g.Count())) + ")");
+        }
+
+        /// <summary>Noita's potion altars: half as many as the wand altars, a flask filled by potion.lua on each.</summary>
+        static void PlaceFlaskAltars()
+        {
+            int want = Math.Max(4, Main.maxTilesX * 3 / 1000);
+            PlaceAltars(want, true);
+            Entry.Log("world loot: " + Spots.Count(s => s.Flask) + " potion altars in the caves");
+        }
+
+        static void PlaceAltars(int want, bool flask)
+        {
+            int placed = 0;
+            for (int tries = 0; tries < want * 400 && placed < want; tries++)
             {
                 int x = WorldGen.genRand.Next(100, Main.maxTilesX - 100);
                 int y = WorldGen.genRand.Next((int)Main.worldSurface + 20, Main.UnderworldLayer - 20);
@@ -98,13 +120,18 @@ namespace Terranoita.Game.Magic
                 while (y < Main.UnderworldLayer - 10 && Air(x, y + 1))
                     y++;
                 var floor = Main.tile[x, y + 1];
-                if (!floor.active() || !Main.tileSolid[floor.type] || !Air(x, y - 1) || !Air(x, y - 2) || !Air(x - 1, y) || !Air(x + 1, y))
+                // room for the pedestal (2 tiles above the floor, 4 wide) and the item on it
+                bool room = floor.active() && Main.tileSolid[floor.type];
+                for (int dy = 0; dy <= 4 && room; dy++)
+                    for (int dx = -2; dx <= 2 && room; dx++)
+                        room = Air(x + dx, y - dy);
+                if (!room)
                     continue;
                 if (Spots.Any(s => Math.Abs(s.X - x) < 60 && Math.Abs(s.Y - y) < 40))
                     continue;
-                Spots.Add(new Spot { X = x, Y = y, Level = LevelAt(y) });
+                Spots.Add(new Spot { X = x, Y = y, Level = LevelAt(y), Flask = flask });
+                placed++;
             }
-            Entry.Log("world loot: " + Spots.Count + " wands in the caves (levels " + string.Join(",", Spots.GroupBy(s => s.Level).OrderBy(g => g.Key).Select(g => g.Key + ":" + g.Count())) + ")");
         }
 
         /// <summary>A chest's Noita level by its kind: wooden 1, gold 2, ivy/sky/mushroom/marble/granite 3, dungeon 4, shadow 5, lihzahrd and biome 6.</summary>
@@ -229,11 +256,11 @@ namespace Terranoita.Game.Magic
                 var s = Spots[i];
                 var at = new Vector2(s.X * 16 + 8, s.Y * 16 + 8);
                 float dist = Vector2.Distance(at, p.Center);
-                if (s.Wand < 0 && dist < 1600)
+                if (s.Wand == -1 && dist < 1600)
                 {
                     try
                     {
-                        s.Wand = WandWindow.Store(Maker.MakeEntity(WandFile(s), s.X * 16 / 3f, s.Y * 16 / 3f)).Id;
+                        s.Wand = s.Flask ? MagicItems.FlaskOf(Flasks.Make(at)).Id : WandWindow.Store(Maker.MakeEntity(WandFile(s), s.X * 16 / 3f, s.Y * 16 / 3f)).Id;
                     }
                     catch (Exception ex) { Entry.Error("cave wand", ex); s.Wand = -2; }
                     changed = true;
@@ -245,14 +272,20 @@ namespace Terranoita.Game.Magic
                         continue;
                     p.inventory[free] = MagicItems.MakeWand(WandStore.Wand(s.Wand));
                     Terraria.Audio.SoundEngine.PlaySound(SoundID.Grab, at);
-                    Main.NewText(MagicItems.WandName(WandStore.Wand(s.Wand)), new Color(200, 160, 255));
-                    Spots.RemoveAt(i);
+                    Main.NewText(p.inventory[free].Name, new Color(200, 160, 255));
+                    s.Wand = -3;   // taken: the altar stays, as in Noita
                     changed = true;
                 }
             }
             if (changed)
                 Save();
         }
+
+        // Noita's altars (data/biome_impl/*_altar_visual.png, 20 x 30 px) at Noita's scale (1 px = 3 Terraria px, as the
+        // creatures): the pedestal's top (row 10 of the wand altar, row 15 of the potion altar) 2 tiles above the floor,
+        // its foot in the ground; the item rests above it
+        const string WandAltar = "data/biome_impl/wand_altar_visual.png", PotionAltar = "data/biome_impl/potion_altar_visual.png";
+        const float Px = Noita.Units.PixelScale;
 
         [Hook("cave_wands_draw")]
         [HarmonyPatch(typeof(Main), "DrawItems")]
@@ -265,20 +298,31 @@ namespace Terranoita.Game.Magic
                 try
                 {
                     var sb = Main.spriteBatch;
-                    var screen = new Rectangle((int)Main.screenPosition.X - 64, (int)Main.screenPosition.Y - 64, Main.screenWidth + 128, Main.screenHeight + 128);
+                    var screen = new Rectangle((int)Main.screenPosition.X - 128, (int)Main.screenPosition.Y - 128, Main.screenWidth + 256, Main.screenHeight + 256);
                     foreach (var s in Spots)
                     {
+                        float floorY = (s.Y + 1) * 16, cx = s.X * 16 + 8;
+                        if (!screen.Contains((int)cx, (int)floorY))
+                            continue;
+                        var altar = NoitaArt.Get(s.Flask ? PotionAltar : WandAltar)?.Texture;
+                        int topRow = s.Flask ? 15 : 10;
+                        float imageTop = floorY - 32 - topRow * Px;
+                        var light = Lighting.GetColor(s.X, s.Y);
+                        if (altar != null)
+                            sb.Draw(altar, new Vector2(cx - altar.Width * Px / 2f, imageTop) - Main.screenPosition, null, light, 0f, Vector2.Zero, Px, SpriteEffects.None, 0f);
                         var w = s.Wand >= 0 ? WandStore.Wand(s.Wand) : null;
-                        var art = w == null ? null : NoitaArt.Get(w.Sprite);
-                        var at = new Vector2(s.X * 16 + 8, s.Y * 16 + 10 + (float)Math.Sin(Main.GlobalTimeWrappedHourly * 2 + s.X) * 3);
-                        if (art?.Texture == null || !screen.Contains((int)at.X, (int)at.Y))
+                        var art = w == null ? null : NoitaArt.Get(w.Flask != null ? Flasks.Sprite : w.Sprite);
+                        if (art?.Texture == null)
                             continue;
                         var frame = MagicItems.Frame(art);
+                        float bob = (float)Math.Sin(Main.GlobalTimeWrappedHourly * 2 + s.X) * 3;
+                        var at = new Vector2(cx, floorY - 32 - frame.Height - 6 + bob);
                         Lighting.AddLight(at, 0.35f, 0.25f, 0.5f);
-                        sb.Draw(art.Texture, at - Main.screenPosition, frame, Color.White, -0.5f, new Vector2(frame.Width / 2f, frame.Height / 2f), 2f, SpriteEffects.None, 0f);
+                        sb.Draw(art.Texture, at - Main.screenPosition, frame, Color.White, w.Flask != null ? 0f : -0.5f,
+                                new Vector2(frame.Width / 2f, frame.Height / 2f), 2f, SpriteEffects.None, 0f);
                     }
                 }
-                catch (Exception ex) { Entry.Error("cave wands draw", ex); }
+                catch (Exception ex) { Entry.Error("cave altars draw", ex); }
             }
         }
     }
