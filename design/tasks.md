@@ -39,6 +39,11 @@ How it works (author, 2026-10-08): the author only says "работай" to eith
 - PC-12 new: build check of cloud's edit in src/Terranoita/Shots.cs (explosions of creature shots now hurt every
   hostile NPC in the radius, the thrower too; author: miner's dynamite hurt only the player and blocks). Check:
   builds; in play a miner's dynamite hurts creatures next to it.
+- PC-13 new: build check of cloud's edit: player spell explosions and digging spells (black hole etc.) break only
+  what the caster's best pickaxe could (Physics/Blast.cs RequiredPick, PickPower via Player.GetBestPickaxe; author).
+  Verify GetBestPickaxe with tr-methods and RequiredPick against `TN_IL=1 tncli tr-methods Terraria.exe Player
+  GetPickaxeDamage`. Creature explosions keep the explosives rule. Check: builds; copper pickaxe + bomb spell
+  leaves ebonstone/hellstone/dungeon intact, dirt/stone break.
 - PC-10 new, after PC-8 and CLOUD-7: worldgen per design/worldgen_plan.md sections 1, 3, 4, 5 (our passes in
   Terraria's worldgen, scenes, loot by Noita's chest_random.lua). Check: game_test -Mode worldgen (section 5).
 - PC-6 new: the 39 known spell failures (design/sources/magic_baseline.txt, MODLOG "memory leak, spells test"):

@@ -100,7 +100,7 @@ namespace Terranoita.Game.Magic
                         break;
                     case "CellEaterComponent":
                         if (s.Age % 3 == 0)
-                            EatAt(s.Pos, e.N("radius", 10) * Px, e.N("eat_probability", 100));
+                            EatAt(s.Pos, e.N("radius", 10) * Px, e.N("eat_probability", 100), Physics.Blast.PickPower(s.Owner));
                         break;
                     case "AreaDamageComponent":
                         AreaDamageAt(s, e.N("aabb_max.x", 8) * Px, e.N("damage_per_frame", 0.1f) * 25f);

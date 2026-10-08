@@ -180,7 +180,7 @@ namespace Terranoita.Game.Magic
             s.Pos = next;
             // Noita's CellEaterComponent (black holes, discs): the ground around it goes; AreaDamageComponent: creatures in its box
             if (s.Def.EatRadius > 0 && s.Age % 3 == 0)
-                EatAt(s.Pos, s.Def.EatRadius * Px, s.Def.EatProbability);
+                EatAt(s.Pos, s.Def.EatRadius * Px, s.Def.EatProbability, Physics.Blast.PickPower(s.Owner));
             if (s.Def.AreaDamage > 0)
                 AreaDamageAt(s, Math.Max(4f, s.Def.AreaHalf) * Px, s.Def.AreaDamage * 25f);
             if (s.Def.Material != "none" && s.Age % 8 == 0 && Physics.Patches.On)
@@ -211,7 +211,7 @@ namespace Terranoita.Game.Magic
             return false;
         }
 
-        static void EatAt(Vector2 pos, float r, float probability)
+        static void EatAt(Vector2 pos, float r, float probability, int pickPower)
         {
             int cx = (int)(pos.X / 16), cy = (int)(pos.Y / 16), rt = (int)Math.Ceiling(r / 16f);
             float chance = Math.Min(1f, probability / 100f * 3f);   // every 3rd frame
@@ -220,7 +220,7 @@ namespace Terranoita.Game.Magic
                 {
                     if (!Physics.Mats.InWorld(x, y) || Vector2.Distance(new Vector2(x * 16 + 8, y * 16 + 8), pos) > r + 8)
                         continue;
-                    if (!Main.tile[x, y].active() || !Physics.Blast.Breakable(x, y) || Main.rand.NextFloat() >= chance)
+                    if (!Main.tile[x, y].active() || !Physics.Blast.Breakable(x, y, pickPower) || Main.rand.NextFloat() >= chance)
                         continue;
                     WorldGen.KillTile(x, y, false, false, true);   // eaten: nothing drops
                 }
@@ -306,7 +306,7 @@ namespace Terranoita.Game.Magic
                 SoundEngine.PlaySound(SoundID.Item14, s.Pos);
             // big Noita explosions dig, as the enemies' do
             if (r >= 16 && Physics.Patches.On)
-                Physics.Blast.Explode(s.Pos, r, s.Fire);
+                Physics.Blast.Explode(s.Pos, r, s.Fire, Physics.Blast.PickPower(s.Owner));
             Lighting.AddLight(s.Pos, 1f, 0.7f, 0.3f);
         }
 
