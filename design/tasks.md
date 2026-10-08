@@ -30,6 +30,13 @@ How it works (author, 2026-10-08): the author only says "работай" to eith
 - Roadmap: design/roadmap.md. Worldgen plan: design/worldgen_plan.md (PC-10 after CLOUD-7).
 
 ## PC queue
+- PC-15 new (before PC-10): check CLOUD-7 on the real files: `tncli wak-list <noita> data/scripts/biomes` -> fix
+  SCRIPTS in tools/seed_biome_spawns.py (rerun it; author numbers stay) and clear `_unverified`; `tncli biome-spawns
+  <noita> data/scripts/biomes/coalmine.lua 50` and the same for 3-4 more biomes plus
+  `... data/scripts/items/chest_random.lua 50 drop_random_reward` (needs args: x,y,entity,rand_x,rand_y: add if
+  it errors); list the engine calls we lack (add them to NoitaBiomeSpawns.NewEnv if a script needs a value);
+  `tncli pixel-scene <noita> <a scene png from the output>`. Check: placements look like Noita's (wands, potions,
+  chests, scenes), no Lua errors.
 - PC-16 waits author: 0.4.2 submitted to Melty 2026-10-08 as a draft (upload d67636aa, 1272555 bytes, sha256
   45bd55f3ee081346..., one click yes; multiplayer maxPlayers 255 + host address "Hosting at " in latest.log, no join
   args: joining untested). Live after the author presses Play on 0.4.2 in the Melty app. Next: test Host & Play +
@@ -54,8 +61,6 @@ How it works (author, 2026-10-08): the author only says "работай" to eith
   clamps synced mana at 400 (MessageBuffer.GetData).
 
 ## CLOUD queue
-- CLOUD-7 new: Core NoitaBiomeSpawns + chest_random + pixel scene decode + biome_spawns.json by tools
-  (design/worldgen_plan.md section 2). Check: Core tests; `tncli biome-spawns` for the PC.
 - (CLOUD-6 dropped: the PC did night-only surface spawns in Spawning.cs without a sheet column.)
 
 ## Author (questions; agents do not wait for answers)
@@ -65,6 +70,12 @@ How it works (author, 2026-10-08): the author only says "работай" to eith
   never in a public repo).
 
 ## Done (last ~8)
+- done (CLOUD) CLOUD-7: Core NoitaPng (8-bit PNG reader), PixelScene (WangColors from materials.xml, Decode,
+  Downscale 16/3 px per tile, mostly-air = air), NoitaBiomeSpawns (runs a biome script or chest_random.lua with a
+  recording host: EntityLoad/LoadPixelScene/CreateItemActionEntity/LoadBackgroundSprite -> Placements,
+  RegisterSpawnFunction colours, seeded Random/ProceduralRandom, GetRandomAction via LuaWandMaker, Missing/Errors);
+  sheet biome_spawns.json (tools/seed_biome_spawns.py: 28 biomes x 5 functions, per_10k_tiles defaults, script
+  names _unverified); tncli biome-spawns, pixel-scene. 113 Core tests, python tests.
 - done (CLOUD) CLOUD-8: spell_projectiles.json from the PC's runtime rules: air_friction = documented 0.55 when
   unset (106 rows changed, nothing else), new columns liquid_drag, terminal_velocity (-1 = apply_terminal_velocity
   0), die_on_liquid, die_on_low_velocity, low_velocity_limit, bounce_energy, penetrate_world, lightning_radius,

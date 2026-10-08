@@ -107,6 +107,49 @@ namespace Terranoita.Cli
                                 Console.WriteLine(kv.Value + " " + kv.Key);
                             return 0;
                         }
+                        case "biome-spawns":   // biome-spawns <noita> <biome script.lua> [count] [function,function]: placements histogram (worldgen)
+                        {
+                            int n = args.Length > 3 ? int.Parse(args[3]) : 100;
+                            var b = new Terranoita.Noita.NoitaBiomeSpawns(p => Text(files, p), 1);
+                            b.Load(args[2]);
+                            var fns = args.Length > 4 ? args[4].Split(',', StringSplitOptions.RemoveEmptyEntries)
+                                : b.SpawnFunctions.Values.Concat(new[] { "spawn_wands", "spawn_potions", "spawn_items", "spawn_chest" })
+                                   .Distinct().Where(b.Has).ToArray();
+                            Console.WriteLine("spawn colours: " + string.Join(", ", b.SpawnFunctions.Select(kv => kv.Key.ToString("x8") + "=" + kv.Value)));
+                            foreach (var fn in fns)
+                            {
+                                var counts = new Dictionary<string, int>();
+                                for (int k = 0; k < n; k++)
+                                    foreach (var p in b.Call(fn, 512 * (k % 10) + 13 * k, 1024 + 37 * k))
+                                        counts[p.Kind + " " + p.File] = (counts.TryGetValue(p.Kind + " " + p.File, out int c) ? c : 0) + 1;
+                                Console.WriteLine(fn + ": " + (counts.Count == 0 ? "nothing" : string.Join(", ", counts.OrderByDescending(kv => kv.Value).Select(kv => kv.Value + "x " + kv.Key))));
+                            }
+                            if (b.Missing.Count > 0) Console.WriteLine("engine calls we lack: " + string.Join(", ", b.Missing));
+                            foreach (var e in b.Errors.Take(10)) Console.WriteLine("error: " + e);
+                            return b.Errors.Count > 0 ? 1 : 0;
+                        }
+                        case "pixel-scene":   // pixel-scene <noita> <materials.png>: the scene as Terraria tiles (one letter per material)
+                        {
+                            if (!files.TryRead(args[2], out var png)) throw new FileNotFoundException(args[2]);
+                            var grid = Terranoita.Noita.PixelScene.Decode(Terranoita.Noita.NoitaPng.Read(png),
+                                Terranoita.Noita.PixelScene.WangColors(Text(files, "data/materials.xml")));
+                            var tiles = Terranoita.Noita.PixelScene.Downscale(grid);
+                            var letters = new Dictionary<string, char>();
+                            for (int y = 0; y < tiles.GetLength(1); y++)
+                            {
+                                var row = new System.Text.StringBuilder();
+                                for (int x = 0; x < tiles.GetLength(0); x++)
+                                {
+                                    var m = tiles[x, y];
+                                    if (m != null && !letters.ContainsKey(m)) letters[m] = (char)('a' + letters.Count % 26);
+                                    row.Append(m == null ? '.' : letters[m]);
+                                }
+                                Console.WriteLine(row);
+                            }
+                            Console.WriteLine(grid.GetLength(0) + "x" + grid.GetLength(1) + " px -> " + tiles.GetLength(0) + "x" + tiles.GetLength(1) +
+                                              " tiles; " + string.Join(", ", letters.Select(kv => kv.Value + "=" + kv.Key)));
+                            return 0;
+                        }
                         case "lua-wand":   // lua-wand <noita> <script.lua> [count]: wands made by Noita's own procedural script
                         {
                             int n = args.Length > 3 ? int.Parse(args[3]) : 3;

@@ -27,6 +27,7 @@ NAMES = {
     "projectiles": ("ProjectileDef", "Projectiles"),
     "ai_archetypes": ("AiArchetypeDef", "AiArchetypes"),
     "biome_map": ("BiomeMapDef", "BiomeMap"),
+    "biome_spawns": ("BiomeSpawnDef", "BiomeSpawns"),
     "terraria_zones": ("TerrariaZoneDef", "TerrariaZones"),
     "balance": ("BalanceDef", "Balance"),
     "drops": ("DropDef", "Drops"),

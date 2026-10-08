@@ -1,0 +1,2001 @@
+{
+ "sheet": "biome_spawns",
+ "description": "Worldgen: how often Noita's biome placement functions run per Terraria zone (design/worldgen_plan.md).",
+ "key": "id",
+ "columns": {
+  "id": {
+   "type": "string",
+   "desc": "<biome>:<function>."
+  },
+  "biome": {
+   "type": "string",
+   "desc": "Noita biome (biome_map.json id)."
+  },
+  "script": {
+   "type": "string",
+   "desc": "Noita script, data/scripts/biomes/<script>.lua."
+  },
+  "function": {
+   "type": "string",
+   "desc": "The script's placement function the worldgen calls."
+  },
+  "per_10k_tiles": {
+   "type": "number",
+   "desc": "Calls per 10 000 tiles of the biome's Terraria zone (author tunes; 0 = off)."
+  },
+  "stage": {
+   "type": "enum",
+   "values": [
+    "1a",
+    "1b",
+    "1c",
+    "2",
+    "3",
+    "4"
+   ],
+   "desc": "Stage that builds it (worldgen: 4)."
+  }
+ },
+ "rows": [
+  {
+   "id": "Forest:spawn_wands",
+   "biome": "Forest",
+   "script": "hills",
+   "function": "spawn_wands",
+   "per_10k_tiles": 1.0,
+   "stage": "4",
+   "_unverified": {
+    "script": "name from memory; check data/scripts/biomes on the PC"
+   },
+   "_sources": {
+    "all": "tools/seed_biome_spawns.py defaults; numbers: author"
+   }
+  },
+  {
+   "id": "Forest:spawn_potions",
+   "biome": "Forest",
+   "script": "hills",
+   "function": "spawn_potions",
+   "per_10k_tiles": 2.0,
+   "stage": "4",
+   "_unverified": {
+    "script": "name from memory; check data/scripts/biomes on the PC"
+   },
+   "_sources": {
+    "all": "tools/seed_biome_spawns.py defaults; numbers: author"
+   }
+  },
+  {
+   "id": "Forest:spawn_items",
+   "biome": "Forest",
+   "script": "hills",
+   "function": "spawn_items",
+   "per_10k_tiles": 1.5,
+   "stage": "4",
+   "_unverified": {
+    "script": "name from memory; check data/scripts/biomes on the PC"
+   },
+   "_sources": {
+    "all": "tools/seed_biome_spawns.py defaults; numbers: author"
+   }
+  },
+  {
+   "id": "Forest:spawn_chest",
+   "biome": "Forest",
+   "script": "hills",
+   "function": "spawn_chest",
+   "per_10k_tiles": 0.5,
+   "stage": "4",
+   "_unverified": {
+    "script": "name from memory; check data/scripts/biomes on the PC"
+   },
+   "_sources": {
+    "all": "tools/seed_biome_spawns.py defaults; numbers: author"
+   }
+  },
+  {
+   "id": "Forest:spawn_pixel_scenes",
+   "biome": "Forest",
+   "script": "hills",
+   "function": "spawn_pixel_scenes",
+   "per_10k_tiles": 1.0,
+   "stage": "4",
+   "_unverified": {
+    "script": "name from memory; check data/scripts/biomes on the PC"
+   },
+   "_sources": {
+    "all": "tools/seed_biome_spawns.py defaults; numbers: author"
+   }
+  },
+  {
+   "id": "Lake:spawn_wands",
+   "biome": "Lake",
+   "script": "lake",
+   "function": "spawn_wands",
+   "per_10k_tiles": 1.0,
+   "stage": "4",
+   "_unverified": {
+    "script": "name from memory; check data/scripts/biomes on the PC"
+   },
+   "_sources": {
+    "all": "tools/seed_biome_spawns.py defaults; numbers: author"
+   }
+  },
+  {
+   "id": "Lake:spawn_potions",
+   "biome": "Lake",
+   "script": "lake",
+   "function": "spawn_potions",
+   "per_10k_tiles": 2.0,
+   "stage": "4",
+   "_unverified": {
+    "script": "name from memory; check data/scripts/biomes on the PC"
+   },
+   "_sources": {
+    "all": "tools/seed_biome_spawns.py defaults; numbers: author"
+   }
+  },
+  {
+   "id": "Lake:spawn_items",
+   "biome": "Lake",
+   "script": "lake",
+   "function": "spawn_items",
+   "per_10k_tiles": 1.5,
+   "stage": "4",
+   "_unverified": {
+    "script": "name from memory; check data/scripts/biomes on the PC"
+   },
+   "_sources": {
+    "all": "tools/seed_biome_spawns.py defaults; numbers: author"
+   }
+  },
+  {
+   "id": "Lake:spawn_chest",
+   "biome": "Lake",
+   "script": "lake",
+   "function": "spawn_chest",
+   "per_10k_tiles": 0.5,
+   "stage": "4",
+   "_unverified": {
+    "script": "name from memory; check data/scripts/biomes on the PC"
+   },
+   "_sources": {
+    "all": "tools/seed_biome_spawns.py defaults; numbers: author"
+   }
+  },
+  {
+   "id": "Lake:spawn_pixel_scenes",
+   "biome": "Lake",
+   "script": "lake",
+   "function": "spawn_pixel_scenes",
+   "per_10k_tiles": 1.0,
+   "stage": "4",
+   "_unverified": {
+    "script": "name from memory; check data/scripts/biomes on the PC"
+   },
+   "_sources": {
+    "all": "tools/seed_biome_spawns.py defaults; numbers: author"
+   }
+  },
+  {
+   "id": "Mines:spawn_wands",
+   "biome": "Mines",
+   "script": "coalmine",
+   "function": "spawn_wands",
+   "per_10k_tiles": 1.0,
+   "stage": "4",
+   "_unverified": {
+    "script": "name from memory; check data/scripts/biomes on the PC"
+   },
+   "_sources": {
+    "all": "tools/seed_biome_spawns.py defaults; numbers: author"
+   }
+  },
+  {
+   "id": "Mines:spawn_potions",
+   "biome": "Mines",
+   "script": "coalmine",
+   "function": "spawn_potions",
+   "per_10k_tiles": 2.0,
+   "stage": "4",
+   "_unverified": {
+    "script": "name from memory; check data/scripts/biomes on the PC"
+   },
+   "_sources": {
+    "all": "tools/seed_biome_spawns.py defaults; numbers: author"
+   }
+  },
+  {
+   "id": "Mines:spawn_items",
+   "biome": "Mines",
+   "script": "coalmine",
+   "function": "spawn_items",
+   "per_10k_tiles": 1.5,
+   "stage": "4",
+   "_unverified": {
+    "script": "name from memory; check data/scripts/biomes on the PC"
+   },
+   "_sources": {
+    "all": "tools/seed_biome_spawns.py defaults; numbers: author"
+   }
+  },
+  {
+   "id": "Mines:spawn_chest",
+   "biome": "Mines",
+   "script": "coalmine",
+   "function": "spawn_chest",
+   "per_10k_tiles": 0.5,
+   "stage": "4",
+   "_unverified": {
+    "script": "name from memory; check data/scripts/biomes on the PC"
+   },
+   "_sources": {
+    "all": "tools/seed_biome_spawns.py defaults; numbers: author"
+   }
+  },
+  {
+   "id": "Mines:spawn_pixel_scenes",
+   "biome": "Mines",
+   "script": "coalmine",
+   "function": "spawn_pixel_scenes",
+   "per_10k_tiles": 1.0,
+   "stage": "4",
+   "_unverified": {
+    "script": "name from memory; check data/scripts/biomes on the PC"
+   },
+   "_sources": {
+    "all": "tools/seed_biome_spawns.py defaults; numbers: author"
+   }
+  },
+  {
+   "id": "Collapsed Mines:spawn_wands",
+   "biome": "Collapsed Mines",
+   "script": "coalmine_alt",
+   "function": "spawn_wands",
+   "per_10k_tiles": 1.0,
+   "stage": "4",
+   "_unverified": {
+    "script": "name from memory; check data/scripts/biomes on the PC"
+   },
+   "_sources": {
+    "all": "tools/seed_biome_spawns.py defaults; numbers: author"
+   }
+  },
+  {
+   "id": "Collapsed Mines:spawn_potions",
+   "biome": "Collapsed Mines",
+   "script": "coalmine_alt",
+   "function": "spawn_potions",
+   "per_10k_tiles": 2.0,
+   "stage": "4",
+   "_unverified": {
+    "script": "name from memory; check data/scripts/biomes on the PC"
+   },
+   "_sources": {
+    "all": "tools/seed_biome_spawns.py defaults; numbers: author"
+   }
+  },
+  {
+   "id": "Collapsed Mines:spawn_items",
+   "biome": "Collapsed Mines",
+   "script": "coalmine_alt",
+   "function": "spawn_items",
+   "per_10k_tiles": 1.5,
+   "stage": "4",
+   "_unverified": {
+    "script": "name from memory; check data/scripts/biomes on the PC"
+   },
+   "_sources": {
+    "all": "tools/seed_biome_spawns.py defaults; numbers: author"
+   }
+  },
+  {
+   "id": "Collapsed Mines:spawn_chest",
+   "biome": "Collapsed Mines",
+   "script": "coalmine_alt",
+   "function": "spawn_chest",
+   "per_10k_tiles": 0.5,
+   "stage": "4",
+   "_unverified": {
+    "script": "name from memory; check data/scripts/biomes on the PC"
+   },
+   "_sources": {
+    "all": "tools/seed_biome_spawns.py defaults; numbers: author"
+   }
+  },
+  {
+   "id": "Collapsed Mines:spawn_pixel_scenes",
+   "biome": "Collapsed Mines",
+   "script": "coalmine_alt",
+   "function": "spawn_pixel_scenes",
+   "per_10k_tiles": 1.0,
+   "stage": "4",
+   "_unverified": {
+    "script": "name from memory; check data/scripts/biomes on the PC"
+   },
+   "_sources": {
+    "all": "tools/seed_biome_spawns.py defaults; numbers: author"
+   }
+  },
+  {
+   "id": "Desert:spawn_wands",
+   "biome": "Desert",
+   "script": "desert",
+   "function": "spawn_wands",
+   "per_10k_tiles": 1.0,
+   "stage": "4",
+   "_unverified": {
+    "script": "name from memory; check data/scripts/biomes on the PC"
+   },
+   "_sources": {
+    "all": "tools/seed_biome_spawns.py defaults; numbers: author"
+   }
+  },
+  {
+   "id": "Desert:spawn_potions",
+   "biome": "Desert",
+   "script": "desert",
+   "function": "spawn_potions",
+   "per_10k_tiles": 2.0,
+   "stage": "4",
+   "_unverified": {
+    "script": "name from memory; check data/scripts/biomes on the PC"
+   },
+   "_sources": {
+    "all": "tools/seed_biome_spawns.py defaults; numbers: author"
+   }
+  },
+  {
+   "id": "Desert:spawn_items",
+   "biome": "Desert",
+   "script": "desert",
+   "function": "spawn_items",
+   "per_10k_tiles": 1.5,
+   "stage": "4",
+   "_unverified": {
+    "script": "name from memory; check data/scripts/biomes on the PC"
+   },
+   "_sources": {
+    "all": "tools/seed_biome_spawns.py defaults; numbers: author"
+   }
+  },
+  {
+   "id": "Desert:spawn_chest",
+   "biome": "Desert",
+   "script": "desert",
+   "function": "spawn_chest",
+   "per_10k_tiles": 0.5,
+   "stage": "4",
+   "_unverified": {
+    "script": "name from memory; check data/scripts/biomes on the PC"
+   },
+   "_sources": {
+    "all": "tools/seed_biome_spawns.py defaults; numbers: author"
+   }
+  },
+  {
+   "id": "Desert:spawn_pixel_scenes",
+   "biome": "Desert",
+   "script": "desert",
+   "function": "spawn_pixel_scenes",
+   "per_10k_tiles": 1.0,
+   "stage": "4",
+   "_unverified": {
+    "script": "name from memory; check data/scripts/biomes on the PC"
+   },
+   "_sources": {
+    "all": "tools/seed_biome_spawns.py defaults; numbers: author"
+   }
+  },
+  {
+   "id": "Snowy Wasteland:spawn_wands",
+   "biome": "Snowy Wasteland",
+   "script": "winter",
+   "function": "spawn_wands",
+   "per_10k_tiles": 1.0,
+   "stage": "4",
+   "_unverified": {
+    "script": "name from memory; check data/scripts/biomes on the PC"
+   },
+   "_sources": {
+    "all": "tools/seed_biome_spawns.py defaults; numbers: author"
+   }
+  },
+  {
+   "id": "Snowy Wasteland:spawn_potions",
+   "biome": "Snowy Wasteland",
+   "script": "winter",
+   "function": "spawn_potions",
+   "per_10k_tiles": 2.0,
+   "stage": "4",
+   "_unverified": {
+    "script": "name from memory; check data/scripts/biomes on the PC"
+   },
+   "_sources": {
+    "all": "tools/seed_biome_spawns.py defaults; numbers: author"
+   }
+  },
+  {
+   "id": "Snowy Wasteland:spawn_items",
+   "biome": "Snowy Wasteland",
+   "script": "winter",
+   "function": "spawn_items",
+   "per_10k_tiles": 1.5,
+   "stage": "4",
+   "_unverified": {
+    "script": "name from memory; check data/scripts/biomes on the PC"
+   },
+   "_sources": {
+    "all": "tools/seed_biome_spawns.py defaults; numbers: author"
+   }
+  },
+  {
+   "id": "Snowy Wasteland:spawn_chest",
+   "biome": "Snowy Wasteland",
+   "script": "winter",
+   "function": "spawn_chest",
+   "per_10k_tiles": 0.5,
+   "stage": "4",
+   "_unverified": {
+    "script": "name from memory; check data/scripts/biomes on the PC"
+   },
+   "_sources": {
+    "all": "tools/seed_biome_spawns.py defaults; numbers: author"
+   }
+  },
+  {
+   "id": "Snowy Wasteland:spawn_pixel_scenes",
+   "biome": "Snowy Wasteland",
+   "script": "winter",
+   "function": "spawn_pixel_scenes",
+   "per_10k_tiles": 1.0,
+   "stage": "4",
+   "_unverified": {
+    "script": "name from memory; check data/scripts/biomes on the PC"
+   },
+   "_sources": {
+    "all": "tools/seed_biome_spawns.py defaults; numbers: author"
+   }
+  },
+  {
+   "id": "Coal Pits:spawn_wands",
+   "biome": "Coal Pits",
+   "script": "excavationsite",
+   "function": "spawn_wands",
+   "per_10k_tiles": 1.0,
+   "stage": "4",
+   "_unverified": {
+    "script": "name from memory; check data/scripts/biomes on the PC"
+   },
+   "_sources": {
+    "all": "tools/seed_biome_spawns.py defaults; numbers: author"
+   }
+  },
+  {
+   "id": "Coal Pits:spawn_potions",
+   "biome": "Coal Pits",
+   "script": "excavationsite",
+   "function": "spawn_potions",
+   "per_10k_tiles": 2.0,
+   "stage": "4",
+   "_unverified": {
+    "script": "name from memory; check data/scripts/biomes on the PC"
+   },
+   "_sources": {
+    "all": "tools/seed_biome_spawns.py defaults; numbers: author"
+   }
+  },
+  {
+   "id": "Coal Pits:spawn_items",
+   "biome": "Coal Pits",
+   "script": "excavationsite",
+   "function": "spawn_items",
+   "per_10k_tiles": 1.5,
+   "stage": "4",
+   "_unverified": {
+    "script": "name from memory; check data/scripts/biomes on the PC"
+   },
+   "_sources": {
+    "all": "tools/seed_biome_spawns.py defaults; numbers: author"
+   }
+  },
+  {
+   "id": "Coal Pits:spawn_chest",
+   "biome": "Coal Pits",
+   "script": "excavationsite",
+   "function": "spawn_chest",
+   "per_10k_tiles": 0.5,
+   "stage": "4",
+   "_unverified": {
+    "script": "name from memory; check data/scripts/biomes on the PC"
+   },
+   "_sources": {
+    "all": "tools/seed_biome_spawns.py defaults; numbers: author"
+   }
+  },
+  {
+   "id": "Coal Pits:spawn_pixel_scenes",
+   "biome": "Coal Pits",
+   "script": "excavationsite",
+   "function": "spawn_pixel_scenes",
+   "per_10k_tiles": 1.0,
+   "stage": "4",
+   "_unverified": {
+    "script": "name from memory; check data/scripts/biomes on the PC"
+   },
+   "_sources": {
+    "all": "tools/seed_biome_spawns.py defaults; numbers: author"
+   }
+  },
+  {
+   "id": "Snowy Depths:spawn_wands",
+   "biome": "Snowy Depths",
+   "script": "snowcave",
+   "function": "spawn_wands",
+   "per_10k_tiles": 1.0,
+   "stage": "4",
+   "_unverified": {
+    "script": "name from memory; check data/scripts/biomes on the PC"
+   },
+   "_sources": {
+    "all": "tools/seed_biome_spawns.py defaults; numbers: author"
+   }
+  },
+  {
+   "id": "Snowy Depths:spawn_potions",
+   "biome": "Snowy Depths",
+   "script": "snowcave",
+   "function": "spawn_potions",
+   "per_10k_tiles": 2.0,
+   "stage": "4",
+   "_unverified": {
+    "script": "name from memory; check data/scripts/biomes on the PC"
+   },
+   "_sources": {
+    "all": "tools/seed_biome_spawns.py defaults; numbers: author"
+   }
+  },
+  {
+   "id": "Snowy Depths:spawn_items",
+   "biome": "Snowy Depths",
+   "script": "snowcave",
+   "function": "spawn_items",
+   "per_10k_tiles": 1.5,
+   "stage": "4",
+   "_unverified": {
+    "script": "name from memory; check data/scripts/biomes on the PC"
+   },
+   "_sources": {
+    "all": "tools/seed_biome_spawns.py defaults; numbers: author"
+   }
+  },
+  {
+   "id": "Snowy Depths:spawn_chest",
+   "biome": "Snowy Depths",
+   "script": "snowcave",
+   "function": "spawn_chest",
+   "per_10k_tiles": 0.5,
+   "stage": "4",
+   "_unverified": {
+    "script": "name from memory; check data/scripts/biomes on the PC"
+   },
+   "_sources": {
+    "all": "tools/seed_biome_spawns.py defaults; numbers: author"
+   }
+  },
+  {
+   "id": "Snowy Depths:spawn_pixel_scenes",
+   "biome": "Snowy Depths",
+   "script": "snowcave",
+   "function": "spawn_pixel_scenes",
+   "per_10k_tiles": 1.0,
+   "stage": "4",
+   "_unverified": {
+    "script": "name from memory; check data/scripts/biomes on the PC"
+   },
+   "_sources": {
+    "all": "tools/seed_biome_spawns.py defaults; numbers: author"
+   }
+  },
+  {
+   "id": "Hiisi Base:spawn_wands",
+   "biome": "Hiisi Base",
+   "script": "snowcastle",
+   "function": "spawn_wands",
+   "per_10k_tiles": 1.0,
+   "stage": "4",
+   "_unverified": {
+    "script": "name from memory; check data/scripts/biomes on the PC"
+   },
+   "_sources": {
+    "all": "tools/seed_biome_spawns.py defaults; numbers: author"
+   }
+  },
+  {
+   "id": "Hiisi Base:spawn_potions",
+   "biome": "Hiisi Base",
+   "script": "snowcastle",
+   "function": "spawn_potions",
+   "per_10k_tiles": 2.0,
+   "stage": "4",
+   "_unverified": {
+    "script": "name from memory; check data/scripts/biomes on the PC"
+   },
+   "_sources": {
+    "all": "tools/seed_biome_spawns.py defaults; numbers: author"
+   }
+  },
+  {
+   "id": "Hiisi Base:spawn_items",
+   "biome": "Hiisi Base",
+   "script": "snowcastle",
+   "function": "spawn_items",
+   "per_10k_tiles": 1.5,
+   "stage": "4",
+   "_unverified": {
+    "script": "name from memory; check data/scripts/biomes on the PC"
+   },
+   "_sources": {
+    "all": "tools/seed_biome_spawns.py defaults; numbers: author"
+   }
+  },
+  {
+   "id": "Hiisi Base:spawn_chest",
+   "biome": "Hiisi Base",
+   "script": "snowcastle",
+   "function": "spawn_chest",
+   "per_10k_tiles": 0.5,
+   "stage": "4",
+   "_unverified": {
+    "script": "name from memory; check data/scripts/biomes on the PC"
+   },
+   "_sources": {
+    "all": "tools/seed_biome_spawns.py defaults; numbers: author"
+   }
+  },
+  {
+   "id": "Hiisi Base:spawn_pixel_scenes",
+   "biome": "Hiisi Base",
+   "script": "snowcastle",
+   "function": "spawn_pixel_scenes",
+   "per_10k_tiles": 1.0,
+   "stage": "4",
+   "_unverified": {
+    "script": "name from memory; check data/scripts/biomes on the PC"
+   },
+   "_sources": {
+    "all": "tools/seed_biome_spawns.py defaults; numbers: author"
+   }
+  },
+  {
+   "id": "Underground Jungle:spawn_wands",
+   "biome": "Underground Jungle",
+   "script": "rainforest",
+   "function": "spawn_wands",
+   "per_10k_tiles": 1.0,
+   "stage": "4",
+   "_unverified": {
+    "script": "name from memory; check data/scripts/biomes on the PC"
+   },
+   "_sources": {
+    "all": "tools/seed_biome_spawns.py defaults; numbers: author"
+   }
+  },
+  {
+   "id": "Underground Jungle:spawn_potions",
+   "biome": "Underground Jungle",
+   "script": "rainforest",
+   "function": "spawn_potions",
+   "per_10k_tiles": 2.0,
+   "stage": "4",
+   "_unverified": {
+    "script": "name from memory; check data/scripts/biomes on the PC"
+   },
+   "_sources": {
+    "all": "tools/seed_biome_spawns.py defaults; numbers: author"
+   }
+  },
+  {
+   "id": "Underground Jungle:spawn_items",
+   "biome": "Underground Jungle",
+   "script": "rainforest",
+   "function": "spawn_items",
+   "per_10k_tiles": 1.5,
+   "stage": "4",
+   "_unverified": {
+    "script": "name from memory; check data/scripts/biomes on the PC"
+   },
+   "_sources": {
+    "all": "tools/seed_biome_spawns.py defaults; numbers: author"
+   }
+  },
+  {
+   "id": "Underground Jungle:spawn_chest",
+   "biome": "Underground Jungle",
+   "script": "rainforest",
+   "function": "spawn_chest",
+   "per_10k_tiles": 0.5,
+   "stage": "4",
+   "_unverified": {
+    "script": "name from memory; check data/scripts/biomes on the PC"
+   },
+   "_sources": {
+    "all": "tools/seed_biome_spawns.py defaults; numbers: author"
+   }
+  },
+  {
+   "id": "Underground Jungle:spawn_pixel_scenes",
+   "biome": "Underground Jungle",
+   "script": "rainforest",
+   "function": "spawn_pixel_scenes",
+   "per_10k_tiles": 1.0,
+   "stage": "4",
+   "_unverified": {
+    "script": "name from memory; check data/scripts/biomes on the PC"
+   },
+   "_sources": {
+    "all": "tools/seed_biome_spawns.py defaults; numbers: author"
+   }
+  },
+  {
+   "id": "Fungal Caverns:spawn_wands",
+   "biome": "Fungal Caverns",
+   "script": "fungicave",
+   "function": "spawn_wands",
+   "per_10k_tiles": 1.0,
+   "stage": "4",
+   "_unverified": {
+    "script": "name from memory; check data/scripts/biomes on the PC"
+   },
+   "_sources": {
+    "all": "tools/seed_biome_spawns.py defaults; numbers: author"
+   }
+  },
+  {
+   "id": "Fungal Caverns:spawn_potions",
+   "biome": "Fungal Caverns",
+   "script": "fungicave",
+   "function": "spawn_potions",
+   "per_10k_tiles": 2.0,
+   "stage": "4",
+   "_unverified": {
+    "script": "name from memory; check data/scripts/biomes on the PC"
+   },
+   "_sources": {
+    "all": "tools/seed_biome_spawns.py defaults; numbers: author"
+   }
+  },
+  {
+   "id": "Fungal Caverns:spawn_items",
+   "biome": "Fungal Caverns",
+   "script": "fungicave",
+   "function": "spawn_items",
+   "per_10k_tiles": 1.5,
+   "stage": "4",
+   "_unverified": {
+    "script": "name from memory; check data/scripts/biomes on the PC"
+   },
+   "_sources": {
+    "all": "tools/seed_biome_spawns.py defaults; numbers: author"
+   }
+  },
+  {
+   "id": "Fungal Caverns:spawn_chest",
+   "biome": "Fungal Caverns",
+   "script": "fungicave",
+   "function": "spawn_chest",
+   "per_10k_tiles": 0.5,
+   "stage": "4",
+   "_unverified": {
+    "script": "name from memory; check data/scripts/biomes on the PC"
+   },
+   "_sources": {
+    "all": "tools/seed_biome_spawns.py defaults; numbers: author"
+   }
+  },
+  {
+   "id": "Fungal Caverns:spawn_pixel_scenes",
+   "biome": "Fungal Caverns",
+   "script": "fungicave",
+   "function": "spawn_pixel_scenes",
+   "per_10k_tiles": 1.0,
+   "stage": "4",
+   "_unverified": {
+    "script": "name from memory; check data/scripts/biomes on the PC"
+   },
+   "_sources": {
+    "all": "tools/seed_biome_spawns.py defaults; numbers: author"
+   }
+  },
+  {
+   "id": "Sandcave:spawn_wands",
+   "biome": "Sandcave",
+   "script": "sandcave",
+   "function": "spawn_wands",
+   "per_10k_tiles": 1.0,
+   "stage": "4",
+   "_unverified": {
+    "script": "name from memory; check data/scripts/biomes on the PC"
+   },
+   "_sources": {
+    "all": "tools/seed_biome_spawns.py defaults; numbers: author"
+   }
+  },
+  {
+   "id": "Sandcave:spawn_potions",
+   "biome": "Sandcave",
+   "script": "sandcave",
+   "function": "spawn_potions",
+   "per_10k_tiles": 2.0,
+   "stage": "4",
+   "_unverified": {
+    "script": "name from memory; check data/scripts/biomes on the PC"
+   },
+   "_sources": {
+    "all": "tools/seed_biome_spawns.py defaults; numbers: author"
+   }
+  },
+  {
+   "id": "Sandcave:spawn_items",
+   "biome": "Sandcave",
+   "script": "sandcave",
+   "function": "spawn_items",
+   "per_10k_tiles": 1.5,
+   "stage": "4",
+   "_unverified": {
+    "script": "name from memory; check data/scripts/biomes on the PC"
+   },
+   "_sources": {
+    "all": "tools/seed_biome_spawns.py defaults; numbers: author"
+   }
+  },
+  {
+   "id": "Sandcave:spawn_chest",
+   "biome": "Sandcave",
+   "script": "sandcave",
+   "function": "spawn_chest",
+   "per_10k_tiles": 0.5,
+   "stage": "4",
+   "_unverified": {
+    "script": "name from memory; check data/scripts/biomes on the PC"
+   },
+   "_sources": {
+    "all": "tools/seed_biome_spawns.py defaults; numbers: author"
+   }
+  },
+  {
+   "id": "Sandcave:spawn_pixel_scenes",
+   "biome": "Sandcave",
+   "script": "sandcave",
+   "function": "spawn_pixel_scenes",
+   "per_10k_tiles": 1.0,
+   "stage": "4",
+   "_unverified": {
+    "script": "name from memory; check data/scripts/biomes on the PC"
+   },
+   "_sources": {
+    "all": "tools/seed_biome_spawns.py defaults; numbers: author"
+   }
+  },
+  {
+   "id": "Magical Temple:spawn_wands",
+   "biome": "Magical Temple",
+   "script": "wizardcave",
+   "function": "spawn_wands",
+   "per_10k_tiles": 1.0,
+   "stage": "4",
+   "_unverified": {
+    "script": "name from memory; check data/scripts/biomes on the PC"
+   },
+   "_sources": {
+    "all": "tools/seed_biome_spawns.py defaults; numbers: author"
+   }
+  },
+  {
+   "id": "Magical Temple:spawn_potions",
+   "biome": "Magical Temple",
+   "script": "wizardcave",
+   "function": "spawn_potions",
+   "per_10k_tiles": 2.0,
+   "stage": "4",
+   "_unverified": {
+    "script": "name from memory; check data/scripts/biomes on the PC"
+   },
+   "_sources": {
+    "all": "tools/seed_biome_spawns.py defaults; numbers: author"
+   }
+  },
+  {
+   "id": "Magical Temple:spawn_items",
+   "biome": "Magical Temple",
+   "script": "wizardcave",
+   "function": "spawn_items",
+   "per_10k_tiles": 1.5,
+   "stage": "4",
+   "_unverified": {
+    "script": "name from memory; check data/scripts/biomes on the PC"
+   },
+   "_sources": {
+    "all": "tools/seed_biome_spawns.py defaults; numbers: author"
+   }
+  },
+  {
+   "id": "Magical Temple:spawn_chest",
+   "biome": "Magical Temple",
+   "script": "wizardcave",
+   "function": "spawn_chest",
+   "per_10k_tiles": 0.5,
+   "stage": "4",
+   "_unverified": {
+    "script": "name from memory; check data/scripts/biomes on the PC"
+   },
+   "_sources": {
+    "all": "tools/seed_biome_spawns.py defaults; numbers: author"
+   }
+  },
+  {
+   "id": "Magical Temple:spawn_pixel_scenes",
+   "biome": "Magical Temple",
+   "script": "wizardcave",
+   "function": "spawn_pixel_scenes",
+   "per_10k_tiles": 1.0,
+   "stage": "4",
+   "_unverified": {
+    "script": "name from memory; check data/scripts/biomes on the PC"
+   },
+   "_sources": {
+    "all": "tools/seed_biome_spawns.py defaults; numbers: author"
+   }
+  },
+  {
+   "id": "Ancient Laboratory:spawn_wands",
+   "biome": "Ancient Laboratory",
+   "script": "robobase",
+   "function": "spawn_wands",
+   "per_10k_tiles": 1.0,
+   "stage": "4",
+   "_unverified": {
+    "script": "name from memory; check data/scripts/biomes on the PC"
+   },
+   "_sources": {
+    "all": "tools/seed_biome_spawns.py defaults; numbers: author"
+   }
+  },
+  {
+   "id": "Ancient Laboratory:spawn_potions",
+   "biome": "Ancient Laboratory",
+   "script": "robobase",
+   "function": "spawn_potions",
+   "per_10k_tiles": 2.0,
+   "stage": "4",
+   "_unverified": {
+    "script": "name from memory; check data/scripts/biomes on the PC"
+   },
+   "_sources": {
+    "all": "tools/seed_biome_spawns.py defaults; numbers: author"
+   }
+  },
+  {
+   "id": "Ancient Laboratory:spawn_items",
+   "biome": "Ancient Laboratory",
+   "script": "robobase",
+   "function": "spawn_items",
+   "per_10k_tiles": 1.5,
+   "stage": "4",
+   "_unverified": {
+    "script": "name from memory; check data/scripts/biomes on the PC"
+   },
+   "_sources": {
+    "all": "tools/seed_biome_spawns.py defaults; numbers: author"
+   }
+  },
+  {
+   "id": "Ancient Laboratory:spawn_chest",
+   "biome": "Ancient Laboratory",
+   "script": "robobase",
+   "function": "spawn_chest",
+   "per_10k_tiles": 0.5,
+   "stage": "4",
+   "_unverified": {
+    "script": "name from memory; check data/scripts/biomes on the PC"
+   },
+   "_sources": {
+    "all": "tools/seed_biome_spawns.py defaults; numbers: author"
+   }
+  },
+  {
+   "id": "Ancient Laboratory:spawn_pixel_scenes",
+   "biome": "Ancient Laboratory",
+   "script": "robobase",
+   "function": "spawn_pixel_scenes",
+   "per_10k_tiles": 1.0,
+   "stage": "4",
+   "_unverified": {
+    "script": "name from memory; check data/scripts/biomes on the PC"
+   },
+   "_sources": {
+    "all": "tools/seed_biome_spawns.py defaults; numbers: author"
+   }
+  },
+  {
+   "id": "Pyramid:spawn_wands",
+   "biome": "Pyramid",
+   "script": "pyramid",
+   "function": "spawn_wands",
+   "per_10k_tiles": 1.0,
+   "stage": "4",
+   "_unverified": {
+    "script": "name from memory; check data/scripts/biomes on the PC"
+   },
+   "_sources": {
+    "all": "tools/seed_biome_spawns.py defaults; numbers: author"
+   }
+  },
+  {
+   "id": "Pyramid:spawn_potions",
+   "biome": "Pyramid",
+   "script": "pyramid",
+   "function": "spawn_potions",
+   "per_10k_tiles": 2.0,
+   "stage": "4",
+   "_unverified": {
+    "script": "name from memory; check data/scripts/biomes on the PC"
+   },
+   "_sources": {
+    "all": "tools/seed_biome_spawns.py defaults; numbers: author"
+   }
+  },
+  {
+   "id": "Pyramid:spawn_items",
+   "biome": "Pyramid",
+   "script": "pyramid",
+   "function": "spawn_items",
+   "per_10k_tiles": 1.5,
+   "stage": "4",
+   "_unverified": {
+    "script": "name from memory; check data/scripts/biomes on the PC"
+   },
+   "_sources": {
+    "all": "tools/seed_biome_spawns.py defaults; numbers: author"
+   }
+  },
+  {
+   "id": "Pyramid:spawn_chest",
+   "biome": "Pyramid",
+   "script": "pyramid",
+   "function": "spawn_chest",
+   "per_10k_tiles": 0.5,
+   "stage": "4",
+   "_unverified": {
+    "script": "name from memory; check data/scripts/biomes on the PC"
+   },
+   "_sources": {
+    "all": "tools/seed_biome_spawns.py defaults; numbers: author"
+   }
+  },
+  {
+   "id": "Pyramid:spawn_pixel_scenes",
+   "biome": "Pyramid",
+   "script": "pyramid",
+   "function": "spawn_pixel_scenes",
+   "per_10k_tiles": 1.0,
+   "stage": "4",
+   "_unverified": {
+    "script": "name from memory; check data/scripts/biomes on the PC"
+   },
+   "_sources": {
+    "all": "tools/seed_biome_spawns.py defaults; numbers: author"
+   }
+  },
+  {
+   "id": "Desert Chasm:spawn_wands",
+   "biome": "Desert Chasm",
+   "script": "desert",
+   "function": "spawn_wands",
+   "per_10k_tiles": 1.0,
+   "stage": "4",
+   "_unverified": {
+    "script": "name from memory; check data/scripts/biomes on the PC"
+   },
+   "_sources": {
+    "all": "tools/seed_biome_spawns.py defaults; numbers: author"
+   }
+  },
+  {
+   "id": "Desert Chasm:spawn_potions",
+   "biome": "Desert Chasm",
+   "script": "desert",
+   "function": "spawn_potions",
+   "per_10k_tiles": 2.0,
+   "stage": "4",
+   "_unverified": {
+    "script": "name from memory; check data/scripts/biomes on the PC"
+   },
+   "_sources": {
+    "all": "tools/seed_biome_spawns.py defaults; numbers: author"
+   }
+  },
+  {
+   "id": "Desert Chasm:spawn_items",
+   "biome": "Desert Chasm",
+   "script": "desert",
+   "function": "spawn_items",
+   "per_10k_tiles": 1.5,
+   "stage": "4",
+   "_unverified": {
+    "script": "name from memory; check data/scripts/biomes on the PC"
+   },
+   "_sources": {
+    "all": "tools/seed_biome_spawns.py defaults; numbers: author"
+   }
+  },
+  {
+   "id": "Desert Chasm:spawn_chest",
+   "biome": "Desert Chasm",
+   "script": "desert",
+   "function": "spawn_chest",
+   "per_10k_tiles": 0.5,
+   "stage": "4",
+   "_unverified": {
+    "script": "name from memory; check data/scripts/biomes on the PC"
+   },
+   "_sources": {
+    "all": "tools/seed_biome_spawns.py defaults; numbers: author"
+   }
+  },
+  {
+   "id": "Desert Chasm:spawn_pixel_scenes",
+   "biome": "Desert Chasm",
+   "script": "desert",
+   "function": "spawn_pixel_scenes",
+   "per_10k_tiles": 1.0,
+   "stage": "4",
+   "_unverified": {
+    "script": "name from memory; check data/scripts/biomes on the PC"
+   },
+   "_sources": {
+    "all": "tools/seed_biome_spawns.py defaults; numbers: author"
+   }
+  },
+  {
+   "id": "The Vault:spawn_wands",
+   "biome": "The Vault",
+   "script": "vault",
+   "function": "spawn_wands",
+   "per_10k_tiles": 1.0,
+   "stage": "4",
+   "_unverified": {
+    "script": "name from memory; check data/scripts/biomes on the PC"
+   },
+   "_sources": {
+    "all": "tools/seed_biome_spawns.py defaults; numbers: author"
+   }
+  },
+  {
+   "id": "The Vault:spawn_potions",
+   "biome": "The Vault",
+   "script": "vault",
+   "function": "spawn_potions",
+   "per_10k_tiles": 2.0,
+   "stage": "4",
+   "_unverified": {
+    "script": "name from memory; check data/scripts/biomes on the PC"
+   },
+   "_sources": {
+    "all": "tools/seed_biome_spawns.py defaults; numbers: author"
+   }
+  },
+  {
+   "id": "The Vault:spawn_items",
+   "biome": "The Vault",
+   "script": "vault",
+   "function": "spawn_items",
+   "per_10k_tiles": 1.5,
+   "stage": "4",
+   "_unverified": {
+    "script": "name from memory; check data/scripts/biomes on the PC"
+   },
+   "_sources": {
+    "all": "tools/seed_biome_spawns.py defaults; numbers: author"
+   }
+  },
+  {
+   "id": "The Vault:spawn_chest",
+   "biome": "The Vault",
+   "script": "vault",
+   "function": "spawn_chest",
+   "per_10k_tiles": 0.5,
+   "stage": "4",
+   "_unverified": {
+    "script": "name from memory; check data/scripts/biomes on the PC"
+   },
+   "_sources": {
+    "all": "tools/seed_biome_spawns.py defaults; numbers: author"
+   }
+  },
+  {
+   "id": "The Vault:spawn_pixel_scenes",
+   "biome": "The Vault",
+   "script": "vault",
+   "function": "spawn_pixel_scenes",
+   "per_10k_tiles": 1.0,
+   "stage": "4",
+   "_unverified": {
+    "script": "name from memory; check data/scripts/biomes on the PC"
+   },
+   "_sources": {
+    "all": "tools/seed_biome_spawns.py defaults; numbers: author"
+   }
+  },
+  {
+   "id": "Frozen Vault:spawn_wands",
+   "biome": "Frozen Vault",
+   "script": "vault_frozen",
+   "function": "spawn_wands",
+   "per_10k_tiles": 1.0,
+   "stage": "4",
+   "_unverified": {
+    "script": "name from memory; check data/scripts/biomes on the PC"
+   },
+   "_sources": {
+    "all": "tools/seed_biome_spawns.py defaults; numbers: author"
+   }
+  },
+  {
+   "id": "Frozen Vault:spawn_potions",
+   "biome": "Frozen Vault",
+   "script": "vault_frozen",
+   "function": "spawn_potions",
+   "per_10k_tiles": 2.0,
+   "stage": "4",
+   "_unverified": {
+    "script": "name from memory; check data/scripts/biomes on the PC"
+   },
+   "_sources": {
+    "all": "tools/seed_biome_spawns.py defaults; numbers: author"
+   }
+  },
+  {
+   "id": "Frozen Vault:spawn_items",
+   "biome": "Frozen Vault",
+   "script": "vault_frozen",
+   "function": "spawn_items",
+   "per_10k_tiles": 1.5,
+   "stage": "4",
+   "_unverified": {
+    "script": "name from memory; check data/scripts/biomes on the PC"
+   },
+   "_sources": {
+    "all": "tools/seed_biome_spawns.py defaults; numbers: author"
+   }
+  },
+  {
+   "id": "Frozen Vault:spawn_chest",
+   "biome": "Frozen Vault",
+   "script": "vault_frozen",
+   "function": "spawn_chest",
+   "per_10k_tiles": 0.5,
+   "stage": "4",
+   "_unverified": {
+    "script": "name from memory; check data/scripts/biomes on the PC"
+   },
+   "_sources": {
+    "all": "tools/seed_biome_spawns.py defaults; numbers: author"
+   }
+  },
+  {
+   "id": "Frozen Vault:spawn_pixel_scenes",
+   "biome": "Frozen Vault",
+   "script": "vault_frozen",
+   "function": "spawn_pixel_scenes",
+   "per_10k_tiles": 1.0,
+   "stage": "4",
+   "_unverified": {
+    "script": "name from memory; check data/scripts/biomes on the PC"
+   },
+   "_sources": {
+    "all": "tools/seed_biome_spawns.py defaults; numbers: author"
+   }
+  },
+  {
+   "id": "Snowy Chasm:spawn_wands",
+   "biome": "Snowy Chasm",
+   "script": "snowcave",
+   "function": "spawn_wands",
+   "per_10k_tiles": 1.0,
+   "stage": "4",
+   "_unverified": {
+    "script": "name from memory; check data/scripts/biomes on the PC"
+   },
+   "_sources": {
+    "all": "tools/seed_biome_spawns.py defaults; numbers: author"
+   }
+  },
+  {
+   "id": "Snowy Chasm:spawn_potions",
+   "biome": "Snowy Chasm",
+   "script": "snowcave",
+   "function": "spawn_potions",
+   "per_10k_tiles": 2.0,
+   "stage": "4",
+   "_unverified": {
+    "script": "name from memory; check data/scripts/biomes on the PC"
+   },
+   "_sources": {
+    "all": "tools/seed_biome_spawns.py defaults; numbers: author"
+   }
+  },
+  {
+   "id": "Snowy Chasm:spawn_items",
+   "biome": "Snowy Chasm",
+   "script": "snowcave",
+   "function": "spawn_items",
+   "per_10k_tiles": 1.5,
+   "stage": "4",
+   "_unverified": {
+    "script": "name from memory; check data/scripts/biomes on the PC"
+   },
+   "_sources": {
+    "all": "tools/seed_biome_spawns.py defaults; numbers: author"
+   }
+  },
+  {
+   "id": "Snowy Chasm:spawn_chest",
+   "biome": "Snowy Chasm",
+   "script": "snowcave",
+   "function": "spawn_chest",
+   "per_10k_tiles": 0.5,
+   "stage": "4",
+   "_unverified": {
+    "script": "name from memory; check data/scripts/biomes on the PC"
+   },
+   "_sources": {
+    "all": "tools/seed_biome_spawns.py defaults; numbers: author"
+   }
+  },
+  {
+   "id": "Snowy Chasm:spawn_pixel_scenes",
+   "biome": "Snowy Chasm",
+   "script": "snowcave",
+   "function": "spawn_pixel_scenes",
+   "per_10k_tiles": 1.0,
+   "stage": "4",
+   "_unverified": {
+    "script": "name from memory; check data/scripts/biomes on the PC"
+   },
+   "_sources": {
+    "all": "tools/seed_biome_spawns.py defaults; numbers: author"
+   }
+  },
+  {
+   "id": "Temple of the Art:spawn_wands",
+   "biome": "Temple of the Art",
+   "script": "crypt",
+   "function": "spawn_wands",
+   "per_10k_tiles": 1.0,
+   "stage": "4",
+   "_unverified": {
+    "script": "name from memory; check data/scripts/biomes on the PC"
+   },
+   "_sources": {
+    "all": "tools/seed_biome_spawns.py defaults; numbers: author"
+   }
+  },
+  {
+   "id": "Temple of the Art:spawn_potions",
+   "biome": "Temple of the Art",
+   "script": "crypt",
+   "function": "spawn_potions",
+   "per_10k_tiles": 2.0,
+   "stage": "4",
+   "_unverified": {
+    "script": "name from memory; check data/scripts/biomes on the PC"
+   },
+   "_sources": {
+    "all": "tools/seed_biome_spawns.py defaults; numbers: author"
+   }
+  },
+  {
+   "id": "Temple of the Art:spawn_items",
+   "biome": "Temple of the Art",
+   "script": "crypt",
+   "function": "spawn_items",
+   "per_10k_tiles": 1.5,
+   "stage": "4",
+   "_unverified": {
+    "script": "name from memory; check data/scripts/biomes on the PC"
+   },
+   "_sources": {
+    "all": "tools/seed_biome_spawns.py defaults; numbers: author"
+   }
+  },
+  {
+   "id": "Temple of the Art:spawn_chest",
+   "biome": "Temple of the Art",
+   "script": "crypt",
+   "function": "spawn_chest",
+   "per_10k_tiles": 0.5,
+   "stage": "4",
+   "_unverified": {
+    "script": "name from memory; check data/scripts/biomes on the PC"
+   },
+   "_sources": {
+    "all": "tools/seed_biome_spawns.py defaults; numbers: author"
+   }
+  },
+  {
+   "id": "Temple of the Art:spawn_pixel_scenes",
+   "biome": "Temple of the Art",
+   "script": "crypt",
+   "function": "spawn_pixel_scenes",
+   "per_10k_tiles": 1.0,
+   "stage": "4",
+   "_unverified": {
+    "script": "name from memory; check data/scripts/biomes on the PC"
+   },
+   "_sources": {
+    "all": "tools/seed_biome_spawns.py defaults; numbers: author"
+   }
+  },
+  {
+   "id": "Wizards' Den:spawn_wands",
+   "biome": "Wizards' Den",
+   "script": "wizardcave",
+   "function": "spawn_wands",
+   "per_10k_tiles": 1.0,
+   "stage": "4",
+   "_unverified": {
+    "script": "name from memory; check data/scripts/biomes on the PC"
+   },
+   "_sources": {
+    "all": "tools/seed_biome_spawns.py defaults; numbers: author"
+   }
+  },
+  {
+   "id": "Wizards' Den:spawn_potions",
+   "biome": "Wizards' Den",
+   "script": "wizardcave",
+   "function": "spawn_potions",
+   "per_10k_tiles": 2.0,
+   "stage": "4",
+   "_unverified": {
+    "script": "name from memory; check data/scripts/biomes on the PC"
+   },
+   "_sources": {
+    "all": "tools/seed_biome_spawns.py defaults; numbers: author"
+   }
+  },
+  {
+   "id": "Wizards' Den:spawn_items",
+   "biome": "Wizards' Den",
+   "script": "wizardcave",
+   "function": "spawn_items",
+   "per_10k_tiles": 1.5,
+   "stage": "4",
+   "_unverified": {
+    "script": "name from memory; check data/scripts/biomes on the PC"
+   },
+   "_sources": {
+    "all": "tools/seed_biome_spawns.py defaults; numbers: author"
+   }
+  },
+  {
+   "id": "Wizards' Den:spawn_chest",
+   "biome": "Wizards' Den",
+   "script": "wizardcave",
+   "function": "spawn_chest",
+   "per_10k_tiles": 0.5,
+   "stage": "4",
+   "_unverified": {
+    "script": "name from memory; check data/scripts/biomes on the PC"
+   },
+   "_sources": {
+    "all": "tools/seed_biome_spawns.py defaults; numbers: author"
+   }
+  },
+  {
+   "id": "Wizards' Den:spawn_pixel_scenes",
+   "biome": "Wizards' Den",
+   "script": "wizardcave",
+   "function": "spawn_pixel_scenes",
+   "per_10k_tiles": 1.0,
+   "stage": "4",
+   "_unverified": {
+    "script": "name from memory; check data/scripts/biomes on the PC"
+   },
+   "_sources": {
+    "all": "tools/seed_biome_spawns.py defaults; numbers: author"
+   }
+  },
+  {
+   "id": "Overgrown Cavern:spawn_wands",
+   "biome": "Overgrown Cavern",
+   "script": "rainforest_dark",
+   "function": "spawn_wands",
+   "per_10k_tiles": 1.0,
+   "stage": "4",
+   "_unverified": {
+    "script": "name from memory; check data/scripts/biomes on the PC"
+   },
+   "_sources": {
+    "all": "tools/seed_biome_spawns.py defaults; numbers: author"
+   }
+  },
+  {
+   "id": "Overgrown Cavern:spawn_potions",
+   "biome": "Overgrown Cavern",
+   "script": "rainforest_dark",
+   "function": "spawn_potions",
+   "per_10k_tiles": 2.0,
+   "stage": "4",
+   "_unverified": {
+    "script": "name from memory; check data/scripts/biomes on the PC"
+   },
+   "_sources": {
+    "all": "tools/seed_biome_spawns.py defaults; numbers: author"
+   }
+  },
+  {
+   "id": "Overgrown Cavern:spawn_items",
+   "biome": "Overgrown Cavern",
+   "script": "rainforest_dark",
+   "function": "spawn_items",
+   "per_10k_tiles": 1.5,
+   "stage": "4",
+   "_unverified": {
+    "script": "name from memory; check data/scripts/biomes on the PC"
+   },
+   "_sources": {
+    "all": "tools/seed_biome_spawns.py defaults; numbers: author"
+   }
+  },
+  {
+   "id": "Overgrown Cavern:spawn_chest",
+   "biome": "Overgrown Cavern",
+   "script": "rainforest_dark",
+   "function": "spawn_chest",
+   "per_10k_tiles": 0.5,
+   "stage": "4",
+   "_unverified": {
+    "script": "name from memory; check data/scripts/biomes on the PC"
+   },
+   "_sources": {
+    "all": "tools/seed_biome_spawns.py defaults; numbers: author"
+   }
+  },
+  {
+   "id": "Overgrown Cavern:spawn_pixel_scenes",
+   "biome": "Overgrown Cavern",
+   "script": "rainforest_dark",
+   "function": "spawn_pixel_scenes",
+   "per_10k_tiles": 1.0,
+   "stage": "4",
+   "_unverified": {
+    "script": "name from memory; check data/scripts/biomes on the PC"
+   },
+   "_sources": {
+    "all": "tools/seed_biome_spawns.py defaults; numbers: author"
+   }
+  },
+  {
+   "id": "Lukki Lair:spawn_wands",
+   "biome": "Lukki Lair",
+   "script": "fungiforest",
+   "function": "spawn_wands",
+   "per_10k_tiles": 1.0,
+   "stage": "4",
+   "_unverified": {
+    "script": "name from memory; check data/scripts/biomes on the PC"
+   },
+   "_sources": {
+    "all": "tools/seed_biome_spawns.py defaults; numbers: author"
+   }
+  },
+  {
+   "id": "Lukki Lair:spawn_potions",
+   "biome": "Lukki Lair",
+   "script": "fungiforest",
+   "function": "spawn_potions",
+   "per_10k_tiles": 2.0,
+   "stage": "4",
+   "_unverified": {
+    "script": "name from memory; check data/scripts/biomes on the PC"
+   },
+   "_sources": {
+    "all": "tools/seed_biome_spawns.py defaults; numbers: author"
+   }
+  },
+  {
+   "id": "Lukki Lair:spawn_items",
+   "biome": "Lukki Lair",
+   "script": "fungiforest",
+   "function": "spawn_items",
+   "per_10k_tiles": 1.5,
+   "stage": "4",
+   "_unverified": {
+    "script": "name from memory; check data/scripts/biomes on the PC"
+   },
+   "_sources": {
+    "all": "tools/seed_biome_spawns.py defaults; numbers: author"
+   }
+  },
+  {
+   "id": "Lukki Lair:spawn_chest",
+   "biome": "Lukki Lair",
+   "script": "fungiforest",
+   "function": "spawn_chest",
+   "per_10k_tiles": 0.5,
+   "stage": "4",
+   "_unverified": {
+    "script": "name from memory; check data/scripts/biomes on the PC"
+   },
+   "_sources": {
+    "all": "tools/seed_biome_spawns.py defaults; numbers: author"
+   }
+  },
+  {
+   "id": "Lukki Lair:spawn_pixel_scenes",
+   "biome": "Lukki Lair",
+   "script": "fungiforest",
+   "function": "spawn_pixel_scenes",
+   "per_10k_tiles": 1.0,
+   "stage": "4",
+   "_unverified": {
+    "script": "name from memory; check data/scripts/biomes on the PC"
+   },
+   "_sources": {
+    "all": "tools/seed_biome_spawns.py defaults; numbers: author"
+   }
+  },
+  {
+   "id": "Meat Realm:spawn_wands",
+   "biome": "Meat Realm",
+   "script": "meat",
+   "function": "spawn_wands",
+   "per_10k_tiles": 1.0,
+   "stage": "4",
+   "_unverified": {
+    "script": "name from memory; check data/scripts/biomes on the PC"
+   },
+   "_sources": {
+    "all": "tools/seed_biome_spawns.py defaults; numbers: author"
+   }
+  },
+  {
+   "id": "Meat Realm:spawn_potions",
+   "biome": "Meat Realm",
+   "script": "meat",
+   "function": "spawn_potions",
+   "per_10k_tiles": 2.0,
+   "stage": "4",
+   "_unverified": {
+    "script": "name from memory; check data/scripts/biomes on the PC"
+   },
+   "_sources": {
+    "all": "tools/seed_biome_spawns.py defaults; numbers: author"
+   }
+  },
+  {
+   "id": "Meat Realm:spawn_items",
+   "biome": "Meat Realm",
+   "script": "meat",
+   "function": "spawn_items",
+   "per_10k_tiles": 1.5,
+   "stage": "4",
+   "_unverified": {
+    "script": "name from memory; check data/scripts/biomes on the PC"
+   },
+   "_sources": {
+    "all": "tools/seed_biome_spawns.py defaults; numbers: author"
+   }
+  },
+  {
+   "id": "Meat Realm:spawn_chest",
+   "biome": "Meat Realm",
+   "script": "meat",
+   "function": "spawn_chest",
+   "per_10k_tiles": 0.5,
+   "stage": "4",
+   "_unverified": {
+    "script": "name from memory; check data/scripts/biomes on the PC"
+   },
+   "_sources": {
+    "all": "tools/seed_biome_spawns.py defaults; numbers: author"
+   }
+  },
+  {
+   "id": "Meat Realm:spawn_pixel_scenes",
+   "biome": "Meat Realm",
+   "script": "meat",
+   "function": "spawn_pixel_scenes",
+   "per_10k_tiles": 1.0,
+   "stage": "4",
+   "_unverified": {
+    "script": "name from memory; check data/scripts/biomes on the PC"
+   },
+   "_sources": {
+    "all": "tools/seed_biome_spawns.py defaults; numbers: author"
+   }
+  },
+  {
+   "id": "Cloudscape:spawn_wands",
+   "biome": "Cloudscape",
+   "script": "cloudscape",
+   "function": "spawn_wands",
+   "per_10k_tiles": 1.0,
+   "stage": "4",
+   "_unverified": {
+    "script": "name from memory; check data/scripts/biomes on the PC"
+   },
+   "_sources": {
+    "all": "tools/seed_biome_spawns.py defaults; numbers: author"
+   }
+  },
+  {
+   "id": "Cloudscape:spawn_potions",
+   "biome": "Cloudscape",
+   "script": "cloudscape",
+   "function": "spawn_potions",
+   "per_10k_tiles": 2.0,
+   "stage": "4",
+   "_unverified": {
+    "script": "name from memory; check data/scripts/biomes on the PC"
+   },
+   "_sources": {
+    "all": "tools/seed_biome_spawns.py defaults; numbers: author"
+   }
+  },
+  {
+   "id": "Cloudscape:spawn_items",
+   "biome": "Cloudscape",
+   "script": "cloudscape",
+   "function": "spawn_items",
+   "per_10k_tiles": 1.5,
+   "stage": "4",
+   "_unverified": {
+    "script": "name from memory; check data/scripts/biomes on the PC"
+   },
+   "_sources": {
+    "all": "tools/seed_biome_spawns.py defaults; numbers: author"
+   }
+  },
+  {
+   "id": "Cloudscape:spawn_chest",
+   "biome": "Cloudscape",
+   "script": "cloudscape",
+   "function": "spawn_chest",
+   "per_10k_tiles": 0.5,
+   "stage": "4",
+   "_unverified": {
+    "script": "name from memory; check data/scripts/biomes on the PC"
+   },
+   "_sources": {
+    "all": "tools/seed_biome_spawns.py defaults; numbers: author"
+   }
+  },
+  {
+   "id": "Cloudscape:spawn_pixel_scenes",
+   "biome": "Cloudscape",
+   "script": "cloudscape",
+   "function": "spawn_pixel_scenes",
+   "per_10k_tiles": 1.0,
+   "stage": "4",
+   "_unverified": {
+    "script": "name from memory; check data/scripts/biomes on the PC"
+   },
+   "_sources": {
+    "all": "tools/seed_biome_spawns.py defaults; numbers: author"
+   }
+  },
+  {
+   "id": "Power Plant:spawn_wands",
+   "biome": "Power Plant",
+   "script": "robobase",
+   "function": "spawn_wands",
+   "per_10k_tiles": 1.0,
+   "stage": "4",
+   "_unverified": {
+    "script": "name from memory; check data/scripts/biomes on the PC"
+   },
+   "_sources": {
+    "all": "tools/seed_biome_spawns.py defaults; numbers: author"
+   }
+  },
+  {
+   "id": "Power Plant:spawn_potions",
+   "biome": "Power Plant",
+   "script": "robobase",
+   "function": "spawn_potions",
+   "per_10k_tiles": 2.0,
+   "stage": "4",
+   "_unverified": {
+    "script": "name from memory; check data/scripts/biomes on the PC"
+   },
+   "_sources": {
+    "all": "tools/seed_biome_spawns.py defaults; numbers: author"
+   }
+  },
+  {
+   "id": "Power Plant:spawn_items",
+   "biome": "Power Plant",
+   "script": "robobase",
+   "function": "spawn_items",
+   "per_10k_tiles": 1.5,
+   "stage": "4",
+   "_unverified": {
+    "script": "name from memory; check data/scripts/biomes on the PC"
+   },
+   "_sources": {
+    "all": "tools/seed_biome_spawns.py defaults; numbers: author"
+   }
+  },
+  {
+   "id": "Power Plant:spawn_chest",
+   "biome": "Power Plant",
+   "script": "robobase",
+   "function": "spawn_chest",
+   "per_10k_tiles": 0.5,
+   "stage": "4",
+   "_unverified": {
+    "script": "name from memory; check data/scripts/biomes on the PC"
+   },
+   "_sources": {
+    "all": "tools/seed_biome_spawns.py defaults; numbers: author"
+   }
+  },
+  {
+   "id": "Power Plant:spawn_pixel_scenes",
+   "biome": "Power Plant",
+   "script": "robobase",
+   "function": "spawn_pixel_scenes",
+   "per_10k_tiles": 1.0,
+   "stage": "4",
+   "_unverified": {
+    "script": "name from memory; check data/scripts/biomes on the PC"
+   },
+   "_sources": {
+    "all": "tools/seed_biome_spawns.py defaults; numbers: author"
+   }
+  },
+  {
+   "id": "The Work (Hell):spawn_wands",
+   "biome": "The Work (Hell)",
+   "script": "the_end",
+   "function": "spawn_wands",
+   "per_10k_tiles": 1.0,
+   "stage": "4",
+   "_unverified": {
+    "script": "name from memory; check data/scripts/biomes on the PC"
+   },
+   "_sources": {
+    "all": "tools/seed_biome_spawns.py defaults; numbers: author"
+   }
+  },
+  {
+   "id": "The Work (Hell):spawn_potions",
+   "biome": "The Work (Hell)",
+   "script": "the_end",
+   "function": "spawn_potions",
+   "per_10k_tiles": 2.0,
+   "stage": "4",
+   "_unverified": {
+    "script": "name from memory; check data/scripts/biomes on the PC"
+   },
+   "_sources": {
+    "all": "tools/seed_biome_spawns.py defaults; numbers: author"
+   }
+  },
+  {
+   "id": "The Work (Hell):spawn_items",
+   "biome": "The Work (Hell)",
+   "script": "the_end",
+   "function": "spawn_items",
+   "per_10k_tiles": 1.5,
+   "stage": "4",
+   "_unverified": {
+    "script": "name from memory; check data/scripts/biomes on the PC"
+   },
+   "_sources": {
+    "all": "tools/seed_biome_spawns.py defaults; numbers: author"
+   }
+  },
+  {
+   "id": "The Work (Hell):spawn_chest",
+   "biome": "The Work (Hell)",
+   "script": "the_end",
+   "function": "spawn_chest",
+   "per_10k_tiles": 0.5,
+   "stage": "4",
+   "_unverified": {
+    "script": "name from memory; check data/scripts/biomes on the PC"
+   },
+   "_sources": {
+    "all": "tools/seed_biome_spawns.py defaults; numbers: author"
+   }
+  },
+  {
+   "id": "The Work (Hell):spawn_pixel_scenes",
+   "biome": "The Work (Hell)",
+   "script": "the_end",
+   "function": "spawn_pixel_scenes",
+   "per_10k_tiles": 1.0,
+   "stage": "4",
+   "_unverified": {
+    "script": "name from memory; check data/scripts/biomes on the PC"
+   },
+   "_sources": {
+    "all": "tools/seed_biome_spawns.py defaults; numbers: author"
+   }
+  },
+  {
+   "id": "The Work (Sky):spawn_wands",
+   "biome": "The Work (Sky)",
+   "script": "the_sky",
+   "function": "spawn_wands",
+   "per_10k_tiles": 1.0,
+   "stage": "4",
+   "_unverified": {
+    "script": "name from memory; check data/scripts/biomes on the PC"
+   },
+   "_sources": {
+    "all": "tools/seed_biome_spawns.py defaults; numbers: author"
+   }
+  },
+  {
+   "id": "The Work (Sky):spawn_potions",
+   "biome": "The Work (Sky)",
+   "script": "the_sky",
+   "function": "spawn_potions",
+   "per_10k_tiles": 2.0,
+   "stage": "4",
+   "_unverified": {
+    "script": "name from memory; check data/scripts/biomes on the PC"
+   },
+   "_sources": {
+    "all": "tools/seed_biome_spawns.py defaults; numbers: author"
+   }
+  },
+  {
+   "id": "The Work (Sky):spawn_items",
+   "biome": "The Work (Sky)",
+   "script": "the_sky",
+   "function": "spawn_items",
+   "per_10k_tiles": 1.5,
+   "stage": "4",
+   "_unverified": {
+    "script": "name from memory; check data/scripts/biomes on the PC"
+   },
+   "_sources": {
+    "all": "tools/seed_biome_spawns.py defaults; numbers: author"
+   }
+  },
+  {
+   "id": "The Work (Sky):spawn_chest",
+   "biome": "The Work (Sky)",
+   "script": "the_sky",
+   "function": "spawn_chest",
+   "per_10k_tiles": 0.5,
+   "stage": "4",
+   "_unverified": {
+    "script": "name from memory; check data/scripts/biomes on the PC"
+   },
+   "_sources": {
+    "all": "tools/seed_biome_spawns.py defaults; numbers: author"
+   }
+  },
+  {
+   "id": "The Work (Sky):spawn_pixel_scenes",
+   "biome": "The Work (Sky)",
+   "script": "the_sky",
+   "function": "spawn_pixel_scenes",
+   "per_10k_tiles": 1.0,
+   "stage": "4",
+   "_unverified": {
+    "script": "name from memory; check data/scripts/biomes on the PC"
+   },
+   "_sources": {
+    "all": "tools/seed_biome_spawns.py defaults; numbers: author"
+   }
+  }
+ ]
+}
