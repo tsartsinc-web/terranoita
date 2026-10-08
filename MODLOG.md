@@ -844,3 +844,9 @@ Next steps (author's order: finish magic, then shops):
   (<world>.wld.cart), falls, rolls when kicked, the player can stand in it and ride.
 - Wand window on from entering the world, shown whenever the inventory is open; U switches it (author).
 - проверить на ПК (author in the sandbox): kick, drinking, riding the cart.
+
+## 2026-10-08 PC: 0.4.0 package (author: "post this version")
+- build/terranoita-0.4.0.zip (1243668 bytes, sha256 cc98c6b6914c370e...): Release builds of 026b8bb, Terranoita.exe,
+  Game, Core, MoonSharp.Interpreter.dll (new, MIT notice added), 0Harmony, README (0.4.0 magic notes).
+- NOT uploaded: this session has no Melty connector. The author uploads it in the Melty app (recipe as before:
+  design/melty.recipe.draft.json, fileName terranoita-*.zip), or a session with the Melty tools does.
