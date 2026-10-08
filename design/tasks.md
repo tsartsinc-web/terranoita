@@ -22,11 +22,14 @@ How it works (author, 2026-10-08): the author only says "работай" to eith
 
 ## PC queue
 - PC-8 new, URGENT (before any release): players get stage 1b (Entry.Stage default "1b", 4e17e91; no TERRANOITA_STAGE
-  in the release/recipe) -> world_load (2) and all magic_* (3) hooks off -> empty chests, no wands (author played,
-  found none). Ship the release stage explicitly (default = the release's stage, e.g. "3"; env still overrides);
-  WorldLoot.Load: retry when NoitaArt was not Ready; version line in .wld.magic, refill old worlds once. Rebuild
-  0.4.0 (the built zip has the bug). Check: release build, new world, log "world loot: N spells" with N > 0.
-- PC-9 new: night spawns on the surface (author: crawlers/shooters/bombers kill him in the first minutes by day).
+  in the release/recipe) -> all stage 2 (14: physics, liquids, world_load) and stage 3 (22: magic) hooks are off ->
+  empty chests, no wands (author played, found none), probably no physics since 0.3.0. Ship the release stage
+  explicitly (a constant set by the release build; env still overrides) after `preflight --gate <it>` is clean;
+  WorldLoot.Load: retry when NoitaArt was not Ready; `version N` line in .wld.magic, refill old worlds once.
+  Add a release test: start the packaged build exactly as the recipe does (no TERRANOITA_* env), check the log's
+  bound hooks count and "world loot". Rebuild 0.4.0 (the built zip has the bug).
+  Check: release test passes; new world, log "world loot: N spells" with N > 0.
+- PC-9 waits CLOUD-6: night spawns on the surface (author: crawlers/shooters/bombers kill him in the first minutes by day).
   Needs CLOUD-6. Spawning: a creature whose zone row says `time: night` spawns only when !Main.dayTime (blood moon
   and eclipse count as night); passive ones (sheet says `time: any`) keep spawning by day. Check: autotest day 10 min
   -> 0 hostile Noita spawns on the surface, night -> spawns.
@@ -34,11 +37,11 @@ How it works (author, 2026-10-08): the author only says "работай" to eith
   "spawn tile in water", but walkers need ground there. Add Zones.NearWater(x, y, 12) (surface water within 12
   tiles) and set terraria_zones surface_water.terraria_check to it (sheet edit allowed by this row; gen_cs);
   swimmers keep the in-water rule. Check: autotest near a surface lake spawns a walker from Lake.
-- Rat done by cloud (sheet): melee range 1.88 -> 1.6 tiles (bites when touching), hitbox_mult 0.5 -> 1.0 (33x15,
-  easier to hit). Only check it in play; no code change needed.
 - PC-12 new: build check of cloud's edit in src/Terranoita/Shots.cs (explosions of creature shots now hurt every
-  hostile NPC in the radius, the thrower too; author: miner's dynamite hurt only the player and blocks). Check:
-  builds; in play a miner's dynamite hurts creatures next to it.
+  hostile NPC in the radius, the thrower too, as Noita damage type "explosion" via new Damage.StrikeAs; a worm
+  once, by its head; author: miner's dynamite hurt only the player and blocks). Also in play: rat (sheet only):
+  bite reach 1.6 tiles, full 33x15 hitbox. Check: builds; dynamite hurts creatures next to it; rats bite only
+  when touching.
 - PC-13 new: build check of cloud's edit: player spell explosions and digging spells (black hole etc.) break only
   what the caster's best pickaxe could (Physics/Blast.cs RequiredPick, PickPower via Player.GetBestPickaxe; author).
   Verify GetBestPickaxe with tr-methods and RequiredPick against `TN_IL=1 tncli tr-methods Terraria.exe Player

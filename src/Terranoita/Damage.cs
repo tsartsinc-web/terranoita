@@ -8,6 +8,14 @@ namespace Terranoita.Game
     {
         [System.ThreadStatic] static string _kind;
 
+        /// <summary>A hit of a Noita damage type (its multipliers and immunities apply), e.g. a creature's explosion.</summary>
+        public static void StrikeAs(NPC n, string kind, int damage, float knockback, int dir)
+        {
+            _kind = kind;
+            try { n.StrikeNPCNoInteraction(damage, knockback, dir); }
+            finally { _kind = null; }
+        }
+
         [Hook("hit_by_item")]
         [HarmonyPatch(typeof(Player), "ProcessHitAgainstNPC")]
         static class ItemHit

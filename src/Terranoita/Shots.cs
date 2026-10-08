@@ -117,10 +117,11 @@ namespace Terranoita.Game
                     for (int i = 0; i < Main.maxNPCs; i++)
                     {
                         var n = Main.npc[i];
+                        // a worm's segments pass hits to its head: only the head counts, once
                         if (n.active && !n.friendly && !n.townNPC && !n.dontTakeDamage && n.life > 0 &&
-                            Vector2.Distance(n.Center, s.Pos) <= radius + n.width / 2f)
+                            Carriers.HeadOfSegment(n) == null && Vector2.Distance(n.Center, s.Pos) <= radius + n.width / 2f)
                         {
-                            n.StrikeNPCNoInteraction(blast, 4f, n.Center.X >= s.Pos.X ? 1 : -1);
+                            Damage.StrikeAs(n, "explosion", blast, 4f, n.Center.X >= s.Pos.X ? 1 : -1);
                             if (s.Def.Effect == "fire")
                                 n.AddBuff(BuffID.OnFire, 180);
                         }

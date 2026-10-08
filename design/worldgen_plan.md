@@ -1,4 +1,7 @@
-# World generation: Noita inside Terraria's worldgen (plan, 2026-10-08)
+# World generation: Noita inside Terraria's worldgen (plan, 2026-10-08, reviewed the same day)
+
+Order: PC-8 (loot at load works for players) first; it already gives chests spells. Sections 1-4 come after, step
+by step: loot pass, then a few scenes; stop when it is fun, not when every Noita scene is in.
 
 Author: "checked many chests, no wands, no spells; worldgen is the big problem". Goal: Noita's content is placed by
 Noita's own biome code during Terraria's own world generation, not sprinkled over a finished world.
@@ -10,17 +13,28 @@ Noita's own biome code during Terraria's own world generation, not sprinkled ove
   do not upload it as is.
 - `WorldLoot.Load` returns silently when `NoitaArt.Ready` is false at world load and never retries; when the
   `.wld.magic` file exists it never fills chests again (new chests, worlds from older versions).
-- 0.3.1 (live) has no magic at all.
+- 0.3.1 (live) has no magic at all. Likely worse: the 14 stage-2 hooks (physics, liquids, world_load) are off for
+  players since 0.3.0 too (Patches.On is true, but its hooks never bind). Verify: a Melty-installed copy's log,
+  the "hooks" line. Root cause in the process: every game test sets TERRANOITA_STAGE, so no test ever ran the
+  release the way Melty starts it (no env vars). PC-8 adds that test.
 
 ## 1. Where it hooks in Terraria (PC)
 - Terraria builds a world as a list of passes (`WorldGen.GenerateWorld` -> `AddGenerationPass(name, ...)`; names
   like "Buried Chests", "Micro Biomes", "Final Cleanup"). Find the exact API with
   `tncli tr-methods <Terraria.exe> WorldGen "AddGenerationPass|GenerateWorld"` and
   `tncli tr-methods <Terraria.exe> Terraria.WorldBuilding.WorldGenerator`.
-- Add our passes by a Harmony postfix that inserts after a named pass (never replace Terraria's):
+- Add our passes by a Harmony prefix on the generator's run (`WorldGenerator.GenerateWorld`): insert our pass
+  objects into its private pass list after a named pass (check the field name and the pass type with tr-methods;
+  `PassLegacy(name, method)` if it exists). Never replace or reorder Terraria's passes:
   - "Terranoita: scenes" after "Micro Biomes" (structures, section 3).
   - "Terranoita: loot" after "Final Cleanup" (wands, flasks, chest spells, section 4; all chests exist by then).
 - All randomness from `WorldGen.genRand` (the world seed): same seed -> same Noita content.
+- Noita's files must be read before our passes run (NoitaArt.Ready, the Lua state). If they are not, skip the passes
+  and mark the world for the retrofit on first load (never block world creation, never crash it).
+- Chest items are saved in the .wld by Terraria itself. Cave wand spots go to `.wld.magic`, but the world's path
+  may not be final during generation: keep them in memory, write on the first world save (world_save hook).
+- One source of loot: the generator writes `.wld.magic` with `version N`; the load-time fill (WorldLoot.FillChests)
+  runs only when that line is missing or older, so new worlds are never filled twice.
 - Old worlds (no `.wld.magic`, or its version < current): run only the loot pass once on load (retrofit), write the
   file with a version line. Never touch an old world's tiles.
 
@@ -32,15 +46,18 @@ scripts like LuaWandMaker does (MoonSharp + LuaCulture + Prelude), with a record
 - `NoitaBiomeSpawns` (new, Core): `Load(biomeFile)`, `Call(fn, x, y)` -> a list of `Placement {kind, file, x, y}`
   recorded from `EntityLoad`, `EntityLoadCameraBound`, `LoadPixelScene`, `CreateItemActionEntity`,
   `spawn_from_list`/`SpawnActionItem`, `EntityLoad("data/entities/items/pickup/chest_random.xml")`. No world needed.
-- Which functions to call and how often: count the coloured spawn pixels per function in the biome's wang tile
-  images (`data/wang_tiles/<biome>.png`, colour -> function from the biome xml `<Materials ...>`/`RegisterSpawnFunction`
-  in the lua). Density per Terraria tile area = Noita's count / Noita's biome area (one number per biome, tools
-  compute it, into a sheet `biome_spawns.json`: biome, function, per_10k_tiles, `_sources`).
+- How often: start with a sheet `biome_spawns.json` (biome, function, per_10k_tiles) filled with simple numbers the
+  author can tune. Later, optional: tools count the coloured spawn pixels per function in Noita's wang tiles
+  (`data/wang_tiles/<biome>.png`, colour -> function via `RegisterSpawnFunction` in the biome lua) and suggest them.
 - Chest contents: run Noita's `chest_random.lua` / `chest_random_super.lua` drop functions with the recorder
-  (they call `EntityLoad` of wands, potions, spells, gold) -> Terraria chest items.
+  (they call `EntityLoad` of wands, potions, spells, gold) -> Terraria chest items. Map what has no item yet in a
+  sheet: gold nuggets -> coins by value, hearts -> life crystal/heart, potions -> skip until flasks (M3); log the rest.
 - Pixel scenes: `LoadPixelScene(materials.png, visual.png, x, y, background, ...)` -> read the PNG with the materials
   colour table (materials sheet `color` -> material -> Terraria tile/liquid by the existing mapping); `visual` gives
   paint/wall where useful. Core returns a tile grid; the game stamps it.
+- Scale: 1 Noita pixel = 3 Terraria pixels (apply_facts PIXEL_SCALE), so 1 tile = 16/3 = 5.33 Noita pixels. Scenes
+  shrink to ~1/5: each tile takes the most common material of its 5-6 px block (air if most is air). Use only scenes
+  >= 64 px wide (>= 12 tiles); small ones turn into noise.
 - Cloud check: unit tests with stub scripts (like LuaWandMaker tests); a `tncli biome-spawns <noita> <biome> --count 100`
   on the PC prints the placements histogram (one line per kind).
 
@@ -64,7 +81,7 @@ For each Terraria zone with a Noita biome (biome_map.json: Mines -> underground_
 - Log one line: `worldgen: <n> scenes, <n> wands, <n> spells in <n> chests, <n> flasks`.
 
 ## 5. Checks
-- Cloud: Core tests for the recorder, chest_random with stub scripts, pixel scene decode (tiny PNGs).
+- Cloud: Core tests for the recorder, chest_random with stub scripts, pixel scene decode and downscale (tiny PNGs).
 - PC game test `game_test.ps1 -Mode worldgen`: generate a small world with a fixed seed, read the log line: wands > 0,
   chests with spells >= 50 %, scenes > 0; screenshot one scene; same seed twice -> same counts.
 - Play check (author): new small world, first 3 wooden chests, at least one has a spell.
