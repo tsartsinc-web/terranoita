@@ -258,9 +258,10 @@
    "stage": "3",
    "hooks": [
     "menu_background",
-    "menu_music"
+    "menu_music",
+    "skip_splash"
    ],
-   "code": "src/Terranoita/MenuLogo.cs, src/Terranoita/NoitaSound.cs",
+   "code": "src/Terranoita/MenuLogo.cs, src/Terranoita/NoitaSound.cs, src/Terranoita/SkipSplash.cs",
    "_unverified": {}
   }
  ]

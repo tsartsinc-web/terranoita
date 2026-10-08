@@ -574,6 +574,15 @@
    "purpose": "Terraria's title music off while Noita's menu music (event:/music/menu/main) plays.",
    "stage": "3",
    "_unverified": {}
+  },
+  {
+   "id": "skip_splash",
+   "target": "Terraria.Main:DrawSplash(GameTime)",
+   "patch": "call",
+   "system": "menu_look",
+   "purpose": "No RE-LOGIC intro: patched by hand at launch (before the menu), quick splash path, logo timeline skipped.",
+   "stage": "3",
+   "_unverified": {}
   }
  ]
 }

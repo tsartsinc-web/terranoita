@@ -79,6 +79,7 @@ namespace Terranoita.Game
             Terraria.Program.SavePath = sd >= 0 && sd + 1 < args.Length ? args[sd + 1] : DefaultSavePath();
             Log("Terraria save folder: " + Terraria.Program.SavePath);
             Terraria.Main.OnEngineLoad += ApplyPatches;
+            SkipSplash.Apply();
         }
 
         static void ApplyPatches()
