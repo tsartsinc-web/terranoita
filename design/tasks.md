@@ -21,17 +21,7 @@ How it works (author, 2026-10-08): the author only says "работай" to eith
   play without errors; traders/electricity/lasers come in 0.4.x.
 
 ## PC queue
-- PC-8 new, URGENT (before any release): players get stage 1b (Entry.Stage default "1b", 4e17e91; no TERRANOITA_STAGE
-  in the release/recipe) -> all stage 2 (14: physics, liquids, world_load) and stage 3 (22: magic) hooks are off ->
-  empty chests, no wands (author played, found none), probably no physics since 0.3.0. Ship the release stage
-  explicitly (a constant set by the release build; env still overrides) after `preflight --gate <it>` is clean;
-  WorldLoot.Load: retry when NoitaArt was not Ready; `version N` line in .wld.magic, refill old worlds once.
-  Add a release test: start the packaged build exactly as the recipe does (no TERRANOITA_* env), check the log's
-  bound hooks count and "world loot". Rebuild 0.4.0 (the built zip has the bug).
-  Check: release test passes; new world, log "world loot: N spells" with N > 0.
-  Note: in the release the liquid simulation runs (shots_update is 1a), but fluids_draw, world_load (cave pools),
-  player_buffs (touch effects) are stage 2: players never saw Noita liquids or their reactions.
-- PC-14 new, after PC-8: physics test gets liquid + liquid cases (none today: only acid on dirt, burning oil, slime
+- PC-14 new: physics test gets liquid + liquid cases (none today: only acid on dirt, burning oil, slime
   on oil): Noita water + lava -> steam/rock, acid + water, blood + lava, toxic sludge + water (rows in
   reactions.json); log `Fluids.Fired` per case, run in release mode. Check: each case fires its reaction.
 - PC-9 waits CLOUD-6: night spawns on the surface (author: crawlers/shooters/bombers kill him in the first minutes by day).
@@ -42,17 +32,7 @@ How it works (author, 2026-10-08): the author only says "работай" to eith
   "spawn tile in water", but walkers need ground there. Add Zones.NearWater(x, y, 12) (surface water within 12
   tiles) and set terraria_zones surface_water.terraria_check to it (sheet edit allowed by this row; gen_cs);
   swimmers keep the in-water rule. Check: autotest near a surface lake spawns a walker from Lake.
-- PC-12 new: build check of cloud's edit in src/Terranoita/Shots.cs (explosions of creature shots now hurt every
-  hostile NPC in the radius, the thrower too, as Noita damage type "explosion" via new Damage.StrikeAs; a worm
-  once, by its head; author: miner's dynamite hurt only the player and blocks). Also in play: rat (sheet only):
-  bite reach 1.6 tiles, full 33x15 hitbox. Check: builds; dynamite hurts creatures next to it; rats bite only
-  when touching.
-- PC-13 new: build check of cloud's edit: player spell explosions and digging spells (black hole etc.) break only
-  what the caster's best pickaxe could (Physics/Blast.cs RequiredPick, PickPower via Player.GetBestPickaxe; author).
-  Verify GetBestPickaxe with tr-methods and RequiredPick against `TN_IL=1 tncli tr-methods Terraria.exe Player
-  GetPickaxeDamage`. Creature explosions keep the explosives rule. Check: builds; copper pickaxe + bomb spell
-  leaves ebonstone/hellstone/dungeon intact, dirt/stone break.
-- PC-10 new, after PC-8 and CLOUD-7: worldgen per design/worldgen_plan.md sections 1, 3, 4, 5 (our passes in
+- PC-10 new, after CLOUD-7: worldgen per design/worldgen_plan.md sections 1, 3, 4, 5 (our passes in
   Terraria's worldgen, scenes, loot by Noita's chest_random.lua). Check: game_test -Mode worldgen (section 5).
 - PC-6 new: the 39 known spell failures (design/sources/magic_baseline.txt, MODLOG "memory leak, spells test"):
   test window for delayed/caster-centred spells (or expectations by kind), giga holes no shot (3-alive tag query in
@@ -81,6 +61,12 @@ How it works (author, 2026-10-08): the author only says "работай" to eith
   never in a public repo).
 
 ## Done (last ~8)
+- not a bug (PC): PC-8. Entry.Stage only picks creatures (spawns, art preload); Harmony PatchAll applies EVERY patch
+  whatever the stage (log: "patches applied: 44 methods" with 14 "hook ok" lines). Sandbox run without
+  TERRANOITA_STAGE had chests, wands, cart. The hook log now lists all hooks. The 0.4.0 zip is fine on this.
+  Author's empty chests were most likely the Melty 0.3.x build (no magic there).
+- done (PC) PC-12: Shots.cs did not build (CS0136: `n` reused in the NPC loop) -> renamed to npc; builds.
+- done (PC) PC-13: builds; Player.GetBestPickaxe() and GetPickaxeDamage exist (tr-methods); RequiredPick values ok.
 - done (this commit) CLOUD-5: BeamFromEntity (LaserEmitter + ConfigLaser, Lightning + config_explosion) + LightningPath.
 - done (this commit) CLOUD-1: LuaGolden (Core: lines, Diff) + tncli lua-golden --check + Core test on the PC.
 - done (this commit) CLOUD-2: Core/Physics/Conduction.cs + ConductionTests.

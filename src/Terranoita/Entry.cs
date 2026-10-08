@@ -89,10 +89,11 @@ namespace Terranoita.Game
             NoitaArt.Preload();
             NoitaSound.Open(NoitaDir);
 
-            // Oracle: every hook the sheet lists for a built stage must have a patch class, and the reverse.
+            // Oracle: every hook the sheet lists must have a patch class, and the reverse. PatchAll applies every patch
+            // whatever the stage (Stage only picks the creatures), so every hook is checked.
             var implemented = typeof(Entry).Assembly.GetTypes()
                 .Select(t => t.GetCustomAttribute<HookAttribute>()?.Id).Where(id => id != null).ToList();
-            foreach (var h in Hooks.All.Where(h => h.Patch != "call" && Defs.InStage(h.Stage, Stage)))
+            foreach (var h in Hooks.All.Where(h => h.Patch != "call"))
                 Log((implemented.Contains(h.Id) ? "hook ok      " : "hook MISSING ") + h.Id + " -> " + h.Target);
             foreach (var id in implemented.Where(id => Hooks.All.All(h => h.Id != id)))
                 Log("hook not in the sheet: " + id);
