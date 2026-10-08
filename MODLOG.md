@@ -594,6 +594,7 @@ Next steps (author's order: finish magic, then shops):
   EntityLoad summons (LuaWorld.Load not done in game).
 - проверить на ПК: unique wand pictures (data/items_gfx/wands/custom/*.png) and names in game.
 
+<<<<<<< HEAD
 ## 2026-10-08 spell modifiers, game side (while the cloud builds LuaShotScripts)
 - SpellShots.Extras.cs: components of a shot's extra_entities files and of its own projectile file (read at run time
   from the player's Noita): HomingComponent (all variants: anti, boomerang/target_who_shot, homing_wand, rotate),
@@ -608,3 +609,33 @@ Next steps (author's order: finish magic, then shops):
 - Not yet (logged once in game as "not done yet"): Lua scripts of shots (cloud task), HitEffect LOAD_CHILD_ENTITY
   (curse, petrify, gravity field...), statuses without a Terraria buff (necromancy, disintegrated...), lasers.
 - проверить на ПК: none of this has run in the game yet.
+=======
+## Cloud: LuaShotScripts — Noita's per-projectile scripts in Core (task design/cloud_task_shot_scripts.md)
+- `Core/Noita/NoitaEntityXml.cs`: entity file -> XmlEntity (name, tags, `_Transform`, components, children) on top of
+  NoitaEntity's Base merge; components flattened (`_tags`, `_enabled`, nested objects -> "config_explosion.damage").
+  `ComponentFieldTypes` reads field types from tools_modding/component_documentation.txt (bool / number / string / vec2):
+  without it "0" of a bool field comes back as the number 0 (true in Lua), so the game should pass the docs.
+- `Core/Noita/LuaShotScripts.cs`: entity/component store + one MoonSharp Script (LuaCulture.Enter + Prelude, each file
+  compiled once, run as a chunk per execution). `IShotHost` (+ `ShotHostBase` with no-op defaults) backs root shots:
+  position, velocity (VelocityComponent.mVelocity of a host entity), host fields, Kill, InRadiusWithTag, HitboxCenter,
+  Raytrace, Load, HerdRelation, FrameNum, Screenshake, CameraPos.
+  Game API: `CreateShot(projectileFile)`, `AttachExtra(shot, xml)`, `Spawn`, `Update(frame)`, `Fire(entity,
+  "script_death", args...)` (calls the event function: death, collision_trigger, item_pickup, else the field name
+  without "script_"), `Components(entity, type)` incl. children, `ChildrenOf`, `Alive`, `Forget`, `Missing`, `Errors`, `Log`.
+  Rules: script_source_file every execute_every_n_frame (first run n frames after added; -1 = only on added),
+  execute_on_added (at once; a CreateShot's own ones on the next Update, after the game placed it), execute_times,
+  remove_after_executed, mTimesExecuted/mLastExecutionFrame, `_enabled`; LifetimeComponent kills at
+  creation + lifetime; dead entity -> children dead; script error -> logged once per file, component disabled.
+  Children with InheritTransformComponent report the parent's transform.
+  All APIs of the task list are implemented (plus Randomf, EntityRemoveTag, EntityGetIsAlive, EntityGetFilename,
+  EntityGetTags, ComponentGetValueInt/Float/Bool, ComponentGetEntity/TypeName/HasTag, RaytraceSurfaces/Platforms).
+- tncli `shot-script <noita> <extra_entity.xml> [frames] [projectile.xml]` (projectile default
+  deck/light_bullet.xml): fake shot right at 300 px/s, position/velocity every 10 frames, host events, missing APIs,
+  errors (exit 1 on errors). Docs from <noita>/tools_modding/component_documentation.txt when present.
+- Tests: LuaShotScriptsTests (9): sine wave via mVelocity, every-n/execute_times/remove, EntityAddComponent lifetime
+  kills shot + children, broken script disables only its component, missing API, Base merge + object fields, Fire,
+  doc-typed bool, host fields/transform, on-added waits for the game. 69 Core tests pass; gate 1a CLEAN.
+- проверить на ПК: `shot-script` over the 125 extra_entities files (Missing list, errors); event function names for
+  rarer script_* fields against Noita's docs; whether execute_on_added counts toward execute_times in Noita;
+  Random(a) range (0..a assumed).
+>>>>>>> 77e3227 (Core: LuaShotScripts runs Noita's per-projectile scripts; NoitaEntityXml; tncli shot-script)

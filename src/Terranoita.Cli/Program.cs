@@ -15,6 +15,8 @@ namespace Terranoita.Cli
     ///   tncli entity    &lt;noitaDir&gt; &lt;id|path&gt;        facts the sheets need, for one enemy
     ///   tncli facts     &lt;noitaDir&gt; &lt;enemies.json&gt; &lt;out.json&gt;
     ///                   facts for every enemy row and the projectiles they fire, for tools/apply_facts.py
+    ///   tncli shot-script &lt;noitaDir&gt; &lt;extra_entity.xml&gt; [frames] [projectile.xml]
+    ///                   a fake shot moving right at 300 px/s with the file attached (LuaShotScripts), every 10 frames
     ///   tncli spells    &lt;noitaDir&gt; &lt;out.json&gt;
     ///                   every spell of gun_actions.lua, the projectiles they fire and the wand entities (stage 3)
     /// </summary>
@@ -143,6 +145,8 @@ namespace Terranoita.Cli
                             return Facts(files, args[2], args[3]);
                         case "spells":
                             return SpellFacts(files, args[2]);
+                        case "shot-script":   // shot-script <noita> <extra_entity.xml> [frames] [projectile.xml]: Noita's shot scripts on a fake shot
+                            return ShotScript(files, args[2], args.Length > 3 ? int.Parse(args[3]) : 120, args.Length > 4 ? args[4] : null);
                     }
                 }
             }
@@ -472,5 +476,60 @@ namespace Terranoita.Cli
 
         static JsonObject Dict(Dictionary<string, float> d) =>
             new JsonObject(d.Select(kv => new KeyValuePair<string, JsonNode>(kv.Key, kv.Value)));
+
+        /// <summary>A shot the CLI owns: flies by its velocity, never hits anything.</summary>
+        sealed class CliShotHost : ShotHostBase
+        {
+            public int Frame;
+            public readonly Dictionary<int, float[]> Shots = new Dictionary<int, float[]>();
+            public readonly List<string> Events = new List<string>();
+            public override int FrameNum => Frame;
+            public override bool GetPosition(int e, out float x, out float y) { x = y = 0; if (!Shots.TryGetValue(e, out var s)) return false; x = s[0]; y = s[1]; return true; }
+            public override void SetPosition(int e, float x, float y) { if (Shots.TryGetValue(e, out var s)) { s[0] = x; s[1] = y; } }
+            public override bool GetVelocity(int e, out float vx, out float vy) { vx = vy = 0; if (!Shots.TryGetValue(e, out var s)) return false; vx = s[2]; vy = s[3]; return true; }
+            public override void SetVelocity(int e, float vx, float vy) { if (Shots.TryGetValue(e, out var s)) { s[2] = vx; s[3] = vy; } }
+            public override void Kill(int e) { Events.Add($"frame {Frame}: shot killed"); Shots.Remove(e); }
+            public override int Load(string file, float x, float y) { Events.Add($"frame {Frame}: EntityLoad {file} at {x:0.#},{y:0.#}"); return 0; }
+            public override void Screenshake(float x, float y, float strength) => Events.Add($"frame {Frame}: screenshake {strength:0.#}");
+        }
+
+        static int ShotScript(NoitaFiles files, string xml, int frames, string projectile)
+        {
+            string docPath = Path.Combine(files.GameDir, "tools_modding", "component_documentation.txt");
+            var types = File.Exists(docPath) ? ComponentFieldTypes.Parse(File.ReadAllText(docPath)) : null;
+            if (types == null)
+                Console.WriteLine("note: no component_documentation.txt, values are typed by their text");
+            projectile = projectile ?? "data/entities/projectiles/deck/light_bullet.xml";
+            if (Text(files, projectile) == null)
+                projectile = null;
+            var host = new CliShotHost();
+            var lua = new LuaShotScripts(host, p => Text(files, p), types) { Log = m => Console.WriteLine("script error: " + m) };
+            int shot = lua.CreateShot(projectile);
+            host.Shots[shot] = new float[] { 0, 0, 300, 0 };
+            int child = lua.AttachExtra(shot, xml);
+            Console.WriteLine($"shot {shot} ({projectile ?? "no projectile file"}), {xml} -> entity {child}");
+            Console.WriteLine("components: " + string.Join(", ", new[] { child }.Concat(lua.ChildrenOf(child))
+                .SelectMany(e => lua.Components(e, null, false)).Select(c => c.Type + (c.Enabled ? "" : " (off)"))));
+            for (int f = 1; f <= frames; f++)
+            {
+                host.Frame = f;
+                foreach (var s in host.Shots.Values) { s[0] += s[2] / 60f; s[1] += s[3] / 60f; }
+                lua.Update(f);
+                if (f % 10 == 0 || !host.Shots.ContainsKey(shot))
+                {
+                    if (host.Shots.TryGetValue(shot, out var s))
+                        Console.WriteLine($"frame {f,4}: pos {s[0],8:0.0} {s[1],8:0.0}  vel {s[2],8:0.0} {s[3],8:0.0}");
+                    else
+                    {
+                        Console.WriteLine($"frame {f,4}: shot gone");
+                        break;
+                    }
+                }
+            }
+            foreach (var e in host.Events) Console.WriteLine(e);
+            Console.WriteLine("missing: " + (lua.Missing.Count == 0 ? "none" : string.Join(", ", lua.Missing)));
+            Console.WriteLine("errors: " + (lua.Errors.Count == 0 ? "none" : string.Join(" | ", lua.Errors)));
+            return lua.Errors.Count == 0 ? 0 : 1;
+        }
     }
 }
