@@ -21,6 +21,9 @@ How it works (author, 2026-10-08): the author only says "работай" to eith
   play without errors; traders/electricity/lasers come in 0.4.x.
 
 ## PC queue
+- PC-6 new: the 39 known spell failures (design/sources/magic_baseline.txt, MODLOG "memory leak, spells test"):
+  test window for delayed/caster-centred spells (or expectations by kind), giga holes no shot (3-alive tag query in
+  TerrariaWorld.WithTag), lasers/lightning (roadmap 0.4.x). Check: spells run shows them fixed or marked known.
 - PC-4 waits PC-3, CLOUD-2: Physics/Electricity.cs (section 3) + the pool test (section 4).
 
 ## CLOUD queue
@@ -39,6 +42,8 @@ How it works (author, 2026-10-08): the author only says "работай" to eith
   never in a public repo).
 
 ## Done (last ~8)
+- done (this commit) PC: memory leak (Lua state per wand -> max 6), fast shots hit along their path, spells test +
+  baseline 383/422 OK.
 - done 78d3f25 PC: PC-1 cheaper magic tests (summary + problems + baseline diff in game_test.ps1; magic run prints 3
   lines, a second run "baseline: no change"); CLOUD-3 not needed (the diff is in game_test.ps1).
 - done (this commit) PC: PC-5 shot scripts never over 8 ms in SlowFrames (77-289 scripted shots); "spell shots" up to

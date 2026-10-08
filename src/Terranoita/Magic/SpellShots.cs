@@ -176,6 +176,7 @@ namespace Terranoita.Game.Magic
                 End(s, true);
                 return true;
             }
+            var from = s.Pos;   // the path this frame: fast shots (bullets, lances) must not jump past a creature
             s.Pos = next;
             // Noita's CellEaterComponent (black holes, discs): the ground around it goes; AreaDamageComponent: creatures in its box
             if (s.Def.EatRadius > 0 && s.Age % 3 == 0)
@@ -185,11 +186,11 @@ namespace Terranoita.Game.Magic
             if (s.Def.Material != "none" && s.Age % 8 == 0 && Physics.Patches.On)
                 Physics.Fluids.Add((int)(s.Pos.X / 16), (int)(s.Pos.Y / 16), s.Def.Material, 12);
             // creatures
-            var box = new Rectangle((int)s.Pos.X - 4, (int)s.Pos.Y - 4, 8, 8);
             for (int i = 0; i < Main.maxNPCs; i++)
             {
                 var n = Main.npc[i];
-                if (!n.active || n.friendly || n.dontTakeDamage || n.life <= 0 || s.Hit.Contains(i) || !n.Hitbox.Intersects(box))
+                if (!n.active || n.friendly || n.dontTakeDamage || n.life <= 0 || s.Hit.Contains(i) ||
+                    !Collision.CheckAABBvLineCollision(n.position - new Vector2(4, 4), n.Size + new Vector2(8, 8), from, s.Pos))
                     continue;
                 Strike(s, n, s.Damage);
                 if (s.Def.DamageEveryFrames <= 0)

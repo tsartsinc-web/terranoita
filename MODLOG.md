@@ -794,3 +794,17 @@ Next steps (author's order: finish magic, then shops):
   Facts: design/sources/electricity_facts.json; the plan's section 0 corrected (0b): no ElectricitySource on spells,
   electricity = ElectricityComponent entities shot by scripts + LIGHTNING projectiles; ELECTROCUTION = GameEffect
   (effect_electricity.xml, 40 frames, disable_movement), not a status_list status.
+
+## 2026-10-08 PC: memory leak, spells test, fast shots
+- Memory: Casting kept a Lua state (Noita's whole spell code) for every wand ever held -> at most 6 (least recently
+  used freed), all freed on leaving the world. Spells test: 424 -> 433 MB over 422 spells (was ~+15 MB per wand).
+- Fast spell shots (bullets, lances...) jumped past creatures between frames: hit test along the frame's path
+  (Collision.CheckAABBvLineCollision). 60 spells went from "no damage" to OK.
+- game_test -Mode spells: each spell alone (one reused test wand, made ready for each spell) at a creature for 40
+  frames; expectations from the sheets; passed spells are remembered (spells_passed.txt) and not tested again.
+  Baseline (design/sources/magic_baseline.txt, spells|...): 383 OK, 39 known: caster-centred blasts (EXPLOSION,
+  FIRE_BLAST, ...), delayed explosives (MINE, PIPE_BOMB, TNTBOX, deer, rockets?), lasers/lightning (LASER, MEGALASER,
+  LIGHTNING, LASER_EMITTER*), diggers, summons (FRIEND_FLY, SWARM_FIREBUG, HOLLOW_EGG), giga holes (no shot: check
+  the 3-alive tag query), ALL_NUKES/ALL_SPELLS uses kept.
+- noita_solids touch_effects: my regeneration had dropped it; extract_liquids.py now writes it (SOLID_TOUCH, the
+  author's toxic ground rocks), identical to before.

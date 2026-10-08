@@ -65,6 +65,11 @@ namespace Terranoita.Game.Magic
                 var all = new LuaWandMaker(NoitaArt.ReadText, 1).Actions().Select(a => a.id).ToList();
                 _ids = all.Where(a => (string.IsNullOrEmpty(only) || only.Split(',').Contains(a)) && !passed.Contains(a)).ToList();
                 _memory0 = GC.GetTotalMemory(true) >> 20;
+                // the test wand in hand now, so its Lua state is made (in the background) before the first spell
+                _wand = WandStore.NewWand();
+                _wand.Name = "spell test"; _wand.Sprite = "data/items_gfx/handgun.xml"; _wand.Slots = new[] { "LIGHT_BULLET" }; _wand.Uses = new[] { -1 };
+                p.inventory[1] = MagicItems.MakeWand(_wand);
+                p.selectedItemState.Select(1);
                 Entry.Log("SPELLS " + _ids.Count + " to test, " + (all.Count - _ids.Count) + " passed before");
                 try { File.WriteAllText(RowsFile, ""); } catch { }
                 Entry.Log("SPELLS " + _ids.Count + " spells");
@@ -100,6 +105,7 @@ namespace Terranoita.Game.Magic
                 if (_wand == null)
                     _wand = WandStore.NewWand();
                 Casting.Changed(_wand);
+                Casting.TestReady(_wand);   // the spell before must not hold this one back
                 _wand.Name = "spell test"; _wand.Sprite = "data/items_gfx/handgun.xml"; _wand.CastDelay = 10; _wand.RechargeTime = 20; _wand.SpellsPerCast = 1;
                 _wand.Slots = type == "projectile" || type == "static_projectile" || type == "material" ? new[] { id } : new[] { id, "LIGHT_BULLET" };
                 _wand.Uses = _wand.Slots.Select(s => MagicItems.Spell(s)?.MaxUses ?? -1).ToArray();

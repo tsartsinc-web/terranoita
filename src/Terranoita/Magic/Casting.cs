@@ -41,6 +41,14 @@ namespace Terranoita.Game.Magic
             }
         }
 
+        /// <summary>Tests: the wand is ready to cast now (one test wand gets a new spell each step).</summary>
+        public static void TestReady(WandData w)
+        {
+            if (Guns.TryGetValue(w.Id, out var h))
+                h.ReadyAt = 0;
+            _recharge.Remove(w.Id);
+        }
+
         /// <summary>Leaving the world: every Lua state goes.</summary>
         public static void Forget() => Guns.Clear();
         static readonly Dictionary<int, int> Versions = new Dictionary<int, int>();
