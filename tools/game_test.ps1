@@ -45,7 +45,6 @@ switch ($Mode) {
     "spells"  { $env:TERRANOITA_AUTOTEST_SPELLS = "1"; $filter = "SPELLS" }
     "wands"   { $env:TERRANOITA_AUTOTEST_WANDS = "1"; $filter = "WANDS|wand .* not made" }
     "sandbox" { $env:TERRANOITA_SANDBOX = "1"; $env:TERRANOITA_AUTOTEST_EXIT = "" }
-    "showcase" { $env:TERRANOITA_SHOWCASE = "1"; $env:TERRANOITA_SCREENSHOTS = "1"; $filter = "SHOWCASE|screenshot" }   # Melty page pictures: shots/show_*.png
     "cart"    { $env:TERRANOITA_CART_TEST = "1"; $filter = "CART|cart" }
     "magic"   { $env:TERRANOITA_AUTOTEST_MAGIC = "1"; $filter = "MAGIC|world loot|starting wands|screenshot" }
     "fps"     { $env:TERRANOITA_AUTOTEST_FPS = "1"; $filter = "PERF|cave pools|fluids:" }
@@ -66,9 +65,7 @@ if ($Mode -eq "sandbox") {
     "$Mode started: the game stays open"
     exit 0
 }
-# showcase draws its pictures: a minimized window draws nothing
-$style = $(if ($Mode -eq "showcase") { "Normal" } else { "Minimized" })
-$p = Start-Process -FilePath (Join-Path $Terraria "Terranoita.exe") -WorkingDirectory $Terraria -PassThru -WindowStyle $style `
+$p = Start-Process -FilePath (Join-Path $Terraria "Terranoita.exe") -WorkingDirectory $Terraria -PassThru -WindowStyle Minimized `
     -ArgumentList @("--noita-dir", "`"$Noita`"", "-savedirectory", "`"$data\testsave`"")
 if (-not $p.WaitForExit($Minutes * 60000)) { Stop-Process -Id $p.Id -Force; "TIMEOUT" }
 Get-Process | Where-Object { $_.Name -match 'Terranoita' } | ForEach-Object { "LEFT RUNNING: closed"; $_.Kill() }

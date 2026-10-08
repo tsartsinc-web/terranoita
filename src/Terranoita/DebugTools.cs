@@ -89,7 +89,7 @@ namespace Terranoita.Game
             return screen.Intersects(n.Hitbox) && !Collision.SolidCollision(n.position + new Vector2(n.width / 4f, n.height / 4f), n.width / 2, n.height / 2);
         }
 
-        internal static void SpawnInFront(EnemyDef e, int tiles)
+        static void SpawnInFront(EnemyDef e, int tiles)
         {
             var p = Main.LocalPlayer;
             int x = (int)p.Center.X + p.direction * tiles * 16;
@@ -201,13 +201,6 @@ namespace Terranoita.Game
                 return;
             }
             var p = Main.LocalPlayer;
-            if (Magic.Showcase.Enabled)
-            {
-                Magic.Showcase.Frame(p, ++_worldFrames);
-                if (_worldFrames == Magic.Showcase.Length + 30 && ExitWhenDone)
-                    Main.instance.Exit();
-                return;
-            }
             if (Cart.TestOn)
             {
                 Cart.Test(p, ++_worldFrames);
