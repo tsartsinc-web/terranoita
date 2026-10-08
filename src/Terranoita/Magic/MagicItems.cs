@@ -110,7 +110,9 @@ namespace Terranoita.Game.Magic
         }
 
         public static string WandName(WandData w) =>
-            string.IsNullOrWhiteSpace(w?.Name) ? NoitaArt.Text("$item_wand", "Wand") : NoitaArt.Text(w.Name.Trim(), w.Name.Trim());
+            string.IsNullOrWhiteSpace(w?.Name) ? NoitaArt.Text("$item_wand", "Wand") :
+            w.Name.EndsWith(" ") ? w.Name + NoitaArt.Text("$item_wand", "Wand") :   // Noita's better wands: "Large " + the wand's name
+            NoitaArt.Text(w.Name.Trim(), w.Name.Trim());
 
         static Texture2D Icon(Item item)
         {

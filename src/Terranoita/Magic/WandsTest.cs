@@ -59,16 +59,14 @@ namespace Terranoita.Game.Magic
                 p.selectedItemState.Select(1);
                 _casts = Casting.TestCasts;
                 _shots = Casting.TestShots;
-                _mana = 0;
+                _mana = Casting.TestMana;
                 Casting.TestFire = true;
             }
-            // mana spent: refilled every frame so a wand never runs dry, the drain is summed
-            _mana += p.statManaMax2 - p.statMana;
-            p.statMana = p.statManaMax2;
+            p.statMana = p.statManaMax2;   // never runs dry
             if (t == Each - 1)
                 Log((k + 1) + "/" + _wands.Count + " " + System.IO.Path.GetFileNameWithoutExtension(file) + " '" + MagicItems.WandName(w) + "' [" +
                     string.Join(" ", w.Slots.Select(s => s ?? "-")) + (w.AlwaysCast.Count > 0 ? " | always " + string.Join(" ", w.AlwaysCast) : "") +
-                    "]: casts " + (Casting.TestCasts - _casts) + ", shots " + (Casting.TestShots - _shots) + ", mana " + _mana +
+                    "]: casts " + (Casting.TestCasts - _casts) + ", shots " + (Casting.TestShots - _shots) + ", mana " + (Casting.TestMana - _mana) +
                     ", live " + SpellShots.Ids().Count);
         }
     }

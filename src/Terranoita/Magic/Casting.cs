@@ -29,7 +29,7 @@ namespace Terranoita.Game.Magic
 
         /// <summary>Tests: fire as if the button were held, at this point instead of the mouse.</summary>
         public static bool TestFire;
-        public static int TestCasts, TestShots;   // tests: casts made and shots fired
+        public static int TestCasts, TestShots, TestMana;   // tests: casts made, shots fired, mana spent
         public static Vector2? TestAim;
         static Vector2 Aim => TestAim ?? Main.MouseWorld;
 
@@ -126,6 +126,7 @@ namespace Terranoita.Game.Magic
             foreach (var id in cast.Played)
                 ProgressWindow.Cast(id);   // the progress book counts casts per spell (Noita's OnActionPlayed)
             TestCasts++;
+            TestMana += Math.Max(0, spent);
             TestShots += cast.Shots.Count;
             foreach (var s in cast.Shots)
                 SpellShots.Fire(s, tip, dir, p, w);

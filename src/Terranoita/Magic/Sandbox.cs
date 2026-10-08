@@ -11,7 +11,7 @@ namespace Terranoita.Game.Magic
 {
     /// <summary>
     /// TERRANOITA_SANDBOX=1 (with TERRANOITA_AUTOTEST=1, no exit; tools/game_test.ps1 -Mode sandbox): a place for the
-    /// author to try magic by hand. A flat arena at the player, chests holding every spell of the player's Noita and
+    /// author to try magic by hand. Plain grassy ground with trees at the player, chests holding every spell of the player's Noita and
     /// every wand Noita's wand files make; no creatures (author).
     /// </summary>
     public static class Sandbox
@@ -39,27 +39,32 @@ namespace Terranoita.Game.Magic
             p.statManaMax = p.statManaMax2 = 400;
             _x0 = (int)(p.Center.X / 16) - 12;
             _floor = (int)((p.position.Y + p.height) / 16) + 1;
-            // the arena: open air, a stone floor, walls at both ends
+            // plain ground like a normal forest (author): dirt with grass, a few trees, open air above; the pits and
+            // liquids earlier tests left are filled in or removed
             for (int x = _x0 - 1; x <= _x0 + Width; x++)
-                for (int y = _floor - Height; y <= _floor + 2; y++)
+                for (int y = _floor - Height; y <= _floor + 20; y++)
                 {
                     if (!WorldGen.InWorld(x, y, 10))
                         continue;
                     var t = Main.tile[x, y];
                     t.liquid = 0;
-                    t.wall = 0;
-                    bool solid = y >= _floor || x == _x0 - 1 || x == _x0 + Width;
-                    if (solid)
+                    if (y >= _floor)
                     {
-                        t.ClearTile();
-                        WorldGen.PlaceTile(x, y, TileID.GrayBrick, true, true);
+                        t.ClearEverything();
+                        t.active(true);
+                        t.type = y == _floor ? TileID.Grass : TileID.Dirt;
+                        t.wall = y > _floor + 1 ? WallID.DirtUnsafe : (ushort)0;
                     }
-                    else if (t.active())
-                        WorldGen.KillTile(x, y, false, false, true);
+                    else
+                        t.ClearEverything();
                 }
             if (Physics.Patches.On)
                 Physics.Fluids.Clear();
-            WorldGen.RangeFrame(_x0 - 2, _floor - Height - 1, _x0 + Width + 2, _floor + 3);
+            for (int i = 0; i < Main.maxItems; i++)
+                Main.item[i].inner.TurnToAir();   // the items earlier tests dropped
+            WorldGen.RangeFrame(_x0 - 2, _floor - Height - 1, _x0 + Width + 2, _floor + 21);
+            for (int x = _x0 + 30; x < _x0 + Width - 4; x += 9 + Main.rand.Next(6))
+                Tree(x, _floor - 1);
             p.position = new Vector2((_x0 + 12) * 16, (_floor - 3) * 16);
             p.velocity = Vector2.Zero;
 
@@ -82,6 +87,15 @@ namespace Terranoita.Game.Magic
             for (int i = 0; i < wands.Count; i += 40)
                 made += Fill(ref cx, "Wands " + (i / 40 + 1), wands.Skip(i).Take(40).ToList());
             Log("arena at " + _x0 + "," + _floor + ": " + spells.Count + " spells, " + wands.Count + " wands in " + made + " chests");
+        }
+
+        /// <summary>A tree as the forest grows them: a sapling on the grass, grown at once.</summary>
+        static void Tree(int x, int y)
+        {
+            if (!WorldGen.PlaceTile(x, y, TileID.Saplings, true))
+                return;
+            if (!WorldGen.GrowTree(x, y) && Main.tile[x, y].type == TileID.Saplings)
+                WorldGen.KillTile(x, y, false, false, true);
         }
 
         /// <summary>Noita's wand entity files: levels, better, unshuffle, level 10, daily, unique, custom.</summary>

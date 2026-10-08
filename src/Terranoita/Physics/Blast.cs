@@ -14,6 +14,7 @@ namespace Terranoita.Game.Physics
                 return;
             int r = (int)Math.Ceiling(radius / 16f);
             int cx = (int)(pos.X / 16), cy = (int)(pos.Y / 16);
+            int drops = 0;   // a few blocks drop, the rest is gone: hundreds of items on the ground slowed the game (author)
             for (int x = cx - r; x <= cx + r; x++)
                 for (int y = cy - r; y <= cy + r; y++)
                 {
@@ -22,7 +23,12 @@ namespace Terranoita.Game.Physics
                     if (d > r || (d > r * 0.6f && Main.rand.Next(2) == 0) || !Mats.InWorld(x, y))
                         continue;
                     if (Breakable(x, y))
-                        WorldGen.KillTile(x, y, false, false, Main.rand.Next(3) != 0);   // like Noita, most of it is just gone
+                    {
+                        bool drop = drops < 4 && Main.rand.Next(3) == 0;
+                        if (drop)
+                            drops++;
+                        WorldGen.KillTile(x, y, false, false, !drop);   // like Noita, most of it is just gone
+                    }
                 }
             if (fiery)
                 Fire.IgniteArea(pos, radius * 1.3f, 0.5f);
