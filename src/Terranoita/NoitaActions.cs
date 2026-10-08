@@ -54,7 +54,7 @@ namespace Terranoita.Game
 
         // ---- kick ----
 
-        static void Kick(Player p)
+        internal static void Kick(Player p)
         {
             _kickCooldown = 20;
             var foot = new Vector2(p.Center.X + p.direction * (p.width / 2f + 8), p.position.Y + p.height - 10);

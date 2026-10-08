@@ -1,5 +1,6 @@
 using System;
 using System.IO;
+using System.Linq;
 using HarmonyLib;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
@@ -76,26 +77,54 @@ namespace Terranoita.Game
         public static readonly bool TestOn = Environment.GetEnvironmentVariable("TERRANOITA_CART_TEST") == "1";
         static int _logFrames;
 
-        /// <summary>TERRANOITA_CART_TEST=1 (game_test -Mode cart): the player next to the cart, one kick, its path logged.</summary>
+        static NPC[] _kicked;
+        static float[] _from;
+        static float _cartFrom;
+
+        /// <summary>TERRANOITA_CART_TEST=1 (game_test -Mode cart): the kick (F) on a bunny, a slime and a zombie left of
+        /// the player, then on the cart; how far each flew is logged (author: at most ~5 tiles for small creatures).</summary>
         public static void Test(Player p, int frame)
         {
-            if (!_has)
-                return;
             if (frame == 60)
             {
+                p.direction = -1;
+                _kicked = new[] { Terraria.ID.NPCID.Bunny, Terraria.ID.NPCID.BlueSlime, Terraria.ID.NPCID.Zombie }
+                    .Select(id => Main.npc[NPC.NewNPC(new Terraria.DataStructures.EntitySource_SpawnNPC(), (int)p.Center.X - 30, (int)(p.position.Y + p.height), id)])
+                    .ToArray();
+                foreach (var n in _kicked)
+                    n.velocity = Vector2.Zero;
+                _from = _kicked.Select(n => n.Center.X).ToArray();
+            }
+            if (frame == 62)
+                NoitaActions.Kick(p);
+            if (frame == 180)
+            {
+                for (int i = 0; i < _kicked.Length; i++)
+                {
+                    var n = _kicked[i];
+                    Entry.Log("CART kick " + n.TypeName + " (" + n.width + "x" + n.height + ", kb " + n.knockBackResist.ToString("0.00") + "): " +
+                              ((_from[i] - n.Center.X) / 16).ToString("0.0") + " tiles");
+                    n.active = false;
+                }
+                if (!_has)
+                {
+                    Entry.Log("CART none in this world");
+                    Main.instance.Exit();
+                    return;
+                }
                 p.Teleport(new Vector2(_pos.X - 40, _pos.Y + H - p.height), -1);
                 p.velocity = Vector2.Zero;
                 p.direction = 1;
+                _cartFrom = _pos.X;
                 Entry.Log("CART before: box " + Box + " rot " + _rot.ToString("0.00"));
             }
-            if (frame == 90)
+            if (frame == 210)
+                NoitaActions.Kick(p);
+            if (frame == 390)
             {
-                var foot = new Vector2(p.Center.X + p.width / 2f + 8, p.position.Y + p.height - 10);
-                Kick(foot, new Vector2(7f, -2.5f));
-                Entry.Log("CART kicked: foot " + foot + ", vel " + _vel + ", spin " + _spin.ToString("0.00"));
-            }
-            if (frame == 200)
+                Entry.Log("CART kick cart: " + ((_pos.X - _cartFrom) / 16).ToString("0.0") + " tiles, rot " + _rot.ToString("0.00"));
                 Main.instance.Exit();
+            }
         }
 
         public static void Kick(Vector2 foot, Vector2 push)

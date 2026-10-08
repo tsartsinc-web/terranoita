@@ -207,12 +207,6 @@ namespace Terranoita.Game
                 Cart.Test(p, ++_worldFrames);
                 return;
             }
-            if (Magic.Tour.Enabled)
-            {
-                // the author watches a normal game: no healing, Terraria's creatures stay
-                Magic.Tour.Frame(p, ++_worldFrames);
-                return;
-            }
             // keep the test character alive but still taking hits, so attacks show in the log (author: 1000 hp)
             p.statLifeMax = p.statLifeMax2 = 1000;
             if (p.statLife < p.statLifeMax2 / 2)

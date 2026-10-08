@@ -10,7 +10,6 @@
 # design/sources/magic_baseline.txt; the full log stays in %LOCALAPPDATA%/Terranoita/logs/latest.log.
 #   powershell -File tools/game_test.ps1 -Mode sandbox          # the author plays: arena, chests of every spell and wand
 #   powershell -File tools/game_test.ps1 -Mode play             # just the game (fresh build, own saves)
-#   powershell -File tools/game_test.ps1 -Mode tour             # a new medium world: Shine, 10 underground chests, death, flasks
 # Modes: magic, fps, physics, gallery, audit, enemies. Screenshots: %LOCALAPPDATA%/Terranoita/shots/*.png
 param(
     [string]$Mode = "magic",
@@ -18,6 +17,7 @@ param(
     [string]$Only = "",
     [int]$Minutes = 0,
     [switch]$Accept,
+    [switch]$NewWorld,
     [string]$Terraria = "D:\steam\steamapps\common\Terraria",
     [string]$Noita = "D:\steam\steamapps\common\Noita"
 )
@@ -46,8 +46,6 @@ switch ($Mode) {
     "wands"   { $env:TERRANOITA_AUTOTEST_WANDS = "1"; $filter = "WANDS|wand .* not made" }
     "sandbox" { $env:TERRANOITA_SANDBOX = "1"; $env:TERRANOITA_AUTOTEST_EXIT = "" }
     "cart"    { $env:TERRANOITA_CART_TEST = "1"; $filter = "CART|cart" }
-    "tour"    { $env:TERRANOITA_TOUR = "1"; $env:TERRANOITA_AUTOTEST_EXIT = ""; $env:TERRANOITA_AUTOTEST_WORLDSIZE = "1"; $env:TERRANOITA_SCREENSHOTS = "1"
-                $env:TERRANOITA_AUTOTEST_NEWWORLD = "Terranoita Tour " + (Get-Date -Format "MMdd-HHmm") }
     "magic"   { $env:TERRANOITA_AUTOTEST_MAGIC = "1"; $filter = "MAGIC|world loot|starting wands|screenshot" }
     "fps"     { $env:TERRANOITA_AUTOTEST_FPS = "1"; $filter = "PERF|cave pools|fluids:" }
     "physics" { $env:TERRANOITA_AUTOTEST_PHYSICS = "1"; $filter = "PHYSICS" }
@@ -56,11 +54,12 @@ switch ($Mode) {
     "enemies" { $env:TERRANOITA_AUTOTEST_PLACES = "1"; $env:TERRANOITA_AUTOTEST_SECONDS = "8"; $filter = "AUTOTEST|loot of|worm " }
 }
 if ($World) { $env:TERRANOITA_AUTOTEST_WORLD = $World }
-# magic tests play in a world of their own, made by the game the first time (author: "test in a new world")
+# every test plays in ONE world, made by the game the first time; -NewWorld remakes it, only after a worldgen change (author)
 if ($Minutes -eq 0) { $Minutes = $(if ($Mode -eq "spells") { 12 } else { 6 }) }
-if (-not $World -and $Mode -in @("magic", "wands", "spells", "sandbox", "cart")) { $env:TERRANOITA_AUTOTEST_NEWWORLD = "Terranoita Magic" }
+if (-not $World) { $env:TERRANOITA_AUTOTEST_NEWWORLD = "Terranoita Magic" }
+if ($NewWorld) { Get-ChildItem (Join-Path $data "testsave\Worlds") -Filter "Terranoita_Magic.wld*" -ErrorAction SilentlyContinue | Remove-Item -Force }
 if ($Only) { $env:TERRANOITA_AUTOTEST_ONLY = $Only }
-if ($Mode -in @("sandbox", "tour")) {
+if ($Mode -eq "sandbox") {
     Start-Process -FilePath (Join-Path $Terraria "Terranoita.exe") -WorkingDirectory $Terraria `
         -ArgumentList @("--noita-dir", "`"$Noita`"", "-savedirectory", "`"$data\testsave`"") | Out-Null
     "$Mode started: the game stays open"

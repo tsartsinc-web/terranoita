@@ -12,33 +12,29 @@ How it works (author, 2026-10-08): the author only says "работай" to eith
 - Status words: new, doing, waits <row>, done <commit>.
 
 ## State (keep to ~12 lines; update when it changes)
-- Melty: 0.3.1 LIVE (146 players). 0.4.0 not uploaded: build/terranoita-0.4.0.zip (9f0e8e5) is OLD, rebuild (PC-16).
+- Melty: 0.3.1 LIVE (146 players). 0.4.0 package rebuilt 2026-10-08, not uploaded (PC-16 waits the author).
 - Stage 3 magic in game: all spells via Noita's gun.lua, shot scripts, all wands, wand window (U), progress window (O),
   16 spell slots; Terraria magic bonuses apply (mana cost/damage/crit/regen/Mana Flower); max mana 600 (ManaCap.cs).
 - Spells test: 416/422 OK (design/sources/magic_baseline.txt), left in PC-6.
-- 2026-10-08 (PC, most untested by hand, PC-15): flasks (Magic/Flasks.cs), wand/potion altars (WorldLoot), Noita
+- 2026-10-08 (PC; author: good enough, polish later): flasks (Magic/Flasks.cs), wand/potion altars (WorldLoot), Noita
   main menu (sky, music, "PRESS F TO KICK GID!", no RE-LOGIC intro), wooden start cart with tip-over physics,
   size-scaled kick with Noita's sounds, liquids sink/mix by density, oceans + Underworld lava protected,
   hostile surface spawns only at night, new worlds' chests filled again (WorldLoot save bug).
 - PC: no page file, 16 GB, the game is 32-bit (~4 GB): a test with little free memory can hang the PC (11:33 today).
   game_test has no memory check any more (author). Launch with `-ExecutionPolicy Bypass`.
+- Tests use ONE world (Terranoita Magic in testsave); `game_test -NewWorld` only after a worldgen change. No tour mode.
 - Roadmap: design/roadmap.md. Worldgen plan: design/worldgen_plan.md (PC-10 after CLOUD-7).
 
 ## PC queue
-- PC-15 new: check by hand/tests what 2026-10-08 added (one `game_test -Mode play` session with the author, or
-  `-Mode tour` / `-Mode cart`): kick distance (<= 5 tiles, sound), cart (wooden, kick flies a few tiles and tips over,
-  riding), flasks (LMB spray, RMB throw, down drink, dip to fill), wand/potion altars in caves, menu (sky, music
-  event:/music/mountain/enter - loop it if it stops, text), intro skipped (log "RE-LOGIC intro skipped"), 15 mana
-  stars, magic bonuses, ocean protection, lake animals near water (PC-11). Fix what fails; MODLOG.
-- PC-16 new: rebuild the 0.4.0 package (MODLOG "0.4.0 package" steps) with everything since 9f0e8e5; upload to
-  Melty only when the author says so (the author signs in: browser pane / Claude in Chrome; recipe
-  design/melty.recipe.draft.json, mod c68ad4c6-f9db-40f5-802c-a4f9d7713e69).
+- PC-16 waits author: build/terranoita-0.4.0.zip rebuilt 2026-10-08 13:05 (1256961 bytes, sha256 cf370b84db2ff73d..);
+  upload to Melty only when the author says so (the author signs in; recipe design/melty.recipe.draft.json,
+  mod c68ad4c6-f9db-40f5-802c-a4f9d7713e69). Rebuild it first if game code changed since.
 - PC-6 doing: spells left: MINE_DEATH_TRIGGER, EXPLODING_DEER, BOMB_CART, DEATH_CROSS (moving/summoned entities,
   cross lasers); PIPE_BOMB* go off only in another blast (Noita), the test should expect that. Giga spells cost
   500-600: castable now with 600 max mana.
 - PC-4 new: Physics/Electricity.cs on Core's Conduction (design/effect_interactions.md 0b, section 3) + pool test.
 - PC-10 waits CLOUD-7: worldgen per design/worldgen_plan.md sections 1, 3, 4, 5. Check: game_test -Mode worldgen.
-- Known gaps: flask powders (gunpowder_unstable, purifying_powder) do not pour (no Fluids kind); multiplayer still
+- Known gaps: the cart kicked against a wall does not move (game_test -Mode cart: 0 tiles, it only flips); flask powders (gunpowder_unstable, purifying_powder) do not pour (no Fluids kind); multiplayer still
   clamps synced mana at 400 (MessageBuffer.GetData).
 
 ## CLOUD queue
@@ -53,6 +49,8 @@ How it works (author, 2026-10-08): the author only says "работай" to eith
   never in a public repo).
 
 ## Done (last ~8)
+- done (PC, 2026-10-08) PC-15: author accepted flasks, altars, wands, magic, cart as good enough; tour test removed;
+  cart test now also kicks a bunny/slime/zombie (0.4 / 5.2 / 4.2 tiles).
 - done (PC, 2026-10-08) flasks: Noita's potion.lua fills them (LuaWandMaker.MakePotion, tncli lua-potion), spray /
   throw / drink / suck, starting flask, 1 in 4 chests, sandbox chest; WandData.Flask carries them.
 - done (PC) wand and potion altars (biome_impl/*_altar_visual.png at 3 px per Noita px), loot file version 3.

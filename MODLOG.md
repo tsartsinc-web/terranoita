@@ -883,3 +883,12 @@ Unfinished / how to resume:
 3. PC-6 spells, PC-4 electricity, PC-10 worldgen after CLOUD-7.
 Risks: no page file on the PC + 32-bit game: low free memory can hang the whole PC; do not take screenshots
 unless asked.
+
+## PC 2026-10-08: PC-15 closed, one test world, 0.4.0 rebuilt
+- Author: flasks, altars, wands, magic, cart good enough; move on. Tour test removed (Magic/Tour.cs, game_test tour).
+- game_test: every mode uses the one world "Terranoita Magic"; -NewWorld deletes it so the game remakes it (only
+  after worldgen changes).
+- Cart.Test (game_test -Mode cart): kicks a bunny, blue slime, zombie (logged 0.4 / 5.2 / 4.2 tiles), then the cart
+  (here against a wall: 0 tiles, flipped). NoitaActions.Kick is internal for it.
+- build/terranoita-0.4.0.zip rebuilt (1256961 bytes, sha256 cf370b84db2ff73d..), README mentions flasks, altars,
+  mana 600, menu. Not uploaded (PC-16 waits the author).
