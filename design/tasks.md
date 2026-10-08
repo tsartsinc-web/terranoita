@@ -21,14 +21,15 @@ How it works (author, 2026-10-08): the author only says "работай" to eith
   play without errors; traders/electricity/lasers come in 0.4.x.
 
 ## PC queue
-- PC-14 new: physics test gets liquid + liquid cases (none today: only acid on dirt, burning oil, slime
+- PC-14 code done (PC), needs `game_test -Mode physics`: basins x0+84.. with water+radioactive_liquid, blood+poison,
+  lava+blood_cold, water+cement (Noita has no plain water+lava row: Terraria's obsidian); log "liquid pairs: ...". Was: physics test gets liquid + liquid cases (none today: only acid on dirt, burning oil, slime
   on oil): Noita water + lava -> steam/rock, acid + water, blood + lava, toxic sludge + water (rows in
   reactions.json); log `Fluids.Fired` per case, run in release mode. Check: each case fires its reaction.
 - PC-9 waits CLOUD-6: night spawns on the surface (author: crawlers/shooters/bombers kill him in the first minutes by day).
   Needs CLOUD-6. Spawning: a creature whose zone row says `time: night` spawns only when !Main.dayTime (blood moon
   and eclipse count as night); passive ones (sheet says `time: any`) keep spawning by day. Check: autotest day 10 min
   -> 0 hostile Noita spawns on the surface, night -> spawns.
-- PC-11 new: lake animals never spawn (author never saw a duck/deer/sheep/elk/wolf): surface_water check is
+- PC-11 code done (PC), needs an in-game check: Zones.NearWater(x, y, 12) in the surface_water row. Was: lake animals never spawn (author never saw a duck/deer/sheep/elk/wolf): surface_water check is
   "spawn tile in water", but walkers need ground there. Add Zones.NearWater(x, y, 12) (surface water within 12
   tiles) and set terraria_zones surface_water.terraria_check to it (sheet edit allowed by this row; gen_cs);
   swimmers keep the in-water rule. Check: autotest near a surface lake spawns a walker from Lake.

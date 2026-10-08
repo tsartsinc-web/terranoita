@@ -96,11 +96,30 @@ namespace Terranoita.Game.Physics
                 Fluids.Add(_x0 + 68, _gy - 6 - s, "slime", 255);
             for (int s = 0; s < 3; s++)
                 Fluids.Add(_x0 + 75, _gy - 2 - s, "smoke", 255);
+            // liquid + liquid (rows of reactions.json): one stone basin each, the first liquid at the bottom, the second on top
+            for (int c = 0; c < Pairs.Length; c++)
+            {
+                int bx = _x0 + 84 + c * 6;
+                for (int y = _gy - 4; y <= _gy - 1; y++)
+                {
+                    Place(bx, y, TileID.Stone, false);
+                    Place(bx + 6, y, TileID.Stone, false);
+                }
+                for (int s = 1; s <= 5; s++)
+                {
+                    Fluids.Add(bx + s, _gy - 1, Pairs[c].a, 200);
+                    Fluids.Add(bx + s, _gy - 3, Pairs[c].b, 200);
+                }
+            }
             Log("poured: cells " + Fluids.Count + ", smoke " + Fluids.Total(_x0 + 70, _x0 + 80, _gy - 10, _gy, "smoke"));
         }
 
+        static readonly (string a, string b)[] Pairs = { ("water", "radioactive_liquid"), ("blood", "poison"), ("lava", "blood_cold"), ("water", "cement") };
+
         static void Fluid(string when)
         {
+            Log(when + ": liquid pairs: " + string.Join(", ", Pairs.Select(pr => pr.a + "+" + pr.b + " " +
+                Fluids.Fired.Where(kv => kv.Key.EndsWith(" " + pr.a + "+" + pr.b) || kv.Key.EndsWith(" " + pr.b + "+" + pr.a)).Sum(kv => kv.Value))));
             if (when.StartsWith("3"))
                 Fluids.Ignite(_x0 + 60, _gy - 1);
             int dirt = Count(_x0 + 48, _x0 + 53, _gy - 3, _gy - 1, t => t.type == TileID.Dirt);
@@ -122,7 +141,7 @@ namespace Terranoita.Game.Physics
                 gy++;
             _gy = gy;
             // a flat floor of stone and clear air above, so every scene starts the same
-            for (int x = _x0 - 2; x <= _x0 + 80; x++)
+            for (int x = _x0 - 2; x <= _x0 + 110; x++)
             {
                 for (int y = gy - 25; y < gy; y++)
                 {
