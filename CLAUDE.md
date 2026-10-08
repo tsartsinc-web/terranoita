@@ -36,6 +36,9 @@ when a task points to it. MODLOG.md: new section at the end, UTF-8 (merges by un
 ## PC tools
 - `tncli tr-methods <Terraria.exe> <Type> [regex]` (signatures; env TN_IL=1 adds IL): check every patch target first,
   an unbound patch shows a modal error in the game. Also wak-list, wak-cat, wak-get, lua-cast, lua-golden, lua-potion.
+- `ilspycmd` (ILSpy CLI; install once: `dotnet tool install -g ilspycmd`, author approved): read Terraria's real code
+  when tr-methods is not enough, e.g. `ilspycmd <Terraria.exe> -t Terraria.Player | grep -n ...`. Local only: never
+  commit or push decompiled code. Before each commit run /code-review on the diff.
 - `powershell -ExecutionPolicy Bypass -File tools/game_test.ps1 -Mode <m>`: play (the game, own saves), magic,
   spells, wands, physics, fps, cart, tour, sandbox (the last two stay open). Magic modes print a summary + a diff
   against design/sources/magic_baseline.txt.
