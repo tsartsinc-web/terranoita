@@ -39,7 +39,8 @@ namespace Terranoita.Tests
                 HostFields[comp + "." + field] = value;
                 return true;
             }
-            public override void Kill(int e) { Killed.Add(e); Shots.Remove(e); }
+            public System.Action<int> OnKill;   // the game ends the shot: its death scripts run (SpellShots.End -> Fire)
+            public override void Kill(int e) { Killed.Add(e); Shots.Remove(e); OnKill?.Invoke(e); }
             public void Step()
             {
                 Frame++;
@@ -114,6 +115,12 @@ EntityAddTag(root, ""fused"")
   <VariableStorageComponent name=""died"" value_string="""" />
   <LuaComponent script_death=""data/scripts/test_death.lua"" />
 </Entity>",
+            ["data/entities/misc/test_suicide.xml"] = @"<Entity>
+  <LuaComponent script_source_file=""data/scripts/test_suicide.lua"" execute_every_n_frame=""1"" />
+  <LuaComponent script_death=""data/scripts/test_death.lua"" />
+  <VariableStorageComponent name=""died"" value_string="""" />
+</Entity>",
+            ["data/scripts/test_suicide.lua"] = "EntityKill(GetUpdatedEntityID())",   // extras are loaded into the shot
             ["data/scripts/test_death.lua"] = @"
 function death(damage_type, message, responsible, drop)
   local me = GetUpdatedEntityID()
@@ -235,6 +242,27 @@ ComponentSetValue2(c, ""randoms"", (r1 >= 0 and r1 < 1 and r2 >= 0 and r2 <= 5 a
             Assert.False(lua.Alive(grandchild));                      // its LifetimeComponent ran out
             Assert.True(lua.Alive(child));
             Assert.Empty(host.Killed);
+        }
+
+        [Fact]
+        public void ShotKilledByAScriptMidFrameRunsItsDeathAndTheFrameGoesOn()
+        {
+            // three shots whose scripts kill them in the same frame; each death runs its script_death (the game's
+            // End fires it), which once swept the component lists while Update walked them (IndexOutOfRange, 2026-10-09)
+            var host = new FakeHost();
+            var lua = new LuaShotScripts(host, Read);
+            host.OnKill = e => lua.Fire(e, "script_death", 1, "gone", 0, false);
+            var shots = new List<int>();
+            for (int i = 0; i < 3; i++)
+            {
+                int s = lua.CreateShot("data/entities/projectiles/bolt.xml");
+                host.Shots[s] = new float[] { 100 + i, 50, 0, 0 };
+                shots.Add(s);
+                lua.AttachExtra(s, "data/entities/misc/test_suicide.xml");
+            }
+            Run(lua, host, 2);
+            Assert.Equal(shots, host.Killed);
+            Assert.All(shots, s => Assert.False(lua.Alive(s)));
         }
 
         [Fact]

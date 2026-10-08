@@ -271,6 +271,9 @@ namespace Terranoita.Noita
         /// <summary>One frame: lifetimes, then every due LuaComponent (script_source_file).</summary>
         public void Update(int frame)
         {
+            _updating = true;
+            try
+            {
             _frame = frame;
             int lives = _lifeComps.Count;   // components added during this frame wait for the next one
             for (int i = 0; i < lives; i++)
@@ -303,6 +306,8 @@ namespace Terranoita.Noita
             }
             if (_sweep)
                 Sweep();
+            }
+            finally { _updating = false; }
         }
 
         /// <summary>An engine event on the entity and its children: runs each LuaComponent that has this script field
@@ -327,7 +332,7 @@ namespace Terranoita.Noita
             string fn = EventFunctions.TryGetValue(scriptField, out var f) ? f : scriptField.StartsWith("script_") ? scriptField.Substring(7) : scriptField;
             foreach (var c in targets)
                 Run(c, Str(c.Fields, scriptField), fn, args);
-            if (_sweep)
+            if (_sweep && !_updating)   // inside Update the lists are being walked: Update sweeps at its end
                 Sweep();
         }
 
@@ -450,7 +455,7 @@ namespace Terranoita.Noita
                 if (c.Enabled && !c.Removed && Alive(c.Entity))
                     RunSource(c);
             }
-            if (_sweep)
+            if (_sweep && !_updating)
                 Sweep();
         }
 
@@ -569,6 +574,8 @@ namespace Terranoita.Noita
         }
 
         /// <summary>Drops dead entities and removed components (after a run, so scripts never see ids vanish mid-run).</summary>
+        bool _updating;   // Update is walking _luaComps/_lifeComps by index: no Sweep may shrink them meanwhile
+
         void Sweep()
         {
             _sweep = false;
