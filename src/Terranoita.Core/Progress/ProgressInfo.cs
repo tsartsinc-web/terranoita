@@ -31,6 +31,16 @@ namespace Terranoita.Progress
             return lines;
         }
 
+        /// <summary>Longest list in a tooltip (places, reactions); the rest is "...".</summary>
+        public const int MaxListLines = 6;
+
+        // a zone id as a short place name: surface_forest -> Surface forest, cavern_hm -> Cavern
+        static string Place(string zoneId)
+        {
+            string s = zoneId.Replace("_post_plantera", "").Replace("_hm", "").Replace('_', ' ');
+            return s.Length == 0 ? s : char.ToUpperInvariant(s[0]) + s.Substring(1);
+        }
+
         static string N(float v) => v == (int)v ? ((int)v).ToString(CultureInfo.InvariantCulture) : v.ToString("0.##", CultureInfo.InvariantCulture);
 
         // ---- creatures ----
@@ -44,17 +54,23 @@ namespace Terranoita.Progress
             if (tier != null)
                 lines.Add("Life: " + life);
             bool tough = life > PreHardmodeMaxLife;   // the game spawns these only in hardmode (Spawning.cs, author)
+            // one short line per Terraria place (author: one long line ran off the screen)
             var where = new List<string>();
             foreach (var loc in e.SpawnIn ?? new string[0])
-                if (Defs.Biome.TryGetValue(loc, out var b) && Defs.Zone.TryGetValue(b.Zone ?? "", out var z))
+                if (Defs.Biome.TryGetValue(loc, out var b) && Defs.Zone.TryGetValue(b.Zone ?? "", out var z) && z.Id != "none")
                 {
-                    string place = loc + " -> " + z.Condition + (z.Hardmode || tough ? ", hardmode" : "") +
+                    string place = "  " + Place(z.Id) + (z.Hardmode || tough ? ", hardmode" : "") +
                                    (z.AfterBoss != null && z.AfterBoss != "none" ? ", after " + z.AfterBoss : "");
                     if (!where.Contains(place))
                         where.Add(place);
                 }
             if (where.Count > 0)
-                lines.Add("Lives in: " + string.Join("; ", where));
+            {
+                lines.Add("Lives in:");
+                lines.AddRange(where.Take(MaxListLines));
+                if (where.Count > MaxListLines)
+                    lines.Add("  ...");
+            }
             else if (e.SpawnRule != null && e.SpawnRule != "natural")
                 lines.Add("Found: " + e.SpawnRule.Replace('_', ' '));
             foreach (var a in Defs.AttacksOf(e))
@@ -114,7 +130,12 @@ namespace Terranoita.Progress
                     with.Add(text);
             }
             if (with.Count > 0)
-                lines.Add("Reacts: " + string.Join("; ", with.Take(5)) + (with.Count > 5 ? "; ..." : ""));
+            {
+                lines.Add("Reacts:");
+                lines.AddRange(with.Take(MaxListLines).Select(w => "  " + w));
+                if (with.Count > MaxListLines)
+                    lines.Add("  ...");
+            }
         }
 
         static bool Matches(string input, string id, HashSet<string> tags) =>
