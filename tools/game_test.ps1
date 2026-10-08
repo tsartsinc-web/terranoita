@@ -28,16 +28,8 @@ if ($Mode -in @("magic", "spells")) {
     if ($cli) { & $cli.FullName lua-golden $Noita --check (Join-Path $PSScriptRoot "..\design\sources\lua_cast_golden.txt") | Select-Object -Last 20 }
 }
 Get-Process | Where-Object { $_.Name -match 'Terranoita' } | ForEach-Object { "a test game was still running: closed"; $_.Kill() }
-# the PC has no page file: when Windows' commit runs out the game gets OutOfMemory and the whole PC hangs (2026-10-08)
-$os = Get-CimInstance Win32_OperatingSystem
-$freeGB = $os.FreeVirtualMemory / 1MB
-if ($freeGB -lt 6) {
-    $msg = "NOT STARTED: only {0:N1} GB of memory free (needs 6; close browser tabs or turn the page file on)" -f $freeGB
-    $msg
-    # the author's own launches (play, tour, sandbox) show it in a window: the button's text output is easy to miss
-    if ($Mode -in @("play", "tour", "sandbox")) { Add-Type -AssemblyName System.Windows.Forms; [System.Windows.Forms.MessageBox]::Show($msg, "Terranoita") | Out-Null }
-    exit 1
-}
+# (no memory check: the author removed it 2026-10-08; the PC has no page file, so a test with little memory free can
+# hang it, see MODLOG/tasks note)
 Copy-Item (Join-Path $bin "Terranoita.Game.dll"), (Join-Path $bin "Terranoita.Core.dll"), (Join-Path $bin "MoonSharp.Interpreter.dll") -Destination $Terraria -Force -ErrorAction Stop
 $data = Join-Path $env:LOCALAPPDATA "Terranoita"
 $log = Join-Path $data "logs\latest.log"
