@@ -33,6 +33,7 @@ namespace Terranoita.Game.Magic
             public int Life, Age, Bounces, TriggerIn;
             public int Script, StartLife;      // its entity in Noita's shot scripts (0 = none), lifetime at start
             public bool Killed;                // a script killed it
+            public bool Triggered;             // its CollisionTriggerComponent went off (a mine: a creature came near)
             public uint Born;                  // the game frame it was fired in (shots of one cast share it)
             public float Damage, ExplosionDamage, Radius, Gravity, Friction, Knockback;
             public bool Fire, Penetrate;
@@ -274,6 +275,22 @@ namespace Terranoita.Game.Magic
                 NoitaSound.PlayFirst(s.Def.Audio, s.Pos, "destroy");
         }
 
+        static readonly Dictionary<string, bool> HittableFiles = new Dictionary<string, bool>();
+
+        /// <summary>The projectile's entity has the tag "hittable": explosions and damage set it off.</summary>
+        static bool Hittable(string file)
+        {
+            if (string.IsNullOrEmpty(file))
+                return false;
+            if (!HittableFiles.TryGetValue(file, out bool h))
+            {
+                var text = NoitaArt.ReadText(file) ?? "";
+                var m = System.Text.RegularExpressions.Regex.Match(text, "<Entity[^>]*tags=\"([^\"]*)\"");
+                HittableFiles[file] = h = m.Success && m.Groups[1].Value.Split(',').Any(x => x.Trim() == "hittable");
+            }
+            return h;
+        }
+
         static void Release(Shot s)
         {
             if (s.Lua.Payload.Count == 0)
@@ -288,6 +305,10 @@ namespace Terranoita.Game.Magic
         static void Explode(Shot s)
         {
             float r = s.Radius;
+            // "hittable" shots caught in it go off too (Noita's pipe bomb crystals, mines: DamageModel hp 0.5)
+            foreach (var o in Live)
+                if (o != s && o.Life > 1 && Hittable(o.Lua.File) && Vector2.Distance(o.Pos, s.Pos) <= r + 8)
+                    o.Life = 1;
             for (int i = 0; i < Main.maxNPCs; i++)
             {
                 var n = Main.npc[i];

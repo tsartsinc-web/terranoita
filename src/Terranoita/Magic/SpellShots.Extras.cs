@@ -57,7 +57,7 @@ namespace Terranoita.Game.Magic
         {
             "HomingComponent", "SineWaveComponent", "MagicConvertMaterialComponent", "ParticleEmitterComponent",
             "SpriteParticleEmitterComponent", "LightComponent", "HitEffectComponent", "TeleportProjectileComponent",
-            "BlackHoleComponent", "MaterialSeaSpawnerComponent", "EnergyShieldComponent",
+            "BlackHoleComponent", "MaterialSeaSpawnerComponent", "EnergyShieldComponent", "CollisionTriggerComponent",
         };
 
         static List<Extra> ExtrasOf(LuaShot ls)
@@ -71,6 +71,17 @@ namespace Terranoita.Game.Magic
                     Entry.Log("spell extra entity with a Lua script, not run yet: " + f);
             }
             return all;
+        }
+
+        static bool MortalNear(Vector2 at, float radius)
+        {
+            for (int i = 0; i < Main.maxNPCs; i++)
+            {
+                var n = Main.npc[i];
+                if (n.active && !n.friendly && n.life > 0 && Vector2.Distance(n.Center, at) <= radius + n.width / 2f)
+                    return true;
+            }
+            return false;
         }
 
         // ---- every frame ----
@@ -110,6 +121,15 @@ namespace Terranoita.Game.Magic
                         break;
                     case "MaterialSeaSpawnerComponent":
                         Sea(s, e);
+                        break;
+                    case "CollisionTriggerComponent":
+                        // Noita's mines: a "mortal" within radius sets it off, it dies timer_for_destruction frames later
+                        // (destroy_this_entity_when_triggered) and explodes (on_death_explode)
+                        if (!s.Triggered && s.Age > 10 && e.N("destroy_this_entity_when_triggered", 1) > 0 && MortalNear(s.Pos, e.N("radius", 32) * Px))
+                        {
+                            s.Triggered = true;
+                            s.Life = Math.Max(1, (int)e.N("timer_for_destruction", 0));
+                        }
                         break;
                     case "EnergyShieldComponent":
                         // stops enemy shots close to the spell

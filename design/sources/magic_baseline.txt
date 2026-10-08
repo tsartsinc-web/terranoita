@@ -266,7 +266,7 @@ spells|MATTER_EATER OK
 spells|MEGALASER OK
 spells|METEOR OK
 spells|METEOR_RAIN OK
-spells|MINE no damage
+spells|MINE OK
 spells|MINE_DEATH_TRIGGER no damage
 spells|MISSILE OK
 spells|MIST_ALCOHOL OK

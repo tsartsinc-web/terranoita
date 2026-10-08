@@ -167,9 +167,17 @@ namespace Terranoita.Game.Physics
             }
         }
 
+        /// <summary>
+        /// Terraria's oceans (the beach strips at both world edges, above the caverns) and the Underworld's lava: Noita's
+        /// liquids and reactions never change Terraria's liquid there, so a player cannot spoil the world for good (author).
+        /// </summary>
+        public static bool Protected(int x, int y) =>
+            y >= Main.UnderworldLayer || (x < OceanWidth || x >= Main.maxTilesX - OceanWidth) && y < Main.rockLayer;
+        const int OceanWidth = 380;   // Terraria's beach zone (Player.ZoneBeach: 380 tiles from either edge)
+
         static void AddTerraria(int x, int y, int type, int amount)
         {
-            if (!Mats.InWorld(x, y) || Mats.Solid(x, y))
+            if (!Mats.InWorld(x, y) || Mats.Solid(x, y) || Protected(x, y))
                 return;
             var t = Main.tile[x, y];
             if (t.liquid > 0 && t.liquidType() != type)
@@ -276,6 +284,11 @@ namespace Terranoita.Game.Physics
                 return;
             // Terraria's own liquid came in: ours goes on top of it when lighter (Noita densities: blood 4.1 sinks in water 4.0)
             var t = Main.tile[x, y];
+            if (!gas && (t.liquid > 32 && Protected(x, y) || Mats.InWorld(x, y + 1) && Main.tile[x, y + 1].liquid > 32 && Protected(x, y + 1)))
+            {
+                Cells.Remove(k);   // it reached the ocean or the Underworld's lava: lost in it, nothing changes there
+                return;
+            }
             if (!gas && t.liquid > 32 && !HeavierThanTerraria(c.Kind, t.liquidType()))
             {
                 MoveAll(k, x, y - 1, c);
@@ -336,7 +349,7 @@ namespace Terranoita.Game.Physics
             {
                 // ours sinks through Terraria's water or lava when heavier: Terraria's liquid takes our place above
                 var here = Main.tile[x, y];
-                if (y2 <= y || n.Amount > 0 || here.liquid > 32 || !HeavierThanTerraria(c.Kind, below.liquidType()) || Main.rand.Next(2) != 0)
+                if (y2 <= y || n.Amount > 0 || here.liquid > 32 || Protected(x, y) || Protected(x2, y2) || !HeavierThanTerraria(c.Kind, below.liquidType()) || Main.rand.Next(2) != 0)
                     return false;
                 here.liquidType(below.liquidType());
                 here.liquid = below.liquid;
@@ -467,7 +480,7 @@ namespace Terranoita.Game.Physics
                         amount = c.Amount;
                         Cells.Remove(k);
                     }
-                    else if (terrariaFrom >= 0 && Main.tile[x, y].liquid > 0 && Main.tile[x, y].liquidType() == terrariaFrom)
+                    else if (terrariaFrom >= 0 && Main.tile[x, y].liquid > 0 && Main.tile[x, y].liquidType() == terrariaFrom && !Protected(x, y))
                     {
                         amount = Main.tile[x, y].liquid;
                         Main.tile[x, y].liquid = 0;
@@ -618,7 +631,8 @@ namespace Terranoita.Game.Physics
             var t = Main.tile[x, y];
             if (t.liquid == 0)
                 return null;
-            t.liquid = (byte)Math.Max(0, t.liquid - amount);
+            if (!Protected(x, y))   // the ocean is drunk from, never drained
+                t.liquid = (byte)Math.Max(0, t.liquid - amount);
             Liquid.AddWater(x, y);
             int type = t.liquidType();
             return type == LiquidID.Lava ? "lava" : type == LiquidID.Honey ? "honey" : "water";
@@ -847,6 +861,11 @@ namespace Terranoita.Game.Physics
                     return FireTags;
                 return SolidTags(x, y, t);
             }
+            if (t.liquid > 32 && Protected(x, y))
+            {
+                what = What.Terraria;
+                return null;   // the ocean and the Underworld's lava take part in no reaction
+            }
             if (t.liquid > 32)
             {
                 what = What.Terraria;
@@ -907,6 +926,8 @@ namespace Terranoita.Game.Physics
                     else { c.Amount -= (byte)amount; Cells[k] = c; }
                     break;
                 case What.Terraria:
+                    if (Protected(x, y))
+                        return;
                     amount = Math.Min((int)t.liquid, Portion);
                     t.liquid -= (byte)amount;
                     if (IsSolidOutput(output))
