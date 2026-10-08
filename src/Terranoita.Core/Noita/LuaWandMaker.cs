@@ -281,12 +281,55 @@ namespace Terranoita.Noita
                 });
                 g["EntityGetComponent"] = DynValue.NewCallback((c, a) => DynValue.Nil);
                 g["EntityAddTag"] = DynValue.NewCallback((c, a) => DynValue.Nil);
+                // potion_random_material.lua: every liquid or every sand of materials.xml
+                g["CellFactory_GetAllLiquids"] = DynValue.NewCallback((c, a) => Names(lua, CellsOf(false, a.Count > 0 && a[0].CastToBool())));
+                g["CellFactory_GetAllSands"] = DynValue.NewCallback((c, a) => Names(lua, CellsOf(true, a.Count > 0 && a[0].CastToBool())));
                 g.MetaTable = Stubs(lua, _made.Missing);
                 lua.DoString(LuaCulture.Prelude);
                 lua.DoString(_read(script) ?? throw new InvalidOperationException("Noita file missing: " + script), null, script);
                 lua.Call(g.Get("init"), DynValue.NewNumber(WandEntity));
                 return (material ?? "water", amount > 0 ? amount : 1000);
             }
+        }
+
+        static DynValue Names(Script lua, List<string> names)
+        {
+            var t = new Table(lua);
+            foreach (var n in names)
+                t.Append(DynValue.NewString(n));
+            return DynValue.NewTable(t);
+        }
+
+        List<(string name, bool sand, bool isStatic)> _cells;
+
+        /// <summary>materials.xml cells of cell_type liquid (children inherit from _parent): the sands (liquid_sand 1) or
+        /// the liquids; static ones (liquid_static 1) only when asked, as Noita's CellFactory_GetAll* do.</summary>
+        List<string> CellsOf(bool sands, bool statics)
+        {
+            if (_cells == null)
+            {
+                _cells = new List<(string, bool, bool)>();
+                var doc = new System.Xml.XmlDocument();
+                doc.LoadXml(_read("data/materials.xml") ?? "<Materials/>");
+                var byName = new Dictionary<string, System.Xml.XmlElement>(StringComparer.Ordinal);
+                foreach (System.Xml.XmlNode n in doc.DocumentElement.ChildNodes)
+                    if (n is System.Xml.XmlElement e && (e.Name == "CellData" || e.Name == "CellDataChild") && e.GetAttribute("name").Length > 0)
+                        byName[e.GetAttribute("name")] = e;
+                string Attr(System.Xml.XmlElement e, string attr)
+                {
+                    for (int depth = 0; e != null && depth < 20; depth++)
+                    {
+                        if (e.HasAttribute(attr))
+                            return e.GetAttribute(attr);
+                        e = byName.TryGetValue(e.GetAttribute("_parent"), out var parent) ? parent : null;
+                    }
+                    return null;
+                }
+                foreach (var kv in byName)
+                    if (Attr(kv.Value, "cell_type") == "liquid")
+                        _cells.Add((kv.Key, Attr(kv.Value, "liquid_sand") == "1", Attr(kv.Value, "liquid_static") == "1"));
+            }
+            return _cells.Where(c => c.sand == sands && (statics || !c.isStatic)).Select(c => c.name).ToList();
         }
 
         double Distribution(CallbackArguments a)
