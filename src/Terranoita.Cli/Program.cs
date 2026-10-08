@@ -185,6 +185,16 @@ namespace Terranoita.Cli
                             }
                             return 0;
                         }
+                        case "lua-check":   // lua-check <noita> <file.lua>...: compiles each file (MoonSharp) without running it; syntax errors with line numbers
+                        {
+                            int bad = 0;
+                            foreach (var f in args.Skip(2))
+                            {
+                                try { new MoonSharp.Interpreter.Script().LoadString(File.ReadAllText(f), null, f); Console.WriteLine("ok " + f); }
+                                catch (MoonSharp.Interpreter.InterpreterException ex) { bad++; Console.WriteLine("ERROR " + f + ": " + ex.DecoratedMessage); }
+                            }
+                            return bad;
+                        }
                         case "probe-tests":   // probe-tests <noita> <tests.lua> <tests.json>: the casts the Noita probe mod and our SpellsTest both measure
                         {
                             var actions = new LuaWandMaker(p => Text(files, p)).Actions().Select(a => (a.id, a.type));

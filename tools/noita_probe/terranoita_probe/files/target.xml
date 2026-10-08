@@ -1,0 +1,8 @@
+<!-- the probe's target: hit like a creature (tags hittable/mortal, a hitbox, enemy herd), never dies, reports each hit -->
+<Entity name="terranoita_probe_target" tags="hittable,mortal,enemy,homing_target">
+	<DamageModelComponent hp="100000" max_hp="100000" air_needed="0" falling_damages="0" materials_damage="0"
+		wait_for_kill_flag_on_death="1" blood_multiplier="0" />
+	<HitboxComponent aabb_min_x="-8" aabb_max_x="8" aabb_min_y="-16" aabb_max_y="4" />
+	<GenomeDataComponent herd_id="orcs" />
+	<LuaComponent script_damage_received="mods/terranoita_probe/files/target_hit.lua" execute_every_n_frame="-1" />
+</Entity>

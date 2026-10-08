@@ -39,11 +39,15 @@ How it works (author, 2026-10-08): the author only says "работай" to eith
   (SpellShots.Physics.cs ReportRuntime). (c) done (verified by run): `tncli magic-coverage <noita> [out.json]`:
   static coverage 311 of 422 spells (gun.lua's fired files + extra/game_effect entities; scripts' deeper children not
   followed yet) -> design/sources/pc_magic_coverage.json. Phase 0 done; game run of (a)/(b) not yet. Next: PC-22.
-- PC-22 new: Noita test mod (author allowed: D:/steam/steamapps/common/Noita/mods/terranoita_probe; ask the author
-  ONCE to start Noita with it): casts each spell alone, each modifier on LIGHT_BULLET/BOUNCY_ORB/GRENADE and the key
-  combos (BURST_2/3/4, SCATTER_*, ADD_TRIGGER/TIMER/DEATH, DIVIDE_*), logs per projectile: file, speed, lifetime,
-  damage by type to a target, explosions, children spawned -> design/sources/noita_probe.json.
-  Check: the file has a row per spell id of gun_actions.lua.
+- PC-22 waits author (one Noita run): probe mod written and installed (built only: Lua compiles via
+  `tncli lua-check`; never run in Noita). Source tools/noita_probe/terranoita_probe (copy to Noita/mods). Tests:
+  `tncli probe-tests <noita> <mod>/files/tests.lua design/sources/probe_tests.json` (875: 422 single, 429 modifier,
+  24 combo; Core ProbeTests). Per test: sky arena (files/arena.png: air box, rock floor/wall), fresh wand
+  (_debug/testwand.xml + Noita's AddGunAction), one cast by ControlsComponent fields (assumed; falls back to
+  enabled=0), every projectile tracked (file, parent via mEntityThatShot, born/end frame, start/next velocity, path),
+  hits on the target (damage_received), mana used -> Noita/mods/terranoita_probe/probe_out.jsonl (resumes).
+  Author: enable the mod + unsafe mods, NEW game, wait for "all 875 tests written". Then copy probe_out.jsonl to
+  design/sources/noita_probe.jsonl. Check: one line per test, first lines fired something (fire_method noted).
 - PC-23 new (Phase 1): SpellsTest records the same fields in Terraria and compares with noita_probe.json per field
   (scale 1 Noita px = 3 px); baseline rows per field; report "matching Noita: N of M". Check: rows show the
   author's list (draw-many, utility, TENTACLE, ROCKET_TIER_3) before fixes.

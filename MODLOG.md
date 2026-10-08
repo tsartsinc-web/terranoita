@@ -1087,3 +1087,14 @@ unless asked.
   (c) tncli magic-coverage: static 311 of 422 spells (verified by tool run; python's 280/486 counted card files and
   non-action ids). Top gaps by spells: AudioLoop 56, DamageModel 29, HitEffect 23, Hitbox 16, PhysicsBody 14,
   PhysicsThrowable 13, GameAreaEffect 12, ExplodeOnDamage 9. Matching Noita: unknown until PC-22/23. Next: PC-22.
+
+## PC-22 Noita probe mod (2026-10-09, PC; built only, waits the author's one Noita run)
+- Core ProbeTests + `tncli probe-tests`: 875 decks (every spell alone, modifier/draw/utility with LIGHT_BULLET after;
+  every modifier on LIGHT_BULLET/BOUNCY_ORB/GRENADE; 24 combos, ids checked in gun_actions.lua) -> the mod's
+  files/tests.lua and design/sources/probe_tests.json (the game test will use the same decks).
+- Mod tools/noita_probe/terranoita_probe (installed in Noita/mods): mod.xml request_no_api_restrictions (file output);
+  init.lua state machine (stamp arena -> wand -> fire -> watch -> JSON line); target.xml + target_hit.lua.
+  Firing a wand from Lua is not documented (Inventory2Component says not to set mActiveItem): the probe presses fire
+  through ControlsComponent fields and, if nothing fires, retries with ControlsComponent.enabled = 0; each row says
+  fire_method. `tncli lua-check <noita> <files>`: MoonSharp compile check (all three Lua files ok).
+- Next: author runs it once; then PC-23 reads design/sources/noita_probe.jsonl.

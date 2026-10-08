@@ -1,0 +1,6 @@
+<Mod
+	name="Terranoita probe"
+	description="Test harness for the Terranoita mod (design/magic_plan.md PC-22): casts every spell, modifier and key combo in a sky arena and writes what happens to mods/terranoita_probe/probe_out.jsonl. Needs unsafe mods (file output). Start a NEW game with it; disable it afterwards."
+	request_no_api_restrictions="1"
+>
+</Mod>
