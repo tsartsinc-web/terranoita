@@ -73,6 +73,31 @@ namespace Terranoita.Game
             _savedAt = Main.GameUpdateCount;
         }
 
+        public static readonly bool TestOn = Environment.GetEnvironmentVariable("TERRANOITA_CART_TEST") == "1";
+        static int _logFrames;
+
+        /// <summary>TERRANOITA_CART_TEST=1 (game_test -Mode cart): the player next to the cart, one kick, its path logged.</summary>
+        public static void Test(Player p, int frame)
+        {
+            if (!_has)
+                return;
+            if (frame == 60)
+            {
+                p.Teleport(new Vector2(_pos.X - 40, _pos.Y + H - p.height), -1);
+                p.velocity = Vector2.Zero;
+                p.direction = 1;
+                Entry.Log("CART before: box " + Box + " rot " + _rot.ToString("0.00"));
+            }
+            if (frame == 90)
+            {
+                var foot = new Vector2(p.Center.X + p.width / 2f + 8, p.position.Y + p.height - 10);
+                Kick(foot, new Vector2(7f, -2.5f));
+                Entry.Log("CART kicked: foot " + foot + ", vel " + _vel + ", spin " + _spin.ToString("0.00"));
+            }
+            if (frame == 200)
+                Main.instance.Exit();
+        }
+
         public static void Kick(Vector2 foot, Vector2 push)
         {
             if (!_has)
@@ -84,6 +109,7 @@ namespace Terranoita.Game
                 // it flies a little and tips over (ours: Noita does this with its rigid body physics)
                 _vel += new Vector2(push.X * 1.1f, Math.Min(push.Y, 0) - 3.5f);
                 _spin += Math.Sign(push.X) * (0.18f + Main.rand.NextFloat() * 0.1f);
+                _logFrames = 40;
             }
         }
 
@@ -96,7 +122,14 @@ namespace Terranoita.Game
             // falls and rolls on Terraria's tiles, slows down on the ground
             _vel.Y = Math.Min(_vel.Y + 0.3f, 10f);
             var before = _vel;
-            _vel = Collision.TileCollision(_pos, _vel, W, H, true, true);
+            // up/down first, then sideways: together, a kick from the ground lost its sideways part on the first
+            // frame (the floor or a slope under it stopped X) and the cart only spun in place (author)
+            float vy = Collision.TileCollision(_pos, new Vector2(0, _vel.Y), W, H, true, true).Y;
+            float vx = Collision.TileCollision(_pos + new Vector2(0, vy), new Vector2(_vel.X, 0), W, H, true, true).X;
+            _vel = new Vector2(vx, vy);
+            if (_logFrames > 0 && (_logFrames-- % 5 == 0))
+                Entry.Log("cart path: pos " + (int)_pos.X + "," + (int)_pos.Y + " vel " + before.X.ToString("0.0") + "," + before.Y.ToString("0.0") +
+                          " -> " + _vel.X.ToString("0.0") + "," + _vel.Y.ToString("0.0") + " rot " + _rot.ToString("0.00"));
             bool onGround = before.Y > 0 && _vel.Y == 0;
             if (onGround)
                 _vel.X *= Math.Abs(_rot) > 0.4f && Math.Abs(_rot) < 2.7f ? 0.85f : 0.97f;   // on its side or back it drags

@@ -202,6 +202,11 @@ namespace Terranoita.Game
                 return;
             }
             var p = Main.LocalPlayer;
+            if (Cart.TestOn)
+            {
+                Cart.Test(p, ++_worldFrames);
+                return;
+            }
             if (Magic.Tour.Enabled)
             {
                 // the author watches a normal game: no healing, Terraria's creatures stay

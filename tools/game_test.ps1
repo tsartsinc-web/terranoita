@@ -47,6 +47,7 @@ switch ($Mode) {
     "spells"  { $env:TERRANOITA_AUTOTEST_SPELLS = "1"; $filter = "SPELLS" }
     "wands"   { $env:TERRANOITA_AUTOTEST_WANDS = "1"; $filter = "WANDS|wand .* not made" }
     "sandbox" { $env:TERRANOITA_SANDBOX = "1"; $env:TERRANOITA_AUTOTEST_EXIT = "" }
+    "cart"    { $env:TERRANOITA_CART_TEST = "1"; $filter = "CART|cart" }
     "tour"    { $env:TERRANOITA_TOUR = "1"; $env:TERRANOITA_AUTOTEST_EXIT = ""; $env:TERRANOITA_AUTOTEST_WORLDSIZE = "1"; $env:TERRANOITA_SCREENSHOTS = "1"
                 $env:TERRANOITA_AUTOTEST_NEWWORLD = "Terranoita Tour " + (Get-Date -Format "MMdd-HHmm") }
     "magic"   { $env:TERRANOITA_AUTOTEST_MAGIC = "1"; $filter = "MAGIC|world loot|starting wands|screenshot" }
@@ -59,7 +60,7 @@ switch ($Mode) {
 if ($World) { $env:TERRANOITA_AUTOTEST_WORLD = $World }
 # magic tests play in a world of their own, made by the game the first time (author: "test in a new world")
 if ($Minutes -eq 0) { $Minutes = $(if ($Mode -eq "spells") { 12 } else { 6 }) }
-if (-not $World -and $Mode -in @("magic", "wands", "spells", "sandbox")) { $env:TERRANOITA_AUTOTEST_NEWWORLD = "Terranoita Magic" }
+if (-not $World -and $Mode -in @("magic", "wands", "spells", "sandbox", "cart")) { $env:TERRANOITA_AUTOTEST_NEWWORLD = "Terranoita Magic" }
 if ($Only) { $env:TERRANOITA_AUTOTEST_ONLY = $Only }
 if ($Mode -in @("sandbox", "tour")) {
     Start-Process -FilePath (Join-Path $Terraria "Terranoita.exe") -WorkingDirectory $Terraria `
