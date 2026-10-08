@@ -1004,3 +1004,20 @@ unless asked.
     probability 0, Terraria's own lava+water = obsidian, or another rule for the same pair wins). Tests clear the
     world's saved liquids first (Fluids.ClearArea): stale liquids from earlier runs had filled the boxes.
   - Watch in play: acid eats blocks ~4x faster, evaporable gases/vapours fade by Noita's rules now.
+
+## PC Handoff 2026-10-09 (resume here)
+- Last PC commits: 8a2b368 (fire, calm liquids, reactions), 32750fc (0.4.2 to Melty). Cloud then did CLOUD-8/9.
+- Melty: 0.4.2 is a DRAFT (PC-16): live only after the author presses Play on it in the Melty app. Melty calls go
+  over HTTP with the author's publish token (not stored in the repo; ask the author for a fresh Publish prompt).
+  The agent's own `publish` call is blocked by the permission check: the author publishes.
+- Unfinished:
+  1. PC-16 multiplayer: hosting/joining not tested (needs Host & Play with Steam + a second Steam account); then add
+     recipe connect.joinArgs ["+connect_lobby","{address}"] and resubmit.
+  2. PC-17: by eye BALL_LIGHTNING fan and ICEBALL range (cause unknown; the "SPELLS shot end" log line shows age/
+     distance), full `game_test -Mode spells` against the baseline (shot physics changed a lot), LIGHTNING blast
+     damage default 5 (unverified).
+  3. Reactions not done: blob_radius, entity spawning, req_lifetime (ReqReaction). Watch: acid eats blocks ~4x faster.
+  4. PC-18 optional: SpellShots.Physics from the sheet columns.
+- Memory: the game OOMs at start when Steam's webhelper holds ~5 GB (no page file); check free commit first.
+- Tests clear saved liquids in their area (Fluids.ClearArea); a paused world (window lost focus) gives 0 reactions:
+  the reactions summary prints liquid updates.

@@ -23,6 +23,10 @@ How it works (author, 2026-10-08): the author only says "работай" to eith
 - PC: no page file, 16 GB, the game is 32-bit (~4 GB): a test with little free memory can hang the PC (11:33 today).
   game_test has no memory check any more (author). Launch with `-ExecutionPolicy Bypass`.
 - Tests use ONE world (Terranoita Magic in testsave); `game_test -NewWorld` only after a worldgen change. No tour mode.
+  game_test never closes a game it did not start (the author's Melty play). Modes added: reactions (117/126 OK).
+- 2026-10-08 (PC, in 0.4.2): Noita music by place (NoitaMusic.cs), Steam multiplayer hosting log (Multiplayer.cs),
+  Noita reactions at Noita's speed (Fluids), liquids settle, fire projectiles light blocks, spell engine rules
+  (SpellShots.Physics.cs), extra entities merged into shots (Core). MODLOG "Handoff 2026-10-09".
 - Roadmap: design/roadmap.md. Worldgen plan: design/worldgen_plan.md (PC-10 after CLOUD-7).
 
 ## PC queue
@@ -35,6 +39,9 @@ How it works (author, 2026-10-08): the author only says "работай" to eith
   DELAYED_SPELL lives 100 frames), fire projectiles, reactions 117/126. Left: BALL_LIGHTNING fan and ICEBALL range by
   eye (the spells test cannot show them; ICEBALL cause unknown), the full spells run against the baseline, the
   LIGHTNING blast damage default (5 assumed).
+- PC-18 new (optional): SpellShots.Physics.cs reads Noita files at runtime; CLOUD-8 put the same values in
+  spell_projectiles.json (liquid_drag, terminal_velocity, die_on_*, bounce_energy, penetrate_world, lightning_*):
+  read the sheet instead, keep behaviour. Check: spells ONLY run unchanged.
 - PC-6 doing: spells left: MINE_DEATH_TRIGGER, EXPLODING_DEER, BOMB_CART, DEATH_CROSS (moving/summoned entities,
   cross lasers); PIPE_BOMB* go off only in another blast (Noita), the test should expect that. Giga spells cost
   500-600: castable now with 600 max mana.
