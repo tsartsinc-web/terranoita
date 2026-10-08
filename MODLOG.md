@@ -779,3 +779,9 @@ Next steps (author's order: finish magic, then shops):
   components of spell files), `conducts` columns, a generic rule model (reactions / effect x material / effect x
   status), Physics/Electricity.cs (sources -> flood fill through conducting tiles -> charged timers -> damage/stun),
   game test. Core part (Conduction.cs + tests, sheet columns) can be a cloud task.
+
+## Cloud: task queue and merge rules (author: work without relaying messages)
+- design/tasks.md: state (short), PC and CLOUD queues with checks, ownership, author questions, done list. Both
+  agents start there; the author only says "работай".
+- .gitattributes: `MODLOG.md merge=union` (both agents append sections; no more conflict markers).
+- CLAUDE.md points to design/tasks.md first; MODLOG UTF-8 only.

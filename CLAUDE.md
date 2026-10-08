@@ -8,8 +8,10 @@ then is not in any release. Author writes Russian: reply in simple Russian, shor
 answer questions immediately (yes/no first). Decisions in README are final: do not ask again. Nothing on Melty without
 the author's explicit permission.
 
-Work branch: `claude/dazzling-carson-h8mi9n`. Current step and history: last sections of `MODLOG.md`
-(read "Checklist for adding creatures" before touching creatures).
+Work branch: `claude/dazzling-carson-h8mi9n`. **Start with `design/tasks.md`** (state, the task queues of both
+agents, ownership, how to mark done); read a MODLOG section only when a task points to it. MODLOG.md: append a new
+section at the end, UTF-8 only (it merges by union, see .gitattributes). Read "Checklist for adding creatures" in
+MODLOG before touching creatures.
 
 ## Layout
 - `design/sheets/*.json` — source of truth (rows; `_unverified` = open, `_sources` = evidence). Sheets first, then code.
