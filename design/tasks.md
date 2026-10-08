@@ -12,7 +12,7 @@ How it works (author, 2026-10-08): the author only says "работай" to eith
 - Status words: new, doing, waits <row>, done <commit>.
 
 ## State (keep to ~12 lines; update when it changes)
-- Melty: 0.3.1 LIVE (146 players). 0.4.1 submitted as a draft 2026-10-08, not live yet (PC-16).
+- Melty: 0.3.1 LIVE; 0.4.2 submitted as a draft 2026-10-08 (PC-16), live after the author's Play in Melty.
 - Stage 3 magic in game: all spells via Noita's gun.lua, shot scripts, all wands, wand window (U), progress window (O),
   16 spell slots; Terraria magic bonuses apply (mana cost/damage/crit/regen/Mana Flower); max mana 600 (ManaCap.cs).
 - Spells test: 416/422 OK (design/sources/magic_baseline.txt), left in PC-6.
@@ -26,9 +26,10 @@ How it works (author, 2026-10-08): the author only says "работай" to eith
 - Roadmap: design/roadmap.md. Worldgen plan: design/worldgen_plan.md (PC-10 after CLOUD-7).
 
 ## PC queue
-- PC-16 waits author: 0.4.1 submitted to Melty 2026-10-08 as a draft (upload df544dac, 1257696 bytes, sha256
-  a10770c157e3b9d6..., one click yes; 0.4.0 draft before it). Left: the author presses Play on 0.4.1 in the Melty
-  app (the agent's publish call is blocked by the permission check).
+- PC-16 waits author: 0.4.2 submitted to Melty 2026-10-08 as a draft (upload d67636aa, 1272555 bytes, sha256
+  45bd55f3ee081346..., one click yes; multiplayer maxPlayers 255 + host address "Hosting at " in latest.log, no join
+  args: joining untested). Live after the author presses Play on 0.4.2 in the Melty app. Next: test Host & Play +
+  a friend joining (+connect_lobby), then add connect.joinArgs ["+connect_lobby","{address}"].
 - PC-17 doing: in-game checks of the author's spell list (MODLOG "spells and physics from the author's list"):
   done by test: physics (layering, flask, platforms), spells ONLY (13 OK: LIGHTNING strikes, homebringer pulls,
   DELAYED_SPELL lives 100 frames), fire projectiles, reactions 117/126. Left: BALL_LIGHTNING fan and ICEBALL range by
