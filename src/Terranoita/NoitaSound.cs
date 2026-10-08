@@ -20,6 +20,7 @@ namespace Terranoita.Game
             try
             {
                 // player.bank: the kick, drinking; music*.bank: the main menu's music (event:/music/mountain/enter, "Kick the Cart")
+                // and the world's (NoitaMusic)
                 var banks = new List<string> { "animals.bank", "projectiles.bank", "explosion.bank", "player.bank", "items.bank", "music.bank" };
                 for (int i = 1; i <= 11; i++)
                     banks.Add("music" + i.ToString("00") + ".bank");
@@ -86,6 +87,8 @@ namespace Terranoita.Game
                 }
                 volume = Main.instance.IsActive ? Main.soundVolume : 0f;
             }
+            try { NoitaMusic.Update(_fmod); }
+            catch (Exception ex) { Entry.Error("noita music", ex); }
             _fmod.Update(center.X / Units.PixelScale, center.Y / Units.PixelScale, volume);
         }
 
@@ -95,8 +98,8 @@ namespace Terranoita.Game
         {
             static void Postfix()
             {
-                if (Main.gameMenu && MenuMusicOn)
-                    Main.newMusic = 0;   // Terraria's title music off while Noita's plays
+                if (Main.gameMenu && MenuMusicOn || !Main.gameMenu && NoitaMusic.On)
+                    Main.newMusic = 0;   // Terraria's music off while Noita's plays (menu and world)
             }
         }
     }

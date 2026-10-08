@@ -921,3 +921,14 @@ unless asked.
   Tested: spells ELECTRIC_CHARGE/FREEZE "held" lines; cart test kick cut grass tile 3. Shots' cut not seen in a
   test (no grass at the spells target), same function.
 - Showcase test removed (author). 0.4.1 uploaded and submitted (draft, one click yes).
+
+## PC 2026-10-08: Noita's music in the world (author)
+- NoitaMusic.cs: 107 tracks in 37 folders of Noita's music banks; a place picks a folder (biome xml audio_music_2 of
+  the zone's Noita biome where it has one, biome_map.json; else by name: desert, winter, lavalake, tower...), a
+  random track plays, 4-12 s quiet between tracks; boss -> boss_arena/battle; invasions, blood moon, eclipse ->
+  miniboss; town (3+ NPCs) -> temple/enter; surface night -> darkness; corruption/crimson -> barren; new world (<10
+  min old) -> intro first. Terraria's music off in the world (menu_music hook). Volume: track = music/sound volume.
+  Core NoitaFmod.Playing (playback state) added. Not used: credits, oneshot, potion_mimics, menu/loading*, menu/main.
+- Fix: spell shots with grass in the way threw in DelegateMethods.CutTiles (tileCutIgnore was null; the shot
+  vanished): set from Player.GetTileCutIgnorance. This bug is in the 0.4.1 draft on Melty: resubmit before publishing.
+- Test (enemies, 6 places): surface1, winter2, desert/enter, rainforest/05, snowcastle/04, snowcave/09, fungicave/04.

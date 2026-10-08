@@ -42,6 +42,7 @@ namespace Terranoita.Noita
         [DllImport("fmodstudio.dll")] static extern int FMOD_Studio_EventInstance_Release(IntPtr instance);
         [DllImport("fmodstudio.dll")] static extern int FMOD_Studio_EventInstance_Stop(IntPtr instance, int mode);
         [DllImport("fmodstudio.dll")] static extern int FMOD_Studio_EventInstance_SetVolume(IntPtr instance, float volume);
+        [DllImport("fmodstudio.dll")] static extern int FMOD_Studio_EventInstance_GetPlaybackState(IntPtr instance, out int state);
 
         IntPtr _system;
         readonly Dictionary<string, IntPtr> _events = new Dictionary<string, IntPtr>(StringComparer.Ordinal);
@@ -151,6 +152,10 @@ namespace Terranoita.Noita
             if (instance != IntPtr.Zero)
                 FMOD_Studio_EventInstance_SetVolume(instance, volume);
         }
+
+        /// <summary>False once a started event has played to its end (FMOD_STUDIO_PLAYBACK_STOPPED = 2).</summary>
+        public bool Playing(IntPtr instance) =>
+            instance != IntPtr.Zero && FMOD_Studio_EventInstance_GetPlaybackState(instance, out int state) == 0 && state != 2;
 
         /// <summary>Stop with its fade out (FMOD_STUDIO_STOP_ALLOWFADEOUT) and free it.</summary>
         public void Stop(IntPtr instance)

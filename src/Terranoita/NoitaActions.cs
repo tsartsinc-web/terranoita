@@ -109,6 +109,8 @@ namespace Terranoita.Game
             int x0 = Math.Max(1, (int)((at.X - radius) / 16)), x1 = Math.Min(Main.maxTilesX - 2, (int)((at.X + radius) / 16));
             int y0 = Math.Max(1, (int)((at.Y - radius) / 16)), y1 = Math.Min(Main.maxTilesY - 2, (int)((at.Y + radius) / 16));
             DelegateMethods.tilecut_0 = how;
+            // what not to cut (Terraria sets it before every cut; null throws inside CutTiles)
+            DelegateMethods.tileCutIgnore = Main.LocalPlayer.GetTileCutIgnorance(false, false);
             for (int x = x0; x <= x1; x++)
                 for (int y = y0; y <= y1; y++)
                 {
