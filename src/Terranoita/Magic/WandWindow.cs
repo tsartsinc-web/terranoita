@@ -21,6 +21,10 @@ namespace Terranoita.Game.Magic
     public static class WandWindow
     {
         public const int WandSlotCount = 4, SpellSlotCount = 16;
+        // clicks on our slots act as a piggy bank slot (like a chest slot, shift-click to the inventory): a chest slot
+        // (context 3) sends the open chest's slot to the server in multiplayer, and with no chest open (-1) Terraria's
+        // NetMessage.SendData threw IndexOutOfRange (2026-10-09)
+        const int SlotContext = ItemSlot.Context.BankItem;
         public static Item[] WandSlots = NewSlots();
         public static Item[] SpellSlots = NewSpellSlots();   // Noita's 16 spell slots, left of the equipment (author)
         static string _spellsFile, _usesFile;
@@ -177,7 +181,7 @@ namespace Terranoita.Game.Magic
                 if (Main.mouseItem.IsAir || MagicItems.IsSpell(Main.mouseItem))
                 {
                     var before = item;
-                    ItemSlot.Handle(SpellSlots, ItemSlot.Context.ChestItem, i);
+                    ItemSlot.Handle(SpellSlots, SlotContext, i);
                     changed |= !ReferenceEquals(before, SpellSlots[i]);
                 }
                 else
@@ -319,7 +323,7 @@ namespace Terranoita.Game.Magic
                 if (arr == WandSlots && (Main.mouseItem.IsAir || MagicItems.IsWand(Main.mouseItem)))
                 {
                     var before = arr[index].type + ":" + arr[index].prefix;
-                    ItemSlot.Handle(arr, ItemSlot.Context.ChestItem, index, true);
+                    ItemSlot.Handle(arr, SlotContext, index, true);
                     if (before != arr[index].type + ":" + arr[index].prefix)
                         SaveSlots();
                 }
