@@ -9,7 +9,7 @@ namespace Terranoita.Game
 {
     /// <summary>
     /// The wooden cart of Noita's start (data/entities/props/physics_cart.xml: cart_top.png and its one small wheel
-    /// cart_wheel.png, both 27 x 13 and centered on each other, material wood_prop = data/materials_gfx/wood.png),
+    /// cart_wheel.png, both 27 x 13 and centered on each other, drawn in their own colors),
     /// put next to the player the first time a world is entered (author). It falls, rolls when kicked (F) and slows on
     /// the ground; the player can stand in it and ride. Kept with the world: &lt;world&gt;.wld.cart ("x y", or "none").
     /// </summary>
@@ -18,6 +18,7 @@ namespace Terranoita.Game
         const float Px = Noita.Units.PixelScale;
         static readonly int W = (int)(27 * Px), H = (int)(13 * Px);   // cart_top.png is 27 x 13 Noita px
         static Vector2 _pos, _vel;     // top-left in world pixels
+        static float _rot, _spin;      // turned (radians, 0 = upright) and how fast: a kick tips it over
         static bool _has;
         static string _world;
         static uint _savedAt;
@@ -36,10 +37,11 @@ namespace Terranoita.Game
                 if (f != null && File.Exists(f))
                 {
                     var parts = File.ReadAllText(f).Trim().Split(' ');
-                    if (parts.Length == 2 && float.TryParse(parts[0], System.Globalization.NumberStyles.Float, System.Globalization.CultureInfo.InvariantCulture, out float x) &&
+                    if (parts.Length >= 2 && float.TryParse(parts[0], System.Globalization.NumberStyles.Float, System.Globalization.CultureInfo.InvariantCulture, out float x) &&
                         float.TryParse(parts[1], System.Globalization.NumberStyles.Float, System.Globalization.CultureInfo.InvariantCulture, out float y))
                     {
                         _pos = new Vector2(x, y);
+                        _rot = parts.Length > 2 && float.TryParse(parts[2], System.Globalization.NumberStyles.Float, System.Globalization.CultureInfo.InvariantCulture, out float r) ? r : 0f;
                         _has = true;
                     }
                     return;   // "none": it is gone
@@ -61,7 +63,8 @@ namespace Terranoita.Game
             try
             {
                 File.WriteAllText(f + ".tmp", _has ? _pos.X.ToString("0.#", System.Globalization.CultureInfo.InvariantCulture) + " " +
-                                                     _pos.Y.ToString("0.#", System.Globalization.CultureInfo.InvariantCulture) : "none");
+                                                     _pos.Y.ToString("0.#", System.Globalization.CultureInfo.InvariantCulture) + " " +
+                                                     _rot.ToString("0.###", System.Globalization.CultureInfo.InvariantCulture) : "none");
                 if (File.Exists(f))
                     File.Delete(f);
                 File.Move(f + ".tmp", f);
@@ -77,7 +80,11 @@ namespace Terranoita.Game
             var box = Box;
             box.Inflate(3 * 16, 16);
             if (box.Contains((int)foot.X, (int)foot.Y))
-                _vel += push * 0.8f;
+            {
+                // it flies a little and tips over (ours: Noita does this with its rigid body physics)
+                _vel += new Vector2(push.X * 1.1f, Math.Min(push.Y, 0) - 3.5f);
+                _spin += Math.Sign(push.X) * (0.18f + Main.rand.NextFloat() * 0.1f);
+            }
         }
 
         public static void Update(Player p)
@@ -92,7 +99,22 @@ namespace Terranoita.Game
             _vel = Collision.TileCollision(_pos, _vel, W, H, true, true);
             bool onGround = before.Y > 0 && _vel.Y == 0;
             if (onGround)
-                _vel.X *= 0.97f;
+                _vel.X *= Math.Abs(_rot) > 0.4f && Math.Abs(_rot) < 2.7f ? 0.85f : 0.97f;   // on its side or back it drags
+            // turning: in the air it keeps spinning; on the ground it falls onto its wheels or onto its back
+            // (rest at 0 and pi, tips away from standing on end at +-pi/2)
+            _rot += _spin;
+            _rot = MathHelper.WrapAngle(_rot);
+            if (onGround)
+            {
+                _spin = _spin * 0.75f - 0.05f * (float)Math.Sin(2 * _rot);
+                if (Math.Abs(_spin) < 0.002f && Math.Abs(Math.Sin(2 * _rot)) < 0.02f)
+                {
+                    _spin = 0;
+                    _rot = Math.Abs(_rot) > MathHelper.PiOver2 ? MathHelper.Pi : 0f;
+                }
+            }
+            else
+                _spin *= 0.995f;
             if (Math.Abs(_vel.X) < 0.05f)
                 _vel.X = 0;
             if (before.X != 0 && _vel.X == 0 && Math.Abs(before.X) > 1)
@@ -100,7 +122,7 @@ namespace Terranoita.Game
             _pos += _vel;
             // the player stands in it: carried along, as in Noita's physics
             var box = Box;
-            bool feetOnTop = p.velocity.Y >= 0 && p.position.Y + p.height >= box.Top - 2 && p.position.Y + p.height <= box.Top + 10 &&
+            bool feetOnTop = Math.Abs(_rot) < 0.3f && p.velocity.Y >= 0 && p.position.Y + p.height >= box.Top - 2 && p.position.Y + p.height <= box.Top + 10 &&
                              p.position.X + p.width > box.Left + 6 && p.position.X < box.Right - 6;
             if (feetOnTop && !p.controlDown)
             {
@@ -125,14 +147,13 @@ namespace Terranoita.Game
                 return;
             var sb = Main.spriteBatch;
             var color = Lighting.GetColor((int)((_pos.X + W / 2f) / 16), (int)((_pos.Y + H / 2f) / 16));
-            var at = _pos - Main.screenPosition;
-            // Noita draws physics props as their material inside the shape: wood_prop = data/materials_gfx/wood.png;
-            // the wheel's picture is the same size as the top, its wheel already in place
+            var center = _pos + new Vector2(W, H) / 2f - Main.screenPosition;
+            // the wheel's picture is the same size as the top, its wheel already in place: both turn about the middle
             foreach (var file in new[] { "data/props_gfx/cart_wheel.png", "data/props_gfx/cart_top.png" })
             {
                 var tex = Art(file);
                 if (tex != null)
-                    sb.Draw(tex, new Rectangle((int)at.X, (int)at.Y, W, H), color);
+                    sb.Draw(tex, center, null, color, _rot, new Vector2(tex.Width / 2f, tex.Height / 2f), Px, SpriteEffects.None, 0f);
             }
         }
 
@@ -141,13 +162,8 @@ namespace Terranoita.Game
         /// <summary>The part filled with its material (Noita's look), else Noita's own picture of it.</summary>
         static Texture2D Art(string file)
         {
-            var tex = NoitaArt.Masked(file, "data/materials_gfx/wood.png");
-            string how = "wood";
-            if (tex == null)
-            {
-                tex = NoitaArt.Get(file)?.Texture;
-                how = "plain";
-            }
+            var tex = NoitaArt.Get(file)?.Texture;
+            string how = "own colors";
             if (!_artLogged && file.EndsWith("cart_top.png"))
             {
                 _artLogged = true;
