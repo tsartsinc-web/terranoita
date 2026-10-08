@@ -9,6 +9,7 @@
 # magic/wands/spells print ONE summary, the problems (max 20 lines) and the change against
 # design/sources/magic_baseline.txt; the full log stays in %LOCALAPPDATA%/Terranoita/logs/latest.log.
 #   powershell -File tools/game_test.ps1 -Mode sandbox          # the author plays: arena, chests of every spell and wand
+#   powershell -File tools/game_test.ps1 -Mode tour             # a new medium world: Shine, 10 underground chests, death, flasks
 # Modes: magic, fps, physics, gallery, audit, enemies. Screenshots: %LOCALAPPDATA%/Terranoita/shots/*.png
 param(
     [string]$Mode = "magic",
@@ -39,6 +40,8 @@ switch ($Mode) {
     "spells"  { $env:TERRANOITA_AUTOTEST_SPELLS = "1"; $filter = "SPELLS" }
     "wands"   { $env:TERRANOITA_AUTOTEST_WANDS = "1"; $filter = "WANDS|wand .* not made" }
     "sandbox" { $env:TERRANOITA_SANDBOX = "1"; $env:TERRANOITA_AUTOTEST_EXIT = "" }
+    "tour"    { $env:TERRANOITA_TOUR = "1"; $env:TERRANOITA_AUTOTEST_EXIT = ""; $env:TERRANOITA_AUTOTEST_WORLDSIZE = "1"
+                $env:TERRANOITA_AUTOTEST_NEWWORLD = "Terranoita Tour " + (Get-Date -Format "MMdd-HHmm") }
     "magic"   { $env:TERRANOITA_AUTOTEST_MAGIC = "1"; $filter = "MAGIC|world loot|starting wands|screenshot" }
     "fps"     { $env:TERRANOITA_AUTOTEST_FPS = "1"; $filter = "PERF|cave pools|fluids:" }
     "physics" { $env:TERRANOITA_AUTOTEST_PHYSICS = "1"; $filter = "PHYSICS" }
@@ -51,10 +54,10 @@ if ($World) { $env:TERRANOITA_AUTOTEST_WORLD = $World }
 if ($Minutes -eq 0) { $Minutes = $(if ($Mode -eq "spells") { 12 } else { 6 }) }
 if (-not $World -and $Mode -in @("magic", "wands", "spells", "sandbox")) { $env:TERRANOITA_AUTOTEST_NEWWORLD = "Terranoita Magic" }
 if ($Only) { $env:TERRANOITA_AUTOTEST_ONLY = $Only }
-if ($Mode -eq "sandbox") {
+if ($Mode -in @("sandbox", "tour")) {
     Start-Process -FilePath (Join-Path $Terraria "Terranoita.exe") -WorkingDirectory $Terraria `
         -ArgumentList @("--noita-dir", "`"$Noita`"", "-savedirectory", "`"$data\testsave`"") | Out-Null
-    "sandbox started: the game stays open"
+    "$Mode started: the game stays open"
     exit 0
 }
 $p = Start-Process -FilePath (Join-Path $Terraria "Terranoita.exe") -WorkingDirectory $Terraria -PassThru -WindowStyle Minimized `

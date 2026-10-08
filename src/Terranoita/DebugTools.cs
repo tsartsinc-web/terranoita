@@ -174,9 +174,11 @@ namespace Terranoita.Game
                 string fresh = Environment.GetEnvironmentVariable("TERRANOITA_AUTOTEST_NEWWORLD");
                 if (!string.IsNullOrEmpty(fresh) && !Main.WorldList.Any(w => w.Name == fresh))
                 {
-                    Entry.Log("AUTOTEST: making a new small world " + fresh);
+                    // TERRANOITA_AUTOTEST_WORLDSIZE: 0 small (default), 1 medium, 2 large
+                    int size = int.TryParse(Environment.GetEnvironmentVariable("TERRANOITA_AUTOTEST_WORLDSIZE"), out int sz) ? sz : 0;
+                    Entry.Log("AUTOTEST: making a new " + (size == 1 ? "medium" : size == 2 ? "large" : "small") + " world " + fresh);
                     Main.worldName = fresh;
-                    WorldGen.SetWorldSize(0);
+                    WorldGen.SetWorldSize(size);
                     Main.ActiveWorldFileData = Terraria.IO.WorldFile.CreateMetadata(fresh, false, 0);
                     Main.ActiveWorldFileData.SetSeedToRandom();
                     WorldGen.CreateNewWorld(null, null, null);
@@ -200,6 +202,12 @@ namespace Terranoita.Game
                 return;
             }
             var p = Main.LocalPlayer;
+            if (Magic.Tour.Enabled)
+            {
+                // the author watches a normal game: no healing, Terraria's creatures stay
+                Magic.Tour.Frame(p, ++_worldFrames);
+                return;
+            }
             // keep the test character alive but still taking hits, so attacks show in the log (author: 1000 hp)
             p.statLifeMax = p.statLifeMax2 = 1000;
             if (p.statLife < p.statLifeMax2 / 2)
