@@ -30,6 +30,12 @@ How it works (author, 2026-10-08): the author only says "работай" to eith
   Needs CLOUD-6. Spawning: a creature whose zone row says `time: night` spawns only when !Main.dayTime (blood moon
   and eclipse count as night); passive ones (sheet says `time: any`) keep spawning by day. Check: autotest day 10 min
   -> 0 hostile Noita spawns on the surface, night -> spawns.
+- PC-11 new: lake animals never spawn (author never saw a duck/deer/sheep/elk/wolf): surface_water check is
+  "spawn tile in water", but walkers need ground there. Add Zones.NearWater(x, y, 12) (surface water within 12
+  tiles) and set terraria_zones surface_water.terraria_check to it (sheet edit allowed by this row; gen_cs);
+  swimmers keep the in-water rule. Check: autotest near a surface lake spawns a walker from Lake.
+- Rat done by cloud (sheet): melee range 1.88 -> 1.6 tiles (bites when touching), hitbox_mult 0.5 -> 1.0 (33x15,
+  easier to hit). Only check it in play; no code change needed.
 - PC-10 new, after PC-8 and CLOUD-7: worldgen per design/worldgen_plan.md sections 1, 3, 4, 5 (our passes in
   Terraria's worldgen, scenes, loot by Noita's chest_random.lua). Check: game_test -Mode worldgen (section 5).
 - PC-6 new: the 39 known spell failures (design/sources/magic_baseline.txt, MODLOG "memory leak, spells test"):
@@ -45,7 +51,8 @@ How it works (author, 2026-10-08): the author only says "работай" to eith
 
 ## CLOUD queue
 - CLOUD-6 new: column `time` (night|any) for surface spawns: terraria_zones surface_* rows = night; enemies with a
-  passive ai (duck, sheep, deer, elk, fish, eel, wolf?) = any (enemies.time overrides zone); gen_cs; tests.
+  passive ai (duck, sheep, deer, elk, fish, eel) and rat (author: rats stay by day) = any (enemies.time overrides
+  zone); gen_cs; tests.
   Check: preflight 1a CLEAN, gen_cs ok, unit tests.
 - CLOUD-7 new: Core NoitaBiomeSpawns + chest_random + pixel scene decode + biome_spawns.json by tools
   (design/worldgen_plan.md section 2). Check: Core tests; `tncli biome-spawns` for the PC.

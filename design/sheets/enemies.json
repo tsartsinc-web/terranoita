@@ -9129,7 +9129,7 @@
     15
    ],
    "size": 1.0,
-   "hitbox_mult": 0.5,
+   "hitbox_mult": 1.0,
    "ai": "walker_melee",
    "walks": true,
    "flies": false,
@@ -9174,7 +9174,10 @@
    "blood": "Blood",
    "drops": "noita_gold",
    "stage": "1a",
-   "_unverified": {}
+   "_unverified": {},
+   "_sources": {
+    "hitbox_mult": "author (AUTHOR in tools/apply_facts.py)"
+   }
   },
   {
    "id": "plague_rats_rat",

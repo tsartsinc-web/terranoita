@@ -25,6 +25,12 @@ STAGES = ["1a", "1b", "1c"]
 PIXEL_SCALE = 3.0      # 1 Noita pixel = 3 Terraria world pixels (author: Noita enemies at a normal size next to the player)
 TILE = 16.0
 FPS = 60.0
+# author's balance decisions over Noita's numbers: (sheet, row id, column) -> value
+AUTHOR = {
+    # rat (2026-10-08): bites only when it touches the player (Noita's 1.88 reached from afar), easier to hit
+    ("attacks", "rat.melee", "range_tiles"): 1.6,
+    ("enemies", "rat", "hitbox_mult"): 1.0,
+}
 
 
 def load(d, name):
@@ -934,6 +940,11 @@ def main():
             verify(p, "particle", mats[0] if mats else "none")
 
     for s in (enemies, attacks, projectiles):
+        for r in s["rows"]:
+            for (sheet, rid, col), v in AUTHOR.items():
+                if sheet == s["sheet"] and r.get("id") == rid:
+                    verify(r, col, v)
+                    r.setdefault("_sources", {})[col] = "author (AUTHOR in tools/apply_facts.py)"
         save(args.sheets, s)
     print("applied facts up to stage %s" % args.stage)
     for n in notes:

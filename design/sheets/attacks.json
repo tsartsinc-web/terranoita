@@ -4851,12 +4851,15 @@
    "effect": "none",
    "per_frames": "hit",
    "cooldown_frames": 20,
-   "range_tiles": 1.88,
+   "range_tiles": 1.6,
    "lunge_speed": 0,
    "sound": "animals/generic/attack_melee",
    "wiki_text": "Melee/Melee/5-10",
    "stage": "1a",
-   "_unverified": {}
+   "_unverified": {},
+   "_sources": {
+    "range_tiles": "author (AUTHOR in tools/apply_facts.py)"
+   }
   },
   {
    "id": "plague_rats_rat.lunge",
