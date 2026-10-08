@@ -20,6 +20,11 @@ param(
     [string]$Noita = "D:\steam\steamapps\common\Noita"
 )
 $bin = Join-Path $PSScriptRoot "..\src\Terranoita\bin\Release\net48"
+# logic first, without the game: every spell through Noita's gun.lua against the golden file (one line when unchanged)
+if ($Mode -in @("magic", "spells")) {
+    $cli = Get-ChildItem (Join-Path $PSScriptRoot "..\src\Terranoita.Cli\bin\Release") -Recurse -Filter tncli.exe | Select-Object -First 1
+    if ($cli) { & $cli.FullName lua-golden $Noita --check (Join-Path $PSScriptRoot "..\design\sources\lua_cast_golden.txt") | Select-Object -Last 20 }
+}
 Get-Process | Where-Object { $_.Name -match 'Terranoita' } | ForEach-Object { "a test game was still running: closed"; $_.Kill() }
 Copy-Item (Join-Path $bin "Terranoita.Game.dll"), (Join-Path $bin "Terranoita.Core.dll"), (Join-Path $bin "MoonSharp.Interpreter.dll") -Destination $Terraria -Force -ErrorAction Stop
 $data = Join-Path $env:LOCALAPPDATA "Terranoita"
