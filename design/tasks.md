@@ -35,8 +35,8 @@ How it works (author, 2026-10-08): the author only says "работай" to eith
   test mod; every session report "spells matching Noita / total"; tag claims verified in game / built only / assumed).
   Phase 0 (no silent failure): done: Core SpellRuntime.cs (component/field lists, NotRun, UnreadFields; built only).
   (a) done (built only): at the 600 cap the oldest shot is Evicted (quiet), the new one fires, log once.
-  Left: (b) on first Fire of each file (and extra_entities files) log SpellRuntime.NotRun +
-  UnreadFields once; (c) `tncli magic-coverage <noita>`: per spell (LuaGun cast of [id] or [id,LIGHT_BULLET]) files +
+  (b) done (built only): first Fire of each file and its extra_entities logs "spell runtime: <file>: not run yet: ..."
+  (SpellShots.Physics.cs ReportRuntime). Left: (c) `tncli magic-coverage <noita>`: per spell (LuaGun cast of [id] or [id,LIGHT_BULLET]) files +
   NotRun + UnreadFields -> design/sources/pc_magic_coverage.json + table. Check: tncli prints 280/486 static (today's
   python audit) or explains the difference; Core tests pass.
 - PC-22 new: Noita test mod (author allowed: D:/steam/steamapps/common/Noita/mods/terranoita_probe; ask the author

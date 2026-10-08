@@ -142,6 +142,9 @@ namespace Terranoita.Game.Magic
                     Entry.Log("spell projectile not in spell_projectiles.json yet: " + ls.File);
                 return;
             }
+            ReportRuntime(ls.File);
+            foreach (var extra in ls.Text("extra_entities").Split(new[] { ',' }, StringSplitOptions.RemoveEmptyEntries))
+                ReportRuntime(extra.Trim());
             var rng = Main.rand;
             float speed = (d.SpeedMin + (float)rng.NextDouble() * Math.Max(0, d.SpeedMax - d.SpeedMin)) * Math.Max(0f, ls.Get("speed_multiplier"));
             // spread: the shot's degrees (wand + spells), and the projectile's own randomness

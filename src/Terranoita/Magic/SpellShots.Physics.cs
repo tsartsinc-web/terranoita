@@ -198,6 +198,34 @@ namespace Terranoita.Game.Magic
                 Explode(s);
         }
 
+        // ---- what of a file our runtime does not run (design/magic_plan.md Phase 0) ----
+
+        static readonly HashSet<string> Reported = new HashSet<string>(StringComparer.OrdinalIgnoreCase);
+
+        /// <summary>Once per file: the Noita component types and ProjectileComponent fields in it that have no code
+        /// (SpellRuntime), so nothing a spell needs is ignored without a line in the log.</summary>
+        static void ReportRuntime(string file)
+        {
+            if (string.IsNullOrEmpty(file) || !Reported.Add(file))
+                return;
+            try
+            {
+                if (NoitaArt.ReadText(file) == null)
+                {
+                    Entry.Log("spell runtime: " + file + ": not in this Noita");
+                    return;
+                }
+                var e = NoitaEntityXml.Load(file, NoitaArt.ReadText);
+                var comps = SpellRuntime.NotRun(e);
+                var fields = SpellRuntime.UnreadFields(e);
+                if (comps.Count > 0 || fields.Count > 0)
+                    Entry.Log("spell runtime: " + file + ": not run yet: " +
+                              (comps.Count > 0 ? string.Join(", ", comps) : "-") +
+                              (fields.Count > 0 ? "; ProjectileComponent fields not read: " + string.Join(", ", fields) : ""));
+            }
+            catch (Exception ex) { Entry.Error("spell runtime " + file, ex); }
+        }
+
         // ---- electricity ----
 
         const string ElectricityFile = "data/entities/misc/electricity.xml";
