@@ -556,9 +556,9 @@ Stage 3 state:
   (explosion_dont_damage_shooter = 0, Noita); creatures touching damaging liquids (acid...) take Noita's touch damage.
 - Held wand: composite front arm stretched to the aim, wand drawn in that hand (author said it looked silly; check
   the held_wand screenshot).
-- Black hole: eats the ground (CellEaterComponent) � Noita's small black hole does not damage creatures; big/giga
+- Black hole: eats the ground (CellEaterComponent) — Noita's small black hole does not damage creatures; big/giga
   do (AreaDamageComponent, BlackHoleComponent). Told the author; waiting whether to add damage to the small one.
-- Lua state per wand is made in the background (Task) � the FPS drop mid-test was gun_actions.lua being parsed on the
+- Lua state per wand is made in the background (Task) — the FPS drop mid-test was gun_actions.lua being parsed on the
   game thread.
 
 Next steps (author's order: finish magic, then shops):
@@ -594,7 +594,6 @@ Next steps (author's order: finish magic, then shops):
   EntityLoad summons (LuaWorld.Load not done in game).
 - проверить на ПК: unique wand pictures (data/items_gfx/wands/custom/*.png) and names in game.
 
-<<<<<<< HEAD
 ## 2026-10-08 spell modifiers, game side (while the cloud builds LuaShotScripts)
 - SpellShots.Extras.cs: components of a shot's extra_entities files and of its own projectile file (read at run time
   from the player's Noita): HomingComponent (all variants: anti, boomerang/target_who_shot, homing_wand, rotate),
@@ -609,7 +608,7 @@ Next steps (author's order: finish magic, then shops):
 - Not yet (logged once in game as "not done yet"): Lua scripts of shots (cloud task), HitEffect LOAD_CHILD_ENTITY
   (curse, petrify, gravity field...), statuses without a Terraria buff (necromancy, disintegrated...), lasers.
 - проверить на ПК: none of this has run in the game yet.
-=======
+
 ## Cloud: LuaShotScripts — Noita's per-projectile scripts in Core (task design/cloud_task_shot_scripts.md)
 - `Core/Noita/NoitaEntityXml.cs`: entity file -> XmlEntity (name, tags, `_Transform`, components, children) on top of
   NoitaEntity's Base merge; components flattened (`_tags`, `_enabled`, nested objects -> "config_explosion.damage").
@@ -638,4 +637,3 @@ Next steps (author's order: finish magic, then shops):
 - проверить на ПК: `shot-script` over the 125 extra_entities files (Missing list, errors); event function names for
   rarer script_* fields against Noita's docs; whether execute_on_added counts toward execute_times in Noita;
   Random(a) range (0..a assumed).
->>>>>>> 77e3227 (Core: LuaShotScripts runs Noita's per-projectile scripts; NoitaEntityXml; tncli shot-script)
