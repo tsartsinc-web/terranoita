@@ -743,3 +743,20 @@ Next steps (author's order: finish magic, then shops):
 - Progress tooltips: Core's ProgressInfo.Lines + casts/kills. GameShotHost.InRadiusWithTag no longer copies the
   shot list per call. FPS with ~20 scripted shots not measured yet (the author is playing the sandbox; a test run
   would close it) — проверить на ПК.
+
+## Cloud: design/cloud_task_core_3.md — spell projectile from any entity file (Core only)
+- `Core/Noita/SpellProjectileFromEntity.cs`: `From(XmlEntity) -> SpellProjectileDef` (null without a
+  ProjectileComponent). tools/apply_spells.py shot_row 1:1 over what tncli's facts held: first component of a type
+  wins (entity, then children depth first, 3 levels, EntityDump's skipped types never win), first nested
+  config_explosion / damage_by_type wins, same column names, units and defaults: speed_min/max 60 and gravity 400
+  only where ProjectileFacts gave them (gravity only when the entity itself has a VelocityComponent), lifetime -1,
+  eat_probability 100, bools by "0"/"1" as in Python, sprite = the entity's first SpriteComponent with an image (else
+  PhysicsImageShape), audio = its most specific AudioComponent event_root, explosion sound from its own
+  ProjectileComponent's config_explosion, typed_damage = all damage_by_type fields not starting with "_", stage 3.
+- Tests (SpellProjectileFromEntityTests): 6 sheet rows (light_bullet, bomb, black_hole, black_hole_giga, arrow,
+  fireball) rebuilt as entity XML give the same values field by field; no ProjectileComponent -> null; Base chain
+  with an override; the fact fallbacks (speed 60, gravity 400 / 0). 89 Core tests pass; gate 1a CLEAN.
+- For the local session: in SpellShots.Def(file) use it as the fallback when the sheet has no row
+  (`SpellProjectileFromEntity.From(NoitaEntityXml.Load(file, NoitaArt.ReadText))`, cached per file, null cached
+  too), then game_test -Mode magic / wands; the "spell EntityLoad not done yet" lines for files with a
+  ProjectileComponent should go.
