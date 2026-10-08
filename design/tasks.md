@@ -30,6 +30,9 @@ How it works (author, 2026-10-08): the author only says "работай" to eith
 - Roadmap: design/roadmap.md. Worldgen plan: design/worldgen_plan.md (PC-10 after CLOUD-7).
 
 ## PC queue
+- PC-21 new (FIRST; author 2026-10-09: magic is the core, most spells do not work as in Noita): follow
+  design/magic_plan.md phase by phase (0: no silent failure, 1: a test that compares with Noita, 2: component
+  runtime, 3: missing components by impact, 4: author plays). Check: the plan's section 5.
 - PC-20 done-in-code (multiplayer): wand window clicks threw IndexOutOfRange in NetMessage.SendData (ChestItem
   context syncs the open chest, -1): slots use InventoryItem context now (WandWindow.SlotContext; BankItem needs an open container). Check: author clicks
   wand/spell slots while hosting, no "ERROR in wand window".
