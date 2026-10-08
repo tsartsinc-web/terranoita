@@ -44,9 +44,6 @@ How it works (author, 2026-10-08): the author only says "работай" to eith
   clamps synced mana at 400 (MessageBuffer.GetData).
 
 ## CLOUD queue
-- CLOUD-9 new: reactions.json/liquids.json have new columns (input3/output3, direction, blob_radius1/2,
-  blob_restrict1/2, req_lifetime, entity; reacts_as) from tools/extract_liquids.py (PC changed it, 298 rules):
-  add tests/tools coverage for the tag-based rule selection and reacts_as. Check: python tests.
 - CLOUD-8 new: spell_projectiles.json from the PC's runtime rules (MODLOG "spells and physics from the author's
   list"): air_friction default 0.55 when a file sets none (now 0 in the sheet), new columns liquid_drag,
   die_on_liquid_collision, die_on_low_velocity(+limit), on_collision_die, bounce_energy, penetrate_world,
@@ -63,6 +60,9 @@ How it works (author, 2026-10-08): the author only says "работай" to eith
   never in a public repo).
 
 ## Done (last ~8)
+- done (CLOUD) CLOUD-9: tests/tools/test_extract_liquids.py (child inheritance, reacts_as only along
+  _inherit_reactions, rule selection by name / parent / [tag] / [tag]_suffix, input3/direction/blob columns,
+  fast_reaction); extract_liquids.select_reactions split out of main (same output).
 - done (PC, 2026-10-08) PC-15: author accepted flasks, altars, wands, magic, cart as good enough; tour test removed;
   cart test now also kicks a bunny/slime/zombie (0.4 / 5.2 / 4.2 tiles).
 - done (PC, 2026-10-08) flasks: Noita's potion.lua fills them (LuaWandMaker.MakePotion, tncli lua-potion), spray /

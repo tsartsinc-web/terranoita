@@ -156,6 +156,43 @@ def reacts_as(mats, n):
     return out
 
 
+def select_reactions(root, rows):
+    """The Reaction rules that involve one of our liquids/gases: by name, by a material it reacts as (reacts_as),
+    or by a [tag] one of them carries ("[evaporable_custom]_vapour" counts by its tag part)."""
+    names = {r["id"] for r in rows} | {p for r in rows for p in r["reacts_as"]}
+    liquid_tags = {"[" + t + "]" for r in rows for t in r["tags"]}
+
+    def ours(c):
+        # a material of ours, or a [tag] one of ours carries ("[evaporable_custom]_vapour": its tag part)
+        return c in names or (c.startswith("[") and c[:c.index("]") + 1] in liquid_tags)
+
+    reactions = []
+    for el in root.iter("Reaction"):
+        a = el.attrib
+        cells = [a.get(k, "") for k in ("input_cell1", "input_cell2", "output_cell1", "output_cell2")]
+        third = [a.get("input_cell3", ""), a.get("output_cell3", "")]
+        if not any(ours(c) for c in cells + third if c):
+            continue
+        reactions.append({
+            "id": "r%03d" % len(reactions),
+            "probability": num(a.get("probability")),
+            "input1": cells[0], "input2": cells[1], "output1": cells[2], "output2": cells[3],
+            "input3": third[0] or "none", "output3": third[1] or "none",
+            "fast": el.tag == "ReactionFast" or a.get("fast_reaction") == "1",
+            "direction": a.get("direction") or "none",
+            "blob_radius1": num(a.get("blob_radius1")), "blob_radius2": num(a.get("blob_radius2")),
+            "blob_restrict1": a.get("blob_restrict_to_input_material1") == "1",
+            "blob_restrict2": a.get("blob_restrict_to_input_material2") == "1",
+            "req_lifetime": num(a.get("req_lifetime")),
+            "entity": a.get("entity") or "none",
+            "explosion": num(a.get("explosion_power") or (el.find("ExplosionConfig").get("explosion_radius")
+                                                           if el.find("ExplosionConfig") is not None else 0)),
+            "stage": "2", "_unverified": {}, "_sources": {"all": "materials.xml Reaction"},
+        })
+
+    return reactions
+
+
 def main():
     mats, root = load(sys.argv[1])
     damage = touch_damage(sys.argv[2] if len(sys.argv) > 2 else None)
@@ -194,36 +231,7 @@ def main():
             "_unverified": conducts_unverified(a),
             "_sources": {"all": "materials.xml " + ("CellDataChild of " + a["_parent"] if a.get("_parent") else "CellData")},
         })
-    names = {r["id"] for r in rows} | {p for r in rows for p in r["reacts_as"]}
-    liquid_tags = {"[" + t + "]" for r in rows for t in r["tags"]}
-
-    def ours(c):
-        # a material of ours, or a [tag] one of ours carries ("[evaporable_custom]_vapour": its tag part)
-        return c in names or (c.startswith("[") and c[:c.index("]") + 1] in liquid_tags)
-
-    reactions = []
-    for el in root.iter("Reaction"):
-        a = el.attrib
-        cells = [a.get(k, "") for k in ("input_cell1", "input_cell2", "output_cell1", "output_cell2")]
-        third = [a.get("input_cell3", ""), a.get("output_cell3", "")]
-        if not any(ours(c) for c in cells + third if c):
-            continue
-        reactions.append({
-            "id": "r%03d" % len(reactions),
-            "probability": num(a.get("probability")),
-            "input1": cells[0], "input2": cells[1], "output1": cells[2], "output2": cells[3],
-            "input3": third[0] or "none", "output3": third[1] or "none",
-            "fast": el.tag == "ReactionFast" or a.get("fast_reaction") == "1",
-            "direction": a.get("direction") or "none",
-            "blob_radius1": num(a.get("blob_radius1")), "blob_radius2": num(a.get("blob_radius2")),
-            "blob_restrict1": a.get("blob_restrict_to_input_material1") == "1",
-            "blob_restrict2": a.get("blob_restrict_to_input_material2") == "1",
-            "req_lifetime": num(a.get("req_lifetime")),
-            "entity": a.get("entity") or "none",
-            "explosion": num(a.get("explosion_power") or (el.find("ExplosionConfig").get("explosion_radius")
-                                                           if el.find("ExplosionConfig") is not None else 0)),
-            "stage": "2", "_unverified": {}, "_sources": {"all": "materials.xml Reaction"},
-        })
+    reactions = select_reactions(root, rows)
 
     # solids the reactions and the block physics need: their tags (for [tag] inputs) and the Terraria tile a
     # reaction that makes them leaves behind
