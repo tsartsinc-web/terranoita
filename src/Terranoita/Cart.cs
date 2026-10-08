@@ -133,9 +133,9 @@ namespace Terranoita.Game
             var left = Art("data/props_gfx/minecart_wheel_left.png");
             var right = Art("data/props_gfx/minecart_wheel_right.png");
             if (left != null)
-                sb.Draw(left, new Rectangle((int)(at.X + 1 * Px), (int)(at.Y + H - left.Height * Px * 0.6f), (int)(left.Width * Px), (int)(left.Height * Px)), color);
+                sb.Draw(left, new Rectangle((int)(at.X + 1 * Px), (int)(at.Y + H - left.Height * Px), (int)(left.Width * Px), (int)(left.Height * Px)), color);
             if (right != null)
-                sb.Draw(right, new Rectangle((int)(at.X + W - (right.Width + 1) * Px), (int)(at.Y + H - right.Height * Px * 0.6f), (int)(right.Width * Px), (int)(right.Height * Px)), color);
+                sb.Draw(right, new Rectangle((int)(at.X + W - (right.Width + 1) * Px), (int)(at.Y + H - right.Height * Px), (int)(right.Width * Px), (int)(right.Height * Px)), color);
         }
 
         static bool _artLogged;
