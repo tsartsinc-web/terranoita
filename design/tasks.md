@@ -17,7 +17,8 @@ How it works (author, 2026-10-08): the author only says "работай" to eith
   pass the wands test, spell shots from any entity file, progress window (key O), 16 spell slots.
 - Physics review fixes in (atomic saves under a lock, no pool regeneration on a broken file).
 - Open plans: cheaper magic tests (PC-1), effect interactions / electricity (design/effect_interactions.md).
-- Roadmap to 1.0: design/roadmap.md (M2 magic 0.4.0 -> M3 flasks/items 0.5.0 -> M4 bosses 0.6.0 -> M5 polish).
+- Roadmap to 1.0: design/roadmap.md. Next release M2 0.4.0 "Magic": Must = PC-1 summary OK, PC-5 FPS, an hour of
+  play without errors; traders/electricity/lasers come in 0.4.x.
 
 ## PC queue
 - PC-1 new: cheaper magic tests. game_test -Mode magic/wands end with ONE summary (OK / no shot / error / not done
