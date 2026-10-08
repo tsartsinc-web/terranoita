@@ -54,7 +54,11 @@ How it works (author, 2026-10-08): the author only says "работай" to eith
   impacts; creatures hurt + held, player Electrified; physics test scene 15 (pool, 2 zombies). Left: run
   `game_test -Mode physics` (author's OK); metal tiles (no conducts column in materials.json); tanks'
   in_liquid_shooting_electrify_prob; the electrocution loop sound.
-- PC-10 new: worldgen per design/worldgen_plan.md sections 1, 3, 4, 5. Check: game_test -Mode worldgen.
+- PC-10 doing: worldgen per design/worldgen_plan.md. Step 1 written (not run): pass "Terranoita: loot" after Final
+  Cleanup (WorldLoot.Gen.cs, hook worldgen_passes): altars + every chest by Noita's chest_random(_super).lua; the
+  first save writes .wld.magic. Check: `game_test -Mode magic -NewWorld` (author's OK; not while the author plays):
+  log "worldgen: Noita's chests: ..." with wands/spells/flasks > 0, no errors. Next: biome spawn_wands/potions per
+  zone (biome_spawns.json), then scenes (section 3).
 - Known gaps: flask powders (gunpowder_unstable, purifying_powder) do not pour (no Fluids kind); multiplayer still
   clamps synced mana at 400 (MessageBuffer.GetData).
 

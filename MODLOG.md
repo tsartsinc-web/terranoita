@@ -1048,3 +1048,14 @@ unless asked.
   pixel-scene takes aarrggbb=material pairs and lists colours that are no material.
 - Open: in scene PNGs ff000000 (black) and ffffffff (white) are no material and not in Noita's docs: left unplaced
   (keep vs carve unknown). Single marker pixels (ffffff00, ff00ff00) likewise.
+
+## PC-10 step 1: Noita's loot in Terraria's worldgen (2026-10-09, PC; built, not run)
+- Hook worldgen_passes (WorldGen.AddPasses postfix; hooks.json + systems.json loot): inserts PassLegacy
+  "Terranoita: loot" after GenPassNameID.FinalCleanup into WorldGen._generator._passes (Traverse).
+- Pass (WorldLoot.Gen.cs): wand + potion altars as before, then every chest runs Noita's drop_random_reward
+  (chest_random.lua; chest_random_super.lua for chest level >= 5) through NoitaBiomeSpawns, rewards into empty slots:
+  spells (CreateItemActionEntity), wand files (LuaWandMaker.MakeEntity), gold nuggets by gold_value (ours: 1 gold =
+  1 silver), potion/pouch files by their own Lua script (Flasks.Make), hearts -> Life Crystal, heart_fullhp ->
+  Healing Potion, bomb_small -> Bomb (ours). The rest is counted in the log line ("not made yet"). Rare spells once in
+  deep chests as before. No Noita files -> skipped, the load-time fill does it. WorldLoot.Save: a generated world's
+  first save writes .wld.magic (so the load-time FillChests never runs on it).

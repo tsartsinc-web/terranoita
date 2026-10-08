@@ -125,7 +125,8 @@
    "description": "Noita-style gold (coins by health), hearts and mana stars.",
    "stage": "1a",
    "hooks": [
-    "npc_loot"
+    "npc_loot",
+    "worldgen_passes"
    ],
    "code": "src/Terranoita/Loot.cs",
    "_unverified": {}

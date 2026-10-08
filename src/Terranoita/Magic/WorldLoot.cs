@@ -17,7 +17,7 @@ namespace Terranoita.Game.Magic
     /// (Noita's wand_level_0N.lua scripts make them when the player first comes near), and spells in the chests,
     /// better the rarer the chest (Noita's spawn tables of that level). Kept in &lt;world&gt;.wld.magic.
     /// </summary>
-    public static class WorldLoot
+    public static partial class WorldLoot
     {
         sealed class Spot
         {
@@ -69,6 +69,12 @@ namespace Terranoita.Game.Magic
         public static void Save()
         {
             var path = FileOf;
+            // a world just made by Terraria's worldgen (our loot pass): its first save writes what the pass placed
+            if (_generated && path != null)
+            {
+                _loadedFor = path;
+                _generated = false;
+            }
             if (path == null || !NoitaArt.Ready || path != _loadedFor)
                 return;
             try

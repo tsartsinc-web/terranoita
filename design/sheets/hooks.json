@@ -592,6 +592,15 @@
    "purpose": "No RE-LOGIC intro: patched by hand at launch (before the menu), quick splash path, logo timeline skipped.",
    "stage": "3",
    "_unverified": {}
+  },
+  {
+   "id": "worldgen_passes",
+   "target": "Terraria.WorldGen:AddPasses()",
+   "patch": "postfix",
+   "system": "loot",
+   "purpose": "Noita's content in Terraria's own world generation: a loot pass after Final Cleanup fills chests by Noita's chest_random.lua (design/worldgen_plan.md).",
+   "stage": "4",
+   "_unverified": {}
   }
  ]
 }
