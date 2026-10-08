@@ -27,7 +27,11 @@ if ($Mode -in @("magic", "spells")) {
     $cli = Get-ChildItem (Join-Path $PSScriptRoot "..\src\Terranoita.Cli\bin\Release") -Recurse -Filter tncli.exe | Select-Object -First 1
     if ($cli) { & $cli.FullName lua-golden $Noita --check (Join-Path $PSScriptRoot "..\design\sources\lua_cast_golden.txt") | Select-Object -Last 20 }
 }
-Get-Process | Where-Object { $_.Name -match 'Terranoita' } | ForEach-Object { "a test game was still running: closed"; $_.Kill() }
+# only test games (started with our testsave folder) are ever closed; a game the author plays (Melty, by hand) stops the test
+$games = @(Get-CimInstance Win32_Process | Where-Object { $_.Name -match 'Terranoita' })
+$theirs = @($games | Where-Object { $_.CommandLine -notmatch 'testsave' })
+if ($theirs.Count -gt 0) { "the author's game is running (Terranoita, pid $($theirs[0].ProcessId)): no test now"; exit 1 }
+$games | ForEach-Object { "a test game was still running: closed"; Stop-Process -Id $_.ProcessId -Force }
 # (no memory check: the author removed it 2026-10-08; the PC has no page file, so a test with little memory free can
 # hang it, see MODLOG/tasks note)
 Copy-Item (Join-Path $bin "Terranoita.Game.dll"), (Join-Path $bin "Terranoita.Core.dll"), (Join-Path $bin "MoonSharp.Interpreter.dll") -Destination $Terraria -Force -ErrorAction Stop
@@ -68,7 +72,7 @@ if ($Mode -eq "sandbox") {
 $p = Start-Process -FilePath (Join-Path $Terraria "Terranoita.exe") -WorkingDirectory $Terraria -PassThru -WindowStyle Minimized `
     -ArgumentList @("--noita-dir", "`"$Noita`"", "-savedirectory", "`"$data\testsave`"")
 if (-not $p.WaitForExit($Minutes * 60000)) { Stop-Process -Id $p.Id -Force; "TIMEOUT" }
-Get-Process | Where-Object { $_.Name -match 'Terranoita' } | ForEach-Object { "LEFT RUNNING: closed"; $_.Kill() }
+Get-CimInstance Win32_Process | Where-Object { $_.Name -match 'Terranoita' -and $_.CommandLine -match 'testsave' } | ForEach-Object { "LEFT RUNNING: closed"; Stop-Process -Id $_.ProcessId -Force }
 $rowsFile = Join-Path $data "test_rows.txt"
 if ($Mode -notin @("magic", "wands", "spells")) {
     Get-Content $log -Encoding UTF8 | Select-String "$filter|ERROR|Exception|hook MISSING" |
