@@ -29,6 +29,11 @@ How it works (author, 2026-10-08): the author only says "работай" to eith
   Add a release test: start the packaged build exactly as the recipe does (no TERRANOITA_* env), check the log's
   bound hooks count and "world loot". Rebuild 0.4.0 (the built zip has the bug).
   Check: release test passes; new world, log "world loot: N spells" with N > 0.
+  Note: in the release the liquid simulation runs (shots_update is 1a), but fluids_draw, world_load (cave pools),
+  player_buffs (touch effects) are stage 2: players never saw Noita liquids or their reactions.
+- PC-14 new, after PC-8: physics test gets liquid + liquid cases (none today: only acid on dirt, burning oil, slime
+  on oil): Noita water + lava -> steam/rock, acid + water, blood + lava, toxic sludge + water (rows in
+  reactions.json); log `Fluids.Fired` per case, run in release mode. Check: each case fires its reaction.
 - PC-9 waits CLOUD-6: night spawns on the surface (author: crawlers/shooters/bombers kill him in the first minutes by day).
   Needs CLOUD-6. Spawning: a creature whose zone row says `time: night` spawns only when !Main.dayTime (blood moon
   and eclipse count as night); passive ones (sheet says `time: any`) keep spawning by day. Check: autotest day 10 min
