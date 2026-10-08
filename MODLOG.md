@@ -904,3 +904,10 @@ unless asked.
   its own flat grass far from the test world's spawn (no test arenas/chests in view), fresh creatures; scenes fireballs,
   lightning, bombs, black hole, liquids (acid, liquid fire, water, blood), wand window. Pictures shots/show_*.png.
 - Known: Main.GameZoomTarget 1.8 does not seem to take effect; fireballs dig a pit in the first second.
+
+## PC 2026-10-08: 0.4.0 on Melty (draft)
+- Melty over HTTP (JSON-RPC, token only in the session's scratchpad). update_mod: description lists what comes from
+  Noita. 7 showcase screenshots added (creatures, fireballs, lightning, bombs, black hole, liquids, wand window).
+- 0.4.0: recipe as 0.3.1 with fileName terranoita-0.4.0.zip, validate + one_click_check with entries: one click yes.
+  Uploaded (1256961 bytes), submit_release: draft, findings review-only. Publish not called (permission check):
+  goes live when the author plays it in the Melty app.
