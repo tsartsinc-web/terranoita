@@ -29,15 +29,24 @@ namespace Terranoita.Game.Magic
         static LuaWandMaker _maker;
         static LuaWandMaker Maker => _maker ?? (_maker = new LuaWandMaker(NoitaArt.ReadText, Main.rand.Next()));
 
+        // the world whose loot is loaded: a world is saved once while Terraria makes it, before it is ever played, and
+        // that save must not write an empty file (it made every new world's chests stay empty, 2026-10-08)
+        static string _loadedFor;
+        const string Version = "2";
+
         public static void Load()
         {
             Spots.Clear();
+            _loadedFor = null;
             var path = FileOf;
             if (path == null || !NoitaArt.Ready)
                 return;
-            if (File.Exists(path))
+            _loadedFor = path;
+            var lines = File.Exists(path) ? File.ReadAllLines(path) : new string[0];
+            // version 1 files with no wand spot were written by that save: filled now, once
+            if (lines.Length > 0 && (lines[0].Trim() == Version || lines.Length > 1))
             {
-                foreach (var line in File.ReadAllLines(path).Skip(1))
+                foreach (var line in lines.Skip(1))
                 {
                     var p = line.Split(' ');
                     if (p.Length >= 4)
@@ -53,11 +62,11 @@ namespace Terranoita.Game.Magic
         public static void Save()
         {
             var path = FileOf;
-            if (path == null || !NoitaArt.Ready)
+            if (path == null || !NoitaArt.Ready || path != _loadedFor)
                 return;
             try
             {
-                File.WriteAllLines(path, new[] { "1" }.Concat(Spots.Select(s => s.X + " " + s.Y + " " + s.Level + " " + s.Wand)));
+                File.WriteAllLines(path, new[] { Version }.Concat(Spots.Select(s => s.X + " " + s.Y + " " + s.Level + " " + s.Wand)));
             }
             catch (Exception ex) { Entry.Error("world loot save", ex); }
         }

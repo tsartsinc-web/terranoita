@@ -63,37 +63,40 @@ namespace Terranoita.Game.Magic
             }
         }
 
-        /// <summary>A chest of flasks (every material of Noita's potion.lua) on the ground next to the player.</summary>
+        /// <summary>A chest of flasks (every material of Noita's potion.lua) on the ground right next to the player:
+        /// the two tiles above the floor are cleared and the floor made solid, so it always fits.</summary>
         static void PlaceFlasks(Player p)
         {
-            int px = (int)(p.Center.X / 16), feet = (int)((p.position.Y + p.height) / 16);
-            for (int dx = 3; dx < 30; dx++)
-                foreach (int sx in new[] { px + dx, px - dx })
+            int sx = (int)(p.Center.X / 16) + 2, floor = (int)((p.position.Y + p.height) / 16);
+            for (int x = sx; x <= sx + 1; x++)
+            {
+                for (int y = floor - 2; y < floor; y++)
                 {
-                    // ground under two free tiles, two tiles of air above them
-                    int floor = feet - 4;
-                    while (floor < feet + 8 && !(Physics.Mats.Solid(sx, floor) && Physics.Mats.Solid(sx + 1, floor)))
-                        floor++;
-                    if (!Physics.Mats.Solid(sx, floor))
-                        continue;
-                    bool room = true;
-                    for (int y = floor - 2; y < floor && room; y++)
-                        for (int x = sx; x <= sx + 1 && room; x++)
-                            room = !Main.tile[x, y].active() && Main.tile[x, y].liquid == 0;
-                    if (!room)
-                        continue;
-                    int at = WorldGen.PlaceChest(sx, floor - 1, TileID.Containers, false, 0);
-                    if (at < 0)
-                        continue;
-                    var materials = new LuaWandMaker(NoitaArt.ReadText, Main.rand.Next()).PotionMaterials();
-                    var c = Main.chest[at];
-                    for (int i = 0; i < materials.Count && i < c.item.Length; i++)
-                        c.item[i] = MagicItems.MakeFlask(materials[i], Flasks.Capacity);
-                    Log("respawned; chest of " + Math.Min(materials.Count, c.item.Length) + " flasks at " + sx + "," + (floor - 2));
-                    Main.NewText("A chest of flasks is next to you.", new Color(120, 200, 255));
-                    return;
+                    if (Main.tile[x, y].active())
+                        WorldGen.KillTile(x, y, false, false, true);
+                    Main.tile[x, y].liquid = 0;
                 }
-            Log("respawned; no room for the flask chest");
+                var f = Main.tile[x, floor];
+                if (!f.active() || !Main.tileSolid[f.type])
+                {
+                    if (f.active())
+                        WorldGen.KillTile(x, floor, false, false, true);
+                    WorldGen.PlaceTile(x, floor, TileID.Stone, true, true);
+                }
+            }
+            int at = WorldGen.PlaceChest(sx, floor - 1, TileID.Containers, false, 0);
+            if (at < 0)
+            {
+                Log("respawned; the flask chest could not be placed at " + sx + "," + (floor - 1));
+                return;
+            }
+            var materials = new LuaWandMaker(NoitaArt.ReadText, Main.rand.Next()).PotionMaterials();
+            var c = Main.chest[at];
+            for (int i = 0; i < materials.Count && i < c.item.Length; i++)
+                c.item[i] = MagicItems.MakeFlask(materials[i], Flasks.Capacity);
+            Log("respawned; chest of " + Math.Min(materials.Count, c.item.Length) + " flasks at " + sx + "," + (floor - 2));
+            Main.NewText("A chest of flasks is next to you.", new Color(120, 200, 255));
+            Screenshot.Request("tour_end");
         }
     }
 }

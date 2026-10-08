@@ -40,7 +40,7 @@ switch ($Mode) {
     "spells"  { $env:TERRANOITA_AUTOTEST_SPELLS = "1"; $filter = "SPELLS" }
     "wands"   { $env:TERRANOITA_AUTOTEST_WANDS = "1"; $filter = "WANDS|wand .* not made" }
     "sandbox" { $env:TERRANOITA_SANDBOX = "1"; $env:TERRANOITA_AUTOTEST_EXIT = "" }
-    "tour"    { $env:TERRANOITA_TOUR = "1"; $env:TERRANOITA_AUTOTEST_EXIT = ""; $env:TERRANOITA_AUTOTEST_WORLDSIZE = "1"
+    "tour"    { $env:TERRANOITA_TOUR = "1"; $env:TERRANOITA_AUTOTEST_EXIT = ""; $env:TERRANOITA_AUTOTEST_WORLDSIZE = "1"; $env:TERRANOITA_SCREENSHOTS = "1"
                 $env:TERRANOITA_AUTOTEST_NEWWORLD = "Terranoita Tour " + (Get-Date -Format "MMdd-HHmm") }
     "magic"   { $env:TERRANOITA_AUTOTEST_MAGIC = "1"; $filter = "MAGIC|world loot|starting wands|screenshot" }
     "fps"     { $env:TERRANOITA_AUTOTEST_FPS = "1"; $filter = "PERF|cave pools|fluids:" }

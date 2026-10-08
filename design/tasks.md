@@ -61,6 +61,10 @@ How it works (author, 2026-10-08): the author only says "работай" to eith
   never in a public repo).
 
 ## Done (last ~8)
+- done (PC) the real bug behind PC-8's empty chests: Terraria saves a world once while making it; our world-save
+  hook wrote an empty <world>.wld.magic then, so loading never filled chests or placed cave wands in ANY new world.
+  WorldLoot.Save now writes only for the world it loaded (version 2); version-1 files without wand spots are filled
+  once on load. (Tour run 2026-10-08: 10 underground chests, no spell.)
 - done (PC) oceans and the Underworld's lava are protected (author): Fluids.Protected (beach strips 380 tiles from
   the edges above the caverns, y >= UnderworldLayer): no reactions with Terraria's liquid there, no swaps, no adding,
   no draining (drinking leaves it), no conversions; ours that reaches it is lost in it. Untested in game.

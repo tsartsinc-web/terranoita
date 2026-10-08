@@ -124,13 +124,38 @@ namespace Terranoita.Game
                 return;
             var sb = Main.spriteBatch;
             var color = Lighting.GetColor((int)((_pos.X + W / 2f) / 16), (int)((_pos.Y + H / 2f) / 16));
-            // Noita draws physics props as their material inside the shape: metal_rust = data/materials_gfx/steel.png
-            foreach (var file in new[] { "data/props_gfx/minecart_wheel_left.png", "data/props_gfx/minecart_wheel_right.png", "data/props_gfx/minecart.png" })
+            var at = _pos - Main.screenPosition;
+            // Noita draws physics props as their material inside the shape: metal_rust = data/materials_gfx/steel.png;
+            // the body at its size, the wheels at theirs under its bottom corners
+            var body = Art("data/props_gfx/minecart.png");
+            if (body != null)
+                sb.Draw(body, new Rectangle((int)at.X, (int)at.Y, W, H), color);
+            var left = Art("data/props_gfx/minecart_wheel_left.png");
+            var right = Art("data/props_gfx/minecart_wheel_right.png");
+            if (left != null)
+                sb.Draw(left, new Rectangle((int)(at.X + 1 * Px), (int)(at.Y + H - left.Height * Px * 0.6f), (int)(left.Width * Px), (int)(left.Height * Px)), color);
+            if (right != null)
+                sb.Draw(right, new Rectangle((int)(at.X + W - (right.Width + 1) * Px), (int)(at.Y + H - right.Height * Px * 0.6f), (int)(right.Width * Px), (int)(right.Height * Px)), color);
+        }
+
+        static bool _artLogged;
+
+        /// <summary>The part filled with its material (Noita's look), else Noita's own picture of it.</summary>
+        static Texture2D Art(string file)
+        {
+            var tex = NoitaArt.Masked(file, "data/materials_gfx/steel.png");
+            string how = "steel";
+            if (tex == null)
             {
-                var tex = NoitaArt.Masked(file, "data/materials_gfx/steel.png");
-                if (tex != null)
-                    sb.Draw(tex, new Rectangle((int)(_pos.X - Main.screenPosition.X), (int)(_pos.Y - Main.screenPosition.Y), W, H), color);
+                tex = NoitaArt.Get(file)?.Texture;
+                how = "plain";
             }
+            if (!_artLogged && file.EndsWith("minecart.png"))
+            {
+                _artLogged = true;
+                Entry.Log("cart art: " + (tex == null ? "NONE" : how + " " + tex.Width + "x" + tex.Height) + ", cart at " + (int)(_pos.X / 16) + "," + (int)(_pos.Y / 16));
+            }
+            return tex;
         }
 
         [Hook("cart_draw")]
