@@ -32,7 +32,8 @@ namespace Terranoita.Game.Magic
         const int Each = 300;
         public static int Length => 120 + Sets.Length * Each + 60;
         static NPC _target;
-        static Vector2 _start;   // where the player stands at the start: every set begins there (bombs dig pits)
+        static Vector2 _start;
+        static int _c0, _s0, _e0;   // casts, shots, errors at the start of a set   // where the player stands at the start: every set begins there (bombs dig pits)
 
         static void Log(string s) => Entry.Log("MAGIC " + s);
 
@@ -111,8 +112,26 @@ namespace Terranoita.Game.Magic
                 Screenshot.Request("arc");
             if (k == 9 && t == 90)
                 Screenshot.Request("orbit_scripts");
+            if (t == Each - 1)
+            {
+                // one row per set for game_test's summary: it cast, it shot, no error
+                int casts = Casting.TestCasts - _c0, shots = Casting.TestShots - _s0, errors = Entry.Errors - _e0;
+                string status = errors > 0 ? "error" : casts == 0 ? "no cast" : shots == 0 ? "no shot" : "OK";
+                try
+                {
+                    if (k == 0)
+                        System.IO.File.WriteAllText(SpellsTest.RowsFile, "");
+                    System.IO.File.AppendAllText(SpellsTest.RowsFile, "set" + k + ":" + string.Join("+", Sets[k] ?? new[] { "start" }) + " " + status + " shots " + shots + Environment.NewLine);
+                }
+                catch { }
+                if (status != "OK")
+                    Screenshot.Request("fail_set" + k);
+            }
             if (t == 0)
             {
+                _c0 = Casting.TestCasts;
+                _s0 = Casting.TestShots;
+                _e0 = Entry.Errors;
                 SpellShots.Clear();
                 p.position = _start;
                 p.velocity = Vector2.Zero;

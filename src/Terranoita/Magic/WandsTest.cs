@@ -19,6 +19,7 @@ namespace Terranoita.Game.Magic
         static List<(string file, WandData wand)> _wands;
         static Vector2 _start;
         static int _casts, _shots, _mana, _errors, _skipped;
+        static bool _recharged;
         static readonly bool All = Environment.GetEnvironmentVariable("TERRANOITA_WANDS_ALL") == "1";
         // wand files that already passed (cast, shots, no error): not tested again (author); TERRANOITA_WANDS_ALL=1 tests all
         static string PassedFile => System.IO.Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData), "Terranoita", "wands_passed.txt");
@@ -71,13 +72,23 @@ namespace Terranoita.Game.Magic
                 _shots = Casting.TestShots;
                 _mana = Casting.TestMana;
                 _errors = Entry.Errors;
+                _recharged = false;
+                if (k == 0)
+                    try { System.IO.File.WriteAllText(SpellsTest.RowsFile, ""); } catch { }
                 Casting.TestFire = true;
             }
             p.statMana = p.statManaMax2;   // never runs dry
+            _recharged |= Casting.Recharging(w.Id) >= 0;
             if (t == Each - 1)
             {
                 int casts = Casting.TestCasts - _casts, shots = Casting.TestShots - _shots, errors = Entry.Errors - _errors;
-                if (casts > 0 && errors == 0)
+                int mana = Casting.TestMana - _mana;
+                // Noita's promise for a wand: it casts, shoots, spends mana, recharges; no error
+                string status = errors > 0 ? "error" : casts == 0 ? "no cast" : shots == 0 ? "no shot" : mana <= 0 ? "no mana" : !_recharged ? "no recharge" : "OK";
+                try { System.IO.File.AppendAllText(SpellsTest.RowsFile, "wand:" + System.IO.Path.GetFileNameWithoutExtension(file) + " " + status + " shots " + shots + " mana " + mana + Environment.NewLine); } catch { }
+                if (status != "OK")
+                    Screenshot.Request("fail_" + System.IO.Path.GetFileNameWithoutExtension(file));
+                if (status == "OK")
                     try { System.IO.File.AppendAllText(PassedFile, file + Environment.NewLine); } catch { }
                 Log((casts > 0 && errors == 0 ? "ok " : "FAIL ") + (k + 1) + "/" + _wands.Count + " " + System.IO.Path.GetFileNameWithoutExtension(file) + " '" + MagicItems.WandName(w) + "' [" +
                     string.Join(" ", w.Slots.Select(s => s ?? "-")) + (w.AlwaysCast.Count > 0 ? " | always " + string.Join(" ", w.AlwaysCast) : "") +

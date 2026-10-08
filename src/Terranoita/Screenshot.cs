@@ -18,7 +18,12 @@ namespace Terranoita.Game
         static RenderTarget2D _target;
         static bool _capturing;
 
-        public static void Request(string name) => _pending = name;
+        /// <summary>Pictures cost the reader tokens (author): only failures ("fail_..."), or all with TERRANOITA_SCREENSHOTS=1.</summary>
+        public static void Request(string name)
+        {
+            if (name.StartsWith("fail_") || Environment.GetEnvironmentVariable("TERRANOITA_SCREENSHOTS") == "1")
+                _pending = name;
+        }
 
         [Hook("test_screenshot")]
         [HarmonyPatch(typeof(Main), "DoDraw")]

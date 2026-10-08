@@ -52,7 +52,7 @@ namespace Terranoita.Game.Magic
                 _start = p.position;
                 var only = Environment.GetEnvironmentVariable("TERRANOITA_SPELLS_ONLY");
                 _ids = new LuaWandMaker(NoitaArt.ReadText, 1).Actions().Select(a => a.id)
-                    .Where(id => string.IsNullOrEmpty(only) || only.Split(',').Contains(id)).ToList();
+                    .Where(a => string.IsNullOrEmpty(only) || only.Split(',').Contains(a)).ToList();
                 try { File.WriteAllText(RowsFile, ""); } catch { }
                 Entry.Log("SPELLS " + _ids.Count + " spells");
             }
@@ -108,7 +108,10 @@ namespace Terranoita.Game.Magic
             string row = id + " " + status + " shots " + shots + " mana " + mana + " hurt " + hurt;
             try { File.AppendAllText(RowsFile, row + Environment.NewLine); } catch { }
             if (status != "OK")
+            {
                 Entry.Log("SPELLS " + row);
+                Screenshot.Request("fail_" + id);
+            }
         }
     }
 }
