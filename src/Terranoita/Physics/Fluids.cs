@@ -274,9 +274,9 @@ namespace Terranoita.Game.Physics
                 React(x, y);
             if (!Cells.TryGetValue(k, out c))
                 return;
-            // Terraria's own liquid came in: ours goes on top of it
+            // Terraria's own liquid came in: ours goes on top of it when lighter (Noita densities: blood 4.1 sinks in water 4.0)
             var t = Main.tile[x, y];
-            if (!gas && t.liquid > 32)
+            if (!gas && t.liquid > 32 && !HeavierThanTerraria(c.Kind, t.liquidType()))
             {
                 MoveAll(k, x, y - 1, c);
                 return;
@@ -295,8 +295,20 @@ namespace Terranoita.Game.Physics
                 int dx = s == 0 ? first : -first;
                 int nk = Key(x + dx, y);
                 Cells.TryGetValue(nk, out var n);
-                if (!Open(x + dx, y) || (n.Amount > 0 && n.Kind != c.Kind) || (!gas && Main.tile[x + dx, y].liquid > 32))
+                if (!Open(x + dx, y) || (!gas && Main.tile[x + dx, y].liquid > 32))
                     continue;
+                if (n.Amount > 0 && n.Kind != c.Kind)
+                {
+                    // liquids of about the same density mix (Noita: blood and water stir together); others stay layered
+                    if (!gas && Mixes(c.Kind, n.Kind))
+                    {
+                        c.Stamp = n.Stamp = _stamp;
+                        Cells[nk] = c;
+                        Cells[k] = n;
+                        return;
+                    }
+                    continue;
+                }
                 int diff = c.Amount - n.Amount;
                 if (diff < 2)
                     continue;
@@ -317,15 +329,30 @@ namespace Terranoita.Game.Physics
             if (!Open(x2, y2))
                 return false;
             bool gas = Gas(c.Kind);
-            if (!gas && Main.tile[x2, y2].liquid > 32)
-                return false;
             int nk = Key(x2, y2);
             Cells.TryGetValue(nk, out var n);
+            var below = Main.tile[x2, y2];
+            if (!gas && below.liquid > 32)
+            {
+                // ours sinks through Terraria's water or lava when heavier: Terraria's liquid takes our place above
+                var here = Main.tile[x, y];
+                if (y2 <= y || n.Amount > 0 || here.liquid > 32 || !HeavierThanTerraria(c.Kind, below.liquidType()) || Main.rand.Next(2) != 0)
+                    return false;
+                here.liquidType(below.liquidType());
+                here.liquid = below.liquid;
+                below.liquid = 0;
+                Liquid.AddWater(x, y);
+                Liquid.AddWater(x2, y2);
+                c.Stamp = _stamp;
+                Cells.Remove(k);
+                Cells[nk] = c;
+                return true;
+            }
             if (n.Amount > 0 && n.Kind != c.Kind)
             {
                 // heavier sinks: a liquid falls through a lighter liquid or any gas, a gas rises through liquids
                 bool swap = y2 > y ? Heavier(c.Kind, n.Kind) : y2 < y && Heavier(n.Kind, c.Kind);
-                if (swap && Main.rand.Next(2) == 0)
+                if (swap && Main.rand.Next(2) == 0 || !gas && Mixes(c.Kind, n.Kind))
                 {
                     c.Stamp = n.Stamp = _stamp;
                     Cells[nk] = c;
@@ -360,6 +387,23 @@ namespace Terranoita.Game.Physics
                 if (n.Amount == 0 || n.Kind == c.Kind)
                     Cells[nk] = new Cell { Kind = c.Kind, Amount = (byte)Math.Min(255, n.Amount + c.Amount), Burn = c.Burn };
             }
+        }
+
+        /// <summary>Two liquids of about the same density swap now and then, so they mix (and react all through).</summary>
+        static bool Mixes(int a, int b) =>
+            !Gas(a) && !Gas(b) && Math.Abs(_defs[a - 1].Density - _defs[b - 1].Density) < MixDensity && Main.rand.Next(MixEvery) == 0;
+        const float MixDensity = 0.6f;   // ours: water 4.0, blood 4.1, swamp 3.5 mix; oil 1.0 stays on top
+        const int MixEvery = 6;
+
+        /// <summary>Ours against Terraria's own water/lava/honey, by Noita's densities (honey: ours, 5).</summary>
+        static bool HeavierThanTerraria(int kind, int liquidType)
+        {
+            if (Gas(kind))
+                return false;
+            string id = liquidType == LiquidID.Lava ? "lava" : liquidType == LiquidID.Water ? "water" : null;
+            int k = id == null ? 0 : KindOf(id);
+            float d = k > 0 ? _defs[k - 1].Density : 5f;
+            return _defs[kind - 1].Density > d;
         }
 
         static bool Heavier(int a, int b)

@@ -21,10 +21,6 @@ How it works (author, 2026-10-08): the author only says "работай" to eith
   play without errors; traders/electricity/lasers come in 0.4.x.
 
 ## PC queue
-- PC-14 code done (PC), needs `game_test -Mode physics`: basins x0+84.. with water+radioactive_liquid, blood+poison,
-  lava+blood_cold, water+cement (Noita has no plain water+lava row: Terraria's obsidian); log "liquid pairs: ...". Was: physics test gets liquid + liquid cases (none today: only acid on dirt, burning oil, slime
-  on oil): Noita water + lava -> steam/rock, acid + water, blood + lava, toxic sludge + water (rows in
-  reactions.json); log `Fluids.Fired` per case, run in release mode. Check: each case fires its reaction.
 - PC-9 waits CLOUD-6: night spawns on the surface (author: crawlers/shooters/bombers kill him in the first minutes by day).
   Needs CLOUD-6. Spawning: a creature whose zone row says `time: night` spawns only when !Main.dayTime (blood moon
   and eclipse count as night); passive ones (sheet says `time: any`) keep spawning by day. Check: autotest day 10 min
@@ -63,6 +59,11 @@ How it works (author, 2026-10-08): the author only says "работай" to eith
   never in a public repo).
 
 ## Done (last ~8)
+- done (PC) liquids mix (author: one floats over the other): ours heavier than Terraria's water/lava sink through it
+  (Noita densities: blood 4.1 > water 4.0; Fluids.Flow swaps with Terraria's liquid), liquids within 0.6 density swap
+  now and then up/down/sideways (Mixes, 1 in 6) so they stir and react through; oil-on-water stays layered (Noita too).
+  Physics run: blood at the bottom under Terraria water; salt water poured on blood reached the bottom row.
+- done (PC) PC-14: physics run 2026-10-08, 24 s: water+radioactive_liquid 11, blood+poison 17, lava+blood_cold 7, water+cement 5 reactions.
 - done (PC) mana cap (author): 15 Mana Crystals (300), total max mana 600, bars show 15 stars of 20..40 mana
   (Magic/ManaCap.cs: transpilers on ItemCheck_UseManaCrystal, Deserialize, Player.Update, classic DrawMana; snapshot
   postfix). Log shows every constant changed. Not done: MessageBuffer.GetData still clamps synced mana at 400 (multiplayer).

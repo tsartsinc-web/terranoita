@@ -114,12 +114,15 @@ namespace Terranoita.Game.Physics
             Log("poured: cells " + Fluids.Count + ", smoke " + Fluids.Total(_x0 + 70, _x0 + 80, _gy - 10, _gy, "smoke"));
         }
 
-        static readonly (string a, string b)[] Pairs = { ("water", "radioactive_liquid"), ("blood", "poison"), ("lava", "blood_cold"), ("water", "cement") };
+        static readonly (string a, string b)[] Pairs = { ("water", "radioactive_liquid"), ("blood", "poison"), ("lava", "blood_cold"), ("water", "cement"), ("water", "blood"), ("blood", "water_salt") };
 
         static void Fluid(string when)
         {
             Log(when + ": liquid pairs: " + string.Join(", ", Pairs.Select(pr => pr.a + "+" + pr.b + " " +
-                Fluids.Fired.Where(kv => kv.Key.EndsWith(" " + pr.a + "+" + pr.b) || kv.Key.EndsWith(" " + pr.b + "+" + pr.a)).Sum(kv => kv.Value))));
+                Fluids.Fired.Where(kv => kv.Key.EndsWith(" " + pr.a + "+" + pr.b) || kv.Key.EndsWith(" " + pr.b + "+" + pr.a)).Sum(kv => kv.Value))) +
+                "; cement basin: cement " + Fluids.Total(_x0 + 103, _x0 + 107, _gy - 6, _gy - 1, "cement") + ", water " + Count(_x0 + 103, _x0 + 107, _gy - 6, _gy - 1, tl => tl.liquid > 32) + " tiles, concrete " + Count(_x0 + 103, _x0 + 107, _gy - 6, _gy - 1, tl => tl.active() && tl.type != TileID.Stone) +
+                "; blood in the bottom row under Terraria water " + Fluids.Total(_x0 + 109, _x0 + 113, _gy - 1, _gy - 1, "blood") +
+                "; blood+water_salt mixed: blood in the top rows " + Fluids.Total(_x0 + 115, _x0 + 119, _gy - 4, _gy - 3, "blood") + ", salt water in the bottom row " + Fluids.Total(_x0 + 115, _x0 + 119, _gy - 1, _gy - 1, "water_salt"));
             if (when.StartsWith("3"))
                 Fluids.Ignite(_x0 + 60, _gy - 1);
             int dirt = Count(_x0 + 48, _x0 + 53, _gy - 3, _gy - 1, t => t.type == TileID.Dirt);
@@ -141,7 +144,7 @@ namespace Terranoita.Game.Physics
                 gy++;
             _gy = gy;
             // a flat floor of stone and clear air above, so every scene starts the same
-            for (int x = _x0 - 2; x <= _x0 + 110; x++)
+            for (int x = _x0 - 2; x <= _x0 + 122; x++)
             {
                 for (int y = gy - 25; y < gy; y++)
                 {
