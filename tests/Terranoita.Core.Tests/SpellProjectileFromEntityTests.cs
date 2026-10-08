@@ -22,13 +22,18 @@ namespace Terranoita.Tests
                       $"lifetime=\"{r.Lifetime}\" lifetime_randomness=\"{r.LifetimeRandom}\" damage=\"{F(r.Damage)}\" " +
                       $"explosion_dont_damage_shooter=\"{B(!r.HurtsShooter)}\" damage_every_x_frames=\"{r.DamageEveryFrames}\" " +
                       $"on_death_explode=\"{B(r.ExplodeOnDeath)}\" on_collision_die=\"{B(r.DieOnHit)}\" penetrate_entities=\"{B(r.Penetrate)}\" " +
-                      $"bounces_left=\"{r.Bounces}\" collide_with_world=\"{B(r.CollideWithWorld)}\" knockback_force=\"{F(r.Knockback)}\">\n");
+                      $"bounces_left=\"{r.Bounces}\" collide_with_world=\"{B(r.CollideWithWorld)}\" knockback_force=\"{F(r.Knockback)}\" " +
+                      $"die_on_liquid_collision=\"{B(r.DieOnLiquid)}\" die_on_low_velocity=\"{B(r.DieOnLowVelocity)}\" " +
+                      $"die_on_low_velocity_limit=\"{F(r.LowVelocityLimit)}\" bounce_energy=\"{F(r.BounceEnergy)}\" penetrate_world=\"{B(r.PenetrateWorld)}\">\n");
             sb.Append($"    <config_explosion explosion_radius=\"{F(r.ExplosionRadius)}\" damage=\"{F(r.ExplosionDamage)}\"" +
                       (r.ExplosionMaterial != "none" ? $" create_cell_material=\"{r.ExplosionMaterial}\"" : "") +
                       (r.ExplosionSound != "none" ? $" audio_event_name=\"{r.ExplosionSound}\"" : "") + " />\n");
             sb.Append($"    <damage_by_type fire=\"{F(r.FireDamage)}\" slice=\"{F(r.TypedDamage - r.FireDamage)}\" />\n");
             sb.Append("  </ProjectileComponent>\n");
-            sb.Append($"  <VelocityComponent gravity_y=\"{F(r.Gravity)}\" air_friction=\"{F(r.AirFriction)}\" />\n");
+            sb.Append($"  <VelocityComponent gravity_y=\"{F(r.Gravity)}\" air_friction=\"{F(r.AirFriction)}\" liquid_drag=\"{F(r.LiquidDrag)}\" " +
+                      (r.TerminalVelocity < 0 ? "apply_terminal_velocity=\"0\"" : $"terminal_velocity=\"{F(r.TerminalVelocity)}\"") + " />\n");
+            if (r.LightningRadius > 0)
+                sb.Append($"  <LightningComponent is_projectile=\"1\"><config_explosion explosion_radius=\"{F(r.LightningRadius)}\" damage=\"{F(r.LightningDamage)}\" /></LightningComponent>\n");
             if (r.Sprite != "none") sb.Append($"  <SpriteComponent image_file=\"{r.Sprite}\" />\n");
             if (r.Audio != "none") sb.Append($"  <AudioComponent event_root=\"{r.Audio}\" />\n");
             if (r.Material != "none") sb.Append($"  <ParticleEmitterComponent emitted_material_name=\"{r.Material}\" />\n");
@@ -44,6 +49,8 @@ namespace Terranoita.Tests
         [InlineData("data/entities/projectiles/deck/black_hole_giga.xml")]
         [InlineData("data/entities/projectiles/deck/arrow.xml")]
         [InlineData("data/entities/projectiles/deck/fireball.xml")]
+        [InlineData("data/entities/projectiles/deck/iceball.xml")]
+        [InlineData("data/entities/projectiles/deck/ball_lightning.xml")]
         public void MatchesTheSheetRow(string id)
         {
             var row = SpellProjectiles.All.Single(r => r.Id == id);
@@ -77,6 +84,8 @@ namespace Terranoita.Tests
   <Entity><ParticleEmitterComponent emitted_material_name="""" /></Entity>
   <Entity><ParticleEmitterComponent emitted_material_name=""blood"" /></Entity>
 </Entity>",
+            ["bolt.xml"] = @"<Entity><ProjectileComponent on_collision_die=""0"" />
+  <LightningComponent is_projectile=""1""><config_explosion explosion_radius=""35"" /></LightningComponent></Entity>",
             ["kid_velocity.xml"] = @"<Entity><ProjectileComponent />
   <Entity><VelocityComponent air_friction=""2"" /></Entity></Entity>",
         };
@@ -103,6 +112,21 @@ namespace Terranoita.Tests
             Assert.Equal(100f, d.EatProbability);       // no CellEater: 100
             Assert.Equal("child.xml", d.Id);
             Assert.True(d.DieOnHit && d.CollideWithWorld && !d.HurtsShooter && !d.Penetrate);
+        }
+
+        [Fact]
+        public void DocumentedDefaultsAndLightningBlast()
+        {
+            var d = Load("bolt.xml");
+            Assert.Equal(0.55f, d.AirFriction);         // no VelocityComponent: Noita's documented default
+            Assert.Equal(1f, d.LiquidDrag);
+            Assert.Equal(1000f, d.TerminalVelocity);
+            Assert.Equal(0.5f, d.BounceEnergy);
+            Assert.Equal(50f, d.LowVelocityLimit);
+            Assert.False(d.DieOnHit || d.DieOnLiquid || d.DieOnLowVelocity || d.PenetrateWorld);
+            Assert.Equal(35f, d.LightningRadius);
+            Assert.Equal(SpellProjectileFromEntity.LightningDamageDefault, d.LightningDamage);   // the file sets none
+            Assert.Equal(0f, Load("child.xml").LightningRadius);
         }
 
         [Fact]

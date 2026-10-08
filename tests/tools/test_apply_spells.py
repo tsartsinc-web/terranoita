@@ -59,3 +59,28 @@ class ApplySpellsTests(unittest.TestCase):
 
 if __name__ == "__main__":
     unittest.main()
+
+
+class ShotRowPhysicsTests(unittest.TestCase):
+    """Fields a file leaves unset take Noita's documented defaults; a projectile lightning keeps its own blast."""
+
+    BOLT = {"components": [
+        {"component": "VelocityComponent", "attrs": {"apply_terminal_velocity": "0"}},
+        {"component": "ProjectileComponent", "attrs": {"on_collision_die": "0", "die_on_liquid_collision": "1"}},
+        {"component": "LightningComponent", "attrs": {"is_projectile": "1"},
+         "children": [{"component": "config_explosion", "attrs": {"explosion_radius": "35"}}]}]}
+
+    def test_documented_defaults(self):
+        r = apply_spells.shot_row("bolt.xml", self.BOLT)
+        self.assertEqual((r["air_friction"], r["liquid_drag"], r["bounce_energy"], r["low_velocity_limit"]), (0.55, 1.0, 0.5, 50.0))
+        self.assertEqual(r["terminal_velocity"], -1.0)   # apply_terminal_velocity 0
+        self.assertEqual((r["die_on_hit"], r["die_on_liquid"], r["die_on_low_velocity"], r["penetrate_world"]),
+                         (False, True, False, False))
+
+    def test_lightning_blast(self):
+        r = apply_spells.shot_row("bolt.xml", self.BOLT)
+        self.assertEqual((r["lightning_radius"], r["lightning_damage"]), (35.0, apply_spells.LIGHTNING_DAMAGE_DEFAULT))
+        self.assertIn("lightning_damage", r["_unverified"])
+        plain = apply_spells.shot_row("p.xml", {"components": [{"component": "ProjectileComponent", "attrs": {"damage": "1"}}]})
+        self.assertEqual((plain["lightning_radius"], plain["lightning_damage"], plain["terminal_velocity"]), (0.0, 0.0, 1000.0))
+        self.assertEqual(plain["_unverified"], {})

@@ -13,6 +13,46 @@ import os
 
 ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 SHEETS = os.path.join(ROOT, "design", "sheets")
+FACTS = os.path.join(ROOT, "design", "sources", "noita_facts.json")   # its _component_docs: Noita's defaults
+
+# component_documentation.txt defaults the runtime uses when the player's docs are missing (SpellShots.Physics.cs)
+FALLBACK_DOCS = {
+    "VelocityComponent": {"air_friction": "0.55", "liquid_drag": "1", "terminal_velocity": "1000",
+                          "apply_terminal_velocity": "1"},
+    "ProjectileComponent": {"die_on_liquid_collision": "0", "die_on_low_velocity": "0", "die_on_low_velocity_limit": "50",
+                            "on_collision_die": "1", "bounce_energy": "0.5", "penetrate_world": "0"},
+}
+DOCS = {k: dict(v) for k, v in FALLBACK_DOCS.items()}
+# ConfigExplosion.damage is not in the docs; the runtime takes 5 for a LightningComponent blast (PC, MODLOG
+# "spells and physics from the author's list": CHECK in Noita)
+LIGHTNING_DAMAGE_DEFAULT = 5.0
+
+
+def load_docs(path=FACTS):
+    """Documented defaults of the components shot_row reads (member lines "<type> <name> <default> ...")."""
+    if not os.path.exists(path):
+        return
+    with open(path, encoding="utf-8") as f:
+        docs = json.load(f).get("_component_docs") or {}
+    for comp in FALLBACK_DOCS:
+        d = DOCS.setdefault(comp, {})
+        for line in (docs.get(comp) or "").split("\n"):
+            t = line.split()
+            if not t or t[0].startswith("-"):
+                continue
+            i = 2 if t[0] == "unsigned" else 1
+            if len(t) > i + 1 and t[i] in FALLBACK_DOCS[comp]:
+                d[t[i]] = t[i + 1]
+
+
+def doc(comp, attrs, field):
+    """The attribute if the file sets it, else Noita's documented default."""
+    v = attrs.get(field)
+    return v if v is not None else DOCS.get(comp, {}).get(field)
+
+
+def flag(v):
+    return str(v).strip().lower() in ("1", "true")
 
 SPELL_TYPES = ["projectile", "static_projectile", "modifier", "draw_many", "material", "other", "utility", "passive"]
 
@@ -86,7 +126,9 @@ SHOT_COLUMNS = {
     "speed_max": {"type": "number", "desc": "ProjectileComponent speed_max, Noita px/s."},
     "spread_rad": {"type": "number", "desc": "ProjectileComponent direction_random_rad."},
     "gravity": {"type": "number", "desc": "VelocityComponent gravity_y, Noita px/s^2."},
-    "air_friction": {"type": "number", "desc": "VelocityComponent air_friction."},
+    "air_friction": {"type": "number", "desc": "VelocityComponent air_friction (documented default 0.55 when unset)."},
+    "liquid_drag": {"type": "number", "desc": "VelocityComponent liquid_drag: slows in liquids (1 = normal, 0 = not)."},
+    "terminal_velocity": {"type": "number", "desc": "VelocityComponent terminal_velocity, Noita px/s; -1 when apply_terminal_velocity is 0."},
     "lifetime": {"type": "int", "desc": "ProjectileComponent lifetime, frames (-1 = until it hits)."},
     "lifetime_random": {"type": "int", "desc": "ProjectileComponent lifetime_randomness, frames."},
     "damage": {"type": "number", "desc": "ProjectileComponent damage (projectile part), Noita units (x25 = hp)."},
@@ -97,7 +139,12 @@ SHOT_COLUMNS = {
     "explosion_radius": {"type": "number", "desc": "config_explosion explosion_radius, Noita px (0 = none)."},
     "explosion_damage": {"type": "number", "desc": "config_explosion damage, Noita units."},
     "explode_on_death": {"type": "bool", "desc": "on_death_explode / on_lifetime_out_explode."},
-    "die_on_hit": {"type": "bool", "desc": "on_collision_die: gone when it hits a creature."},
+    "die_on_hit": {"type": "bool", "desc": "on_collision_die: gone when it hits (0: lives on at a creature or a wall)."},
+    "die_on_liquid": {"type": "bool", "desc": "die_on_liquid_collision: gone when it touches a liquid."},
+    "die_on_low_velocity": {"type": "bool", "desc": "die_on_low_velocity: gone when slower than low_velocity_limit."},
+    "low_velocity_limit": {"type": "number", "desc": "die_on_low_velocity_limit, Noita px/s."},
+    "bounce_energy": {"type": "number", "desc": "bounce_energy: share of the speed kept on a bounce."},
+    "penetrate_world": {"type": "bool", "desc": "penetrate_world: flies through the ground."},
     "penetrate": {"type": "bool", "desc": "penetrate_entities: goes through creatures."},
     "bounces": {"type": "int", "desc": "bounces_left off the ground."},
     "collide_with_world": {"type": "bool", "desc": "Hits the ground at all."},
@@ -110,6 +157,8 @@ SHOT_COLUMNS = {
     "explosion_material": {"type": "string", "desc": "config_explosion create_cell_material, or none."},
     "audio": {"type": "string", "desc": "Noita audio event root of the shot."},
     "explosion_sound": {"type": "string", "desc": "Explosion audio event, or none."},
+    "lightning_radius": {"type": "number", "desc": "LightningComponent (is_projectile) config_explosion radius, Noita px; 0 = no lightning."},
+    "lightning_damage": {"type": "number", "desc": "LightningComponent config_explosion damage, Noita units (5 when the file sets none)."},
     "stage": {"type": "enum", "values": ["3"], "desc": "Spell projectiles come with stage 3."},
 }
 
@@ -136,6 +185,11 @@ def shot_row(path, p):
     c = comps_of(p)
     pc, vc, ex = c.get("ProjectileComponent", {}), c.get("VelocityComponent", {}), c.get("config_explosion", {})
     emit = next((x for x in [c.get("ParticleEmitterComponent", {})] if x.get("emitted_material_name")), {})
+    # a LightningComponent that moves as a projectile ends in its own blast (its config_explosion, not the shot's)
+    lc = next((x for x in p.get("components") or [] if x["component"] == "LightningComponent"
+               and flag(x.get("attrs", {}).get("is_projectile"))), None)
+    lightning = None if lc is None else next((ch.get("attrs", {}) for ch in lc.get("children") or []
+                                              if ch["component"] == "config_explosion"), {})
     row = {
         "id": path,
         "sprite": p.get("sprite") or "none",
@@ -143,7 +197,10 @@ def shot_row(path, p):
         "speed_max": num(pc.get("speed_max", p.get("speed_max"))),
         "spread_rad": num(pc.get("direction_random_rad")),
         "gravity": num(vc.get("gravity_y", p.get("gravity_y"))),
-        "air_friction": num(vc.get("air_friction")),
+        "air_friction": num(doc("VelocityComponent", vc, "air_friction")),
+        "liquid_drag": num(doc("VelocityComponent", vc, "liquid_drag"), 1.0),
+        "terminal_velocity": num(doc("VelocityComponent", vc, "terminal_velocity"), 1000.0)
+        if flag(doc("VelocityComponent", vc, "apply_terminal_velocity")) else -1.0,
         "lifetime": int(num(pc.get("lifetime", p.get("lifetime_frames")), -1)),
         "lifetime_random": int(num(pc.get("lifetime_randomness"))),
         "damage": num(pc.get("damage", p.get("damage"))),
@@ -155,6 +212,11 @@ def shot_row(path, p):
         "explosion_damage": num(ex.get("damage")),
         "explode_on_death": pc.get("on_death_explode", "0") == "1" or pc.get("on_lifetime_out_explode", "0") == "1",
         "die_on_hit": pc.get("on_collision_die", "1") == "1",
+        "die_on_liquid": flag(doc("ProjectileComponent", pc, "die_on_liquid_collision")),
+        "die_on_low_velocity": flag(doc("ProjectileComponent", pc, "die_on_low_velocity")),
+        "low_velocity_limit": num(doc("ProjectileComponent", pc, "die_on_low_velocity_limit"), 50.0),
+        "bounce_energy": num(doc("ProjectileComponent", pc, "bounce_energy"), 0.5),
+        "penetrate_world": flag(doc("ProjectileComponent", pc, "penetrate_world")),
         "penetrate": pc.get("penetrate_entities", "0") == "1",
         "bounces": int(num(pc.get("bounces_left"))),
         "collide_with_world": pc.get("collide_with_world", "1") == "1",
@@ -167,10 +229,15 @@ def shot_row(path, p):
         "explosion_material": ex.get("create_cell_material") or "none",
         "audio": p.get("audio_root") or "none",
         "explosion_sound": p.get("explosion_sound") or "none",
+        "lightning_radius": num(lightning.get("explosion_radius")) if lightning is not None else 0.0,
+        "lightning_damage": (num(lightning["damage"]) if "damage" in lightning else LIGHTNING_DAMAGE_DEFAULT)
+        if lightning is not None else 0.0,
         "stage": "3",
         "_unverified": {} if pc else {"all": "no ProjectileComponent: a special entity (laser, cloud, summon...), port by hand"},
-        "_sources": {"all": "projectile entity via tncli spells"},
+        "_sources": {"all": "projectile entity via tncli spells; unset fields: Noita's component documentation"},
     }
+    if lightning is not None and "damage" not in lightning:
+        row["_unverified"]["lightning_damage"] = "file sets no damage; 5 as the runtime takes it (CHECK in Noita)"
     return row
 
 
@@ -298,6 +365,7 @@ def main():
         return
     with open(a.facts, encoding="utf-8") as f:
         facts = json.load(f)
+    load_docs()
     spells = [spell_row(k, v) for k, v in facts.get("spells", {}).items()]
     wands = [wand_row(k, v) for k, v in facts.get("wands", {}).items() if "error" not in v]
     write("spells", SPELLS_DESC, SPELL_COLUMNS, spells)

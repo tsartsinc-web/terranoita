@@ -53,6 +53,8 @@ namespace Terranoita.Noita
             float? factDamage = rootPc == null ? (float?)null : Float(rootPc.Get("damage"));
             float? factRadius = rootPc == null ? (float?)null : Float(rootPc.Get("config_explosion.explosion_radius"));
             string factSound = rootPc?.Get("config_explosion.audio_event_name");
+            // a LightningComponent that moves as a projectile ends in its own blast (its config_explosion)
+            var lightning = FirstLightning(e, 0);
 
             return new SpellProjectileDef
             {
@@ -62,7 +64,9 @@ namespace Terranoita.Noita
                 SpeedMax = pc.TryGetValue("speed_max", out var s2) ? Num(s2) : factSpeedMax ?? 0,
                 SpreadRad = Num(Get(pc, "direction_random_rad")),
                 Gravity = vc.TryGetValue("gravity_y", out var g) ? Num(g) : factGravity ?? 0,
-                AirFriction = Num(Get(vc, "air_friction")),
+                AirFriction = Num(Get(vc, "air_friction", Doc.AirFriction)),
+                LiquidDrag = Num(Get(vc, "liquid_drag", Doc.LiquidDrag), 1),
+                TerminalVelocity = Flag(Get(vc, "apply_terminal_velocity", Doc.ApplyTerminal)) ? Num(Get(vc, "terminal_velocity", Doc.TerminalVelocity), 1000) : -1,
                 Lifetime = (int)(pc.TryGetValue("lifetime", out var lt) ? Num(lt, -1) : factLifetime ?? -1),
                 LifetimeRandom = (int)Num(Get(pc, "lifetime_randomness")),
                 Damage = pc.TryGetValue("damage", out var d) ? Num(d) : factDamage ?? 0,
@@ -74,6 +78,11 @@ namespace Terranoita.Noita
                 ExplosionDamage = Num(Get(ex, "damage")),
                 ExplodeOnDeath = Get(pc, "on_death_explode", "0") == "1" || Get(pc, "on_lifetime_out_explode", "0") == "1",
                 DieOnHit = Get(pc, "on_collision_die", "1") == "1",
+                DieOnLiquid = Flag(Get(pc, "die_on_liquid_collision", "0")),
+                DieOnLowVelocity = Flag(Get(pc, "die_on_low_velocity", "0")),
+                LowVelocityLimit = Num(Get(pc, "die_on_low_velocity_limit", Doc.LowVelocityLimit), 50),
+                BounceEnergy = Num(Get(pc, "bounce_energy", Doc.BounceEnergy), 0.5f),
+                PenetrateWorld = Flag(Get(pc, "penetrate_world", "0")),
                 Penetrate = Get(pc, "penetrate_entities", "0") == "1",
                 Bounces = (int)Num(Get(pc, "bounces_left")),
                 CollideWithWorld = Get(pc, "collide_with_world", "1") == "1",
@@ -86,6 +95,8 @@ namespace Terranoita.Noita
                 ExplosionMaterial = Or(Get(ex, "create_cell_material"), "none"),
                 Audio = Or(AudioOf(e), "none"),
                 ExplosionSound = Or(factSound, "none"),
+                LightningRadius = lightning == null ? 0 : Num(lightning.Get("config_explosion.explosion_radius")),
+                LightningDamage = lightning == null ? 0 : Num(lightning.Get("config_explosion.damage"), LightningDamageDefault),
                 Stage = "3",
             };
         }
@@ -128,6 +139,35 @@ namespace Terranoita.Noita
             foreach (var child in e.Children)
                 Walk(child, into, depth + 1);
         }
+
+        /// <summary>Noita's documented defaults (component_documentation.txt) for fields a file leaves unset, as
+        /// apply_spells.py FALLBACK_DOCS.</summary>
+        static class Doc
+        {
+            public const string AirFriction = "0.55", LiquidDrag = "1", TerminalVelocity = "1000", ApplyTerminal = "1",
+                LowVelocityLimit = "50", BounceEnergy = "0.5";
+        }
+
+        /// <summary>ConfigExplosion.damage is not documented; the runtime takes 5 for a lightning blast (CHECK in Noita).</summary>
+        public const float LightningDamageDefault = 5f;
+
+        static XmlComponent FirstLightning(XmlEntity e, int depth)
+        {
+            foreach (var c in e.Components)
+                if (c.Type == "LightningComponent" && Flag(c.Get("is_projectile")))
+                    return c;
+            if (depth >= 3)
+                return null;
+            foreach (var child in e.Children)
+            {
+                var l = FirstLightning(child, depth + 1);
+                if (l != null)
+                    return l;
+            }
+            return null;
+        }
+
+        static bool Flag(string s) => s != null && (s.Trim() == "1" || s.Trim().Equals("true", StringComparison.OrdinalIgnoreCase));
 
         static string SpriteOf(XmlEntity e)
         {

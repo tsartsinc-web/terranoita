@@ -44,11 +44,6 @@ How it works (author, 2026-10-08): the author only says "работай" to eith
   clamps synced mana at 400 (MessageBuffer.GetData).
 
 ## CLOUD queue
-- CLOUD-8 new: spell_projectiles.json from the PC's runtime rules (MODLOG "spells and physics from the author's
-  list"): air_friction default 0.55 when a file sets none (now 0 in the sheet), new columns liquid_drag,
-  die_on_liquid_collision, die_on_low_velocity(+limit), on_collision_die, bounce_energy, penetrate_world,
-  terminal_velocity; and the LightningComponent blast (radius/damage) for lightning files. Also note: Core
-  LuaShotScripts.AttachExtra now merges extras into the shot (PC changed Core + tests, 99 pass). Check: Core tests.
 - CLOUD-7 new: Core NoitaBiomeSpawns + chest_random + pixel scene decode + biome_spawns.json by tools
   (design/worldgen_plan.md section 2). Check: Core tests; `tncli biome-spawns` for the PC.
 - (CLOUD-6 dropped: the PC did night-only surface spawns in Spawning.cs without a sheet column.)
@@ -60,6 +55,12 @@ How it works (author, 2026-10-08): the author only says "работай" to eith
   never in a public repo).
 
 ## Done (last ~8)
+- done (CLOUD) CLOUD-8: spell_projectiles.json from the PC's runtime rules: air_friction = documented 0.55 when
+  unset (106 rows changed, nothing else), new columns liquid_drag, terminal_velocity (-1 = apply_terminal_velocity
+  0), die_on_liquid, die_on_low_velocity, low_velocity_limit, bounce_energy, penetrate_world, lightning_radius,
+  lightning_damage (LightningComponent is_projectile blast; 5 when unset, _unverified). die_on_hit IS
+  on_collision_die (desc fixed). Defaults from noita_facts _component_docs (apply_spells.load_docs). Core
+  SpellProjectileFromEntity mirrors it (102 Core tests). PC (optional): SpellShots.Physics may read these columns.
 - done (CLOUD) CLOUD-9: tests/tools/test_extract_liquids.py (child inheritance, reacts_as only along
   _inherit_reactions, rule selection by name / parent / [tag] / [tag]_suffix, input3/direction/blob columns,
   fast_reaction); extract_liquids.select_reactions split out of main (same output).
