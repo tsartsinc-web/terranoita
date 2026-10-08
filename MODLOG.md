@@ -772,3 +772,10 @@ Next steps (author's order: finish magic, then shops):
 - Sandbox: plain grassy ground with trees (author), old items and liquids cleared. Explosions drop at most 4 blocks
   (SLOW frame lines showed 336 items + 928 dust with the mod's parts at ~0 ms: Terraria's own item updates).
 - Casts per spell counted in the progress book; inventory spell uses and spell slots kept across sessions.
+
+## Cloud: effect interactions plan (design/effect_interactions.md)
+- Author: lightning + water = electrified water, and such interactions in general. Plan for the local session:
+  Noita data first (materials.xml electrical_conductivity, ELECTROCUTION, ElectricitySource/ElectricCharge
+  components of spell files), `conducts` columns, a generic rule model (reactions / effect x material / effect x
+  status), Physics/Electricity.cs (sources -> flood fill through conducting tiles -> charged timers -> damage/stun),
+  game test. Core part (Conduction.cs + tests, sheet columns) can be a cloud task.
