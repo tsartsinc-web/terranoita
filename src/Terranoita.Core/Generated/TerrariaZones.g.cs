@@ -25,7 +25,7 @@ namespace Terranoita.Generated
         public static readonly TerrariaZoneDef[] All =
         {
             new TerrariaZoneDef { Id = "surface_forest", Condition = "Overworld height, no other surface biome", Hardmode = false, AfterBoss = "none", TerrariaCheck = "p.ZoneOverworldHeight && Terranoita.Game.Zones.NoBiome(p) && !p.ZoneBeach" },
-            new TerrariaZoneDef { Id = "surface_water", Condition = "Overworld height, NPC spawn tile in water", Hardmode = false, AfterBoss = "none", TerrariaCheck = "p.ZoneOverworldHeight && Terranoita.Game.Zones.Water(x, y)" },
+            new TerrariaZoneDef { Id = "surface_water", Condition = "Overworld height, surface water within 12 tiles of the spawn tile (swimmers: the tile itself in water)", Hardmode = false, AfterBoss = "none", TerrariaCheck = "p.ZoneOverworldHeight && Terranoita.Game.Zones.NearWater(x, y, 12)" },
             new TerrariaZoneDef { Id = "surface_desert", Condition = "Overworld height, desert", Hardmode = false, AfterBoss = "none", TerrariaCheck = "p.ZoneOverworldHeight && p.ZoneDesert" },
             new TerrariaZoneDef { Id = "surface_snow", Condition = "Overworld height, snow", Hardmode = false, AfterBoss = "none", TerrariaCheck = "p.ZoneOverworldHeight && p.ZoneSnow" },
             new TerrariaZoneDef { Id = "underground_dirt", Condition = "Dirt layer height, no special biome", Hardmode = false, AfterBoss = "none", TerrariaCheck = "p.ZoneDirtLayerHeight && Terranoita.Game.Zones.NoBiome(p)" },

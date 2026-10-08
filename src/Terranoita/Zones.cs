@@ -20,6 +20,16 @@ namespace Terranoita.Game
             return t != null && t.liquid > 0 && t.liquidType() == 0;
         }
 
+        /// <summary>Surface water within r tiles (a lake's walkers stand on its shore; swimmers still need the water).</summary>
+        public static bool NearWater(int x, int y, int r)
+        {
+            for (int dy = -r; dy <= r; dy += 2)
+                for (int dx = -r; dx <= r; dx += 2)
+                    if (Water(x + dx, y + dy))
+                        return true;
+            return false;
+        }
+
         public static bool Wall(int x, int y, ushort wall)
         {
             var t = At(x, y);

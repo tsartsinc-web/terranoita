@@ -40,10 +40,10 @@
   },
   {
    "id": "surface_water",
-   "condition": "Overworld height, NPC spawn tile in water",
+   "condition": "Overworld height, surface water within 12 tiles of the spawn tile (swimmers: the tile itself in water)",
    "hardmode": false,
    "after_boss": "none",
-   "terraria_check": "p.ZoneOverworldHeight && Terranoita.Game.Zones.Water(x, y)",
+   "terraria_check": "p.ZoneOverworldHeight && Terranoita.Game.Zones.NearWater(x, y, 12)",
    "_unverified": {}
   },
   {
