@@ -40,6 +40,8 @@ namespace Terranoita.Noita
         [DllImport("fmodstudio.dll")] static extern int FMOD_Studio_EventInstance_Set3DAttributes(IntPtr instance, ref Attributes3D attributes);
         [DllImport("fmodstudio.dll")] static extern int FMOD_Studio_EventInstance_Start(IntPtr instance);
         [DllImport("fmodstudio.dll")] static extern int FMOD_Studio_EventInstance_Release(IntPtr instance);
+        [DllImport("fmodstudio.dll")] static extern int FMOD_Studio_EventInstance_Stop(IntPtr instance, int mode);
+        [DllImport("fmodstudio.dll")] static extern int FMOD_Studio_EventInstance_SetVolume(IntPtr instance, float volume);
 
         IntPtr _system;
         readonly Dictionary<string, IntPtr> _events = new Dictionary<string, IntPtr>(StringComparer.Ordinal);
@@ -132,6 +134,31 @@ namespace Terranoita.Noita
             FMOD_Studio_EventInstance_Start(inst);
             FMOD_Studio_EventInstance_Release(inst);     // freed by FMOD when it finishes
             return true;
+        }
+
+        /// <summary>A long event (music) that plays until stopped; IntPtr.Zero if it is not in the banks.</summary>
+        public IntPtr Start(string path)
+        {
+            var desc = Event(path);
+            if (desc == IntPtr.Zero || FMOD_Studio_EventDescription_CreateInstance(desc, out var inst) != 0)
+                return IntPtr.Zero;
+            FMOD_Studio_EventInstance_Start(inst);
+            return inst;
+        }
+
+        public void SetVolume(IntPtr instance, float volume)
+        {
+            if (instance != IntPtr.Zero)
+                FMOD_Studio_EventInstance_SetVolume(instance, volume);
+        }
+
+        /// <summary>Stop with its fade out (FMOD_STUDIO_STOP_ALLOWFADEOUT) and free it.</summary>
+        public void Stop(IntPtr instance)
+        {
+            if (instance == IntPtr.Zero)
+                return;
+            FMOD_Studio_EventInstance_Stop(instance, 0);
+            FMOD_Studio_EventInstance_Release(instance);
         }
 
         /// <summary>Once per frame: where the listener is (Noita pixels) and the overall volume (0..1).</summary>

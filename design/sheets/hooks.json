@@ -556,6 +556,24 @@
    "purpose": "Fancy and bar styles: 15 stars, 20 to 40 mana each.",
    "stage": "3",
    "_unverified": {}
+  },
+  {
+   "id": "menu_background",
+   "target": "Terraria.Main:DrawMenu(GameTime)",
+   "patch": "prefix",
+   "system": "menu_look",
+   "purpose": "Noita's sky (weather_gfx parallax layers) behind the main menu.",
+   "stage": "3",
+   "_unverified": {}
+  },
+  {
+   "id": "menu_music",
+   "target": "Terraria.Main:UpdateAudio_DecideOnNewMusic()",
+   "patch": "postfix",
+   "system": "menu_look",
+   "purpose": "Terraria's title music off while Noita's menu music (event:/music/menu/main) plays.",
+   "stage": "3",
+   "_unverified": {}
   }
  ]
 }

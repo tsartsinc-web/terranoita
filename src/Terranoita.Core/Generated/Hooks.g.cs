@@ -83,6 +83,8 @@ namespace Terranoita.Generated
             new HookDef { Id = "mana_total_cap", Target = "Terraria.Player:Update(int)", Patch = "transpiler", System = "mana_cap", Purpose = "Total max mana capped at 600 instead of 400.", Stage = "3" },
             new HookDef { Id = "mana_stars_classic", Target = "Terraria.GameContent.UI.ResourceSets.ClassicPlayerResourcesDisplaySet:DrawMana()", Patch = "transpiler", System = "mana_cap", Purpose = "Classic bar: 15 stars, 20 to 40 mana each.", Stage = "3" },
             new HookDef { Id = "mana_stars_snapshot", Target = "Terraria.GameContent.UI.ResourceSets.PlayerStatsSnapshot:.ctor(Player)", Patch = "postfix", System = "mana_cap", Purpose = "Fancy and bar styles: 15 stars, 20 to 40 mana each.", Stage = "3" },
+            new HookDef { Id = "menu_background", Target = "Terraria.Main:DrawMenu(GameTime)", Patch = "prefix", System = "menu_look", Purpose = "Noita's sky (weather_gfx parallax layers) behind the main menu.", Stage = "3" },
+            new HookDef { Id = "menu_music", Target = "Terraria.Main:UpdateAudio_DecideOnNewMusic()", Patch = "postfix", System = "menu_look", Purpose = "Terraria's title music off while Noita's menu music (event:/music/menu/main) plays.", Stage = "3" },
         };
     }
 }

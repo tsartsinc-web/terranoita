@@ -251,6 +251,17 @@
    ],
    "code": "src/Terranoita/Magic/ManaCap.cs",
    "_unverified": {}
+  },
+  {
+   "id": "menu_look",
+   "description": "Stage 3: the main menu looks and sounds like Noita's: its sky and mountains, its menu music, PRESS F TO KICK GID! (author).",
+   "stage": "3",
+   "hooks": [
+    "menu_background",
+    "menu_music"
+   ],
+   "code": "src/Terranoita/MenuLogo.cs, src/Terranoita/NoitaSound.cs",
+   "_unverified": {}
   }
  ]
 }

@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 using Microsoft.Xna.Framework;
 using Terranoita.Noita;
 using Terraria;
@@ -18,7 +19,11 @@ namespace Terranoita.Game
                 return;
             try
             {
-                _fmod = NoitaFmod.Open(noitaDir, new[] { "animals.bank", "projectiles.bank", "explosion.bank" }, Entry.Log);
+                // player.bank: the kick, drinking; music*.bank: the main menu's music (event:/music/menu/main)
+                var banks = new List<string> { "animals.bank", "projectiles.bank", "explosion.bank", "player.bank", "items.bank", "music.bank" };
+                for (int i = 1; i <= 11; i++)
+                    banks.Add("music" + i.ToString("00") + ".bank");
+                _fmod = NoitaFmod.Open(noitaDir, banks, Entry.Log);
                 Entry.Log("Noita sounds ready");
             }
             catch (Exception ex)
@@ -49,13 +54,50 @@ namespace Terranoita.Game
             return false;
         }
 
+        const string MenuMusic = "music/menu/main";
+        static IntPtr _menuMusic;
+        static bool _menuMissing;
+
+        /// <summary>Noita's main menu music plays in Terraria's main menu (author), Terraria's is silenced.</summary>
+        public static bool MenuMusicOn => _menuMusic != IntPtr.Zero;
+
         public static void Update()
         {
             if (_fmod == null)
                 return;
             var center = Main.screenPosition + new Vector2(Main.screenWidth, Main.screenHeight) / 2f;
-            float volume = Main.gameMenu || !Main.instance.IsActive ? 0f : Main.soundVolume;
+            float volume;
+            if (Main.gameMenu)
+            {
+                if (_menuMusic == IntPtr.Zero && !_menuMissing)
+                {
+                    _menuMusic = _fmod.Start(MenuMusic);
+                    _menuMissing = _menuMusic == IntPtr.Zero;
+                    Entry.Log(_menuMissing ? "Noita menu music not found (" + MenuMusic + ")" : "Noita menu music on");
+                }
+                volume = Main.instance.IsActive ? Main.musicVolume : 0f;   // only the music plays in the menu
+            }
+            else
+            {
+                if (_menuMusic != IntPtr.Zero)
+                {
+                    _fmod.Stop(_menuMusic);
+                    _menuMusic = IntPtr.Zero;
+                }
+                volume = Main.instance.IsActive ? Main.soundVolume : 0f;
+            }
             _fmod.Update(center.X / Units.PixelScale, center.Y / Units.PixelScale, volume);
+        }
+
+        [Hook("menu_music")]
+        [HarmonyLib.HarmonyPatch(typeof(Main), "UpdateAudio_DecideOnNewMusic")]
+        static class TerrariaMenuMusicPatch
+        {
+            static void Postfix()
+            {
+                if (Main.gameMenu && MenuMusicOn)
+                    Main.newMusic = 0;   // Terraria's title music off while Noita's plays
+            }
         }
     }
 }
