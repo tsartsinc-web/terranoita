@@ -643,3 +643,8 @@ Next steps (author's order: finish magic, then shops):
   crit-on-status condition, cave wand files unchecked, flat extra_entities reader, homing on critters, EntityLoad
   velocity, ConvertMaterial to unknown material, a moved doc comment.
 - LuaShotScripts: own ids from 1,000,000; game ids (creatures, shots) go to the host. 70 Core tests pass.
+
+## Cloud: review of the live code (design/review_physics_2026-10-08.md)
+- Most important: fluids/placed save is not atomic and can race Terraria's background autosave; a truncated
+  .fluids file makes the next load regenerate cave pools on top of the old ones. Then: big building landing ->
+  repeated 4000-tile flood fills (freeze), placed blocks lost without items, fire NPC check O(tiles x NPCs).
