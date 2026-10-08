@@ -95,7 +95,8 @@ else {
 }
 if ($Accept) {
     $keep = @()
-    if (Test-Path $basePath) { $keep = @(Get-Content $basePath -Encoding UTF8 | Where-Object { $_ -notmatch "^$Mode\|" }) }
+    # rows of this mode not run now (passed before, skipped) stay as they were
+    if (Test-Path $basePath) { $keep = @(Get-Content $basePath -Encoding UTF8 | Where-Object { -not ($_ -match "^$Mode\|(\S+) " -and $now.ContainsKey($Matches[1])) }) }
     $keep += ($now.Keys | Sort-Object | ForEach-Object { "$Mode|$_ $($now[$_])" })
     [IO.File]::WriteAllLines((Resolve-Path (Split-Path $basePath)).Path + "\magic_baseline.txt", $keep, (New-Object Text.UTF8Encoding $false))
     "baseline for $Mode updated ($($now.Count) rows)"

@@ -43,6 +43,7 @@ namespace Terranoita.Game.Magic
         }
 
         static readonly List<Shot> Live = new List<Shot>();
+        public static int LiveCount => Live.Count;
         static Dictionary<string, SpellProjectileDef> _defs;
         static int _nextId = 1;
         static readonly HashSet<string> Unknown = new HashSet<string>();

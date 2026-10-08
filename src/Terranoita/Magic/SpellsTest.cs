@@ -11,7 +11,7 @@ namespace Terranoita.Game.Magic
 {
     /// <summary>
     /// TERRANOITA_AUTOTEST_SPELLS=1 (game_test -Mode spells): every spell of the player's Noita alone in a test wand
-    /// (modifiers and the like followed by a spark bolt), cast at a creature 6 tiles away for 0.75 s. What the sheets
+    /// (modifiers and the like followed by a spark bolt), cast at a creature 3 tiles away (blasts at the caster reach it) for 0.75 s, up to 5 s while its shots fly. What the sheets
     /// promise is checked by the test itself: a spell with a projectile fires, one whose projectile does damage hurts
     /// the target, one with limited uses spends them; no error. One row per spell in test_rows.txt (game_test turns
     /// it into a summary and a diff against design/sources/magic_baseline.txt). TERRANOITA_SPELLS_ONLY=A,B: just these.
@@ -20,6 +20,8 @@ namespace Terranoita.Game.Magic
     {
         public static readonly bool Enabled = Environment.GetEnvironmentVariable("TERRANOITA_AUTOTEST_SPELLS") == "1";
         const int Each = 40;
+        const int MaxEach = 300;   // a spell whose shots still fly after Each (mines, pipe bombs, timers) gets up to 5 s
+        static int _k, _t;
         // spells that passed are not tested again (author: "do not check everything ten times");
         // TERRANOITA_SPELLS_ALL=1 tests all, TERRANOITA_SPELLS_ONLY=A,B just these
         static string PassedFile => Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData), "Terranoita", "spells_passed.txt");
@@ -76,7 +78,7 @@ namespace Terranoita.Game.Magic
             }
             if (frame < 120 || _ids == null || Done)
                 return;
-            int k = (frame - 120) / Each, t = (frame - 120) % Each;
+            int k = _k, t = _t++;
             if (k >= _ids.Count)
             {
                 Casting.TestFire = false;
@@ -93,7 +95,7 @@ namespace Terranoita.Game.Magic
                 p.velocity = Vector2.Zero;
                 _target?.StrikeNPCNoInteraction(99999, 0, 0);
                 var def = Enemies.All.First(e => e.Id == "zombie_weak");
-                int who = Carriers.Spawn(def, (int)p.Center.X + 6 * 16, (int)(p.position.Y + p.height));
+                int who = Carriers.Spawn(def, (int)p.Center.X + 3 * 16, (int)(p.position.Y + p.height));
                 _target = who >= 0 ? Main.npc[who] : null;
                 if (_target != null)
                 {
@@ -119,8 +121,13 @@ namespace Terranoita.Game.Magic
             }
             if (_target != null && _target.active)
                 Casting.TestAim = _target.Center;
-            if (t != Each - 1)
+            if (t == Each - 1)
+                Casting.TestFire = false;   // stop casting; what is in the air may still land
+            int hurtNow = _target == null ? 0 : _target.active ? _life - _target.life : _life;
+            if (t < Each - 1 || hurtNow <= 0 && SpellShots.LiveCount > 0 && t < MaxEach)
                 return;
+            _k++;
+            _t = 0;
             int casts = Casting.TestCasts - _casts, shots = Casting.TestShots - _shots, mana = Casting.TestMana - _mana, errors = Entry.Errors - _errors;
             int hurt = _target == null ? 0 : _target.active ? _life - _target.life : _life;
             bool usesSpent = _wand.Uses.Length > 0 && _wand.Uses[0] >= 0 && _wand.Uses[0] < (MagicItems.Spell(id)?.MaxUses ?? 0);

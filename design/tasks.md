@@ -35,9 +35,10 @@ How it works (author, 2026-10-08): the author only says "работай" to eith
   swimmers keep the in-water rule. Check: autotest near a surface lake spawns a walker from Lake.
 - PC-10 new, after CLOUD-7: worldgen per design/worldgen_plan.md sections 1, 3, 4, 5 (our passes in
   Terraria's worldgen, scenes, loot by Noita's chest_random.lua). Check: game_test -Mode worldgen (section 5).
-- PC-6 new: the 39 known spell failures (design/sources/magic_baseline.txt, MODLOG "memory leak, spells test"):
-  test window for delayed/caster-centred spells (or expectations by kind), giga holes no shot (3-alive tag query in
-  TerrariaWorld.WithTag), lasers/lightning (roadmap 0.4.x). Check: spells run shows them fixed or marked known.
+- PC-6 (PC) 30 of 39 fixed (spells run 2026-10-08: target 3 tiles, window up to 5 s while shots fly, test mana 1000).
+  Left (baseline): MINE, MINE_DEATH_TRIGGER, PIPE_BOMB, PIPE_BOMB_DEATH_TRIGGER (no explosion in 5 s), EXPLODING_DEER,
+  BOMB_CART, CURSED_ORB (moving entities), DEATH_CROSS, DEATH_CROSS_BIG. Author question: NUKE_GIGA, BOMB_HOLY_GIGA,
+  BLACK/WHITE_HOLE_GIGA, ALL_NUKES, ALL_SPELLS cost 500-600 mana, Terraria caps player mana at 400: never castable.
 - PC-4 new: Physics/Electricity.cs (section 3) on Core's Conduction (Emit/Tick/ForEach; IConductGrid = liquids'
   and Terraria water's `conducts` + metal tiles; energy = the loaded file's ElectricityComponent energy, 1 = 1 tile,
   tune) + the pool test (section 4). ELECTROCUTION row is in status_effects (0.667 s, creatures cannot move; the

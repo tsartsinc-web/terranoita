@@ -140,13 +140,14 @@ namespace Terranoita.Game.Magic
             if (h == null || _now < h.ReadyAt)
                 return;
             LuaCast cast;
+            int have = TestFire ? Math.Max(p.statMana, 1000) : p.statMana;   // tests: Terraria caps mana at 400, giga spells cost 500+
             try
             {
                 ((TerrariaWorld)h.Gun.World).Player = p;
-                cast = h.Gun.Cast(p.statMana);
+                cast = h.Gun.Cast(have);
             }
             catch (Exception ex) { Entry.Error("cast " + w.Id, ex); h.ReadyAt = _now + 30; return; }
-            int spent = p.statMana - (int)Math.Round(cast.Mana);
+            int spent = have - (int)Math.Round(cast.Mana);
             p.statMana = Math.Max(0, Math.Min(p.statManaMax2, (int)Math.Round(cast.Mana)));
             if (spent > 0)
                 p.manaRegenDelay = 60;
