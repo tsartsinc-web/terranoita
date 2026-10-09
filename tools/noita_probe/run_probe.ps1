@@ -4,13 +4,14 @@
 #    save00/player.xml, world_state.xml, session_numbers.salakieli)
 #    to %LOCALAPPDATA%\Terranoita\noita_probe_backup, installs the probe mod, enables it, allows its file output
 #    (mods_sandbox_enabled 0) and keeps Noita running when unfocused.
-# 2. Starts Noita; Enter presses skip the intro and start a new game (an empty save00/world: no Continue entry).
+# 2. Starts Noita and clicks its main menu's "Новая игра" and the first mode (positions from screenshots the author
+#    allowed; without the player's run files there is no Continue entry).
 #    The mod fires by itself (PlatformShooterPlayerComponent.mForceFireOnNextUpdate, verified in Noita) and resumes
 #    after a restart (tests already in probe_out.jsonl are skipped). Noita restarts its own process once: the run is
 #    watched through the output file, not the process.
 # 3. Stops when every test is written, the status file has an error, or nothing new comes for 10 minutes; closes Noita,
 #    puts the settings and the player's run back, copies the output to design/sources/noita_probe.jsonl.
-param([int]$Minutes = 240)
+param([int]$Minutes = 240, [switch]$NoKeys)   # -NoKeys: start Noita and wait; someone else gets it into a game
 $ErrorActionPreference = "Stop"
 $repo = Resolve-Path (Join-Path $PSScriptRoot "..\..")
 $noita = "D:\steam\steamapps\common\Noita"
@@ -55,9 +56,12 @@ try {
     $p = Start-Process -FilePath (Join-Path $noita "noita.exe") -WorkingDirectory $noita -PassThru
     $ws = New-Object -ComObject WScript.Shell
     Start-Sleep -Seconds 12
-    for ($i = 0; $i -lt 6; $i++) { [void]$ws.AppActivate($p.Id); $ws.SendKeys("{ENTER}"); Start-Sleep -Seconds 4 }
-    # Enter alone did not always start a game (afternoon 2026-10-09). The mode screen ("Выбрать мод", the author's
-    # screenshot): the "Новая игра" tile is the first one, at ~34% of the window's width and ~35% of its height: click it.
+    # (Enter presses skipped the intro in the morning; the menu itself needs the mouse, below)
+    if (-not $NoKeys) { for ($i = 0; $i -lt 2; $i++) { [void]$ws.AppActivate($p.Id); $ws.SendKeys("{ENTER}"); Start-Sleep -Seconds 4 } }
+    # Into a game by mouse (seen in screenshots the author allowed, 2026-10-09; Noita in a window): the main menu's
+    # "Новая игра" is at the window's centre (49.7% x, 49.5% y); the mode screen ("Выбрать мод") selects nothing until
+    # the mouse is over a tile, so Enter does nothing there: click its first tile, "Новая игра" (34.3% x, 39% y).
+    # Noita may restart its own process after the mod list changed: tried up to three times, each on the current window.
     Add-Type @"
 using System; using System.Runtime.InteropServices;
 public static class ProbeMouse {
@@ -65,18 +69,20 @@ public static class ProbeMouse {
   [DllImport("user32.dll")] public static extern void mouse_event(uint f, uint x, uint y, uint d, UIntPtr e);
   [DllImport("user32.dll")] public static extern bool GetWindowRect(IntPtr h, out R r);
   [StructLayout(LayoutKind.Sequential)] public struct R { public int L, T, Rt, B; }
-  public static void Click(int x, int y) { SetCursorPos(x, y); mouse_event(2, 0, 0, 0, UIntPtr.Zero); mouse_event(4, 0, 0, 0, UIntPtr.Zero); } }
+  public static void Click(int x, int y) { SetCursorPos(x, y); System.Threading.Thread.Sleep(300); mouse_event(2, 0, 0, 0, UIntPtr.Zero); mouse_event(4, 0, 0, 0, UIntPtr.Zero); } }
 "@
-    for ($try = 0; $try -lt 3; $try++) {
-        Start-Sleep -Seconds 15
-        if ((Test-Path $status) -and (Select-String -Path $status -Pattern 'player spawned' -Quiet)) { break }
+    function ClickAt([double]$fx, [double]$fy) {
         $g = Get-Process | Where-Object { $_.ProcessName -eq "noita" -and $_.MainWindowHandle -ne 0 } | Select-Object -First 1
-        if (-not $g) { continue }
+        if (-not $g) { return }
         $r = New-Object ProbeMouse+R; [void][ProbeMouse]::GetWindowRect($g.MainWindowHandle, [ref]$r)
         [void]$ws.AppActivate($g.Id); Start-Sleep -Milliseconds 500
-        [ProbeMouse]::Click($r.L + [int](($r.Rt - $r.L) * 0.34), $r.T + [int](($r.B - $r.T) * 0.347))
-        Start-Sleep -Seconds 2; $ws.SendKeys("{ENTER}")
-        "clicked the New game tile (try $($try + 1))"
+        [ProbeMouse]::Click($r.L + [int](($r.Rt - $r.L) * $fx), $r.T + [int](($r.B - $r.T) * $fy))
+    }
+    for ($try = 0; $try -lt $(if ($NoKeys) { 0 } else { 3 }); $try++) {
+        if ((Test-Path $status) -and (Select-String -Path $status -Pattern 'player spawned' -Quiet)) { break }
+        ClickAt 0.497 0.495; Start-Sleep -Seconds 3
+        ClickAt 0.343 0.39; Start-Sleep -Seconds 25
+        "clicked New game and its first mode (try $($try + 1))"
     }
     # 3. wait
     $deadline = (Get-Date).AddMinutes($Minutes); $last = -1; $lastChange = Get-Date

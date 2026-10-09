@@ -130,9 +130,9 @@ scripts do with the fields, and from checks in Noita by the author when a rule c
   presses Enter to start a new game, waits for "done", closes Noita and puts everything back; output ->
   design/sources/noita_probe.jsonl. The mod fires by itself (PlatformShooterPlayerComponent.mForceFireOnNextUpdate +
   mRequireTriggerPull 0, ControlsComponent.enabled 0 + aim fields: verified in Noita) and resumes after a restart.
-- Open: Enter starts the game only when Noita's menu has "New game" selected; in the morning runs it was, at 12:19 it
-  was not (likely the mouse cursor over another item; not seen: no screenshots). Next: the author allows one
-  screenshot of Noita's menu (button position for a click), or presses New game once.
+- Menu (screenshots the author allowed, 2026-10-09): main menu "Новая игра" at the window centre, then the mode screen
+  selects nothing until the mouse is over a tile: click its first tile. run_probe.ps1 clicks both (fractions of the
+  window); the player's run files in save00 (player.xml, world_state.xml) are backed up too, else Noita offers Continue.
 - Terraria side: `game_test -Mode probe` (SpellProbeTest) builds the same arena (flat floor, wall at 264 px), the same
   target (16 x 20 Noita px, centre 4 px above the wand line) and aim, waits until the probe wand is in hand. Never run it
   while Noita is being driven by keys (keys reached Terraria: rows 30..84 cast the character's slot-0 wand).
