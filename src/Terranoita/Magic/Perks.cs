@@ -261,6 +261,19 @@ namespace Terranoita.Game.Magic
             }
         }
 
+        // ---- for the perk test (PerkTest) ----
+
+        internal static void TestTake(Player p, string id) => Take(p, Get(id));
+        internal static NoitaPerk RandomFor(Player p) => Random(p);
+        internal static void TestClear(Player p)
+        {
+            Of(p).Clear();
+            Save();
+            if (_entity != 0)
+                SpellShots.ScriptStore?.Forget(_entity);
+            _entity = 0;
+        }
+
         // ---- on screen ----
 
         /// <summary>The character's perks as Noita's ui_icon row (one per perk taken, stacks shown once with a count) under
