@@ -195,6 +195,17 @@ ComponentSetValue2(c, ""randoms"", (r1 >= 0 and r1 < 1 and r2 >= 0 and r2 <= 5 a
         }
 
         [Fact]
+        public void TheGameSetsAFieldOfTheShotsOwnComponent()
+        {
+            // as the engine does when it makes a shot: the cast's gravity added to the file's VelocityComponent
+            var (lua, _, shot) = Shot();
+            Assert.True(lua.SetField(shot, "VelocityComponent", "gravity_y", "120"));
+            Assert.Equal("120", lua.Components(shot, "VelocityComponent", false).Single().Get("gravity_y"));
+            Assert.False(lua.SetField(shot, "HomingComponent", "detect_distance", "50"));   // bolt.xml has none
+            Assert.False(lua.SetField(12345, "VelocityComponent", "gravity_y", "1"));         // no such entity
+        }
+
+        [Fact]
         public void RemoveAfterExecutedWithoutTimesRunsOnce()
         {
             // the Noita probe (2026-10-09): ACCELERATING_SHOT's air_friction - 3 is applied once (the spark speeds up by

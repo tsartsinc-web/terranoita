@@ -194,7 +194,38 @@ namespace Terranoita.Game.Magic
                 return;
             }
             Live.Add(s);
-            ScriptsAdd(s, false);
+            ScriptsAdd(s, ComponentRuntime);
+            if (ComponentRuntime && s.Script != 0 && ls.Get("gravity") != 0)
+                AddGravity(s, ls.Get("gravity"));
+        }
+
+        /// <summary>The component runtime (design/magic_plan.md PC-24, author's condition 1): with
+        /// TERRANOITA_RUNTIME=components every shot is an entity of the script store and its components' fields drive it;
+        /// off by default until probe-compare shows it at least as close to Noita as the old path.</summary>
+        internal static readonly bool ComponentRuntime = Environment.GetEnvironmentVariable("TERRANOITA_RUNTIME") == "components";
+
+        /// <summary>The cast's gravity (GRAVITY, GRAVITY_ANTI...) on the shot's VelocityComponent, added to the file's as the
+        /// old path adds it to the sheet's.</summary>
+        static void AddGravity(Shot s, float add)
+        {
+            var vc = _scripts.Components(s.Script, "VelocityComponent", false).FirstOrDefault();
+            if (vc == null)
+                return;
+            float g = ShotFlight.From(vc.Get, Docs).GravityY;   // the file's, or Noita's documented default
+            _scripts.SetField(s.Script, "VelocityComponent", "gravity_y", (g + add).ToString(System.Globalization.CultureInfo.InvariantCulture));
+        }
+
+        /// <summary>Component runtime: Noita's VelocityComponent from the store this frame (scripts' changes included);
+        /// false when the shot has none (physics bodies), and the old path flies it.</summary>
+        static bool FlyByComponents(Shot s)
+        {
+            var vc = _scripts?.Components(s.Script, "VelocityComponent", false).FirstOrDefault();
+            if (vc == null)
+                return false;
+            var v = s.Vel * 60f / Px;
+            ShotFlight.From(vc.Get, Docs).Step(ref v.X, ref v.Y);
+            s.Vel = v * Px / 60f;
+            return true;
         }
 
         static void Update()
@@ -237,18 +268,21 @@ namespace Terranoita.Game.Magic
                 return true;
             }
             s.Age++;
-            s.Vel.Y += s.Gravity;
-            // Noita's air_friction, also negative (rockets speed up: rocket_tier_3 -5.0). The probe measured Noita's
-            // speed change over a frame: 1 - f/60 exactly (rocket 1.0833, spark bolt 0.9716; 2026-10-09)
-            if (s.Friction != 0)
-                s.Vel *= Math.Max(0f, 1f - s.Friction / 60f);
             var ph = s.Phys;
-            // Noita's terminal_velocity (px/s)
-            if (ph.ApplyTerminal && ph.TerminalVelocity > 0)
+            if (!(ComponentRuntime && s.Script != 0 && FlyByComponents(s)))
             {
-                float max = ph.TerminalVelocity * Px / 60f;
-                if (s.Vel.LengthSquared() > max * max)
-                    s.Vel = Vector2.Normalize(s.Vel) * max;
+                s.Vel.Y += s.Gravity;
+                // Noita's air_friction, also negative (rockets speed up: rocket_tier_3 -5.0). The probe measured Noita's
+                // speed change over a frame: 1 - f/60 exactly (rocket 1.0833, spark bolt 0.9716; 2026-10-09)
+                if (s.Friction != 0)
+                    s.Vel *= Math.Max(0f, 1f - s.Friction / 60f);
+                // Noita's terminal_velocity (px/s)
+                if (ph.ApplyTerminal && ph.TerminalVelocity > 0)
+                {
+                    float max = ph.TerminalVelocity * Px / 60f;
+                    if (s.Vel.LengthSquared() > max * max)
+                        s.Vel = Vector2.Normalize(s.Vel) * max;
+                }
             }
             // liquids: die_on_liquid_collision ends it (the iceball); liquid_drag slows it down (author: shots slow in water)
             if (InLiquid(s.Pos))

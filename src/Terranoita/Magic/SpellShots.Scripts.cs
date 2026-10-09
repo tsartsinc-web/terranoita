@@ -180,7 +180,7 @@ namespace Terranoita.Game.Magic
                 var s = ShotOf(entity);
                 if (s == null)
                     return null;
-                if (component == "VelocityComponent")
+                if (component == "VelocityComponent" && !ComponentRuntime)   // the component runtime keeps them in the store
                     switch (field)
                     {
                         case "air_friction": return Num(s.Friction);
@@ -214,7 +214,7 @@ namespace Terranoita.Game.Magic
                     return false;
                 bool isFlag = Bool(value, out bool b);
                 bool isNum = float.TryParse(value, System.Globalization.NumberStyles.Float, System.Globalization.CultureInfo.InvariantCulture, out float f);
-                if (component == "VelocityComponent" && isNum)
+                if (component == "VelocityComponent" && isNum && !ComponentRuntime)
                     switch (field)
                     {
                         case "air_friction": s.Friction = f; return true;

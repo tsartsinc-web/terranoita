@@ -246,6 +246,21 @@ namespace Terranoita.Noita
             return list;
         }
 
+        /// <summary>The game sets a field of the entity's own first component of a type, as the engine does when it makes
+        /// a shot (the cast's gravity on VelocityComponent.gravity_y); false when the entity has none.</summary>
+        public bool SetField(int entity, string type, string field, string value)
+        {
+            if (!_ents.TryGetValue(entity, out var e) || e.Dead)
+                return false;
+            foreach (int id in e.Comps)
+                if (_comps[id].Type == type && !_comps[id].Removed)
+                {
+                    SetRaw(_comps[id], field, value);
+                    return true;
+                }
+            return false;
+        }
+
         /// <summary>The game removed this shot: it and its children leave the store (no scripts run).</summary>
         public void Forget(int entity)
         {
