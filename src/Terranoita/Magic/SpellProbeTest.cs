@@ -184,7 +184,11 @@ namespace Terranoita.Game.Magic
             Arena();
             p.position = new Vector2(_px * 16 + 8 - p.width / 2f, _floor * 16 - p.height);
             p.velocity = Vector2.Zero;
-            _target?.StrikeNPCNoInteraction(99999, 0, 0);
+            // every creature near the arena goes (2026-10-09: StrikeNPCNoInteraction left old targets standing in
+            // front of the new one; Spark Bolts ended on them and no hit on the target was recorded)
+            for (int i = 0; i < Main.maxNPCs; i++)
+                if (Main.npc[i].active && !Main.npc[i].townNPC && Vector2.Distance(Main.npc[i].Center, p.Center) < 3000)
+                    Main.npc[i].active = false;
             var def = Enemies.All.First(e => e.Id == "zombie_weak");
             int who = Carriers.Spawn(def, (int)(p.Center.X + TargetDistance), _floor * 16);
             _target = who >= 0 ? Main.npc[who] : null;
