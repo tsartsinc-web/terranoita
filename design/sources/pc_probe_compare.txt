@@ -1,0 +1,300 @@
+matching Noita: 132 of 299 (single 132 of 299)
+single:BOMB: speed bomb: 60 (Noita 120.04); damage $damage_explosion: 0 (Noita 5); damage $damage_fire: 0 (Noita 3599.99)
+single:LIGHT_BULLET: damage $damage_projectile: 0 (Noita 0.12)
+single:LIGHT_BULLET_TRIGGER: OK
+single:LIGHT_BULLET_TRIGGER_2: OK
+single:LIGHT_BULLET_TIMER: OK
+single:BULLET: OK
+single:BULLET_TRIGGER: OK
+single:BULLET_TIMER: OK
+single:HEAVY_BULLET: damage $damage_projectile: 0.51 (Noita 0)
+single:HEAVY_BULLET_TRIGGER: damage $damage_projectile: 0 (Noita 0.51)
+single:HEAVY_BULLET_TIMER: damage $damage_projectile: 0 (Noita 0.51)
+single:AIR_BULLET: damage $damage_projectile: 0 (Noita 0.23)
+single:SLOW_BULLET: OK
+single:SLOW_BULLET_TRIGGER: OK
+single:SLOW_BULLET_TIMER: OK
+single:HOOK: damage $damage_projectile: 0 (Noita 0.3)
+single:BLACK_HOLE: OK
+single:BLACK_HOLE_DEATH_TRIGGER: OK
+single:WHITE_HOLE: OK
+single:BLACK_HOLE_BIG: OK
+single:WHITE_HOLE_BIG: OK
+single:BLACK_HOLE_GIGA: damage : 0 (Noita 11.4); damage $action_black_hole_giga: 0 (Noita 14.14); damage $damage_projectile: 12.76 (Noita 0)
+single:WHITE_HOLE_GIGA: damage : 0 (Noita 12.6); damage $action_white_hole_giga: 0 (Noita 13.72); damage $damage_projectile: 12.88 (Noita 0)
+single:TENTACLE_PORTAL: speed tentacle: 8 (Noita 596); damage $damage_melee: 0 (Noita 1.6); damage $damage_projectile: 2.4 (Noita 0)
+single:SPITTER: speed spitter: 568.06 (Noita 416.64); damage $damage_projectile: 0.3 (Noita 0)
+single:SPITTER_TIMER: OK
+single:SPITTER_TIER_2: OK
+single:SPITTER_TIER_2_TIMER: OK
+single:SPITTER_TIER_3: damage $damage_projectile: 0 (Noita 0.6)
+single:SPITTER_TIER_3_TIMER: damage $damage_projectile: 0 (Noita 0.6)
+single:BUBBLESHOT: damage $damage_projectile: 0 (Noita 0.2)
+single:BUBBLESHOT_TRIGGER: speed bubbleshot: 204.33 (Noita 288.09)
+single:DISC_BULLET: OK
+single:DISC_BULLET_BIG: damage $damage_projectile: 4.8 (Noita 0); damage $damage_slice: 0 (Noita 2.5)
+single:DISC_BULLET_BIGGER: OK
+single:BOUNCY_ORB: OK
+single:BOUNCY_ORB_TIMER: OK
+single:RUBBER_BALL: damage $damage_projectile: 0 (Noita 0.11)
+single:ARROW: damage $damage_slice: 0 (Noita 0.2)
+single:POLLEN: OK
+single:LANCE: OK
+single:LANCE_HOLY: speed lance_holy: 197.94 (Noita 125.29); damage $damage_explosion: 1.2 (Noita 0); damage $damage_projectile: 1.75 (Noita 0)
+single:ROCKET: OK
+single:ROCKET_TIER_2: damage $damage_explosion: 0 (Noita 4.7); damage $damage_fire: 0 (Noita 10799.96)
+single:ROCKET_TIER_3: speed rocket_tier_3: 98.95 (Noita 77.27); damage $damage_explosion: 0 (Noita 5.2); damage $damage_fire: 0 (Noita 11333.3)
+single:GRENADE: OK
+single:GRENADE_TRIGGER: OK
+single:GRENADE_TIER_2: OK
+single:GRENADE_TIER_3: damage $damage_explosion: 2.9 (Noita 0); damage $damage_projectile: 3.8 (Noita 0)
+single:GRENADE_ANTI: damage $damage_explosion: 1.9 (Noita 0); damage $damage_projectile: 1.8 (Noita 0)
+single:GRENADE_LARGE: speed grenade_large: 52.17 (Noita 77.5)
+single:MINE: damage $damage_explosion: 4 (Noita 0)
+single:MINE_DEATH_TRIGGER: damage $damage_explosion: 4 (Noita 0)
+single:PIPE_BOMB: OK
+single:PIPE_BOMB_DEATH_TRIGGER: OK
+single:FISH: OK
+single:EXPLODING_DEER: OK
+single:EXPLODING_DUCKS: damage $damage_explosion: 0 (Noita 2.4); damage $damage_fire: 0 (Noita 15.6); damage $damage_projectile: 0 (Noita 20.8)
+single:WORM_SHOT: OK
+single:BOMB_DETONATOR: OK
+single:LASER: damage $damage_projectile: 0 (Noita 0.39)
+single:MEGALASER: speed megalaser_beam: 40 (Noita 0); damage $damage_projectile: 0 (Noita 5)
+single:LIGHTNING: speed lightning: 60 (Noita 5350.34)
+single:BALL_LIGHTNING: speed ball_lightning: 900.8 (Noita 615.83)
+single:LASER_EMITTER: damage $damage_plasmabeam: 0 (Noita 11.64)
+single:LASER_EMITTER_FOUR: OK
+single:LASER_EMITTER_CUTTER: OK
+single:DIGGER: speed digger: 0 (Noita 6.61)
+single:POWERDIGGER: speed powerdigger: 0 (Noita 6.61)
+single:CHAINSAW: OK
+single:LUMINOUS_DRILL: speed luminous_drill: 1400 (Noita 1000)
+single:LASER_LUMINOUS_DRILL: speed luminous_drill: 1400 (Noita 1000)
+single:TENTACLE: speed tentacle: 8 (Noita 0)
+single:TENTACLE_TIMER: speed tentacle: 8 (Noita 0)
+single:HEAL_BULLET: damage $damage_healing: 0 (Noita -0.35)
+single:ANTIHEAL: damage $damage_projectile: 0 (Noita 1.2)
+single:SPIRAL_SHOT: shots spiral_part: 400 (Noita 4); shots spiral_shot: 1 (Noita 0); children spiral_shot from spiral_shot: 0 (Noita 1); speed spiral_part: 107.12 (Noita 0); damage $damage_projectile: 0 (Noita 2.55)
+single:MAGIC_SHIELD: OK
+single:BIG_MAGIC_SHIELD: OK
+single:CHAIN_BOLT: OK
+single:FIREBALL: OK
+single:METEOR: damage $damage_explosion: 0 (Noita 5); damage $damage_fire: 0 (Noita 13535.51); damage $damage_projectile: 2.25 (Noita 0)
+single:FLAMETHROWER: OK
+single:ICEBALL: OK
+single:SLIMEBALL: damage $damage_explosion: 0 (Noita 0.3); damage $damage_projectile: 0 (Noita 0.25)
+single:DARKFLAME: shots darkflame: 0 (Noita 1); shots darkflame_stationary: 0 (Noita 59); shots tentacle: 1 (Noita 0); damage $damage_fire: 0 (Noita 1.25); damage $damage_projectile: 0 (Noita 1.25); mana 20 (Noita 90)
+single:MISSILE: damage $damage_explosion: 0 (Noita 1); damage $damage_projectile: 0 (Noita 2)
+single:FUNKY_SPELL: OK
+single:PEBBLE: shots pebble_player_physics: 0 (Noita 1)
+single:DYNAMITE: shots tnt: 1 (Noita 0); mana 50 (Noita 0)
+single:GLITTER_BOMB: shots glitter_bomb_explosion: 0 (Noita 1); shots glitter_bomb_shrapnel: 0 (Noita 12); speed glitter_bomb: 800 (Noita 180); damage $damage_explosion: 0 (Noita 0.5); damage $damage_fire: 0 (Noita 11133.27)
+single:BUCKSHOT: damage $damage_projectile: 0.19 (Noita 0.38)
+single:FREEZING_GAZE: OK
+single:GLOWING_BOLT: damage $damage_projectile: 0.2 (Noita 0.4)
+single:SPORE_POD: shots spore_pod_growing: 0 (Noita 1); shots spore_pod_spike: 0 (Noita 20)
+single:GLUE_SHOT: shots glue: 0 (Noita 1)
+single:BOMB_HOLY: speed bomb_holy: 60 (Noita 152.05); damage $damage_fire: 0 (Noita 4133.32)
+single:BOMB_HOLY_GIGA: speed bomb_holy_giga: 60 (Noita 180); damage $damage_explosion: 20 (Noita 0)
+single:PROPANE_TANK: speed propane_tank: 60 (Noita 120.04)
+single:BOMB_CART: speed bomb_cart: 43.63 (Noita 11.58)
+single:CURSED_ORB: speed orb_cursed: 1.41 (Noita 2.07); damage $damage_projectile: 0 (Noita 0.6)
+single:EXPANDING_ORB: damage $damage_projectile: 0 (Noita 3)
+single:CRUMBLING_EARTH: shots crumbling_earth_effect: 0 (Noita 1)
+single:SUMMON_ROCK: speed rock: 60 (Noita 80.01)
+single:SUMMON_EGG: shots egg_fire: 0 (Noita 1)
+single:SUMMON_HOLLOW_EGG: OK
+single:TNTBOX: speed tntbox: 60 (Noita 120.04)
+single:TNTBOX_BIG: speed tntbox_big: 60 (Noita 80.01); damage $damage_fire: 0 (Noita 16066.6)
+single:SWARM_FLY: OK
+single:SWARM_FIREBUG: speed swarm_firebug: 112.57 (Noita 83.24)
+single:SWARM_WASP: OK
+single:FRIEND_FLY: OK
+single:ACIDSHOT: OK
+single:THUNDERBALL: shots lightning_thunderburst: 0 (Noita 8); damage $damage_electricity: 0 (Noita 9.5); damage $damage_explosion: 0 (Noita 4.3)
+single:FIREBOMB: OK
+single:SOILBALL: OK
+single:DEATH_CROSS: OK
+single:DEATH_CROSS_BIG: shots death_cross_big_laser: 0 (Noita 16); damage $damage_explosion: 0 (Noita 1.52); damage $damage_projectile: 0 (Noita 4.6)
+single:INFESTATION: speed infestation: 715.56 (Noita 566.83)
+single:WALL_HORIZONTAL: shots infestation: 0 (Noita 5); shots wall_builder: 6 (Noita 0); shots wall_horizontal: 1 (Noita 0); shots wall_piece: 57 (Noita 0); mana 70 (Noita 0)
+single:WALL_VERTICAL: shots wall_builder: 6 (Noita 2); shots wall_piece: 57 (Noita 19); shots wall_sound: 0 (Noita 1); speed wall_builder: 1000 (Noita 500)
+single:WALL_SQUARE: shots wall_builder: 24 (Noita 8); shots wall_piece: 228 (Noita 76); shots wall_sound: 0 (Noita 1); speed wall_builder: 1000 (Noita 250)
+single:TEMPORARY_WALL: OK
+single:TEMPORARY_PLATFORM: OK
+single:PURPLE_EXPLOSION_FIELD: OK
+single:DELAYED_SPELL: OK
+single:LONG_DISTANCE_CAST: shots light_bullet: 0 (Noita 1); children light_bullet from long_distance_cast: 1 (Noita 0); speed long_distance_cast: 1800 (Noita 1000); damage $damage_projectile: 0 (Noita 0.12)
+single:TELEPORT_CAST: shots light_bullet: 0 (Noita 1); children light_bullet from teleport_cast: 1 (Noita 0)
+single:SUPER_TELEPORT_CAST: shots light_bullet: 0 (Noita 1); children light_bullet from super_teleport_cast: 1 (Noita 0); damage $damage_projectile: 0 (Noita 0.12)
+single:CASTER_CAST: damage $damage_projectile: 0 (Noita 0.12)
+single:MIST_RADIOACTIVE: OK
+single:MIST_ALCOHOL: OK
+single:MIST_SLIME: OK
+single:MIST_BLOOD: OK
+single:CIRCLE_FIRE: damage $damage_fire: 0 (Noita 4999.99)
+single:CIRCLE_ACID: OK
+single:CIRCLE_OIL: OK
+single:CIRCLE_WATER: OK
+single:MATERIAL_WATER: OK
+single:MATERIAL_OIL: OK
+single:MATERIAL_BLOOD: OK
+single:MATERIAL_ACID: OK
+single:MATERIAL_CEMENT: OK
+single:TELEPORT_PROJECTILE: OK
+single:TELEPORT_PROJECTILE_SHORT: speed teleport_projectile_short: 1350 (Noita 1000)
+single:TELEPORT_PROJECTILE_STATIC: OK
+single:SWAPPER_PROJECTILE: OK
+single:TELEPORT_PROJECTILE_CLOSER: OK
+single:NUKE: damage $damage_fire: 0 (Noita 13399.97); damage $damage_projectile: 3 (Noita 0)
+single:NUKE_GIGA: damage $damage_fire: 0 (Noita 13999.95)
+single:FIREWORK: damage $damage_explosion: 0 (Noita 1.2); damage $damage_fire: 0 (Noita 800)
+single:SUMMON_WANDGHOST: speed wand_ghost_player: 0 (Noita 160.05)
+single:TOUCH_GOLD: OK
+single:TOUCH_WATER: OK
+single:TOUCH_OIL: OK
+single:TOUCH_ALCOHOL: OK
+single:TOUCH_PISS: OK
+single:TOUCH_GRASS: OK
+single:TOUCH_BLOOD: OK
+single:TOUCH_SMOKE: OK
+single:DESTRUCTION: OK
+single:MASS_POLYMORPH: OK
+single:BURST_2: shots light_bullet: 1 (Noita 0); mana 5 (Noita 0)
+single:BURST_3: damage $damage_projectile: 0 (Noita 0.12)
+single:BURST_4: damage $damage_projectile: 0 (Noita 0.12)
+single:BURST_8: damage $damage_projectile: 0 (Noita 0.12)
+single:BURST_X: damage $damage_projectile: 0 (Noita 0.12)
+single:SCATTER_2: OK
+single:SCATTER_3: damage $damage_projectile: 0 (Noita 0.12)
+single:SCATTER_4: damage $damage_projectile: 0 (Noita 0.12)
+single:I_SHAPE: damage $damage_projectile: 0 (Noita 0.12)
+single:Y_SHAPE: damage $damage_projectile: 0 (Noita 0.12)
+single:T_SHAPE: damage $damage_projectile: 0 (Noita 0.12)
+single:W_SHAPE: damage $damage_projectile: 0 (Noita 0.12)
+single:CIRCLE_SHAPE: damage $damage_projectile: 0 (Noita 0.12)
+single:PENTAGRAM_SHAPE: damage $damage_projectile: 0 (Noita 0.12)
+single:I_SHOT: damage $damage_projectile: 0 (Noita 0.12)
+single:Y_SHOT: OK
+single:T_SHOT: damage $damage_projectile: 0 (Noita 0.12)
+single:W_SHOT: damage $damage_projectile: 0 (Noita 0.12)
+single:QUAD_SHOT: damage $damage_projectile: 0 (Noita 0.12)
+single:PENTA_SHOT: OK
+single:HEXA_SHOT: damage $damage_projectile: 0 (Noita 0.12)
+single:SPREAD_REDUCE: damage $damage_projectile: 0 (Noita 0.12)
+single:HEAVY_SPREAD: OK
+single:RECHARGE: damage $damage_projectile: 0 (Noita 0.12)
+single:LIFETIME: damage $damage_projectile: 0 (Noita 0.12)
+single:LIFETIME_DOWN: OK
+single:NOLLA: OK
+single:SLOW_BUT_STEADY: damage $damage_projectile: 0 (Noita 0.12)
+single:EXPLOSION_REMOVE: damage $damage_projectile: 0 (Noita 0.12)
+single:EXPLOSION_TINY: damage $damage_explosion: 0 (Noita 0.8); damage $damage_projectile: 0 (Noita 0.12)
+single:LASER_EMITTER_WIDER: damage $damage_projectile: 0 (Noita 0.12)
+single:MANA_REDUCE: damage $damage_projectile: 0 (Noita 0.12); mana 0 (Noita -25)
+single:BLOOD_MAGIC: damage $damage_projectile: 0 (Noita 0.12); mana 0 (Noita -95)
+single:MONEY_MAGIC: damage $damage_projectile: 0 (Noita 0.12)
+single:BLOOD_TO_POWER: damage $damage_projectile: 0 (Noita 1.88)
+single:DUPLICATE: damage $damage_projectile: 0 (Noita 0.12)
+single:QUANTUM_SPLIT: shots light_bullet: 5 (Noita 3); damage $damage_projectile: 0 (Noita 0.12)
+single:GRAVITY: OK
+single:GRAVITY_ANTI: damage $damage_projectile: 0 (Noita 0.12)
+single:SINEWAVE: speed light_bullet: 1627.45 (Noita 1000); damage $damage_projectile: 0 (Noita 0.12)
+single:CHAOTIC_ARC: speed light_bullet: 1547.34 (Noita 1000)
+single:PINGPONG_PATH: damage $damage_projectile: 0 (Noita 0.12)
+single:AVOIDING_ARC: damage $damage_projectile: 0 (Noita 0.12)
+single:FLOATING_ARC: damage $damage_projectile: 0 (Noita 0.12)
+single:FLY_DOWNWARDS: damage $damage_projectile: 0 (Noita 0.12)
+single:FLY_UPWARDS: damage $damage_projectile: 0 (Noita 0.12)
+single:HORIZONTAL_ARC: damage $damage_projectile: 0 (Noita 0.42)
+single:LINE_ARC: damage $damage_projectile: 0 (Noita 0.32)
+single:ORBIT_SHOT: OK
+single:SPIRALING_SHOT: OK
+single:PHASING_ARC: OK
+single:TRUE_ORBIT: OK
+single:BOUNCE: damage $damage_projectile: 0 (Noita 0.12)
+single:REMOVE_BOUNCE: damage $damage_projectile: 0 (Noita 0.12)
+single:HOMING: damage $damage_projectile: 0 (Noita 0.12)
+single:ANTI_HOMING: speed light_bullet: 796.22 (Noita 626.07)
+single:HOMING_WAND: speed light_bullet: 836.21 (Noita 652.21)
+single:HOMING_SHORT: damage $damage_projectile: 0 (Noita 0.12)
+single:HOMING_ROTATE: damage $damage_projectile: 0 (Noita 0.12)
+single:HOMING_SHOOTER: OK
+single:AUTOAIM: damage $damage_projectile: 0 (Noita 0.12)
+single:HOMING_ACCELERATING: speed light_bullet: 809.96 (Noita 321.47)
+single:HOMING_CURSOR: OK
+single:HOMING_AREA: damage $damage_projectile: 0 (Noita 0.12)
+single:PIERCING_SHOT: OK
+single:CLIPPING_SHOT: damage $damage_projectile: 0 (Noita 0.12)
+single:DAMAGE: damage $damage_projectile: 0 (Noita 0.52)
+single:DAMAGE_RANDOM: damage $damage_projectile: 0 (Noita 0.12)
+single:BLOODLUST: damage $damage_projectile: 0 (Noita 1.42)
+single:DAMAGE_FOREVER: damage $damage_projectile: 0 (Noita 1248.87); mana 955 (Noita 49955)
+single:CRITICAL_HIT: damage $damage_projectile: 0 (Noita 0.12)
+single:AREA_DAMAGE: damage $damage_projectile: 0 (Noita 0.12); damage $damage_rock_curse: 0 (Noita 0.14)
+single:SPELLS_TO_POWER: damage $damage_projectile: 0 (Noita 0.12)
+single:ESSENCE_TO_POWER: damage $damage_explosion: 0 (Noita 120); damage $damage_projectile: 0 (Noita 120.12)
+single:ZERO_DAMAGE: OK
+single:HEAVY_SHOT: OK
+single:LIGHT_SHOT: speed light_bullet: 6358.74 (Noita 1000)
+single:KNOCKBACK: damage $damage_projectile: 0 (Noita 0.12)
+single:RECOIL: damage $damage_projectile: 0 (Noita 0.12)
+single:RECOIL_DAMPER: damage $damage_projectile: 0 (Noita 0.12)
+single:SPEED: speed light_bullet: 2122.27 (Noita 1000); damage $damage_projectile: 0 (Noita 0.12)
+single:ACCELERATING_SHOT: OK
+single:DECELERATING_SHOT: speed light_bullet: 1302.92 (Noita 1000)
+single:EXPLOSIVE_PROJECTILE: OK
+single:CLUSTERMOD: damage $damage_explosion: 0 (Noita 0.2); damage $damage_projectile: 0 (Noita 0.12)
+single:WATER_TO_POISON: damage $damage_projectile: 0 (Noita 0.12)
+single:BLOOD_TO_ACID: damage $damage_projectile: 0 (Noita 0.12)
+single:LAVA_TO_BLOOD: damage $damage_projectile: 0 (Noita 0.12)
+single:LIQUID_TO_EXPLOSION: damage $damage_projectile: 0 (Noita 0.12)
+single:TOXIC_TO_ACID: damage $damage_projectile: 0 (Noita 0.12)
+single:STATIC_TO_SAND: damage $damage_projectile: 0 (Noita 0.12)
+single:TRANSMUTATION: damage $damage_projectile: 0 (Noita 0.12)
+single:RANDOM_EXPLOSION: shots grenade_tier_2: 0 (Noita 1); damage $damage_explosion: 0 (Noita 2.4); damage $damage_fire: 0 (Noita 8734.51); damage $damage_projectile: 0 (Noita 1.72)
+single:NECROMANCY: damage $damage_projectile: 0 (Noita 0.12)
+single:LIGHT: damage $damage_projectile: 0 (Noita 0.12)
+single:EXPLOSION: OK
+single:EXPLOSION_LIGHT: OK
+single:FIRE_BLAST: OK
+single:POISON_BLAST: OK
+single:ALCOHOL_BLAST: OK
+single:THUNDER_BLAST: shots lightning: 0 (Noita 4); speed thunder_blast: 0 (Noita 6.61)
+single:BERSERK_FIELD: OK
+single:POLYMORPH_FIELD: OK
+single:CHAOS_POLYMORPH_FIELD: OK
+single:ELECTROCUTION_FIELD: OK
+single:FREEZE_FIELD: OK
+single:REGENERATION_FIELD: OK
+single:TELEPORTATION_FIELD: OK
+single:LEVITATION_FIELD: OK
+single:SHIELD_FIELD: OK
+single:PROJECTILE_TRANSMUTATION_FIELD: OK
+single:PROJECTILE_THUNDER_FIELD: OK
+single:PROJECTILE_GRAVITY_FIELD: OK
+single:VACUUM_POWDER: OK
+single:VACUUM_LIQUID: OK
+single:VACUUM_ENTITIES: OK
+single:SEA_LAVA: OK
+single:SEA_ALCOHOL: OK
+single:SEA_OIL: OK
+single:SEA_WATER: OK
+single:SEA_SWAMP: OK
+single:SEA_ACID: OK
+single:SEA_ACID_GAS: OK
+single:SEA_MIMIC: OK
+single:CLOUD_WATER: OK
+single:CLOUD_OIL: OK
+single:CLOUD_BLOOD: OK
+single:CLOUD_ACID: OK
+single:CLOUD_THUNDER: speed lightning_extra_arcs: 60 (Noita 4000)
+single:ELECTRIC_CHARGE: damage $damage_electricity: 0 (Noita 0.1); damage $damage_projectile: 0 (Noita 0.12)
+single:MATTER_EATER: damage $damage_projectile: 0 (Noita 0.12)
+single:FREEZE: damage $damage_ice: 0 (Noita 0.2); damage $damage_projectile: 0 (Noita 0.12)
+single:HITFX_BURNING_CRITICAL_HIT: damage $damage_projectile: 0 (Noita 0.12)
+single:HITFX_CRITICAL_WATER: damage $damage_projectile: 0 (Noita 0.12)
+single:HITFX_CRITICAL_OIL: damage $damage_projectile: 0 (Noita 0.12)
+single:HITFX_CRITICAL_BLOOD: damage $damage_projectile: 0 (Noita 0.12)
+single:HITFX_TOXIC_CHARM: damage $damage_projectile: 0 (Noita 0.12)

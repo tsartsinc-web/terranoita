@@ -20,7 +20,9 @@ namespace Terranoita.Game.Magic
     {
         public static readonly bool Enabled = Environment.GetEnvironmentVariable("TERRANOITA_AUTOTEST_PROBE") == "1";
         public static bool Done { get; private set; }
-        public static string OutFile => Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData), "Terranoita", "probe_game.jsonl");
+        // TERRANOITA_PROBE_OUT: another file (a diagnostic run that must not mix with the real rows)
+        public static string OutFile => Environment.GetEnvironmentVariable("TERRANOITA_PROBE_OUT") is string o && o.Length > 0 ? o
+            : Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData), "Terranoita", "probe_game.jsonl");
 
         // the probe's timing (tools/noita_probe init.lua): fire for up to 60 frames until something fires, then watch
         // until every shot is gone for 20 frames or 240 frames have passed
@@ -52,7 +54,21 @@ namespace Terranoita.Game.Magic
                 // the probe's aim: its target's centre is 4 Noita px above the wand line (init.lua: target at the
                 // caster's height - 4, hitbox -16..4; shots start 6 px up), so the shot's gravity is offset the same way
                 Casting.TestAim = new Vector2(_target.Center.X, p.Center.Y - 4 * Units.PixelScale);
-                _target.velocity.X = 0;
+                // the probe's target (target.xml HitboxComponent -8..8 x -16..4: 16 x 20 Noita px, its centre 4 px above
+                // the wand line), held still there; the zombie's own 9 x 10 let shots Noita counts as hits fly past
+                _target.width = (int)(16 * Units.PixelScale);
+                _target.height = (int)(20 * Units.PixelScale);
+                _target.position = new Vector2(p.Center.X + TargetDistance, p.Center.Y - 4 * Units.PixelScale) - new Vector2(_target.width, _target.height) / 2f;
+                _target.velocity = Vector2.Zero;
+            }
+            // the probe wand in hand before the cast (2026-10-09: the first test of a run, and keys sent to another
+            // window, cast whatever the character held in slot 0)
+            if (p.selectedItem != 1)
+                p.selectedItemState.Select(1);
+            if (t == Setup && MagicItems.WandOf(Casting.HeldWand(p))?.Id != _wand.Id)
+            {
+                _t = t;   // wait a frame more
+                return;
             }
             if (t == Setup)
             {
@@ -190,6 +206,10 @@ namespace Terranoita.Game.Magic
         {
             Casting.TestFire = false;
             var (name, deck) = _tests[_k];
+            var me = Main.LocalPlayer;
+            if (_target != null)
+                note += "; target " + (_target.active ? "at " + ((_target.Center - me.Center) / Units.PixelScale).ToString() + " size " + (_target.width / Units.PixelScale) + "x" + (_target.height / Units.PixelScale)
+                        + " type " + _target.type + (_target.friendly ? " friendly" : "") + (_target.dontTakeDamage ? " no damage" : "") : "gone");
             try { File.AppendAllText(OutFile, SpellRecorder.Line(name, deck, Casting.TestMana - _mana0, frames, note) + Environment.NewLine); }
             catch (Exception ex) { Entry.Error("probe write", ex); }
             _t = int.MaxValue / 2;   // next frame starts the next test
