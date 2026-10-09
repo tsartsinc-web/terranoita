@@ -1140,3 +1140,21 @@ unless asked.
 - Fixes from the data: air_friction negative (1 - f/60 measured in Noita: rocket 1.0833, spark 0.9716): rockets fly and
   explode at the target; Explode: explosion damage only (it added projectile damage to all in the radius).
 - Probe paths: both sides sample [age, x, y, vx, vy] every 5 frames (needs a new Noita run to fill).
+
+## 2026-10-09 evening: magic ground truth complete, behaviour number (PC-22/23/24/28/30)
+- Noita probe: all 875 tests from real Noita with flight paths (design/sources/noita_probe.jsonl). Hands-free: clicks
+  into a new game; the player's protections set to frames -1 (the effect files' 7200 frames ran out: BOMB_HOLY_GIGA killed
+  the player, MASS_POLYMORPH turned it); only a finished run replaces the committed file. Settings and run restored.
+- Terraria probe at Noita's heights (floor 13.7 px under the shot line, target centre 4.3 over it; the caster held in the
+  air); both sides start a shot's record after its first move (Noita: x0 - vx0/60 is one spawn point for every speed).
+- probe-compare: flight along/across each side's first direction, scaled to Noita's start speed; behaviour verdict
+  (PC-30: fires, shots, payloads, kinds of harm, gross flight) apart from numbers.
+- Run A (verified by run): behaviour 646 of 875 (single 321/422, mod 307/429, combo 18/24); numbers 488 of 875.
+- Verified from Noita's paths and fixed: a LuaComponent with remove_after_executed and no execute_times runs once
+  (ACCELERATING/DECELERATING_SHOT ran every frame); a bounce multiplies the whole velocity by bounce_energy (grenades
+  rolled on); flight = gravity, then x(1 - air_friction/60), then terminal velocity (heavy bullet vy -9.83/6.83).
+- Recorder: burning on the target (Terraria lifeRegen/120 a frame) as $damage_fire; hits split by Noita's damage kinds.
+- PC-24 step 1 built only, behind TERRANOITA_RUNTIME=components: every shot in the store, VelocityComponent from it.
+- Open: homing formula (Noita speeds a missile up, ours keeps speed; not in Noita's files: fit from paths), physics
+  bodies (bomb, dynamite, cart, fish), tentacle, megalaser, shields, random_wands probe set (PC-30).
+- Next: compare run B (all fixes, switch off), then run C (switch on) for PC-24 step 1.

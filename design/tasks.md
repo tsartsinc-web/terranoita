@@ -33,7 +33,7 @@ How it works (author, 2026-10-08): the author only says "работай" to eith
 ## PC queue
 - AUTHOR 2026-10-09 (via cloud, the author is away): FOCUS. Finish magic first (PC-21..PC-25 with PC-28), then
   PC-27. Park PC-4, PC-10, PC-19, PC-17, PC-6 until then.
-- PC-30 new (author 2026-10-09: WHAT MATTERS in magic; it sets the priority of PC-23..PC-25): behaviour first,
+- PC-30 doing (author 2026-10-09: WHAT MATTERS in magic; it sets the priority of PC-23..PC-25): behaviour first,
   numbers later. Exact bullet speed, bounce height, small damage differences are LOW priority. HIGH priority, in order:
   1) every spell does what it should, as in Noita (fires its shot/effect, the shot exists and acts: digs, summons,
   teleports, heals, makes liquid, explodes, triggers its payload...);
@@ -46,6 +46,9 @@ How it works (author, 2026-10-08): the author only says "работай" to eith
   the coverage number = behaviour matches. Add a probe set "random_wands" (e.g. 50 wands, levels 1-6, fixed seeds,
   same decks in Noita and Terraria; new rows, so one extra Noita run per PC-29). Fix order: what breaks most
   behaviours first. Check: probe-compare prints "behaviour: X of 875 (+ random wands Y of 50)" and the number rises.
+  Done 2026-10-09: behaviour verdict in probe-compare (f4cb119): behaviour 646 of 875. Left: random_wands probe set
+  (needs one Noita run for the new rows), fixes by most behaviours broken (top: hit/no hit 67, explosion 40,
+  burning 40, damage kind labels 24).
 - PC-29 new (author 2026-10-09, rule for PC-22/23 and later): Noita runs ONCE, Terraria as often as needed. Noita is
   only the reference and does not change, so its answers are recorded once and kept. 1) One full hands-free probe
   run to all 875 rows (resume from the 299 done), preferably when the author is away (night), then commit it as
@@ -54,12 +57,9 @@ How it works (author, 2026-10-08): the author only says "работай" to eith
   (new combos/cases: probe only those, append) or when the probe mod changes so old rows are invalid; say which one
   in the commit. 4) Never run Noita and Terraria at the same time (memory). Check: noita_probe.jsonl has 875 rows
   in git; later commits that touch magic show a probe-compare number and no Noita run.
-- PC-28 new (part of PC-22, do it first): the Noita probe runs with no input from the author (he had to press New
-  Game, pick the first mode, and hold fire). 1) The probe mod fires by itself: set the player's ControlsComponent
-  fire fields (mButtonDownFire etc.) each frame while a test wand is held. 2) Noita goes straight into a run: try
-  noita_dev.exe startup options, then a prepared save that continues directly, last resort a script that clicks
-  New Game and picks the first mode; write the way that works in design/magic_plan.md. Check: one probe run from
-  start to log file with nobody touching the PC.
+- PC-28 done (2026-10-09, verified by run): hands-free Noita probe: the mod fires by itself (S5), run_probe.ps1 clicks
+  Noita's New game + first mode tile (no key presses), protections forever, player found again after a polymorph,
+  only a finished run is copied (design/magic_plan.md "Running the ground truth").
 - PC-21 doing (FIRST, author 2026-10-09; plan design/magic_plan.md; author's rules: new component path behind a
   switch, into a release only when coverage >= the current path; Noita facts only from Noita's files or the Noita
   test mod; every session report "spells matching Noita / total"; tag claims verified in game / built only / assumed).
@@ -71,26 +71,18 @@ How it works (author, 2026-10-08): the author only says "работай" to eith
   followed yet) -> design/sources/pc_magic_coverage.json. Phase 0 done; game run of (a)/(b) not yet. Next: PC-22.
 - PC-26 done (2026-10-09): 0.4.3 draft on Melty (see State). Off in 0.4.3 by default (not verified in game):
   multiplayer physics (TERRANOITA_MP_PHYSICS=1), electricity in liquids (TERRANOITA_ELECTRICITY=1).
-- PC-22 doing (author 2026-10-09: "разрешаю, делай": the agent runs Noita itself): probe mod tools/noita_probe
-  (installed). Noita settings changed for the run, backups *.terranoita_backup next to them + scratchpad:
-  save_shared/config.xml (mods_sandbox_enabled 0, disclaimer/warning done, application_pause_when_unfocused 0),
-  save00/mod_config.xml (terranoita_probe enabled); RESTORE both after the run. Firing from Lua (verified in Noita):
-  PlatformShooterPlayerComponent.mForceFireOnNextUpdate + mRequireTriggerPull=0, ControlsComponent.enabled=0 + aim
-  fields (S5). Run: scratchpad probe_run.ps1 (Noita restarts its process once: watch the jsonl, not the pid);
-  ~5 tests/min. Check: probe_out.jsonl has 875 rows + done -> copy to design/sources/noita_probe.jsonl.
-- Probe status 2026-10-09 (afternoon): Noita rows 299 of 875 (design/sources/noita_probe_partial.jsonl); the hands-free
-  run (tools/noita_probe/run_probe.ps1, backup/restore verified) gets stuck in Noita's menu: Enter starts the game only
-  when "New game" is selected. ASKED the author: one screenshot of Noita's menu, or one click on New game. Terraria rows
-  875 (design/sources/probe_game.jsonl). Matching Noita: 190 of 299 single (noise +-3: one random shot per side).
-  Fixed from the data: probe test (wand in hand, target 16x20 like the probe's, arena cleared of old targets), negative
-  air_friction (rockets), blast = explosion damage only. Open: grenade/bounce on floor, fire damage (DOT not recorded),
-  physics projectiles (bomb), wall spells, single-sample noise (cast each test 3 times?).
-- PC-23 doing: step 1 Core NoitaProbe/MiniJson (tests), step 2 SpellRecorder + SpellProbeTest (`game_test -Mode probe`,
-  built only), step 3 Core ProbeCompare + `tncli probe-compare <noita> <noita_probe.jsonl> <probe_game.jsonl> [out]`
-  (tests). Left: after PC-22, run game_test -Mode probe (never together with Noita: memory), compare, report the
-  number. Check: "matching Noita: N of M" printed and the author's list visible in the reasons.
-- PC-24 new (Phase 2): component runtime in Core behind a switch (TERRANOITA_RUNTIME=components); move existing
-  behaviour type by type. Check: PC-23 number equal or better per step.
+- PC-22 done (2026-10-09, verified by run): design/sources/noita_probe.jsonl = all 875 tests from real Noita with
+  flight paths (PC-29: Noita is not run again for these rows). Noita settings and the author's run restored (checked).
+- Probe numbers (2026-10-09 evening, design/sources/pc_probe_compare.txt): behaviour 646 of 875 (single 321/422, mod
+  307/429, combo 18/24); numbers 488 of 875. Run A = arena at Noita's heights + after-move sampling + the
+  remove_after_executed fix. Not in run A yet: bounce_energy on the whole velocity, burning recorded, damage kinds.
+- PC-23 done (2026-10-09): probe-compare with a flight check (along/across each side's first direction, scaled to
+  Noita's start speed) and a behaviour verdict (PC-30). `game_test -Mode probe` (~20 min) + `tncli probe-compare <noita>
+  design/sources/noita_probe.jsonl design/sources/probe_game.jsonl design/sources/pc_probe_compare.txt`. Move
+  %LOCALAPPDATA%/Terranoita/probe_game.jsonl aside before a new run (the test resumes from it).
+- PC-24 doing (Phase 2, steps in design/magic_plan.md): step 1 built only (c9f6e15): with TERRANOITA_RUNTIME=components
+  every shot is in the store and VelocityComponent drives its flight (Core ShotFlight, fitted to probe paths). Next:
+  a probe run with the switch on, compare with the run without it (equal or better), then step 2.
 - PC-25 new (Phase 3-4): missing components by spells affected (magic_plan Phase 3 order), then the author plays.
   Check: magic_plan section 5.
 - PC-20 done-in-code (multiplayer): wand window clicks threw IndexOutOfRange in NetMessage.SendData (ChestItem
