@@ -31,6 +31,31 @@ How it works (author, 2026-10-08): the author only says "работай" to eith
 - Roadmap: design/roadmap.md. Worldgen plan: design/worldgen_plan.md (PC-10 after CLOUD-7).
 
 ## PC queue
+- RELEASE TODAY (author 2026-10-09 via cloud: "надо сегодня опубликовать новую версию"): 0.4.5 with today's magic
+  work. This IS the author's explicit request for this release: build, test, upload and submit_release 0.4.5 to Melty
+  as a DRAFT (the author presses Play to publish; do not call publish). Before packaging: game_test magic + probe run
+  (behaviour number must not drop vs 674), close the games; TERRANOITA_RUNTIME=components stays OFF unless its probe
+  number is higher; MP physics/electricity stay off. Melty description: keep the honest magic note, add one line
+  "Magic: ~77% of spells and modifiers behave as in Noita (tested against real Noita), more each update". Changelog
+  for the release notes: rockets, explosions (explosion damage only), thrown bombs/dynamite/propane, bounces and
+  BOUNCE_* modifiers, CHAIN_SHOT, fire blasts burn their crater, starting wands for a re-used character name.
+  Then update State and stop for the day (MODLOG handoff).
+- PC-31 new (after the release; cloud analysed run B, 2026-10-09): ~70 of the 201 behaviour failures are the TEST, not
+  the mod. Fix probe-compare first, so the number tells the truth: a) path check must not scale our path by Noita's
+  START speed when a script re-sets the velocity after spawn (TRUE_ORBIT: Noita 738 px/s on frame 0, then the orbit;
+  both orbit the player, radius 36 vs our 42: the "538 px off" is the scaling) - compare unscaled positions or skip
+  frame 0; b) hit/miss noise: projectile damage <= ~1.3 on one side and 0 on the other while the same shots exist
+  and fly the same path = "hit-miss", not a failure (use TERRANOITA_PROBE_REPEAT to confirm); c) RANDOM_* spells
+  (RANDOM_SPELL, RANDOM_PROJECTILE, RANDOM_STATIC_PROJECTILE, RANDOM_MODIFIER, RANDOM_EXPLOSION, DAMAGE_RANDOM...)
+  can't match 1:1: check only that they fire something; d) children-from-parent attribution
+  (LONG_DISTANCE_CAST, TELEPORT_CAST...) is bookkeeping. Expected: behaviour ~85% with no mod change. Check: new
+  number and the list of rows that flipped.
+- PC-32 new (after PC-31): fix real failures by group, biggest first (run B counts): no damage ~35 (BLACK_HOLE_GIGA,
+  WHITE_HOLE_GIGA, LASER_EMITTER, METEOR, MISSILE, ORBIT_LASERS...); nothing spawned ~32 (GLITTER_BOMB, GLUE_SHOT,
+  SUMMON_EGG, THUNDERBALL, SPORE_POD, CRUMBLING_EARTH, WALL_VERTICAL/SQUARE...); wrong count ~40 (TENTACLE_PORTAL
+  8 vs 10, DARKFLAME, METEOR_RAIN...); big path differences ~10 (TENTACLE, FISH, EXPLODING_DEER, PHASING_ARC).
+  Author: burning damage over time (bombs, nukes) is LOW priority for now; explosion SIZE as in Noita matters; small
+  orbit radius / homing differences are fine if it looks the same. Check: behaviour number rises per step.
 - AUTHOR 2026-10-09 (via cloud, the author is away): FOCUS. Finish magic first (PC-21..PC-25 with PC-28), then
   PC-27. Park PC-4, PC-10, PC-19, PC-17, PC-6 until then.
 - PC-30 doing (author 2026-10-09: WHAT MATTERS in magic; it sets the priority of PC-23..PC-25): behaviour first,
