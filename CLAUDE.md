@@ -13,6 +13,8 @@ c68ad4c6-f9db-40f5-802c-a4f9d7713e69); release state is in design/tasks.md "Stat
 - Save tokens: targeted greps, short outputs, no full-file dumps, no subagents unless asked; no screenshots taken or
   read unless the author asks (use log lines).
 - Game tests: only in the background, minimized, one at a time, after a one-line heads-up.
+- When a test is done, close the games it started (Terraria, Noita, servers) unless the next step needs them right
+  away or the author is playing; never leave them running idle (the PC has 16 GB and no page file).
 - Stage 3: run Noita's own code and data (Lua, art, texts, sounds), do not re-implement it.
 
 ## Start
