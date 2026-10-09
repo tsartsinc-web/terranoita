@@ -37,7 +37,7 @@ namespace Terranoita.Game.Magic
         const float FloorBelowShot = 13.7f, TargetAboveShot = 4.3f, OurShotY = -0.2f;
 
         static List<ProbeTest> _tests;
-        static int _k = -1, _t, _casts0, _mana0, _firedAt, _lastCount, _lastChange, _updates0;
+        static int _k = -1, _t, _casts0, _mana0, _firedAt, _lastCount, _lastAlive, _lastChange, _updates0;
         static Vector2 _start;
         static int _px, _floor;   // the caster's tile column and the arena floor's top row
         static NPC _target;
@@ -112,12 +112,16 @@ namespace Terranoita.Game.Magic
                     Finish(ft, "nothing fired in " + FireMax + " frames");
                 return;
             }
-            if (SpellRecorder.Count != _lastCount)
+            if (SpellRecorder.Count != _lastCount || SpellRecorder.Alive != _lastAlive)
             {
                 _lastCount = SpellRecorder.Count;
+                _lastAlive = SpellRecorder.Alive;
                 _lastChange = ft;
             }
-            if (ft >= MaxFrames || SpellRecorder.Alive == 0 && ft - _lastChange >= Quiet && ft - _firedAt >= Quiet)
+            // a burning target keeps the test going, as in Noita (its fire lives on after the shots: BOMB's blast at frame
+            // 180 burned the target to frame 240 there, ours stopped at 181 and recorded no fire)
+            bool burning = _target != null && _target.active && _target.lifeRegen < 0;
+            if (ft >= MaxFrames || SpellRecorder.Alive == 0 && !burning && ft - _lastChange >= Quiet && ft - _firedAt >= Quiet)
                 Finish(ft, (SpellRecorder.Alive > 0 ? "still flying at the end; " : "") + "fired at frame " + _firedAt);
         }
 
@@ -202,6 +206,7 @@ namespace Terranoita.Game.Magic
             _k++;
             _t = 0;
             _lastCount = 0;
+            _lastAlive = 0;
             _lastChange = 0;
             if (_k >= _tests.Count)
             {
