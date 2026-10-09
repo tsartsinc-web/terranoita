@@ -19,7 +19,7 @@ namespace Terranoita.Game.Magic
         {
             public string File, Parent;
             public int Born;
-            public int? End;
+            public int? End, Seen;   // Seen: the frame of its first move (the probe first sees a shot after one)
             public Vector2 P0, V0, P1;
             public readonly List<string> Path = new List<string>();   // every 5 frames: [age, x, y, vx, vy] (the probe's)
         }
@@ -60,15 +60,23 @@ namespace Terranoita.Game.Magic
             ById[id] = r;
         }
 
-        /// <summary>A live shot this frame: its flight path every 5 frames after it was born, as the probe samples it.</summary>
+        /// <summary>A live shot after its move this frame. Like the probe in Noita: its start (x0, y0, vx0, vy0) is where it
+        /// is after its first move (Noita: x0 - vx0/60 is one spawn point for every speed, noita_probe.jsonl), and its path
+        /// is sampled every 5 frames from there.</summary>
         internal static void Sample(int id, Vector2 pos, Vector2 vel)
         {
             if (!On || !ById.TryGetValue(id, out var r) || r.End != null)
                 return;
-            int age = Frame - r.Born;
+            var p = (pos - _origin) / Px;
+            if (r.Seen == null)
+            {
+                r.Seen = Frame;
+                r.P0 = p;
+                r.V0 = vel * 60f / Px;
+            }
+            int age = Frame - r.Seen.Value;
             if (age % 5 != 0 || r.Path.Count >= 48)
                 return;
-            var p = (pos - _origin) / Px;
             var v = vel * 60f / Px;
             r.Path.Add("[" + age + "," + N(p.X) + "," + N(p.Y) + "," + N(v.X) + "," + N(v.Y) + "]");
         }

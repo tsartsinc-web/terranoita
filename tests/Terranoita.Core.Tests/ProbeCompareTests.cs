@@ -26,6 +26,33 @@ namespace Terranoita.Tests
             Assert.True(ProbeCompare.Compare(noita, ours).Matches);
         }
 
+        static ProbeShot Flying(double x0, double y0, double vx, double vy, params double[][] path)
+        {
+            var s = new ProbeShot { File = Spark, Parent = "", X0 = x0, Y0 = y0, Vx0 = vx, Vy0 = vy };
+            s.Path.AddRange(path);
+            return s;
+        }
+
+        static ProbeRow With(ProbeShot s)
+        {
+            var r = new ProbeRow { Name = "single:LIGHT_BULLET", ManaUsed = 5 };
+            r.Shots.Add(s);
+            return r;
+        }
+
+        [Fact]
+        public void FlightIsComparedFromItsStartAlongItsFirstDirection()
+        {
+            // Noita: from (20,-6) to the right, a pixel of drop by frame 10
+            var noita = With(Flying(20, -6, 600, 0, new double[] { 0, 20, -6, 600, 0 }, new double[] { 5, 70, -6, 600, 0 }, new double[] { 10, 120, -5, 600, 6 }));
+            // ours from another start, straight down: the same flight turned 90 degrees (random spread) matches
+            var turned = With(Flying(8, 0, 0, 600, new double[] { 0, 8, 0, 0, 600 }, new double[] { 5, 8, 50, 0, 600 }, new double[] { 10, 7, 100, -6, 600 }));
+            Assert.True(ProbeCompare.Compare(noita, turned).Matches);
+            // ours falls 20 px more by frame 10 (more than 4 px + 10% of the 100 px flown)
+            var falls = With(Flying(8, 0, 600, 0, new double[] { 0, 8, 0, 600, 0 }, new double[] { 5, 58, 0, 600, 0 }, new double[] { 10, 108, 21, 600, 60 }));
+            Assert.Equal("path light_bullet: 20 px off at frame 10", ProbeCompare.Compare(noita, falls).Differences.Single());
+        }
+
         [Fact]
         public void DifferencesAreNamed()
         {

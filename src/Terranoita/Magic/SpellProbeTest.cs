@@ -28,6 +28,13 @@ namespace Terranoita.Game.Magic
         // until every shot is gone for 20 frames or 240 frames have passed
         const int Setup = 6, FireMax = 60, MaxFrames = 240, Quiet = 20;
         const float TargetDistance = 160 * Units.PixelScale;   // the probe's target: 160 Noita px to the right
+        // the floor and the target against the shot line, Noita px: the probe pins its player 8 px above the floor
+        // (init.lua py, arena.png floor rows 188-199), its target's centre is 10 px above the player (ty = py - 4, hitbox
+        // -16..4) and Noita's shots start 5.7 px above the player (noita_probe.jsonl: y0 - vy0/60); ours start 0.2 px
+        // above the caster's centre (SpellRecorder's x0/y0 when it was the spawn point, probe_game.jsonl before
+        // 2026-10-09 evening). Standing, our floor was 7 px under the shot line and shots Noita drops under the target hit
+        // ours (HEAVY_BULLET, BOUNCY_ORB, ROCKET, 2026-10-09)
+        const float FloorBelowShot = 13.7f, TargetAboveShot = 4.3f, OurShotY = -0.2f;
 
         static List<(string name, string[] deck)> _tests;
         static int _k = -1, _t, _casts0, _mana0, _firedAt, _lastCount, _lastChange;
@@ -49,16 +56,22 @@ namespace Terranoita.Game.Magic
             if (Done)
                 return;
             int t = _t++;
+            // held in the air at the probe's height (the probe pins its player every frame too)
+            p.position = Pinned(p);
+            p.velocity = Vector2.Zero;
+            p.fallStart = (int)(p.position.Y / 16f);
             if (_target != null && _target.active)
             {
-                // the probe's aim: its target's centre is 4 Noita px above the wand line (init.lua: target at the
-                // caster's height - 4, hitbox -16..4; shots start 6 px up), so the shot's gravity is offset the same way
+                // the probe's aim: from the player toward the target's origin, 160 px right and 4 px up (init.lua tx, ty);
+                // ours is taken from the caster's centre, so the direction is the same
                 Casting.TestAim = new Vector2(_target.Center.X, p.Center.Y - 4 * Units.PixelScale);
-                // the probe's target (target.xml HitboxComponent -8..8 x -16..4: 16 x 20 Noita px, its centre 4 px above
-                // the wand line), held still there; the zombie's own 9 x 10 let shots Noita counts as hits fly past
+                // the probe's target (target.xml HitboxComponent -8..8 x -16..4: 16 x 20 Noita px, its centre
+                // TargetAboveShot above the shot line), held still there; the zombie's own 9 x 10 let shots Noita counts
+                // as hits fly past
                 _target.width = (int)(16 * Units.PixelScale);
                 _target.height = (int)(20 * Units.PixelScale);
-                _target.position = new Vector2(p.Center.X + TargetDistance, p.Center.Y - 4 * Units.PixelScale) - new Vector2(_target.width, _target.height) / 2f;
+                _target.position = new Vector2(p.Center.X + TargetDistance, p.Center.Y + (OurShotY - TargetAboveShot) * Units.PixelScale)
+                                   - new Vector2(_target.width, _target.height) / 2f;
                 _target.velocity = Vector2.Zero;
             }
             // the probe wand in hand before the cast (2026-10-09: the first test of a run, and keys sent to another
@@ -103,13 +116,17 @@ namespace Terranoita.Game.Magic
         }
 
         // the probe's arena in Noita px (tools/noita_probe/terranoita_probe/files/arena.png, init.lua): air 40 px left
-        // and 180 px above the caster, a floor 12 px thick under it, a wall from 264 to 280 px to its right
+        // of the caster and 188 px above the floor, a floor 12 px thick, a wall from 264 to 280 px to its right
         static int T(float noitaPx) => (int)Math.Round(noitaPx * Units.PixelScale / 16f);
+
+        /// <summary>Where the caster is held: its shot line FloorBelowShot above the arena floor.</summary>
+        static Vector2 Pinned(Player p) =>
+            new Vector2(_px * 16 + 8 - p.width / 2f, _floor * 16 - (FloorBelowShot + OurShotY) * Units.PixelScale - p.height / 2f);
 
         /// <summary>The probe's arena, built again before every cast (blasts dig into it).</summary>
         static void Arena()
         {
-            int left = _px - T(40), wall = _px + T(264), right = _px + T(280), top = _floor - T(180), bottom = _floor + T(12) - 1;
+            int left = _px - T(40), wall = _px + T(264), right = _px + T(280), top = _floor - T(188), bottom = _floor + T(12) - 1;
             for (int x = left - 1; x <= right; x++)
                 for (int y = top; y <= bottom; y++)
                 {
@@ -182,7 +199,7 @@ namespace Terranoita.Game.Magic
             var (name, deck) = _tests[_k];
             SpellShots.Clear();
             Arena();
-            p.position = new Vector2(_px * 16 + 8 - p.width / 2f, _floor * 16 - p.height);
+            p.position = Pinned(p);
             p.velocity = Vector2.Zero;
             // every creature near the arena goes (2026-10-09: StrikeNPCNoInteraction left old targets standing in
             // front of the new one; Spark Bolts ended on them and no hit on the target was recorded)

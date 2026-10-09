@@ -213,10 +213,11 @@ namespace Terranoita.Game.Magic
             {
                 var s = Live[i];
                 bool gone = false;
-                SpellRecorder.Sample(s.Id, s.Pos, s.Vel);
                 try { gone = Step(s); }
                 catch (Exception ex) { Entry.Error("spell shot " + s.Def.Id, ex); gone = true; }
-                if (gone)
+                if (!gone)
+                    SpellRecorder.Sample(s.Id, s.Pos, s.Vel);   // after the move, as the Noita probe sees it
+                else
                 {
                     SpellRecorder.Gone(s.Id, s.Pos);
                     Live.Remove(s);

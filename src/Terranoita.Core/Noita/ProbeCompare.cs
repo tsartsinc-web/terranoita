@@ -21,6 +21,29 @@ namespace Terranoita.Noita
     {
         // tolerances (ours, for one random sample each side): Noita picks speed in speed_min..max and spreads shots
         public const double SpeedTolerance = 0.25, DamageTolerance = 0.30, ManaTolerance = 0.5;
+        // flight: px off allowed, plus this share of the distance Noita's shot has flown, over its first PathFrames frames
+        public const double PathTolerance = 4, PathShare = 0.1;
+        public const int PathFrames = 30;
+
+        /// <summary>A shot's flight as (frame, along, across): where it is at each sampled frame relative to where it was
+        /// first seen, along and across the way it first flew (along its axes when it started still). Both sides first see
+        /// a shot after its first move and sample every 5 frames from there (Noita: x0 - vx0/60 is one spawn point for
+        /// every speed; SpellRecorder samples after the move), so the frames line up; measuring from each side's own
+        /// direction keeps the random spread of one sample each from counting.</summary>
+        static IEnumerable<(int frame, double along, double across)> Flight(ProbeShot s)
+        {
+            if (s.X0 == null || s.Y0 == null)
+                yield break;
+            double vx = s.Vx0 ?? 0, vy = s.Vy0 ?? 0, len = Math.Sqrt(vx * vx + vy * vy);
+            double ux = len < 1 ? 1 : vx / len, uy = len < 1 ? 0 : vy / len;
+            foreach (var p in s.Path)
+            {
+                if (p.Length < 3 || p[0] > PathFrames)
+                    continue;
+                double dx = p[1] - s.X0.Value, dy = p[2] - s.Y0.Value;
+                yield return ((int)p[0], dx * ux + dy * uy, ux * dy - uy * dx);
+            }
+        }
 
         static bool Root(ProbeShot s) => string.IsNullOrEmpty(s.Parent) || s.Parent.EndsWith("/player.xml", StringComparison.Ordinal);
 
@@ -82,6 +105,21 @@ namespace Terranoita.Noita
                 double ns = nf.Speed0, os = of.Speed0;
                 if (Math.Abs(os - ns) > SpeedTolerance * Math.Max(ns, 1))
                     v.Differences.Add("speed " + Short(f) + ": " + F(os) + " (Noita " + F(ns) + ")");
+                var mine = new Dictionary<int, (int frame, double along, double across)>();
+                foreach (var q in Flight(of))
+                    if (!mine.ContainsKey(q.frame))
+                        mine[q.frame] = q;
+                foreach (var p in Flight(nf))
+                {
+                    if (!mine.TryGetValue(p.frame, out var q))
+                        continue;
+                    double off = Math.Sqrt((p.along - q.along) * (p.along - q.along) + (p.across - q.across) * (p.across - q.across));
+                    if (off > PathTolerance + PathShare * Math.Sqrt(p.along * p.along + p.across * p.across))
+                    {
+                        v.Differences.Add("path " + Short(f) + ": " + F(Math.Round(off)) + " px off at frame " + p.frame);
+                        break;
+                    }
+                }
             }
             // damage on the target by Noita's message
             var nHit = noita.Hits.GroupBy(h => h.Message).ToDictionary(g => g.Key, g => g.Sum(h => h.Damage));
