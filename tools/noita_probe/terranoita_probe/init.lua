@@ -95,7 +95,7 @@ local function make_wand( deck )
 	local w = EntityLoad( "data/entities/_debug/testwand.xml", px, py )
 	local ab = EntityGetFirstComponentIncludingDisabled( w, "AbilityComponent" )
 	ComponentSetValue2( ab, "mana_max", 100000 )
-	ComponentSetValue2( ab, "mana", 100000 )
+	ComponentSetValue2( ab, "mana", 50000 )   -- half: spells that give mana (MANA_REDUCE) show it (run 2026-10-09: capped at max)
 	ComponentSetValue2( ab, "mana_charge_speed", 0 )   -- no refill: mana_used is what the cast took
 	ComponentObjectSetValue2( ab, "gun_config", "actions_per_round", 1 )
 	ComponentObjectSetValue2( ab, "gun_config", "deck_capacity", #deck )
@@ -196,9 +196,40 @@ local function release_controls()
 	end
 end
 
+local before = {}   -- root entities near the arena before the cast (not counted as the cast's)
+
+local function note_before()
+	before = {}
+	for _, e in ipairs( EntityGetInRadius( ax + ARENA_W / 2, ay + ARENA_H / 2, 700 ) or {} ) do before[e] = true end
+end
+
+-- what the cast made: projectiles (tag), anything the player shot (script_shot, even if gone already), and any new
+-- root entity near the arena (run 2026-10-09: touch_*, material_*, circle_* have no projectile tag and were missed)
+local function candidates()
+	local list, seen = {}, {}
+	local function add( e, file )
+		if e ~= 0 and not seen[e] then seen[e] = true; list[#list + 1] = { e, file } end
+	end
+	for line in ( GlobalsGetValue( "tnprobe_shots", "" ) ):gmatch( "[^\n]+" ) do
+		local id, file = line:match( "^(%d+)|(.*)$" )
+		if id then add( tonumber( id ), file ) end
+	end
+	for _, e in ipairs( EntityGetWithTag( "projectile" ) or {} ) do add( e ) end
+	for _, e in ipairs( EntityGetInRadius( ax + ARENA_W / 2, ay + ARENA_H / 2, 700 ) or {} ) do
+		if not before[e] and e ~= player and e ~= target and e ~= wand and EntityGetParent( e ) == 0 then add( e ) end
+	end
+	return list
+end
+
 local function track( frame )
-	for _, e in ipairs( EntityGetWithTag( "projectile" ) or {} ) do
-		if not tracked[e] then
+	for _, c in ipairs( candidates() ) do
+		local e, known_file = c[1], c[2]
+		if not tracked[e] and not EntityGetIsAlive( e ) then
+			-- shot and gone before this look: file from script_shot, nothing else
+			tracked[e] = { file = known_file or "", born = frame, dead = frame, parent = "", x0 = nil, y0 = nil, vx0 = nil, vy0 = nil, last = frame }
+			order[#order + 1] = e
+			spawned_frame = frame
+		elseif not tracked[e] then
 			local x, y = EntityGetTransform( e )
 			local vc = EntityGetFirstComponent( e, "VelocityComponent" )
 			local pc = EntityGetFirstComponent( e, "ProjectileComponent" )
@@ -285,6 +316,7 @@ function OnPlayerSpawned( player_entity )
 	ax, ay = x - 160, y - 700                     -- a box of air high in the sky above the start
 	px, py = ax + 40, ay + ARENA_H - 20          -- the player stands on the floor at the left
 	tx, ty = ax + 200, py - 4                    -- the target 160 px to the right, the wall 80 px behind it
+	EntityAddComponent2( player, "LuaComponent", { script_shot = "mods/terranoita_probe/files/on_shot.lua", execute_every_n_frame = -1 } )
 	GetGameEffectLoadTo( player, "PROTECTION_ALL", true )
 	GetGameEffectLoadTo( player, "PROTECTION_POLYMORPH", true )
 	state, t = "start", 0
@@ -320,10 +352,12 @@ update = function()
 			clear_arena()
 			LoadPixelScene( ARENA, "", ax, ay, "", true, false, {}, 50, true )
 			GlobalsSetValue( "tnprobe_hits", "" )
+			GlobalsSetValue( "tnprobe_shots", "" )
 		elseif t == STAMP_WAIT then
 			target = EntityLoad( "mods/terranoita_probe/files/target.xml", tx, ty )
 			local ab
 			wand, ab = make_wand( RUN[idx].deck )
+			note_before()
 			tracked, order, spawned_frame = {}, {}, 0
 			early = 0
 		elseif t == STAMP_WAIT + 1 then

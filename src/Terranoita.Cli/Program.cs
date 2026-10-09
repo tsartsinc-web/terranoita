@@ -195,6 +195,46 @@ namespace Terranoita.Cli
                             }
                             return bad;
                         }
+                        case "probe-cast-check":   // probe-cast-check <noita> <noita_probe.jsonl>: our cast layer (gun.lua in MoonSharp) against Noita's real casts: root projectile files and mana
+                        {
+                            Func<string, string> read = p => Text(files, p);
+                            int all = 0, same = 0;
+                            var reasons = new Dictionary<string, int>();
+                            foreach (var row in NoitaProbe.Read(File.ReadAllText(args[2])))
+                            {
+                                all++;
+                                var gun = new LuaGun(read, null, 1);
+                                // the probe's wand (tools/noita_probe init.lua make_wand)
+                                var w = new LuaWand { SpellsPerCast = 1, RechargeTime = 30, CastDelay = 10, Capacity = row.Deck.Length, Spread = 0 };
+                                foreach (var d in row.Deck) w.Spells.Add((d, -1));
+                                string why = null;
+                                try
+                                {
+                                    gun.Load(w);
+                                    var cast = gun.Cast(100000);
+                                    var ours = cast.Shots.GroupBy(x => x.File).ToDictionary(g => g.Key, g => g.Count());
+                                    var noita = row.Shots.Where(x => string.IsNullOrEmpty(x.Parent) || x.Parent.EndsWith("/player.xml")).GroupBy(x => x.File).ToDictionary(g => g.Key, g => g.Count());
+                                    foreach (var f in ours.Keys.Union(noita.Keys))
+                                    {
+                                        ours.TryGetValue(f, out int a1); noita.TryGetValue(f, out int b1);
+                                        if (a1 != b1) { why = "shots " + Path.GetFileNameWithoutExtension(f) + " " + a1 + " (Noita " + b1 + ")"; break; }
+                                    }
+                                    double mana = 100000 - cast.Mana;
+                                    if (why == null && row.ManaUsed.HasValue && Math.Abs(mana - row.ManaUsed.Value) > 0.5)
+                                        why = "mana " + mana + " (Noita " + row.ManaUsed + ")";
+                                }
+                                catch (Exception ex) { why = "error " + ex.GetType().Name; }
+                                if (why == null) same++;
+                                else
+                                {
+                                    Console.WriteLine(row.Name + ": " + why);
+                                    var key = why.Split(' ')[0];
+                                    reasons[key] = (reasons.TryGetValue(key, out int c) ? c : 0) + 1;
+                                }
+                            }
+                            Console.WriteLine("cast layer matching Noita (root shots + mana): " + same + " of " + all + "; " + string.Join(", ", reasons.Select(kv => kv.Key + " " + kv.Value)));
+                            return 0;
+                        }
                         case "probe-compare":   // probe-compare <noita> <noita_probe.jsonl> <probe_game.jsonl> [out.txt]: our casts against Noita's, field by field (PC-23)
                         {
                             var noita = NoitaProbe.Read(File.ReadAllText(args[2]));
