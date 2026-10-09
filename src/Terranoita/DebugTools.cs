@@ -140,6 +140,10 @@ namespace Terranoita.Game
 
         static void AutoTest()
         {
+            // a test game runs minimized and must never pause: with "Play when unfocused" off (the test profile's
+            // config.json), Terraria pauses the world as soon as another window is active (FocusHelper.UpdateFocus) while
+            // our frame hook keeps counting: the release probe of 2026-10-09 recorded shots that never moved from then on
+            Main.SettingPlayWhenUnfocused = true;
             if (Main.gameMenu)
             {
                 if (_generating)

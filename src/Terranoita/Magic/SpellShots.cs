@@ -517,6 +517,13 @@ namespace Terranoita.Game.Magic
 
         static readonly Dictionary<int, float> Owed = new Dictionary<int, float>();
 
+        /// <summary>BLACK_HOLE_GIGA and WHITE_HOLE_GIGA: their AreaDamageComponent box (72 px each way) kills at once.</summary>
+        static bool OneShot(Shot s)
+        {
+            string f = s.Lua.File ?? "";
+            return f.EndsWith("/black_hole_giga.xml", StringComparison.OrdinalIgnoreCase) || f.EndsWith("/white_hole_giga.xml", StringComparison.OrdinalIgnoreCase);
+        }
+
         static void AreaDamageAt(Shot s, float half, float perFrame)
         {
             var box = new Rectangle((int)(s.Pos.X - half), (int)(s.Pos.Y - half), (int)(half * 2), (int)(half * 2));
@@ -525,6 +532,12 @@ namespace Terranoita.Game.Magic
                 var n = Main.npc[i];
                 if (!n.active || n.friendly || n.dontTakeDamage || n.life <= 0 || !n.Hitbox.Intersects(box))
                     continue;
+                // the giga black and white holes kill what they touch at once (author 2026-10-10)
+                if (OneShot(s))
+                {
+                    Strike(s, n, n.lifeMax * 10f + n.defense * 2f + 1000f);
+                    continue;
+                }
                 // per frame in Noita: added up and dealt every 10 frames, so the numbers stay readable
                 Owed[i] = (Owed.TryGetValue(i, out float o) ? o : 0) + perFrame;
                 if (s.Age % 10 == 0 && Owed[i] >= 1)

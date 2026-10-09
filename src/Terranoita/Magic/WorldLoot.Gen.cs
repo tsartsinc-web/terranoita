@@ -58,6 +58,7 @@ namespace Terranoita.Game.Magic
                 Spots.Clear();
                 PlaceWands();
                 PlaceFlaskAltars();
+                PlaceMoreChests();
                 FillChestsByNoita();
                 _generated = true;
             }
@@ -69,6 +70,35 @@ namespace Terranoita.Game.Magic
             }
         }
 
+        /// <summary>More chests than Terraria makes (author 2026-10-10): half as many again (at least 30), buried in the
+        /// caves between the surface and the underworld, not next to other chests; wooden above the cavern layer, gold
+        /// below. Noita's chest script fills them with the rest (FillChestsByNoita).</summary>
+        static void PlaceMoreChests()
+        {
+            int before = 0;
+            for (int i = 0; i < Main.maxChests; i++)
+            {
+                var c = Main.chest[i];
+                if (c != null && Physics.Mats.InWorld(c.x, c.y) && Main.tile[c.x, c.y].active() &&
+                    (Main.tile[c.x, c.y].type == TileID.Containers || Main.tile[c.x, c.y].type == TileID.Containers2))
+                    before++;
+            }
+            int want = Math.Max(30, before / 2), made = 0;
+            int top = (int)Main.worldSurface + 20, bottom = Main.maxTilesY - 250;
+            for (int tries = 0; made < want && tries < want * 40 && bottom > top; tries++)
+            {
+                int x = WorldGen.genRand.Next(100, Main.maxTilesX - 100), y = WorldGen.genRand.Next(top, bottom);
+                if (Main.tile[x, y].active())
+                    continue;   // a cave, not inside the rock
+                int style = y < Main.rockLayer ? 0 : 1;
+                if (WorldGen.AddBuriedChest(x, y, 0, true, style, false, TileID.Containers))
+                    made++;
+            }
+            Entry.Log("worldgen: " + made + " more chests (Terraria made " + before + ")");
+        }
+
+        const double EmptyWandChance = 0.15;
+
         const string ChestScript = "data/scripts/items/chest_random.lua", SuperChestScript = "data/scripts/items/chest_random_super.lua";
 
         /// <summary>Every Terraria chest gets what Noita's chest drops (drop_random_reward) in its empty slots.</summary>
@@ -78,7 +108,7 @@ namespace Terranoita.Game.Magic
             normal.Load(ChestScript);
             var super = new NoitaBiomeSpawns(NoitaArt.ReadText, WorldGen.genRand.Next());
             super.Load(SuperChestScript);
-            int chests = 0, wands = 0, spells = 0, flasks = 0, other = 0;
+            int chests = 0, wands = 0, spells = 0, flasks = 0, other = 0, emptyWands = 0;
             var skipped = new Dictionary<string, int>();
             var deep = new List<Chest>();
             for (int i = 0; i < Main.maxChests; i++)
@@ -114,6 +144,17 @@ namespace Terranoita.Game.Magic
                         else other++;
                     }
                 }
+                // a chance of an empty wand (author 2026-10-10): one Noita's wand script of the chest's level made, its
+                // spells taken out (all its slots free)
+                int free = Array.FindIndex(c.item, it => it == null || it.IsAir);
+                if (free >= 0 && WorldGen.genRand.NextDouble() < EmptyWandChance)
+                {
+                    var made = Maker.MakeEntity("data/entities/items/wand_level_0" + Math.Max(1, Math.Min(6, level)) + ".xml", nx, ny);
+                    made.Spells.Clear();
+                    made.AlwaysCast.Clear();
+                    c.item[free] = MagicItems.MakeWand(WandWindow.Store(made));
+                    emptyWands++;
+                }
             }
             foreach (var e in normal.Errors.Concat(super.Errors).Distinct().Take(5))
                 Entry.Log("worldgen chest script: " + e);
@@ -131,7 +172,7 @@ namespace Terranoita.Game.Magic
                     c.item[slot] = MagicItems.MakeSpell(a.id);
                     rare++;
                 }
-            Entry.Log("worldgen: Noita's chests: " + chests + " chests, " + wands + " wands, " + spells + " spells, " + flasks +
+            Entry.Log("worldgen: Noita's chests: " + chests + " chests, " + wands + " wands, " + emptyWands + " empty wands, " + spells + " spells, " + flasks +
                       " flasks, " + other + " other items, " + rare + " rare spells in deep chests" +
                       (skipped.Count > 0 ? "; not made yet: " + string.Join(", ", skipped.OrderByDescending(kv => kv.Value).Select(kv => kv.Key + " x" + kv.Value)) : ""));
         }
