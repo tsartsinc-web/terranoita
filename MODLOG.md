@@ -1129,3 +1129,14 @@ unless asked.
 - Verified in game (game_test -Mode magic, test character's .wands made a day older): "is a new character" then
   "starting wands: Bolt staff, Bomb wand"; magic 12/12 OK. Flask: same code path, not checked separately.
 - Melty: 0.4.4 uploaded (d2197b2f, 1298312 bytes) and submitted as a draft, one click yes; the author publishes.
+
+## Magic probe, afternoon 2026-10-09 (PC)
+- tools/noita_probe/run_probe.ps1: hands-free Noita run with backup/restore of config, mod list and the player's run
+  (verified twice: restored). Stuck at Noita's menu this afternoon (Enter does nothing unless New game is selected);
+  asked the author for one screenshot or one click.
+- Terraria probe test fixed (verified in game): wand in hand before firing (first tests cast slot 0), target 16x20 Noita
+  px held at the probe's place, all creatures removed before a test (old targets caught the shots), never together with
+  Noita driven by keys. Matching Noita: 190 of 299 single spells (was 17 of 30 in the morning, 132 with dirty data).
+- Fixes from the data: air_friction negative (1 - f/60 measured in Noita: rocket 1.0833, spark 0.9716): rockets fly and
+  explode at the target; Explode: explosion damage only (it added projectile damage to all in the radius).
+- Probe paths: both sides sample [age, x, y, vx, vy] every 5 frames (needs a new Noita run to fill).

@@ -57,11 +57,13 @@ How it works (author, 2026-10-08): the author only says "работай" to eith
   PlatformShooterPlayerComponent.mForceFireOnNextUpdate + mRequireTriggerPull=0, ControlsComponent.enabled=0 + aim
   fields (S5). Run: scratchpad probe_run.ps1 (Noita restarts its process once: watch the jsonl, not the pid);
   ~5 tests/min. Check: probe_out.jsonl has 875 rows + done -> copy to design/sources/noita_probe.jsonl.
-- Probe status 2026-10-09: Noita rows 299 of 875 (design/sources/noita_probe_partial.jsonl; Noita settings restored,
-  mod disabled; resume: re-enable as PC-22 says, the probe skips done tests), Terraria rows 30
-  (design/sources/probe_game_partial.jsonl; game_test -Mode probe resumes). Partial: matching Noita 17 of 30
-  (design/sources/pc_probe_compare_partial.txt; most misses: projectile damage 0). Cast layer vs Noita
-  (tncli probe-cast-check, first partial run): 147 of 203.
+- Probe status 2026-10-09 (afternoon): Noita rows 299 of 875 (design/sources/noita_probe_partial.jsonl); the hands-free
+  run (tools/noita_probe/run_probe.ps1, backup/restore verified) gets stuck in Noita's menu: Enter starts the game only
+  when "New game" is selected. ASKED the author: one screenshot of Noita's menu, or one click on New game. Terraria rows
+  875 (design/sources/probe_game.jsonl). Matching Noita: 190 of 299 single (noise +-3: one random shot per side).
+  Fixed from the data: probe test (wand in hand, target 16x20 like the probe's, arena cleared of old targets), negative
+  air_friction (rockets), blast = explosion damage only. Open: grenade/bounce on floor, fire damage (DOT not recorded),
+  physics projectiles (bomb), wall spells, single-sample noise (cast each test 3 times?).
 - PC-23 doing: step 1 Core NoitaProbe/MiniJson (tests), step 2 SpellRecorder + SpellProbeTest (`game_test -Mode probe`,
   built only), step 3 Core ProbeCompare + `tncli probe-compare <noita> <noita_probe.jsonl> <probe_game.jsonl> [out]`
   (tests). Left: after PC-22, run game_test -Mode probe (never together with Noita: memory), compare, report the
