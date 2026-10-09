@@ -33,6 +33,7 @@ namespace Terranoita.Game.Magic
             public LuaShot Lua;
             public Vector2 Pos, Vel;
             public float Rot;                  // its heading, radians (Noita's velocity_sets_rotation: the velocity's)
+            public Vector2 Aim;                // the way it was cast (a tentacle reaches out along it)
             public int Life, Age, Bounces, TriggerIn;
             public int Script, StartLife;      // its entity in Noita's shot scripts (0 = none), lifetime at start
             public bool Killed;                // a script killed it
@@ -166,6 +167,7 @@ namespace Terranoita.Game.Magic
                                (ff.Type == MoonSharp.Interpreter.DataType.Boolean ? ff.Boolean : ff.Type == MoonSharp.Interpreter.DataType.Number && ff.Number != 0),
                 Vel = new Vector2((float)Math.Cos(angle), (float)Math.Sin(angle)) * speed * Px / 60f,
                 Rot = angle,
+                Aim = new Vector2((float)Math.Cos(angle), (float)Math.Sin(angle)),
                 Life = (d.Lifetime > 0 ? d.Lifetime : 600) + (int)ls.Get("lifetime_add") + rng.Next(-d.LifetimeRandom, d.LifetimeRandom + 1),
                 Bounces = d.Bounces + (int)ls.Get("bounces"),
                 Damage = nullAll ? 0 : Math.Max(0, d.Damage + d.TypedDamage + ls.Get("damage_projectile_add") +
@@ -280,6 +282,8 @@ namespace Terranoita.Game.Magic
             }
             s.Age++;
             var ph = s.Phys;
+            if (ph.Verlet)
+                return TentacleStep(s);
             if (!(ComponentRuntime && s.Script != 0 && !ph.Thrown && FlyByComponents(s)))
             {
                 s.Vel.Y += s.Gravity;
@@ -414,6 +418,31 @@ namespace Terranoita.Game.Magic
             if (s.Def.DamageEveryFrames > 0 && s.Age % s.Def.DamageEveryFrames == 0)
                 s.Hit.Clear();
             if (--s.Life <= 0)
+            {
+                End(s, false);
+                return true;
+            }
+            return false;
+        }
+
+        /// <summary>A tentacle (projectile_type VERLET) for a frame: its tip at TentacleAt(age) along the aim; Noita moves it by
+        /// its Verlet chain, its VelocityComponent stays 0 (the probe), so ours does too. A creature on the line from its root
+        /// to its tip takes VerletWeaponComponent damage_max once, as $damage_melee.</summary>
+        static bool TentacleStep(Shot s)
+        {
+            s.Pos = s.Origin + s.Aim * TentacleAt(s.Age) * Px;
+            s.Vel = Vector2.Zero;
+            float damage = s.Phys.VerletDamage * 25f;
+            for (int i = 0; i < Main.maxNPCs; i++)
+            {
+                var n = Main.npc[i];
+                if (damage <= 0 || !n.active || n.friendly || n.dontTakeDamage || n.life <= 0 || s.Hit.Contains(i) ||
+                    !Collision.CheckAABBvLineCollision(n.position, n.Size, s.Origin, s.Pos))
+                    continue;
+                Strike(s, n, damage, "$damage_melee");
+                s.Hit.Add(i);
+            }
+            if (--s.Life <= 0 || s.Age >= TentacleReach.Length * 5)   // Noita's ended at frame 60, back at its root
             {
                 End(s, false);
                 return true;

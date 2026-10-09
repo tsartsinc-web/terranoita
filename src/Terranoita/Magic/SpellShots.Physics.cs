@@ -28,6 +28,23 @@ namespace Terranoita.Game.Magic
             // PhysicsThrowableComponent: a thrown physics body (bomb, dynamite, propane tank...); its throw speed in px/s
             public bool Thrown;
             public float ThrowSpeed;
+            // ProjectileComponent projectile_type VERLET (TENTACLE): its tip follows TentacleReach, VerletWeaponComponent damage_max
+            public bool Verlet;
+            public float VerletDamage;
+        }
+
+        // A tentacle's tip (Noita px from where it started, along the aim) every 5 frames, from the Noita probe's
+        // single:TENTACLE path: out to 143 px in 25 frames, back by frame 55, gone at 60. Noita's Verlet physics is not in
+        // its files: a model fitted to the probe (assumed); the tip's upward curl on the way back (-25 px) is left out.
+        static readonly float[] TentacleReach = { 0, 36, 71, 104, 131, 143, 125, 99, 72, 46, 20, 0 };
+
+        static float TentacleAt(int age)
+        {
+            float k = age / 5f;
+            int i = (int)k;
+            if (i >= TentacleReach.Length - 1)
+                return 0;
+            return MathHelper.Lerp(TentacleReach[i], TentacleReach[i + 1], k - i);
         }
 
         // Thrown physics bodies, fitted to the Noita probe (assumed: Noita's physics engine is not in its files): thrown at
@@ -89,6 +106,7 @@ namespace Terranoita.Game.Magic
             var vc = x?.Components.FirstOrDefault(c => c.Type == "VelocityComponent");
             var pc = x?.Components.FirstOrDefault(c => c.Type == "ProjectileComponent");
             var tc = x?.Components.FirstOrDefault(c => c.Type == "PhysicsThrowableComponent");
+            var wc = x?.Components.FirstOrDefault(c => c.Type == "VerletWeaponComponent");
             string V(XmlComponent c, string type, string field) =>
                 c?.Get(field) ?? Docs?.Default(type, field) ?? (Fallback.TryGetValue(type + "." + field, out var d) ? d : null);
             float F(XmlComponent c, string type, string field, float fallback) =>
@@ -114,6 +132,8 @@ namespace Terranoita.Game.Magic
                 PullsToCaster = x != null && (x.Tags ?? "").Split(',').Any(t => t.Trim() == "teleport_projectile_closer"),
                 Thrown = tc != null,
                 ThrowSpeed = Math.Min(F(tc, "PhysicsThrowableComponent", "max_throw_speed", 180f), ThrowPerCoeff * F(tc, "PhysicsThrowableComponent", "throw_force_coeff", 1f)),
+                Verlet = V(pc, "ProjectileComponent", "projectile_type") == "VERLET",
+                VerletDamage = F(wc, "VerletWeaponComponent", "damage_max", 0f),
             };
             if (p.Thrown)
             {
