@@ -1191,3 +1191,22 @@ unless asked.
 - ProbeCompare.Compare: path offset = min(scaled to Noita's start speed, unscaled) (TRUE_ORBIT-like velocity resets);
   "hit-miss <msg>" number when only a small direct hit (<= 1.3, projectile/slice) differs and shots/paths behave the same;
   RANDOM_*/DAMAGE_RANDOM decks: behaviour = fired or not. Run E recompared: behaviour 752 of 925 (was 704).
+
+## PC-32/34/35 session (2026-10-10 night, PC)
+- Probe G3 (3 casts a test, build 71d9f3a): behaviour 775 of 925 (single 353/422, mod 364/429, combo 24/24, wand 34/50).
+  probe-compare now leaves out Noita rows that did not cast (Noita mana 0 for a deck that costs mana: it recorded the
+  previous test's shots still flying): 15 rows, listed by "Noita did not cast" in pc_probe_compare.txt; re-probe them.
+- Spell fixes (built; targeted run T1 confirmed CRUMBLING_EARTH, GLUE_SHOT, WALL_VERTICAL/SQUARE): EntityLoad of
+  script-only entities (Lua runs in the store; recorded for the probe only if it lives past its on-added scripts),
+  LoadEntitiesComponent entities (glitter shards), looks-only entities (wall_sound), SetStartVelocityComponent,
+  ProceduralRandom/ProceduralRandomf (+ ProceduralRandomi 3-argument form), Nxml: a comment between attributes
+  dropped the rest of the tag (glitter_bomb.xml's load_this_entity; Noita's facts may change: rerun tncli facts once),
+  shots slower than 60 px/s into the ground roll instead of spending bounces (assumed limit; grenade 47 -> ~100 frames).
+- Open in PC-32: fire on the probe target from bomb blasts (BOMB, METEOR, wands 1-24/2-49: Noita's target burns, ours
+  not; LeavesFire/Mats.Solid in the probe room unverified), explosion hit-or-miss of grenades/rockets (one Noita
+  sample), *_RAY / LARPA counts.
+- PC-35 (built): Loot.SpellDrop 1/100, depth level, not bosses/summoned. PC-34 (built): perk items, boss drops,
+  per-character file, death rules, game effects -> immunities, perk funcs run on Noita's player_base.xml parts in the
+  script store (tncli perks --run: 105 of 106; STRONG_KICK needs KickComponent.max_force), wands as Noita wand entities
+  for the wand perks, shot modifiers into gun.lua, icon row. game_test -Mode perks checks drop/use/death and 300
+  kills for the spell drop.
