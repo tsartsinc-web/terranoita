@@ -67,6 +67,7 @@ namespace Terranoita.Game.Magic
                 _open = true;   // the wand window is on when the world is entered (author)
                 _spellsFile = Path.Combine(Folder, "players", name + ".spells");
                 _usesFile = Path.Combine(Folder, "players", name + ".uses");
+                ForgetOlderCharacter(name);
                 LoadSpellSlots();
                 LoadInventoryUses(p);
                 WandSlots = NewSlots();
@@ -80,8 +81,31 @@ namespace Terranoita.Game.Magic
                 }
                 StartingWands(p);
                 SaveSlots();
+                // Windows keeps a deleted file's creation time for a file made again with its name: this file is new
+                try { File.SetCreationTimeUtc(_slotsFile, DateTime.UtcNow); } catch { }
             }
             catch (Exception ex) { Entry.Error("wand slots", ex); }
+        }
+
+        /// <summary>
+        /// A new character with the name of an older one (Windows file names ignore case: "Спидозная_козявка" and
+        /// "спидозная_козявка" share the files) found that character's wand files and got no starting wands or flask
+        /// (author 2026-10-09). Wand files made before this character's own file belong to the older one: they go.
+        /// </summary>
+        static void ForgetOlderCharacter(string name)
+        {
+            try
+            {
+                string plr = Main.ActivePlayerFileData?.Path;
+                if (string.IsNullOrEmpty(plr) || !File.Exists(plr) || !File.Exists(_slotsFile) ||
+                    File.GetCreationTimeUtc(_slotsFile) >= File.GetCreationTimeUtc(plr))
+                    return;
+                foreach (var f in new[] { _slotsFile, _spellsFile, _usesFile })
+                    if (File.Exists(f))
+                        File.Delete(f);
+                Entry.Log("wand slots: " + name + " is a new character; the wand files of an older one with this name are gone, starting wands now");
+            }
+            catch (Exception ex) { Entry.Error("wand slots of a new character", ex); }
         }
 
         /// <summary>The spell slots: one line per slot, "ACTION_ID:uses" or "-".</summary>
