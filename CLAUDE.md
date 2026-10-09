@@ -7,7 +7,9 @@ c68ad4c6-f9db-40f5-802c-a4f9d7713e69); release state is in design/tasks.md "Stat
 ## Rules (author)
 - Author writes Russian: answers and questions in simple short Russian (yes/no first); progress and technical notes
   in English, one line or none. Decisions in README are final.
-- Nothing on Melty without the author's explicit permission; the author signs in to Melty personally.
+- Nothing on Melty without the author's explicit request IN THIS SESSION, for that exact action: no upload, no
+  submit_release, no publish, no update_mod. A finished build is not a request; an earlier "post it" does not cover
+  a new version. Melty tokens never go into files, commits or logs. The author signs in to Melty personally.
 - Save tokens: targeted greps, short outputs, no full-file dumps, no subagents unless asked; no screenshots taken or
   read unless the author asks (use log lines).
 - Game tests: only in the background, minimized, one at a time, after a one-line heads-up.
