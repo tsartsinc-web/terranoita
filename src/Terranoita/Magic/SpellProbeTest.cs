@@ -165,12 +165,15 @@ namespace Terranoita.Game.Magic
                 return;
             }
             var only = Environment.GetEnvironmentVariable("TERRANOITA_PROBE_ONLY");
-            var done = new HashSet<string>();
+            // TERRANOITA_PROBE_REPEAT: each test cast this many times (one random spread each; probe-compare takes the
+            // majority), resuming counts the casts already written
+            int repeat = int.TryParse(Environment.GetEnvironmentVariable("TERRANOITA_PROBE_REPEAT"), out int r) && r > 1 ? r : 1;
+            var done = new Dictionary<string, int>();
             try
             {
                 if (File.Exists(OutFile))
                     foreach (var row in NoitaProbe.Read(File.ReadAllText(OutFile)))
-                        done.Add(row.Name);
+                        done[row.Name] = (done.TryGetValue(row.Name, out int c) ? c : 0) + 1;
             }
             catch (Exception ex) { Entry.Error("probe resume", ex); }
             _tests = new List<ProbeTest>();
@@ -178,18 +181,19 @@ namespace Terranoita.Game.Magic
             string[] Ids(Dictionary<string, object> d, string k) => ((d.TryGetValue(k, out var v) ? v as List<object> : null) ?? new List<object>()).Select(x => x as string).ToArray();
             foreach (var o in (MiniJson.Parse(File.ReadAllText(path)) as List<object>) ?? new List<object>())
                 if (o is Dictionary<string, object> d && d.TryGetValue("name", out var n) && n is string name &&
-                    !done.Contains(name) && (string.IsNullOrEmpty(only) || name.Contains(only)))
-                    _tests.Add(new ProbeTest
-                    {
-                        Name = name, Deck = Ids(d, "deck"), AlwaysCast = Ids(d, "always_cast"),
-                        SpellsPerCast = (int)Num(d, "spells_per_cast", 1), Spread = Num(d, "spread", 0), SpeedMultiplier = Num(d, "speed_multiplier", 1),
-                    });
+                    (string.IsNullOrEmpty(only) || name.Contains(only)))
+                    for (int k = done.TryGetValue(name, out int had) ? had : 0; k < repeat; k++)
+                        _tests.Add(new ProbeTest
+                        {
+                            Name = name, Deck = Ids(d, "deck"), AlwaysCast = Ids(d, "always_cast"),
+                            SpellsPerCast = (int)Num(d, "spells_per_cast", 1), Spread = Num(d, "spread", 0), SpeedMultiplier = Num(d, "speed_multiplier", 1),
+                        });
             _wand = WandStore.NewWand();
             _wand.Name = "probe"; _wand.Sprite = "data/items_gfx/handgun.xml"; _wand.Slots = new[] { "LIGHT_BULLET" }; _wand.Uses = new[] { -1 };
             p.inventory[1] = MagicItems.MakeWand(_wand);
             p.selectedItemState.Select(1);
             SpellRecorder.On = true;
-            Entry.Log("PROBE " + _tests.Count + " tests to cast, " + done.Count + " done before");
+            Entry.Log("PROBE " + _tests.Count + " casts to make (" + repeat + " a test), " + done.Values.Sum() + " done before");
         }
 
         static void Next(Player p)

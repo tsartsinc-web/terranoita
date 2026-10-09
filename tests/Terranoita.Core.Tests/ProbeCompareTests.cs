@@ -89,6 +89,28 @@ namespace Terranoita.Tests
         }
 
         [Fact]
+        public void RepeatedCastsCountByMajority()
+        {
+            // TERRANOITA_PROBE_REPEAT: our side casts a test several times (one random spread each); the row behaves like
+            // Noita's when most of our casts do
+            var noita = Row("single:LIGHT_BULLET", 5, (Spark, "", 730));
+            noita.Hits.Add(new ProbeHit { Damage = 0.12, Message = "$damage_projectile" });
+            ProbeRow Cast(bool hits)
+            {
+                var r = Row(noita.Name, 5, (Spark, "", 730));
+                if (hits)
+                    r.Hits.Add(new ProbeHit { Damage = 0.12, Message = "$damage_projectile" });
+                return r;
+            }
+            var two = ProbeCompare.CompareAll(new[] { noita }, new[] { Cast(true), Cast(false), Cast(true) }).Single();
+            Assert.True(two.BehavesLike);
+            Assert.Equal((3, 2), (two.Casts, two.CastsBehaving));
+            var one = ProbeCompare.CompareAll(new[] { noita }, new[] { Cast(false), Cast(true), Cast(false) }).Single();
+            Assert.False(one.BehavesLike);
+            Assert.Equal("damage $damage_projectile: 0 (Noita 0.12)", one.Behaviour.Single());
+        }
+
+        [Fact]
         public void NumbersAloneKeepTheBehaviour()
         {
             var noita = Row("single:LIGHT_BULLET", 5, (Spark, "", 730));

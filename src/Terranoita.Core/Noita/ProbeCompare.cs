@@ -20,6 +20,8 @@ namespace Terranoita.Noita
         public readonly List<string> Behaviour = new List<string>();
         public bool Matches => Differences.Count == 0;
         public bool BehavesLike => Behaviour.Count == 0;
+        /// <summary>Our casts of this test (TERRANOITA_PROBE_REPEAT) and how many of them behaved like Noita's.</summary>
+        public int Casts = 1, CastsBehaving;
     }
 
     public static class ProbeCompare
@@ -145,13 +147,30 @@ namespace Terranoita.Noita
             return v;
         }
 
-        /// <summary>Every test Noita measured, against ours (missing ones count as not matching).</summary>
+        /// <summary>Every test Noita measured, against ours (missing ones count as not matching). With several casts of a
+        /// test on our side (TERRANOITA_PROBE_REPEAT, one random spread each) the majority decides: the verdict shown is
+        /// one of the majority's.</summary>
         public static List<ProbeVerdict> CompareAll(IEnumerable<ProbeRow> noita, IEnumerable<ProbeRow> ours)
         {
-            var mine = new Dictionary<string, ProbeRow>(StringComparer.Ordinal);
+            var mine = new Dictionary<string, List<ProbeRow>>(StringComparer.Ordinal);
             foreach (var r in ours)
-                mine[r.Name] = r;
-            return noita.Select(n => Compare(n, mine.TryGetValue(n.Name, out var o) ? o : null)).ToList();
+            {
+                if (!mine.TryGetValue(r.Name, out var l))
+                    mine[r.Name] = l = new List<ProbeRow>();
+                l.Add(r);
+            }
+            return noita.Select(n =>
+            {
+                if (!mine.TryGetValue(n.Name, out var casts))
+                    return Compare(n, null);
+                var all = casts.Select(o => Compare(n, o)).ToList();
+                int behaving = all.Count(v => v.BehavesLike);
+                bool majority = behaving * 2 > all.Count;
+                var pick = all.Where(v => v.BehavesLike == majority).OrderBy(v => v.Differences.Count).First();
+                pick.Casts = all.Count;
+                pick.CastsBehaving = behaving;
+                return pick;
+            }).ToList();
         }
 
         /// <summary>"behaviour: N of M (...); matching Noita: N of M (...)": casts that do what Noita's do (PC-30, the
