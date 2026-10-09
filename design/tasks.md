@@ -33,6 +33,19 @@ How it works (author, 2026-10-08): the author only says "работай" to eith
 ## PC queue
 - AUTHOR 2026-10-09 (via cloud, the author is away): FOCUS. Finish magic first (PC-21..PC-25 with PC-28), then
   PC-27. Park PC-4, PC-10, PC-19, PC-17, PC-6 until then.
+- PC-30 new (author 2026-10-09: WHAT MATTERS in magic; it sets the priority of PC-23..PC-25): behaviour first,
+  numbers later. Exact bullet speed, bounce height, small damage differences are LOW priority. HIGH priority, in order:
+  1) every spell does what it should, as in Noita (fires its shot/effect, the shot exists and acts: digs, summons,
+  teleports, heals, makes liquid, explodes, triggers its payload...);
+  2) every modifier works as in Noita: on-hit/touch (touch_*), shapes/formations (I/Y/T/W/circle/pentagram, DIVIDE_*),
+  homing, orbits, spirals, boosts (damage/speed/crit/fire rate), triggers/timers/expiration, multicasts, ALL draw-many;
+  3) spell BUILDS work: Noita's own random wands (wand_level_0N.lua via LuaWandMaker, fixed seeds) cast their decks and
+  do what the same deck does in Noita.
+  So: probe-compare reports a BEHAVIOUR verdict per row (shot types spawned, count, payload fired, modifier effect seen:
+  path turns for homing, circle for orbit, N shots at the right angles for shapes...), separate from numeric diffs;
+  the coverage number = behaviour matches. Add a probe set "random_wands" (e.g. 50 wands, levels 1-6, fixed seeds,
+  same decks in Noita and Terraria; new rows, so one extra Noita run per PC-29). Fix order: what breaks most
+  behaviours first. Check: probe-compare prints "behaviour: X of 875 (+ random wands Y of 50)" and the number rises.
 - PC-29 new (author 2026-10-09, rule for PC-22/23 and later): Noita runs ONCE, Terraria as often as needed. Noita is
   only the reference and does not change, so its answers are recorded once and kept. 1) One full hands-free probe
   run to all 875 rows (resume from the 299 done), preferably when the author is away (night), then commit it as
