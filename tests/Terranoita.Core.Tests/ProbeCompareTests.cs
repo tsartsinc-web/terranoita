@@ -110,6 +110,46 @@ namespace Terranoita.Tests
             Assert.Equal("damage $damage_projectile: 0 (Noita 0.12)", one.Behaviour.Single());
         }
 
+        [Fact(Skip = "PC-31 next step: implement in ProbeCompare.Compare (MODLOG handoff 2026-10-10)")]
+        public void APathAScriptResetsIsComparedUnscaled()
+        {
+            // TRUE_ORBIT (PC-31 a): first seen at 738 px/s, then a script sets the orbit; ours started slower and orbits
+            // the same way: scaling our flight by 738/100 would put it far off
+            var noita = With(Flying(20, -6, 738, 0, new double[] { 0, 20, -6, 738, 0 }, new double[] { 5, 30, 24, 0, 300 }, new double[] { 10, 0, 34, -300, 0 }));
+            var ours = With(Flying(8, 0, 100, 0, new double[] { 0, 8, 0, 100, 0 }, new double[] { 5, 18, 30, 0, 300 }, new double[] { 10, -12, 40, -300, 0 }));
+            Assert.True(ProbeCompare.Compare(noita, ours).BehavesLike);
+        }
+
+        [Fact(Skip = "PC-31 next step: implement in ProbeCompare.Compare (MODLOG handoff 2026-10-10)")]
+        public void AHitOrMissOfTheSameShotsIsANumber()
+        {
+            // PC-31 b: the same shots, one random spread each: Noita's grazed the target, ours missed it
+            var noita = Row("single:BUCKSHOT", 5, (Spark, "", 730), (Spark, "", 730));
+            noita.Hits.Add(new ProbeHit { Damage = 0.12, Message = "$damage_projectile" });
+            var ours = Row(noita.Name, 5, (Spark, "", 730), (Spark, "", 730));
+            var v = ProbeCompare.Compare(noita, ours);
+            Assert.True(v.BehavesLike);
+            Assert.Equal("hit-miss $damage_projectile: 0 (Noita 0.12)", v.Differences.Single());
+            // a big hit is not chance: ours never hurts with it (behaviour)
+            var big = Row(noita.Name, 5, (Spark, "", 730), (Spark, "", 730));
+            big.Hits.Add(new ProbeHit { Damage = 5, Message = "$damage_projectile" });
+            Assert.False(ProbeCompare.Compare(big, ours).BehavesLike);
+        }
+
+        [Fact(Skip = "PC-31 next step: implement in ProbeCompare.Compare (MODLOG handoff 2026-10-10)")]
+        public void RandomSpellsOnlyHaveToFire()
+        {
+            // PC-31 c: RANDOM_SPELL casts something else each time; only whether it fires is behaviour
+            var noita = Row("single:RANDOM_SPELL", 5, ("data/entities/projectiles/deck/sea_acid.xml", "", 0));
+            noita.Deck = new[] { "RANDOM_SPELL" };
+            var ours = Row(noita.Name, 5, (Spark, "", 730));
+            ours.Deck = new[] { "RANDOM_SPELL" };
+            var v = ProbeCompare.Compare(noita, ours);
+            Assert.True(v.BehavesLike);
+            Assert.False(v.Matches);
+            Assert.Equal("nothing fired (Noita fired)", ProbeCompare.Compare(noita, Row(noita.Name, 0)).Behaviour.Single());
+        }
+
         [Fact]
         public void NumbersAloneKeepTheBehaviour()
         {

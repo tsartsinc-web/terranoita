@@ -37,7 +37,14 @@ How it works (author, 2026-10-08): the author only says "работай" to eith
   was the test harness: Terraria paused the minimized test game when another window was active (fixed: autotest sets
   PlayWhenUnfocused). Package build/terranoita-0.4.5.zip (1307032 bytes, sha256 c8cef6db...). MP physics and
   electricity on by default (not tested with several players).
-- PC-31 new (after the release; cloud analysed run B, 2026-10-09): ~70 of the 201 behaviour failures are the TEST, not
+- PC-31 doing (2026-10-10): three tests written in tests/Terranoita.Core.Tests/ProbeCompareTests.cs, marked Skip
+  (APathAScriptResetsIsComparedUnscaled, AHitOrMissOfTheSameShotsIsANumber, RandomSpellsOnlyHaveToFire). Next: remove
+  the Skip, see them fail, implement in ProbeCompare.Compare: a) path offset = min(scaled, unscaled); b) a direct-hit
+  damage ($damage_projectile, $damage_slice) <= 1.3 on one side and < NoHarm on the other, with no shots/path behaviour
+  difference in the row = number "hit-miss <message>: b (Noita a)"; c) a deck with RANDOM_* or DAMAGE_RANDOM: only
+  fired/not fired is behaviour. Then recompare run E (scratchpad of session 2c74a90e: game_E.jsonl; or a new probe run)
+  and report the number and the rows that flipped.
+- PC-31 (row from the cloud, after the release; cloud analysed run B, 2026-10-09): ~70 of the 201 behaviour failures are the TEST, not
   the mod. Fix probe-compare first, so the number tells the truth: a) path check must not scale our path by Noita's
   START speed when a script re-sets the velocity after spawn (TRUE_ORBIT: Noita 738 px/s on frame 0, then the orbit;
   both orbit the player, radius 36 vs our 42: the "538 px off" is the scaling) - compare unscaled positions or skip

@@ -1175,3 +1175,14 @@ unless asked.
 - The release probe's frozen shots (2026-10-09, behaviour 451) were the harness, not the mod: the minimized test game
   paused when another window became active (FocusHelper.UpdateFocus, test profile PlayWhenUnfocused false) while the
   probe's DoUpdate hook kept counting. Autotest now sets Main.SettingPlayWhenUnfocused = true; after it, 0 frozen rows.
+
+## Handoff 2026-10-10 night (PC, before a new chat)
+- State: 0.4.5 LIVE on Melty (published 22:43 with the author's permission; token deleted). Games closed. All committed.
+- Probe: design/sources/noita_probe.jsonl = 925 Noita rows + 8 fit rows NOT yet run in Noita (fit:HOMING*+DISC_BULLET_BIG,
+  PC-29 allows one Noita run for new rows: tools/noita_probe/run_probe.ps1 -Minutes 30). Last full Terraria run: E
+  (704 of 925 behaviour). Test games no longer pause when unfocused (that was the "451" release-probe failure).
+- Exact next step: PC-31 in design/tasks.md: un-skip the three ProbeCompareTests (they must fail), implement a/b/c in
+  src/Terranoita.Core/Noita/ProbeCompare.cs, dotnet test, then a full `game_test -Mode probe` (~20 min, background,
+  move %LOCALAPPDATA%/Terranoita/probe_game.jsonl aside first) and `tncli probe-compare`; commit the number.
+- After that: PC-32 (real failures by group), the homing fit (Noita run for the 8 fit rows, then fit the formula from
+  their paths: notes in design/magic_plan.md), PC-24 step 1 measurement (TERRANOITA_RUNTIME=components vs off, same build).
