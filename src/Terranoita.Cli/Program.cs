@@ -195,6 +195,20 @@ namespace Terranoita.Cli
                             }
                             return bad;
                         }
+                        case "probe-compare":   // probe-compare <noita> <noita_probe.jsonl> <probe_game.jsonl> [out.txt]: our casts against Noita's, field by field (PC-23)
+                        {
+                            var noita = NoitaProbe.Read(File.ReadAllText(args[2]));
+                            var ours = File.Exists(args[3]) ? NoitaProbe.Read(File.ReadAllText(args[3])) : new List<ProbeRow>();
+                            var verdicts = ProbeCompare.CompareAll(noita, ours);
+                            var lines = verdicts.Select(v => v.Name + ": " + (v.Matches ? "OK" : string.Join("; ", v.Differences))).ToList();
+                            string summary = ProbeCompare.Summary(verdicts);
+                            Console.WriteLine(summary);
+                            foreach (var g in verdicts.SelectMany(v => v.Differences).Select(d => d.Split(':')[0]).GroupBy(x => x).OrderByDescending(g => g.Count()).Take(15))
+                                Console.WriteLine("  " + g.Count() + "x " + g.Key);
+                            if (args.Length > 4)
+                                File.WriteAllLines(args[4], new[] { summary }.Concat(lines));
+                            return 0;
+                        }
                         case "probe-tests":   // probe-tests <noita> <tests.lua> <tests.json>: the casts the Noita probe mod and our SpellsTest both measure
                         {
                             var actions = new LuaWandMaker(p => Text(files, p)).Actions().Select(a => (a.id, a.type));

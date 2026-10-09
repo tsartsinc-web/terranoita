@@ -1098,3 +1098,13 @@ unless asked.
   through ControlsComponent fields and, if nothing fires, retries with ControlsComponent.enabled = 0; each row says
   fire_method. `tncli lua-check <noita> <files>`: MoonSharp compile check (all three Lua files ok).
 - Next: author runs it once; then PC-23 reads design/sources/noita_probe.jsonl.
+
+## PC-22/23 progress (2026-10-09, PC)
+- Probe firing found by diag runs in Noita (verified in Noita): mButtonDownFire alone is overwritten by input; a new
+  wand needs a trigger pull (PlatformShooterPlayerComponent.mRequireTriggerPull); S5 = input off + aim fields +
+  mRequireTriggerPull 0 + mForceFireOnNextUpdate fires on frame 1 at the target (LIGHT_BULLET 0.12 projectile damage,
+  BOMB 5.0 explosion). probe_status.txt reports load/spawn/errors (no screenshots). Noita menu reached by Enter keys
+  after clearing save00/world (only files made by these runs; the folder had only steam_autocloud.vdf before).
+- PC-23: Core NoitaProbe + MiniJson + ProbeCompare (121 Core tests pass); game SpellRecorder + SpellProbeTest +
+  game_test -Mode probe (built only). Behaviour change: a blast that also hits with its projectile is two hits
+  (explosion, projectile) as in Noita, not one summed hit.

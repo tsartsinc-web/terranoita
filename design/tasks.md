@@ -39,18 +39,17 @@ How it works (author, 2026-10-08): the author only says "работай" to eith
   (SpellShots.Physics.cs ReportRuntime). (c) done (verified by run): `tncli magic-coverage <noita> [out.json]`:
   static coverage 311 of 422 spells (gun.lua's fired files + extra/game_effect entities; scripts' deeper children not
   followed yet) -> design/sources/pc_magic_coverage.json. Phase 0 done; game run of (a)/(b) not yet. Next: PC-22.
-- PC-22 waits author (one Noita run): probe mod written and installed (built only: Lua compiles via
-  `tncli lua-check`; never run in Noita). Source tools/noita_probe/terranoita_probe (copy to Noita/mods). Tests:
-  `tncli probe-tests <noita> <mod>/files/tests.lua design/sources/probe_tests.json` (875: 422 single, 429 modifier,
-  24 combo; Core ProbeTests). Per test: sky arena (files/arena.png: air box, rock floor/wall), fresh wand
-  (_debug/testwand.xml + Noita's AddGunAction), one cast by ControlsComponent fields (assumed; falls back to
-  enabled=0), every projectile tracked (file, parent via mEntityThatShot, born/end frame, start/next velocity, path),
-  hits on the target (damage_received), mana used -> Noita/mods/terranoita_probe/probe_out.jsonl (resumes).
-  Author: enable the mod + unsafe mods, NEW game, wait for "all 875 tests written". Then copy probe_out.jsonl to
-  design/sources/noita_probe.jsonl. Check: one line per test, first lines fired something (fire_method noted).
-- PC-23 new (Phase 1): SpellsTest records the same fields in Terraria and compares with noita_probe.json per field
-  (scale 1 Noita px = 3 px); baseline rows per field; report "matching Noita: N of M". Check: rows show the
-  author's list (draw-many, utility, TENTACLE, ROCKET_TIER_3) before fixes.
+- PC-22 doing (author 2026-10-09: "разрешаю, делай": the agent runs Noita itself): probe mod tools/noita_probe
+  (installed). Noita settings changed for the run, backups *.terranoita_backup next to them + scratchpad:
+  save_shared/config.xml (mods_sandbox_enabled 0, disclaimer/warning done, application_pause_when_unfocused 0),
+  save00/mod_config.xml (terranoita_probe enabled); RESTORE both after the run. Firing from Lua (verified in Noita):
+  PlatformShooterPlayerComponent.mForceFireOnNextUpdate + mRequireTriggerPull=0, ControlsComponent.enabled=0 + aim
+  fields (S5). Run: scratchpad probe_run.ps1 (Noita restarts its process once: watch the jsonl, not the pid);
+  ~5 tests/min. Check: probe_out.jsonl has 875 rows + done -> copy to design/sources/noita_probe.jsonl.
+- PC-23 doing: step 1 Core NoitaProbe/MiniJson (tests), step 2 SpellRecorder + SpellProbeTest (`game_test -Mode probe`,
+  built only), step 3 Core ProbeCompare + `tncli probe-compare <noita> <noita_probe.jsonl> <probe_game.jsonl> [out]`
+  (tests). Left: after PC-22, run game_test -Mode probe (never together with Noita: memory), compare, report the
+  number. Check: "matching Noita: N of M" printed and the author's list visible in the reasons.
 - PC-24 new (Phase 2): component runtime in Core behind a switch (TERRANOITA_RUNTIME=components); move existing
   behaviour type by type. Check: PC-23 number equal or better per step.
 - PC-25 new (Phase 3-4): missing components by spells affected (magic_plan Phase 3 order), then the author plays.
