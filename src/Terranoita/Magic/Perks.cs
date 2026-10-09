@@ -167,13 +167,18 @@ namespace Terranoita.Game.Magic
                 x.Components.Where(c => PlayerParts.Contains(c.Type)).Select(c => (c.Type, (IDictionary<string, string>)c.Fields)).ToList());
             _entityOwner = _owner;
             var count = new Dictionary<string, int>();
-            foreach (string id in mine.ToList())
+            _replaying = true;
+            try
             {
-                count[id] = count.TryGetValue(id, out int n) ? n + 1 : 1;
-                var k = Get(id);
-                if (k != null && Replays(k))
-                    Run(p, _entity, id, count[id]);
+                foreach (string id in mine.ToList())
+                {
+                    count[id] = count.TryGetValue(id, out int n) ? n + 1 : 1;
+                    var k = Get(id);
+                    if (k != null && Replays(k))
+                        Run(p, _entity, id, count[id]);
+                }
             }
+            finally { _replaying = false; }
             return _entity;
         }
 
@@ -188,10 +193,104 @@ namespace Terranoita.Game.Magic
                 SpellShots.ScriptStore.Components(who, "ShotEffectComponent").Select(c => c.Get("extra_modifier")).Where(m => !string.IsNullOrEmpty(m)).ToList();
         }
 
+        static bool _replaying;
+
+        static string Num(float f) => f.ToString(System.Globalization.CultureInfo.InvariantCulture);
+
+        static float Num(string s, float d) =>
+            float.TryParse(s, System.Globalization.NumberStyles.Float, System.Globalization.CultureInfo.InvariantCulture, out float f) ? f : d;
+
+        /// <summary>The character's wands as Noita's wand entities under the player (AbilityComponent, always-cast cards),
+        /// the one in hand as Inventory2Component.mActiveItem: the wand perks' funcs (ALWAYS_CAST, EXTRA_SLOTS,
+        /// FASTER_WANDS, NO_MORE_SHUFFLE...) change them there.</summary>
+        static List<(int entity, WandData wand)> WandsIn(Player p, int who)
+        {
+            var store = SpellShots.ScriptStore;
+            var list = new List<(int, WandData)>();
+            for (int i = 0; i < 50; i++)
+            {
+                var w = MagicItems.WandOf(p.inventory[i]);
+                if (w == null)
+                    continue;
+                int id = store.CreateEntity("wand", "wand", p.Center.X / Px, p.Center.Y / Px, new (string, IDictionary<string, string>)[]
+                {
+                    ("AbilityComponent", new Dictionary<string, string>
+                    {
+                        ["gun_config.deck_capacity"] = (w.Capacity + w.AlwaysCast.Count).ToString(),
+                        ["gun_config.actions_per_round"] = w.SpellsPerCast.ToString(),
+                        ["gun_config.shuffle_deck_when_empty"] = w.Shuffle ? "1" : "0",
+                        ["gun_config.reload_time"] = Num(w.RechargeTime),
+                        ["gunaction_config.fire_rate_wait"] = Num(w.CastDelay),
+                        ["gunaction_config.spread_degrees"] = Num(w.Spread),
+                        ["gunaction_config.speed_multiplier"] = Num(w.SpeedMultiplier),
+                        ["mana_max"] = Num(w.ManaMax), ["mana_charge_speed"] = Num(w.ManaChargeSpeed), ["mana"] = Num(w.ManaMax),
+                    }),
+                    ("ItemComponent", new Dictionary<string, string>()),
+                }, who);
+                foreach (string a in w.AlwaysCast)
+                    store.CreateEntity("", "card_action", 0, 0, new (string, IDictionary<string, string>)[]
+                    {
+                        ("ItemActionComponent", new Dictionary<string, string> { ["action_id"] = a }),
+                        ("ItemComponent", new Dictionary<string, string> { ["permanently_attached"] = "1" }),
+                    }, id);
+                if (i == p.selectedItem)
+                    store.SetField(who, "Inventory2Component", "mActiveItem", id.ToString());
+                list.Add((id, w));
+            }
+            return list;
+        }
+
+        /// <summary>What the func did to the wands, back into the wand store; the wand entities go.</summary>
+        static void WandsBack(List<(int entity, WandData wand)> wands)
+        {
+            var store = SpellShots.ScriptStore;
+            foreach (var (id, w) in wands)
+            {
+                var ab = store.Components(id, "AbilityComponent", false).FirstOrDefault();
+                if (ab != null)
+                {
+                    var always = store.ChildrenOf(id)
+                        .Where(ch => store.Components(ch, "ItemComponent", false).Any(c => c.Get("permanently_attached") == "1"))
+                        .Select(ch => store.Components(ch, "ItemActionComponent", false).FirstOrDefault()?.Get("action_id"))
+                        .Where(a => !string.IsNullOrEmpty(a)).ToList();
+                    int slots = Math.Max(1, (int)Num(ab.Get("gun_config.deck_capacity"), w.Capacity + w.AlwaysCast.Count) - always.Count);
+                    if (slots != w.Slots.Length)
+                    {
+                        var s = w.Slots;
+                        var u = w.Uses;
+                        int had = u.Length;
+                        Array.Resize(ref s, slots);
+                        Array.Resize(ref u, slots);
+                        for (int k = had; k < slots; k++)
+                            u[k] = -1;
+                        w.Slots = s;
+                        w.Uses = u;
+                    }
+                    w.AlwaysCast = always;
+                    w.SpellsPerCast = (int)Num(ab.Get("gun_config.actions_per_round"), w.SpellsPerCast);
+                    string sh = ab.Get("gun_config.shuffle_deck_when_empty");
+                    w.Shuffle = sh == "1" || sh == "true";
+                    w.RechargeTime = Num(ab.Get("gun_config.reload_time"), w.RechargeTime);
+                    w.CastDelay = Num(ab.Get("gunaction_config.fire_rate_wait"), w.CastDelay);
+                    w.Spread = Num(ab.Get("gunaction_config.spread_degrees"), w.Spread);
+                    w.SpeedMultiplier = Num(ab.Get("gunaction_config.speed_multiplier"), w.SpeedMultiplier);
+                    w.ManaMax = Num(ab.Get("mana_max"), w.ManaMax);
+                    w.ManaChargeSpeed = Num(ab.Get("mana_charge_speed"), w.ManaChargeSpeed);
+                }
+                store.Forget(id);
+            }
+            if (wands.Count > 0)
+                WandStore.Save();
+        }
+
         static void Run(Player p, int who, string id, int pickupCount)
         {
             var store = SpellShots.ScriptStore;
+            if (store.RandomAction == null)
+                store.RandomAction = (level, type) => WorldLoot.RandomSpell(level, type);
             int item = store.CreateEntity("perk", "perk", p.Center.X / Px, p.Center.Y / Px, new (string, IDictionary<string, string>)[0]);
+            // a replay when the character loads leaves the wands alone: they keep what the perk did to them then
+            var wands = _replaying ? new List<(int entity, WandData wand)>() : WandsIn(p, who);
             try
             {
                 if (store.RunPerk(id, who, item, pickupCount))
@@ -202,7 +301,11 @@ namespace Terranoita.Game.Magic
                 if (Told.Add("func:" + id))
                     Entry.Error("perk func " + id, ex);
             }
-            finally { store.Forget(item); }
+            finally
+            {
+                store.Forget(item);
+                WandsBack(wands);
+            }
         }
 
         /// <summary>Noita's game effects of the perks the player holds, as Terraria's own immunities (design/perks.md).</summary>

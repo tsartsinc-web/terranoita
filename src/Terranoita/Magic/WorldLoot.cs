@@ -87,6 +87,9 @@ namespace Terranoita.Game.Magic
         /// <summary>A random spell of the Noita level of a depth (tile row), by Noita's own GetRandomAction.</summary>
         public static string RandomSpellAt(int y) => Maker.RandomAction(LevelAt(y), -1);
 
+        /// <summary>A random spell of a Noita level and action type (-1 = any), by Noita's own tables.</summary>
+        public static string RandomSpell(int level, int type) => Maker.RandomAction(level, type);
+
         /// <summary>Noita's level for a depth: the dirt layer 1, then down to the underworld 6.</summary>
         static int LevelAt(int y)
         {

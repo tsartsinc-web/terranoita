@@ -152,6 +152,9 @@ namespace Terranoita.Noita
         /// their stacks here (PERK_SHIELD_COUNT...); the game saves them with the character's perks.</summary>
         public readonly Dictionary<string, string> GlobalValues = new Dictionary<string, string>(StringComparer.Ordinal);
         public readonly HashSet<string> RunFlags = new HashSet<string>(StringComparer.Ordinal);
+        /// <summary>Noita's GetRandomActionWithType(x, y, level, type, seed) and GetRandomAction(x, y, level, seed): the game
+        /// answers from Noita's own spell tables (LuaWandMaker); (level, type -1 = any) -> action id.</summary>
+        public Func<int, int, string> RandomAction;
         int _worldState;
         public readonly List<string> Errors = new List<string>();    // one line per broken script file
         public Action<string> Log = _ => { };
@@ -220,9 +223,9 @@ namespace Terranoita.Noita
 
         /// <summary>An entity of the store made by the game from parts, not from a file: the player as Noita's perk funcs
         /// see it (PC-34: DamageModelComponent, CharacterDataComponent...). Its added scripts run like any others.</summary>
-        public int CreateEntity(string name, string tags, float x, float y, IEnumerable<(string type, IDictionary<string, string> fields)> comps)
+        public int CreateEntity(string name, string tags, float x, float y, IEnumerable<(string type, IDictionary<string, string> fields)> comps, int parent = 0)
         {
-            var e = NewEnt(0);
+            var e = NewEnt(parent);
             e.Name = name ?? "";
             AddTags(e, tags);
             e.X = x; e.Y = y;
@@ -955,6 +958,28 @@ namespace Terranoita.Noita
             Def(g, "GetUpdatedEntityID", a => DynValue.NewNumber(_curEntity));
             Def(g, "GetUpdatedComponentID", a => DynValue.NewNumber(_curComp));
             Def(g, "GameGetFrameNum", a => DynValue.NewNumber(_frame));
+
+            // wands as perks see them (ALWAYS_CAST, EXTRA_SLOTS...): a wand entity's AbilityComponent and its cards
+            Def(g, "EntityGetWandCapacity", a =>
+            {
+                // the slots for spells: gun_config.deck_capacity without the always-cast cards (permanently attached)
+                var we = E(a);
+                var ability = CompsOf(we, "AbilityComponent", null, true).FirstOrDefault();
+                double cap = ability == null ? 0 : double.TryParse(GetRaw(ability, "gun_config.deck_capacity"), NumberStyles.Float, CultureInfo.InvariantCulture, out double d) ? d : 0;
+                int always = we == null ? 0 : we.Children.Count(ch => _ents.TryGetValue(ch, out var ce) && CompsOf(ce, "ItemComponent", null, true).Any(c => GetRaw(c, "permanently_attached") == "1"));
+                return DynValue.NewNumber(cap - always);
+            });
+            Def(g, "CreateItemActionEntity", a =>
+            {
+                // a spell card: its ItemActionComponent names the action (Noita's engine makes it from the action's entity)
+                return DynValue.NewNumber(CreateEntity("", "card_action", (float)N(a, 1), (float)N(a, 2), new (string, IDictionary<string, string>)[]
+                {
+                    ("ItemActionComponent", new Dictionary<string, string> { ["action_id"] = S(a, 0) ?? "" }),
+                    ("ItemComponent", new Dictionary<string, string> { ["permanently_attached"] = "0" }),
+                }));
+            });
+            Def(g, "GetRandomActionWithType", a => DynValue.NewString(RandomAction?.Invoke((int)N(a, 2), (int)N(a, 3)) ?? ""));
+            Def(g, "GetRandomAction", a => DynValue.NewString(RandomAction?.Invoke((int)N(a, 2), -1) ?? ""));
 
             // run-wide state
             Def(g, "GlobalsGetValue", a => DynValue.NewString(GlobalValues.TryGetValue(S(a, 0) ?? "", out var v) ? v : S(a, 1) ?? ""));
