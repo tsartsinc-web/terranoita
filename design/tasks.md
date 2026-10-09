@@ -48,9 +48,9 @@ How it works (author, 2026-10-08): the author only says "работай" to eith
   random spell item on death (MagicItems.MakeSpell; spell level by the creature's tier / depth, e.g. Maker.RandomAction
   with the zone's Noita level). Not from bosses (they drop perks, PC-34), not from summoned/split creatures.
   Check: log line per drop; a quick kill test of ~300 creatures gives ~3 drops.
-  Built only (2026-10-10): Loot.SpellDrop (1/100, WorldLoot.RandomSpellAt = Noita level of the depth, "spell drop:" log),
-  Carriers.MarkSummoned for summons and spell-made creatures, boss_* excluded. Left: the kill test.
-- PC-34 doing; design/perks.md written 2026-10-10 (106 perks, 37 adapted or changed; read it first); Core NoitaPerks.Read + `tncli perks` (106, pool 103) done (AFTER the night plan's magic tasks; author's design 2026-10-09, final): Noita perks.
+  Verified in game 2026-10-10 (game_test -Mode perks): 2 spell drops from 198 zombie_weak kills (BULLET_TRIGGER,
+  Y_SHAPE); Loot.SpellDrop 1/100, Noita level of the depth, summoned/spell-made and boss_* excluded. Done.
+- PC-34 doing (verified in game 2026-10-10, game_test -Mode perks: King Slime drops 1 perk item on a normal world, 12 perks taken with Noita's funcs, death -> 0 left and 3 dropped); design/perks.md written 2026-10-10 (106 perks, 37 adapted or changed; read it first); Core NoitaPerks.Read + `tncli perks` (106, pool 103) done (AFTER the night plan's magic tasks; author's design 2026-10-09, final): Noita perks.
   1) ALL of Noita's perks (data/scripts/perks/perk_list.lua + their scripts/effects, run Noita's own code where it
   can: stage-3 rule); study each perk's mechanics, adapt only what has no meaning in Terraria and say which.
   2) Perks are ITEMS: random perk items DROP from Terraria bosses when killed; more drops on higher difficulty
