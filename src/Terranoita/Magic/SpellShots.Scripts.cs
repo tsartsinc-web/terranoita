@@ -88,6 +88,7 @@ namespace Terranoita.Game.Magic
             try
             {
                 _scripts.Fire(s.Script, "script_death", 0, "", 0, false);
+                _scripts.Removed(s.Script);   // execute_on_removed (CHAIN_SHOT shoots its next link here)
                 _scripts.Forget(s.Script);
             }
             catch (Exception ex) { Entry.Error("shot death script", ex); }

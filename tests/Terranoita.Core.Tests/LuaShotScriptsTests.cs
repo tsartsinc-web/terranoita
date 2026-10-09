@@ -81,6 +81,14 @@ for _, c in ipairs(EntityGetComponent(me, ""VariableStorageComponent"") or {}) d
   end
 end
 ",
+            // as chain_shot.xml: its script runs when the shot goes
+            ["data/entities/misc/test_on_removed.xml"] = @"<Entity>
+  <LuaComponent script_source_file=""data/scripts/test_on_removed.lua"" execute_every_n_frame=""-1"" execute_on_removed=""1"" />
+</Entity>",
+            ["data/scripts/test_on_removed.lua"] = @"
+local root = EntityGetRootEntity(GetUpdatedEntityID())
+ComponentSetValue2(EntityGetFirstComponent(root, ""ProjectileComponent""), ""chain"", 1)
+",
             // as accelerating_shot.xml: every frame, no execute_times, removed after it ran
             ["data/entities/misc/test_once.xml"] = @"<Entity>
   <VariableStorageComponent name=""count"" value_int=""0"" />
@@ -203,6 +211,23 @@ ComponentSetValue2(c, ""randoms"", (r1 >= 0 and r1 < 1 and r2 >= 0 and r2 <= 5 a
             Assert.Equal("120", lua.Components(shot, "VelocityComponent", false).Single().Get("gravity_y"));
             Assert.False(lua.SetField(shot, "HomingComponent", "detect_distance", "50"));   // bolt.xml has none
             Assert.False(lua.SetField(12345, "VelocityComponent", "gravity_y", "1"));         // no such entity
+        }
+
+        [Fact]
+        public void ExecuteOnRemovedRunsOnceWhenTheShotGoes()
+        {
+            // CHAIN_SHOT: chain_shot.xml's chain_shot_launch.lua (execute_on_removed) shoots the next shot of the chain
+            var (lua, host, shot) = Shot();
+            host.HostFields["ProjectileComponent.chain"] = "0";
+            lua.AttachExtra(shot, "data/entities/misc/test_on_removed.xml");
+            Run(lua, host, 5);
+            Assert.Equal("0", host.HostFields["ProjectileComponent.chain"]);   // not while the shot flies
+            lua.Removed(shot);
+            Assert.Equal("1", host.HostFields["ProjectileComponent.chain"]);
+            host.HostFields["ProjectileComponent.chain"] = "0";
+            lua.Removed(shot);
+            Assert.Equal("0", host.HostFields["ProjectileComponent.chain"]);   // once
+            Assert.Empty(lua.Errors);
         }
 
         [Fact]

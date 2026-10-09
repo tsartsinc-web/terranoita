@@ -351,6 +351,39 @@ namespace Terranoita.Noita
                 Sweep();
         }
 
+        /// <summary>The entity is going (the game ends its shot): the LuaComponents with execute_on_removed on it and its
+        /// children run their script once, as Noita runs a component's script when it is removed (chain_shot.xml's
+        /// chain_shot_launch.lua shoots the next shot of a CHAIN_SHOT from there).</summary>
+        public void Removed(int entity)
+        {
+            RunRemoved(entity);
+            if (_sweep && !_updating)
+                Sweep();
+        }
+
+        void RunRemoved(int entity)
+        {
+            var targets = new List<Comp>();
+            void Walk(int id)
+            {
+                if (!_ents.TryGetValue(id, out var e))
+                    return;
+                foreach (int ci in e.Comps)
+                    if (_comps.TryGetValue(ci, out var c) && c.Type == "LuaComponent" && !c.Removed && Flag(c, "execute_on_removed"))
+                        targets.Add(c);
+                foreach (int ch in e.Children)
+                    Walk(ch);
+            }
+            Walk(entity);
+            foreach (var c in targets)
+            {
+                RemoveComp(c);   // once
+                string file = Str(c.Fields, "script_source_file");
+                if (!string.IsNullOrEmpty(file))
+                    Run(c, file, null, null);
+            }
+        }
+
         // ---------------- building ----------------
 
         Ent NewEnt(int parent)
@@ -602,7 +635,10 @@ namespace Terranoita.Noita
             }
             // the top-most dead entities; Forget takes their children with them
             foreach (var e in _ents.Values.Where(e => e.Dead && !(_ents.TryGetValue(e.Parent, out var p) && p.Dead)).ToList())
+            {
+                RunRemoved(e.Id);
                 Forget(e.Id);
+            }
             _luaComps.RemoveAll(c => c.Removed);
             _lifeComps.RemoveAll(c => c.Removed);
             _sweep = false;
