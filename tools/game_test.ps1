@@ -5,6 +5,7 @@
 #   powershell -File tools/game_test.ps1 -Mode enemies -Only worm,eel
 #   powershell -File tools/game_test.ps1 -Mode wands            # every Noita wand file: made, held, fired 1.5 s
 #   powershell -File tools/game_test.ps1 -Mode spells           # every spell alone at a target, checked against the sheets
+#   powershell -File tools/game_test.ps1 -Mode probe            # the Noita probe's 875 casts recorded like the probe (PC-23)
 #   ... -Accept                                                   # (magic/wands/spells) take this run as the new baseline
 # magic/wands/spells print ONE summary, the problems (max 20 lines) and the change against
 # design/sources/magic_baseline.txt; the full log stays in %LOCALAPPDATA%/Terranoita/logs/latest.log.
@@ -47,6 +48,7 @@ if ($Mode -eq "play") {
 $env:TERRANOITA_AUTOTEST = "1"; $env:TERRANOITA_AUTOTEST_EXIT = "1"
 switch ($Mode) {
     "spells"  { $env:TERRANOITA_AUTOTEST_SPELLS = "1"; $filter = "SPELLS" }
+    "probe"   { $env:TERRANOITA_AUTOTEST_PROBE = "1"; $env:TERRANOITA_PROBE_TESTS = (Resolve-Path (Join-Path $PSScriptRoot "..\design\sources\probe_tests.json")).Path; $filter = "PROBE" }   # the Noita probe's casts (PC-23)
     "wands"   { $env:TERRANOITA_AUTOTEST_WANDS = "1"; $filter = "WANDS|wand .* not made" }
     "sandbox" { $env:TERRANOITA_SANDBOX = "1"; $env:TERRANOITA_AUTOTEST_EXIT = "" }
     "cart"    { $env:TERRANOITA_CART_TEST = "1"; $filter = "CART|cart" }
@@ -60,7 +62,7 @@ switch ($Mode) {
 }
 if ($World) { $env:TERRANOITA_AUTOTEST_WORLD = $World }
 # every test plays in ONE world, made by the game the first time; -NewWorld remakes it, only after a worldgen change (author)
-if ($Minutes -eq 0) { $Minutes = $(if ($Mode -eq "spells") { 12 } else { 6 }) }
+if ($Minutes -eq 0) { $Minutes = $(if ($Mode -eq "probe") { 90 } elseif ($Mode -eq "spells") { 12 } else { 6 }) }
 if (-not $World) { $env:TERRANOITA_AUTOTEST_NEWWORLD = "Terranoita Magic" }
 if ($NewWorld) { Get-ChildItem (Join-Path $data "testsave\Worlds") -Filter "Terranoita_Magic.wld*" -ErrorAction SilentlyContinue | Remove-Item -Force }
 if ($Only) { $env:TERRANOITA_AUTOTEST_ONLY = $Only }

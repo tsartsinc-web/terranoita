@@ -184,11 +184,13 @@ namespace Terranoita.Game.Magic
                 s.Life = 1;
             s.StartLife = s.Life;
             NoitaSound.PlayFirst(d.Audio, pos, "create");
+            SpellRecorder.Born(s.Id, ls.File, s.Pos, s.Vel);
             if (Instant(s))
             {
                 // Noita's lightning bolt: it strikes at once (its own flight is a frame or two)
                 StrikeLightning(s);
                 End(s, true);
+                SpellRecorder.Gone(s.Id, s.Pos);
                 return;
             }
             Live.Add(s);
@@ -215,6 +217,7 @@ namespace Terranoita.Game.Magic
                 catch (Exception ex) { Entry.Error("spell shot " + s.Def.Id, ex); gone = true; }
                 if (gone)
                 {
+                    SpellRecorder.Gone(s.Id, s.Pos);
                     Live.Remove(s);
                     ScriptsRemove(s);
                 }
@@ -391,10 +394,11 @@ namespace Terranoita.Game.Magic
             }
         }
 
-        static void Strike(Shot s, NPC n, float damage)
+        static void Strike(Shot s, NPC n, float damage, string message = "$damage_projectile")
         {
             if (s.Owner == null)
                 return;
+            SpellRecorder.Hit(n, s.Lua.File, damage, message);
             // Terraria's magic damage and crit (armour, potions, accessories, mana sickness) on top of Noita's numbers
             int dmg = (int)Math.Round(damage * s.Owner.magicDamage);
             if (dmg <= 0)
@@ -456,7 +460,9 @@ namespace Terranoita.Game.Magic
             var dir = s.Vel.LengthSquared() > 0.01f ? Vector2.Normalize(s.Vel) : new Vector2(1, 0);
             var payload = s.Lua.Payload.ToList();
             s.Lua.Payload.Clear();   // released once
-            FireAll(payload, s.Pos - s.Vel, dir, s.Owner, null);
+            SpellRecorder.Parent = s.Lua.File;
+            try { FireAll(payload, s.Pos - s.Vel, dir, s.Owner, null); }
+            finally { SpellRecorder.Parent = ""; }
         }
 
         static void Explode(Shot s)
@@ -470,7 +476,12 @@ namespace Terranoita.Game.Magic
             {
                 var n = Main.npc[i];
                 if (n.active && !n.friendly && !n.dontTakeDamage && n.life > 0 && Vector2.Distance(n.Center, s.Pos) <= r + n.width / 2f)
-                    Strike(s, n, s.ExplosionDamage + (s.Hit.Contains(i) ? 0 : s.Damage));
+                {
+                    // Noita: the blast and a projectile that had not hit yet are two hits (two damage messages)
+                    Strike(s, n, s.ExplosionDamage, "$damage_explosion");
+                    if (!s.Hit.Contains(i))
+                        Strike(s, n, s.Damage);
+                }
             }
             // Noita: some explosions hurt their caster too (explosion_dont_damage_shooter = 0)
             var me = s.Owner;

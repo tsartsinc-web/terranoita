@@ -18,7 +18,7 @@ for _, x in ipairs( TESTS ) do RUN[#RUN + 1] = x end
 
 local OUT = "mods/terranoita_probe/probe_out.jsonl"
 local ARENA, ARENA_W, ARENA_H = "mods/terranoita_probe/files/arena.png", 320, 200
-local START_DELAY, STAMP_WAIT, MAX_FRAMES, QUIET = 120, 15, 240, 30
+local START_DELAY, STAMP_WAIT, MAX_FRAMES, QUIET = 120, 6, 240, 20
 
 local player, ax, ay, px, py, tx, ty
 local state, idx, t, fire_method = "wait", 0, 0, 2
@@ -117,7 +117,7 @@ local function wand_mana()
 end
 
 local diag = ""
-local WAND_READY, FIRE_MAX = 40, 60   -- a new wand did not fire in its first ~30 frames (probe run 2026-10-09)
+local WAND_READY, FIRE_MAX = 6, 60   -- with mRequireTriggerPull off (S5/S6) a new wand fires on the first frame (run 2026-10-09)
 
 local function active_item()
 	local inv2 = EntityGetFirstComponent( player, "Inventory2Component" )

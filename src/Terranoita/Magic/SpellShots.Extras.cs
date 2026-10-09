@@ -369,7 +369,7 @@ namespace Terranoita.Game.Magic
                 if (!n.active || n.friendly || n.dontTakeDamage || n.life <= 0 || !OnSegment(n.Hitbox, s.Pos, other.Pos))
                     continue;
                 if (lightning)
-                    Strike(s, n, 0.4f * 25f);   // Noita's arc lightning: electricity damage while it touches
+                    Strike(s, n, 0.4f * 25f, "$damage_electricity");   // Noita's arc lightning: electricity damage while it touches
                 else if (mat == "fire")
                     n.AddBuff(BuffID.OnFire, 180);
                 else if (mat == "poison")
