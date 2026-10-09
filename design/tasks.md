@@ -60,6 +60,10 @@ How it works (author, 2026-10-08): the author only says "работай" to eith
   can't match 1:1: check only that they fire something; d) children-from-parent attribution
   (LONG_DISTANCE_CAST, TELEPORT_CAST...) is bookkeeping. Expected: behaviour ~85% with no mod change. Check: new
   number and the list of rows that flipped.
+- PC-35 new (author 2026-10-10, small: do it with the next release): every Noita creature has a 1% chance to drop a
+  random spell item on death (MagicItems.MakeSpell; spell level by the creature's tier / depth, e.g. Maker.RandomAction
+  with the zone's Noita level). Not from bosses (they drop perks, PC-34), not from summoned/split creatures.
+  Check: log line per drop; a quick kill test of ~300 creatures gives ~3 drops.
 - PC-34 new (AFTER the night plan's magic tasks; author's design 2026-10-09, final): Noita perks.
   1) ALL of Noita's perks (data/scripts/perks/perk_list.lua + their scripts/effects, run Noita's own code where it
   can: stage-3 rule); study each perk's mechanics, adapt only what has no meaning in Terraria and say which.
