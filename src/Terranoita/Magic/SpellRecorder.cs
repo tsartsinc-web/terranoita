@@ -21,6 +21,7 @@ namespace Terranoita.Game.Magic
             public int Born;
             public int? End;
             public Vector2 P0, V0, P1;
+            public readonly List<string> Path = new List<string>();   // every 5 frames: [age, x, y, vx, vy] (the probe's)
         }
 
         public static bool On;
@@ -59,6 +60,19 @@ namespace Terranoita.Game.Magic
             ById[id] = r;
         }
 
+        /// <summary>A live shot this frame: its flight path every 5 frames after it was born, as the probe samples it.</summary>
+        internal static void Sample(int id, Vector2 pos, Vector2 vel)
+        {
+            if (!On || !ById.TryGetValue(id, out var r) || r.End != null)
+                return;
+            int age = Frame - r.Born;
+            if (age % 5 != 0 || r.Path.Count >= 48)
+                return;
+            var p = (pos - _origin) / Px;
+            var v = vel * 60f / Px;
+            r.Path.Add("[" + age + "," + N(p.X) + "," + N(p.Y) + "," + N(v.X) + "," + N(v.Y) + "]");
+        }
+
         internal static void Gone(int id, Vector2 pos)
         {
             if (On && ById.TryGetValue(id, out var r) && r.End == null)
@@ -90,7 +104,7 @@ namespace Terranoita.Game.Magic
             sb.Append(",\"projectiles\":[").Append(string.Join(",", Shots.Select(r =>
                 "{\"file\":" + Q(r.File) + ",\"parent\":" + Q(r.Parent) + ",\"born\":" + r.Born + ",\"end\":" + (r.End?.ToString() ?? "null") +
                 ",\"x0\":" + N(r.P0.X) + ",\"y0\":" + N(r.P0.Y) + ",\"vx0\":" + N(r.V0.X) + ",\"vy0\":" + N(r.V0.Y) +
-                ",\"x1\":" + N(r.P1.X) + ",\"y1\":" + N(r.P1.Y) + "}"))).Append("]");
+                ",\"x1\":" + N(r.P1.X) + ",\"y1\":" + N(r.P1.Y) + ",\"path\":[" + string.Join(",", r.Path) + "]}"))).Append("]");
             sb.Append(",\"hits\":[").Append(string.Join(",", Hits.Select(h =>
                 "{\"damage\":" + N(h.damage) + ",\"message\":" + Q(h.message) + ",\"by\":" + Q(h.by) + "}"))).Append("]}");
             return sb.ToString();

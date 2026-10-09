@@ -13,7 +13,7 @@ namespace Terranoita.Tests
             "{\"name\":\"single:LIGHT_BULLET\",\"deck\":[\"LIGHT_BULLET\"],\"fire_method\":2,\"mana_used\":5.00,\"frames\":44,\"target_alive\":true," +
             "\"note\":\"fired at frame 1; S5\",\"projectiles\":[{\"file\":\"data/entities/projectiles/deck/light_bullet.xml\",\"parent\":\"\"," +
             "\"born\":1,\"end\":14,\"lifetime\":46.00,\"x0\":22.70,\"y0\":-5.95,\"vx0\":730.98,\"vy0\":-15.04,\"vx1\":710.27,\"vy1\":-11.37," +
-            "\"x1\":144.58,\"y1\":-4.65}],\"hits\":[{\"damage\":0.12,\"message\":\"$damage_projectile\",\"by\":\"data/entities/projectiles/deck/light_bullet.xml\"}]}\n" +
+            "\"x1\":144.58,\"y1\":-4.65,\"path\":[[5,60.5,-5.9,700.1,-14],[10,118,-5.5,690,-10]]}],\"hits\":[{\"damage\":0.12,\"message\":\"$damage_projectile\",\"by\":\"data/entities/projectiles/deck/light_bullet.xml\"}]}\n" +
             "{\"name\":\"single:BOMB\",\"deck\":[\"BOMB\"],\"mana_used\":25.00,\"frames\":180,\"projectiles\":[{\"file\":\"data/entities/projectiles/bomb.xml\"," +
             "\"parent\":\"\",\"born\":1,\"end\":null,\"lifetime\":null,\"x0\":10.5,\"y0\":-5,\"vx0\":120,\"vy0\":-3,\"vx1\":null,\"vy1\":null,\"x1\":102.1,\"y1\":4.3}]," +
             "\"hits\":[{\"damage\":5.00,\"message\":\"say \\\"boom\\\"\\n\",\"by\":\"\"}]}\n" +
@@ -30,6 +30,7 @@ namespace Terranoita.Tests
             var shot = spark.Shots.Single();
             Assert.Equal(("data/entities/projectiles/deck/light_bullet.xml", "", 1, (int?)14), (shot.File, shot.Parent, shot.Born, shot.End));
             Assert.Equal(731.13, shot.Speed0, 2);
+            Assert.Equal(new[] { 10.0, 118, -5.5, 690, -10 }, shot.Path[1]);
             Assert.Equal(0.12, spark.Hits.Single().Damage);
             Assert.True(spark.Fired);
 

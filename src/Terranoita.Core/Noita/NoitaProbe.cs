@@ -14,6 +14,8 @@ namespace Terranoita.Noita
         public int Born;
         public int? End;
         public double? Lifetime, X0, Y0, Vx0, Vy0, Vx1, Vy1, X1, Y1;
+        /// <summary>Every 5 frames of its flight: (age, x, y, vx, vy).</summary>
+        public readonly List<double[]> Path = new List<double[]>();
         public double Speed0 => Math.Sqrt((Vx0 ?? 0) * (Vx0 ?? 0) + (Vy0 ?? 0) * (Vy0 ?? 0));
     }
 
@@ -59,13 +61,19 @@ namespace Terranoita.Noita
                 };
                 foreach (var p in (o.TryGetValue("projectiles", out var ps) ? ps as List<object> : null) ?? new List<object>())
                     if (p is Dictionary<string, object> s)
-                        row.Shots.Add(new ProbeShot
+                    {
+                        var shot = new ProbeShot
                         {
                             File = Str(s, "file"), Parent = Str(s, "parent"), Born = (int)(Num(s, "born") ?? 0),
                             End = Num(s, "end") is double e ? (int?)e : null, Lifetime = Num(s, "lifetime"),
                             X0 = Num(s, "x0"), Y0 = Num(s, "y0"), Vx0 = Num(s, "vx0"), Vy0 = Num(s, "vy0"),
                             Vx1 = Num(s, "vx1"), Vy1 = Num(s, "vy1"), X1 = Num(s, "x1"), Y1 = Num(s, "y1"),
-                        });
+                        };
+                        foreach (var pt in (s.TryGetValue("path", out var path) ? path as List<object> : null) ?? new List<object>())
+                            if (pt is List<object> a && a.All(x => x is double))
+                                shot.Path.Add(a.Cast<double>().ToArray());
+                        row.Shots.Add(shot);
+                    }
                 foreach (var h in (o.TryGetValue("hits", out var hs) ? hs as List<object> : null) ?? new List<object>())
                     if (h is Dictionary<string, object> x)
                         row.Hits.Add(new ProbeHit { Damage = Num(x, "damage") ?? 0, Message = Str(x, "message"), By = Str(x, "by") });

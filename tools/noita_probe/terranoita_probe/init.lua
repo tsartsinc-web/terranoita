@@ -251,6 +251,14 @@ local function track( frame )
 				alive = alive + 1
 				local x, y = EntityGetTransform( e )
 				r.x1, r.y1, r.last = x - px, y - py, frame
+				-- the flight path every 5 frames (bounces, rolling, physics), at most 48 points
+				if ( frame - r.born ) % 5 == 0 and #( r.path or {} ) < 48 then
+					local vc = EntityGetFirstComponent( e, "VelocityComponent" )
+					local vx, vy = 0, 0
+					if vc then vx, vy = ComponentGetValue2( vc, "mVelocity" ) end
+					r.path = r.path or {}
+					r.path[#r.path + 1] = "[" .. ( frame - r.born ) .. "," .. n( x - px ) .. "," .. n( y - py ) .. "," .. n( vx ) .. "," .. n( vy ) .. "]"
+				end
 				if frame == r.born + 1 then
 					local vc = EntityGetFirstComponent( e, "VelocityComponent" )
 					if vc then r.vx1, r.vy1 = ComponentGetValue2( vc, "mVelocity" ) end
@@ -270,7 +278,8 @@ local function finish( test, frame, note )
 		parts[#parts + 1] = "{\"file\":" .. q( r.file ) .. ",\"parent\":" .. q( r.parent ) .. ",\"born\":" .. r.born ..
 			",\"end\":" .. ( r.dead and tostring( r.dead ) or "null" ) .. ",\"lifetime\":" .. n( r.lifetime ) ..
 			",\"x0\":" .. n( r.x0 ) .. ",\"y0\":" .. n( r.y0 ) .. ",\"vx0\":" .. n( r.vx0 ) .. ",\"vy0\":" .. n( r.vy0 ) ..
-			",\"vx1\":" .. n( r.vx1 ) .. ",\"vy1\":" .. n( r.vy1 ) .. ",\"x1\":" .. n( r.x1 ) .. ",\"y1\":" .. n( r.y1 ) .. "}"
+			",\"vx1\":" .. n( r.vx1 ) .. ",\"vy1\":" .. n( r.vy1 ) .. ",\"x1\":" .. n( r.x1 ) .. ",\"y1\":" .. n( r.y1 ) ..
+			",\"path\":[" .. table.concat( r.path or {}, "," ) .. "]}"
 	end
 	local hits = {}
 	for line in ( GlobalsGetValue( "tnprobe_hits", "" ) ):gmatch( "[^\n]+" ) do
