@@ -32,6 +32,7 @@ namespace Terranoita.Game.Magic
             public SpellProjectileDef Def;
             public LuaShot Lua;
             public Vector2 Pos, Vel;
+            public float Rot;                  // its heading, radians (Noita's velocity_sets_rotation: the velocity's)
             public int Life, Age, Bounces, TriggerIn;
             public int Script, StartLife;      // its entity in Noita's shot scripts (0 = none), lifetime at start
             public bool Killed;                // a script killed it
@@ -164,6 +165,7 @@ namespace Terranoita.Game.Magic
                 FriendlyFire = ls.Config != null && ls.Config.TryGetValue("friendly_fire", out var ff) &&
                                (ff.Type == MoonSharp.Interpreter.DataType.Boolean ? ff.Boolean : ff.Type == MoonSharp.Interpreter.DataType.Number && ff.Number != 0),
                 Vel = new Vector2((float)Math.Cos(angle), (float)Math.Sin(angle)) * speed * Px / 60f,
+                Rot = angle,
                 Life = (d.Lifetime > 0 ? d.Lifetime : 600) + (int)ls.Get("lifetime_add") + rng.Next(-d.LifetimeRandom, d.LifetimeRandom + 1),
                 Bounces = d.Bounces + (int)ls.Get("bounces"),
                 Damage = nullAll ? 0 : Math.Max(0, d.Damage + d.TypedDamage + ls.Get("damage_projectile_add") +
@@ -368,6 +370,9 @@ namespace Terranoita.Game.Magic
             }
             var from = s.Pos;   // the path this frame: fast shots (bullets, lances) must not jump past a creature
             s.Pos = next;
+            if (s.Vel.LengthSquared() > 0.0001f)
+                s.Rot = (float)Math.Atan2(s.Vel.Y, s.Vel.X);
+            Lasers(s);
             // Noita's CellEaterComponent (black holes, discs): the ground around it goes; AreaDamageComponent: creatures in its box
             if (s.Def.EatRadius > 0 && s.Age % 3 == 0)
                 EatAt(s.Pos, s.Def.EatRadius * Px, s.Def.EatProbability, Physics.Blast.PickPower(s.Owner));

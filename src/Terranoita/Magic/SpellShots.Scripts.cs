@@ -36,7 +36,8 @@ namespace Terranoita.Game.Magic
             }
         }
 
-        /// <summary>Does a Noita entity file (or a file of its Base chain) carry a Lua script? Shots without any skip the store.</summary>
+        /// <summary>Does a Noita entity file (or a file of its Base chain) carry a Lua script or a laser? Shots without any skip
+        /// the store.</summary>
         static bool CarriesLua(string file, int depth = 0)
         {
             if (string.IsNullOrEmpty(file) || depth > 6)
@@ -44,7 +45,7 @@ namespace Terranoita.Game.Magic
             if (HasLua.TryGetValue(file, out bool b))
                 return b;
             string xml = NoitaArt.ReadText(file) ?? "";
-            b = xml.Contains("LuaComponent");
+            b = xml.Contains("LuaComponent") || xml.Contains("LaserEmitterComponent");   // lasers read their fields from the store too
             if (!b)
                 foreach (System.Text.RegularExpressions.Match m in System.Text.RegularExpressions.Regex.Matches(xml, "<Base\\s+file=\"([^\"]+)\""))
                     b |= CarriesLua(m.Groups[1].Value, depth + 1);
