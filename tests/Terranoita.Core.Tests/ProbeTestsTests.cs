@@ -7,6 +7,17 @@ namespace Terranoita.Tests
     public class ProbeTestsTests
     {
         [Fact]
+        public void FitRowsForTheHomingFormula()
+        {
+            // homing measured on a shot with no friction and no gravity (disc_bullet_big.xml), so its path shows the homing
+            // alone; only the spells the player's Noita has
+            var actions = new[] { ("HOMING", 2), ("HOMING_SHOOTER", 2), ("DISC_BULLET_BIG", 0) };
+            var fits = ProbeTests.Build(actions).Where(t => t.Name.StartsWith("fit:")).ToList();
+            Assert.Equal(new[] { "fit:HOMING+DISC_BULLET_BIG", "fit:HOMING_SHOOTER+DISC_BULLET_BIG" }, fits.Select(t => t.Name));
+            Assert.Equal(new[] { "HOMING", "DISC_BULLET_BIG" }, fits[0].Deck);
+        }
+
+        [Fact]
         public void RandomWandsKeepTheirStats()
         {
             // PC-30 builds: a wand Noita's wand_level_0N.lua made, cast as it is (its spells per cast, spread, speed,

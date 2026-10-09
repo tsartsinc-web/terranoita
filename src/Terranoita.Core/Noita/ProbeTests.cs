@@ -26,6 +26,7 @@ namespace Terranoita.Noita
     public static class ProbeTests
     {
         public const string Base = "LIGHT_BULLET";
+        const string FitBase = "DISC_BULLET_BIG";
         static readonly string[] ModifierBases = { "LIGHT_BULLET", "BOUNCY_ORB", "GRENADE" };
 
         // decks that exercise how spells act on each other in a wand (ids checked in gun_actions.lua 2026-10-09)
@@ -75,6 +76,11 @@ namespace Terranoita.Noita
             foreach (var deck in Combos)
                 if (deck.All(known.Contains))   // a Noita without one of them (older/newer version): left out
                     tests.Add(new ProbeTest { Name = "combo:" + string.Join("+", deck), Deck = deck });
+            // rows to fit an engine formula with: each homing modifier on a shot with no friction and no gravity
+            // (disc_bullet_big.xml), so its path shows the homing alone (design/magic_plan.md: the homing fit)
+            foreach (var (id, type) in list.Where(a => a.type == 2 && a.id.StartsWith("HOMING", StringComparison.Ordinal)))
+                if (known.Contains(FitBase))
+                    tests.Add(new ProbeTest { Name = "fit:" + id + "+" + FitBase, Deck = new[] { id, FitBase } });
             return tests;
         }
 
