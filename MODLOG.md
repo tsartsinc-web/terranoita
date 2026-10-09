@@ -1120,3 +1120,12 @@ unless asked.
 - 0.4.3 on Melty: update_mod description (features from the README + the author's magic note, playing together),
   start_upload/PUT/finish_upload (f7622c1c), submit_release 0.4.3 = draft, one click yes, findings review-only
   (layout not recognised, executable code; same as 0.4.2). publish not called: the author publishes.
+
+## 0.4.4 (2026-10-09, PC)
+- Author: a new character got no starting wands/flask. Cause: its name matched an older character's ("Спидозная_козявка"
+  vs "спидозная_козявка"; Windows ignores case), so WandWindow.EnterWorld found the older .wands and skipped
+  StartingWands (and loaded the older .spells: "one spell"). Fix: ForgetOlderCharacter: wand files created before the
+  character's .plr are the older one's and are deleted; the new .wands gets a fresh creation time (file tunneling).
+- Verified in game (game_test -Mode magic, test character's .wands made a day older): "is a new character" then
+  "starting wands: Bolt staff, Bomb wand"; magic 12/12 OK. Flask: same code path, not checked separately.
+- Melty: 0.4.4 uploaded (d2197b2f, 1298312 bytes) and submitted as a draft, one click yes; the author publishes.

@@ -12,9 +12,9 @@ How it works (author, 2026-10-08): the author only says "работай" to eith
 - Status words: new, doing, waits <row>, done <commit>.
 
 ## State (keep to ~12 lines; update when it changes)
-- Melty: 0.4.2 LIVE (268 players); 0.4.3 submitted 2026-10-09 as a DRAFT (upload f7622c1c, 1297919 bytes, one click
-  yes, recipe as 0.4.2 + fileName 0.4.3; description has the author's "Magic is a work in progress" note). Live once
-  the author presses Play on 0.4.3 in the Melty app (the author publishes).
+- Melty: 0.4.2 LIVE (268 players); 0.4.3 and 0.4.4 submitted 2026-10-09 as DRAFTS (one click yes, recipe as 0.4.2 +
+  fileName; description has the author's "Magic is a work in progress" note). 0.4.4 = 0.4.3 + starting wands/flask
+  for a new character with an older one's name. Live once the author presses Play on 0.4.4 in the Melty app.
 - Stage 3 magic in game: all spells via Noita's gun.lua, shot scripts, all wands, wand window (U), progress window (O),
   16 spell slots; Terraria magic bonuses apply (mana cost/damage/crit/regen/Mana Flower); max mana 600 (ManaCap.cs).
 - Spells test: 416/422 OK (design/sources/magic_baseline.txt), left in PC-6.
