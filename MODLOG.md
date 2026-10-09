@@ -1158,3 +1158,9 @@ unless asked.
 - Open: homing formula (Noita speeds a missile up, ours keeps speed; not in Noita's files: fit from paths), physics
   bodies (bomb, dynamite, cart, fish), tentacle, megalaser, shields, random_wands probe set (PC-30).
 - Next: compare run B (all fixes, switch off), then run C (switch on) for PC-24 step 1.
+- (later, 2026-10-09 night) Random wands: Noita rows wand:*-24..49 were spoiled (LIGHTNING_RAY_ENEMY's hit effect stayed
+  on the player and shot arcs; the wand never fired): the probe now removes what spells attach to the player, rows re-run.
+  Run E: behaviour 704 of 925 (wands 25/50). Noise: ~20 rows flip between single-cast runs: TERRANOITA_PROBE_REPEAT.
+  Built after E (not measured): execute_on_removed (CHAIN_SHOT, CLUSTERMOD, LARPA_DEATH), bounce_fx_file (8 BOUNCE_*),
+  blast fire, thrown bodies (throw = min(max_throw_speed, 160 x throw_force_coeff), fitted on 9 spells), lasers,
+  blast-loaded shots (GLITTER_BOMB shards), tentacles (reach curve from the probe). Next: F3/C3 numbers, then commit them.

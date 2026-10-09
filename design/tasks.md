@@ -73,9 +73,14 @@ How it works (author, 2026-10-08): the author only says "работай" to eith
   multiplayer physics (TERRANOITA_MP_PHYSICS=1), electricity in liquids (TERRANOITA_ELECTRICITY=1).
 - PC-22 done (2026-10-09, verified by run): design/sources/noita_probe.jsonl = all 875 tests from real Noita with
   flight paths (PC-29: Noita is not run again for these rows). Noita settings and the author's run restored (checked).
-- Probe numbers (2026-10-09 evening, design/sources/pc_probe_compare.txt): behaviour 646 of 875 (single 321/422, mod
-  307/429, combo 18/24); numbers 488 of 875. Run A = arena at Noita's heights + after-move sampling + the
-  remove_after_executed fix. Not in run A yet: bounce_energy on the whole velocity, burning recorded, damage kinds.
+- Probe numbers (2026-10-09 evening, verified by runs; design/sources/pc_probe_compare.txt is run B): run E (one cast a
+  test) behaviour 704 of 925 (single 331/422, mod 326/429, combo 22/24, random wands 25/50), numbers 613. Single-cast
+  runs flip ~20 rows each way between runs (random spread): TERRANOITA_PROBE_REPEAT=3 casts each test 3 times and
+  probe-compare takes the majority. Running: F3 (switch off, 3 casts, build 91753ba, DLLs saved in the scratchpad
+  build_F3), then C3 with the same DLLs and TERRANOITA_RUNTIME=components (PC-24 step 1 check).
+- Fixed after run E, not measured yet (built only): blast fire (create_cell_probability, assumed model), thrown physics
+  bodies (assumed model), lasers (LaserEmitterComponent), blast-loaded shots, tentacles (assumed model). Open: homing
+  formula (needs probe rows made for it), Verlet curl and damage by speed, laser digging, LARPA copies.
 - PC-23 done (2026-10-09): probe-compare with a flight check (along/across each side's first direction, scaled to
   Noita's start speed) and a behaviour verdict (PC-30). `game_test -Mode probe` (~20 min) + `tncli probe-compare <noita>
   design/sources/noita_probe.jsonl design/sources/probe_game.jsonl design/sources/pc_probe_compare.txt`. Move
