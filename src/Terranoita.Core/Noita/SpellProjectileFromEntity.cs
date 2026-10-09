@@ -25,6 +25,28 @@ namespace Terranoita.Noita
             "VerletWorldJointComponent", "PhysicsJointComponent", "PhysicsJoint2Component",
         };
 
+        /// <summary>A shot's hit damage as Noita reports it, one hit per kind: ProjectileComponent damage as
+        /// "$damage_projectile", each damage_by_type field as "$damage_&lt;type&gt;" (the Noita probe: an arrow hits with
+        /// $damage_slice only); kinds with no damage left out. Noita damage units.</summary>
+        public static Dictionary<string, float> DamageByMessage(XmlEntity e)
+        {
+            var by = new Dictionary<string, float>(StringComparer.Ordinal);
+            if (e == null)
+                return by;
+            var comps = new Dictionary<string, Dictionary<string, string>>(StringComparer.Ordinal);
+            Walk(e, comps, 0);
+            if (!comps.TryGetValue("ProjectileComponent", out var pc))
+                return by;
+            float d = Num(Get(pc, "damage"));
+            if (d != 0)
+                by["$damage_projectile"] = d;
+            if (comps.TryGetValue("damage_by_type", out var dbt))
+                foreach (var kv in dbt)
+                    if (!kv.Key.StartsWith("_", StringComparison.Ordinal) && Num(kv.Value) != 0)
+                        by["$damage_" + kv.Key] = Num(kv.Value);
+            return by;
+        }
+
         public static SpellProjectileDef From(XmlEntity e)
         {
             if (e == null)

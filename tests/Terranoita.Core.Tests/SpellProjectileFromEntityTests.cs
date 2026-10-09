@@ -96,6 +96,15 @@ namespace Terranoita.Tests
         public void NoProjectileComponentIsNull() => Assert.Null(Load("cloud.xml"));
 
         [Fact]
+        public void DamageByTypeAsNoitasMessages()
+        {
+            // arrow.xml's shape: no projectile damage, slice by type; Noita reports each type as its own hit ($damage_slice)
+            const string xml = @"<Entity><ProjectileComponent damage=""0.1""><damage_by_type slice=""0.2"" fire=""0"" _tags=""x"" /></ProjectileComponent></Entity>";
+            var by = SpellProjectileFromEntity.DamageByMessage(NoitaEntityXml.Load("arrow.xml", p => p == "arrow.xml" ? xml : null));
+            Assert.Equal(new Dictionary<string, float> { ["$damage_projectile"] = 0.1f, ["$damage_slice"] = 0.2f }, by);
+        }
+
+        [Fact]
         public void BaseChainAndTheFactsDefaults()
         {
             var d = Load("child.xml");

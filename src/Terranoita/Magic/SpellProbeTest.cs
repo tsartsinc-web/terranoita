@@ -73,6 +73,11 @@ namespace Terranoita.Game.Magic
                 _target.position = new Vector2(p.Center.X + TargetDistance, p.Center.Y + (OurShotY - TargetAboveShot) * Units.PixelScale)
                                    - new Vector2(_target.width, _target.height) / 2f;
                 _target.velocity = Vector2.Zero;
+                // damage over time: Terraria's NPC loses -lifeRegen/120 hp a frame to its debuffs (NPC.UpdateNPC_BuffApplyDOTs);
+                // burning as Noita reports it ($damage_fire), other debuffs under our own label
+                if (_target.lifeRegen < 0)
+                    SpellRecorder.Dot(_target, -_target.lifeRegen / 120f,
+                        _target.FindBuffIndex(Terraria.ID.BuffID.OnFire) >= 0 || _target.FindBuffIndex(Terraria.ID.BuffID.OnFire3) >= 0 ? "$damage_fire" : "debuff");
             }
             // the probe wand in hand before the cast (2026-10-09: the first test of a run, and keys sent to another
             // window, cast whatever the character held in slot 0)

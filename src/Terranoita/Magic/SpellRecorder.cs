@@ -31,6 +31,7 @@ namespace Terranoita.Game.Magic
         static readonly List<Rec> Shots = new List<Rec>();
         static readonly Dictionary<int, Rec> ById = new Dictionary<int, Rec>();
         static readonly List<(double damage, string message, string by)> Hits = new List<(double, string, string)>();
+        static readonly Dictionary<string, double> Dots = new Dictionary<string, double>();   // damage over time by message
         static uint _castFrame;
         static Vector2 _origin;
         public static NPC Target;
@@ -44,6 +45,7 @@ namespace Terranoita.Game.Magic
             Shots.Clear();
             ById.Clear();
             Hits.Clear();
+            Dots.Clear();
             Parent = "";
             _castFrame = Main.GameUpdateCount;
             _origin = casterCenter;
@@ -98,6 +100,15 @@ namespace Terranoita.Game.Magic
                 Hits.Add((hp / 25.0, message, file ?? ""));
         }
 
+        /// <summary>Damage over time on the test target this frame, in our hp (Terraria's debuffs: a burning target loses
+        /// life through lifeRegen, not through hits); summed per message into one hit of the line, as burning in Noita
+        /// shows as $damage_fire hits.</summary>
+        internal static void Dot(NPC n, float hp, string message)
+        {
+            if (On && n != null && n == Target && hp > 0)
+                Dots[message] = (Dots.TryGetValue(message, out var d) ? d : 0) + hp / 25.0;
+        }
+
         static string Q(string s) => "\"" + (s ?? "").Replace("\\", "\\\\").Replace("\"", "\\\"") + "\"";
         static string N(double? x) => x == null ? "null" : x.Value.ToString("0.00", CultureInfo.InvariantCulture);
 
@@ -113,7 +124,7 @@ namespace Terranoita.Game.Magic
                 "{\"file\":" + Q(r.File) + ",\"parent\":" + Q(r.Parent) + ",\"born\":" + r.Born + ",\"end\":" + (r.End?.ToString() ?? "null") +
                 ",\"x0\":" + N(r.P0.X) + ",\"y0\":" + N(r.P0.Y) + ",\"vx0\":" + N(r.V0.X) + ",\"vy0\":" + N(r.V0.Y) +
                 ",\"x1\":" + N(r.P1.X) + ",\"y1\":" + N(r.P1.Y) + ",\"path\":[" + string.Join(",", r.Path) + "]}"))).Append("]");
-            sb.Append(",\"hits\":[").Append(string.Join(",", Hits.Select(h =>
+            sb.Append(",\"hits\":[").Append(string.Join(",", Hits.Concat(Dots.Select(kv => (damage: kv.Value, message: kv.Key, by: ""))).Select(h =>
                 "{\"damage\":" + N(h.damage) + ",\"message\":" + Q(h.message) + ",\"by\":" + Q(h.by) + "}"))).Append("]}");
             return sb.ToString();
         }

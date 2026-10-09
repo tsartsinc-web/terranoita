@@ -49,6 +49,7 @@ namespace Terranoita.Game.Magic
             public bool NoWorld, DieOnCollision, PenetrateWorld, DieOnLow, ExplodeOnDeath, NullDamage;
             public bool FriendlyFire, HitOwner;   // friendly_fire (PIERCING_SHOT): it can hit its caster, once
             public readonly HashSet<int> Hit = new HashSet<int>();
+            public Dictionary<string, float> Kinds;   // probe only: its hit damage by Noita's damage message (SpellRecorder)
         }
 
         static readonly List<Shot> Live = new List<Shot>();
@@ -185,6 +186,8 @@ namespace Terranoita.Game.Magic
             s.StartLife = s.Life;
             NoitaSound.PlayFirst(d.Audio, pos, "create");
             SpellRecorder.Born(s.Id, ls.File, s.Pos, s.Vel);
+            if (SpellRecorder.On)
+                s.Kinds = KindsOf(ls);
             if (Instant(s))
             {
                 // Noita's lightning bolt: it strikes at once (its own flight is a frame or two)
@@ -435,11 +438,39 @@ namespace Terranoita.Game.Magic
             }
         }
 
+        static readonly Dictionary<string, Dictionary<string, float>> FileKinds = new Dictionary<string, Dictionary<string, float>>(StringComparer.OrdinalIgnoreCase);
+
+        /// <summary>Probe only: a shot's hit damage by Noita's damage message (its file's damage and damage_by_type, the
+        /// cast's damage_*_add on top), so the recorder reports a hit as Noita does: an arrow as $damage_slice. Terraria
+        /// has no damage kinds: the damage dealt is the same.</summary>
+        static Dictionary<string, float> KindsOf(LuaShot ls)
+        {
+            if (!FileKinds.TryGetValue(ls.File ?? "", out var file))
+            {
+                try { file = NoitaArt.ReadText(ls.File) == null ? new Dictionary<string, float>() : SpellProjectileFromEntity.DamageByMessage(NoitaEntityXml.Load(ls.File, NoitaArt.ReadText)); }
+                catch (Exception ex) { Entry.Error("damage kinds " + ls.File, ex); file = new Dictionary<string, float>(); }
+                FileKinds[ls.File ?? ""] = file;
+            }
+            var kinds = new Dictionary<string, float>(file, StringComparer.Ordinal);
+            foreach (var kind in new[] { "projectile", "fire", "ice", "electricity", "slice", "curse", "drill", "melee" })
+            {
+                float add = ls.Get("damage_" + kind + "_add");
+                if (add != 0)
+                    kinds["$damage_" + kind] = (kinds.TryGetValue("$damage_" + kind, out var v) ? v : 0) + add;
+            }
+            return kinds;
+        }
+
         static void Strike(Shot s, NPC n, float damage, string message = "$damage_projectile")
         {
             if (s.Owner == null)
                 return;
-            SpellRecorder.Hit(n, s.Lua.File, damage, message);
+            float total = s.Kinds == null || message != "$damage_projectile" ? 0 : s.Kinds.Values.Where(v => v > 0).Sum();
+            if (total > 0)
+                foreach (var kv in s.Kinds.Where(kv => kv.Value > 0))
+                    SpellRecorder.Hit(n, s.Lua.File, damage * kv.Value / total, kv.Key);
+            else
+                SpellRecorder.Hit(n, s.Lua.File, damage, message);
             // Terraria's magic damage and crit (armour, potions, accessories, mana sickness) on top of Noita's numbers
             int dmg = (int)Math.Round(damage * s.Owner.magicDamage);
             if (dmg <= 0)
