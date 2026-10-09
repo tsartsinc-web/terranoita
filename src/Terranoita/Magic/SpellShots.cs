@@ -329,6 +329,11 @@ namespace Terranoita.Game.Magic
                     if (Collision.SolidCollision(new Vector2(s.Pos.X, next.Y) - new Vector2(2, 2), 4, 4))
                         s.Vel.Y = -s.Vel.Y;
                     s.Vel *= ph.BounceEnergy;
+                    // bounce_fx_file: "this entity is created at the bounce position" (component_documentation.txt); the
+                    // BOUNCE_* modifiers' scripts set it (bounce_explosion.lua), the probe saw Noita make one per bounce
+                    var fx = BounceFx(s);
+                    if (!string.IsNullOrEmpty(fx))
+                        LoadEntity(fx, s.Pos, s.Owner);
                     return false;
                 }
                 else if (!s.DieOnCollision)

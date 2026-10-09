@@ -52,6 +52,11 @@ namespace Terranoita.Game.Magic
             return b;
         }
 
+        /// <summary>The shot's ProjectileComponent.bounce_fx_file in the store (set by its file or by a modifier's script), or
+        /// null. Not yet: the bounce angle as the entity's rotation (Noita's docs).</summary>
+        static string BounceFx(Shot s) =>
+            s.Script == 0 || _scripts == null ? null : _scripts.Components(s.Script, "ProjectileComponent", false).FirstOrDefault()?.Get("bounce_fx_file");
+
         /// <summary>A new shot enters the script store when its file or one of its extra entities has a script.</summary>
         static void ScriptsAdd(Shot s, bool always)
         {
