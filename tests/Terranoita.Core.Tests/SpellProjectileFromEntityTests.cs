@@ -96,6 +96,17 @@ namespace Terranoita.Tests
         public void NoProjectileComponentIsNull() => Assert.Null(Load("cloud.xml"));
 
         [Fact]
+        public void BlastCellsFromConfigExplosion()
+        {
+            // bomb.xml: create_cell_probability 40, no material (fire in the probe: the target burns); meteor.xml: fire
+            const string bomb = @"<Entity><ProjectileComponent><config_explosion explosion_radius=""60"" create_cell_probability=""40"" /></ProjectileComponent></Entity>";
+            const string slime = @"<Entity><ProjectileComponent><config_explosion create_cell_probability=""5"" create_cell_material=""radioactive_liquid_fading"" /></ProjectileComponent></Entity>";
+            Assert.Equal((40f, ""), SpellProjectileFromEntity.BlastCells(NoitaEntityXml.Load("b.xml", p => p == "b.xml" ? bomb : null)));
+            Assert.Equal((5f, "radioactive_liquid_fading"), SpellProjectileFromEntity.BlastCells(NoitaEntityXml.Load("s.xml", p => p == "s.xml" ? slime : null)));
+            Assert.Equal((0f, ""), SpellProjectileFromEntity.BlastCells(NoitaEntityXml.Load("c.xml", p => p == "c.xml" ? "<Entity><ProjectileComponent /></Entity>" : null)));
+        }
+
+        [Fact]
         public void DamageByTypeAsNoitasMessages()
         {
             // arrow.xml's shape: no projectile damage, slice by type; Noita reports each type as its own hit ($damage_slice)

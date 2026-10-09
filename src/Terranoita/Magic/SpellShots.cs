@@ -548,9 +548,36 @@ namespace Terranoita.Game.Magic
             finally { SpellRecorder.Parent = ""; }
         }
 
+        static readonly Dictionary<string, (float probability, string material)> FileCells = new Dictionary<string, (float, string)>(StringComparer.OrdinalIgnoreCase);
+
+        /// <summary>Does the blast leave fire? Noita's config_explosion create_cell_probability leaves material cells (fire
+        /// when the file names none, or "fire") where the blast tears up the ground. A model fitted to the probe (assumed,
+        /// not in Noita's files): blasts that reached the floor set the target burning (BOMB 40, BOMB_HOLY 40, NUKE 5,
+        /// NUKE_GIGA 5, METEOR fire), ROCKET's (10) at the target in the air did not.</summary>
+        static bool LeavesFire(Shot s)
+        {
+            string file = s.Lua.File ?? "";
+            if (!FileCells.TryGetValue(file, out var cells))
+            {
+                try { cells = NoitaArt.ReadText(file) == null ? (0f, "") : SpellProjectileFromEntity.BlastCells(NoitaEntityXml.Load(file, NoitaArt.ReadText)); }
+                catch (Exception ex) { Entry.Error("blast cells " + file, ex); cells = (0f, ""); }
+                FileCells[file] = cells;
+            }
+            if (cells.probability <= 0 || (cells.material != "" && cells.material != "fire"))
+                return false;
+            int r = (int)(s.Radius / 16f) + 1, cx = (int)(s.Pos.X / 16f), cy = (int)(s.Pos.Y / 16f);
+            for (int x = cx - r; x <= cx + r; x++)
+                for (int y = cy - r; y <= cy + r; y++)
+                    if (Physics.Mats.InWorld(x, y) && Physics.Mats.Solid(x, y) &&
+                        Vector2.Distance(new Vector2(x * 16 + 8, y * 16 + 8), s.Pos) <= s.Radius + 8)
+                        return true;
+            return false;
+        }
+
         static void Explode(Shot s)
         {
             float r = s.Radius;
+            bool fire = LeavesFire(s);
             // "hittable" shots caught in it go off too (Noita's pipe bomb crystals, mines: DamageModel hp 0.5)
             foreach (var o in Live)
                 if (o != s && o.Life > 1 && Hittable(o.Lua.File) && Vector2.Distance(o.Pos, s.Pos) <= r + 8)
@@ -558,10 +585,14 @@ namespace Terranoita.Game.Magic
             for (int i = 0; i < Main.maxNPCs; i++)
             {
                 var n = Main.npc[i];
+                // Noita: a blast hurts with its explosion damage only; the projectile's own damage is for a direct hit
+                // (probe 2026-10-09: rocket_tier_3 near the target: explosion 5.2, no projectile damage)
                 if (n.active && !n.friendly && !n.dontTakeDamage && n.life > 0 && Vector2.Distance(n.Center, s.Pos) <= r + n.width / 2f)
-                    // Noita: a blast hurts with its explosion damage only; the projectile's own damage is for a direct hit
-                    // (probe 2026-10-09: rocket_tier_3 near the target: explosion 5.2, no projectile damage)
+                {
                     Strike(s, n, s.ExplosionDamage, "$damage_explosion");
+                    if (fire)
+                        n.AddBuff(BuffID.OnFire, 180);
+                }
             }
             // Noita: some explosions hurt their caster too (explosion_dont_damage_shooter = 0)
             var me = s.Owner;
@@ -579,7 +610,7 @@ namespace Terranoita.Game.Magic
                 SoundEngine.PlaySound(SoundID.Item14, s.Pos);
             // big Noita explosions dig, as the enemies' do
             if (r >= 16 && Physics.Patches.On)
-                Physics.Blast.Explode(s.Pos, r, s.Fire, Physics.Blast.PickPower(s.Owner));
+                Physics.Blast.Explode(s.Pos, r, s.Fire || fire, Physics.Blast.PickPower(s.Owner));
             Lighting.AddLight(s.Pos, 1f, 0.7f, 0.3f);
         }
 
