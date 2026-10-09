@@ -40,6 +40,15 @@ How it works (author, 2026-10-08): the author only says "работай" to eith
   for the release notes: rockets, explosions (explosion damage only), thrown bombs/dynamite/propane, bounces and
   BOUNCE_* modifiers, CHAIN_SHOT, fire blasts burn their crater, starting wands for a re-used character name.
   Then update State and stop for the day (MODLOG handoff).
+  Author 2026-10-10: also turn on multiplayer physics and electricity (done in code: on by default, =0 turns off),
+  CLOUD_* spells: their look (grey puffs, no glow) and a lifetime of about a minute. Melty description: the author's
+  header stays first and unchanged, new text below it, verbatim:
+  "!!!Hi! I've updated the magic, and it works now, though it still needs polishing. Don't be upset if something doesn't
+  work: there are a lot of spells and ready-made wands. I don't know if multiplayer works, since I have no friends to
+  test it with, so try it at your own risk. Physics should be back in multiplayer too."
+  BLOCKER (2026-10-09 release probe, behaviour 451 vs 704): from the 40th test on shots never step (no path, no end);
+  diagnostics added (shot updates per cast in the probe note, errors in SpellShots.Update logged); repro:
+  TERRANOITA_PROBE_ONLY=single:ARROW,single:POLLEN,single:LANCE,single:ROCKET with TERRANOITA_PROBE_OUT to a temp file.
 - PC-31 new (after the release; cloud analysed run B, 2026-10-09): ~70 of the 201 behaviour failures are the TEST, not
   the mod. Fix probe-compare first, so the number tells the truth: a) path check must not scale our path by Noita's
   START speed when a script re-sets the velocity after spawn (TRUE_ORBIT: Noita 738 px/s on frame 0, then the orbit;

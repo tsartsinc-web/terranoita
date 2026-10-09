@@ -185,6 +185,8 @@ namespace Terranoita.Game.Magic
                 Penetrate = d.Penetrate,
                 TriggerIn = ls.Trigger == "timer" ? Math.Max(1, ls.TriggerFrames) : -1,
             };
+            if ((ls.File ?? "").StartsWith(CloudFiles, StringComparison.OrdinalIgnoreCase))
+                s.Life = CloudLifetime;   // the author's: about a minute (Noita's LifetimeComponent: 600 frames)
             if (s.Life < 1)
                 s.Life = 1;
             s.StartLife = s.Life;
@@ -207,6 +209,8 @@ namespace Terranoita.Game.Magic
                 Entry.Log("spell shots: component runtime on (TERRANOITA_RUNTIME=components)");
             }
             ScriptsAdd(s, ComponentRuntime);
+            if (s.Script != 0 && s.Life == CloudLifetime && (ls.File ?? "").StartsWith(CloudFiles, StringComparison.OrdinalIgnoreCase))
+                _scripts.SetField(s.Script, "LifetimeComponent", "lifetime", CloudLifetime.ToString(System.Globalization.CultureInfo.InvariantCulture));
             if (ComponentRuntime && s.Script != 0 && ls.Get("gravity") != 0)
                 AddGravity(s, ls.Get("gravity"));
         }
@@ -214,6 +218,11 @@ namespace Terranoita.Game.Magic
         /// <summary>The component runtime (design/magic_plan.md PC-24, author's condition 1): with
         /// TERRANOITA_RUNTIME=components every shot is an entity of the script store and its components' fields drive it;
         /// off by default until probe-compare shows it at least as close to Noita as the old path.</summary>
+        // the CLOUD_* spells (cloud_water, cloud_oil, cloud_blood, cloud_acid, cloud_thunder) rain for about a minute
+        // (author 2026-10-10; Noita's last 600 frames)
+        const string CloudFiles = "data/entities/projectiles/deck/cloud_";
+        const int CloudLifetime = 3600;
+
         internal static readonly bool ComponentRuntime = Environment.GetEnvironmentVariable("TERRANOITA_RUNTIME") == "components";
         static bool _runtimeLogged;
 
@@ -241,14 +250,27 @@ namespace Terranoita.Game.Magic
             return true;
         }
 
+        /// <summary>Tests: how many times the shots' update ran (the probe notes it per cast: 0 means it was not called).</summary>
+        public static int Updates;
+
         static void Update()
         {
             if (Main.gameMenu)
                 return;
-            SlowFrames.Time("shot scripts", ScriptsUpdate);
-            ForgetMarks();
-            HoldElectrocuted();
-            SlowFrames.Time("spell shots", StepAll);
+            Updates++;
+            try
+            {
+                SlowFrames.Time("shot scripts", ScriptsUpdate);
+                ForgetMarks();
+                HoldElectrocuted();
+                SlowFrames.Time("spell shots", StepAll);
+            }
+            catch (Exception ex)
+            {
+                // an error here would stop every shot each frame (the release probe of 2026-10-09 saw shots that never moved)
+                if (NotYet.Add("update:" + ex.GetType().Name + ex.Message))
+                    Entry.Error("spell shots update", ex);
+            }
         }
 
         static void StepAll()
@@ -700,13 +722,17 @@ namespace Terranoita.Game.Magic
                 foreach (var s in Live)
                 {
                     var art = NoitaArt.Get(s.Def.Sprite);
-                    Lighting.AddLight(s.Pos, 0.35f, 0.3f, 0.5f);
                     if (art?.Texture == null)
                     {
+                        // no sprite: a shot Noita draws only with its particles (the CLOUD_* spells) is left to them
+                        if (s.Extras != null && s.Extras.Any(e => e.Type == "ParticleEmitterComponent"))
+                            continue;
+                        Lighting.AddLight(s.Pos, 0.35f, 0.3f, 0.5f);
                         if (!Main.gamePaused)
                             Dust.NewDustPerfect(s.Pos, DustID.PurpleTorch, Vector2.Zero, 0, default(Color), 1.1f).noGravity = true;
                         continue;
                     }
+                    Lighting.AddLight(s.Pos, 0.35f, 0.3f, 0.5f);
                     var anim = art.Sprite.Find("fireball", "default", "stand");
                     int fx = 0, fy = 0, fw = art.Texture.Width, fh = art.Texture.Height;
                     if (anim != null)

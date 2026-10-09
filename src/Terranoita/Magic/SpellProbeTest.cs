@@ -37,7 +37,7 @@ namespace Terranoita.Game.Magic
         const float FloorBelowShot = 13.7f, TargetAboveShot = 4.3f, OurShotY = -0.2f;
 
         static List<ProbeTest> _tests;
-        static int _k = -1, _t, _casts0, _mana0, _firedAt, _lastCount, _lastChange;
+        static int _k = -1, _t, _casts0, _mana0, _firedAt, _lastCount, _lastChange, _updates0;
         static Vector2 _start;
         static int _px, _floor;   // the caster's tile column and the arena floor's top row
         static NPC _target;
@@ -90,6 +90,7 @@ namespace Terranoita.Game.Magic
             }
             if (t == Setup)
             {
+                _updates0 = SpellShots.Updates;
                 SpellRecorder.Begin(p.Center);
                 _casts0 = Casting.TestCasts;
                 _mana0 = Casting.TestMana;
@@ -181,7 +182,7 @@ namespace Terranoita.Game.Magic
             string[] Ids(Dictionary<string, object> d, string k) => ((d.TryGetValue(k, out var v) ? v as List<object> : null) ?? new List<object>()).Select(x => x as string).ToArray();
             foreach (var o in (MiniJson.Parse(File.ReadAllText(path)) as List<object>) ?? new List<object>())
                 if (o is Dictionary<string, object> d && d.TryGetValue("name", out var n) && n is string name &&
-                    (string.IsNullOrEmpty(only) || name.Contains(only)))
+                    (string.IsNullOrEmpty(only) || only.Split(',').Any(x => x.Length > 0 && name.Contains(x))))
                     for (int k = done.TryGetValue(name, out int had) ? had : 0; k < repeat; k++)
                         _tests.Add(new ProbeTest
                         {
@@ -247,6 +248,7 @@ namespace Terranoita.Game.Magic
             Casting.TestFire = false;
             var test = _tests[_k];
             var me = Main.LocalPlayer;
+            note += "; shot updates " + (SpellShots.Updates - _updates0) + ", live " + SpellShots.LiveCount;
             if (_target != null)
                 note += "; target " + (_target.active ? "at " + ((_target.Center - me.Center) / Units.PixelScale).ToString() + " size " + (_target.width / Units.PixelScale) + "x" + (_target.height / Units.PixelScale)
                         + " type " + _target.type + (_target.friendly ? " friendly" : "") + (_target.dontTakeDamage ? " no damage" : "") : "gone");

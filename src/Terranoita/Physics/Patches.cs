@@ -14,8 +14,9 @@ namespace Terranoita.Game.Physics
         public static readonly bool On = Environment.GetEnvironmentVariable("TERRANOITA_PHYSICS") != "0";
 
         // single player and, in multiplayer, our client (Terraria's own server runs none of this: NetSync sends our changes)
-        // multiplayer physics (NetSync, PC-19) is not verified in game yet: off unless TERRANOITA_MP_PHYSICS=1 (0.4.3)
-        static readonly bool MpPhysics = Environment.GetEnvironmentVariable("TERRANOITA_MP_PHYSICS") == "1";
+        // multiplayer physics (NetSync, PC-19): on by default since 0.4.5 (author 2026-10-10: "turn on everything that was
+        // switched off for multiplayer"); TERRANOITA_MP_PHYSICS=0 turns it off
+        static readonly bool MpPhysics = Environment.GetEnvironmentVariable("TERRANOITA_MP_PHYSICS") != "0";
         static bool Live => On && !Main.gameMenu && !WorldGen.generatingWorld && (Main.netMode == 0 || Main.netMode == 1 && MpPhysics);
 
         // Terraria projectiles that set wood and grass on fire: the ones Terraria's own hit code (Projectile.StatusNPC,
