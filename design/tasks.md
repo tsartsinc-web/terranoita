@@ -33,6 +33,14 @@ How it works (author, 2026-10-08): the author only says "работай" to eith
 ## PC queue
 - AUTHOR 2026-10-09 (via cloud, the author is away): FOCUS. Finish magic first (PC-21..PC-25 with PC-28), then
   PC-27. Park PC-4, PC-10, PC-19, PC-17, PC-6 until then.
+- PC-29 new (author 2026-10-09, rule for PC-22/23 and later): Noita runs ONCE, Terraria as often as needed. Noita is
+  only the reference and does not change, so its answers are recorded once and kept. 1) One full hands-free probe
+  run to all 875 rows (resume from the 299 done), preferably when the author is away (night), then commit it as
+  design/sources/noita_probe.jsonl (the ground truth). 2) After that, no Noita launches: fixes are checked with
+  `game_test -Mode probe` + `tncli probe-compare` against the committed file. 3) Run Noita again only for NEW rows
+  (new combos/cases: probe only those, append) or when the probe mod changes so old rows are invalid; say which one
+  in the commit. 4) Never run Noita and Terraria at the same time (memory). Check: noita_probe.jsonl has 875 rows
+  in git; later commits that touch magic show a probe-compare number and no Noita run.
 - PC-28 new (part of PC-22, do it first): the Noita probe runs with no input from the author (he had to press New
   Game, pick the first mode, and hold fire). 1) The probe mod fires by itself: set the player's ControlsComponent
   fire fields (mButtonDownFire etc.) each frame while a test wand is held. 2) Noita goes straight into a run: try
