@@ -40,6 +40,24 @@ namespace Terranoita.Game
             TwinDrop(npc, n);
         }
 
+        /// <summary>1 in 100 Noita creatures drops a random spell of its depth's Noita level (author, PC-35); not bosses
+        /// (they will drop perks, PC-34), not summoned or spell-made ones.</summary>
+        public const int SpellDropChance = 100;
+
+        static void SpellDrop(NPC npc, NoitaNpc n)
+        {
+            if (n.Summoned || n.Def.Id.StartsWith("boss_", StringComparison.Ordinal) || Main.rand.Next(SpellDropChance) != 0)
+                return;
+            string id = Magic.WorldLoot.RandomSpellAt((int)(npc.Center.Y / 16));
+            if (string.IsNullOrEmpty(id))
+                return;
+            var item = Magic.MagicItems.MakeSpell(id);
+            int at = Item.NewItem(new EntitySource_Loot(npc), (int)npc.position.X, (int)npc.position.Y, npc.width, npc.height, item.type, 1, false, item.prefix);
+            if (at >= 0 && at < Main.maxItems)
+                Main.item[at].prefix = item.prefix;
+            Entry.Log("spell drop: " + id + " from " + n.Def.Id);
+        }
+
         // ---- terraria_twin ----
 
         const int Closest = 3;           // one of the 3 nearest by max life, for variety
@@ -157,7 +175,7 @@ namespace Terranoita.Game
                 var n = Carriers.Get(__instance);
                 if (n == null)
                     return true;
-                try { Drop(__instance, n); }
+                try { Drop(__instance, n); SpellDrop(__instance, n); }
                 catch (Exception ex) { Entry.Error("npc_loot " + n.Def.Id, ex); }
                 Entry.Log("killed " + n.Def.Id + " #" + __instance.whoAmI);
                 if (__instance.playerInteraction[Main.myPlayer])

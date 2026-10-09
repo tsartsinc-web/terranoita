@@ -25,6 +25,8 @@ namespace Terranoita.Game
         public int Invisible;
         /// <summary>Worms: the NPC slots of the body segments, next to the head first.</summary>
         public int[] Parts;
+        /// <summary>Made by another creature's summon or by a spell: no spell drop (PC-35).</summary>
+        public bool Summoned;
     }
 
     /// <summary>
@@ -59,6 +61,13 @@ namespace Terranoita.Game
         }
 
         /// <summary>Spawn a Noita enemy standing with its feet at world pixel (x, bottom).</summary>
+        /// <summary>The creature Spawn just made (its index, or -1) came from a summon or a spell.</summary>
+        public static void MarkSummoned(int who)
+        {
+            if (who >= 0 && who < Main.maxNPCs && Get(Main.npc[who]) is NoitaNpc n)
+                n.Summoned = true;
+        }
+
         public static int Spawn(EnemyDef def, int x, int bottom)
         {
             int i = NPC.NewNPC(new EntitySource_SpawnNPC(), x, bottom, CarrierType);
@@ -332,7 +341,7 @@ namespace Terranoita.Game
                 foreach (var id in a.Summons)
                     if (Defs.Enemy.TryGetValue(id, out var def))
                         for (int k = 0; k < n; k++)
-                            Carriers.Spawn(def, (int)Npc.Center.X + Rng.Next(-16, 17), (int)(Npc.position.Y + Npc.height));
+                            Carriers.MarkSummoned(Carriers.Spawn(def, (int)Npc.Center.X + Rng.Next(-16, 17), (int)(Npc.position.Y + Npc.height)));
             }
 
             /// <summary>Shield (next hit does nothing) or invisibility for the nearest other Noita creature.</summary>

@@ -48,6 +48,8 @@ How it works (author, 2026-10-08): the author only says "работай" to eith
   random spell item on death (MagicItems.MakeSpell; spell level by the creature's tier / depth, e.g. Maker.RandomAction
   with the zone's Noita level). Not from bosses (they drop perks, PC-34), not from summoned/split creatures.
   Check: log line per drop; a quick kill test of ~300 creatures gives ~3 drops.
+  Built only (2026-10-10): Loot.SpellDrop (1/100, WorldLoot.RandomSpellAt = Noita level of the depth, "spell drop:" log),
+  Carriers.MarkSummoned for summons and spell-made creatures, boss_* excluded. Left: the kill test.
 - PC-34 new (AFTER the night plan's magic tasks; author's design 2026-10-09, final): Noita perks.
   1) ALL of Noita's perks (data/scripts/perks/perk_list.lua + their scripts/effects, run Noita's own code where it
   can: stage-3 rule); study each perk's mechanics, adapt only what has no meaning in Terraria and say which.
@@ -64,6 +66,8 @@ How it works (author, 2026-10-08): the author only says "работай" to eith
   8 vs 10, DARKFLAME, METEOR_RAIN...); big path differences ~10 (TENTACLE, FISH, EXPLODING_DEER, PHASING_ARC).
   Author: burning damage over time (bombs, nukes) is LOW priority for now; explosion SIZE as in Noita matters; small
   orbit radius / homing differences are fine if it looks the same. Check: behaviour number rises per step.
+  2026-10-10: run G3 (3 casts, build 71d9f3a) = the baseline. Built only after it: EntityLoad of a script-only entity
+  (BOUNCE_SPARK/LIGHTNING's bounce_fx_file) runs its Lua in the store (SpellShots.Extras LoadEntity).
 - AUTHOR 2026-10-09 (via cloud, the author is away): FOCUS. Finish magic first (PC-21..PC-25 with PC-28), then
   PC-27. Park PC-4, PC-10, PC-19, PC-17, PC-6 until then.
 - PC-30 doing (author 2026-10-09: WHAT MATTERS in magic; it sets the priority of PC-23..PC-25): behaviour first,

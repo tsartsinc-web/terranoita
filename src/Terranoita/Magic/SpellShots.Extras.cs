@@ -245,6 +245,7 @@ namespace Terranoita.Game.Magic
             if (def != null)
             {
                 int who = Carriers.Spawn(def, (int)pos.X, (int)pos.Y);
+                Carriers.MarkSummoned(who);
                 return who >= 0 ? 1000 + who : 0;
             }
             // Noita's electricity (misc/electricity*.xml: ElectricityComponent), shot by scripts such as electrocution_blast.lua
@@ -254,6 +255,25 @@ namespace Terranoita.Game.Magic
             {
                 Physics.Electricity.Emit(pos, energy);
                 return 0;
+            }
+            // an entity that is only scripts (bounce_spark_main.xml, bounce_lightning_launcher.xml: the BOUNCE_* modifiers'
+            // bounce_fx_file) runs them in the store where it was loaded: they shoot its projectiles and kill it
+            var sc = CarriesLua(file) ? Scripts : null;
+            if (sc != null)
+            {
+                try
+                {
+                    int loaded = sc.Spawn(file, pos.X / Px, pos.Y / Px);
+                    SpellRecorder.Born(-loaded, file, pos, Vector2.Zero);   // the Noita probe records it as a shot of the cast
+                    SpellRecorder.Gone(-loaded, pos);
+                    return loaded;
+                }
+                catch (Exception ex)
+                {
+                    if (NotYet.Add("load:" + file))
+                        Entry.Error("spell EntityLoad " + file, ex);
+                    return 0;
+                }
             }
             if (NotYet.Add("load:" + file))
                 Entry.Log("spell EntityLoad not done yet: " + file);
