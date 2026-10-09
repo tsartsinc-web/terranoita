@@ -105,10 +105,13 @@ namespace Terranoita.Noita
                 double ns = nf.Speed0, os = of.Speed0;
                 if (Math.Abs(os - ns) > SpeedTolerance * Math.Max(ns, 1))
                     v.Differences.Add("speed " + Short(f) + ": " + F(os) + " (Noita " + F(ns) + ")");
+                // ours scaled to Noita's start speed: one random speed each side (speed_min..speed_max) is checked above,
+                // the path checks how the flight goes on from it
+                double scale = ns >= 1 && os >= 1 ? ns / os : 1;
                 var mine = new Dictionary<int, (int frame, double along, double across)>();
                 foreach (var q in Flight(of))
                     if (!mine.ContainsKey(q.frame))
-                        mine[q.frame] = q;
+                        mine[q.frame] = (q.frame, q.along * scale, q.across * scale);
                 foreach (var p in Flight(nf))
                 {
                     if (!mine.TryGetValue(p.frame, out var q))

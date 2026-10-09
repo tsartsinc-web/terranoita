@@ -48,6 +48,9 @@ namespace Terranoita.Tests
             // ours from another start, straight down: the same flight turned 90 degrees (random spread) matches
             var turned = With(Flying(8, 0, 0, 600, new double[] { 0, 8, 0, 0, 600 }, new double[] { 5, 8, 50, 0, 600 }, new double[] { 10, 7, 100, -6, 600 }));
             Assert.True(ProbeCompare.Compare(noita, turned).Matches);
+            // ours drew a slower random speed (rocket_tier_2: speed_min 70, speed_max 100): the same flight at 3/4 speed matches
+            var slower = With(Flying(8, 0, 450, 0, new double[] { 0, 8, 0, 450, 0 }, new double[] { 5, 45.5, 0, 450, 0 }, new double[] { 10, 83, 0.75, 450, 4.5 }));
+            Assert.True(ProbeCompare.Compare(noita, slower).Matches);
             // ours falls 20 px more by frame 10 (more than 4 px + 10% of the 100 px flown)
             var falls = With(Flying(8, 0, 600, 0, new double[] { 0, 8, 0, 600, 0 }, new double[] { 5, 58, 0, 600, 0 }, new double[] { 10, 108, 21, 600, 60 }));
             Assert.Equal("path light_bullet: 20 px off at frame 10", ProbeCompare.Compare(noita, falls).Differences.Single());
