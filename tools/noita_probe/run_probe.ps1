@@ -1,6 +1,7 @@
 # The Noita probe run with nobody at the PC (design/magic_plan.md PC-22/PC-28; author allowed running Noita 2026-10-09):
 #   powershell -ExecutionPolicy Bypass -File tools/noita_probe/run_probe.ps1 [-Minutes 240]
-# 1. Backs up Noita's settings (save_shared/config.xml, save00/mod_config.xml) and the player's current run (save00/world)
+# 1. Backs up Noita's settings (save_shared/config.xml, save00/mod_config.xml) and the player's current run (save00/world,
+#    save00/player.xml, world_state.xml, session_numbers.salakieli)
 #    to %LOCALAPPDATA%\Terranoita\noita_probe_backup, installs the probe mod, enables it, allows its file output
 #    (mods_sandbox_enabled 0) and keeps Noita running when unfocused.
 # 2. Starts Noita; Enter presses skip the intro and start a new game (an empty save00/world: no Continue entry).
@@ -17,6 +18,9 @@ $saves = Join-Path $env:USERPROFILE "AppData\LocalLow\Nolla_Games_Noita"
 $config = Join-Path $saves "save_shared\config.xml"
 $modConfig = Join-Path $saves "save00\mod_config.xml"
 $world = Join-Path $saves "save00\world"
+# the player's run in progress lives in save00 too (player.xml, world_state.xml...): with them Noita offers Continue, and a
+# new game would overwrite them (2026-10-09: the author's run of 14:50 was there; backed up since)
+$runFiles = @("player.xml", "world_state.xml", "session_numbers.salakieli") | ForEach-Object { Join-Path $saves "save00\$_" }
 $backup = Join-Path $env:LOCALAPPDATA "Terranoita\noita_probe_backup"
 $mod = Join-Path $noita "mods\terranoita_probe"
 $out = Join-Path $mod "probe_out.jsonl"
@@ -30,6 +34,8 @@ New-Item -ItemType Directory -Force (Join-Path $backup "world") | Out-Null
 Copy-Item $config (Join-Path $backup "config.xml")
 Copy-Item $modConfig (Join-Path $backup "mod_config.xml")
 Get-ChildItem $world -Force | Move-Item -Destination (Join-Path $backup "world")
+New-Item -ItemType Directory -Force (Join-Path $backup "save00") | Out-Null
+$runFiles | Where-Object { Test-Path $_ } | Move-Item -Destination (Join-Path $backup "save00")
 Copy-Item (Join-Path $backup "world\steam_autocloud.vdf") $world -ErrorAction SilentlyContinue
 New-Item -ItemType Directory -Force $mod | Out-Null
 Copy-Item -Recurse -Force (Join-Path $PSScriptRoot "terranoita_probe\*") $mod
@@ -92,6 +98,8 @@ finally {
     Copy-Item (Join-Path $backup "mod_config.xml") $modConfig -Force
     Get-ChildItem $world -Force | Remove-Item -Recurse -Force
     Get-ChildItem (Join-Path $backup "world") -Force | Move-Item -Destination $world
+    $runFiles | Where-Object { Test-Path $_ } | Remove-Item -Force   # the probe's run
+    Get-ChildItem (Join-Path $backup "save00") -Force -ErrorAction SilentlyContinue | Move-Item -Destination (Join-Path $saves "save00")
     Remove-Item -Recurse -Force $backup
     if (Test-Path $out) { Copy-Item $out (Join-Path $repo "design\sources\noita_probe.jsonl") -Force }
     "lines: " + $(if (Test-Path $out) { (Get-Content $out).Count } else { 0 })
