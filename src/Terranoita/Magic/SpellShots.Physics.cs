@@ -159,9 +159,11 @@ namespace Terranoita.Game.Magic
 
         // ---- lightning ----
 
-        // ours: how far Noita's instant lightning bolt (lightning.xml: speed 60, lifetime 2 frames, LightningComponent
-        // is_projectile) strikes - the wraith's lightning attack reaches 300 px (attacks.json range_tiles 56.2)
-        const float LightningReach = 300f;
+        // Noita's lightning bolt (lightning.xml: LightningComponent is_projectile, lifetime 2) flies one frame and bursts
+        // there: the probe saw it at 5350 px/s (its file and the gun set no speed: the engine's), first seen at 99.7 px and
+        // gone the next frame, so it bursts 89 px out and missed the target at 152 (one sample: assumed). Ours used 300 px
+        // (the wraith's attack range) and struck the target.
+        const float LightningSpeed = 5350f;
         // Noita's ConfigExplosion damage when a config does not set it (not in component_documentation.txt): most spell
         // files set damage="0" themselves; lightning.xml leaves it out and strikes hard (author: "very weak" before)
         const float ExplosionDefaultDamage = 5f;
@@ -173,7 +175,12 @@ namespace Terranoita.Game.Magic
         static void StrikeLightning(Shot s)
         {
             var dir = s.Vel.LengthSquared() > 0.0001f ? Vector2.Normalize(s.Vel) : new Vector2(s.Owner?.direction ?? 1, 0);
-            float reach = LightningReach * Px;
+            // the bolt's own speed when a script gave it one (thunder_blast: 2500), else the engine's; it moves every
+            // frame of its life but the first
+            float speed = s.Vel.Length() * 60f / Px;
+            if (speed < 1000f)
+                speed = LightningSpeed;
+            float reach = speed / 60f * Math.Max(1, s.StartLife - 1) * Px;
             var end = s.Pos + dir * reach;
             NPC hit = null;
             for (float k = 0; k <= reach; k += 6)
