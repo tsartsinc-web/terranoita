@@ -136,6 +136,10 @@ scripts do with the fields, and from checks in Noita by the author when a rule c
 - Terraria side: `game_test -Mode probe` (SpellProbeTest) builds the same arena (flat floor, wall at 264 px), the same
   target (16 x 20 Noita px, centre 4 px above the wand line) and aim, waits until the probe wand is in hand. Never run it
   while Noita is being driven by keys (keys reached Terraria: rows 30..84 cast the character's slot-0 wand).
+- Fixed from probe data (2026-10-09): negative air_friction (rockets accelerate: 1 - f/60 per frame, measured), a blast
+  hurts with explosion damage only, probe test target/aim/arena like the probe's.
+- Open, needs flight paths in the probe (sample x, y, vx, vy every 5 frames): grenades (bounces_left 4, friction 0.6)
+  roll and lie on the floor until ~frame 79-157 in Noita; ours spend the 4 bounces on floor contacts in a few frames.
 - Known real differences seen so far: physics projectiles (bomb.xml: PhysicsThrowable, no VelocityComponent) fly at 60
   and die on the first floor contact here, Noita throws at 120 and they live 180 frames to the fuse (Phase 3.4).
 
