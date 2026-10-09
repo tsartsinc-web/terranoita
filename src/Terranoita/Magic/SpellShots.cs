@@ -147,12 +147,12 @@ namespace Terranoita.Game.Magic
             foreach (var extra in ls.Text("extra_entities").Split(new[] { ',' }, StringSplitOptions.RemoveEmptyEntries))
                 ReportRuntime(extra.Trim());
             var rng = Main.rand;
-            float speed = (d.SpeedMin + (float)rng.NextDouble() * Math.Max(0, d.SpeedMax - d.SpeedMin)) * Math.Max(0f, ls.Get("speed_multiplier"));
+            var phys = PhysOf(ls.File);
+            float speed = (phys.Thrown ? phys.ThrowSpeed : d.SpeedMin + (float)rng.NextDouble() * Math.Max(0, d.SpeedMax - d.SpeedMin)) * Math.Max(0f, ls.Get("speed_multiplier"));
             // spread: the shot's degrees (wand + spells), and the projectile's own randomness
             float spreadDeg = Math.Max(0f, ls.Get("spread_degrees"));
             float angle = (float)Math.Atan2(dir.Y, dir.X) + MathHelper.ToRadians(((float)rng.NextDouble() * 2 - 1) * spreadDeg)
                           + ((float)rng.NextDouble() * 2 - 1) * d.SpreadRad;
-            var phys = PhysOf(ls.File);
             // ZERO_DAMAGE: damage_null_all (c.damage_explosion / c.damage_projectile that HIGH_EXPLOSIVE and BERSERK set
             // are not ConfigGunActionInfo fields, gunaction_generated.lua: Noita's engine never reads them)
             bool nullAll = ls.Get("damage_null_all") > 0;
@@ -172,7 +172,7 @@ namespace Terranoita.Game.Magic
                                      ls.Get("damage_drill_add") + ls.Get("damage_melee_add")) * 25f,
                 ExplosionDamage = nullAll ? 0 : Math.Max(0, d.ExplosionDamage + ls.Get("damage_explosion_add")) * 25f,
                 Radius = Math.Max(0, d.ExplosionRadius + ls.Get("explosion_radius")) * Px,
-                Gravity = (d.Gravity + ls.Get("gravity")) * Px / 3600f,
+                Gravity = ((phys.Thrown ? ThrownGravity : d.Gravity) + ls.Get("gravity")) * Px / 3600f,
                 Friction = phys.AirFriction,   // the file's air_friction, or Noita's default 0.55 when it sets none
                 Knockback = d.Knockback + ls.Get("knockback_force"),
                 Fire = ls.Get("damage_fire_add") > 0 || d.FireDamage > 0 || (d.Material ?? "").Contains("fire"),
@@ -278,7 +278,7 @@ namespace Terranoita.Game.Magic
             }
             s.Age++;
             var ph = s.Phys;
-            if (!(ComponentRuntime && s.Script != 0 && FlyByComponents(s)))
+            if (!(ComponentRuntime && s.Script != 0 && !ph.Thrown && FlyByComponents(s)))
             {
                 s.Vel.Y += s.Gravity;
                 // Noita's air_friction, also negative (rockets speed up: rocket_tier_3 -5.0). The probe measured Noita's
@@ -322,7 +322,9 @@ namespace Terranoita.Game.Magic
             var next = s.Pos + s.Vel;
             if (!s.NoWorld && Collision.SolidCollision(next - new Vector2(2, 2), 4, 4))
             {
-                if (s.PenetrateWorld)
+                if (ph.Thrown)
+                    next = ThrownHit(s, next);   // a physics body never dies on the ground: its fuse (lifetime) ends it
+                else if (s.PenetrateWorld)
                     next = s.Pos + s.Vel * ph.PenetrateCoeff;   // through the ground, slower inside it
                 else if (s.Bounces > 0)
                 {
@@ -412,6 +414,34 @@ namespace Terranoita.Game.Magic
                 return true;
             }
             return false;
+        }
+
+        /// <summary>A thrown physics body against the ground (constants and their probe data in SpellShots.Physics.cs): a
+        /// real impact bounces, slower along the ground; a slow one rests and slides.</summary>
+        static Vector2 ThrownHit(Shot s, Vector2 next)
+        {
+            bool hitX = Collision.SolidCollision(new Vector2(next.X, s.Pos.Y) - new Vector2(2, 2), 4, 4);
+            bool hitY = Collision.SolidCollision(new Vector2(s.Pos.X, next.Y) - new Vector2(2, 2), 4, 4);
+            if (!hitX && !hitY)
+                hitY = true;   // a corner: as the ground
+            float rest = ThrownRestSpeed * Px / 60f;
+            if (hitY)
+            {
+                if (Math.Abs(s.Vel.Y) > rest)
+                {
+                    s.Vel.Y = -s.Vel.Y * ThrownBounce;
+                    s.Vel.X *= ThrownImpactKeep;
+                }
+                else
+                {
+                    s.Vel.Y = 0;
+                    s.Vel.X *= ThrownSlide;
+                }
+            }
+            if (hitX)
+                s.Vel.X = -s.Vel.X * ThrownBounce;
+            var moved = s.Pos + s.Vel;
+            return Collision.SolidCollision(moved - new Vector2(2, 2), 4, 4) ? s.Pos : moved;
         }
 
         static void EatAt(Vector2 pos, float r, float probability, int pickPower)

@@ -25,7 +25,17 @@ namespace Terranoita.Game.Magic
             public float AirFriction, LiquidDrag, LowVelocityLimit, BounceEnergy, PenetrateCoeff, TerminalVelocity;
             public bool DieOnLiquid, DieOnLowVelocity, OnCollisionDie, PenetrateWorld, ApplyTerminal, PullsToCaster;
             public BeamDef Lightning;   // LightningComponent with is_projectile: a lightning trail and its blast
+            // PhysicsThrowableComponent: a thrown physics body (bomb, dynamite, propane tank...); its throw speed in px/s
+            public bool Thrown;
+            public float ThrowSpeed;
         }
+
+        // Thrown physics bodies, fitted to the Noita probe (assumed: Noita's physics engine is not in its files): thrown at
+        // min(max_throw_speed, 160 x throw_force_coeff) (BOMB 0.75 -> 120, BOMB_HOLY 0.95 -> 152 exact; TNT, ROCK,
+        // TNTBOX_BIG, BOMB_HOLY_GIGA at their caps), gravity 156 px/s/s (vy +13 every 5 frames), no air friction; a real
+        // impact keeps x0.6 along the ground and x0.5 of the bounce (BOMB 120 -> 74, vy 52 -> -35), resting it slides x0.99
+        // a frame (TNT 138 -> 117 in 20 frames)
+        const float ThrowPerCoeff = 160f, ThrownGravity = 156f, ThrownBounce = 0.5f, ThrownImpactKeep = 0.6f, ThrownSlide = 0.99f, ThrownRestSpeed = 20f;
 
         static readonly Dictionary<string, ShotPhys> Phys = new Dictionary<string, ShotPhys>(StringComparer.OrdinalIgnoreCase);
         static ComponentFieldTypes _docs;
@@ -78,6 +88,7 @@ namespace Terranoita.Game.Magic
             catch (Exception ex) { Entry.Error("spell projectile physics " + file, ex); }
             var vc = x?.Components.FirstOrDefault(c => c.Type == "VelocityComponent");
             var pc = x?.Components.FirstOrDefault(c => c.Type == "ProjectileComponent");
+            var tc = x?.Components.FirstOrDefault(c => c.Type == "PhysicsThrowableComponent");
             string V(XmlComponent c, string type, string field) =>
                 c?.Get(field) ?? Docs?.Default(type, field) ?? (Fallback.TryGetValue(type + "." + field, out var d) ? d : null);
             float F(XmlComponent c, string type, string field, float fallback) =>
@@ -101,7 +112,14 @@ namespace Terranoita.Game.Magic
                 PenetrateWorld = B(pc, "ProjectileComponent", "penetrate_world", false),
                 PenetrateCoeff = F(pc, "ProjectileComponent", "penetrate_world_velocity_coeff", 0.6f),
                 PullsToCaster = x != null && (x.Tags ?? "").Split(',').Any(t => t.Trim() == "teleport_projectile_closer"),
+                Thrown = tc != null,
+                ThrowSpeed = Math.Min(F(tc, "PhysicsThrowableComponent", "max_throw_speed", 180f), ThrowPerCoeff * F(tc, "PhysicsThrowableComponent", "throw_force_coeff", 1f)),
             };
+            if (p.Thrown)
+            {
+                p.AirFriction = 0;
+                p.ApplyTerminal = false;
+            }
             try
             {
                 var beam = x == null ? null : BeamFromEntity.From(x, Docs);
