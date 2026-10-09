@@ -12,9 +12,8 @@ How it works (author, 2026-10-08): the author only says "работай" to eith
 - Status words: new, doing, waits <row>, done <commit>.
 
 ## State (keep to ~12 lines; update when it changes)
-- Melty: 0.4.2 LIVE (268 players); 0.4.3 and 0.4.4 submitted 2026-10-09 as DRAFTS (one click yes, recipe as 0.4.2 +
-  fileName; description has the author's "Magic is a work in progress" note). 0.4.4 = 0.4.3 + starting wands/flask
-  for a new character with an older one's name. Live once the author presses Play on 0.4.4 in the Melty app.
+- Melty: 0.4.4 LIVE (2026-10-09: 349 gets, 290 players, one click yes; 0.4.3 replaced by 0.4.4). Uninstalls ~13%.
+  Multiplayer: 89 games hosted, 0 joins (PC-27).
 - Stage 3 magic in game: all spells via Noita's gun.lua, shot scripts, all wands, wand window (U), progress window (O),
   16 spell slots; Terraria magic bonuses apply (mana cost/damage/crit/regen/Mana Flower); max mana 600 (ManaCap.cs).
 - Spells test: 416/422 OK (design/sources/magic_baseline.txt), left in PC-6.
@@ -32,6 +31,14 @@ How it works (author, 2026-10-08): the author only says "работай" to eith
 - Roadmap: design/roadmap.md. Worldgen plan: design/worldgen_plan.md (PC-10 after CLOUD-7).
 
 ## PC queue
+- AUTHOR 2026-10-09 (via cloud, the author is away): FOCUS. Finish magic first (PC-21..PC-25 with PC-28), then
+  PC-27. Park PC-4, PC-10, PC-19, PC-17, PC-6 until then.
+- PC-28 new (part of PC-22, do it first): the Noita probe runs with no input from the author (he had to press New
+  Game, pick the first mode, and hold fire). 1) The probe mod fires by itself: set the player's ControlsComponent
+  fire fields (mButtonDownFire etc.) each frame while a test wand is held. 2) Noita goes straight into a run: try
+  noita_dev.exe startup options, then a prepared save that continues directly, last resort a script that clicks
+  New Game and picks the first mode; write the way that works in design/magic_plan.md. Check: one probe run from
+  start to log file with nobody touching the PC.
 - PC-21 doing (FIRST, author 2026-10-09; plan design/magic_plan.md; author's rules: new component path behind a
   switch, into a release only when coverage >= the current path; Noita facts only from Noita's files or the Noita
   test mod; every session report "spells matching Noita / total"; tag claims verified in game / built only / assumed).
