@@ -35,6 +35,14 @@ namespace Terranoita.Noita
         public const double FlightTolerance = 10, FlightShare = 0.3;
         // below this a hit is no hit (Noita damage units; 0.04 = 1 hp)
         public const double NoHarm = 0.04;
+        // a direct hit this small on one side only, with the same shots flying the same way, is the random spread (PC-31 b)
+        public const double HitMissDamage = 1.3;
+        static readonly string[] HitMessages = { "$damage_projectile", "$damage_slice" };
+
+        /// <summary>A deck that casts something random (RANDOM_SPELL, RANDOM_PROJECTILE, DAMAGE_RANDOM...) cannot match 1:1:
+        /// only whether it fires is behaviour (PC-31 c).</summary>
+        public static bool IsRandomDeck(string[] deck) =>
+            deck != null && deck.Any(d => d != null && (d.StartsWith("RANDOM_", StringComparison.Ordinal) || d == "DAMAGE_RANDOM"));
 
         /// <summary>A shot's flight as (frame, along, across): where it is at each sampled frame relative to where it was
         /// first seen, along and across the way it first flew (along its axes when it started still). Both sides first see
@@ -108,15 +116,18 @@ namespace Terranoita.Noita
                 // ours scaled to Noita's start speed: one random speed each side (speed_min..speed_max) is checked above,
                 // the path checks how the flight goes on from it
                 double scale = ns >= 1 && os >= 1 ? ns / os : 1;
+                // a script that re-sets the velocity after spawn (TRUE_ORBIT) makes the start speed meaningless: the nearer of
+                // scaled and unscaled counts (PC-31 a)
                 var mine = new Dictionary<int, (int frame, double along, double across)>();
                 foreach (var q in Flight(of))
                     if (!mine.ContainsKey(q.frame))
-                        mine[q.frame] = (q.frame, q.along * scale, q.across * scale);
+                        mine[q.frame] = q;
                 foreach (var p in Flight(nf))
                 {
                     if (!mine.TryGetValue(p.frame, out var q))
                         continue;
-                    double off = Math.Sqrt((p.along - q.along) * (p.along - q.along) + (p.across - q.across) * (p.across - q.across));
+                    double Off(double k) => Math.Sqrt((p.along - q.along * k) * (p.along - q.along * k) + (p.across - q.across * k) * (p.across - q.across * k));
+                    double off = Math.Min(Off(scale), Off(1));
                     double flown = Math.Sqrt(p.along * p.along + p.across * p.across);
                     if (off > PathTolerance + PathShare * flown)
                     {
@@ -129,6 +140,7 @@ namespace Terranoita.Noita
                     }
                 }
             }
+            bool sameShots = v.Behaviour.Count == 0;
             // damage on the target by Noita's message
             var nHit = noita.Hits.GroupBy(h => h.Message).ToDictionary(g => g.Key, g => g.Sum(h => h.Damage));
             var oHit = ours.Hits.GroupBy(h => h.Message).ToDictionary(g => g.Key, g => g.Sum(h => h.Damage));
@@ -138,12 +150,19 @@ namespace Terranoita.Noita
                 oHit.TryGetValue(m, out double b);
                 string d = "damage " + m + ": " + F(b) + " (Noita " + F(a) + ")";
                 if ((a >= NoHarm) != (b >= NoHarm))
-                    Does(d);   // one harms this way, the other does not
+                {
+                    if (sameShots && Math.Max(a, b) <= HitMissDamage && HitMessages.Contains(m))
+                        v.Differences.Add("hit-miss " + m + ": " + F(b) + " (Noita " + F(a) + ")");
+                    else
+                        Does(d);   // one harms this way, the other does not
+                }
                 else if (Math.Abs(a - b) > DamageTolerance * Math.Max(a, NoHarm))
                     v.Differences.Add(d);
             }
             if (noita.ManaUsed.HasValue && ours.ManaUsed.HasValue && Math.Abs(noita.ManaUsed.Value - ours.ManaUsed.Value) > ManaTolerance)
                 v.Differences.Add("mana " + F(ours.ManaUsed.Value) + " (Noita " + F(noita.ManaUsed.Value) + ")");
+            if (IsRandomDeck(noita.Deck) || IsRandomDeck(ours.Deck))
+                v.Behaviour.Clear();   // it fired: the rest stays in Differences as numbers
             return v;
         }
 

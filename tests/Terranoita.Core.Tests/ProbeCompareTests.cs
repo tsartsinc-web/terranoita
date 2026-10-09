@@ -94,12 +94,12 @@ namespace Terranoita.Tests
             // TERRANOITA_PROBE_REPEAT: our side casts a test several times (one random spread each); the row behaves like
             // Noita's when most of our casts do
             var noita = Row("single:LIGHT_BULLET", 5, (Spark, "", 730));
-            noita.Hits.Add(new ProbeHit { Damage = 0.12, Message = "$damage_projectile" });
+            noita.Hits.Add(new ProbeHit { Damage = 0.12, Message = "$damage_fire" });
             ProbeRow Cast(bool hits)
             {
                 var r = Row(noita.Name, 5, (Spark, "", 730));
                 if (hits)
-                    r.Hits.Add(new ProbeHit { Damage = 0.12, Message = "$damage_projectile" });
+                    r.Hits.Add(new ProbeHit { Damage = 0.12, Message = "$damage_fire" });
                 return r;
             }
             var two = ProbeCompare.CompareAll(new[] { noita }, new[] { Cast(true), Cast(false), Cast(true) }).Single();
@@ -107,10 +107,10 @@ namespace Terranoita.Tests
             Assert.Equal((3, 2), (two.Casts, two.CastsBehaving));
             var one = ProbeCompare.CompareAll(new[] { noita }, new[] { Cast(false), Cast(true), Cast(false) }).Single();
             Assert.False(one.BehavesLike);
-            Assert.Equal("damage $damage_projectile: 0 (Noita 0.12)", one.Behaviour.Single());
+            Assert.Equal("damage $damage_fire: 0 (Noita 0.12)", one.Behaviour.Single());
         }
 
-        [Fact(Skip = "PC-31 next step: implement in ProbeCompare.Compare (MODLOG handoff 2026-10-10)")]
+        [Fact]
         public void APathAScriptResetsIsComparedUnscaled()
         {
             // TRUE_ORBIT (PC-31 a): first seen at 738 px/s, then a script sets the orbit; ours started slower and orbits
@@ -120,7 +120,7 @@ namespace Terranoita.Tests
             Assert.True(ProbeCompare.Compare(noita, ours).BehavesLike);
         }
 
-        [Fact(Skip = "PC-31 next step: implement in ProbeCompare.Compare (MODLOG handoff 2026-10-10)")]
+        [Fact]
         public void AHitOrMissOfTheSameShotsIsANumber()
         {
             // PC-31 b: the same shots, one random spread each: Noita's grazed the target, ours missed it
@@ -136,7 +136,7 @@ namespace Terranoita.Tests
             Assert.False(ProbeCompare.Compare(big, ours).BehavesLike);
         }
 
-        [Fact(Skip = "PC-31 next step: implement in ProbeCompare.Compare (MODLOG handoff 2026-10-10)")]
+        [Fact]
         public void RandomSpellsOnlyHaveToFire()
         {
             // PC-31 c: RANDOM_SPELL casts something else each time; only whether it fires is behaviour

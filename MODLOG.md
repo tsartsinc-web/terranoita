@@ -1186,3 +1186,8 @@ unless asked.
   move %LOCALAPPDATA%/Terranoita/probe_game.jsonl aside first) and `tncli probe-compare`; commit the number.
 - After that: PC-32 (real failures by group), the homing fit (Noita run for the 8 fit rows, then fit the formula from
   their paths: notes in design/magic_plan.md), PC-24 step 1 measurement (TERRANOITA_RUNTIME=components vs off, same build).
+
+## PC-31 probe-compare tells the truth (2026-10-10, PC)
+- ProbeCompare.Compare: path offset = min(scaled to Noita's start speed, unscaled) (TRUE_ORBIT-like velocity resets);
+  "hit-miss <msg>" number when only a small direct hit (<= 1.3, projectile/slice) differs and shots/paths behave the same;
+  RANDOM_*/DAMAGE_RANDOM decks: behaviour = fired or not. Run E recompared: behaviour 752 of 925 (was 704).

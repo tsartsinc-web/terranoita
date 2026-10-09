@@ -33,7 +33,7 @@ How it works (author, 2026-10-08): the author only says "работай" to eith
 
 ## PC queue
 - NIGHT PLAN (author 2026-10-09, asleep; work without pauses until the limit ends): order = release 0.4.5 if not
-  done (publishing authorized) -> PC-33 -> PC-31 -> PC-32 -> PC-30 (50 wands compare) -> PC-24 -> PC-34 (perks). Rules: never wait for
+  done (publishing authorized) -> PC-33 -> PC-31 -> PC-32 -> PC-30 (50 wands compare) -> PC-24 -> PC-35 -> PC-34 (perks). Rules: never wait for
   the author: if a step is blocked (needs him, a login, a crash you can't fix in ~3 tries), write one line in the
   task row ("blocked: why") and take the next task. Commit + push after every step. Tests in the background,
   minimized, close the games after; Noita only for new probe rows. Save tokens: grep/ranges, summary lines only, no
@@ -43,23 +43,7 @@ How it works (author, 2026-10-08): the author only says "работай" to eith
   was the test harness: Terraria paused the minimized test game when another window was active (fixed: autotest sets
   PlayWhenUnfocused). Package build/terranoita-0.4.5.zip (1307032 bytes, sha256 c8cef6db...). MP physics and
   electricity on by default (not tested with several players).
-- PC-31 doing (2026-10-10): three tests written in tests/Terranoita.Core.Tests/ProbeCompareTests.cs, marked Skip
-  (APathAScriptResetsIsComparedUnscaled, AHitOrMissOfTheSameShotsIsANumber, RandomSpellsOnlyHaveToFire). Next: remove
-  the Skip, see them fail, implement in ProbeCompare.Compare: a) path offset = min(scaled, unscaled); b) a direct-hit
-  damage ($damage_projectile, $damage_slice) <= 1.3 on one side and < NoHarm on the other, with no shots/path behaviour
-  difference in the row = number "hit-miss <message>: b (Noita a)"; c) a deck with RANDOM_* or DAMAGE_RANDOM: only
-  fired/not fired is behaviour. Then recompare run E (scratchpad of session 2c74a90e: game_E.jsonl; or a new probe run)
-  and report the number and the rows that flipped.
-- PC-31 (row from the cloud, after the release; cloud analysed run B, 2026-10-09): ~70 of the 201 behaviour failures are the TEST, not
-  the mod. Fix probe-compare first, so the number tells the truth: a) path check must not scale our path by Noita's
-  START speed when a script re-sets the velocity after spawn (TRUE_ORBIT: Noita 738 px/s on frame 0, then the orbit;
-  both orbit the player, radius 36 vs our 42: the "538 px off" is the scaling) - compare unscaled positions or skip
-  frame 0; b) hit/miss noise: projectile damage <= ~1.3 on one side and 0 on the other while the same shots exist
-  and fly the same path = "hit-miss", not a failure (use TERRANOITA_PROBE_REPEAT to confirm); c) RANDOM_* spells
-  (RANDOM_SPELL, RANDOM_PROJECTILE, RANDOM_STATIC_PROJECTILE, RANDOM_MODIFIER, RANDOM_EXPLOSION, DAMAGE_RANDOM...)
-  can't match 1:1: check only that they fire something; d) children-from-parent attribution
-  (LONG_DISTANCE_CAST, TELEPORT_CAST...) is bookkeeping. Expected: behaviour ~85% with no mod change. Check: new
-  number and the list of rows that flipped.
+
 - PC-35 new (author 2026-10-10, small: do it with the next release): every Noita creature has a 1% chance to drop a
   random spell item on death (MagicItems.MakeSpell; spell level by the creature's tier / depth, e.g. Maker.RandomAction
   with the zone's Noita level). Not from bosses (they drop perks, PC-34), not from summoned/split creatures.
@@ -123,7 +107,7 @@ How it works (author, 2026-10-08): the author only says "работай" to eith
 - PC-22 done (2026-10-09, verified by run): design/sources/noita_probe.jsonl = all 875 tests from real Noita with
   flight paths (PC-29: Noita is not run again for these rows). Noita settings and the author's run restored (checked).
 - Probe numbers (2026-10-09 evening, verified by runs; design/sources/pc_probe_compare.txt is run B): run E (one cast a
-  test) behaviour 704 of 925 (single 331/422, mod 326/429, combo 22/24, random wands 25/50), numbers 613. Single-cast
+  test) behaviour 704 of 925 (752 with PC-31's compare) (single 331/422, mod 326/429, combo 22/24, random wands 25/50), numbers 613. Single-cast
   runs flip ~20 rows each way between runs (random spread): TERRANOITA_PROBE_REPEAT=3 casts each test 3 times and
   probe-compare takes the majority. Running: F3 (switch off, 3 casts, build 91753ba, DLLs saved in the scratchpad
   build_F3), then C3 with the same DLLs and TERRANOITA_RUNTIME=components (PC-24 step 1 check).
@@ -197,6 +181,11 @@ How it works (author, 2026-10-08): the author only says "работай" to eith
   never in a public repo).
 
 ## Done (last ~8)
+- done (PC) PC-31 (2026-10-10, Core tests 140/140): probe-compare a) path = nearer of scaled/unscaled, b) "hit-miss"
+  number for a direct hit <= 1.3 on one side with the same shots, c) RANDOM_*/DAMAGE_RANDOM decks: only "fired" is
+  behaviour. Run E recompared: behaviour 704 -> 752 of 925 (single 346/422, mod 353/429, combo 24/24, wand 29/50);
+  49 rows up, 1 down (HOMING_CURSOR: now checked past frame 5, 52 px off at 10). d) was already so (count by file).
+  design/sources/pc_probe_compare.txt = run E with it.
 - done (PC) PC-15: biome scripts checked on the player's Noita: SCRIPTS fixed from data/biome/*.xml + common.csv
   (Lukki Lair = rainforest_dark, Overgrown Cavern = fungiforest, Ancient Laboratory = liquidcave, Magical Temple =
   wandcave, Snowy Chasm = winter, Cloudscape = clouds, Sky = the_end.lua); probe -> design/sources/
