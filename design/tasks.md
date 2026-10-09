@@ -33,7 +33,7 @@ How it works (author, 2026-10-08): the author only says "работай" to eith
 
 ## PC queue
 - NIGHT PLAN (author 2026-10-09, asleep; work without pauses until the limit ends): order = release 0.4.5 if not
-  done (publishing authorized) -> PC-33 -> PC-31 -> PC-32 -> PC-30 (50 wands compare) -> PC-24. Rules: never wait for
+  done (publishing authorized) -> PC-33 -> PC-31 -> PC-32 -> PC-30 (50 wands compare) -> PC-24 -> PC-34 (perks). Rules: never wait for
   the author: if a step is blocked (needs him, a login, a crash you can't fix in ~3 tries), write one line in the
   task row ("blocked: why") and take the next task. Commit + push after every step. Tests in the background,
   minimized, close the games after; Noita only for new probe rows. Save tokens: grep/ranges, summary lines only, no
@@ -60,6 +60,16 @@ How it works (author, 2026-10-08): the author only says "работай" to eith
   can't match 1:1: check only that they fire something; d) children-from-parent attribution
   (LONG_DISTANCE_CAST, TELEPORT_CAST...) is bookkeeping. Expected: behaviour ~85% with no mod change. Check: new
   number and the list of rows that flipped.
+- PC-34 new (AFTER the night plan's magic tasks; author's design 2026-10-09, final): Noita perks.
+  1) ALL of Noita's perks (data/scripts/perks/perk_list.lua + their scripts/effects, run Noita's own code where it
+  can: stage-3 rule); study each perk's mechanics, adapt only what has no meaning in Terraria and say which.
+  2) Perks are ITEMS: random perk items DROP from Terraria bosses when killed; more drops on higher difficulty
+  (Expert/Master/legendary). No choice screen, no altars: the drop is a random perk.
+  3) Held in the inventory; used from the hand (use button) -> the perk is applied to the character, the item is gone.
+  4) Bound to the character, saved with it. On death ALL perks are lost; if the character had more than 10 perks,
+  a quarter of them (random ones from the list he had) drop as perk items at the death spot, like coins.
+  Check: kill a boss in a test world -> perk items drop; use one -> effect + icon; die -> perks gone, >10 -> 1/4
+  drop. Write the perk list + adaptations to design/perks.md before coding.
 - PC-32 new (after PC-31): fix real failures by group, biggest first (run B counts): no damage ~35 (BLACK_HOLE_GIGA,
   WHITE_HOLE_GIGA, LASER_EMITTER, METEOR, MISSILE, ORBIT_LASERS...); nothing spawned ~32 (GLITTER_BOMB, GLUE_SHOT,
   SUMMON_EGG, THUNDERBALL, SPORE_POD, CRUMBLING_EARTH, WALL_VERTICAL/SQUARE...); wrong count ~40 (TENTACLE_PORTAL
