@@ -337,6 +337,10 @@ namespace Terranoita.Noita
 
         List<string> _always = new List<string>();
 
+        /// <summary>The shooter's ShotEffectComponent extra_modifier names (perks: CRITICAL_HIT, LOWER_SPREAD...): added with
+        /// gun.lua's _add_extra_modifier_to_shot before the actions are drawn, as Noita's engine does.</summary>
+        public readonly List<string> ExtraModifiers = new List<string>();
+
         /// <summary>One cast with this much mana; the wand's cooldown is max(CastDelay, Recharge) as in Noita.</summary>
         public LuaCast Cast(float mana)
         {
@@ -348,6 +352,8 @@ namespace Terranoita.Noita
             try
             {
                 Call("_start_shot", mana);
+                foreach (var m in ExtraModifiers)
+                    Call("_add_extra_modifier_to_shot", m);
                 foreach (var id in _always)
                     Call("_play_permanent_card", id);
                 Call("_draw_actions_for_shot", true);

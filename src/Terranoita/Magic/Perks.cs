@@ -177,6 +177,17 @@ namespace Terranoita.Game.Magic
             return _entity;
         }
 
+        /// <summary>The extra_modifier of every ShotEffectComponent Noita's perk funcs put on the player (CRITICAL_HIT:
+        /// critical_hit_boost...), for gun.lua on each cast.</summary>
+        public static IEnumerable<string> ShotModifiers(Player p)
+        {
+            if (p.whoAmI != Main.myPlayer || Of(p).Count == 0)
+                return Enumerable.Empty<string>();
+            int who = Entity(p);
+            return who == 0 ? Enumerable.Empty<string>() :
+                SpellShots.ScriptStore.Components(who, "ShotEffectComponent").Select(c => c.Get("extra_modifier")).Where(m => !string.IsNullOrEmpty(m)).ToList();
+        }
+
         static void Run(Player p, int who, string id, int pickupCount)
         {
             var store = SpellShots.ScriptStore;

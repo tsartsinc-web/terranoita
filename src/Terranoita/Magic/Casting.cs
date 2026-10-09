@@ -151,6 +151,8 @@ namespace Terranoita.Game.Magic
             try
             {
                 ((TerrariaWorld)h.Gun.World).Player = p;
+                h.Gun.ExtraModifiers.Clear();
+                h.Gun.ExtraModifiers.AddRange(Perks.ShotModifiers(p));
                 cast = h.Gun.Cast(have);
             }
             catch (Exception ex) { Entry.Error("cast " + w.Id, ex); h.ReadyAt = _now + 30; return; }
