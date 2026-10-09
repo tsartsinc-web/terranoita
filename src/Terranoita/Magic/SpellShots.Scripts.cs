@@ -22,6 +22,9 @@ namespace Terranoita.Game.Magic
         static readonly Dictionary<int, Shot> ByScript = new Dictionary<int, Shot>();
         static readonly Dictionary<string, bool> HasLua = new Dictionary<string, bool>(StringComparer.OrdinalIgnoreCase);
 
+        /// <summary>The script store, for other Noita code run in the game (perks, PC-34); null until Noita's files are read.</summary>
+        public static LuaShotScripts ScriptStore => Scripts;
+
         static LuaShotScripts Scripts
         {
             get

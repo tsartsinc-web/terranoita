@@ -67,8 +67,10 @@ How it works (author, 2026-10-08): the author only says "работай" to eith
   Core done (2026-10-10): LuaShotScripts.CreateEntity/RunPerk, GlobalsGet/SetValue, run flags, world state entity,
   ComponentGetMetaCustom; `tncli perks <noita> --run`: 102 of 106 funcs run on Noita's own player.xml (left: STRONG_KICK
   KickComponent.max_force has no default in the docs; ALWAYS_CAST/EXTRA_MANA/EXTRA_SLOTS need the held wand as an entity).
-  Next: in game, Noita's player.xml as the player's store entity, run the func on use, read back what it changed
-  (max_hp, GameEffect/Lua/ShotEffect components, children) and apply; icons row; then the boss test.
+  Built only: the player's store entity = player_base.xml's components (no scripts/children), funcs run on use and
+  replayed on load (one-offs except EXTRA_HP/RESPAWN not replayed), GameEffect components it gains -> immunities,
+  max_hp share scales Terraria max life (adapted). Next: ShotEffectComponent extra_modifier in casting, the held wand as
+  an entity (ALWAYS_CAST...), icons row, LuaComponents/children of perks (fields, ghosts), then the boss test.
 - PC-32 new (after PC-31): fix real failures by group, biggest first (run B counts): no damage ~35 (BLACK_HOLE_GIGA,
   WHITE_HOLE_GIGA, LASER_EMITTER, METEOR, MISSILE, ORBIT_LASERS...); nothing spawned ~32 (GLITTER_BOMB, GLUE_SHOT,
   SUMMON_EGG, THUNDERBALL, SPORE_POD, CRUMBLING_EARTH, WALL_VERTICAL/SQUARE...); wrong count ~40 (TENTACLE_PORTAL

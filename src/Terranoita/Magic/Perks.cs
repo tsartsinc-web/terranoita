@@ -125,21 +125,99 @@ namespace Terranoita.Game.Magic
             Of(p).Add(perk.Id);
             Save();
             Entry.Log("perk taken: " + perk.Id + " (" + Of(p).Count + " perks)");
-            if (perk.HasFunc && Told.Add("func:" + perk.Id))
-                Entry.Log("perk " + perk.Id + ": Noita's func not run yet (design/perks.md step 1)");
+            int who = Entity(p);
+            if (who != 0)
+                Run(p, who, perk.Id, Of(p).Count(x => x == perk.Id));
+        }
+
+        // ---- the player as Noita's perk funcs see it ----
+
+        const string PlayerFile = "data/entities/player_base.xml";
+        /// <summary>The parts of Noita's player the perk funcs read and write; its scripts, sprites and children stay out
+        /// (they would act on their own in our store).</summary>
+        static readonly HashSet<string> PlayerParts = new HashSet<string>
+        {
+            "DamageModelComponent", "CharacterDataComponent", "CharacterPlatformingComponent", "KickComponent", "WalletComponent",
+            "GenomeDataComponent", "Inventory2Component", "ItemPickUpperComponent", "PlayerComponent", "CharacterStatsComponent",
+            "IngestionComponent", "StatusEffectDataComponent", "MaterialSuckerComponent", "SpriteStainsComponent",
+        };
+        /// <summary>One-off perks act on the world or the wands once (ALWAYS_CAST, GAMBLE...): not replayed when the player
+        /// entity is made again; EXTRA_HP and RESPAWN only change the player, so they are.</summary>
+        static bool Replays(NoitaPerk k) => !k.OneOff || k.Id == "EXTRA_HP" || k.Id == "RESPAWN";
+        static int _entity;
+        static string _entityOwner;
+        static float _baseMaxHp = 4;
+        const float Px = Terranoita.Noita.Units.PixelScale;
+
+        /// <summary>The character's player entity in the script store, made from Noita's player_base.xml with the
+        /// character's perks run on it again in the order they were taken; 0 while Noita's files are not read.</summary>
+        static int Entity(Player p)
+        {
+            var store = SpellShots.ScriptStore;
+            if (store == null)
+                return 0;
+            var mine = Of(p);
+            if (_entity != 0 && _entityOwner == _owner && store.Alive(_entity))
+                return _entity;
+            var x = NoitaEntityXml.Load(PlayerFile, NoitaArt.ReadText);
+            var dm = x.Components.FirstOrDefault(c => c.Type == "DamageModelComponent");
+            if (dm != null && float.TryParse(dm.Get("max_hp"), System.Globalization.NumberStyles.Float, System.Globalization.CultureInfo.InvariantCulture, out float hp) && hp > 0)
+                _baseMaxHp = hp;
+            _entity = store.CreateEntity(x.Name, x.Tags, p.Center.X / Px, p.Center.Y / Px,
+                x.Components.Where(c => PlayerParts.Contains(c.Type)).Select(c => (c.Type, (IDictionary<string, string>)c.Fields)).ToList());
+            _entityOwner = _owner;
+            var count = new Dictionary<string, int>();
+            foreach (string id in mine.ToList())
+            {
+                count[id] = count.TryGetValue(id, out int n) ? n + 1 : 1;
+                var k = Get(id);
+                if (k != null && Replays(k))
+                    Run(p, _entity, id, count[id]);
+            }
+            return _entity;
+        }
+
+        static void Run(Player p, int who, string id, int pickupCount)
+        {
+            var store = SpellShots.ScriptStore;
+            int item = store.CreateEntity("perk", "perk", p.Center.X / Px, p.Center.Y / Px, new (string, IDictionary<string, string>)[0]);
+            try
+            {
+                if (store.RunPerk(id, who, item, pickupCount))
+                    Entry.Log("perk func: " + id + " x" + pickupCount + (store.Missing.Count > 0 ? "; engine calls missing so far: " + string.Join(",", store.Missing) : ""));
+            }
+            catch (Exception ex)
+            {
+                if (Told.Add("func:" + id))
+                    Entry.Error("perk func " + id, ex);
+            }
+            finally { store.Forget(item); }
         }
 
         /// <summary>Noita's game effects of the perks the player holds, as Terraria's own immunities (design/perks.md).</summary>
         public static void Effects(Player p)
         {
-            if (p.whoAmI != Main.myPlayer)
+            if (p.whoAmI != Main.myPlayer || Of(p).Count == 0)
                 return;
-            foreach (string id in Of(p))
+            var store = SpellShots.ScriptStore;
+            int who = Entity(p);
+            var effects = new HashSet<string>(Of(p).SelectMany(id => Get(id)?.GameEffects ?? new List<string>()));
+            if (who != 0)
             {
-                var perk = Get(id);
-                if (perk == null)
-                    continue;
-                foreach (string e in perk.GameEffects)
+                store.Place(who, p.Center.X / Px, p.Center.Y / Px);
+                // what the funcs did to Noita's player: game effects they added, max hp (Terraria life scaled by the same
+                // share: adapted, Noita's hp has no Terraria twin)
+                foreach (var c in store.Components(who, "GameEffectComponent"))
+                    if (!string.IsNullOrEmpty(c.Get("effect")))
+                        effects.Add(c.Get("effect"));
+                var dm = store.Components(who, "DamageModelComponent", false).FirstOrDefault();
+                float max = dm?.Float("max_hp", _baseMaxHp) ?? _baseMaxHp;
+                if (max > 0 && Math.Abs(max - _baseMaxHp) > 0.001f)
+                    p.statLifeMax2 = Math.Max(1, (int)(p.statLifeMax2 * max / _baseMaxHp));
+            }
+            {
+
+                foreach (string e in effects)
                 {
                     switch (e)
                     {
@@ -165,7 +243,7 @@ namespace Terranoita.Game.Magic
                             break;
                         default:
                             if (Told.Add("effect:" + e))
-                                Entry.Log("perk effect not done yet: " + e + " (" + id + ")");
+                                Entry.Log("perk effect not done yet: " + e);
                             break;
                     }
                 }
@@ -233,6 +311,9 @@ namespace Terranoita.Game.Magic
                     Entry.Log("perks lost on death: " + mine.Count);
                     mine.Clear();
                     Save();
+                    if (_entity != 0)
+                        SpellShots.ScriptStore?.Forget(_entity);   // Noita's player as it was before any perk, next time
+                    _entity = 0;
                 }
                 catch (Exception ex) { Entry.Error("perks on death", ex); }
             }

@@ -221,6 +221,16 @@ namespace Terranoita.Noita
             return e.Id;
         }
 
+        /// <summary>The game moves an entity it made from parts (the player): its scripts see it there.</summary>
+        public void Place(int entity, float x, float y)
+        {
+            if (_ents.TryGetValue(entity, out var e))
+            {
+                e.X = x;
+                e.Y = y;
+            }
+        }
+
         /// <summary>A perk's func from Noita's perk_list.lua, called as Noita's perk pickup calls it:
         /// func(entity_perk_item, entity_who_picked, item_name, pickup_count). False when the perk has none; a broken func
         /// throws (the game logs it).</summary>
