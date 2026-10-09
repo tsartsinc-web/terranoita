@@ -99,11 +99,17 @@ namespace Terranoita.Tests
         public void BlastCellsFromConfigExplosion()
         {
             // bomb.xml: create_cell_probability 40, no material (fire in the probe: the target burns); meteor.xml: fire
-            const string bomb = @"<Entity><ProjectileComponent><config_explosion explosion_radius=""60"" create_cell_probability=""40"" /></ProjectileComponent></Entity>";
+            const string bomb = @"<Entity><ProjectileComponent><config_explosion explosion_radius=""60"" create_cell_probability=""40""
+                load_this_entity=""data/entities/particles/a.xml,data/entities/projectiles/deck/glitter_bomb_explosion.xml"" /></ProjectileComponent></Entity>";
             const string slime = @"<Entity><ProjectileComponent><config_explosion create_cell_probability=""5"" create_cell_material=""radioactive_liquid_fading"" /></ProjectileComponent></Entity>";
-            Assert.Equal((40f, ""), SpellProjectileFromEntity.BlastCells(NoitaEntityXml.Load("b.xml", p => p == "b.xml" ? bomb : null)));
-            Assert.Equal((5f, "radioactive_liquid_fading"), SpellProjectileFromEntity.BlastCells(NoitaEntityXml.Load("s.xml", p => p == "s.xml" ? slime : null)));
-            Assert.Equal((0f, ""), SpellProjectileFromEntity.BlastCells(NoitaEntityXml.Load("c.xml", p => p == "c.xml" ? "<Entity><ProjectileComponent /></Entity>" : null)));
+            var b = SpellProjectileFromEntity.Blast(NoitaEntityXml.Load("b.xml", p => p == "b.xml" ? bomb : null));
+            Assert.Equal((40f, ""), (b.CellProbability, b.CellMaterial));
+            // what the blast loads: projectile files only (glitter_bomb.xml: the explosion that throws its shards)
+            Assert.Equal(new[] { "data/entities/projectiles/deck/glitter_bomb_explosion.xml" }, b.LoadsShots);
+            var s = SpellProjectileFromEntity.Blast(NoitaEntityXml.Load("s.xml", p => p == "s.xml" ? slime : null));
+            Assert.Equal((5f, "radioactive_liquid_fading"), (s.CellProbability, s.CellMaterial));
+            var none = SpellProjectileFromEntity.Blast(NoitaEntityXml.Load("c.xml", p => p == "c.xml" ? "<Entity><ProjectileComponent /></Entity>" : null));
+            Assert.Equal((0f, "", 0), (none.CellProbability, none.CellMaterial, none.LoadsShots.Length));
         }
 
         [Fact]

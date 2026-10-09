@@ -28,17 +28,29 @@ namespace Terranoita.Noita
         /// <summary>A shot's hit damage as Noita reports it, one hit per kind: ProjectileComponent damage as
         /// "$damage_projectile", each damage_by_type field as "$damage_&lt;type&gt;" (the Noita probe: an arrow hits with
         /// $damage_slice only); kinds with no damage left out. Noita damage units.</summary>
-        /// <summary>The material cells a shot's blast leaves: config_explosion create_cell_probability (percent) and
-        /// create_cell_material ("" when the file sets none).</summary>
-        public static (float probability, string material) BlastCells(XmlEntity e)
+        /// <summary>What a shot's blast leaves (config_explosion): material cells (create_cell_probability, percent;
+        /// create_cell_material, "" when the file sets none) and the projectile files of its load_this_entity.</summary>
+        public sealed class BlastInfo
         {
+            public float CellProbability;
+            public string CellMaterial = "";
+            public string[] LoadsShots = new string[0];
+        }
+
+        public static BlastInfo Blast(XmlEntity e)
+        {
+            var b = new BlastInfo();
             if (e == null)
-                return (0, "");
+                return b;
             var comps = new Dictionary<string, Dictionary<string, string>>(StringComparer.Ordinal);
             Walk(e, comps, 0);
             if (!comps.TryGetValue("config_explosion", out var ex))
-                return (0, "");
-            return (Num(Get(ex, "create_cell_probability")), Get(ex, "create_cell_material") ?? "");
+                return b;
+            b.CellProbability = Num(Get(ex, "create_cell_probability"));
+            b.CellMaterial = Get(ex, "create_cell_material") ?? "";
+            b.LoadsShots = (Get(ex, "load_this_entity") ?? "").Split(',').Select(x => x.Trim())
+                .Where(x => x.StartsWith("data/entities/projectiles/", StringComparison.Ordinal)).ToArray();
+            return b;
         }
 
         public static Dictionary<string, float> DamageByMessage(XmlEntity e)

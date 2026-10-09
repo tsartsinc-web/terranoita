@@ -583,7 +583,20 @@ namespace Terranoita.Game.Magic
             finally { SpellRecorder.Parent = ""; }
         }
 
-        static readonly Dictionary<string, (float probability, string material)> FileCells = new Dictionary<string, (float, string)>(StringComparer.OrdinalIgnoreCase);
+        static readonly Dictionary<string, SpellProjectileFromEntity.BlastInfo> FileBlast = new Dictionary<string, SpellProjectileFromEntity.BlastInfo>(StringComparer.OrdinalIgnoreCase);
+
+        /// <summary>What the shot's file's blast leaves (config_explosion), read once per file.</summary>
+        static SpellProjectileFromEntity.BlastInfo BlastOf(Shot s)
+        {
+            string file = s.Lua.File ?? "";
+            if (!FileBlast.TryGetValue(file, out var b))
+            {
+                try { b = NoitaArt.ReadText(file) == null ? new SpellProjectileFromEntity.BlastInfo() : SpellProjectileFromEntity.Blast(NoitaEntityXml.Load(file, NoitaArt.ReadText)); }
+                catch (Exception ex) { Entry.Error("blast " + file, ex); b = new SpellProjectileFromEntity.BlastInfo(); }
+                FileBlast[file] = b;
+            }
+            return b;
+        }
 
         /// <summary>Does the blast leave fire? Noita's config_explosion create_cell_probability leaves material cells (fire
         /// when the file names none, or "fire") where the blast tears up the ground. A model fitted to the probe (assumed,
@@ -591,14 +604,8 @@ namespace Terranoita.Game.Magic
         /// NUKE_GIGA 5, METEOR fire), ROCKET's (10) at the target in the air did not.</summary>
         static bool LeavesFire(Shot s)
         {
-            string file = s.Lua.File ?? "";
-            if (!FileCells.TryGetValue(file, out var cells))
-            {
-                try { cells = NoitaArt.ReadText(file) == null ? (0f, "") : SpellProjectileFromEntity.BlastCells(NoitaEntityXml.Load(file, NoitaArt.ReadText)); }
-                catch (Exception ex) { Entry.Error("blast cells " + file, ex); cells = (0f, ""); }
-                FileCells[file] = cells;
-            }
-            if (cells.probability <= 0 || (cells.material != "" && cells.material != "fire"))
+            var blast = BlastOf(s);
+            if (blast.CellProbability <= 0 || (blast.CellMaterial != "" && blast.CellMaterial != "fire"))
                 return false;
             int r = (int)(s.Radius / 16f) + 1, cx = (int)(s.Pos.X / 16f), cy = (int)(s.Pos.Y / 16f);
             for (int x = cx - r; x <= cx + r; x++)
@@ -647,6 +654,10 @@ namespace Terranoita.Game.Magic
             if (r >= 16 && Physics.Patches.On)
                 Physics.Blast.Explode(s.Pos, r, s.Fire || fire, Physics.Blast.PickPower(s.Owner));
             Lighting.AddLight(s.Pos, 1f, 0.7f, 0.3f);
+            // config_explosion load_this_entity's projectile files start at the blast (glitter_bomb_explosion.xml throws
+            // the glitter bomb's shards: Noita 24 in the probe, ours none before)
+            foreach (var file in BlastOf(s).LoadsShots)
+                LoadEntity(file, s.Pos, s.Owner);
         }
 
         static void Draw()
