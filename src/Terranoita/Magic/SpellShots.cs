@@ -394,11 +394,12 @@ namespace Terranoita.Game.Magic
             }
         }
 
-        static void Strike(Shot s, NPC n, float damage, string message = "$damage_projectile")
+        static void Strike(Shot s, NPC n, float damage, string message = "$damage_projectile", bool record = true)
         {
             if (s.Owner == null)
                 return;
-            SpellRecorder.Hit(n, s.Lua.File, damage, message);
+            if (record)
+                SpellRecorder.Hit(n, s.Lua.File, damage, message);
             // Terraria's magic damage and crit (armour, potions, accessories, mana sickness) on top of Noita's numbers
             int dmg = (int)Math.Round(damage * s.Owner.magicDamage);
             if (dmg <= 0)
@@ -477,10 +478,11 @@ namespace Terranoita.Game.Magic
                 var n = Main.npc[i];
                 if (n.active && !n.friendly && !n.dontTakeDamage && n.life > 0 && Vector2.Distance(n.Center, s.Pos) <= r + n.width / 2f)
                 {
-                    // Noita: the blast and a projectile that had not hit yet are two hits (two damage messages)
-                    Strike(s, n, s.ExplosionDamage, "$damage_explosion");
-                    if (!s.Hit.Contains(i))
-                        Strike(s, n, s.Damage);
+                    // one hit in the game as before; the test records Noita's two (explosion, projectile)
+                    float projectile = s.Hit.Contains(i) ? 0 : s.Damage;
+                    SpellRecorder.Hit(n, s.Lua.File, s.ExplosionDamage, "$damage_explosion");
+                    SpellRecorder.Hit(n, s.Lua.File, projectile, "$damage_projectile");
+                    Strike(s, n, s.ExplosionDamage + projectile, record: false);
                 }
             }
             // Noita: some explosions hurt their caster too (explosion_dont_damage_shooter = 0)

@@ -43,6 +43,15 @@ namespace Terranoita.Tests
         }
 
         [Fact]
+        public void NoitasEffectEntitiesAreNotShots()
+        {
+            var noita = Row("single:BOMB", 25, ("data/entities/projectiles/bomb.xml", "", 120),
+                            ("data/entities/particles/muzzle_flashes/muzzle_flash_launcher_large.xml", "", 0), ("data/entities/misc/crack.xml", "", 0));
+            var ours = Row("single:BOMB", 25, ("data/entities/projectiles/bomb.xml", "", 110));
+            Assert.True(ProbeCompare.Compare(noita, ours).Matches);
+        }
+
+        [Fact]
         public void NothingFiredAndMissingRows()
         {
             var noita = Row("single:TENTACLE", 20, ("data/entities/projectiles/deck/tentacle.xml", "", 8));

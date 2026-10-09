@@ -30,6 +30,7 @@ namespace Terranoita.Game.Magic
         static List<(string name, string[] deck)> _tests;
         static int _k = -1, _t, _casts0, _mana0, _firedAt, _lastCount, _lastChange;
         static Vector2 _start;
+        static int _px, _floor;   // the caster's tile column and the arena floor's top row
         static NPC _target;
         static WandData _wand;
 
@@ -48,7 +49,9 @@ namespace Terranoita.Game.Magic
             int t = _t++;
             if (_target != null && _target.active)
             {
-                Casting.TestAim = _target.Center;
+                // the probe's aim: its target's centre is 4 Noita px above the wand line (init.lua: target at the
+                // caster's height - 4, hitbox -16..4; shots start 6 px up), so the shot's gravity is offset the same way
+                Casting.TestAim = new Vector2(_target.Center.X, p.Center.Y - 4 * Units.PixelScale);
                 _target.velocity.X = 0;
             }
             if (t == Setup)
@@ -83,9 +86,39 @@ namespace Terranoita.Game.Magic
                 Finish(ft, (SpellRecorder.Alive > 0 ? "still flying at the end; " : "") + "fired at frame " + _firedAt);
         }
 
+        // the probe's arena in Noita px (tools/noita_probe/terranoita_probe/files/arena.png, init.lua): air 40 px left
+        // and 180 px above the caster, a floor 12 px thick under it, a wall from 264 to 280 px to its right
+        static int T(float noitaPx) => (int)Math.Round(noitaPx * Units.PixelScale / 16f);
+
+        /// <summary>The probe's arena, built again before every cast (blasts dig into it).</summary>
+        static void Arena()
+        {
+            int left = _px - T(40), wall = _px + T(264), right = _px + T(280), top = _floor - T(180), bottom = _floor + T(12) - 1;
+            for (int x = left - 1; x <= right; x++)
+                for (int y = top; y <= bottom; y++)
+                {
+                    if (!WorldGen.InWorld(x, y, 10))
+                        continue;
+                    var t = Main.tile[x, y];
+                    t.ClearEverything();
+                    if (y >= _floor || x >= wall)
+                    {
+                        t.active(true);
+                        t.type = Terraria.ID.TileID.Stone;
+                    }
+                }
+            if (Physics.Patches.On)
+                Physics.Fluids.Clear();
+            for (int i = 0; i < Main.maxItems; i++)
+                Main.item[i].inner.TurnToAir();
+            WorldGen.RangeFrame(left - 2, top - 1, right + 2, bottom + 1);
+        }
+
         static void Load(Player p)
         {
             _start = p.position;
+            _px = (int)(p.Center.X / 16);
+            _floor = (int)((p.position.Y + p.height) / 16) + 1;
             string path = Environment.GetEnvironmentVariable("TERRANOITA_PROBE_TESTS");
             if (string.IsNullOrEmpty(path) || !File.Exists(path))
             {
@@ -132,11 +165,12 @@ namespace Terranoita.Game.Magic
             }
             var (name, deck) = _tests[_k];
             SpellShots.Clear();
-            p.position = _start;
+            Arena();
+            p.position = new Vector2(_px * 16 + 8 - p.width / 2f, _floor * 16 - p.height);
             p.velocity = Vector2.Zero;
             _target?.StrikeNPCNoInteraction(99999, 0, 0);
             var def = Enemies.All.First(e => e.Id == "zombie_weak");
-            int who = Carriers.Spawn(def, (int)(p.Center.X + TargetDistance), (int)(p.position.Y + p.height));
+            int who = Carriers.Spawn(def, (int)(p.Center.X + TargetDistance), _floor * 16);
             _target = who >= 0 ? Main.npc[who] : null;
             if (_target != null)
                 _target.lifeMax = _target.life = 100000;

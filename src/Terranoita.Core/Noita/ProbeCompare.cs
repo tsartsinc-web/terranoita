@@ -24,6 +24,10 @@ namespace Terranoita.Noita
 
         static bool Root(ProbeShot s) => string.IsNullOrEmpty(s.Parent) || s.Parent.EndsWith("/player.xml", StringComparison.Ordinal);
 
+        /// <summary>Shots are projectile files; the probe also records Noita's own effect entities (particles, misc/crack,
+        /// misc/electricity: run 2026-10-09), which are not shots of our runtime.</summary>
+        public static bool IsShot(ProbeShot s) => (s.File ?? "").StartsWith("data/entities/projectiles/", StringComparison.Ordinal);
+
         static Dictionary<string, int> Count(IEnumerable<ProbeShot> shots, Func<ProbeShot, string> key) =>
             shots.GroupBy(key).ToDictionary(g => g.Key, g => g.Count(), StringComparer.Ordinal);
 
@@ -45,8 +49,10 @@ namespace Terranoita.Noita
                 return v;
             }
             // what the cast released, and what those released (by file, and by file + parent)
-            var nRoot = Count(noita.Shots.Where(Root), s => s.File);
-            var oRoot = Count(ours.Shots.Where(Root), s => s.File);
+            var nShots = noita.Shots.Where(IsShot).ToList();
+            var oShots = ours.Shots.Where(IsShot).ToList();
+            var nRoot = Count(nShots.Where(Root), s => s.File);
+            var oRoot = Count(oShots.Where(Root), s => s.File);
             foreach (var f in nRoot.Keys.Union(oRoot.Keys).OrderBy(x => x, StringComparer.Ordinal))
             {
                 nRoot.TryGetValue(f, out int a);
@@ -54,8 +60,8 @@ namespace Terranoita.Noita
                 if (a != b)
                     v.Differences.Add("shots " + Short(f) + ": " + b + " (Noita " + a + ")");
             }
-            var nKids = Count(noita.Shots.Where(s => !Root(s)), s => s.File + " <- " + s.Parent);
-            var oKids = Count(ours.Shots.Where(s => !Root(s)), s => s.File + " <- " + s.Parent);
+            var nKids = Count(nShots.Where(s => !Root(s)), s => s.File + " <- " + s.Parent);
+            var oKids = Count(oShots.Where(s => !Root(s)), s => s.File + " <- " + s.Parent);
             foreach (var k in nKids.Keys.Union(oKids.Keys).OrderBy(x => x, StringComparer.Ordinal))
             {
                 nKids.TryGetValue(k, out int a);
@@ -69,7 +75,11 @@ namespace Terranoita.Noita
             // start speed of each file both released at the root
             foreach (var f in nRoot.Keys.Intersect(oRoot.Keys))
             {
-                double ns = noita.Shots.First(s => Root(s) && s.File == f).Speed0, os = ours.Shots.First(s => Root(s) && s.File == f).Speed0;
+                var nf = nShots.First(s => Root(s) && s.File == f);
+                var of = oShots.First(s => Root(s) && s.File == f);
+                if (nf.Vx0 == null || of.Vx0 == null)
+                    continue;   // gone before it could be measured
+                double ns = nf.Speed0, os = of.Speed0;
                 if (Math.Abs(os - ns) > SpeedTolerance * Math.Max(ns, 1))
                     v.Differences.Add("speed " + Short(f) + ": " + F(os) + " (Noita " + F(ns) + ")");
             }

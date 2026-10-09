@@ -14,7 +14,9 @@ namespace Terranoita.Game.Physics
         public static readonly bool On = Environment.GetEnvironmentVariable("TERRANOITA_PHYSICS") != "0";
 
         // single player and, in multiplayer, our client (Terraria's own server runs none of this: NetSync sends our changes)
-        static bool Live => On && !Main.gameMenu && !WorldGen.generatingWorld && Main.netMode != 2;   // 2 = server
+        // multiplayer physics (NetSync, PC-19) is not verified in game yet: off unless TERRANOITA_MP_PHYSICS=1 (0.4.3)
+        static readonly bool MpPhysics = Environment.GetEnvironmentVariable("TERRANOITA_MP_PHYSICS") == "1";
+        static bool Live => On && !Main.gameMenu && !WorldGen.generatingWorld && (Main.netMode == 0 || Main.netMode == 1 && MpPhysics);
 
         // Terraria projectiles that set wood and grass on fire: the ones Terraria's own hit code (Projectile.StatusNPC,
         // read with ilspycmd) gives On Fire / Hellfire / Cursed Inferno, and fire weapons that burn in other ways

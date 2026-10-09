@@ -33,6 +33,7 @@ namespace Terranoita.Game.Physics
         static Conduction _c;
         static int _frame;
 
+        public static readonly bool Enabled = System.Environment.GetEnvironmentVariable("TERRANOITA_ELECTRICITY") == "1";
         public static int Count => _c?.Count ?? 0;
         public static bool ChargedAt(int x, int y) => _c != null && _c.Charged(x, y);
         public static void Clear() { _c = null; }
@@ -41,7 +42,8 @@ namespace Terranoita.Game.Physics
         /// conducting pool it starts in or next to; how many tiles.</summary>
         public static int Emit(Vector2 pos, int energy, int radius = 1)
         {
-            if (!Patches.On)
+            // not verified in game yet (PC-4): off unless TERRANOITA_ELECTRICITY=1 (0.4.3)
+            if (!Patches.On || !Enabled)
                 return 0;
             if (_c == null || _c.Width != Main.maxTilesX)
                 _c = new Conduction(Main.maxTilesX);

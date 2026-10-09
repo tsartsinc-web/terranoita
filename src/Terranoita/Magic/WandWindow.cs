@@ -24,7 +24,8 @@ namespace Terranoita.Game.Magic
         // clicks on our slots act as an inventory slot (any item may go in, nothing is sent): a chest slot (context 3)
         // sends the open chest's slot to the server in multiplayer, and with no chest open (-1) Terraria's
         // NetMessage.SendData threw IndexOutOfRange; a bank slot (4) needs an open container (NullReference) (2026-10-09)
-        const int SlotContext = ItemSlot.Context.InventoryItem;
+        // single player keeps the chest slot (worked since 0.3); multiplayer the inventory slot (not verified in game yet)
+        static int SlotContext => Main.netMode == 1 ? ItemSlot.Context.InventoryItem : ItemSlot.Context.ChestItem;
         public static Item[] WandSlots = NewSlots();
         public static Item[] SpellSlots = NewSpellSlots();   // Noita's 16 spell slots, left of the equipment (author)
         static string _spellsFile, _usesFile;
