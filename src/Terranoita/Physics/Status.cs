@@ -280,6 +280,8 @@ namespace Terranoita.Game.Physics
                     return;
                 try { Effects(__instance); }
                 catch (Exception ex) { Entry.Error("status effects", ex); }
+                try { Magic.Perks.Effects(__instance); }   // after ResetEffects, before Terraria uses the immunities
+                catch (Exception ex) { Entry.Error("perk effects", ex); }
             }
         }
 

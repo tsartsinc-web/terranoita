@@ -1,0 +1,241 @@
+using System;
+using System.Collections.Generic;
+using System.IO;
+using System.Linq;
+using HarmonyLib;
+using Terranoita.Noita;
+using Terraria;
+using Terraria.DataStructures;
+using Terraria.ID;
+
+namespace Terranoita.Game.Magic
+{
+    /// <summary>
+    /// Noita's perks as items (design/perks.md, PC-34): Terraria bosses drop them, the player uses one from the hand and
+    /// keeps the perk (saved per character); on death all perks are lost and with more than 10 a quarter drop as items.
+    /// The list is the author's perk_list.lua (Core NoitaPerks). Applied so far: the game effects below; Noita's perk
+    /// funcs, scripts, shot modifiers and child entities are not run yet (logged per perk).
+    /// </summary>
+    public static class Perks
+    {
+        /// <summary>The perk item rides on Terraria's unused Apple Pie Slice (deprecated); its prefix = perk number + 1.</summary>
+        public static readonly int[] PerkTypes = { ItemID.ApplePieSlice };
+        /// <summary>Left out of the drop pool until they mean something here (design/perks.md).</summary>
+        static readonly HashSet<string> LeftOut = new HashSet<string> { "EDIT_WANDS_EVERYWHERE", "PEACE_WITH_GODS", "ABILITY_ACTIONS_MATERIALIZED" };
+        const int DropOnDeathAbove = 10;
+
+        static List<NoitaPerk> _all;
+        public static List<NoitaPerk> All
+        {
+            get
+            {
+                if (_all == null)
+                {
+                    try { _all = NoitaPerks.Read(NoitaArt.ReadText); }
+                    catch (Exception ex) { Entry.Error("perk list", ex); _all = new List<NoitaPerk>(); }
+                }
+                return _all;
+            }
+        }
+
+        public static NoitaPerk Get(string id) => All.FirstOrDefault(p => p.Id == id);
+        public static bool IsPerk(Item i) => i != null && !i.IsAir && Array.IndexOf(PerkTypes, i.type) >= 0 && i.prefix > 0 && i.prefix <= All.Count;
+        public static NoitaPerk PerkOf(Item i) => IsPerk(i) ? All[i.prefix - 1] : null;
+
+        public static Item Make(string id)
+        {
+            int n = All.FindIndex(p => p.Id == id);
+            if (n < 0 || n >= 255)
+                throw new ArgumentException("not one of Noita's perks: " + id);
+            var item = new Item();
+            item.SetDefaults(PerkTypes[0]);
+            item.prefix = (byte)(n + 1);
+            return item;
+        }
+
+        public static string Name(NoitaPerk p) => p == null ? "?" : NoitaArt.Text(p.UiName, p.Id);
+        public static IEnumerable<string> Lines(NoitaPerk p)
+        {
+            yield return NoitaArt.Text(p.UiDescription, "");
+            yield return "Use: the perk is yours until you die";
+        }
+
+        // ---- the character's perks ----
+
+        static readonly string Folder = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData), "Terranoita", "perks");
+        static string _owner;
+        static readonly List<string> Mine = new List<string>();
+
+        /// <summary>The local character's perks (ids, one per pickup), loaded when the character changes.</summary>
+        public static List<string> Of(Player p)
+        {
+            string key = Main.ActivePlayerFileData?.Path == null ? p.name : Path.GetFileNameWithoutExtension(Main.ActivePlayerFileData.Path);
+            if (key != _owner)
+            {
+                _owner = key;
+                Mine.Clear();
+                string f = File(key);
+                if (System.IO.File.Exists(f))
+                    Mine.AddRange(System.IO.File.ReadAllLines(f).Select(x => x.Trim()).Where(x => x.Length > 0));
+            }
+            return Mine;
+        }
+
+        static string File(string key)
+        {
+            foreach (char c in Path.GetInvalidFileNameChars())
+                key = key.Replace(c, '_');
+            return Path.Combine(Folder, key + ".txt");
+        }
+
+        static void Save()
+        {
+            if (_owner == null)
+                return;
+            Directory.CreateDirectory(Folder);
+            System.IO.File.WriteAllLines(File(_owner), Mine);
+        }
+
+        public static bool Has(Player p, string id) => p.whoAmI == Main.myPlayer && Of(p).Contains(id);
+        public static bool HasEffect(Player p, string effect) =>
+            p.whoAmI == Main.myPlayer && Of(p).Any(id => Get(id)?.GameEffects.Contains(effect) == true);
+
+        // ---- use from the hand ----
+
+        static bool _useHeld;
+
+        public static void Update(Player p, bool typing)
+        {
+            bool press = p.controlUseItem && !_useHeld;   // one perk per click
+            _useHeld = p.controlUseItem;
+            var item = p.inventory[p.selectedItem];
+            var perk = PerkOf(item);
+            if (perk != null && press && !typing && !p.mouseInterface && !Main.mapFullscreen && !p.CCed && !p.noItems)
+            {
+                Take(p, perk);
+                if (!(Has(p, "PERKS_LOTTERY") && Main.rand.Next(2) == 0))
+                    item.TurnToAir();
+            }
+        }
+
+        static readonly HashSet<string> Told = new HashSet<string>();
+
+        static void Take(Player p, NoitaPerk perk)
+        {
+            Of(p).Add(perk.Id);
+            Save();
+            Entry.Log("perk taken: " + perk.Id + " (" + Of(p).Count + " perks)");
+            if (perk.HasFunc && Told.Add("func:" + perk.Id))
+                Entry.Log("perk " + perk.Id + ": Noita's func not run yet (design/perks.md step 1)");
+        }
+
+        /// <summary>Noita's game effects of the perks the player holds, as Terraria's own immunities (design/perks.md).</summary>
+        public static void Effects(Player p)
+        {
+            if (p.whoAmI != Main.myPlayer)
+                return;
+            foreach (string id in Of(p))
+            {
+                var perk = Get(id);
+                if (perk == null)
+                    continue;
+                foreach (string e in perk.GameEffects)
+                {
+                    switch (e)
+                    {
+                        case "PROTECTION_FIRE":
+                            p.buffImmune[BuffID.OnFire] = p.buffImmune[BuffID.OnFire3] = p.buffImmune[BuffID.Burning] = true;
+                            p.fireWalk = true;
+                            p.lavaImmune = true;
+                            break;
+                        case "PROTECTION_RADIOACTIVITY":
+                            p.buffImmune[BuffID.Poisoned] = p.buffImmune[BuffID.Venom] = true;
+                            break;
+                        case "PROTECTION_ELECTRICITY":
+                            p.buffImmune[BuffID.Electrified] = true;
+                            break;
+                        case "PROTECTION_FREEZE":
+                            p.buffImmune[BuffID.Frozen] = p.buffImmune[BuffID.Chilled] = true;
+                            break;
+                        case "BREATH_UNDERWATER":
+                            p.gills = true;
+                            break;
+                        case "KNOCKBACK_IMMUNITY":
+                            p.noKnockback = true;
+                            break;
+                        default:
+                            if (Told.Add("effect:" + e))
+                                Entry.Log("perk effect not done yet: " + e + " (" + id + ")");
+                            break;
+                    }
+                }
+            }
+        }
+
+        // ---- drops ----
+
+        static int _lastBossDrop = -1000;
+
+        /// <summary>A Terraria boss died: random perk items, more on harder worlds (author's design).</summary>
+        public static void BossDrop(NPC npc)
+        {
+            if (!npc.boss || Main.netMode == 1)
+                return;
+            // worm bosses and twins die in pieces close together: one drop for them
+            if (Main.GameUpdateCount - _lastBossDrop < 120)
+                return;
+            if ((npc.type == NPCID.EaterofWorldsHead || npc.type == NPCID.EaterofWorldsBody || npc.type == NPCID.EaterofWorldsTail) &&
+                Main.npc.Any(n => n.active && n.whoAmI != npc.whoAmI && (n.type == NPCID.EaterofWorldsHead || n.type == NPCID.EaterofWorldsBody || n.type == NPCID.EaterofWorldsTail)))
+                return;
+            _lastBossDrop = (int)Main.GameUpdateCount;
+            int count = 1 + (Main.expertMode ? 1 : 0) + (Main.masterMode ? 1 : 0) + (Main.getGoodWorld ? 1 : 0) + Of(Main.LocalPlayer).Count(x => x == "EXTRA_PERK");
+            for (int k = 0; k < count; k++)
+            {
+                var perk = Random(Main.LocalPlayer);
+                if (perk == null)
+                    break;
+                Drop(perk.Id, npc.position, npc.width, npc.height, new EntitySource_Loot(npc));
+            }
+        }
+
+        static NoitaPerk Random(Player p)
+        {
+            var pool = All.Where(x => !x.NotInDefaultPool && !LeftOut.Contains(x.Id) && (x.Stackable || !Of(p).Contains(x.Id))).ToList();
+            return pool.Count == 0 ? null : pool[Main.rand.Next(pool.Count)];
+        }
+
+        static void Drop(string id, Microsoft.Xna.Framework.Vector2 pos, int w, int h, IEntitySource src)
+        {
+            var item = Make(id);
+            int at = Item.NewItem(src, (int)pos.X, (int)pos.Y, w, h, item.type, 1, false, item.prefix);
+            if (at >= 0 && at < Main.maxItems)
+                Main.item[at].prefix = item.prefix;
+            Entry.Log("perk drop: " + id);
+        }
+
+        [Hook("perk_death")]
+        [HarmonyPatch(typeof(Player), nameof(Player.KillMe))]
+        static class DeathPatch
+        {
+            // all perks are lost; with more than 10 a quarter of them (random) drop where the player died, like coins
+            static void Postfix(Player __instance)
+            {
+                try
+                {
+                    if (__instance.whoAmI != Main.myPlayer || !__instance.dead)
+                        return;
+                    var mine = Of(__instance);
+                    if (mine.Count == 0)
+                        return;
+                    if (mine.Count > DropOnDeathAbove)
+                        foreach (string id in mine.OrderBy(_ => Main.rand.Next()).Take(mine.Count / 4).ToList())
+                            Drop(id, __instance.position, __instance.width, __instance.height, new EntitySource_Parent(__instance));
+                    Entry.Log("perks lost on death: " + mine.Count);
+                    mine.Clear();
+                    Save();
+                }
+                catch (Exception ex) { Entry.Error("perks on death", ex); }
+            }
+        }
+    }
+}

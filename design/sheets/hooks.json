@@ -601,6 +601,15 @@
    "purpose": "Noita's content in Terraria's own world generation: a loot pass after Final Cleanup fills chests by Noita's chest_random.lua (design/worldgen_plan.md).",
    "stage": "4",
    "_unverified": {}
+  },
+  {
+   "id": "perk_death",
+   "target": "Terraria.Player:KillMe(PlayerDeathReason, double, int, bool)",
+   "patch": "postfix",
+   "system": "perks",
+   "purpose": "Noita perks are lost on death; with more than 10 a quarter drop as perk items (PC-34).",
+   "stage": "3",
+   "_unverified": {}
   }
  ]
 }

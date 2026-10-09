@@ -60,6 +60,11 @@ How it works (author, 2026-10-08): the author only says "работай" to eith
   a quarter of them (random ones from the list he had) drop as perk items at the death spot, like coins.
   Check: kill a boss in a test world -> perk items drop; use one -> effect + icon; die -> perks gone, >10 -> 1/4
   drop. Write the perk list + adaptations to design/perks.md before coding.
+  Built only (2026-10-10): Magic/Perks.cs: perk item (Apple Pie Slice carrier, prefix = perk number), boss drop (1 +
+  expert + master + ftw + EXTRA_PERK), use from the hand (PERKS_LOTTERY 50% keep), per-character file
+  %LOCALAPPDATA%/Terranoita/perks/<player file>.txt, death: all lost, >10 a quarter drop (hook perk_death), game
+  effects as Terraria immunities (fire, toxic, electricity, freeze, gills, knockback; others log "not done yet").
+  Next: run perk funcs on a player store entity (Core), icons row, ShotEffect extra_modifier, then the boss test.
 - PC-32 new (after PC-31): fix real failures by group, biggest first (run B counts): no damage ~35 (BLACK_HOLE_GIGA,
   WHITE_HOLE_GIGA, LASER_EMITTER, METEOR, MISSILE, ORBIT_LASERS...); nothing spawned ~32 (GLITTER_BOMB, GLUE_SHOT,
   SUMMON_EGG, THUNDERBALL, SPORE_POD, CRUMBLING_EARTH, WALL_VERTICAL/SQUARE...); wrong count ~40 (TENTACLE_PORTAL

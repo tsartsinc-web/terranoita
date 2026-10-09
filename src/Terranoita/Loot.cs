@@ -174,7 +174,11 @@ namespace Terranoita.Game
             {
                 var n = Carriers.Get(__instance);
                 if (n == null)
+                {
+                    try { Magic.Perks.BossDrop(__instance); }
+                    catch (Exception ex) { Entry.Error("perk boss drop", ex); }
                     return true;
+                }
                 try { Drop(__instance, n); SpellDrop(__instance, n); }
                 catch (Exception ex) { Entry.Error("npc_loot " + n.Def.Id, ex); }
                 Entry.Log("killed " + n.Def.Id + " #" + __instance.whoAmI);

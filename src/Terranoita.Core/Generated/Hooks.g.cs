@@ -88,6 +88,7 @@ namespace Terranoita.Generated
             new HookDef { Id = "menu_music", Target = "Terraria.Main:UpdateAudio_DecideOnNewMusic()", Patch = "postfix", System = "menu_look", Purpose = "Terraria's title music off while Noita's menu music (event:/music/menu/main) plays.", Stage = "3" },
             new HookDef { Id = "skip_splash", Target = "Terraria.Main:DrawSplash(GameTime)", Patch = "call", System = "menu_look", Purpose = "No RE-LOGIC intro: patched by hand at launch (before the menu), quick splash path, logo timeline skipped.", Stage = "3" },
             new HookDef { Id = "worldgen_passes", Target = "Terraria.WorldGen:AddPasses()", Patch = "postfix", System = "loot", Purpose = "Noita's content in Terraria's own world generation: a loot pass after Final Cleanup fills chests by Noita's chest_random.lua (design/worldgen_plan.md).", Stage = "4" },
+            new HookDef { Id = "perk_death", Target = "Terraria.Player:KillMe(PlayerDeathReason, double, int, bool)", Patch = "postfix", System = "perks", Purpose = "Noita perks are lost on death; with more than 10 a quarter drop as perk items (PC-34).", Stage = "3" },
         };
     }
 }

@@ -46,6 +46,7 @@ namespace Terranoita.Game
             if (!typing && p.controlDown && p.velocity.Y == 0 && !Magic.MagicItems.IsFlask(p.inventory[p.selectedItem]))
                 Drink(p);
             Magic.Flasks.Update(p, typing);
+            Magic.Perks.Update(p, typing);
             // the stomach empties slowly (Noita: ingestion_reduce_every_n_frame 5)
             if (_stomach > 0 && Main.GameUpdateCount % 5 == 0)
                 _stomach--;
