@@ -12,7 +12,8 @@ How it works (author, 2026-10-08): the author only says "работай" to eith
 - Status words: new, doing, waits <row>, done <commit>.
 
 ## State (keep to ~12 lines; update when it changes)
-- Melty: 0.4.4 LIVE (2026-10-09: 349 gets, 290 players, one click yes; 0.4.3 replaced by 0.4.4). Uninstalls ~13%.
+- Melty: 0.4.5 LIVE (2026-10-10 22:43, published by the agent with the author's permission for this version; 381 gets,
+  317 players before it). Description: the author's "!!!" header first, unchanged. Uninstalls ~13% (0.4.4).
   Multiplayer: 89 games hosted, 0 joins (PC-27).
 - Stage 3 magic in game: all spells via Noita's gun.lua, shot scripts, all wands, wand window (U), progress window (O),
   16 spell slots; Terraria magic bonuses apply (mana cost/damage/crit/regen/Mana Flower); max mana 600 (ManaCap.cs).
@@ -31,27 +32,11 @@ How it works (author, 2026-10-08): the author only says "работай" to eith
 - Roadmap: design/roadmap.md. Worldgen plan: design/worldgen_plan.md (PC-10 after CLOUD-7).
 
 ## PC queue
-- RELEASE TODAY (author 2026-10-09 via cloud: "надо сегодня опубликовать новую версию"): 0.4.5 with today's magic
-  work. This IS the author's explicit request for this release: build, test, upload and submit_release 0.4.5 to Melty
-  as a DRAFT (the author presses Play to publish; do not call publish). Before packaging: game_test magic + probe run
-  (behaviour number must not drop vs 674), close the games; TERRANOITA_RUNTIME=components stays OFF unless its probe
-  number is higher; MP physics/electricity stay off. Melty description: keep the honest magic note, add one line
-  "Magic: ~77% of spells and modifiers behave as in Noita (tested against real Noita), more each update". Changelog
-  for the release notes: rockets, explosions (explosion damage only), thrown bombs/dynamite/propane, bounces and
-  BOUNCE_* modifiers, CHAIN_SHOT, fire blasts burn their crater, starting wands for a re-used character name.
-  Then update State and stop for the day (MODLOG handoff).
-  Author 2026-10-10: also turn on multiplayer physics and electricity (done in code: on by default, =0 turns off),
-  CLOUD_* spells: their look (grey puffs, no glow) and a lifetime of about a minute. Melty description: the author's
-  header stays first and unchanged, new text below it, verbatim:
-  "!!!Hi! I've updated the magic, and it works now, though it still needs polishing. Don't be upset if something doesn't
-  work: there are a lot of spells and ready-made wands. I don't know if multiplayer works, since I have no friends to
-  test it with, so try it at your own risk. Physics should be back in multiplayer too."
-  BLOCKER (2026-10-09 release probe, behaviour 451 vs 704): from the 40th test on shots never step (no path, no end);
-  diagnostics added (shot updates per cast in the probe note, errors in SpellShots.Update logged); repro:
-  TERRANOITA_PROBE_ONLY=single:ARROW,single:POLLEN,single:LANCE,single:ROCKET with TERRANOITA_PROBE_OUT to a temp file.
-- PC-33 new (author 2026-10-09): chest loot. Spells DO drop in chests (author checked): do NOT change how spells
-  are filled. Only add: a chance of an EMPTY wand in a chest (a wand of the chest's level with no spells; start with
-  10%, deeper chests a bit more), and more chests in worldgen. Check: worldgen log "N chests, Y empty wands".
+- RELEASE 0.4.5 done (2026-10-10, verified): game_test magic on a new world 12/12, worldgen 86 more chests (172 -> 258),
+  38 empty wands, 19 spells + 16 rare; probe on the same 109 rows: behaviour 76 vs 71 (run E). The 2026-10-09 "451"
+  was the test harness: Terraria paused the minimized test game when another window was active (fixed: autotest sets
+  PlayWhenUnfocused). Package build/terranoita-0.4.5.zip (1307032 bytes, sha256 c8cef6db...). MP physics and
+  electricity on by default (not tested with several players).
 - PC-31 new (after the release; cloud analysed run B, 2026-10-09): ~70 of the 201 behaviour failures are the TEST, not
   the mod. Fix probe-compare first, so the number tells the truth: a) path check must not scale our path by Noita's
   START speed when a script re-sets the velocity after spawn (TRUE_ORBIT: Noita 738 px/s on frame 0, then the orbit;

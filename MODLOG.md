@@ -1164,3 +1164,14 @@ unless asked.
   Built after E (not measured): execute_on_removed (CHAIN_SHOT, CLUSTERMOD, LARPA_DEATH), bounce_fx_file (8 BOUNCE_*),
   blast fire, thrown bodies (throw = min(max_throw_speed, 160 x throw_force_coeff), fitted on 9 spells), lasers,
   blast-loaded shots (GLITTER_BOMB shards), tentacles (reach curve from the probe). Next: F3/C3 numbers, then commit them.
+
+## 0.4.5 (2026-10-10, PC)
+- Released and published on Melty (author's permission for this version): live 0.4.5 at 22:43. Description: the author's
+  "!!!" header first, unchanged; magic "about 76%" (run E 704 of 925; this build 76 vs 71 on the same 109 probe rows).
+- In it: magic fixes from the Noita probe (see MODLOG 2026-10-09 evening/night), giga black/white holes one-shot all but
+  bosses (author), CLOUD_* drawn as Terraria's rain cloud (Nimbus/Crimson Rod) and last a minute (author), worldgen:
+  half as many chests again (verified: 172 -> 258) and empty wands (10% + 2%/level; 38 in a new world), MP physics and
+  electricity on by default (author; not tested with several players).
+- The release probe's frozen shots (2026-10-09, behaviour 451) were the harness, not the mod: the minimized test game
+  paused when another window became active (FocusHelper.UpdateFocus, test profile PlayWhenUnfocused false) while the
+  probe's DoUpdate hook kept counting. Autotest now sets Main.SettingPlayWhenUnfocused = true; after it, 0 frozen rows.
