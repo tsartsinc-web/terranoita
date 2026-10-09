@@ -10,8 +10,8 @@
 #    after a restart (tests already in probe_out.jsonl are skipped). Noita restarts its own process once: the run is
 #    watched through the output file, not the process.
 # 3. Stops when every test is written, the status file has an error, or nothing new comes for 10 minutes; closes Noita,
-#    puts the settings and the player's run back, copies the output to design/sources/noita_probe.jsonl.
-param([int]$Minutes = 240, [switch]$NoKeys)   # -NoKeys: start Noita and wait; someone else gets it into a game
+#    puts the settings and the player's run back, copies a finished output to design/sources/noita_probe.jsonl.
+param([int]$Minutes = 240, [switch]$NoKeys)   # -NoKeys: no clicks; start Noita and wait, someone else gets it into a game
 $ErrorActionPreference = "Stop"
 $repo = Resolve-Path (Join-Path $PSScriptRoot "..\..")
 $noita = "D:\steam\steamapps\common\Noita"
@@ -53,11 +53,11 @@ if ($m -notmatch 'name="terranoita_probe"') {
 
 try {
     # 2. start Noita into a new game
-    $p = Start-Process -FilePath (Join-Path $noita "noita.exe") -WorkingDirectory $noita -PassThru
+    Start-Process -FilePath (Join-Path $noita "noita.exe") -WorkingDirectory $noita
     $ws = New-Object -ComObject WScript.Shell
     Start-Sleep -Seconds 12
-    # (Enter presses skipped the intro in the morning; the menu itself needs the mouse, below)
-    if (-not $NoKeys) { for ($i = 0; $i -lt 2; $i++) { [void]$ws.AppActivate($p.Id); $ws.SendKeys("{ENTER}"); Start-Sleep -Seconds 4 } }
+    # (no Enter presses: one that misses Noita's window lands in whatever window has the focus; the clicks below skip
+    # the intro too, and each try first checks that the game has not started yet)
     # Into a game by mouse (seen in screenshots the author allowed, 2026-10-09; Noita in a window): the main menu's
     # "Новая игра" is at the window's centre (49.7% x, 49.5% y); the mode screen ("Выбрать мод") selects nothing until
     # the mouse is over a tile, so Enter does nothing there: click its first tile, "Новая игра" (34.3% x, 39% y).
@@ -107,7 +107,10 @@ finally {
     $runFiles | Where-Object { Test-Path $_ } | Remove-Item -Force   # the probe's run
     Get-ChildItem (Join-Path $backup "save00") -Force -ErrorAction SilentlyContinue | Move-Item -Destination (Join-Path $saves "save00")
     Remove-Item -Recurse -Force $backup
-    if (Test-Path $out) { Copy-Item $out (Join-Path $repo "design\sources\noita_probe.jsonl") -Force }
+    # only a finished run replaces the ground truth (2026-10-09: a stalled run put 102 rows over 303); an unfinished one
+    # stays in the mod folder and the next run continues it
+    if ((Test-Path $out) -and (Select-String -Path $out -Pattern '"done":true' -Quiet)) { Copy-Item $out (Join-Path $repo "design\sources\noita_probe.jsonl") -Force }
+    else { "unfinished: design\sources\noita_probe.jsonl left as it was" }
     "lines: " + $(if (Test-Path $out) { (Get-Content $out).Count } else { 0 })
     if (Test-Path $status) { Get-Content $status | Select-Object -Last 3 }
 }

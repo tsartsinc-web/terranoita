@@ -88,6 +88,9 @@ local function pin_player()
 	if dm then
 		local max_hp = ComponentGetValue2( dm, "max_hp" )
 		ComponentSetValue2( dm, "hp", max_hp )
+		-- "if positive, doesn't take damage" (tools_modding/component_documentation.txt): run 2026-10-09 stopped at
+		-- BOMB_HOLY_GIGA, the player died in one frame and every later test waited for a dead player
+		ComponentSetValue2( dm, "invincibility_frames", 60 )
 	end
 end
 
@@ -351,8 +354,20 @@ function OnWorldPostUpdate()
 	end
 end
 
+local lost = 0   -- frames without a live player
 update = function()
-	if player == nil or state == "done" or state == "wait" or not EntityGetIsAlive( player ) then return end
+	if player ~= nil and state ~= "done" and not EntityGetIsAlive( player ) then
+		-- a polymorph swaps the player entity for another one: find it again by its tag (data/entities/player_base.xml)
+		local p = ( EntityGetWithTag( "player_unit" ) or {} )[1]
+		if p then
+			player, lost = p, 0
+		else
+			lost = lost + 1
+			if lost > 1200 then error( "no player for 1200 frames at test " .. idx .. " " .. tostring( RUN[idx] and RUN[idx].name ) ) end
+			return
+		end
+	end
+	if player == nil or state == "done" or state == "wait" then return end
 	t = t + 1
 	if state == "start" then
 		if t >= START_DELAY then next_test() end
