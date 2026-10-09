@@ -12,7 +12,8 @@ How it works (author, 2026-10-08): the author only says "работай" to eith
 - Status words: new, doing, waits <row>, done <commit>.
 
 ## State (keep to ~12 lines; update when it changes)
-- Melty: 0.3.1 LIVE; 0.4.2 submitted as a draft 2026-10-08 (PC-16), live after the author's Play in Melty.
+- Melty: 0.3.1 LIVE; 0.4.2 draft; 0.4.3 package built 2026-10-09 (build/terranoita-0.4.3.zip, 1297919 bytes, sha256
+  9d57a8ee...), NOT uploaded: needs the author's Melty publish token (Publish prompt) for the HTTP calls.
 - Stage 3 magic in game: all spells via Noita's gun.lua, shot scripts, all wands, wand window (U), progress window (O),
   16 spell slots; Terraria magic bonuses apply (mana cost/damage/crit/regen/Mana Flower); max mana 600 (ManaCap.cs).
 - Spells test: 416/422 OK (design/sources/magic_baseline.txt), left in PC-6.
@@ -39,6 +40,11 @@ How it works (author, 2026-10-08): the author only says "работай" to eith
   (SpellShots.Physics.cs ReportRuntime). (c) done (verified by run): `tncli magic-coverage <noita> [out.json]`:
   static coverage 311 of 422 spells (gun.lua's fired files + extra/game_effect entities; scripts' deeper children not
   followed yet) -> design/sources/pc_magic_coverage.json. Phase 0 done; game run of (a)/(b) not yet. Next: PC-22.
+- PC-26 new (release 0.4.3): upload build/terranoita-0.4.3.zip to Melty as a DRAFT (recipe as 0.4.2 with fileName
+  terranoita-0.4.3.zip; validate + one_click_check; submit_release draft; the author publishes). Description gets:
+  "Magic is a work in progress: some spells and modifiers work like in Noita, many do not yet; fixes are coming in the
+  next updates." Blocked: no Melty token in this session. Off in 0.4.3 by default (not verified in game):
+  multiplayer physics (TERRANOITA_MP_PHYSICS=1), electricity in liquids (TERRANOITA_ELECTRICITY=1).
 - PC-22 doing (author 2026-10-09: "разрешаю, делай": the agent runs Noita itself): probe mod tools/noita_probe
   (installed). Noita settings changed for the run, backups *.terranoita_backup next to them + scratchpad:
   save_shared/config.xml (mods_sandbox_enabled 0, disclaimer/warning done, application_pause_when_unfocused 0),
@@ -46,6 +52,11 @@ How it works (author, 2026-10-08): the author only says "работай" to eith
   PlatformShooterPlayerComponent.mForceFireOnNextUpdate + mRequireTriggerPull=0, ControlsComponent.enabled=0 + aim
   fields (S5). Run: scratchpad probe_run.ps1 (Noita restarts its process once: watch the jsonl, not the pid);
   ~5 tests/min. Check: probe_out.jsonl has 875 rows + done -> copy to design/sources/noita_probe.jsonl.
+- Probe status 2026-10-09: Noita rows 299 of 875 (design/sources/noita_probe_partial.jsonl; Noita settings restored,
+  mod disabled; resume: re-enable as PC-22 says, the probe skips done tests), Terraria rows 30
+  (design/sources/probe_game_partial.jsonl; game_test -Mode probe resumes). Partial: matching Noita 17 of 30
+  (design/sources/pc_probe_compare_partial.txt; most misses: projectile damage 0). Cast layer vs Noita
+  (tncli probe-cast-check, first partial run): 147 of 203.
 - PC-23 doing: step 1 Core NoitaProbe/MiniJson (tests), step 2 SpellRecorder + SpellProbeTest (`game_test -Mode probe`,
   built only), step 3 Core ProbeCompare + `tncli probe-compare <noita> <noita_probe.jsonl> <probe_game.jsonl> [out]`
   (tests). Left: after PC-22, run game_test -Mode probe (never together with Noita: memory), compare, report the

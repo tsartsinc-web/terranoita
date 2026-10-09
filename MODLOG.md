@@ -1108,3 +1108,12 @@ unless asked.
 - PC-23: Core NoitaProbe + MiniJson + ProbeCompare (121 Core tests pass); game SpellRecorder + SpellProbeTest +
   game_test -Mode probe (built only). Behaviour change: a blast that also hits with its projectile is two hits
   (explosion, projectile) as in Noita, not one summed hit.
+
+## 0.4.3 wrap-up (2026-10-09, PC)
+- Package build/terranoita-0.4.3.zip (1297919 bytes, sha256 9d57a8eea6d8fc84014b7e48d12c11b00c02850084eea88a4ed102a826ab9e0a):
+  Release builds of a1160c7; README with the 0.4.3 line and the author's magic note. Not uploaded (no Melty token).
+- In 0.4.3: worldgen loot pass (verified in game: 312 chests), random-material flasks (CLI checked), shot-scripts fix
+  (Core test), shot cap eviction + "not run yet" log (ran in the probe test). Off by default (not verified in game):
+  multiplayer physics, electricity. Wand window: chest slot in single player as before, inventory slot in multiplayer.
+- Probe: arena-matched Terraria test (flat floor, wall, aim 4 Noita px above the wand line as the probe). Coverage:
+  matching Noita 17 of 30 (partial); next: finish both runs (resume), compare all 875, then PC-24.
