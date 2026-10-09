@@ -318,11 +318,14 @@ namespace Terranoita.Game.Magic
                 else if (s.Bounces > 0)
                 {
                     s.Bounces--;
-                    // bounce off the side it hit, with Noita's bounce_energy
+                    // bounce off the side it hit; bounce_energy: "when bouncing, velocity is multiplied by this"
+                    // (component_documentation.txt), all of it: in the Noita probe a grenade's speed along the floor halves
+                    // at each bounce too (249 -> 119 -> 104 -> 50 px/s, 2026-10-09)
                     if (Collision.SolidCollision(new Vector2(next.X, s.Pos.Y) - new Vector2(2, 2), 4, 4))
-                        s.Vel.X = -s.Vel.X * ph.BounceEnergy;
+                        s.Vel.X = -s.Vel.X;
                     if (Collision.SolidCollision(new Vector2(s.Pos.X, next.Y) - new Vector2(2, 2), 4, 4))
-                        s.Vel.Y = -s.Vel.Y * ph.BounceEnergy;
+                        s.Vel.Y = -s.Vel.Y;
+                    s.Vel *= ph.BounceEnergy;
                     return false;
                 }
                 else if (!s.DieOnCollision)
