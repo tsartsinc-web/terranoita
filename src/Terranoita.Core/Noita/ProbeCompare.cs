@@ -54,8 +54,6 @@ namespace Terranoita.Noita
             }
         }
 
-        static bool Root(ProbeShot s) => string.IsNullOrEmpty(s.Parent) || s.Parent.EndsWith("/player.xml", StringComparison.Ordinal);
-
         /// <summary>Shots are projectile files; the probe also records Noita's own effect entities (particles, misc/crack,
         /// misc/electricity: run 2026-10-09), which are not shots of our runtime.</summary>
         public static bool IsShot(ProbeShot s) => (s.File ?? "").StartsWith("data/entities/projectiles/", StringComparison.Ordinal);
@@ -81,35 +79,25 @@ namespace Terranoita.Noita
                 Does(noita.Fired ? "nothing fired (Noita fired)" : "fired (Noita fired nothing)");
                 return v;
             }
-            // what the cast released, and what those released (by file, and by file + parent)
+            // what the cast released, by file, whoever shot it: the Noita probe sees the player as the shooter of nearly
+            // every shot (a trigger's payload too: 927 of 930 rows have no projectile parent), ours records the shot
+            // that released it
             var nShots = noita.Shots.Where(IsShot).ToList();
             var oShots = ours.Shots.Where(IsShot).ToList();
-            var nRoot = Count(nShots.Where(Root), s => s.File);
-            var oRoot = Count(oShots.Where(Root), s => s.File);
-            foreach (var f in nRoot.Keys.Union(oRoot.Keys).OrderBy(x => x, StringComparer.Ordinal))
+            var nCount = Count(nShots, s => s.File);
+            var oCount = Count(oShots, s => s.File);
+            foreach (var f in nCount.Keys.Union(oCount.Keys).OrderBy(x => x, StringComparer.Ordinal))
             {
-                nRoot.TryGetValue(f, out int a);
-                oRoot.TryGetValue(f, out int b);
+                nCount.TryGetValue(f, out int a);
+                oCount.TryGetValue(f, out int b);
                 if (a != b)
                     Does("shots " + Short(f) + ": " + b + " (Noita " + a + ")");
             }
-            var nKids = Count(nShots.Where(s => !Root(s)), s => s.File + " <- " + s.Parent);
-            var oKids = Count(oShots.Where(s => !Root(s)), s => s.File + " <- " + s.Parent);
-            foreach (var k in nKids.Keys.Union(oKids.Keys).OrderBy(x => x, StringComparer.Ordinal))
+            // start speed and flight of the first shot of each file both released
+            foreach (var f in nCount.Keys.Intersect(oCount.Keys))
             {
-                nKids.TryGetValue(k, out int a);
-                oKids.TryGetValue(k, out int b);
-                if (a != b)
-                {
-                    var parts = k.Split(new[] { " <- " }, StringSplitOptions.None);
-                    Does("children " + Short(parts[0]) + " from " + Short(parts.Length > 1 ? parts[1] : "") + ": " + b + " (Noita " + a + ")");
-                }
-            }
-            // start speed of each file both released at the root
-            foreach (var f in nRoot.Keys.Intersect(oRoot.Keys))
-            {
-                var nf = nShots.First(s => Root(s) && s.File == f);
-                var of = oShots.First(s => Root(s) && s.File == f);
+                var nf = nShots.First(s => s.File == f);
+                var of = oShots.First(s => s.File == f);
                 if (nf.Vx0 == null || of.Vx0 == null)
                     continue;   // gone before it could be measured
                 double ns = nf.Speed0, os = of.Speed0;

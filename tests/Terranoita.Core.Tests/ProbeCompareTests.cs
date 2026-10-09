@@ -69,13 +69,23 @@ namespace Terranoita.Tests
             var v = ProbeCompare.Compare(noita, ours);
             Assert.Equal(new[]
             {
-                "children bouncy_orb from light_bullet: 0 (Noita 1)",
+                "shots bouncy_orb: 0 (Noita 1)",
                 "speed light_bullet: 300 (Noita 730)",
                 "damage $damage_explosion: 0 (Noita 5)",
                 "mana 30 (Noita 15)",
             }, v.Differences);
             // PC-30: what the cast does (its payload, its blast) is behaviour; speed and mana are numbers
-            Assert.Equal(new[] { "children bouncy_orb from light_bullet: 0 (Noita 1)", "damage $damage_explosion: 0 (Noita 5)" }, v.Behaviour);
+            Assert.Equal(new[] { "shots bouncy_orb: 0 (Noita 1)", "damage $damage_explosion: 0 (Noita 5)" }, v.Behaviour);
+        }
+
+        [Fact]
+        public void ShotsCountByFileWhoeverShotThem()
+        {
+            // the Noita probe sees the player as the shooter of a trigger's payload (parent "": 927 of 930 rows have no
+            // projectile parent at all); ours records the shot that released it: the same cast
+            var noita = Row("combo:ADD_TRIGGER+LIGHT_BULLET+BOUNCY_ORB", 15, (Spark, "", 730), (Orb, "", 200));
+            var ours = Row(noita.Name, 15, (Spark, "", 730), (Orb, Spark, 200));
+            Assert.True(ProbeCompare.Compare(noita, ours).Matches);
         }
 
         [Fact]
