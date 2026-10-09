@@ -236,7 +236,9 @@ namespace Terranoita.Game.Magic
             }
             s.Age++;
             s.Vel.Y += s.Gravity;
-            if (s.Friction > 0)
+            // Noita's air_friction, also negative (rockets speed up: rocket_tier_3 -5.0). The probe measured Noita's
+            // speed change over a frame: 1 - f/60 exactly (rocket 1.0833, spark bolt 0.9716; 2026-10-09)
+            if (s.Friction != 0)
                 s.Vel *= Math.Max(0f, 1f - s.Friction / 60f);
             var ph = s.Phys;
             // Noita's terminal_velocity (px/s)
