@@ -49,6 +49,20 @@ namespace Terranoita.Cli
                             foreach (var k in perks)
                                 Console.WriteLine(k.Id + " " + string.Join(",", k.GameEffects) + (k.NotInDefaultPool ? " (not in pool)" : "") + (k.Stackable ? " stackable" : ""));
                             Console.WriteLine("perks: " + perks.Count + " (default pool " + perks.FindAll(k => !k.NotInDefaultPool).Count + ")");
+                            if (args.Length > 2 && args[2] == "--run")   // every func on a bare player entity: which ones break, engine calls missing
+                            {
+                                int ok = 0;
+                                string docPath = Path.Combine(files.GameDir, "tools_modding", "component_documentation.txt");
+                                var docs = File.Exists(docPath) ? ComponentFieldTypes.Parse(File.ReadAllText(docPath)) : null;
+                                foreach (var k in perks)
+                                {
+                                    var store = new Terranoita.Noita.LuaShotScripts(new Terranoita.Noita.ShotHostBase(), p => Text(files, p), docs);
+                                    int who = store.Spawn("data/entities/player.xml", 0, 0);   // Noita's own player: every field the funcs read
+                                    try { store.RunPerk(k.Id, who, 0, 1); ok++; Console.WriteLine("run " + k.Id + " ok" + (store.Missing.Count > 0 ? "; missing " + string.Join(",", store.Missing) : "")); }
+                                    catch (Exception ex) { Console.WriteLine("run " + k.Id + " ERROR " + ((ex as MoonSharp.Interpreter.InterpreterException)?.DecoratedMessage ?? ex.Message).Split((char)10)[0]); }
+                                }
+                                Console.WriteLine("perk funcs run: " + ok + " of " + perks.Count);
+                            }
                             return 0;
                         }
                         case "wak-cat":

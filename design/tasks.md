@@ -64,7 +64,11 @@ How it works (author, 2026-10-08): the author only says "работай" to eith
   expert + master + ftw + EXTRA_PERK), use from the hand (PERKS_LOTTERY 50% keep), per-character file
   %LOCALAPPDATA%/Terranoita/perks/<player file>.txt, death: all lost, >10 a quarter drop (hook perk_death), game
   effects as Terraria immunities (fire, toxic, electricity, freeze, gills, knockback; others log "not done yet").
-  Next: run perk funcs on a player store entity (Core), icons row, ShotEffect extra_modifier, then the boss test.
+  Core done (2026-10-10): LuaShotScripts.CreateEntity/RunPerk, GlobalsGet/SetValue, run flags, world state entity,
+  ComponentGetMetaCustom; `tncli perks <noita> --run`: 102 of 106 funcs run on Noita's own player.xml (left: STRONG_KICK
+  KickComponent.max_force has no default in the docs; ALWAYS_CAST/EXTRA_MANA/EXTRA_SLOTS need the held wand as an entity).
+  Next: in game, Noita's player.xml as the player's store entity, run the func on use, read back what it changed
+  (max_hp, GameEffect/Lua/ShotEffect components, children) and apply; icons row; then the boss test.
 - PC-32 new (after PC-31): fix real failures by group, biggest first (run B counts): no damage ~35 (BLACK_HOLE_GIGA,
   WHITE_HOLE_GIGA, LASER_EMITTER, METEOR, MISSILE, ORBIT_LASERS...); nothing spawned ~32 (GLITTER_BOMB, GLUE_SHOT,
   SUMMON_EGG, THUNDERBALL, SPORE_POD, CRUMBLING_EARTH, WALL_VERTICAL/SQUARE...); wrong count ~40 (TENTACLE_PORTAL

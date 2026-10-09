@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using System.Linq;
 using Terranoita.Noita;
 using Xunit;
 
@@ -44,6 +45,36 @@ perk_list =
             Assert.Equal("CRITICAL_HIT_BOOST", Assert.Single(crit.GameEffects));
             Assert.Equal("data/items_gfx/perks/critical_hit.png", crit.PerkIcon);
             Assert.True(perks[1].NotInDefaultPool && perks[1].HasFunc && !perks[1].Stackable);
+        }
+
+        sealed class Host : ShotHostBase { }
+
+        [Fact]
+        public void APerksFuncRunsOnThePlayerEntity()
+        {
+            // as Noita's EXTRA_HP and a perk adding a game effect: the func reads and writes the picker's components
+            const string list = @"perk_list = {
+	{ id = ""MORE_HP"", func = function( item, who, name )
+		local dm = EntityGetFirstComponent( who, ""DamageModelComponent"" )
+		ComponentSetValue2( dm, ""max_hp"", ComponentGetValue2( dm, ""max_hp"" ) + 1 )
+	end },
+	{ id = ""FIRE_PROOF"", func = function( item, who, name )
+		EntityAddComponent( who, ""GameEffectComponent"", { effect = ""PROTECTION_FIRE"", frames = ""-1"" } )
+	end },
+	{ id = ""NO_FUNC"" },
+}";
+            var files = new Dictionary<string, string> { [NoitaPerks.ListFile] = list };
+            var store = new LuaShotScripts(new Host(), p => files.TryGetValue(p, out var t) ? t : null);
+            int player = store.CreateEntity("DEBUG_NAME:player", "player_unit", 0, 0, new (string, IDictionary<string, string>)[]
+            {
+                ("DamageModelComponent", new Dictionary<string, string> { ["hp"] = "4", ["max_hp"] = "4" }),
+            });
+            Assert.True(store.RunPerk("MORE_HP", player, 0, 1));
+            Assert.Equal("5", store.Components(player, "DamageModelComponent").Single().Get("max_hp"));
+            Assert.True(store.RunPerk("FIRE_PROOF", player, 0, 1));
+            Assert.Equal("PROTECTION_FIRE", store.Components(player, "GameEffectComponent").Single().Get("effect"));
+            Assert.False(store.RunPerk("NO_FUNC", player, 0, 1));
+            Assert.Throws<System.ArgumentException>(() => store.RunPerk("NOT_A_PERK", player, 0, 1));
         }
 
         [Fact]

@@ -148,6 +148,11 @@ namespace Terranoita.Noita
         public const int FirstEntityId = 1000000;
 
         public readonly List<string> Missing = new List<string>();   // engine functions scripts called that we lack
+        /// <summary>Noita's run-wide state the scripts keep (GlobalsGetValue/GlobalsSetValue, GameAddFlagRun): perks count
+        /// their stacks here (PERK_SHIELD_COUNT...); the game saves them with the character's perks.</summary>
+        public readonly Dictionary<string, string> GlobalValues = new Dictionary<string, string>(StringComparer.Ordinal);
+        public readonly HashSet<string> RunFlags = new HashSet<string>(StringComparer.Ordinal);
+        int _worldState;
         public readonly List<string> Errors = new List<string>();    // one line per broken script file
         public Action<string> Log = _ => { };
 
@@ -165,6 +170,12 @@ namespace Terranoita.Noita
             }
             _frame = _host.FrameNum;
         }
+
+        /// <summary>A field of an object field (damage_multipliers.projectile). An unset damage multiplier is 1: assumed (no
+        /// Noita file states it; player_base.xml sets only explosion and holy, and Noita's perk funcs multiply the others
+        /// unguarded, e.g. BLEED_SLIME's projectile * 0.75).</summary>
+        string ObjectRaw(Comp c, string obj, string field) =>
+            GetRaw(c, obj + "." + field) ?? (obj == "damage_multipliers" ? "1" : null);
 
         // ---------------- entities, for the game ----------------
 
@@ -188,6 +199,57 @@ namespace Terranoita.Noita
                 Added(added, false);   // the game places the shot after this: on-added scripts wait for Update
             }
             return e.Id;
+        }
+
+        /// <summary>An entity of the store made by the game from parts, not from a file: the player as Noita's perk funcs
+        /// see it (PC-34: DamageModelComponent, CharacterDataComponent...). Its added scripts run like any others.</summary>
+        public int CreateEntity(string name, string tags, float x, float y, IEnumerable<(string type, IDictionary<string, string> fields)> comps)
+        {
+            var e = NewEnt(0);
+            e.Name = name ?? "";
+            AddTags(e, tags);
+            e.X = x; e.Y = y;
+            var added = new List<Comp>();
+            foreach (var (type, fields) in comps)
+            {
+                var c = NewComp(e, type);
+                foreach (var kv in fields)
+                    c.Fields[kv.Key] = kv.Value;
+                added.Add(c);
+            }
+            Added(added);
+            return e.Id;
+        }
+
+        /// <summary>A perk's func from Noita's perk_list.lua, called as Noita's perk pickup calls it:
+        /// func(entity_perk_item, entity_who_picked, item_name, pickup_count). False when the perk has none; a broken func
+        /// throws (the game logs it).</summary>
+        public bool RunPerk(string id, int who, int perkItem, int pickupCount)
+        {
+            using (LuaCulture.Enter())
+            {
+                _lua.Call(_lua.Globals.Get("dofile_once"), NoitaPerks.ListFile);
+                var list = _lua.Globals.Get("perk_list").Table;
+                if (list == null)
+                    throw new InvalidOperationException(NoitaPerks.ListFile + " has no perk_list table");
+                for (int i = 1; i <= list.Length; i++)
+                {
+                    var t = list.Get(i).Table;
+                    if (t == null || t.Get("id").CastToString() != id)
+                        continue;
+                    var f = t.Get("func");
+                    if (f.Type != DataType.Function)
+                        return false;
+                    int oldE = _curEntity;
+                    _curEntity = who;
+                    try { _lua.Call(f, perkItem, who, t.Get("ui_name"), pickupCount); }
+                    finally { _curEntity = oldE; }
+                    if (_sweep && !_updating)
+                        Sweep();
+                    return true;
+                }
+                throw new ArgumentException("not one of Noita's perks: " + id);
+            }
         }
 
         /// <summary>Loads a Noita entity file into the store (not owned by the game) at a spot, optionally as a child.</summary>
@@ -867,6 +929,20 @@ namespace Terranoita.Noita
             Def(g, "GetUpdatedComponentID", a => DynValue.NewNumber(_curComp));
             Def(g, "GameGetFrameNum", a => DynValue.NewNumber(_frame));
 
+            // run-wide state
+            Def(g, "GlobalsGetValue", a => DynValue.NewString(GlobalValues.TryGetValue(S(a, 0) ?? "", out var v) ? v : S(a, 1) ?? ""));
+            Def(g, "GlobalsSetValue", a => { GlobalValues[S(a, 0) ?? ""] = a.Count > 1 ? a[1].CastToString() ?? "" : ""; return null; });
+            Def(g, "GameAddFlagRun", a => { RunFlags.Add(S(a, 0) ?? ""); return null; });
+            Def(g, "GameRemoveFlagRun", a => { RunFlags.Remove(S(a, 0) ?? ""); return null; });
+            Def(g, "GameHasFlagRun", a => DynValue.NewBoolean(RunFlags.Contains(S(a, 0) ?? "")));
+            Def(g, "GameGetWorldStateEntity", a =>
+            {
+                // Noita's world state entity: one, with its WorldStateComponent (perks set fields such as perk_gold_is_forever)
+                if (_worldState == 0 || !_ents.ContainsKey(_worldState))
+                    _worldState = CreateEntity("world_state", "", 0, 0, new (string, IDictionary<string, string>)[] { ("WorldStateComponent", new Dictionary<string, string>()) });
+                return DynValue.NewNumber(_worldState);
+            });
+
             // random
             Def(g, "SetRandomSeed", a =>
             {
@@ -1099,6 +1175,8 @@ namespace Terranoita.Noita
             });
 
             // component values
+            // lua_api_documentation.txt: "ComponentGetMetaCustom ... [Deprecated, use ComponentGetValue2() instead.]" (STRONG_KICK)
+            Def(g, "ComponentGetMetaCustom", a => { var c = C(a); return c == null ? DynValue.Nil : Typed(null, GetRaw(c, S(a, 1))); });
             Def(g, "ComponentGetValue", a => { var c = C(a); return DynValue.NewString(c == null ? "" : GetRaw(c, S(a, 1)) ?? ""); });
             Def(g, "ComponentGetValueInt", a => { var c = C(a); return DynValue.NewNumber(c == null ? 0 : Math.Truncate(D(GetRaw(c, S(a, 1))))); });
             Def(g, "ComponentGetValueFloat", a => { var c = C(a); return DynValue.NewNumber(c == null ? 0 : D(GetRaw(c, S(a, 1)))); });
@@ -1133,7 +1211,7 @@ namespace Terranoita.Noita
                 return null;
             });
             Def(g, "ComponentSetValueVector2", a => { var c = C(a); if (c != null) SetVec(c, S(a, 1), N(a, 2), N(a, 3)); return null; });
-            Def(g, "ComponentObjectGetValue", a => { var c = C(a); return DynValue.NewString(c == null ? "" : GetRaw(c, S(a, 1) + "." + S(a, 2)) ?? ""); });
+            Def(g, "ComponentObjectGetValue", a => { var c = C(a); return DynValue.NewString(c == null ? "" : ObjectRaw(c, S(a, 1), S(a, 2)) ?? ""); });
             Def(g, "ComponentObjectGetValue2", a =>
             {
                 var c = C(a);
@@ -1141,7 +1219,7 @@ namespace Terranoita.Noita
                 string f = S(a, 1) + "." + S(a, 2);
                 if (GetRaw(c, f) == null && GetVec(c, f, out double x, out double y))
                     return DynValue.NewTuple(DynValue.NewNumber(x), DynValue.NewNumber(y));
-                return Typed(null, GetRaw(c, f));
+                return Typed(null, ObjectRaw(c, S(a, 1), S(a, 2)));
             });
             Def(g, "ComponentObjectSetValue", a => { var c = C(a); if (c != null) SetRaw(c, S(a, 1) + "." + S(a, 2), S(a, 3) ?? ""); return null; });
             Def(g, "ComponentObjectSetValue2", a =>
