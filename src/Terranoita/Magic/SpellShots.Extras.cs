@@ -392,22 +392,14 @@ namespace Terranoita.Game.Magic
         /// <summary>Noita's particle emitters on a shot: a trail of coloured sparks.</summary>
         static void Particles(Shot s, Extra e)
         {
+            if (IsCloud(s))
+                return;   // drawn as Terraria's rain cloud (SpellShots.DrawCloud)
             if (e.S("is_emitting") == "0")
                 return;   // switched on by a script or only for the explosion
             int every = Math.Max(1, (int)e.N("emission_interval_min_frames", 2));
             if (s.Age % every != 0 || Main.gamePaused)
                 return;
             string name = (e.S("emitted_material_name") + " " + e.S("sprite_file")).ToLowerInvariant();
-            // a gas (steam, smoke) is what Noita's clouds are made of: grey puffs on the grid, not glowing (author
-            // 2026-10-10: our glowing white dust looked wrong on the CLOUD_* spells); ours: puffs over a 20 x 6 px cloud
-            if (name.Contains("steam") || name.Contains("smoke"))
-            {
-                float R(float a, float b) => a + Main.rand.NextFloat() * (b - a);
-                var at = s.Pos + new Vector2(R(-10f, 10f), R(-3f, 3f)) * Px;
-                var puff = Dust.NewDustPerfect(at, DustID.Cloud, new Vector2(R(-0.15f, 0.15f), R(-0.1f, 0.05f)), 110, new Color(200, 200, 210), R(1f, 1.4f));
-                puff.noGravity = true;
-                return;
-            }
             Color c = name.Contains("red") || name.Contains("blood") ? new Color(255, 70, 60) :
                       name.Contains("green") || name.Contains("poison") ? new Color(90, 255, 90) :
                       name.Contains("purple") || name.Contains("plasma") ? new Color(200, 90, 255) :

@@ -711,6 +711,42 @@ namespace Terranoita.Game.Magic
                 LoadEntity(file, s.Pos, s.Owner);
         }
 
+        static bool IsCloud(Shot s) => (s.Lua.File ?? "").StartsWith(CloudFiles, StringComparison.OrdinalIgnoreCase);
+
+        /// <summary>The CLOUD_* spells look like Terraria's rain clouds, a little bigger (author 2026-10-10: the Nimbus Rod's;
+        /// the Crimson Rod's for blood). Noita's have no sprite: it draws them with particles.</summary>
+        static void DrawCloud(SpriteBatch sb, Shot s)
+        {
+            int id = (s.Lua.File ?? "").IndexOf("cloud_blood", StringComparison.OrdinalIgnoreCase) >= 0 ? ProjectileID.BloodCloudRaining : ProjectileID.RainCloudRaining;
+            var tex = ProjectileTexture(id);
+            if (tex == null)
+                return;
+            int frames = Math.Max(1, Main.projFrames[id]), h = tex.Height / frames;
+            var frame = new Rectangle(0, s.Age / 6 % frames * h, tex.Width, h);
+            var light = Lighting.GetColor((int)(s.Pos.X / 16), (int)(s.Pos.Y / 16));
+            sb.Draw(tex, s.Pos - Main.screenPosition, frame, light, 0f, new Vector2(tex.Width / 2f, h / 2f), CloudScale, SpriteEffects.None, 0f);
+        }
+
+        const float CloudScale = 1.3f;
+
+        // TextureAssets.Projectile holds ReLogic Asset<Texture2D>s; ReLogic is embedded in Terraria.exe, so through
+        // reflection (as Physics.Falling does for tiles)
+        static Array _projAssets;
+        static System.Reflection.PropertyInfo _assetValue;
+
+        static Texture2D ProjectileTexture(int type)
+        {
+            Main.instance.LoadProjectile(type);
+            if (_projAssets == null)
+                _projAssets = (Array)typeof(Terraria.GameContent.TextureAssets).GetField("Projectile").GetValue(null);
+            object asset = _projAssets.GetValue(type);
+            if (asset == null)
+                return null;
+            if (_assetValue == null)
+                _assetValue = asset.GetType().GetProperty("Value");
+            return _assetValue.GetValue(asset) as Texture2D;
+        }
+
         static void Draw()
         {
             if (Live.Count == 0)
@@ -721,18 +757,19 @@ namespace Terranoita.Game.Magic
             {
                 foreach (var s in Live)
                 {
+                    if (IsCloud(s))
+                    {
+                        DrawCloud(sb, s);
+                        continue;
+                    }
                     var art = NoitaArt.Get(s.Def.Sprite);
+                    Lighting.AddLight(s.Pos, 0.35f, 0.3f, 0.5f);
                     if (art?.Texture == null)
                     {
-                        // no sprite: a shot Noita draws only with its particles (the CLOUD_* spells) is left to them
-                        if (s.Extras != null && s.Extras.Any(e => e.Type == "ParticleEmitterComponent"))
-                            continue;
-                        Lighting.AddLight(s.Pos, 0.35f, 0.3f, 0.5f);
                         if (!Main.gamePaused)
                             Dust.NewDustPerfect(s.Pos, DustID.PurpleTorch, Vector2.Zero, 0, default(Color), 1.1f).noGravity = true;
                         continue;
                     }
-                    Lighting.AddLight(s.Pos, 0.35f, 0.3f, 0.5f);
                     var anim = art.Sprite.Find("fireball", "default", "stand");
                     int fx = 0, fy = 0, fw = art.Texture.Width, fh = art.Texture.Height;
                     if (anim != null)
