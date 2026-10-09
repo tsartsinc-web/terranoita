@@ -485,11 +485,11 @@ namespace Terranoita.Noita
                 c.RemoveAfter = Flag(c, "remove_after_executed");
             }
             if (c.Times > 0 && c.Executed >= c.Times)
-            {
                 c.NextFrame = int.MaxValue;
-                if (c.RemoveAfter)
-                    RemoveComp(c);
-            }
+            // remove_after_executed with no execute_times: removed after its first run (the Noita probe, 2026-10-09:
+            // accelerating_shot.xml's air_friction - 3 is applied once)
+            if (c.RemoveAfter && (c.Times < 1 || c.Executed >= c.Times))
+                RemoveComp(c);
         }
 
         void Run(Comp c, string file, string function, object[] args)

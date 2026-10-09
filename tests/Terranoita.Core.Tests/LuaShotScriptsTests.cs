@@ -81,6 +81,11 @@ for _, c in ipairs(EntityGetComponent(me, ""VariableStorageComponent"") or {}) d
   end
 end
 ",
+            // as accelerating_shot.xml: every frame, no execute_times, removed after it ran
+            ["data/entities/misc/test_once.xml"] = @"<Entity>
+  <VariableStorageComponent name=""count"" value_int=""0"" />
+  <LuaComponent script_source_file=""data/scripts/test_count.lua"" execute_every_n_frame=""1"" remove_after_executed=""1"" />
+</Entity>",
             ["data/entities/misc/test_fuse.xml"] = @"<Entity>
   <LuaComponent script_source_file=""data/scripts/test_fuse.lua"" execute_on_added=""1"" execute_every_n_frame=""-1"" />
 </Entity>",
@@ -187,6 +192,18 @@ ComponentSetValue2(c, ""randoms"", (r1 >= 0 and r1 < 1 and r2 >= 0 and r2 <= 5 a
             var store = lua.Components(child, "VariableStorageComponent").Single();
             Assert.Equal("3", store.Get("value_int"));                // ran on frames 2, 4, 6 only
             Assert.Empty(lua.Components(child, "LuaComponent"));      // remove_after_executed
+        }
+
+        [Fact]
+        public void RemoveAfterExecutedWithoutTimesRunsOnce()
+        {
+            // the Noita probe (2026-10-09): ACCELERATING_SHOT's air_friction - 3 is applied once (the spark speeds up by
+            // a steady 2.15% a frame), though its LuaComponent sets no execute_times ("< 1 means infinite")
+            var (lua, host, shot) = Shot();
+            int child = lua.AttachExtra(shot, "data/entities/misc/test_once.xml");
+            Run(lua, host, 10);
+            Assert.Equal("1", lua.Components(child, "VariableStorageComponent").Single().Get("value_int"));
+            Assert.Empty(lua.Components(child, "LuaComponent"));
         }
 
         [Fact]
