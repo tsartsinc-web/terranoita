@@ -91,19 +91,21 @@ local function pin_player()
 	end
 end
 
-local function make_wand( deck )
+local function make_wand( test )   -- the probe wand; a "wand:" test brings its random wand's stats (PC-30)
+	local deck = test.deck
 	local w = EntityLoad( "data/entities/_debug/testwand.xml", px, py )
 	local ab = EntityGetFirstComponentIncludingDisabled( w, "AbilityComponent" )
 	ComponentSetValue2( ab, "mana_max", 100000 )
 	ComponentSetValue2( ab, "mana", 50000 )   -- half: spells that give mana (MANA_REDUCE) show it (run 2026-10-09: capped at max)
 	ComponentSetValue2( ab, "mana_charge_speed", 0 )   -- no refill: mana_used is what the cast took
-	ComponentObjectSetValue2( ab, "gun_config", "actions_per_round", 1 )
+	ComponentObjectSetValue2( ab, "gun_config", "actions_per_round", test.spells_per_cast or 1 )
 	ComponentObjectSetValue2( ab, "gun_config", "deck_capacity", #deck )
 	ComponentObjectSetValue2( ab, "gun_config", "reload_time", 30 )
 	ComponentObjectSetValue2( ab, "gun_config", "shuffle_deck_when_empty", false )
 	ComponentObjectSetValue2( ab, "gunaction_config", "fire_rate_wait", 10 )
-	ComponentObjectSetValue2( ab, "gunaction_config", "spread_degrees", 0 )
-	ComponentObjectSetValue2( ab, "gunaction_config", "speed_multiplier", 1 )
+	ComponentObjectSetValue2( ab, "gunaction_config", "spread_degrees", test.spread or 0 )
+	ComponentObjectSetValue2( ab, "gunaction_config", "speed_multiplier", test.speed_multiplier or 1 )
+	for _, id in ipairs( test.always_cast or {} ) do AddGunActionPermanent( w, id ) end
 	for _, id in ipairs( deck ) do AddGunAction( w, id ) end
 	GamePickUpInventoryItem( player, w, false )
 	local inv2 = EntityGetFirstComponent( player, "Inventory2Component" )
@@ -381,7 +383,7 @@ update = function()
 		elseif t == STAMP_WAIT then
 			target = EntityLoad( "mods/terranoita_probe/files/target.xml", tx, ty )
 			local ab
-			wand, ab = make_wand( RUN[idx].deck )
+			wand, ab = make_wand( RUN[idx] )
 			note_before()
 			tracked, order, spawned_frame = {}, {}, 0
 			early = 0

@@ -36,7 +36,7 @@ namespace Terranoita.Game.Magic
         // ours (HEAVY_BULLET, BOUNCY_ORB, ROCKET, 2026-10-09)
         const float FloorBelowShot = 13.7f, TargetAboveShot = 4.3f, OurShotY = -0.2f;
 
-        static List<(string name, string[] deck)> _tests;
+        static List<ProbeTest> _tests;
         static int _k = -1, _t, _casts0, _mana0, _firedAt, _lastCount, _lastChange;
         static Vector2 _start;
         static int _px, _floor;   // the caster's tile column and the arena floor's top row
@@ -173,11 +173,17 @@ namespace Terranoita.Game.Magic
                         done.Add(row.Name);
             }
             catch (Exception ex) { Entry.Error("probe resume", ex); }
-            _tests = new List<(string, string[])>();
+            _tests = new List<ProbeTest>();
+            float Num(Dictionary<string, object> d, string k, float fallback) => d.TryGetValue(k, out var v) && v is double x ? (float)x : fallback;
+            string[] Ids(Dictionary<string, object> d, string k) => ((d.TryGetValue(k, out var v) ? v as List<object> : null) ?? new List<object>()).Select(x => x as string).ToArray();
             foreach (var o in (MiniJson.Parse(File.ReadAllText(path)) as List<object>) ?? new List<object>())
                 if (o is Dictionary<string, object> d && d.TryGetValue("name", out var n) && n is string name &&
                     !done.Contains(name) && (string.IsNullOrEmpty(only) || name.Contains(only)))
-                    _tests.Add((name, ((d["deck"] as List<object>) ?? new List<object>()).Select(x => x as string).ToArray()));
+                    _tests.Add(new ProbeTest
+                    {
+                        Name = name, Deck = Ids(d, "deck"), AlwaysCast = Ids(d, "always_cast"),
+                        SpellsPerCast = (int)Num(d, "spells_per_cast", 1), Spread = Num(d, "spread", 0), SpeedMultiplier = Num(d, "speed_multiplier", 1),
+                    });
             _wand = WandStore.NewWand();
             _wand.Name = "probe"; _wand.Sprite = "data/items_gfx/handgun.xml"; _wand.Slots = new[] { "LIGHT_BULLET" }; _wand.Uses = new[] { -1 };
             p.inventory[1] = MagicItems.MakeWand(_wand);
@@ -201,7 +207,9 @@ namespace Terranoita.Game.Magic
                 Done = true;
                 return;
             }
-            var (name, deck) = _tests[_k];
+            var test = _tests[_k];
+            string name = test.Name;
+            var deck = test.Deck;
             SpellShots.Clear();
             Arena();
             p.position = Pinned(p);
@@ -219,7 +227,9 @@ namespace Terranoita.Game.Magic
             SpellRecorder.Target = _target;
             Casting.Changed(_wand);
             Casting.TestReady(_wand);
-            _wand.CastDelay = 10; _wand.RechargeTime = 30; _wand.SpellsPerCast = 1;   // the probe's wand (init.lua make_wand)
+            _wand.CastDelay = 10; _wand.RechargeTime = 30;   // the probe's wand (init.lua make_wand); a "wand:" test's own stats (PC-30)
+            _wand.SpellsPerCast = test.SpellsPerCast; _wand.Spread = test.Spread; _wand.SpeedMultiplier = test.SpeedMultiplier;
+            _wand.AlwaysCast = test.AlwaysCast.ToList();
             _wand.Slots = deck;
             _wand.Uses = deck.Select(s => MagicItems.Spell(s)?.MaxUses ?? -1).ToArray();
             p.inventory[1] = MagicItems.MakeWand(_wand);
@@ -231,12 +241,12 @@ namespace Terranoita.Game.Magic
         static void Finish(int frames, string note)
         {
             Casting.TestFire = false;
-            var (name, deck) = _tests[_k];
+            var test = _tests[_k];
             var me = Main.LocalPlayer;
             if (_target != null)
                 note += "; target " + (_target.active ? "at " + ((_target.Center - me.Center) / Units.PixelScale).ToString() + " size " + (_target.width / Units.PixelScale) + "x" + (_target.height / Units.PixelScale)
                         + " type " + _target.type + (_target.friendly ? " friendly" : "") + (_target.dontTakeDamage ? " no damage" : "") : "gone");
-            try { File.AppendAllText(OutFile, SpellRecorder.Line(name, deck, Casting.TestMana - _mana0, frames, note) + Environment.NewLine); }
+            try { File.AppendAllText(OutFile, SpellRecorder.Line(test.Name, test.Deck, Casting.TestMana - _mana0, frames, note) + Environment.NewLine); }
             catch (Exception ex) { Entry.Error("probe write", ex); }
             _t = int.MaxValue / 2;   // next frame starts the next test
         }

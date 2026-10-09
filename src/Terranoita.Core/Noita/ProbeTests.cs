@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.Globalization;
 using System.Linq;
 using System.Text;
 
@@ -10,6 +11,10 @@ namespace Terranoita.Noita
     {
         public string Name;       // suite:what, e.g. "single:TENTACLE", "mod:HOMING+BOUNCY_ORB", "combo:BURST_2"
         public string[] Deck;
+        // a random wand's own stats ("wand:" tests); the other tests use the probe wand's (one spell a cast, no spread)
+        public int SpellsPerCast = 1;
+        public float Spread, SpeedMultiplier = 1;
+        public string[] AlwaysCast = new string[0];
     }
 
     /// <summary>
@@ -73,13 +78,36 @@ namespace Terranoita.Noita
             return tests;
         }
 
+        /// <summary>Noita's own random wands (design/tasks.md PC-30: builds), one test each: the spells in the order its
+        /// wand_level_0N.lua added them, not shuffled (a shuffle would differ between the two games), and its spells per
+        /// cast, spread, speed and always-cast spells. A wand the script left without spells casts nothing: left out.</summary>
+        public static List<ProbeTest> RandomWands(IEnumerable<(int level, int index, MadeWand wand)> wands) =>
+            wands.Where(w => w.wand.Spells.Count > 0).Select(w => new ProbeTest
+            {
+                Name = "wand:" + w.level + "-" + w.index.ToString("00", CultureInfo.InvariantCulture),
+                Deck = w.wand.Spells.ToArray(),
+                SpellsPerCast = Math.Max(1, w.wand.SpellsPerCast),
+                Spread = w.wand.Spread,
+                SpeedMultiplier = w.wand.SpeedMultiplier,
+                AlwaysCast = w.wand.AlwaysCast.ToArray(),
+            }).ToList();
+
+        static string Lua(float f) => f.ToString("0.###", CultureInfo.InvariantCulture);
+
         /// <summary>The tests as a Lua file for the probe mod: TESTS = { { name = "...", deck = { "...", ... } }, ... }.</summary>
         public static string ToLua(IEnumerable<ProbeTest> tests)
         {
             var sb = new StringBuilder("-- made by tncli probe-tests from the player's gun_actions.lua; do not edit\nTESTS = {\n");
             foreach (var t in tests)
+            {
                 sb.Append("  { name = \"").Append(t.Name).Append("\", deck = { ")
-                  .Append(string.Join(", ", t.Deck.Select(d => "\"" + d + "\""))).Append(" } },\n");
+                  .Append(string.Join(", ", t.Deck.Select(d => "\"" + d + "\""))).Append(" }");
+                if (t.SpellsPerCast != 1 || t.Spread != 0 || t.SpeedMultiplier != 1 || t.AlwaysCast.Length > 0)
+                    sb.Append(", spells_per_cast = ").Append(t.SpellsPerCast).Append(", spread = ").Append(Lua(t.Spread))
+                      .Append(", speed_multiplier = ").Append(Lua(t.SpeedMultiplier)).Append(", always_cast = { ")
+                      .Append(string.Join(", ", t.AlwaysCast.Select(d => "\"" + d + "\""))).Append(t.AlwaysCast.Length > 0 ? " }" : "}");
+                sb.Append(" },\n");
+            }
             return sb.Append("}\n").ToString();
         }
     }

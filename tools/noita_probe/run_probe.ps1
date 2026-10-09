@@ -41,6 +41,11 @@ Copy-Item (Join-Path $backup "world\steam_autocloud.vdf") $world -ErrorAction Si
 New-Item -ItemType Directory -Force $mod | Out-Null
 Copy-Item -Recurse -Force (Join-Path $PSScriptRoot "terranoita_probe\*") $mod
 Remove-Item $status -ErrorAction SilentlyContinue
+# new tests run after a finished run (PC-29: only new rows): its "done" line goes, the new rows and a new one follow
+if (Test-Path $out) {
+    $keep = @(Get-Content $out -Encoding UTF8 | Where-Object { $_ -notmatch '"done":true' })
+    [IO.File]::WriteAllLines($out, $keep, (New-Object Text.UTF8Encoding($false)))
+}
 $c = Get-Content $config -Raw
 $c = $c -replace 'mods_sandbox_enabled="1"', 'mods_sandbox_enabled="0"' -replace 'mods_disclaimer_accepted="0"', 'mods_disclaimer_accepted="1"' `
         -replace 'mods_sandbox_warning_done="0"', 'mods_sandbox_warning_done="1"' -replace 'application_pause_when_unfocused="1"', 'application_pause_when_unfocused="0"'
