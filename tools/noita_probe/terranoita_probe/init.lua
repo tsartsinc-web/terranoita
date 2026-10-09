@@ -67,12 +67,24 @@ local function quick_inventory()
 	end
 end
 
+-- the player's own children (inventory, arms, cape, the probe's protections), noted when the tests start: whatever a
+-- spell attaches to the player later goes before each test (2026-10-09: LIGHTNING_RAY_ENEMY's hit effect, a child
+-- entity, shot lightning arcs from the player for the rest of the run and the wand never fired again)
+local own = {}
+local function note_own_children()
+	own = {}
+	for _, c in ipairs( EntityGetAllChildren( player ) or {} ) do own[c] = true end
+end
+
 local function clear_arena()
 	-- every root entity near the arena except the player: projectiles, summons, drops, the old target
 	for _, e in ipairs( EntityGetInRadius( ax + ARENA_W / 2, ay + ARENA_H / 2, 700 ) or {} ) do
 		if e ~= player and EntityGetParent( e ) == 0 and EntityGetRootEntity( e ) ~= player then
 			EntityKill( e )
 		end
+	end
+	for _, c in ipairs( EntityGetAllChildren( player ) or {} ) do
+		if not own[c] then EntityKill( c ) end
 	end
 	local inv = quick_inventory()
 	for _, item in ipairs( inv and EntityGetAllChildren( inv ) or {} ) do
@@ -364,6 +376,7 @@ update = function()
 		local p = ( EntityGetWithTag( "player_unit" ) or {} )[1]
 		if p then
 			player, lost = p, 0
+			note_own_children()
 		else
 			lost = lost + 1
 			if lost > 1200 then error( "no player for 1200 frames at test " .. idx .. " " .. tostring( RUN[idx] and RUN[idx].name ) ) end
@@ -373,7 +386,10 @@ update = function()
 	if player == nil or state == "done" or state == "wait" then return end
 	t = t + 1
 	if state == "start" then
-		if t >= START_DELAY then next_test() end
+		if t >= START_DELAY then
+			note_own_children()
+			next_test()
+		end
 	elseif state == "stamp" then
 		if t == 1 then
 			clear_arena()
