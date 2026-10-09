@@ -88,9 +88,6 @@ local function pin_player()
 	if dm then
 		local max_hp = ComponentGetValue2( dm, "max_hp" )
 		ComponentSetValue2( dm, "hp", max_hp )
-		-- "if positive, doesn't take damage" (tools_modding/component_documentation.txt): run 2026-10-09 stopped at
-		-- BOMB_HOLY_GIGA, the player died in one frame and every later test waited for a dead player
-		ComponentSetValue2( dm, "invincibility_frames", 60 )
 	end
 end
 
@@ -329,8 +326,12 @@ function OnPlayerSpawned( player_entity )
 	px, py = ax + 40, ay + ARENA_H - 20          -- the player stands on the floor at the left
 	tx, ty = ax + 200, py - 4                    -- the target 160 px to the right, the wall 80 px behind it
 	EntityAddComponent2( player, "LuaComponent", { script_shot = "mods/terranoita_probe/files/on_shot.lua", execute_every_n_frame = -1 } )
-	GetGameEffectLoadTo( player, "PROTECTION_ALL", true )
-	GetGameEffectLoadTo( player, "PROTECTION_POLYMORPH", true )
+	-- forever (GameEffectComponent frames -1, component_documentation.txt): the effect files say frames="7200", so
+	-- the run of 2026-10-09 lost both after 2 minutes (BOMB_HOLY_GIGA killed the player, MASS_POLYMORPH at frame 9556)
+	for _, effect in ipairs( { "PROTECTION_ALL", "PROTECTION_POLYMORPH" } ) do
+		local c = GetGameEffectLoadTo( player, effect, true )
+		if c and c ~= 0 then ComponentSetValue2( c, "frames", -1 ) else status( "no " .. effect .. " effect" ) end
+	end
 	state, t = "start", 0
 end
 
