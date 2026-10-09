@@ -77,8 +77,14 @@ How it works (author, 2026-10-08): the author only says "работай" to eith
   8 vs 10, DARKFLAME, METEOR_RAIN...); big path differences ~10 (TENTACLE, FISH, EXPLODING_DEER, PHASING_ARC).
   Author: burning damage over time (bombs, nukes) is LOW priority for now; explosion SIZE as in Noita matters; small
   orbit radius / homing differences are fine if it looks the same. Check: behaviour number rises per step.
-  2026-10-10: run G3 (3 casts, build 71d9f3a) = the baseline. Built only after it: EntityLoad of a script-only entity
-  (BOUNCE_SPARK/LIGHTNING's bounce_fx_file) runs its Lua in the store (SpellShots.Extras LoadEntity).
+  2026-10-10: run G3 (3 casts, build 71d9f3a): behaviour 775 of 925 (design/sources/pc_probe_compare.txt). After it:
+  probe-compare leaves out 15 Noita rows that did not cast (mana 0 for a deck that costs mana; strays of the previous
+  test): re-probe them with the 8 fit rows in the next Noita run. Fixed (targeted run T1: CRUMBLING_EARTH, GLUE_SHOT,
+  WALL_VERTICAL/SQUARE now OK): EntityLoad of script-only entities (bounce_fx_file), of LoadEntitiesComponent entities
+  (glitter shards, crumbling earth), of looks-only ones (wall_sound); SetStartVelocityComponent; ProceduralRandom(f);
+  Nxml: a comment between attributes no longer drops the rest (glitter_bomb.xml's load_this_entity; facts may change:
+  rerun `tncli facts` + apply_facts once); shots roll on the ground instead of spending bounces (grenade lived 47
+  frames, Noita ~100; RollSpeed 60 px/s assumed). Not measured yet: the full run after these.
 - AUTHOR 2026-10-09 (via cloud, the author is away): FOCUS. Finish magic first (PC-21..PC-25 with PC-28), then
   PC-27. Park PC-4, PC-10, PC-19, PC-17, PC-6 until then.
 - PC-30 doing (author 2026-10-09: WHAT MATTERS in magic; it sets the priority of PC-23..PC-25): behaviour first,

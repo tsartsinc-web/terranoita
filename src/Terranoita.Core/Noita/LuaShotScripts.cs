@@ -171,6 +171,23 @@ namespace Terranoita.Noita
             _frame = _host.FrameNum;
         }
 
+        static double Procedural(CallbackArguments a, bool integer)
+        {
+            double x = N(a, 0), y = N(a, 1);
+            double u;
+            unchecked
+            {
+                uint h = (uint)(int)(x * 73856093) ^ (uint)(int)(y * 19349663) ^ 0x9E3779B9u;
+                h ^= h >> 13; h *= 0x5bd1e995; h ^= h >> 15;
+                u = h / 4294967296.0;
+            }
+            double lo = a.Count > 3 ? N(a, 2) : 0, hi = a.Count > 3 ? N(a, 3) : a.Count > 2 ? N(a, 2) : 1;
+            if (!integer)
+                return lo + u * (hi - lo);
+            int l = (int)lo, top = (int)hi;
+            return top <= l ? l : l + (int)(u * (top - l + 1));
+        }
+
         /// <summary>A field of an object field (damage_multipliers.projectile). An unset damage multiplier is 1: assumed (no
         /// Noita file states it; player_base.xml sets only explosion and holy, and Noita's perk funcs multiply the others
         /// unguarded, e.g. BLEED_SLIME's projectile * 0.75).</summary>
@@ -1065,18 +1082,12 @@ namespace Terranoita.Noita
                 _host.PlaySound(S(a, 0), S(a, 1), (float)N(a, 2), (float)N(a, 3));
                 return null;
             });
-            Def(g, "ProceduralRandomi", a =>
-            {
-                // Noita's position-seeded random: the same spot gives the same number
-                double x = N(a, 0), y = N(a, 1);
-                int lo = a.Count > 2 ? (int)N(a, 2) : 0, hi = a.Count > 3 ? (int)N(a, 3) : 1;
-                unchecked
-                {
-                    uint h = (uint)(int)(x * 73856093) ^ (uint)(int)(y * 19349663) ^ 0x9E3779B9u;
-                    h ^= h >> 13; h *= 0x5bd1e995; h ^= h >> 15;
-                    return DynValue.NewNumber(hi <= lo ? lo : lo + (int)(h % (uint)(hi - lo + 1)));
-                }
-            });
+            // Noita's position-seeded randoms: the same spot gives the same number (our hash: Noita's own is in its engine).
+            // lua_api_documentation.txt: 2 arguments 0..1 (Randomi: 0 or 1), 3 arguments 0..a, 4 arguments a..b;
+            // ProceduralRandom gives an int for 3 arguments, a number otherwise
+            Def(g, "ProceduralRandomi", a => DynValue.NewNumber(Procedural(a, true)));
+            Def(g, "ProceduralRandomf", a => DynValue.NewNumber(Procedural(a, false)));
+            Def(g, "ProceduralRandom", a => DynValue.NewNumber(Procedural(a, a.Count == 3)));
             // physics bodies, the player's inventory and worm attractors are not part of spell shots here
             Def(g, "PhysicsApplyForceOnArea", a => null);
             Def(g, "PhysicsApplyForce", a => null);

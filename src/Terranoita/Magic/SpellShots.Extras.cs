@@ -222,6 +222,13 @@ namespace Terranoita.Game.Magic
                 if (made == null)
                     return 0;
                 made.Vel = Vector2.Zero;   // Noita: EntityLoad makes it at rest; the script (GameShootProjectile) sends it
+                // ...unless it has a SetStartVelocityComponent: a random speed and angle (glitter_bomb_shrapnel.xml)
+                var start = Part(file, "SetStartVelocityComponent");
+                if (start != null)
+                {
+                    float speed = Between(start, "randomize_speed"), angle = Between(start, "randomize_angle");
+                    SetNoitaVel(made, new Vector2((float)Math.Cos(angle), (float)Math.Sin(angle)) * speed);
+                }
                 if (made.Script == 0)
                     ScriptsAdd(made, true);   // the script that loaded it may shoot it (GameShootProjectile)
                 return made.Script;
@@ -256,6 +263,32 @@ namespace Terranoita.Game.Magic
                 Physics.Electricity.Emit(pos, energy);
                 return 0;
             }
+            // an entity that loads others (LoadEntitiesComponent: glitter_bomb_explosion.xml throws 12 shards, a blast's
+            // load_this_entity): they are loaded there; particles are Noita's looks only
+            var loads = EntityFile(file)?.Components.Where(c => c.Type == "LoadEntitiesComponent").ToList();
+            if (loads != null && loads.Count > 0 && !CarriesLua(file))
+            {
+                SpellRecorder.Born(-1, file, pos, Vector2.Zero);   // the Noita probe records it as a shot of the cast
+                SpellRecorder.Gone(-1, pos);
+                foreach (var c in loads)
+                {
+                    string what = c.Get("entity_file") ?? "";
+                    if (what.Length == 0 || what.StartsWith("data/entities/particles/", StringComparison.Ordinal))
+                        continue;
+                    int n = (int)Math.Round(Between(c, "count"));
+                    for (int k = 0; k < n; k++)
+                        LoadEntity(what, pos, owner);
+                }
+                return 0;
+            }
+            // an entity that is only looks and sound (wall_sound.xml: the WALL_* spells' hum): nothing to run; the probe sees it
+            var parts = EntityFile(file)?.Components;
+            if (parts != null && parts.Count > 0 && parts.All(c => LooksOnly.Contains(c.Type)) && EntityFile(file).Children.Count == 0)
+            {
+                SpellRecorder.Born(-1, file, pos, Vector2.Zero);
+                SpellRecorder.Gone(-1, pos);
+                return 0;
+            }
             // an entity that is only scripts (bounce_spark_main.xml, bounce_lightning_launcher.xml: the BOUNCE_* modifiers'
             // bounce_fx_file) runs them in the store where it was loaded: they shoot its projectiles and kill it
             var sc = CarriesLua(file) ? Scripts : null;
@@ -264,8 +297,13 @@ namespace Terranoita.Game.Magic
                 try
                 {
                     int loaded = sc.Spawn(file, pos.X / Px, pos.Y / Px);
-                    SpellRecorder.Born(-loaded, file, pos, Vector2.Zero);   // the Noita probe records it as a shot of the cast
-                    SpellRecorder.Gone(-loaded, pos);
+                    // the Noita probe records it as a shot of the cast, unless its on-added script killed it at once
+                    // (bounce_lightning_launcher.xml: Noita's probe never sees it)
+                    if (sc.Alive(loaded))
+                    {
+                        SpellRecorder.Born(-loaded, file, pos, Vector2.Zero);
+                        SpellRecorder.Gone(-loaded, pos);
+                    }
                     return loaded;
                 }
                 catch (Exception ex)
@@ -278,6 +316,35 @@ namespace Terranoita.Game.Magic
             if (NotYet.Add("load:" + file))
                 Entry.Log("spell EntityLoad not done yet: " + file);
             return 0;
+        }
+
+        static readonly HashSet<string> LooksOnly = new HashSet<string>
+        {
+            "LifetimeComponent", "AudioComponent", "AudioLoopComponent", "SpriteComponent", "SpriteParticleEmitterComponent",
+            "ParticleEmitterComponent", "LightComponent", "InheritTransformComponent",
+        };
+
+        static readonly Dictionary<string, Terranoita.Noita.XmlEntity> EntityFiles = new Dictionary<string, Terranoita.Noita.XmlEntity>();
+
+        /// <summary>A Noita entity file, read once (null when there is none).</summary>
+        static Terranoita.Noita.XmlEntity EntityFile(string file)
+        {
+            if (EntityFiles.TryGetValue(file, out var x))
+                return x;
+            try { x = NoitaArt.ReadText(file) == null ? null : Terranoita.Noita.NoitaEntityXml.Load(file, NoitaArt.ReadText); }
+            catch (Exception ex) { Entry.Error("entity file " + file, ex); x = null; }
+            EntityFiles[file] = x;
+            return x;
+        }
+
+        static Terranoita.Noita.XmlComponent Part(string file, string type) => EntityFile(file)?.Components.FirstOrDefault(c => c.Type == type);
+
+        /// <summary>A Noita min/max pair field (count.min, count.max) picked at random, as Noita does.</summary>
+        static float Between(Terranoita.Noita.XmlComponent c, string field)
+        {
+            float F(string f, float d) => float.TryParse(c.Get(f), System.Globalization.NumberStyles.Float, System.Globalization.CultureInfo.InvariantCulture, out float v) ? v : d;
+            float lo = F(field + ".min", 0), hi = F(field + ".max", lo);
+            return lo + (float)Main.rand.NextDouble() * (hi - lo);
         }
 
         static Vector2 NoitaVel(Shot s) => s.Vel * 60f / Px;

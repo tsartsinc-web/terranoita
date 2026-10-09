@@ -43,6 +43,16 @@ namespace Terranoita.Cli
                                     Console.WriteLine($"{e.Size,10}  {e.Path}");
                             Console.Error.WriteLine($"{files.Archive.Count} files in data.wak");
                             return 0;
+                        case "blast":   // blast <noita> <projectile file>: what its config_explosion leaves (cells, loaded shots)
+                        {
+                            var b = Terranoita.Noita.SpellProjectileFromEntity.Blast(Terranoita.Noita.NoitaEntityXml.Load(args[2], p => Text(files, p)));
+                            Console.WriteLine("cells " + b.CellProbability + " " + b.CellMaterial + "; loads " + string.Join(",", b.LoadsShots));
+                            foreach (var c in Terranoita.Noita.NoitaEntityXml.Load(args[2], p => Text(files, p)).Components)
+                                foreach (var kv in c.Fields)
+                                    if (kv.Key.Contains("load_this_entity") || kv.Key.Contains("explosion_radius"))
+                                        Console.WriteLine("  " + c.Type + " " + kv.Key + " = " + kv.Value);
+                            return 0;
+                        }
                         case "perks":   // perks <noita>: Noita's perk list as perk_list.lua declares it (PC-34)
                         {
                             var perks = Terranoita.Noita.NoitaPerks.Read(p => Text(files, p));

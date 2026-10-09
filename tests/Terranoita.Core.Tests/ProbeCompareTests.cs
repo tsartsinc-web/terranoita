@@ -151,6 +151,21 @@ namespace Terranoita.Tests
         }
 
         [Fact]
+        public void ANoitaRowThatDidNotCastIsLeftOut()
+        {
+            // run G3: Noita paid no mana for LIGHT_BULLET and recorded the previous test's bouncy orb still flying
+            var noita = Row("mod:COLOUR_RED+LIGHT_BULLET", 0, (Orb, "", 200));
+            noita.Deck = new[] { "COLOUR_RED", "LIGHT_BULLET" };
+            var ours = Row(noita.Name, 5, (Spark, "", 730));
+            var v = ProbeCompare.Compare(noita, ours);
+            Assert.True(v.NoitaDidNotCast);
+            var ok = Row("single:LIGHT_BULLET", 5, (Spark, "", 730));
+            var all = new[] { v, ProbeCompare.Compare(ok, Row(ok.Name, 5, (Spark, "", 730))) };
+            Assert.StartsWith("behaviour: 1 of 1 (single 1 of 1)", ProbeCompare.Summary(all));
+            Assert.EndsWith("Noita rows to re-probe (did not cast): 1", ProbeCompare.Summary(all));
+        }
+
+        [Fact]
         public void NumbersAloneKeepTheBehaviour()
         {
             var noita = Row("single:LIGHT_BULLET", 5, (Spark, "", 730));

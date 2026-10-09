@@ -354,6 +354,15 @@ namespace Terranoita.Game.Magic
                     next = ThrownHit(s, next);   // a physics body never dies on the ground: its fuse (lifetime) ends it
                 else if (s.PenetrateWorld)
                     next = s.Pos + s.Vel * ph.PenetrateCoeff;   // through the ground, slower inside it
+                else if (s.Bounces > 0 && s.Vel.Y > 0 && s.Vel.Y * 60f / Px < RollSpeed &&
+                         !Collision.SolidCollision(new Vector2(next.X, s.Pos.Y) - new Vector2(2, 2), 4, 4))
+                {
+                    // lying on the ground and rolling along it is no bounce: Noita's grenade rolls on for ~60 frames after
+                    // its first hit with its 4 bounces left (probe 2026-10-10), ours used them up in 47 frames and died
+                    s.Vel.Y = 0;
+                    s.Pos.X = next.X;
+                    return false;
+                }
                 else if (s.Bounces > 0)
                 {
                     s.Bounces--;
@@ -619,6 +628,10 @@ namespace Terranoita.Game.Magic
             else
                 NoitaSound.PlayFirst(s.Def.Audio, s.Pos, "destroy");
         }
+
+        /// <summary>Below this speed into the ground (Noita px/s) a bouncing shot rolls instead of bouncing: assumed (Noita's
+        /// limit is in its engine; the probe only shows that the grenade rolls).</summary>
+        const float RollSpeed = 60;
 
         static readonly Dictionary<string, bool> HittableFiles = new Dictionary<string, bool>();
 

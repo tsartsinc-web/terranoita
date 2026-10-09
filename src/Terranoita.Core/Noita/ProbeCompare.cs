@@ -20,6 +20,9 @@ namespace Terranoita.Noita
         public readonly List<string> Behaviour = new List<string>();
         public bool Matches => Differences.Count == 0;
         public bool BehavesLike => Behaviour.Count == 0;
+        /// <summary>Noita's row is no measurement: it paid no mana for a deck that costs some, so it did not cast, and the
+        /// shots it recorded were the previous test's still flying (run G3: 15 rows). Left out of the numbers; re-probe.</summary>
+        public bool NoitaDidNotCast;
         /// <summary>Our casts of this test (TERRANOITA_PROBE_REPEAT) and how many of them behaved like Noita's.</summary>
         public int Casts = 1, CastsBehaving;
     }
@@ -38,6 +41,9 @@ namespace Terranoita.Noita
         // a direct hit this small on one side only, with the same shots flying the same way, is the random spread (PC-31 b)
         public const double HitMissDamage = 1.3;
         static readonly string[] HitMessages = { "$damage_projectile", "$damage_slice" };
+
+        static bool DeckCostsMana(string[] deck) =>
+            deck != null && deck.Any(d => Terranoita.Generated.SpellTable.All.Any(s => s.Id == d && s.Mana > 0));
 
         /// <summary>A deck that casts something random (RANDOM_SPELL, RANDOM_PROJECTILE, DAMAGE_RANDOM...) cannot match 1:1:
         /// only whether it fires is behaviour (PC-31 c).</summary>
@@ -82,6 +88,12 @@ namespace Terranoita.Noita
             if (ours == null)
             {
                 Does("not run in Terraria");
+                return v;
+            }
+            if (noita.ManaUsed == 0 && (ours.ManaUsed ?? 0) > 0 && DeckCostsMana(noita.Deck))
+            {
+                v.NoitaDidNotCast = true;
+                v.Differences.Add("Noita did not cast (mana 0): re-probe this row");
                 return v;
             }
             if (noita.Fired != ours.Fired)
@@ -202,7 +214,10 @@ namespace Terranoita.Noita
                 var suites = verdicts.GroupBy(x => x.Name.Split(':')[0]).Select(g => g.Key + " " + Part(g));
                 return Part(verdicts) + " (" + string.Join(", ", suites) + ")";
             }
-            return "behaviour: " + Count(x => x.BehavesLike) + "; matching Noita: " + Count(x => x.Matches);
+            int redo = verdicts.Count(x => x.NoitaDidNotCast);
+            verdicts = verdicts.Where(x => !x.NoitaDidNotCast).ToList();
+            return "behaviour: " + Count(x => x.BehavesLike) + "; matching Noita: " + Count(x => x.Matches) +
+                   (redo > 0 ? "; Noita rows to re-probe (did not cast): " + redo : "");
         }
     }
 }

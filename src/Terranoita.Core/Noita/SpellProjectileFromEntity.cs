@@ -44,7 +44,12 @@ namespace Terranoita.Noita
                 return b;
             var comps = new Dictionary<string, Dictionary<string, string>>(StringComparer.Ordinal);
             Walk(e, comps, 0);
-            if (!comps.TryGetValue("config_explosion", out var ex))
+            // the shot's own blast is its ProjectileComponent's: a physics bomb's DamageModelComponent has a
+            // config_explosion of its own, listed first (glitter_bomb.xml: its shards are in the projectile's)
+            var proj = e.Components.FirstOrDefault(c => c.Type == "ProjectileComponent");
+            var ex = proj?.Fields.Where(kv => kv.Key.StartsWith("config_explosion.", StringComparison.Ordinal))
+                .ToDictionary(kv => kv.Key.Substring("config_explosion.".Length), kv => kv.Value, StringComparer.Ordinal);
+            if ((ex == null || ex.Count == 0) && !comps.TryGetValue("config_explosion", out ex))
                 return b;
             b.CellProbability = Num(Get(ex, "create_cell_probability"));
             b.CellMaterial = Get(ex, "create_cell_material") ?? "";
