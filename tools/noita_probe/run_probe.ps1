@@ -50,6 +50,28 @@ try {
     $ws = New-Object -ComObject WScript.Shell
     Start-Sleep -Seconds 12
     for ($i = 0; $i -lt 6; $i++) { [void]$ws.AppActivate($p.Id); $ws.SendKeys("{ENTER}"); Start-Sleep -Seconds 4 }
+    # Enter alone did not always start a game (afternoon 2026-10-09). The mode screen ("Выбрать мод", the author's
+    # screenshot): the "Новая игра" tile is the first one, at ~34% of the window's width and ~35% of its height: click it.
+    Add-Type @"
+using System; using System.Runtime.InteropServices;
+public static class ProbeMouse {
+  [DllImport("user32.dll")] public static extern bool SetCursorPos(int x, int y);
+  [DllImport("user32.dll")] public static extern void mouse_event(uint f, uint x, uint y, uint d, UIntPtr e);
+  [DllImport("user32.dll")] public static extern bool GetWindowRect(IntPtr h, out R r);
+  [StructLayout(LayoutKind.Sequential)] public struct R { public int L, T, Rt, B; }
+  public static void Click(int x, int y) { SetCursorPos(x, y); mouse_event(2, 0, 0, 0, UIntPtr.Zero); mouse_event(4, 0, 0, 0, UIntPtr.Zero); } }
+"@
+    for ($try = 0; $try -lt 3; $try++) {
+        Start-Sleep -Seconds 15
+        if ((Test-Path $status) -and (Select-String -Path $status -Pattern 'player spawned' -Quiet)) { break }
+        $g = Get-Process | Where-Object { $_.ProcessName -eq "noita" -and $_.MainWindowHandle -ne 0 } | Select-Object -First 1
+        if (-not $g) { continue }
+        $r = New-Object ProbeMouse+R; [void][ProbeMouse]::GetWindowRect($g.MainWindowHandle, [ref]$r)
+        [void]$ws.AppActivate($g.Id); Start-Sleep -Milliseconds 500
+        [ProbeMouse]::Click($r.L + [int](($r.Rt - $r.L) * 0.34), $r.T + [int](($r.B - $r.T) * 0.347))
+        Start-Sleep -Seconds 2; $ws.SendKeys("{ENTER}")
+        "clicked the New game tile (try $($try + 1))"
+    }
     # 3. wait
     $deadline = (Get-Date).AddMinutes($Minutes); $last = -1; $lastChange = Get-Date
     while ((Get-Date) -lt $deadline) {
