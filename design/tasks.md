@@ -49,6 +49,14 @@ How it works (author, 2026-10-08): the author only says "работай" to eith
   BLOCKER (2026-10-09 release probe, behaviour 451 vs 704): from the 40th test on shots never step (no path, no end);
   diagnostics added (shot updates per cast in the probe note, errors in SpellShots.Update logged); repro:
   TERRANOITA_PROBE_ONLY=single:ARROW,single:POLLEN,single:LANCE,single:ROCKET with TERRANOITA_PROBE_OUT to a temp file.
+- PC-33 new (author 2026-10-09, with the release if small): chest loot. Since 0.4.3 chests get Noita's
+  chest_random drop_random_reward (WorldLoot.Gen.FillChestsByNoita), which gives spells only sometimes (mostly gold,
+  flasks, wands); the old load-time fill gave 1-2 spells per chest. 1) Check on a new world: log per chest kind how
+  many chests got >= 1 spell; author's goal: spells are found in chests as before -> if most chests have none, add
+  1-2 spells by chest level (the old WorldLoot.FillChests rule: Maker.RandomAction(level)) on top of Noita's drop.
+  2) Add a chance of an EMPTY wand in a chest (a wand of the chest's level with no spells; author's idea, start
+  with 10%, deeper chests a bit more). 3) More chests in worldgen (author): see the PC row for chest count.
+  Check: worldgen log "N chests, X with spells, Y empty wands".
 - PC-31 new (after the release; cloud analysed run B, 2026-10-09): ~70 of the 201 behaviour failures are the TEST, not
   the mod. Fix probe-compare first, so the number tells the truth: a) path check must not scale our path by Noita's
   START speed when a script re-sets the velocity after spawn (TRUE_ORBIT: Noita 738 px/s on frame 0, then the orbit;
