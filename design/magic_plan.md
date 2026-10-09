@@ -124,6 +124,21 @@ scripts do with the fields, and from checks in Noita by the author when a rule c
 - Sandbox (game_test -Mode sandbox): spells grouped by type in labeled chests; the author goes group by group;
   every report becomes a Phase 1 row first, then a fix.
 
+### Running the ground truth (PC-22/PC-28, 2026-10-09)
+- `tools/noita_probe/run_probe.ps1`: backs up Noita's config, mod list and the player's run (save00/world), installs and
+  enables the probe mod (file output needs mods_sandbox_enabled 0), keeps Noita running unfocused, starts Noita,
+  presses Enter to start a new game, waits for "done", closes Noita and puts everything back; output ->
+  design/sources/noita_probe.jsonl. The mod fires by itself (PlatformShooterPlayerComponent.mForceFireOnNextUpdate +
+  mRequireTriggerPull 0, ControlsComponent.enabled 0 + aim fields: verified in Noita) and resumes after a restart.
+- Open: Enter starts the game only when Noita's menu has "New game" selected; in the morning runs it was, at 12:19 it
+  was not (likely the mouse cursor over another item; not seen: no screenshots). Next: the author allows one
+  screenshot of Noita's menu (button position for a click), or presses New game once.
+- Terraria side: `game_test -Mode probe` (SpellProbeTest) builds the same arena (flat floor, wall at 264 px), the same
+  target (16 x 20 Noita px, centre 4 px above the wand line) and aim, waits until the probe wand is in hand. Never run it
+  while Noita is being driven by keys (keys reached Terraria: rows 30..84 cast the character's slot-0 wand).
+- Known real differences seen so far: physics projectiles (bomb.xml: PhysicsThrowable, no VelocityComponent) fly at 60
+  and die on the first floor contact here, Noita throws at 120 and they live 180 frames to the fuse (Phase 3.4).
+
 ## 5. Done means
 - Phase 1 suite: every spell, modifier and combo matches Noita's files, or has a written reason (section 6).
 - magic-coverage: every component type used by a spell has a system, or a written reason.
