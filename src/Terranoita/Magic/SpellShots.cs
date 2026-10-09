@@ -517,7 +517,8 @@ namespace Terranoita.Game.Magic
 
         static readonly Dictionary<int, float> Owed = new Dictionary<int, float>();
 
-        /// <summary>BLACK_HOLE_GIGA and WHITE_HOLE_GIGA: their AreaDamageComponent box (72 px each way) kills at once.</summary>
+        /// <summary>BLACK_HOLE_GIGA and WHITE_HOLE_GIGA: their AreaDamageComponent box (72 px each way) kills at once (not
+        /// bosses: they take its damage as usual).</summary>
         static bool OneShot(Shot s)
         {
             string f = s.Lua.File ?? "";
@@ -532,8 +533,8 @@ namespace Terranoita.Game.Magic
                 var n = Main.npc[i];
                 if (!n.active || n.friendly || n.dontTakeDamage || n.life <= 0 || !n.Hitbox.Intersects(box))
                     continue;
-                // the giga black and white holes kill what they touch at once (author 2026-10-10)
-                if (OneShot(s))
+                // the giga black and white holes kill what they touch at once, all but bosses (author 2026-10-10)
+                if (OneShot(s) && !n.boss && !NPCID.Sets.ShouldBeCountedAsBossForRainbowBoulders[n.type])
                 {
                     Strike(s, n, n.lifeMax * 10f + n.defense * 2f + 1000f);
                     continue;
