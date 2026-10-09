@@ -162,7 +162,10 @@ scripts do with the fields, and from checks in Noita by the author when a rule c
 - Verified from the paths: air friction is 1 - f/60 a frame, and a LuaComponent with remove_after_executed and no
   execute_times runs once (ACCELERATING_SHOT 1.7 - 3: x1.113 per 5 frames, DECELERATING_SHOT 1.7 + 6: x0.504; ours
   ran the script every frame, fixed in LuaShotScripts). Homing (HomingComponent 0.86 / 130) slows a spark to ~440 px/s
-  in Noita; the engine's formula is not in Noita's files: to be fitted from probe paths.
+  in Noita; the engine's formula is not in Noita's files. Fits so far (paths, target at its origin): per frame
+  v = v x homing_velocity_multiplier + dir x homing_targeting_coeff, then friction, matches HOMING_SHOOTER (0.99/30, 5.6 px)
+  and MISSILE (1.0/15, 7.9 px) but not HOMING (0.86/130) or HOMING_SHORT (0.83/480): there the coefficient acts 2-10x
+  weaker. Next: probe rows made for it (a homing shot with no friction, the target at a few distances), one Noita run.
 - Known real differences seen so far: physics projectiles (bomb.xml: PhysicsThrowable, no VelocityComponent) fly at 60
   and die on the first floor contact here, Noita throws at 120 and they live 180 frames to the fuse (Phase 3.4).
 
