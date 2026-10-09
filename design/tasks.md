@@ -32,6 +32,12 @@ How it works (author, 2026-10-08): the author only says "работай" to eith
 - Roadmap: design/roadmap.md. Worldgen plan: design/worldgen_plan.md (PC-10 after CLOUD-7).
 
 ## PC queue
+- NIGHT PLAN (author 2026-10-09, asleep; work without pauses until the limit ends): order = release 0.4.5 if not
+  done (publishing authorized) -> PC-33 -> PC-31 -> PC-32 -> PC-30 (50 wands compare) -> PC-24. Rules: never wait for
+  the author: if a step is blocked (needs him, a login, a crash you can't fix in ~3 tries), write one line in the
+  task row ("blocked: why") and take the next task. Commit + push after every step. Tests in the background,
+  minimized, close the games after; Noita only for new probe rows. Save tokens: grep/ranges, summary lines only, no
+  reports between steps. Before the limit runs out: MODLOG handoff with the probe behaviour number and the next step.
 - RELEASE 0.4.5 done (2026-10-10, verified): game_test magic on a new world 12/12, worldgen 86 more chests (172 -> 258),
   38 empty wands, 19 spells + 16 rare; probe on the same 109 rows: behaviour 76 vs 71 (run E). The 2026-10-09 "451"
   was the test harness: Terraria paused the minimized test game when another window was active (fixed: autotest sets
