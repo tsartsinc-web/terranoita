@@ -127,8 +127,11 @@ scripts do with the fields, and from checks in Noita by the author when a rule c
 ### Running the ground truth (PC-22/PC-28, 2026-10-09)
 - `tools/noita_probe/run_probe.ps1`: backs up Noita's config, mod list and the player's run (save00/world), installs and
   enables the probe mod (file output needs mods_sandbox_enabled 0), keeps Noita running unfocused, starts Noita,
-  presses Enter to start a new game, waits for "done", closes Noita and puts everything back; output ->
-  design/sources/noita_probe.jsonl. The mod fires by itself (PlatformShooterPlayerComponent.mForceFireOnNextUpdate +
+  clicks into a new game (no key presses: a missed one lands in another window), waits for "done", closes Noita and
+  puts everything back; only a finished run is copied to design/sources/noita_probe.jsonl (an unfinished one stays in
+  the mod folder and the next run continues it). The player's PROTECTION_ALL / PROTECTION_POLYMORPH are set to
+  frames -1: the effect files' 7200 frames ran out after 2 minutes (BOMB_HOLY_GIGA killed the player, MASS_POLYMORPH
+  turned it); after a polymorph the player is found again by its player_unit tag. The mod fires by itself (PlatformShooterPlayerComponent.mForceFireOnNextUpdate +
   mRequireTriggerPull 0, ControlsComponent.enabled 0 + aim fields: verified in Noita) and resumes after a restart.
 - Menu (screenshots the author allowed, 2026-10-09): main menu "Новая игра" at the window centre, then the mode screen
   selects nothing until the mouse is over a tile: click its first tile. run_probe.ps1 clicks both (fractions of the
@@ -140,6 +143,16 @@ scripts do with the fields, and from checks in Noita by the author when a rule c
   hurts with explosion damage only, probe test target/aim/arena like the probe's.
 - Open, needs flight paths in the probe (sample x, y, vx, vy every 5 frames): grenades (bounces_left 4, friction 0.6)
   roll and lie on the floor until ~frame 79-157 in Noita; ours spend the 4 bounces on floor contacts in a few frames.
+- Comparing flights (2026-10-09 evening): Noita first sees a shot after its first move (x0 - vx0/60 is one spawn point,
+  10.5 px ahead and 5.7 px above the player, for every speed); SpellRecorder samples after the move too, and
+  probe-compare checks the path along/across each side's first direction (4 px + 10% of the distance flown, first 30
+  frames). The Terraria arena now has Noita's heights against the shot line (floor 13.7 px under it, target centre
+  4.3 px over it; the caster is held in the air): standing, our floor was 7 px under the shot line and shots Noita
+  drops under the target hit ours.
+- Verified from the paths: air friction is 1 - f/60 a frame, and a LuaComponent with remove_after_executed and no
+  execute_times runs once (ACCELERATING_SHOT 1.7 - 3: x1.113 per 5 frames, DECELERATING_SHOT 1.7 + 6: x0.504; ours
+  ran the script every frame, fixed in LuaShotScripts). Homing (HomingComponent 0.86 / 130) slows a spark to ~440 px/s
+  in Noita; the engine's formula is not in Noita's files: to be fitted from probe paths.
 - Known real differences seen so far: physics projectiles (bomb.xml: PhysicsThrowable, no VelocityComponent) fly at 60
   and die on the first floor contact here, Noita throws at 120 and they live 180 frames to the fuse (Phase 3.4).
 
