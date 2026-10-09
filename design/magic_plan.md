@@ -104,8 +104,18 @@ scripts do with the fields, and from checks in Noita by the author when a rule c
   need (tile/liquid queries, creature hits, damage by type, explosions, particles, sounds, material cells).
 - Move what SpellShots already does into systems one type at a time (Velocity, Projectile, Lifetime, Homing,
   SineWave, Arc, AreaDamage, CellEater, BlackHole, MagicConvertMaterial, MaterialSeaSpawner, EnergyShield,
-  TeleportProjectile, Lightning, Light, emitters), deleting the old code in the same step (no two ways).
-- Check per step: Core tests; the Phase 1 suite equal or better than before the step.
+  TeleportProjectile, Lightning, Light, emitters). Author's condition 1: the new path runs only with
+  TERRANOITA_RUNTIME=components until its probe-compare number is at least the old path's; then it becomes the
+  default and the old code goes in one commit.
+- Check per step: Core tests; the Phase 1 suite (probe-compare) with the switch on equal or better than off.
+- Steps (PC-24):
+  1. Every shot in the store (switch on), VelocityComponent from the store each frame: Core ShotFlight (gravity_x/y,
+     air_friction as 1 - f/60 a frame, terminal_velocity / apply_terminal_velocity; defaults from
+     component_documentation.txt), tests from probe numbers (spark x0.9716 a frame, rocket x1.0833, DECELERATING_SHOT
+     x0.504 per 5 frames); the host stops mirroring those fields on that path.
+  2. ProjectileComponent lifetime, bounces_left / bounce_energy, collide_with_world, on_collision_die,
+     penetrate_world, die_on_low_velocity from the store (the rest of the host's field mirror goes).
+  3. One component type per step after that, in the order of the spells it moves in probe-compare.
 
 ### Phase 3: what is missing, by spells affected (section 1 numbers, re-sorted by magic-coverage)
 1. ProjectileComponent's unread fields (damage_game_effect_entities, collide_with_*, bounce_*,
