@@ -7,14 +7,24 @@
 dofile_once( "data/scripts/lib/utilities.lua" )
 dofile_once( "data/scripts/gun/procedural/gun_action_utils.lua" )
 dofile_once( "mods/terranoita_probe/files/tests.lua" )
+local DIAG = {}
+-- single-cast ways first (run 2026-10-09: S1 fired again and again, S2 and S3 once, S4 never)
+-- run 2026-10-09 #2: only S2 cast, and only after input was back on (aimed by the real mouse). S5/S6 keep input off:
+-- PlatformShooterPlayerComponent.mForceFireOnNextUpdate / mRequireTriggerPull (component_documentation.txt)
+for i, k in ipairs( { 5, 6, 3, 2 } ) do DIAG[i] = { name = "diag:S" .. k, deck = { "LIGHT_BULLET" }, strategy = k } end
+local RUN = {}
+for _, x in ipairs( DIAG ) do RUN[#RUN + 1] = x end
+for _, x in ipairs( TESTS ) do RUN[#RUN + 1] = x end
 
 local OUT = "mods/terranoita_probe/probe_out.jsonl"
 local ARENA, ARENA_W, ARENA_H = "mods/terranoita_probe/files/arena.png", 320, 200
 local START_DELAY, STAMP_WAIT, MAX_FRAMES, QUIET = 120, 15, 240, 30
 
 local player, ax, ay, px, py, tx, ty
-local state, idx, t, fire_method = "wait", 0, 0, 1
+local state, idx, t, fire_method = "wait", 0, 0, 2
 local wand, target, mana0, fired_frame
+local early = 0   -- projectiles that appeared before the probe pressed fire (counted, reported)
+local chosen   -- the way of pressing fire that worked (diag tests), kept across a restart
 local tracked, order, done = {}, {}, {}
 local spawned_frame = 0
 
@@ -28,6 +38,12 @@ local function n( x )
 	return string.format( "%.2f", x )
 end
 
+local STATUS = "mods/terranoita_probe/probe_status.txt"
+local function status( text )
+	local f = io and io.open( STATUS, "a" )
+	if f then f:write( tostring( GameGetFrameNum and GameGetFrameNum() or 0 ) .. " " .. text .. "\n" ) f:close() end
+end
+
 local function out( line )
 	local f = io.open( OUT, "a" )
 	if f then f:write( line .. "\n" ) f:close() end
@@ -39,6 +55,8 @@ local function read_done()
 	for line in f:lines() do
 		local name = line:match( "^{\"name\":\"([^\"]+)\"" )
 		if name then done[name] = true end
+		local k = line:match( "^{\"name\":\"diag:S(%d)\"" )
+		if k and chosen == nil and line:find( "\"projectiles\":%[{" ) then chosen = tonumber( k ) end
 	end
 	f:close()
 end
@@ -78,7 +96,7 @@ local function make_wand( deck )
 	local ab = EntityGetFirstComponentIncludingDisabled( w, "AbilityComponent" )
 	ComponentSetValue2( ab, "mana_max", 100000 )
 	ComponentSetValue2( ab, "mana", 100000 )
-	ComponentSetValue2( ab, "mana_charge_speed", 100000 )
+	ComponentSetValue2( ab, "mana_charge_speed", 0 )   -- no refill: mana_used is what the cast took
 	ComponentObjectSetValue2( ab, "gun_config", "actions_per_round", 1 )
 	ComponentObjectSetValue2( ab, "gun_config", "deck_capacity", #deck )
 	ComponentObjectSetValue2( ab, "gun_config", "reload_time", 30 )
@@ -98,16 +116,84 @@ local function wand_mana()
 	return ab and ComponentGetValue2( ab, "mana" ) or nil
 end
 
+local diag = ""
+local WAND_READY, FIRE_MAX = 40, 60   -- a new wand did not fire in its first ~30 frames (probe run 2026-10-09)
+
+local function active_item()
+	local inv2 = EntityGetFirstComponent( player, "Inventory2Component" )
+	return inv2 and ComponentGetValue2( inv2, "mActiveItem" ) or -1
+end
+
+-- aim at the target (every aiming field; the first run with only three of them threw a bomb up-left)
+local function aim( c )
+	local dx, dy = tx - px, ty - py
+	local len = math.sqrt( dx * dx + dy * dy )
+	ComponentSetValue2( c, "mAimingVector", dx, dy )
+	ComponentSetValue2( c, "mAimingVectorNormalized", dx / len, dy / len )
+	ComponentSetValue2( c, "mAimingVectorNonZeroLatest", dx, dy )
+	ComponentSetValue2( c, "mMousePosition", tx, ty )
+	ComponentSetValue2( c, "mGamePadCursorInWorld", tx, ty )
+end
+
+-- pressing fire from Lua is not documented, so the probe first tries ways on LIGHT_BULLET (diag tests) and keeps the
+-- first that fires. Seen 2026-10-09: mButtonDownFire alone is overwritten by the input (read back false); a bomb fired
+-- 12 frames after "input off + pressed 2 frames, then input on again" (S2), but aimed by the real mouse.
+-- S1 input on, button set in pre and post update; S2 that sequence; S3 input off, button toggled every frame; S4 input
+-- off, button held. fire_t: frames since this test started pressing.
+local strategy, fire_t = 2, 0
 local function press( down )
 	local c = EntityGetFirstComponent( player, "ControlsComponent" )
 	if not c then return end
-	-- method 1: set the fields; method 2: also disable input so the engine keeps them (assumed; the row says which worked)
-	if fire_method == 2 then ComponentSetValue2( c, "enabled", not down ) end
-	ComponentSetValue2( c, "mButtonDownFire", down )
-	if down then ComponentSetValue2( c, "mButtonFrameFire", GameGetFrameNum() ) end
-	ComponentSetValue2( c, "mAimingVector", tx - px, ty - py )
-	ComponentSetValue2( c, "mAimingVectorNormalized", 1, 0 )
-	ComponentSetValue2( c, "mMousePosition", tx, ty )
+	if not down then
+		-- run 2026-10-09: with input on while waiting, the new wand cast by itself ~27 frames after pickup, aimed by
+		-- the real mouse: input stays off and aimed whenever the probe is not pressing
+		ComponentSetValue2( c, "enabled", false )
+		aim( c )
+		ComponentSetValue2( c, "mButtonDownFire", false )
+		return
+	end
+	local frame = GameGetFrameNum()
+	if strategy == 1 then
+		ComponentSetValue2( c, "enabled", true )
+		aim( c )
+		ComponentSetValue2( c, "mButtonDownFire", true )
+		ComponentSetValue2( c, "mButtonFrameFire", frame )
+	elseif strategy == 2 then
+		local on = fire_t <= 1
+		ComponentSetValue2( c, "enabled", not on )
+		aim( c )
+		ComponentSetValue2( c, "mButtonDownFire", on )
+		if on then ComponentSetValue2( c, "mButtonFrameFire", frame ) end
+	elseif strategy == 3 then
+		ComponentSetValue2( c, "enabled", false )
+		aim( c )
+		local on = fire_t % 2 == 0
+		ComponentSetValue2( c, "mButtonDownFire", on )
+		if on then ComponentSetValue2( c, "mButtonFrameFire", frame ) end
+	elseif strategy == 4 then
+		ComponentSetValue2( c, "enabled", false )
+		aim( c )
+		ComponentSetValue2( c, "mButtonDownFire", true )
+		if fire_t == 0 then ComponentSetValue2( c, "mButtonFrameFire", frame ) end
+	else
+		ComponentSetValue2( c, "enabled", false )
+		aim( c )
+		local ps = EntityGetFirstComponent( player, "PlatformShooterPlayerComponent" )
+		if ps then
+			ComponentSetValue2( ps, "mRequireTriggerPull", false )
+			if strategy == 5 then ComponentSetValue2( ps, "mForceFireOnNextUpdate", true ) end
+		end
+		ComponentSetValue2( c, "mButtonDownFire", true )
+		ComponentSetValue2( c, "mButtonFrameFire", frame )
+	end
+end
+
+local function release_controls()
+	local c = EntityGetFirstComponent( player, "ControlsComponent" )
+	if c then
+		ComponentSetValue2( c, "mButtonDownFire", false )
+		ComponentSetValue2( c, "enabled", true )
+	end
 end
 
 local function track( frame )
@@ -171,19 +257,24 @@ local function finish( test, frame, note )
 end
 
 local function next_test()
-	repeat idx = idx + 1 until idx > #TESTS or not done[TESTS[idx].name]
-	if idx > #TESTS then
+	repeat idx = idx + 1 until idx > #RUN or not done[RUN[idx].name]
+	if idx > #RUN then
 		out( "{\"done\":true,\"tests\":" .. #TESTS .. "}" )
 		GamePrint( "Terranoita probe: all " .. #TESTS .. " tests written to " .. OUT )
 		state = "done"
 		return
 	end
 	if idx % 25 == 0 then GamePrint( "Terranoita probe: test " .. idx .. " of " .. #TESTS ) end
-	state, t = "stamp", 0
+	state, t, diag = "stamp", 0, ""
+end
+
+function OnModInit()
+	status( "mod loaded, io " .. tostring( io ~= nil ) .. ", " .. #TESTS .. " tests" )
 end
 
 function OnPlayerSpawned( player_entity )
 	player = player_entity
+	status( "player spawned " .. tostring( player_entity ) )
 	if io == nil then
 		GamePrint( "Terranoita probe: no file access. Enable unsafe mods in the Mods menu, then start a new game." )
 		state = "done"
@@ -202,10 +293,24 @@ end
 function OnWorldPreUpdate()
 	if player == nil or state == "done" or state == "wait" or not EntityGetIsAlive( player ) then return end
 	pin_player()
-	if state == "fire" then press( t <= 1 ) end
+	if state == "ready" or state == "watch" then press( false )   -- aimed, not firing (one cast per test)
+	elseif state == "fire" then
+		press( #order == 0 and not ( mana0 and wand_mana() and wand_mana() < mana0 ) )
+		fire_t = fire_t + 1
+	end
 end
 
+local update   -- the probe step; errors are written to probe_status.txt (no screenshots: the author's rule)
 function OnWorldPostUpdate()
+	local ok, err = pcall( update )
+	if not ok then
+		status( "ERROR " .. tostring( err ) )
+		GamePrint( "Terranoita probe error: " .. tostring( err ) )
+		state = "done"
+	end
+end
+
+update = function()
 	if player == nil or state == "done" or state == "wait" or not EntityGetIsAlive( player ) then return end
 	t = t + 1
 	if state == "start" then
@@ -218,32 +323,62 @@ function OnWorldPostUpdate()
 		elseif t == STAMP_WAIT then
 			target = EntityLoad( "mods/terranoita_probe/files/target.xml", tx, ty )
 			local ab
-			wand, ab = make_wand( TESTS[idx].deck )
+			wand, ab = make_wand( RUN[idx].deck )
 			tracked, order, spawned_frame = {}, {}, 0
-		elseif t == STAMP_WAIT + 5 then
+			early = 0
+		elseif t == STAMP_WAIT + 1 then
+			state, t = "ready", 0
+		end
+	elseif state == "ready" then
+		if track( t - WAND_READY ) > 0 or #order > 0 then early = #order end
+		if t >= WAND_READY then
 			mana0 = wand_mana()
+			diag = "active " .. tostring( active_item() ) .. " wand " .. tostring( wand ) .. " items " .. #( GameGetAllInventoryItems( player ) or {} )
+			if RUN[idx].strategy then
+				strategy = RUN[idx].strategy
+			elseif chosen then
+				strategy = chosen
+			else
+				status( "no way of pressing fire worked (diag S1-S4): stopped" )
+				GamePrint( "Terranoita probe: firing failed, see " .. STATUS )
+				state = "done"
+				return
+			end
+			diag = "S" .. strategy .. "; early projectiles " .. early .. "; " .. diag
+			fire_t = 0
 			state, t = "fire", 0
 		end
 	elseif state == "fire" then
-		local alive = track( t )
-		if t >= 3 then state = "watch" end
+		track( t )
+		local fired = #order > 0 or ( mana0 and wand_mana() and wand_mana() < mana0 )
+		if t == 1 or fired then
+			local c = EntityGetFirstComponent( player, "ControlsComponent" )
+			local x, y = EntityGetTransform( player )
+			local avx, avy = 0, 0
+			if c then avx, avy = ComponentGetValue2( c, "mAimingVector" ) end
+			local wx, wy = 0, 0
+			if wand and EntityGetIsAlive( wand ) then wx, wy = EntityGetTransform( wand ) end
+			diag = diag .. string.format( "; t%d player at %.1f,%.1f wand at %.1f,%.1f aim read %.1f,%.1f", t, x - px, y - py, wx - px, wy - py, avx, avy )
+		end
+		if fired then
+			fired_frame = t
+			if RUN[idx].strategy and not chosen then
+				chosen = RUN[idx].strategy
+				status( "fire strategy S" .. chosen .. " works" )
+			end
+			state = "watch"
+		elseif t >= FIRE_MAX then
+			release_controls()
+			finish( RUN[idx], t, "nothing fired in " .. FIRE_MAX .. " frames (no projectile, no mana used); " .. diag )
+			if idx == 1 then GamePrint( "Terranoita probe: firing failed, see " .. OUT ) end
+			next_test()
+		end
 	elseif state == "watch" then
 		local alive = track( t )
-		local fired = #order > 0 or ( mana0 and wand_mana() and wand_mana() < mana0 )
-		if not fired and t >= 20 then
-			if fire_method == 1 then
-				fire_method = 2   -- the first way of pressing fire did nothing: try the other one on this test
-				press( false )
-				state, t = "fire", 0
-				return
-			end
-			finish( TESTS[idx], t, "nothing fired (no projectile, no mana used)" )
-			if idx == 1 or ( #order == 0 and TESTS[idx].name == "single:LIGHT_BULLET" ) then
-				GamePrint( "Terranoita probe: firing failed, see " .. OUT )
-			end
-			next_test()
-		elseif fired and ( t >= MAX_FRAMES or ( alive == 0 and t - spawned_frame >= QUIET ) ) then
-			finish( TESTS[idx], t, alive > 0 and "still flying at the end" or nil )
+		if t >= MAX_FRAMES or ( alive == 0 and t - spawned_frame >= QUIET and t - fired_frame >= QUIET ) then
+			release_controls()
+			finish( RUN[idx], t, ( alive > 0 and "still flying at the end; " or "" ) .. "fired at frame " .. tostring( fired_frame ) ..
+				( ( RUN[idx].strategy or idx <= 6 ) and ( "; " .. diag ) or "" ) )
 			next_test()
 		end
 	end
