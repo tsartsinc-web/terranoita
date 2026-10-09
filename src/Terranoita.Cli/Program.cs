@@ -43,6 +43,14 @@ namespace Terranoita.Cli
                                     Console.WriteLine($"{e.Size,10}  {e.Path}");
                             Console.Error.WriteLine($"{files.Archive.Count} files in data.wak");
                             return 0;
+                        case "perks":   // perks <noita>: Noita's perk list as perk_list.lua declares it (PC-34)
+                        {
+                            var perks = Terranoita.Noita.NoitaPerks.Read(p => Text(files, p));
+                            foreach (var k in perks)
+                                Console.WriteLine(k.Id + " " + string.Join(",", k.GameEffects) + (k.NotInDefaultPool ? " (not in pool)" : "") + (k.Stackable ? " stackable" : ""));
+                            Console.WriteLine("perks: " + perks.Count + " (default pool " + perks.FindAll(k => !k.NotInDefaultPool).Count + ")");
+                            return 0;
+                        }
                         case "wak-cat":
                             Console.Write(Text(files, args[2]) ?? throw new FileNotFoundException(args[2]));
                             return 0;
