@@ -97,6 +97,16 @@ How it works (author, 2026-10-08): the author only says "работай" to eith
   zone (biome_spawns.json), then scenes (section 3).
 - Known gaps: flask powders (gunpowder_unstable, purifying_powder) do not pour (no Fluids kind); multiplayer still
   clamps synced mana at 400 (MessageBuffer.GetData).
+- PC-27 new (after the current magic step): multiplayer joins through Melty. Melty 2026-10-09: 89 games hosted,
+  0 joins. The live recipe has multiplayer (maxPlayers 255) and connect.address (log
+  {localappdata}/Terranoita/logs/latest.log, after "Hosting at ", Multiplayer.cs writes the Steam lobby id) but no
+  join rule, so Melty only shows the id. Add connect.joinArgs ["+connect_lobby", "{address}"] (Terraria's own
+  NetClientSocialModule parameter; the launcher passes unknown args through) to design/melty.recipe.draft.json and the
+  next release; validate_recipe. Melty's rule: test hosting and joining with two copies before claiming it works
+  (two PCs / two Steam accounts: the author arranges it); if joining cannot be tested, leave joinArgs out. Then in
+  that session verify multiplayer physics and turn TERRANOITA_MP_PHYSICS on by default if it works (off since
+  0.4.3). Check: a friend presses Melty's join link and lands in the host's world; install_outcomes "Playing
+  together" shows joins > 0.
 
 ## CLOUD queue
 - (CLOUD-6 dropped: the PC did night-only surface spawns in Spawning.cs without a sheet column.)
