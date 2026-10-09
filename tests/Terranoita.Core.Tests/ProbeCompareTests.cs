@@ -54,6 +54,10 @@ namespace Terranoita.Tests
             // ours falls 20 px more by frame 10 (more than 4 px + 10% of the 100 px flown)
             var falls = With(Flying(8, 0, 600, 0, new double[] { 0, 8, 0, 600, 0 }, new double[] { 5, 58, 0, 600, 0 }, new double[] { 10, 108, 21, 600, 60 }));
             Assert.Equal("path light_bullet: 20 px off at frame 10", ProbeCompare.Compare(noita, falls).Differences.Single());
+            Assert.True(ProbeCompare.Compare(noita, falls).BehavesLike);   // a number: within 10 px + 30% of the flight
+            // ours stops where it started: it flies differently (behaviour)
+            var stays = With(Flying(8, 0, 600, 0, new double[] { 0, 8, 0, 600, 0 }, new double[] { 5, 8, 0, 0, 0 }, new double[] { 10, 8, 0, 0, 0 }));
+            Assert.Equal(new[] { "path light_bullet: 50 px off at frame 5" }, ProbeCompare.Compare(noita, stays).Behaviour);
         }
 
         [Fact]
@@ -70,6 +74,20 @@ namespace Terranoita.Tests
                 "damage $damage_explosion: 0 (Noita 5)",
                 "mana 30 (Noita 15)",
             }, v.Differences);
+            // PC-30: what the cast does (its payload, its blast) is behaviour; speed and mana are numbers
+            Assert.Equal(new[] { "children bouncy_orb from light_bullet: 0 (Noita 1)", "damage $damage_explosion: 0 (Noita 5)" }, v.Behaviour);
+        }
+
+        [Fact]
+        public void NumbersAloneKeepTheBehaviour()
+        {
+            var noita = Row("single:LIGHT_BULLET", 5, (Spark, "", 730));
+            noita.Hits.Add(new ProbeHit { Damage = 0.12, Message = "$damage_projectile" });
+            var ours = Row(noita.Name, 7, (Spark, "", 500));
+            ours.Hits.Add(new ProbeHit { Damage = 0.3, Message = "$damage_projectile" });
+            var v = ProbeCompare.Compare(noita, ours);
+            Assert.False(v.Matches);
+            Assert.True(v.BehavesLike);
         }
 
         [Fact]
@@ -89,7 +107,7 @@ namespace Terranoita.Tests
             var all = ProbeCompare.CompareAll(new[] { noita, Row("mod:HOMING+LIGHT_BULLET", 5, (Spark, "", 700)) },
                                               new[] { Row("mod:HOMING+LIGHT_BULLET", 5, (Spark, "", 690)) });
             Assert.Equal("not run in Terraria", all[0].Differences.Single());
-            Assert.Equal("matching Noita: 1 of 2 (single 0 of 1, mod 1 of 1)", ProbeCompare.Summary(all));
+            Assert.Equal("behaviour: 1 of 2 (single 0 of 1, mod 1 of 1); matching Noita: 1 of 2 (single 0 of 1, mod 1 of 1)", ProbeCompare.Summary(all));
         }
     }
 }

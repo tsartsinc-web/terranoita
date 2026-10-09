@@ -14,7 +14,12 @@ namespace Terranoita.Noita
     {
         public string Name;
         public readonly List<string> Differences = new List<string>();
+        /// <summary>The differences in what the cast does (design/tasks.md PC-30, the author's priority): it fires, the shots
+        /// and payloads it makes, the kinds of harm it does, a flight that goes elsewhere. Also in Differences; the rest
+        /// there are numbers (speed, amounts, mana, a flight a little off).</summary>
+        public readonly List<string> Behaviour = new List<string>();
         public bool Matches => Differences.Count == 0;
+        public bool BehavesLike => Behaviour.Count == 0;
     }
 
     public static class ProbeCompare
@@ -24,6 +29,10 @@ namespace Terranoita.Noita
         // flight: px off allowed, plus this share of the distance Noita's shot has flown, over its first PathFrames frames
         public const double PathTolerance = 4, PathShare = 0.1;
         public const int PathFrames = 30;
+        // a flight that goes elsewhere (behaviour): px off plus this share of the distance flown
+        public const double FlightTolerance = 10, FlightShare = 0.3;
+        // below this a hit is no hit (Noita damage units; 0.04 = 1 hp)
+        public const double NoHarm = 0.04;
 
         /// <summary>A shot's flight as (frame, along, across): where it is at each sampled frame relative to where it was
         /// first seen, along and across the way it first flew (along its axes when it started still). Both sides first see
@@ -61,14 +70,15 @@ namespace Terranoita.Noita
         public static ProbeVerdict Compare(ProbeRow noita, ProbeRow ours)
         {
             var v = new ProbeVerdict { Name = noita.Name };
+            void Does(string d) { v.Behaviour.Add(d); v.Differences.Add(d); }
             if (ours == null)
             {
-                v.Differences.Add("not run in Terraria");
+                Does("not run in Terraria");
                 return v;
             }
             if (noita.Fired != ours.Fired)
             {
-                v.Differences.Add(noita.Fired ? "nothing fired (Noita fired)" : "fired (Noita fired nothing)");
+                Does(noita.Fired ? "nothing fired (Noita fired)" : "fired (Noita fired nothing)");
                 return v;
             }
             // what the cast released, and what those released (by file, and by file + parent)
@@ -81,7 +91,7 @@ namespace Terranoita.Noita
                 nRoot.TryGetValue(f, out int a);
                 oRoot.TryGetValue(f, out int b);
                 if (a != b)
-                    v.Differences.Add("shots " + Short(f) + ": " + b + " (Noita " + a + ")");
+                    Does("shots " + Short(f) + ": " + b + " (Noita " + a + ")");
             }
             var nKids = Count(nShots.Where(s => !Root(s)), s => s.File + " <- " + s.Parent);
             var oKids = Count(oShots.Where(s => !Root(s)), s => s.File + " <- " + s.Parent);
@@ -92,7 +102,7 @@ namespace Terranoita.Noita
                 if (a != b)
                 {
                     var parts = k.Split(new[] { " <- " }, StringSplitOptions.None);
-                    v.Differences.Add("children " + Short(parts[0]) + " from " + Short(parts.Length > 1 ? parts[1] : "") + ": " + b + " (Noita " + a + ")");
+                    Does("children " + Short(parts[0]) + " from " + Short(parts.Length > 1 ? parts[1] : "") + ": " + b + " (Noita " + a + ")");
                 }
             }
             // start speed of each file both released at the root
@@ -117,9 +127,14 @@ namespace Terranoita.Noita
                     if (!mine.TryGetValue(p.frame, out var q))
                         continue;
                     double off = Math.Sqrt((p.along - q.along) * (p.along - q.along) + (p.across - q.across) * (p.across - q.across));
-                    if (off > PathTolerance + PathShare * Math.Sqrt(p.along * p.along + p.across * p.across))
+                    double flown = Math.Sqrt(p.along * p.along + p.across * p.across);
+                    if (off > PathTolerance + PathShare * flown)
                     {
-                        v.Differences.Add("path " + Short(f) + ": " + F(Math.Round(off)) + " px off at frame " + p.frame);
+                        string d = "path " + Short(f) + ": " + F(Math.Round(off)) + " px off at frame " + p.frame;
+                        if (off > FlightTolerance + FlightShare * flown)
+                            Does(d);
+                        else
+                            v.Differences.Add(d);
                         break;
                     }
                 }
@@ -131,8 +146,11 @@ namespace Terranoita.Noita
             {
                 nHit.TryGetValue(m, out double a);
                 oHit.TryGetValue(m, out double b);
-                if (Math.Abs(a - b) > DamageTolerance * Math.Max(a, 0.04))
-                    v.Differences.Add("damage " + m + ": " + F(b) + " (Noita " + F(a) + ")");
+                string d = "damage " + m + ": " + F(b) + " (Noita " + F(a) + ")";
+                if ((a >= NoHarm) != (b >= NoHarm))
+                    Does(d);   // one harms this way, the other does not
+                else if (Math.Abs(a - b) > DamageTolerance * Math.Max(a, NoHarm))
+                    v.Differences.Add(d);
             }
             if (noita.ManaUsed.HasValue && ours.ManaUsed.HasValue && Math.Abs(noita.ManaUsed.Value - ours.ManaUsed.Value) > ManaTolerance)
                 v.Differences.Add("mana " + F(ours.ManaUsed.Value) + " (Noita " + F(noita.ManaUsed.Value) + ")");
@@ -148,12 +166,17 @@ namespace Terranoita.Noita
             return noita.Select(n => Compare(n, mine.TryGetValue(n.Name, out var o) ? o : null)).ToList();
         }
 
-        /// <summary>"matching Noita: N of M" plus per suite (single, mod, combo).</summary>
+        /// <summary>"behaviour: N of M (...); matching Noita: N of M (...)": casts that do what Noita's do (PC-30, the
+        /// coverage number), then casts that match in the numbers too; per suite (single, mod, combo).</summary>
         public static string Summary(IList<ProbeVerdict> verdicts)
         {
-            string Part(IEnumerable<ProbeVerdict> vs) { var l = vs.ToList(); return l.Count(x => x.Matches) + " of " + l.Count; }
-            var suites = verdicts.GroupBy(x => x.Name.Split(':')[0]).Select(g => g.Key + " " + Part(g));
-            return "matching Noita: " + Part(verdicts) + " (" + string.Join(", ", suites) + ")";
+            string Count(Func<ProbeVerdict, bool> ok)
+            {
+                string Part(IEnumerable<ProbeVerdict> vs) { var l = vs.ToList(); return l.Count(ok) + " of " + l.Count; }
+                var suites = verdicts.GroupBy(x => x.Name.Split(':')[0]).Select(g => g.Key + " " + Part(g));
+                return Part(verdicts) + " (" + string.Join(", ", suites) + ")";
+            }
+            return "behaviour: " + Count(x => x.BehavesLike) + "; matching Noita: " + Count(x => x.Matches);
         }
     }
 }

@@ -240,11 +240,20 @@ namespace Terranoita.Cli
                             var noita = NoitaProbe.Read(File.ReadAllText(args[2]));
                             var ours = File.Exists(args[3]) ? NoitaProbe.Read(File.ReadAllText(args[3])) : new List<ProbeRow>();
                             var verdicts = ProbeCompare.CompareAll(noita, ours);
-                            var lines = verdicts.Select(v => v.Name + ": " + (v.Matches ? "OK" : string.Join("; ", v.Differences))).ToList();
+                            // per cast: OK, or what it does differently (behaviour, PC-30) and the numbers that differ
+                            var lines = verdicts.Select(v => v.Name + ": " + (v.Matches ? "OK" :
+                                (v.BehavesLike ? "" : "DOES " + string.Join("; ", v.Behaviour) + " | ") +
+                                "numbers " + string.Join("; ", v.Differences.Except(v.Behaviour)))).ToList();
                             string summary = ProbeCompare.Summary(verdicts);
                             Console.WriteLine(summary);
-                            foreach (var g in verdicts.SelectMany(v => v.Differences).Select(d => d.Split(':')[0]).GroupBy(x => x).OrderByDescending(g => g.Count()).Take(15))
-                                Console.WriteLine("  " + g.Count() + "x " + g.Key);
+                            void Top(string title, IEnumerable<string> diffs)
+                            {
+                                Console.WriteLine(title);
+                                foreach (var g in diffs.Select(d => d.Split(':')[0]).GroupBy(x => x).OrderByDescending(g => g.Count()).Take(12))
+                                    Console.WriteLine("  " + g.Count() + "x " + g.Key);
+                            }
+                            Top("behaviour differences:", verdicts.SelectMany(v => v.Behaviour));
+                            Top("number differences:", verdicts.SelectMany(v => v.Differences.Except(v.Behaviour)));
                             if (args.Length > 4)
                                 File.WriteAllLines(args[4], new[] { summary }.Concat(lines));
                             return 0;
