@@ -510,6 +510,8 @@ namespace Terranoita.Game.Magic
             {
                 try { Draw(); }
                 catch (Exception ex) { Entry.Error("wand window", ex); }
+                try { Perks.DrawIcons(); }
+                catch (Exception ex) { Entry.Error("perk icons", ex); }
             }
         }
 

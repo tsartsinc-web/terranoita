@@ -69,8 +69,8 @@ How it works (author, 2026-10-08): the author only says "работай" to eith
   KickComponent.max_force has no default in the docs; ALWAYS_CAST/EXTRA_MANA/EXTRA_SLOTS need the held wand as an entity).
   Built only: the player's store entity = player_base.xml's components (no scripts/children), funcs run on use and
   replayed on load (one-offs except EXTRA_HP/RESPAWN not replayed), GameEffect components it gains -> immunities,
-  max_hp share scales Terraria max life (adapted); ShotEffectComponent extra_modifier -> gun.lua each cast. Next: the held wand as
-  an entity (ALWAYS_CAST...), icons row, LuaComponents/children of perks (fields, ghosts), then the boss test.
+  max_hp share scales Terraria max life (adapted); ShotEffectComponent extra_modifier -> gun.lua each cast; icon row (ui_icon, hover text). Next: the held wand as
+  an entity (ALWAYS_CAST...), LuaComponents/children of perks (fields, ghosts), then the boss test.
 - PC-32 new (after PC-31): fix real failures by group, biggest first (run B counts): no damage ~35 (BLACK_HOLE_GIGA,
   WHITE_HOLE_GIGA, LASER_EMITTER, METEOR, MISSILE, ORBIT_LASERS...); nothing spawned ~32 (GLITTER_BOMB, GLUE_SHOT,
   SUMMON_EGG, THUNDERBALL, SPORE_POD, CRUMBLING_EARTH, WALL_VERTICAL/SQUARE...); wrong count ~40 (TENTACLE_PORTAL

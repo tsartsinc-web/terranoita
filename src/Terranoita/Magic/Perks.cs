@@ -261,6 +261,41 @@ namespace Terranoita.Game.Magic
             }
         }
 
+        // ---- on screen ----
+
+        /// <summary>The character's perks as Noita's ui_icon row (one per perk taken, stacks shown once with a count) under
+        /// the buff icons; the mouse over one shows its name and what it does.</summary>
+        public static void DrawIcons()
+        {
+            var p = Main.LocalPlayer;
+            if (Main.gameMenu || p == null || !p.active || Main.mapFullscreen || Of(p).Count == 0)
+                return;
+            var sb = Main.spriteBatch;
+            int x = 32, y = 150, size = 24;
+            foreach (var g in Of(p).GroupBy(id => id))
+            {
+                var perk = Get(g.Key);
+                var art = perk == null ? null : NoitaArt.Get(perk.UiIcon);
+                if (art?.Texture == null)
+                    continue;
+                var r = new Microsoft.Xna.Framework.Rectangle(x, y, size, size);
+                sb.Draw(art.Texture, r, Microsoft.Xna.Framework.Color.White);
+                if (g.Count() > 1)
+                    Terraria.Utils.DrawBorderString(sb, g.Count().ToString(), new Microsoft.Xna.Framework.Vector2(x + size - 6, y + size - 10), Microsoft.Xna.Framework.Color.White, 0.7f);
+                if (r.Contains(Main.mouseX, Main.mouseY))
+                {
+                    p.mouseInterface = true;
+                    Main.instance.MouseText(Name(perk) + "\n" + NoitaArt.Text(perk.UiDescription, ""));
+                }
+                x += size + 4;
+                if (x > 32 + 10 * (size + 4))
+                {
+                    x = 32;
+                    y += size + 4;
+                }
+            }
+        }
+
         // ---- drops ----
 
         static int _lastBossDrop = -1000;
