@@ -97,7 +97,8 @@ namespace Terranoita.Game.Magic
             Entry.Log("worldgen: " + made + " more chests (Terraria made " + before + ")");
         }
 
-        const double EmptyWandChance = 0.15;
+        // design/tasks.md PC-33 (author): 10%, deeper chests a bit more (2% a level: 20% at level 6)
+        const double EmptyWandChance = 0.10, EmptyWandPerLevel = 0.02;
 
         const string ChestScript = "data/scripts/items/chest_random.lua", SuperChestScript = "data/scripts/items/chest_random_super.lua";
 
@@ -144,10 +145,10 @@ namespace Terranoita.Game.Magic
                         else other++;
                     }
                 }
-                // a chance of an empty wand (author 2026-10-10): one Noita's wand script of the chest's level made, its
+                // a chance of an empty wand (author, PC-33): one Noita's wand script of the chest's level made, its
                 // spells taken out (all its slots free)
                 int free = Array.FindIndex(c.item, it => it == null || it.IsAir);
-                if (free >= 0 && WorldGen.genRand.NextDouble() < EmptyWandChance)
+                if (free >= 0 && WorldGen.genRand.NextDouble() < EmptyWandChance + EmptyWandPerLevel * (Math.Max(1, Math.Min(6, level)) - 1))
                 {
                     var made = Maker.MakeEntity("data/entities/items/wand_level_0" + Math.Max(1, Math.Min(6, level)) + ".xml", nx, ny);
                     made.Spells.Clear();
