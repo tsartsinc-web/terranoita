@@ -1117,3 +1117,6 @@ unless asked.
   multiplayer physics, electricity. Wand window: chest slot in single player as before, inventory slot in multiplayer.
 - Probe: arena-matched Terraria test (flat floor, wall, aim 4 Noita px above the wand line as the probe). Coverage:
   matching Noita 17 of 30 (partial); next: finish both runs (resume), compare all 875, then PC-24.
+- 0.4.3 on Melty: update_mod description (features from the README + the author's magic note, playing together),
+  start_upload/PUT/finish_upload (f7622c1c), submit_release 0.4.3 = draft, one click yes, findings review-only
+  (layout not recognised, executable code; same as 0.4.2). publish not called: the author publishes.

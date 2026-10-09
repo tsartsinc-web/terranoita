@@ -12,8 +12,9 @@ How it works (author, 2026-10-08): the author only says "работай" to eith
 - Status words: new, doing, waits <row>, done <commit>.
 
 ## State (keep to ~12 lines; update when it changes)
-- Melty: 0.3.1 LIVE; 0.4.2 draft; 0.4.3 package built 2026-10-09 (build/terranoita-0.4.3.zip, 1297919 bytes, sha256
-  9d57a8ee...), NOT uploaded: needs the author's Melty publish token (Publish prompt) for the HTTP calls.
+- Melty: 0.4.2 LIVE (268 players); 0.4.3 submitted 2026-10-09 as a DRAFT (upload f7622c1c, 1297919 bytes, one click
+  yes, recipe as 0.4.2 + fileName 0.4.3; description has the author's "Magic is a work in progress" note). Live once
+  the author presses Play on 0.4.3 in the Melty app (the author publishes).
 - Stage 3 magic in game: all spells via Noita's gun.lua, shot scripts, all wands, wand window (U), progress window (O),
   16 spell slots; Terraria magic bonuses apply (mana cost/damage/crit/regen/Mana Flower); max mana 600 (ManaCap.cs).
 - Spells test: 416/422 OK (design/sources/magic_baseline.txt), left in PC-6.
@@ -40,10 +41,7 @@ How it works (author, 2026-10-08): the author only says "работай" to eith
   (SpellShots.Physics.cs ReportRuntime). (c) done (verified by run): `tncli magic-coverage <noita> [out.json]`:
   static coverage 311 of 422 spells (gun.lua's fired files + extra/game_effect entities; scripts' deeper children not
   followed yet) -> design/sources/pc_magic_coverage.json. Phase 0 done; game run of (a)/(b) not yet. Next: PC-22.
-- PC-26 new (release 0.4.3): upload build/terranoita-0.4.3.zip to Melty as a DRAFT (recipe as 0.4.2 with fileName
-  terranoita-0.4.3.zip; validate + one_click_check; submit_release draft; the author publishes). Description gets:
-  "Magic is a work in progress: some spells and modifiers work like in Noita, many do not yet; fixes are coming in the
-  next updates." Blocked: no Melty token in this session. Off in 0.4.3 by default (not verified in game):
+- PC-26 done (2026-10-09): 0.4.3 draft on Melty (see State). Off in 0.4.3 by default (not verified in game):
   multiplayer physics (TERRANOITA_MP_PHYSICS=1), electricity in liquids (TERRANOITA_ELECTRICITY=1).
 - PC-22 doing (author 2026-10-09: "разрешаю, делай": the agent runs Noita itself): probe mod tools/noita_probe
   (installed). Noita settings changed for the run, backups *.terranoita_backup next to them + scratchpad:
