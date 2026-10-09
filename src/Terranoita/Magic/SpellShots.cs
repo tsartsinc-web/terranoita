@@ -197,6 +197,11 @@ namespace Terranoita.Game.Magic
                 return;
             }
             Live.Add(s);
+            if (ComponentRuntime && !_runtimeLogged)
+            {
+                _runtimeLogged = true;
+                Entry.Log("spell shots: component runtime on (TERRANOITA_RUNTIME=components)");
+            }
             ScriptsAdd(s, ComponentRuntime);
             if (ComponentRuntime && s.Script != 0 && ls.Get("gravity") != 0)
                 AddGravity(s, ls.Get("gravity"));
@@ -206,6 +211,7 @@ namespace Terranoita.Game.Magic
         /// TERRANOITA_RUNTIME=components every shot is an entity of the script store and its components' fields drive it;
         /// off by default until probe-compare shows it at least as close to Noita as the old path.</summary>
         internal static readonly bool ComponentRuntime = Environment.GetEnvironmentVariable("TERRANOITA_RUNTIME") == "components";
+        static bool _runtimeLogged;
 
         /// <summary>The cast's gravity (GRAVITY, GRAVITY_ANTI...) on the shot's VelocityComponent, added to the file's as the
         /// old path adds it to the sheet's.</summary>
