@@ -53,6 +53,16 @@ How it works (author, 2026-10-08): the author only says "работай" to eith
   crits, bouncing, homing, damage kinds) cast with a basic wand; d) more Noita wands (another 50, levels 1-6).
   2) Same behaviour verdict; fix by the biggest shared cause. Done when: wands >= 90%, combos/pairs >= 90%, perk x
   spell >= 90% behaviour match, and the author's own wands from play feel right. Report all four numbers each run.
+- PC-38 new (author 2026-10-10: "проверить мобов"; after PC-36/37): test EVERY Noita creature, automated, like the
+  spell probe. 1) game_test -Mode creatures_all: for each creature of enemies.json (all stages in the release), in the
+  test world: spawn at a fixed spot with the test player at fixed distances; record: spawned OK, sprite/animation
+  loads, HP, moves/flies/swims/digs as its ai says, notices the player, each attack fires (shots, melee, explosion,
+  summons) and hurts, status effects it applies, dies, blood/liquid, death effects, drops (gold, 1% spell); errors in
+  the log. Verdict per creature: WORKS / PARTIAL (which part) / BROKEN. 2) Ground truth from Noita: a creatures set in
+  the Noita probe mod (spawn, same distances, record attacks/projectiles/damage/movement): new rows only (PC-29), one
+  Noita run. Compare attacks and behaviour, not exact numbers. 3) Also natural spawning: where each spawns
+  (zones/biomes, day/night rule, hardmode >1000 HP rule) on a test world. Fix by the biggest shared cause.
+  Check: "creatures: WORKS X of N, match Noita Y of N"; list PARTIAL/BROKEN in MODLOG.
 - PC-36 new (author 2026-10-10: "нужно все перки проверить"; do it next): test EVERY perk (106; 12 checked so far),
   automated, same idea as the spell probe. 1) game_test -Mode perks_all: for each perk, a fresh test character in the
   test world takes only that perk, then a fixed scenario runs (stand, walk, jump, take a hit of each damage kind,
