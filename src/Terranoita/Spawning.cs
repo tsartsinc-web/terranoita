@@ -62,11 +62,23 @@ namespace Terranoita.Game
 
         static void Roll()
         {
-            if (Main.netMode != 0 || Main.gameMenu || !NoitaArt.Ready || DebugTools.Testing)
+            // single player, or the world's server for every player (multiplayer: clients make no creatures, as in Terraria)
+            if (Main.netMode == 1 || (Main.gameMenu && !Main.dedServ) || !NoitaArt.Ready || DebugTools.Testing)
                 return;
             if (_pool == null)
                 Build();
-            var p = Main.LocalPlayer;
+            if (Main.netMode == 2)
+            {
+                for (int k = 0; k < Main.maxPlayers; k++)
+                    if (Main.player[k].active)
+                        RollFor(Main.player[k]);
+                return;
+            }
+            RollFor(Main.LocalPlayer);
+        }
+
+        static void RollFor(Player p)
+        {
             if (!p.active || p.dead || p.townNPCs > 1 || p.ZonePeaceCandle || Main.CurrentFrameFlags.AnyActiveBossNPC)
                 return;
             if (Main.rand.Next(ChancePerFrame) != 0)

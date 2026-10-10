@@ -27,6 +27,8 @@ namespace Terranoita.Game
         public int[] Parts;
         /// <summary>Made by another creature's summon or by a spell: no spell drop (PC-35).</summary>
         public bool Summoned;
+        /// <summary>Multiplayer: the npc.ai[3] tag this entry was made from on a client (Carriers.Adopt).</summary>
+        public float NetTag;
     }
 
     /// <summary>
@@ -41,12 +43,69 @@ namespace Terranoita.Game
         static readonly int[] HeadOf = System.Linq.Enumerable.Repeat(-1, Main.maxNPCs + 1).ToArray();
         static readonly Random Rng = new Random();
 
-        public static NoitaNpc Get(NPC npc) =>
-            npc != null && npc.type == CarrierType && npc.whoAmI >= 0 && npc.whoAmI < Table.Length ? Table[npc.whoAmI] : null;
+        public static NoitaNpc Get(NPC npc)
+        {
+            if (npc == null || npc.type != CarrierType || npc.whoAmI < 0 || npc.whoAmI >= Table.Length)
+                return null;
+            if (Main.netMode == 1)
+                Adopt(npc);
+            return Table[npc.whoAmI];
+        }
+
+        // ---- multiplayer: the server makes the creatures, clients know them by npc.ai[3] (Terraria syncs ai[0..3]) ----
+        // ai[3] = index in Enemies.All + 1 for a creature, -(head + 1) for a worm segment; vanilla AI never runs for them
+
+        static void Tag(NPC npc, float tag)
+        {
+            npc.ai[3] = tag;
+            npc.netUpdate = true;
+        }
+
+        /// <summary>A client's entry for a creature the server made (or a new one for a slot used again).</summary>
+        static void Adopt(NPC npc)
+        {
+            int i = npc.whoAmI;
+            float tag = npc.ai[3];
+            if (tag <= -1)
+            {
+                HeadOf[i] = (int)(-tag) - 1;
+                Table[i] = null;
+                return;
+            }
+            if (tag < 1 || (int)tag > Enemies.All.Length)
+                return;
+            if (Table[i] != null && Table[i].NetTag == tag)
+                return;
+            var def = Enemies.All[(int)tag - 1];
+            var tier = Defs.Tier[def.Tier];
+            var c = npc.Center;
+            Size(npc, def);
+            npc.Center = c;
+            npc.noGravity = true;
+            npc.damage = npc.defDamage = 0;
+            HeadOf[i] = -1;
+            Table[i] = new NoitaNpc { Def = def, Tier = tier, Brain = new Brain(def), Name = NoitaArt.Name(def), NetTag = tag };
+            npc.noTileCollide = Table[i].Brain.PassesTiles;
+        }
+
+        static void Size(NPC npc, EnemyDef def)
+        {
+            float size = (def.Size > 0 ? def.Size : 1f) * (def.HitboxMult > 0 ? def.HitboxMult : 1f);
+            int w = (int)((def.Hitbox != null && def.Hitbox.Length > 1 ? def.Hitbox[0] : 20) * size);
+            int h = (int)((def.Hitbox != null && def.Hitbox.Length > 1 ? def.Hitbox[1] : 20) * size);
+            npc.width = Math.Max(8, w);
+            npc.height = Math.Max(8, h);
+        }
 
         /// <summary>A worm's body segment: hit like the worm, drawn and moved by its head.</summary>
-        public static bool IsSegment(NPC npc) =>
-            npc != null && npc.type == CarrierType && npc.whoAmI >= 0 && npc.whoAmI < HeadOf.Length && HeadOf[npc.whoAmI] >= 0;
+        public static bool IsSegment(NPC npc)
+        {
+            if (npc == null || npc.type != CarrierType || npc.whoAmI < 0 || npc.whoAmI >= HeadOf.Length)
+                return false;
+            if (Main.netMode == 1 && HeadOf[npc.whoAmI] < 0 && npc.ai[3] <= -1)
+                Adopt(npc);
+            return HeadOf[npc.whoAmI] >= 0;
+        }
 
         /// <summary>The head a segment belongs to.</summary>
         public static NPC HeadOfSegment(NPC npc) => IsSegment(npc) ? Main.npc[HeadOf[npc.whoAmI]] : null;
@@ -75,11 +134,7 @@ namespace Terranoita.Game
                 return -1;
             var npc = Main.npc[i];
             var tier = Defs.Tier[def.Tier];
-            float size = (def.Size > 0 ? def.Size : 1f) * (def.HitboxMult > 0 ? def.HitboxMult : 1f);
-            int w = (int)((def.Hitbox != null && def.Hitbox.Length > 1 ? def.Hitbox[0] : 20) * size);
-            int h = (int)((def.Hitbox != null && def.Hitbox.Length > 1 ? def.Hitbox[1] : 20) * size);
-            npc.width = Math.Max(8, w);
-            npc.height = Math.Max(8, h);
+            Size(npc, def);
             npc.position = new Vector2(x - npc.width / 2f, bottom - npc.height);
             npc.lifeMax = Math.Max(1, (int)Math.Round(def.NoitaHp * tier.HpMult));
             npc.life = npc.lifeMax;
@@ -103,6 +158,7 @@ namespace Terranoita.Game
             HeadOf[i] = -1;
             Table[i] = new NoitaNpc { Def = def, Tier = tier, Brain = new Brain(def), Name = NoitaArt.Name(def) };
             npc.noTileCollide = Table[i].Brain.PassesTiles;     // ghosts drift and worms burrow through tiles
+            Tag(npc, Array.IndexOf(Enemies.All, def) + 1);
             if (Table[i].Brain.Burrows && def.Segments > 0)
                 SpawnSegments(npc, Table[i]);
             Entry.Log("spawned " + def.Id + " (" + Table[i].Name + ") #" + i + " life " + npc.lifeMax + " at tile " + x / 16 + "," + bottom / 16);
@@ -143,6 +199,7 @@ namespace Terranoita.Game
                 seg.HitSound = null;
                 seg.DeathSound = null;
                 seg.dontCountMe = true;
+                Tag(seg, -(head.whoAmI + 1));
                 seg.npcSlots = 0f;
                 seg.timeLeft = head.timeLeft;
                 Array.Copy(head.buffImmune, seg.buffImmune, Math.Min(head.buffImmune.Length, seg.buffImmune.Length));
@@ -258,6 +315,10 @@ namespace Terranoita.Game
             public NoitaNpc Noita;
             public Player Target;
 
+            /// <summary>The hit happens here: single player, or the target's own game in multiplayer (as Terraria's
+            /// enemies hurt players: the player's client takes the damage); never on the world's server.</summary>
+            bool Here => Main.netMode == 0 || (Main.netMode == 1 && Target != null && Target.whoAmI == Main.myPlayer);
+
             int Roll(AttackDef a)
             {
                 Defs.DamageRange(a, out float min, out float max);
@@ -272,7 +333,7 @@ namespace Terranoita.Game
 
             void Hit(AttackDef a, int dmg, string how)
             {
-                if (dmg <= 0 || Target == null || !Target.active || Target.dead)
+                if (dmg <= 0 || Target == null || !Target.active || Target.dead || !Here)
                     return;
                 int dir = Target.Center.X >= Npc.Center.X ? 1 : -1;
                 double dealt = Target.Hurt(DeathReason(Noita, Target), dmg, dir);
@@ -292,12 +353,17 @@ namespace Terranoita.Game
 
             public void Shoot(AttackDef a, ProjectileDef p, V2 from, V2 velocity)
             {
+                if (Main.netMode == 2)
+                    return;   // creature shots fly in each player's game (they hurt that player); the server draws none
                 Shots.Fire(Noita, a, p, new Vector2(from.X, from.Y), new Vector2(velocity.X, velocity.Y));
             }
 
             /// <summary>Auras, summons, heals, support and death explosions (attacks sheet, kind).</summary>
             public void Special(AttackDef a)
             {
+                // summons, support and the like change creatures: only where creatures are made (single player, the server)
+                if (Main.netMode == 1 && a.Kind != "aura")
+                    return;
                 switch (a.Kind)
                 {
                     case "aura":
@@ -306,7 +372,7 @@ namespace Terranoita.Game
                             Hit(a, Roll(a), "aura");
                             int buff = a.Effect == "weak" ? BuffID.Weak : a.Effect == "slime" ? BuffID.Slimed :
                                        a.Effect == "confuse" ? BuffID.Confused : -1;
-                            if (buff >= 0 && Target.active && !Target.dead)
+                            if (buff >= 0 && Target.active && !Target.dead && Here)
                                 Target.AddBuff(buff, 180);
                             else if (a.Effect == "berserk")
                                 Entry.Warn("aura " + a.Id + ": berserk has no Terraria player effect yet");

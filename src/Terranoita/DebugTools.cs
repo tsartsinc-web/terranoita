@@ -29,6 +29,7 @@ namespace Terranoita.Game
         static readonly int Each = 60 * (int.TryParse(Environment.GetEnvironmentVariable("TERRANOITA_AUTOTEST_SECONDS"), out int sec) && sec > 0 ? sec : 6);
         /// <summary>TERRANOITA_AUTOTEST_PLACES=1: each enemy in another place (loot comes from where it dies).</summary>
         static readonly bool Places = Environment.GetEnvironmentVariable("TERRANOITA_AUTOTEST_PLACES") == "1";
+        static readonly string Join = Environment.GetEnvironmentVariable("TERRANOITA_AUTOTEST_JOIN");
         static int _menuFrames, _worldFrames, _autoIndex;
 
         // a ground tile that makes the place, and its layer: 0 surface, 1 below the surface, 2 rock layer
@@ -195,6 +196,18 @@ namespace Terranoita.Game
                     return;
                 }
                 var who = Main.PlayerList.First(f => f.Name == TestPlayer);
+                // TERRANOITA_AUTOTEST_JOIN=ip:port (game_test -Mode mp): the test character joins a running server instead
+                if (!string.IsNullOrEmpty(Join))
+                {
+                    var hp = Join.Split(':');
+                    Entry.Log("AUTOTEST: joining " + Join + " as " + who.Name);
+                    Main.SelectPlayer(who);
+                    Netplay.ListenPort = hp.Length > 1 && int.TryParse(hp[1], out int port) ? port : 7777;
+                    Netplay.SetRemoteIP(hp[0]);
+                    Main.menuMode = 14;
+                    Netplay.StartTcpClient();
+                    return;
+                }
                 // TERRANOITA_AUTOTEST_WORLD: a world by name (a copy of the author's), else the first one
                 string wanted = fresh ?? Environment.GetEnvironmentVariable("TERRANOITA_AUTOTEST_WORLD");
                 var world = Main.WorldList.FirstOrDefault(w => w.Name == wanted || System.IO.Path.GetFileNameWithoutExtension(w.Path) == wanted) ?? Main.WorldList[0];
@@ -222,6 +235,18 @@ namespace Terranoita.Game
                 var other = Main.npc[i];
                 if (other.active && !other.friendly && !other.townNPC && Carriers.Get(other) == null && !Carriers.IsSegment(other))
                     other.active = false;
+            }
+            if (!string.IsNullOrEmpty(Join))
+            {
+                // multiplayer: what of the server's Noita creatures this client knows (PC-38)
+                if (_worldFrames % 300 == 0)
+                    Entry.Log("MPTEST frame " + _worldFrames + ": netMode " + Main.netMode + ", Noita creatures " +
+                              Enumerable.Range(0, Main.maxNPCs).Count(i => Main.npc[i].active && Carriers.Get(Main.npc[i]) != null) + ", segments " +
+                              Enumerable.Range(0, Main.maxNPCs).Count(i => Main.npc[i].active && Carriers.IsSegment(Main.npc[i])) + ", other npcs " +
+                              Enumerable.Range(0, Main.maxNPCs).Count(i => Main.npc[i].active && Carriers.Get(Main.npc[i]) == null && !Carriers.IsSegment(Main.npc[i])));
+                if (_worldFrames >= 3600 && ExitWhenDone)
+                    Main.instance.Exit();
+                return;
             }
             if (Physics.LiquidGallery.Enabled)
             {

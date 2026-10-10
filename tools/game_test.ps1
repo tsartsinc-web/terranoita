@@ -55,6 +55,7 @@ switch ($Mode) {
     "magic"   { $env:TERRANOITA_AUTOTEST_MAGIC = "1"; $filter = "MAGIC|world loot|starting wands|screenshot" }
     "fps"     { $env:TERRANOITA_AUTOTEST_FPS = "1"; $filter = "PERF|cave pools|fluids:" }
     "physics" { $env:TERRANOITA_AUTOTEST_PHYSICS = "1"; $filter = "PHYSICS" }
+    "mp"      { $env:TERRANOITA_AUTOTEST_JOIN = "127.0.0.1:7779"; $filter = "MPTEST|AUTOTEST: joining" }   # joins a server started by hand on port 7779 (PC-38)
     "perks_all" { $env:TERRANOITA_AUTOTEST_PERKSALL = "1"; $filter = "PERKSALL" }   # every perk alone, a fixed scenario (PC-36)
     "perks"   { $env:TERRANOITA_AUTOTEST_PERKS = "1"; $filter = "PERKS|perk" }   # boss drop, 12 perks taken, death (PC-34)
     "reactions" { $env:TERRANOITA_AUTOTEST_REACTIONS = "1"; $filter = "REACTIONS" }   # every Noita reaction we can set up, in boxes
