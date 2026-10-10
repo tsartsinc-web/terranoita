@@ -1249,3 +1249,12 @@ unless asked.
   environment.
 - Next: verify server mode locally as soon as the author allows starting Terraria (server on the test world with
   -savedirectory testsave, listens, no errors; a client joins 127.0.0.1); if it fails, a fix release quickly. Then PC-39.
+
+## 0.4.8 draft (2026-10-10, PC) — author: "prepare quickly"
+- Verified in game: Terranoita.exe -server (the launcher's server mode) on the test world listens on its port after 10 s,
+  the mod runs on it (world loaded, physics, cave pools); before that, 0.4.7's server mode had never run.
+- Fixes: the server process ends when its loop ends (Terraria.exe started the game window there and failed in
+  PlayerInput.Initialize: the error window in the author's screenshot, from a test server); no sprite loading on the
+  server (252 "graphics device" failures). Not tested: the host leaving (autoshutdown) and a client joining.
+- build/terranoita-0.4.8.zip (1327929 bytes, sha256 9df60221...); Melty: uploaded, submit_release 0.4.8 = draft.
+  Description not changed yet (add a 0.4.8 line when publishing). Publish only with the author's yes.
