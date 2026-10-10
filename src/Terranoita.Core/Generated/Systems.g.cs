@@ -45,6 +45,7 @@ namespace Terranoita.Generated
             new SystemDef { Id = "mana_cap", Description = "Stage 3: max mana 600 (15 Mana Crystals, 15 stars of 20 to 40 mana) for Noita's dear spells (author).", Stage = "3", Hooks = new[] { "mana_crystal_cap", "mana_load_cap", "mana_total_cap", "mana_stars_classic", "mana_stars_snapshot" }, Code = "src/Terranoita/Magic/ManaCap.cs" },
             new SystemDef { Id = "menu_look", Description = "Stage 3: the main menu looks and sounds like Noita's: its sky and mountains, its menu music, PRESS F TO KICK GID! (author).", Stage = "3", Hooks = new[] { "menu_background", "menu_music", "skip_splash" }, Code = "src/Terranoita/MenuLogo.cs, src/Terranoita/NoitaSound.cs, src/Terranoita/SkipSplash.cs" },
             new SystemDef { Id = "perks", Description = "Noita's perks as items: boss drops, used from the hand, kept per character, lost on death (design/perks.md).", Stage = "3", Hooks = new[] { "perk_death", "npc_loot" }, Code = "src/Terranoita/Magic/Perks.cs" },
+            new SystemDef { Id = "host_server", Description = "Playing together: the host's server runs the mod too (launcher -server sets Main.dedServ).", Stage = "3", Hooks = new[] { "host_and_play" }, Code = "src/Terranoita/HostServer.cs, src/Terranoita.Launcher/Program.cs" },
         };
     }
 }

@@ -276,6 +276,16 @@
    ],
    "code": "src/Terranoita/Magic/Perks.cs",
    "_unverified": {}
+  },
+  {
+   "id": "host_server",
+   "description": "Playing together: the host's server runs the mod too (launcher -server sets Main.dedServ).",
+   "stage": "3",
+   "hooks": [
+    "host_and_play"
+   ],
+   "code": "src/Terranoita/HostServer.cs, src/Terranoita.Launcher/Program.cs",
+   "_unverified": {}
   }
  ]
 }

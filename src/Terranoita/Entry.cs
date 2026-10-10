@@ -78,8 +78,13 @@ namespace Terranoita.Game
             int sd = Array.FindIndex(args, a => string.Equals(a, "-savedirectory", StringComparison.OrdinalIgnoreCase));
             Terraria.Program.SavePath = sd >= 0 && sd + 1 < args.Length ? args[sd + 1] : DefaultSavePath();
             Log("Terraria save folder: " + Terraria.Program.SavePath);
-            Terraria.Main.OnEngineLoad += ApplyPatches;
-            SkipSplash.Apply();
+            if (HostServer.ServerMode)
+                HostServer.StartServer(ApplyPatches);   // the world's server (Terranoita.exe -server): no menu, no engine load
+            else
+            {
+                Terraria.Main.OnEngineLoad += ApplyPatches;
+                SkipSplash.Apply();
+            }
         }
 
         static void ApplyPatches()

@@ -42,6 +42,15 @@ How it works (author, 2026-10-08): the author only says "работай" to eith
   breaks chests/dressers (falling blocks, blasts, fire, acid: Mats.HoldsItems; the Dead Man's Chest loss); drinking
   checked in game: flask (alcohol 1000 -> 985, INGESTION_DRUNK) and pool both work (game_test -Mode perks).
   O key in multiplayer: not found yet (ProgressWindow needs Book, loaded on Player.Hooks.EnterWorld).
+  Server mode written (built, NOT verified): launcher -server -> TERRANOITA_SERVER, Entry: Main.dedServ = true right after
+  Program.SavePath (as TerrariaServer.exe's RunGame), patches applied at Main.DedServ start (OnEngineLoad fires only in
+  DrawMenu); Host & Play transpiler starts Terranoita.exe -server --noita-dir (HostServer.cs); server log server.log.
+  Tests so far: run 1-2 the server ran as a client (patches came after RunGame) and generated a world (moved out of the
+  author's Worlds to the scratchpad); run 3 did not test the new DLL (locked by a leftover test server). Next: copy the
+  DLLs with no Terranoita running, start the server on the test world with -savedirectory testsave, check it listens and
+  the log has no errors, then a client joins it locally (127.0.0.1:7779). Author: kick test skipped (author), release
+  after the multiplayer fix approved, the Melty token comes later; the author asked to close Terraria (do not start it
+  again until asked).
 - PC-39 new (author 2026-10-10, small): Wall of Flesh drops a ready-built wand (a Noita wand with spells already
   in it, a working build) with a 10% chance per kill. Which builds: ask the author (default: Noita's wand script of
   level 3-4 with its spells kept). Check with one kill test, no probe.

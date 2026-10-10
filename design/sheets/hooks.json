@@ -610,6 +610,15 @@
    "purpose": "Noita perks are lost on death; with more than 10 a quarter drop as perk items (PC-34).",
    "stage": "3",
    "_unverified": {}
+  },
+  {
+   "id": "host_and_play",
+   "target": "Terraria.Main:HostAndPlay()",
+   "patch": "transpiler",
+   "system": "host_server",
+   "purpose": "Host & Play starts Terranoita.exe -server (the same mod) instead of plain TerrariaServer.exe, which deleted our items in chests (PC-38).",
+   "stage": "3",
+   "_unverified": {}
   }
  ]
 }
