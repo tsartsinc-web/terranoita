@@ -44,6 +44,15 @@ How it works (author, 2026-10-08): the author only says "работай" to eith
   PlayWhenUnfocused). Package build/terranoita-0.4.5.zip (1307032 bytes, sha256 c8cef6db...). MP physics and
   electricity on by default (not tested with several players).
 
+- PC-36 new (author 2026-10-10: "нужно все перки проверить"; do it next): test EVERY perk (106; 12 checked so far),
+  automated, same idea as the spell probe. 1) game_test -Mode perks_all: for each perk, a fresh test character in the
+  test world takes only that perk, then a fixed scenario runs (stand, walk, jump, take a hit of each damage kind,
+  touch water/lava/acid/fire, cast a test wand, kill a creature) and the log records what changed vs no perk (max
+  life, speed, jump, immunities, damage taken, shots per cast, wand stats, spawned entities, effects/icons). Verdict
+  per perk: WORKS / NO EFFECT / ERROR. 2) Ground truth from Noita: add a perks set to the Noita probe mod (perk pickup
+  on the player, same scenario, same records): new rows only (PC-29 rule), one Noita run. Compare: behaviour match
+  per perk. 3) Fix by group, biggest first. Also stacking (take twice) for stackable perks. Check: "perks: WORKS X of
+  106, match Noita Y of 100 (pool)"; list NO EFFECT/ERROR perks in MODLOG.
 - PC-35 new (author 2026-10-10, small: do it with the next release): every Noita creature has a 1% chance to drop a
   random spell item on death (MagicItems.MakeSpell; spell level by the creature's tier / depth, e.g. Maker.RandomAction
   with the zone's Noita level). Not from bosses (they drop perks, PC-34), not from summoned/split creatures.
