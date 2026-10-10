@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using Terraria;
 using Terraria.ID;
@@ -13,7 +14,10 @@ namespace Terranoita.Game.Physics
     /// </summary>
     public static class NetSync
     {
-        const int MaxPerFrame = 120;   // ours: tile messages per frame; the rest goes on the next frames
+        // ours: messages a frame. Tiles go as one rectangle per 8x8 area (a blast or a falling building is a few messages,
+        // not one per tile): 120 single-tile messages a frame filled the connection and Terraria's TrySendData dropped
+        // what did not fit, other players' attacks and broken blocks among them (author's test 2026-10-10, PC-40)
+        const int MaxAreasPerFrame = 12, MaxWaterPerFrame = 24, Area = 8;
 
         static readonly HashSet<int> Tiles = new HashSet<int>(), Water = new HashSet<int>();
         static readonly List<int> Sending = new List<int>();
@@ -49,9 +53,34 @@ namespace Terranoita.Game.Physics
                 Clear();
                 return;
             }
-            int budget = MaxPerFrame;
-            budget = Send(Tiles, budget, (x, y) => NetMessage.SendTileSquare(-1, x, y, 1, TileChangeType.None));
-            Send(Water, budget, NetMessage.sendWater);
+            SendAreas();
+            Send(Water, MaxWaterPerFrame, NetMessage.sendWater);
+        }
+
+        static readonly Dictionary<int, (int x0, int y0, int x1, int y1)> Areas = new Dictionary<int, (int, int, int, int)>();
+
+        static void SendAreas()
+        {
+            if (Tiles.Count == 0)
+                return;
+            Areas.Clear();
+            int cols = Main.maxTilesX / Area + 1;
+            foreach (int k in Tiles)
+            {
+                int x = k % Main.maxTilesX, y = k / Main.maxTilesX, a = x / Area + y / Area * cols;
+                Areas[a] = Areas.TryGetValue(a, out var r) ? (Math.Min(r.x0, x), Math.Min(r.y0, y), Math.Max(r.x1, x), Math.Max(r.y1, y)) : (x, y, x, y);
+            }
+            int sent = 0;
+            foreach (var kv in Areas)
+            {
+                if (sent++ >= MaxAreasPerFrame)
+                    break;
+                var r = kv.Value;
+                NetMessage.SendTileSquare(-1, r.x0, r.y0, r.x1 - r.x0 + 1, r.y1 - r.y0 + 1, TileChangeType.None);
+                for (int x = r.x0; x <= r.x1; x++)
+                    for (int y = r.y0; y <= r.y1; y++)
+                        Tiles.Remove(x + y * Main.maxTilesX);
+            }
         }
 
         static int Send(HashSet<int> set, int budget, System.Action<int, int> send)
