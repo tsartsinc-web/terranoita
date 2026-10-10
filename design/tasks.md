@@ -12,7 +12,7 @@ How it works (author, 2026-10-08): the author only says "работай" to eith
 - Status words: new, doing, waits <row>, done <commit>.
 
 ## State (keep to ~12 lines; update when it changes)
-- Melty: 0.4.5 LIVE (2026-10-10 22:43, published by the agent with the author's permission for this version; 381 gets,
+- Melty: 0.4.6 published 2026-10-10 (in review at publish; 0.4.5 LIVE before, 2026-10-10 22:43, published by the agent with the author's permission for this version; 381 gets,
   317 players before it). Description: the author's "!!!" header first, unchanged. Uninstalls ~13% (0.4.4).
   Multiplayer: 89 games hosted, 0 joins (PC-27).
 - Stage 3 magic in game: all spells via Noita's gun.lua, shot scripts, all wands, wand window (U), progress window (O),
@@ -32,9 +32,10 @@ How it works (author, 2026-10-08): the author only says "работай" to eith
 - Roadmap: design/roadmap.md. Worldgen plan: design/worldgen_plan.md (PC-10 after CLOUD-7).
 
 ## PC queue
-- RELEASE 0.4.6 (author 2026-10-10: "package and submit 0.4.6 now"): package built and tested (MODLOG "0.4.6 package");
-  blocked: no Melty tools in this session (upload/submit_release need the Melty connector + the author's sign-in).
-  Description block: design/melty_description_0.4.6.md (goes below the "!!!" header). After it: the full probe run.
+- RELEASE 0.4.6 done (2026-10-10, published with the author's permission for this version): upload f8569bba, release
+  1a0b2d71 (one click yes, findings review-only as 0.4.5), description: the "!!!" header first unchanged, then
+  "What's inside" (counted), "New in 0.4.6", magic 86% (781/910), antivirus line. publish -> Melty safety review.
+  Next: the full probe run (author: after the release), game_test -Mode perks_all, PC-37 Noita run.
 - RELEASE 0.4.6 FIRST (author 2026-10-10: prepare the Melty update now, before any other task): perks (PC-34), 1%
   spell drop (PC-35), last night's magic fixes. Build, game_test magic + probe (behaviour must not drop below 781 of
   910), close the games. Melty description: keep the author's "!!!" header at the top unchanged; add the line "If

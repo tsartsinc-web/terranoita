@@ -1235,3 +1235,7 @@ unless asked.
 - Author's questions still open: liquids mixing check in game (reactions test stopped for the release; last result
   117/126 OK), English (code: Noita texts follow Terraria's language; not tried in game).
 - Exact next step: publish 0.4.6 (above), then game_test -Mode perks_all, then PC-37 Noita run.
+- 0.4.6 PUBLISHED (author's permission, 2026-10-10): start_upload/PUT/finish_upload f8569bba (1325521 bytes, sha256
+  checked), submit_release 0.4.6 (release 1a0b2d71, recipe = live 0.4.5's with the new fileName), update_mod
+  description (header kept first, unchanged), publish -> in Melty's safety review. Token used only in the command
+  environment; nowhere in files.
