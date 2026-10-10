@@ -183,7 +183,9 @@ How it works (author, 2026-10-08): the author only says "работай" to eith
   Noita's start speed) and a behaviour verdict (PC-30). `game_test -Mode probe` (~20 min) + `tncli probe-compare <noita>
   design/sources/noita_probe.jsonl design/sources/probe_game.jsonl design/sources/pc_probe_compare.txt`. Move
   %LOCALAPPDATA%/Terranoita/probe_game.jsonl aside before a new run (the test resumes from it).
-- PC-24 doing (Phase 2, steps in design/magic_plan.md): step 1 built only (c9f6e15): with TERRANOITA_RUNTIME=components
+- PC-24 doing: step 1 measured 2026-10-10 (C3, 3 casts, stopped at 594 full tests for the release): components 513 vs
+  the current path 516 of the same 588 rows (H3T2): not better yet, the switch stays off. (Phase 2, steps in
+  design/magic_plan.md): step 1 built only (c9f6e15): with TERRANOITA_RUNTIME=components
   every shot is in the store and VelocityComponent drives its flight (Core ShotFlight, fitted to probe paths). Next:
   a probe run with the switch on, compare with the run without it (equal or better), then step 2.
 - PC-25 new (Phase 3-4): missing components by spells affected (magic_plan Phase 3 order), then the author plays.
