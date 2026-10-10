@@ -35,7 +35,8 @@ namespace Terranoita.Game
             Main.dedServ = true;
             _apply = applyPatches;
             new Harmony("gg.melty.terranoita.server").Patch(AccessTools.Method(typeof(Main), nameof(Main.DedServ)),
-                prefix: new HarmonyMethod(typeof(HostServer), nameof(DedServPrefix)));
+                prefix: new HarmonyMethod(typeof(HostServer), nameof(DedServPrefix)),
+                postfix: new HarmonyMethod(typeof(HostServer), nameof(DedServPostfix)));
             Entry.Log("server mode: Main.dedServ set; the mod starts with the server loop");
         }
 
@@ -45,6 +46,15 @@ namespace Terranoita.Game
             _apply = null;
             apply?.Invoke();
             Entry.Log("server: starting with world " + (Main.ActiveWorldFileData?.Path ?? "(none)"));
+        }
+
+        /// <summary>The server loop ended (the host left: -autoshutdown; the world is saved by then). TerrariaServer.exe's
+        /// Main.Run does nothing after it; Terraria.exe's starts the game window, which failed in PlayerInput.Initialize
+        /// ("an item with the same key", the author's screenshot 2026-10-10, 0.4.7): the server process ends here.</summary>
+        static void DedServPostfix()
+        {
+            Entry.Log("server: stopped");
+            Environment.Exit(0);
         }
 
         [Hook("host_and_play")]
