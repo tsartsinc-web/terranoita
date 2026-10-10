@@ -44,6 +44,15 @@ How it works (author, 2026-10-08): the author only says "работай" to eith
   PlayWhenUnfocused). Package build/terranoita-0.4.5.zip (1307032 bytes, sha256 c8cef6db...). MP physics and
   electricity on by default (not tested with several players).
 
+- PC-37 new (author 2026-10-10: "закончить магию, чтобы вся синергия работала как надо"; goal for magic, together
+  with PC-36): SYNERGY = things working TOGETHER as in Noita, not only one by one. Today only 24 combos + 48 wands are
+  checked (wands 35/48). 1) Add probe sets (new Noita rows only, PC-29): a) modifier x modifier on a few base
+  projectiles (pairs of the most used modifiers: homing, speed, damage, trigger/timer, multicast, shapes, orbit,
+  bounce, piercing, fire/elec/slime trails...; ~200 pairs); b) trigger chains (trigger -> trigger -> payload,
+  timer inside trigger, multicast inside trigger); c) perk x spell: perks that change shots (extra projectiles,
+  crits, bouncing, homing, damage kinds) cast with a basic wand; d) more Noita wands (another 50, levels 1-6).
+  2) Same behaviour verdict; fix by the biggest shared cause. Done when: wands >= 90%, combos/pairs >= 90%, perk x
+  spell >= 90% behaviour match, and the author's own wands from play feel right. Report all four numbers each run.
 - PC-36 new (author 2026-10-10: "нужно все перки проверить"; do it next): test EVERY perk (106; 12 checked so far),
   automated, same idea as the spell probe. 1) game_test -Mode perks_all: for each perk, a fresh test character in the
   test world takes only that perk, then a fixed scenario runs (stand, walk, jump, take a hit of each damage kind,
