@@ -23,13 +23,22 @@
     "climb",
     "burrow",
     "swim",
-    "static"
+    "static",
+    "burrow_liquid"
    ],
    "desc": "Movement mode."
   },
   "keep_distance_tiles": {
    "type": "number",
    "desc": "Preferred distance from the target (0 = close in)."
+  },
+  "flees": {
+   "type": "bool",
+   "desc": "Runs away from the target instead of closing in (harmless animals)."
+  },
+  "wake_tiles": {
+   "type": "number",
+   "desc": "Stays still and disguised until the target is this close or it is hurt; 0 = always awake."
   },
   "used_by": {
    "type": "ref[]",
@@ -52,6 +61,8 @@
    "description": "Walks/jumps toward the target, lunges and bites at close range.",
    "move": "ground",
    "keep_distance_tiles": 0,
+   "flees": false,
+   "wake_tiles": 0,
    "used_by": [
     "fungus_giga",
     "zombie_weak",
@@ -82,6 +93,8 @@
    "description": "Hiisi-style: walks to a firing distance, shoots, backs off when too close.",
    "move": "ground",
    "keep_distance_tiles": 10,
+   "flees": false,
+   "wake_tiles": 0,
    "used_by": [
     "scavenger_invis",
     "shotgunner",
@@ -115,6 +128,8 @@
    "description": "Walks to throwing distance and lobs arcing explosives (TNT, grenades, flasks); a throw gets the speed it needs to reach the target (Noita's physics throws are not limited by the projectile's speed).",
    "move": "ground",
    "keep_distance_tiles": 8,
+   "flees": false,
+   "wake_tiles": 0,
    "used_by": [
     "giant",
     "scavenger_clusterbomb",
@@ -137,6 +152,8 @@
    "description": "Noita mage: walks, levitates up ledges and gaps, casts from range.",
    "move": "ground_levitate",
    "keep_distance_tiles": 12,
+   "flees": false,
+   "wake_tiles": 0,
    "used_by": [
     "firemage",
     "failed_alchemist_b",
@@ -160,6 +177,8 @@
    "description": "Hovers without gravity, blocked by tiles, keeps distance and casts.",
    "move": "hover",
    "keep_distance_tiles": 12,
+   "flees": false,
+   "wake_tiles": 0,
    "used_by": [
     "wizard_hearty",
     "spitmonster",
@@ -197,6 +216,8 @@
    "description": "Drifts through tiles toward the target; curse aura or contact damage.",
    "move": "phase",
    "keep_distance_tiles": 0,
+   "flees": false,
+   "wake_tiles": 0,
    "used_by": [
     "weakspirit",
     "slimespirit",
@@ -220,6 +241,8 @@
    "description": "Erratic flyer that dashes into the target.",
    "move": "fly",
    "keep_distance_tiles": 0,
+   "flees": false,
+   "wake_tiles": 0,
    "used_by": [
     "fly",
     "iceskull",
@@ -239,6 +262,8 @@
    "description": "Robot drone: flies to a standoff point and fires.",
    "move": "fly",
    "keep_distance_tiles": 10,
+   "flees": false,
+   "wake_tiles": 0,
    "used_by": [
     "drone_lasership",
     "healerdrone_physics",
@@ -254,6 +279,8 @@
    "description": "Jumps toward the target in arcs (frogs, blobs, small spiders).",
    "move": "hop",
    "keep_distance_tiles": 0,
+   "flees": false,
+   "wake_tiles": 0,
    "used_by": [
     "longleg",
     "missilecrab",
@@ -270,6 +297,8 @@
    "description": "Slow crawler that spits projectiles from medium range.",
    "move": "ground",
    "keep_distance_tiles": 6,
+   "flees": false,
+   "wake_tiles": 0,
    "used_by": [
     "giantshooter",
     "giantshooter_weak",
@@ -287,6 +316,8 @@
    "description": "Lukki: walks on any solid surface including walls and ceilings.",
    "move": "climb",
    "keep_distance_tiles": 0,
+   "flees": false,
+   "wake_tiles": 0,
    "used_by": [
     "lukki",
     "lukki_longleg",
@@ -302,13 +333,14 @@
    "description": "Segmented worm that moves through tiles and bites.",
    "move": "burrow",
    "keep_distance_tiles": 0,
+   "flees": false,
+   "wake_tiles": 0,
    "used_by": [
     "worm_end",
     "worm_big",
     "worm_skull",
     "meatmaggot",
     "worm",
-    "eel",
     "worm_tiny"
    ],
    "stage": "1b",
@@ -319,6 +351,8 @@
    "description": "Swims in liquid, flops on land. Harmless.",
    "move": "swim",
    "keep_distance_tiles": 0,
+   "flees": false,
+   "wake_tiles": 0,
    "used_by": [
     "fish",
     "fish_large"
@@ -331,6 +365,8 @@
    "description": "Wanders and flees. Harmless.",
    "move": "ground",
    "keep_distance_tiles": 0,
+   "flees": true,
+   "wake_tiles": 0,
    "used_by": [
     "duck",
     "sheep",
@@ -347,6 +383,8 @@
    "description": "Heavy tracked robot: rolls and fires its weapon.",
    "move": "ground",
    "keep_distance_tiles": 12,
+   "flees": false,
+   "wake_tiles": 0,
    "used_by": [
     "tank_rocket",
     "tank",
@@ -360,6 +398,8 @@
    "description": "Does not move; fires or radiates when the target is in sight.",
    "move": "static",
    "keep_distance_tiles": 0,
+   "flees": false,
+   "wake_tiles": 0,
    "used_by": [
     "hpcrystal",
     "death_orb_lab",
@@ -388,6 +428,8 @@
    "description": "Stationary nest that releases its creatures when the target is near.",
    "move": "static",
    "keep_distance_tiles": 0,
+   "flees": false,
+   "wake_tiles": 0,
    "used_by": [
     "nest_fly",
     "nest_longleg",
@@ -401,21 +443,27 @@
    "description": "Looks like an item or chest until the target is close, then attacks.",
    "move": "ground",
    "keep_distance_tiles": 0,
+   "flees": false,
+   "wake_tiles": 4,
    "used_by": [
     "mimic_potion",
-    "chest_leggy",
     "chest_mimic",
     "dark_alchemist",
     "shaman_wind"
    ],
    "stage": "1b",
-   "_unverified": {}
+   "_unverified": {},
+   "_sources": {
+    "wake_tiles": "design: Noita mimics wake when the player comes close; tune in a playtest"
+   }
   },
   {
    "id": "boss_boss_centipede",
    "description": "Boss fight for Three-Eye; designed in stage 1c.",
    "move": null,
    "keep_distance_tiles": null,
+   "flees": false,
+   "wake_tiles": 0,
    "used_by": [
     "boss_centipede"
    ],
@@ -427,6 +475,8 @@
    "description": "Boss fight for Three-Eye's Legs; designed in stage 1c.",
    "move": null,
    "keep_distance_tiles": null,
+   "flees": false,
+   "wake_tiles": 0,
    "used_by": [
     "boss_limbs"
    ],
@@ -438,6 +488,8 @@
    "description": "Boss fight for Three-Eye's Eye; designed in stage 1c.",
    "move": null,
    "keep_distance_tiles": null,
+   "flees": false,
+   "wake_tiles": 0,
    "used_by": [
     "boss_robot"
    ],
@@ -449,6 +501,8 @@
    "description": "Boss fight for Three-Eye's Heart; designed in stage 1c.",
    "move": null,
    "keep_distance_tiles": null,
+   "flees": false,
+   "wake_tiles": 0,
    "used_by": [
     "boss_meat"
    ],
@@ -460,6 +514,8 @@
    "description": "Boss fight for Dragon; designed in stage 1c.",
    "move": null,
    "keep_distance_tiles": null,
+   "flees": false,
+   "wake_tiles": 0,
    "used_by": [
     "boss_dragon"
    ],
@@ -471,6 +527,8 @@
    "description": "Boss fight for Master of Masters; designed in stage 1c.",
    "move": null,
    "keep_distance_tiles": null,
+   "flees": false,
+   "wake_tiles": 0,
    "used_by": [
     "boss_wizard"
    ],
@@ -482,6 +540,8 @@
    "description": "Boss fight for High Alchemist; designed in stage 1c.",
    "move": null,
    "keep_distance_tiles": null,
+   "flees": false,
+   "wake_tiles": 0,
    "used_by": [
     "boss_alchemist"
    ],
@@ -493,6 +553,8 @@
    "description": "Boss fight for Forgotten; designed in stage 1c.",
    "move": null,
    "keep_distance_tiles": null,
+   "flees": false,
+   "wake_tiles": 0,
    "used_by": [
     "boss_ghost"
    ],
@@ -504,6 +566,8 @@
    "description": "Boss fight for Connoisseur of Wands; designed in stage 1c.",
    "move": null,
    "keep_distance_tiles": null,
+   "flees": false,
+   "wake_tiles": 0,
    "used_by": [
     "boss_pit"
    ],
@@ -515,6 +579,8 @@
    "description": "Boss fight for Stone; designed in stage 1c.",
    "move": null,
    "keep_distance_tiles": null,
+   "flees": false,
+   "wake_tiles": 0,
    "used_by": [
     "boss_sky"
    ],
@@ -526,6 +592,8 @@
    "description": "Boss fight for Slime Maggot; designed in stage 1c.",
    "move": null,
    "keep_distance_tiles": null,
+   "flees": false,
+   "wake_tiles": 0,
    "used_by": [
     "maggot_tiny"
    ],
@@ -537,6 +605,8 @@
    "description": "Boss fight for Creature of the Deep; designed in stage 1c.",
    "move": null,
    "keep_distance_tiles": null,
+   "flees": false,
+   "wake_tiles": 0,
    "used_by": [
     "fish_giga"
    ],
@@ -548,6 +618,8 @@
    "description": "Boss fight for Tapio's Vassal; designed in stage 1c.",
    "move": null,
    "keep_distance_tiles": null,
+   "flees": false,
+   "wake_tiles": 0,
    "used_by": [
     "islandspirit"
    ],
@@ -559,6 +631,8 @@
    "description": "Boss fight for Goalkeeper; designed in stage 1c.",
    "move": null,
    "keep_distance_tiles": null,
+   "flees": false,
+   "wake_tiles": 0,
    "used_by": [
     "gate_monster_a"
    ],
@@ -570,6 +644,8 @@
    "description": "Boss fight for Goalkeeper; designed in stage 1c.",
    "move": null,
    "keep_distance_tiles": null,
+   "flees": false,
+   "wake_tiles": 0,
    "used_by": [
     "gate_monster_b"
    ],
@@ -581,6 +657,8 @@
    "description": "Boss fight for Goalkeeper; designed in stage 1c.",
    "move": null,
    "keep_distance_tiles": null,
+   "flees": false,
+   "wake_tiles": 0,
    "used_by": [
     "gate_monster_c"
    ],
@@ -592,6 +670,8 @@
    "description": "Boss fight for Sieve; designed in stage 1c.",
    "move": null,
    "keep_distance_tiles": null,
+   "flees": false,
+   "wake_tiles": 0,
    "used_by": [
     "gate_monster_d"
    ],
@@ -603,6 +683,8 @@
    "description": "Boss fight for Three-eye's Minion; designed in stage 1c.",
    "move": null,
    "keep_distance_tiles": null,
+   "flees": false,
+   "wake_tiles": 0,
    "used_by": [
     "parallel_tentacles"
    ],
@@ -614,11 +696,46 @@
    "description": "Boss fight for Alchemist's Shadow; designed in stage 1c.",
    "move": null,
    "keep_distance_tiles": null,
+   "flees": false,
+   "wake_tiles": 0,
    "used_by": [
     "parallel_alchemist"
    ],
    "stage": "1c",
    "_unverified": {}
+  },
+  {
+   "id": "worm_water",
+   "description": "Water worm (eel): steers inside liquid like a worm in the ground, falls on land.",
+   "move": "burrow_liquid",
+   "keep_distance_tiles": 0,
+   "flees": false,
+   "wake_tiles": 0,
+   "used_by": [
+    "eel"
+   ],
+   "stage": "1b",
+   "_unverified": {},
+   "_sources": {
+    "move": "eel.xml WormComponent is_water_worm=1 (docs: tries to stay in liquids)"
+   }
+  },
+  {
+   "id": "leggy_mimic",
+   "description": "Leggy chest: lies still as a chest, then walks on any surface on lukki legs.",
+   "move": "climb",
+   "keep_distance_tiles": 0,
+   "flees": false,
+   "wake_tiles": 4,
+   "used_by": [
+    "chest_leggy"
+   ],
+   "stage": "1b",
+   "_unverified": {},
+   "_sources": {
+    "move": "chest_leggy.xml: PhysicsAIComponent + LimbBossComponent + IK limbs like the lukki",
+    "wake_tiles": "design: same as mimic"
+   }
   }
  ]
 }

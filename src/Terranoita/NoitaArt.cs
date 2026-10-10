@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using System.IO;
+using System.Linq;
 using HarmonyLib;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
@@ -31,6 +32,17 @@ namespace Terranoita.Game
 
         public static bool Ready => _files != null;
 
+        /// <summary>The player's Noita folder (tools_modding docs live there), null before Init.</summary>
+        public static string GameDir => _files?.GameDir;
+
+        /// <summary>Files of the player's data.wak under a folder (e.g. every wand picture).</summary>
+        public static IEnumerable<string> List(string folder) =>
+            _files == null ? Enumerable.Empty<string>() :
+            _files.Archive.Entries.Select(e => e.Path).Where(p => p.StartsWith(folder, StringComparison.OrdinalIgnoreCase)).ToList();
+
+        /// <summary>A text file of the player's Noita (Lua scripts), null if missing.</summary>
+        public static string ReadText(string path) => _files != null && _files.TryReadText(path, out var t) ? t : null;
+
         public static void Open(string noitaDir)
         {
             if (string.IsNullOrEmpty(noitaDir))
@@ -55,8 +67,8 @@ namespace Terranoita.Game
         /// <summary>The sprite (xml or png) with its texture, or null when it cannot be read. Game thread only.</summary>
         public static Art Get(string spritePath)
         {
-            if (_files == null || string.IsNullOrEmpty(spritePath))
-                return null;
+            if (_files == null || string.IsNullOrEmpty(spritePath) || spritePath == "none")
+                return null;     // "none": the thing has no image of its own (particle shots)
             if (Cache.TryGetValue(spritePath, out var art))
                 return art;
             try
@@ -87,6 +99,39 @@ namespace Terranoita.Game
                     if (px[y * w + x].A > 0)
                         return y - y0 + 1 - sprite.OffsetY;
             return 0;
+        }
+
+        static readonly Dictionary<string, Texture2D> MaskedCache = new Dictionary<string, Texture2D>(StringComparer.OrdinalIgnoreCase);
+
+        /// <summary>A physics prop as Noita shows it: the shape picture (PhysicsImageShapeComponent image_file) filled with
+        /// its material's texture (materials.xml Graphics texture_file), tiled from the picture's corner. Null if missing.</summary>
+        public static Texture2D Masked(string shape, string materialTexture)
+        {
+            string key = shape + "|" + materialTexture;
+            if (MaskedCache.TryGetValue(key, out var done))
+                return done;
+            Texture2D tex = null;
+            try
+            {
+                if (_files != null && _files.TryRead(shape, out var png) && _files.TryRead(materialTexture, out var mat))
+                {
+                    LoadTexture(png, out var mask).Dispose();
+                    var m = LoadTexture(mat, out var matPx);
+                    int w, h, mw = m.Width, mh = m.Height;
+                    m.Dispose();
+                    using (var ms = new MemoryStream(png))
+                    using (var probe = Texture2D.FromStream(Main.instance.GraphicsDevice, ms)) { w = probe.Width; h = probe.Height; }
+                    var px = new Color[w * h];
+                    for (int y = 0; y < h; y++)
+                        for (int x = 0; x < w; x++)
+                            px[y * w + x] = mask[y * w + x].A < 8 ? Color.Transparent : matPx[(y % mh) * mw + x % mw];
+                    tex = new Texture2D(Main.instance.GraphicsDevice, w, h);
+                    tex.SetData(px);
+                }
+            }
+            catch (Exception ex) { Entry.Error("masked sprite " + shape, ex); }
+            MaskedCache[key] = tex;
+            return tex;
         }
 
         static Texture2D LoadTexture(byte[] png, out Color[] px)
@@ -121,13 +166,17 @@ namespace Terranoita.Game
             }
         }
 
+        /// <summary>A Noita text (common.csv key) in the game's language, or the fallback.</summary>
+        public static string Text(string key, string fallback) =>
+            string.IsNullOrEmpty(key) || key == "none" ? fallback : _names?.Get(key, NoitaLanguage()) ?? fallback;
+
         public static string Name(EnemyDef e) =>
             _names?.Get(e.NameKey, NoitaLanguage()) ?? e.NameEn ?? e.Id;
 
         /// <summary>Make every built enemy's and projectile's texture once the engine has loaded, so play does not stutter.</summary>
         public static void Preload()
         {
-            if (!Ready)
+            if (!Ready || Main.dedServ)   // the world's server draws nothing: no textures to make
                 return;
             int ok = 0, bad = 0;
             foreach (var e in Enemies.All)

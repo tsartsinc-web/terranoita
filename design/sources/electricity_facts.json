@@ -1,0 +1,431 @@
+{
+ "_sources": "data.wak of the player's Noita, read on the PC (2026-10-08)",
+ "entities": {
+  "data/entities/animals/illusions/thundermage.xml": [
+   {
+    "type": "ElectricChargeComponent",
+    "fields": {
+     "_tags": "enabled_in_hand,item_identified",
+     "charge_time_frames": "2",
+     "electricity_emission_interval_frames": "10"
+    }
+   }
+  ],
+  "data/entities/animals/thundermage.xml": [
+   {
+    "type": "ElectricChargeComponent",
+    "fields": {
+     "_tags": "enabled_in_hand,item_identified",
+     "charge_time_frames": "2",
+     "electricity_emission_interval_frames": "10"
+    }
+   }
+  ],
+  "data/entities/animals/thundermage_big.xml": [
+   {
+    "type": "ElectricChargeComponent",
+    "fields": {
+     "_tags": "enabled_in_hand,item_identified",
+     "charge_time_frames": "2",
+     "electricity_emission_interval_frames": "8"
+    }
+   }
+  ],
+  "data/entities/animals/thunderskull.xml": [
+   {
+    "type": "ElectricChargeComponent",
+    "fields": {
+     "_tags": "enabled_in_hand,item_identified",
+     "charge_time_frames": "2",
+     "electricity_emission_interval_frames": "10"
+    }
+   },
+   {
+    "type": "ElectricitySourceComponent",
+    "fields": {
+     "_tags": "enabled_in_world,enabled_in_hand",
+     "radius": "32",
+     "emission_interval_frames": "32"
+    }
+   }
+  ],
+  "data/entities/items/pickup/thunderstone.xml": [
+   {
+    "type": "ElectricitySourceComponent",
+    "fields": {
+     "_tags": "enabled_in_world,enabled_in_hand",
+     "radius": "24",
+     "emission_interval_frames": "64"
+    }
+   }
+  ],
+  "data/entities/misc/crack.xml": [
+   {
+    "type": "ElectricityComponent",
+    "fields": {
+     "energy": "200",
+     "splitting_energy_min": "0",
+     "splitting_energy_max": "20",
+     "speed": "20",
+     "splittings_min": "0",
+     "splittings_max": "2",
+     "hack_is_material_crack": "1"
+    }
+   }
+  ],
+  "data/entities/misc/crack_ice.xml": [
+   {
+    "type": "ElectricityComponent",
+    "fields": {
+     "energy": "200",
+     "splitting_energy_min": "0",
+     "splitting_energy_max": "20",
+     "speed": "20",
+     "splittings_min": "0",
+     "splittings_max": "2",
+     "hack_is_material_crack": "1",
+     "hack_crack_ice": "1"
+    }
+   }
+  ],
+  "data/entities/misc/custom_cards/torch_electric.xml": [
+   {
+    "type": "ElectricitySourceComponent",
+    "fields": {
+     "_tags": "enabled_in_hand,item_identified",
+     "radius": "4",
+     "emission_interval_frames": "32"
+    }
+   }
+  ],
+  "data/entities/misc/electricity.xml": [
+   {
+    "type": "ElectricityComponent",
+    "fields": {
+     "probability_to_heat": "0.1"
+    }
+   }
+  ],
+  "data/entities/misc/electricity_medium.xml": [
+   {
+    "type": "ElectricityComponent",
+    "fields": {
+     "energy": "250",
+     "probability_to_heat": "0.2"
+    }
+   }
+  ],
+  "data/entities/misc/electricity_weak.xml": [
+   {
+    "type": "ElectricityComponent",
+    "fields": {
+     "energy": "50",
+     "speed": "16",
+     "probability_to_heat": "0.1"
+    }
+   }
+  ],
+  "data/entities/misc/fire.xml": [
+   {
+    "type": "ElectricityComponent",
+    "fields": {
+     "hack_is_set_fire": "1"
+    }
+   }
+  ],
+  "data/entities/misc/fire_5_frames.xml": [
+   {
+    "type": "ElectricityComponent",
+    "fields": {
+     "hack_is_set_fire": "1"
+    }
+   }
+  ],
+  "data/entities/misc/perks/electricity.xml": [
+   {
+    "type": "ElectricitySourceComponent",
+    "fields": {
+     "radius": "24",
+     "emission_interval_frames": "32"
+    }
+   }
+  ],
+  "data/entities/misc/shock_powder.xml": [
+   {
+    "type": "ElectricityComponent",
+    "fields": {
+     "probability_to_heat": "0.1"
+    }
+   },
+   {
+    "type": "ElectricChargeComponent",
+    "fields": {
+     "charge_time_frames": "2",
+     "electricity_emission_interval_frames": "4"
+    }
+   }
+  ],
+  "data/entities/particles/water_electrocution.xml": [
+   {
+    "type": "ElectricChargeComponent",
+    "fields": {
+     "_tags": "enabled_in_hand,item_identified",
+     "charge_time_frames": "120",
+     "electricity_emission_interval_frames": "10",
+     "fx_velocity_max": "60"
+    }
+   }
+  ],
+  "data/entities/props/physics_candle_1.xml": [
+   {
+    "type": "ElectricityComponent",
+    "fields": {
+     "energy": "5",
+     "hack_is_set_fire": "1"
+    }
+   }
+  ],
+  "data/entities/props/physics_candle_2.xml": [
+   {
+    "type": "ElectricityComponent",
+    "fields": {
+     "energy": "5",
+     "hack_is_set_fire": "1"
+    }
+   }
+  ],
+  "data/entities/props/physics_candle_3.xml": [
+   {
+    "type": "ElectricityComponent",
+    "fields": {
+     "energy": "5",
+     "hack_is_set_fire": "1"
+    }
+   }
+  ],
+  "data/entities/props/physics_electricity_source.xml": [
+   {
+    "type": "ElectricitySourceComponent",
+    "fields": {
+     "radius": "5",
+     "emission_interval_frames": "15"
+    }
+   }
+  ]
+ },
+ "loaded_by": {
+  "data/entities/props/physics_candle_1.xml": [
+   "data/biome_impl/static_tile/temples_common.lua",
+   "data/scripts/biomes/coalmine.lua",
+   "data/scripts/biomes/coalmine_alt.lua",
+   "data/scripts/biomes/crypt.lua",
+   "data/scripts/biomes/desert.lua",
+   "data/scripts/biomes/dragoncave.lua",
+   "data/scripts/biomes/endgame_end.lua",
+   "data/scripts/biomes/excavationsite.lua",
+   "data/scripts/biomes/fungicave.lua",
+   "data/scripts/biomes/hills.lua",
+   "data/scripts/biomes/lake.lua",
+   "data/scripts/biomes/lake_deep.lua",
+   "data/scripts/biomes/meat.lua",
+   "data/scripts/biomes/mountain_tree.lua",
+   "data/scripts/biomes/pyramid.lua",
+   "data/scripts/biomes/pyramid_hallway.lua",
+   "data/scripts/biomes/rainforest.lua",
+   "data/scripts/biomes/rainforest_dark.lua",
+   "data/scripts/biomes/robobase.lua",
+   "data/scripts/biomes/robot_egg.lua",
+   "data/scripts/biomes/sandcave.lua",
+   "data/scripts/biomes/secret_altar.lua",
+   "data/scripts/biomes/secret_entrance.lua",
+   "data/scripts/biomes/snowcastle.lua",
+   "data/scripts/biomes/snowcave.lua",
+   "data/scripts/biomes/snowcave_petri.lua",
+   "data/scripts/biomes/solid_wall_hidden_cavern.lua",
+   "data/scripts/biomes/tower.lua",
+   "data/scripts/biomes/vault.lua",
+   "data/scripts/biomes/vault_entrance.lua",
+   "data/scripts/biomes/vault_frozen.lua",
+   "data/scripts/biomes/wandcave.lua",
+   "data/scripts/biomes/winter.lua",
+   "data/scripts/biomes/wizardcave.lua",
+   "data/scripts/biomes/wizardcave_entrance.lua"
+  ],
+  "data/entities/props/physics_candle_2.xml": [
+   "data/biome_impl/static_tile/temples_common.lua",
+   "data/scripts/biomes/coalmine.lua",
+   "data/scripts/biomes/coalmine_alt.lua",
+   "data/scripts/biomes/crypt.lua",
+   "data/scripts/biomes/desert.lua",
+   "data/scripts/biomes/dragoncave.lua",
+   "data/scripts/biomes/endgame_end.lua",
+   "data/scripts/biomes/excavationsite.lua",
+   "data/scripts/biomes/fungicave.lua",
+   "data/scripts/biomes/hills.lua",
+   "data/scripts/biomes/lake.lua",
+   "data/scripts/biomes/lake_deep.lua",
+   "data/scripts/biomes/meat.lua",
+   "data/scripts/biomes/mountain_tree.lua",
+   "data/scripts/biomes/pyramid.lua",
+   "data/scripts/biomes/pyramid_hallway.lua",
+   "data/scripts/biomes/rainforest.lua",
+   "data/scripts/biomes/rainforest_dark.lua",
+   "data/scripts/biomes/robobase.lua",
+   "data/scripts/biomes/robot_egg.lua",
+   "data/scripts/biomes/sandcave.lua",
+   "data/scripts/biomes/secret_altar.lua",
+   "data/scripts/biomes/secret_entrance.lua",
+   "data/scripts/biomes/snowcastle.lua",
+   "data/scripts/biomes/snowcave.lua",
+   "data/scripts/biomes/snowcave_petri.lua",
+   "data/scripts/biomes/solid_wall_hidden_cavern.lua",
+   "data/scripts/biomes/tower.lua",
+   "data/scripts/biomes/vault.lua",
+   "data/scripts/biomes/vault_entrance.lua",
+   "data/scripts/biomes/vault_frozen.lua",
+   "data/scripts/biomes/wandcave.lua",
+   "data/scripts/biomes/winter.lua",
+   "data/scripts/biomes/wizardcave.lua",
+   "data/scripts/biomes/wizardcave_entrance.lua"
+  ],
+  "data/entities/props/physics_candle_3.xml": [
+   "data/biome_impl/static_tile/temples_common.lua",
+   "data/scripts/biomes/coalmine.lua",
+   "data/scripts/biomes/coalmine_alt.lua",
+   "data/scripts/biomes/crypt.lua",
+   "data/scripts/biomes/desert.lua",
+   "data/scripts/biomes/dragoncave.lua",
+   "data/scripts/biomes/endgame_end.lua",
+   "data/scripts/biomes/excavationsite.lua",
+   "data/scripts/biomes/fungicave.lua",
+   "data/scripts/biomes/hills.lua",
+   "data/scripts/biomes/lake.lua",
+   "data/scripts/biomes/lake_deep.lua",
+   "data/scripts/biomes/meat.lua",
+   "data/scripts/biomes/mountain_tree.lua",
+   "data/scripts/biomes/pyramid.lua",
+   "data/scripts/biomes/pyramid_hallway.lua",
+   "data/scripts/biomes/rainforest.lua",
+   "data/scripts/biomes/rainforest_dark.lua",
+   "data/scripts/biomes/robobase.lua",
+   "data/scripts/biomes/robot_egg.lua",
+   "data/scripts/biomes/sandcave.lua",
+   "data/scripts/biomes/secret_altar.lua",
+   "data/scripts/biomes/secret_entrance.lua",
+   "data/scripts/biomes/snowcastle.lua",
+   "data/scripts/biomes/snowcave.lua",
+   "data/scripts/biomes/snowcave_petri.lua",
+   "data/scripts/biomes/solid_wall_hidden_cavern.lua",
+   "data/scripts/biomes/tower.lua",
+   "data/scripts/biomes/vault.lua",
+   "data/scripts/biomes/vault_entrance.lua",
+   "data/scripts/biomes/vault_frozen.lua",
+   "data/scripts/biomes/wandcave.lua",
+   "data/scripts/biomes/winter.lua",
+   "data/scripts/biomes/wizardcave.lua",
+   "data/scripts/biomes/wizardcave_entrance.lua"
+  ],
+  "data/entities/animals/thundermage.xml": [
+   "data/entities/_debug/debug_menu.lua",
+   "data/entities/animals/crypt/thundermage.xml",
+   "data/entities/animals/vault/thundermage.xml",
+   "data/scripts/biomes/clouds.lua",
+   "data/scripts/biomes/coalmine.lua",
+   "data/scripts/biomes/coalmine_alt.lua",
+   "data/scripts/biomes/desert.lua",
+   "data/scripts/biomes/endgame.lua",
+   "data/scripts/biomes/excavationsite.lua",
+   "data/scripts/biomes/fungicave.lua",
+   "data/scripts/biomes/snowcave.lua",
+   "data/scripts/biomes/snowcave_petri.lua",
+   "data/scripts/biomes/winter.lua",
+   "data/scripts/biomes/wizardcave.lua"
+  ],
+  "data/entities/animals/thundermage_big.xml": [
+   "data/entities/_debug/debug_menu.lua",
+   "data/scripts/biomes/clouds.lua",
+   "data/scripts/biomes/pyramid.lua",
+   "data/scripts/biomes/snowcave.lua",
+   "data/scripts/biomes/the_end.lua",
+   "data/scripts/biomes/vault_frozen.lua",
+   "data/scripts/biomes/winter.lua"
+  ],
+  "data/entities/animals/thunderskull.xml": [
+   "data/entities/_debug/debug_menu.lua",
+   "data/entities/animals/vault/thunderskull.xml",
+   "data/scripts/biome_modifiers.lua",
+   "data/scripts/biomes/pyramid.lua",
+   "data/scripts/biomes/snowcave.lua",
+   "data/scripts/biomes/the_end.lua",
+   "data/scripts/biomes/winter.lua"
+  ],
+  "data/entities/misc/electricity.xml": [
+   "data/entities/buildings/wand_trap_electricity.xml",
+   "data/entities/projectiles/deck/lightning_extra_arcs.xml",
+   "data/scripts/animals/thundermage.lua",
+   "data/scripts/projectiles/electrocution_blast.lua"
+  ],
+  "data/entities/misc/fire_5_frames.xml": [
+   "data/entities/buildings/wand_trap_ignite.xml",
+   "data/scripts/props/physics_trap_ignite.lua"
+  ],
+  "data/entities/particles/water_electrocution.xml": [
+   "data/entities/items/pickup/thunderstone.xml",
+   "data/entities/misc/custom_cards/arc_electric.xml",
+   "data/entities/misc/custom_cards/electric_charge.xml",
+   "data/entities/misc/custom_cards/lightning.xml",
+   "data/entities/misc/custom_cards/thunder_blast.xml",
+   "data/entities/misc/custom_cards/thunderball.xml"
+  ],
+  "data/entities/misc/fire.xml": [
+   "data/entities/projectiles/deck/flamethrower.xml",
+   "data/entities/projectiles/flamethrower.xml",
+   "data/scripts/props/physics_lantern_damaged.lua"
+  ],
+  "data/entities/misc/shock_powder.xml": [
+   "data/materials.xml"
+  ],
+  "data/entities/items/pickup/thunderstone.xml": [
+   "data/scripts/essences/away.lua",
+   "data/scripts/item_spawnlists.lua",
+   "data/scripts/items/chest_random.lua",
+   "data/scripts/items/utility_box.lua"
+  ],
+  "data/entities/misc/custom_cards/torch_electric.xml": [
+   "data/scripts/gun/gun_actions.lua"
+  ],
+  "data/entities/misc/crack_ice.xml": [
+   "data/scripts/perks/perk_list.lua"
+  ],
+  "data/entities/misc/perks/electricity.xml": [
+   "data/scripts/perks/perk_list.lua"
+  ],
+  "data/entities/misc/electricity_medium.xml": [
+   "data/scripts/props/physics_trap_electricity_pulse.lua"
+  ],
+  "data/entities/misc/electricity_weak.xml": [
+   "data/scripts/props/physics_tube_lamp_electricity_pulse.lua"
+  ]
+ },
+ "electrocution_effect": {
+  "file": "data/entities/misc/effect_electricity.xml",
+  "GameEffectComponent": {
+   "effect": "ELECTROCUTION",
+   "frames": "40",
+   "disable_movement": "1",
+   "ragdoll_effect": "CUSTOM_RAGDOLL_ENTITY",
+   "ragdoll_effect_custom_entity_file": "data/entities/props/physics_ragdoll_part_electrified.xml"
+  }
+ },
+ "lightning_projectiles": [
+  "data/entities/projectiles/deck/bounce_lightning.xml",
+  "data/entities/projectiles/deck/lightning.xml",
+  "data/entities/projectiles/deck/lightning_extra_arcs.xml",
+  "data/entities/projectiles/deck/lightning_weak.xml",
+  "data/entities/projectiles/deck/projectile_thunder_lightning.xml",
+  "data/entities/projectiles/enlightened_laser_elecbeam.xml",
+  "data/entities/projectiles/lightning.xml",
+  "data/entities/projectiles/lightning_thunderburst.xml",
+  "data/entities/projectiles/lightning_thunderskull.xml"
+ ]
+}

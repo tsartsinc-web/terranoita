@@ -15,14 +15,20 @@ namespace Terranoita.Cli
     ///   tncli entity    &lt;noitaDir&gt; &lt;id|path&gt;        facts the sheets need, for one enemy
     ///   tncli facts     &lt;noitaDir&gt; &lt;enemies.json&gt; &lt;out.json&gt;
     ///                   facts for every enemy row and the projectiles they fire, for tools/apply_facts.py
+    ///   tncli shot-script &lt;noitaDir&gt; &lt;extra_entity.xml&gt; [frames] [projectile.xml]
+    ///                   a fake shot moving right at 300 px/s with the file attached (LuaShotScripts), every 10 frames
+    ///   tncli spells    &lt;noitaDir&gt; &lt;out.json&gt;
+    ///                   every spell of gun_actions.lua, the projectiles they fire and the wand entities (stage 3)
     /// </summary>
     static class Program
     {
         static int Main(string[] args)
         {
+            if (args.Length >= 3 && args[0] == "tr-methods")   // tr-methods <Terraria.exe> <Type> [regex]
+                return Terranoita.Cli.TerrariaMethods.Run(args[1], args[2], args.Length > 3 ? args[3] : null);
             if (args.Length < 2)
             {
-                Console.Error.WriteLine("usage: tncli wak-list|wak-cat|entity|facts <noitaDir> ...");
+                Console.Error.WriteLine("usage: tncli wak-list|wak-cat|entity|facts|spells <noitaDir> ...");
                 return 2;
             }
             try
@@ -37,18 +43,417 @@ namespace Terranoita.Cli
                                     Console.WriteLine($"{e.Size,10}  {e.Path}");
                             Console.Error.WriteLine($"{files.Archive.Count} files in data.wak");
                             return 0;
+                        case "blast":   // blast <noita> <projectile file>: what its config_explosion leaves (cells, loaded shots)
+                        {
+                            var b = Terranoita.Noita.SpellProjectileFromEntity.Blast(Terranoita.Noita.NoitaEntityXml.Load(args[2], p => Text(files, p)));
+                            Console.WriteLine("cells " + b.CellProbability + " " + b.CellMaterial + "; loads " + string.Join(",", b.LoadsShots));
+                            foreach (var c in Terranoita.Noita.NoitaEntityXml.Load(args[2], p => Text(files, p)).Components)
+                                foreach (var kv in c.Fields)
+                                    if (kv.Key.Contains("load_this_entity") || kv.Key.Contains("explosion_radius"))
+                                        Console.WriteLine("  " + c.Type + " " + kv.Key + " = " + kv.Value);
+                            return 0;
+                        }
+                        case "perks":   // perks <noita>: Noita's perk list as perk_list.lua declares it (PC-34)
+                        {
+                            var perks = Terranoita.Noita.NoitaPerks.Read(p => Text(files, p));
+                            foreach (var k in perks)
+                                Console.WriteLine(k.Id + " " + string.Join(",", k.GameEffects) + (k.NotInDefaultPool ? " (not in pool)" : "") + (k.Stackable ? " stackable" : ""));
+                            Console.WriteLine("perks: " + perks.Count + " (default pool " + perks.FindAll(k => !k.NotInDefaultPool).Count + ")");
+                            if (args.Length > 2 && args[2] == "--run")   // every func on a bare player entity: which ones break, engine calls missing
+                            {
+                                int ok = 0;
+                                string docPath = Path.Combine(files.GameDir, "tools_modding", "component_documentation.txt");
+                                var docs = File.Exists(docPath) ? ComponentFieldTypes.Parse(File.ReadAllText(docPath)) : null;
+                                foreach (var k in perks)
+                                {
+                                    var store = new Terranoita.Noita.LuaShotScripts(new Terranoita.Noita.ShotHostBase(), p => Text(files, p), docs);
+                                    int who = store.Spawn("data/entities/player.xml", 0, 0);   // Noita's own player: every field the funcs read
+                                    try { store.RunPerk(k.Id, who, 0, 1); ok++; Console.WriteLine("run " + k.Id + " ok" + (store.Missing.Count > 0 ? "; missing " + string.Join(",", store.Missing) : "")); }
+                                    catch (Exception ex) { Console.WriteLine("run " + k.Id + " ERROR " + ((ex as MoonSharp.Interpreter.InterpreterException)?.DecoratedMessage ?? ex.Message).Split((char)10)[0]); }
+                                }
+                                Console.WriteLine("perk funcs run: " + ok + " of " + perks.Count);
+                            }
+                            return 0;
+                        }
                         case "wak-cat":
                             Console.Write(Text(files, args[2]) ?? throw new FileNotFoundException(args[2]));
                             return 0;
+                        case "lua-golden":   // lua-golden <noita> [--check golden.txt]: one line per spell through gun.lua (spell, bolt, bomb), or the diff against the golden file
+                        {
+                            Func<string, string> read = p => Text(files, p);
+                            if (args.Length > 3 && args[2] == "--check")
+                            {
+                                var diff = Terranoita.Noita.LuaGolden.Diff(File.ReadAllText(args[3]), Terranoita.Noita.LuaGolden.Lines(read));
+                                foreach (var d in diff.Take(40)) Console.WriteLine(d);
+                                Console.WriteLine(diff.Count == 0 ? "golden: no change" : "golden: " + diff.Count + " differences" + (diff.Count > 40 ? " (first 40 shown)" : ""));
+                                return diff.Count == 0 ? 0 : 1;
+                            }
+                            foreach (var line in Terranoita.Noita.LuaGolden.Lines(read))
+                                Console.WriteLine(line);
+                            return 0;
+                        }
+                        case "lua-all":   // lua-all <noita>: every spell cast through gun.lua (with a bolt after it), errors and engine calls we lack
+                        {
+                            var probe = new Terranoita.Noita.LuaGun(p => Text(files, p));
+                            var ids = probe.ActionIds();
+                            var missing = new System.Collections.Generic.SortedDictionary<string, System.Collections.Generic.List<string>>();
+                            int ok = 0, failed = 0;
+                            foreach (var id in ids)
+                            {
+                                try
+                                {
+                                    var gun = new Terranoita.Noita.LuaGun(p => Text(files, p));
+                                    var w = new Terranoita.Noita.LuaWand { RechargeTime = 30, CastDelay = 10, Capacity = 4 };
+                                    w.Spells.Add((id, -1)); w.Spells.Add(("LIGHT_BULLET", -1)); w.Spells.Add(("BOMB", -1));
+                                    gun.Load(w);
+                                    for (int k = 0; k < 3; k++)
+                                        foreach (var name in gun.Cast(1000).Missing)
+                                        {
+                                            if (!missing.TryGetValue(name, out var l)) missing[name] = l = new System.Collections.Generic.List<string>();
+                                            if (!l.Contains(id)) l.Add(id);
+                                        }
+                                    ok++;
+                                }
+                                catch (Exception ex)
+                                {
+                                    failed++;
+                                    Console.WriteLine("FAIL " + id + ": " + ex.Message.Split('\n')[0]);
+                                }
+                            }
+                            Console.WriteLine("spells " + ids.Count + ": ran " + ok + ", failed " + failed);
+                            foreach (var kv in missing)
+                                Console.WriteLine("engine call " + kv.Key + " (" + kv.Value.Count + "): " + string.Join(" ", kv.Value.Take(12)));
+                            return 0;
+                        }
+                        case "lua-potion":   // lua-potion <noita> [count] [script]: flasks filled by Noita's potion.lua, materials counted
+                        {
+                            int n = args.Length > 2 ? int.Parse(args[2]) : 200;
+                            var maker = new Terranoita.Noita.LuaWandMaker(p => Text(files, p), 1);
+                            var counts = new Dictionary<string, int>();
+                            for (int k = 0; k < n; k++)
+                            {
+                                var (m, amount) = args.Length > 3 ? maker.MakePotion(13 * k, 200 + 37 * k, args[3]) : maker.MakePotion(13 * k, 200 + 37 * k);
+                                counts[m + " " + amount] = (counts.TryGetValue(m + " " + amount, out int c) ? c : 0) + 1;
+                            }
+                            foreach (var kv in counts.OrderByDescending(kv => kv.Value))
+                                Console.WriteLine(kv.Value + " " + kv.Key);
+                            return 0;
+                        }
+                        case "biome-spawns":   // biome-spawns <noita> <biome script.lua> [count] [function,function]: placements histogram (worldgen)
+                        {
+                            int n = args.Length > 3 ? int.Parse(args[3]) : 100;
+                            var b = new Terranoita.Noita.NoitaBiomeSpawns(p => Text(files, p), 1);
+                            b.Load(args[2]);
+                            var fns = args.Length > 4 ? args[4].Split(',', StringSplitOptions.RemoveEmptyEntries)
+                                : b.SpawnFunctions.Values.Concat(new[] { "spawn_wands", "spawn_potions", "spawn_items", "spawn_chest" })
+                                   .Distinct().Where(b.Has).ToArray();
+                            Console.WriteLine("spawn colours: " + string.Join(", ", b.SpawnFunctions.Select(kv => kv.Key.ToString("x8") + "=" + kv.Value)));
+                            foreach (var fn in fns)
+                            {
+                                var counts = new Dictionary<string, int>();
+                                for (int k = 0; k < n; k++)
+                                    foreach (var p in fn == "init"   // Noita's engine: init(x, y, w, h) once per 512x512 chunk
+                                        ? b.Call(fn, 512 * (k % 10), 512 * (2 + k / 10), 512, 512)
+                                        : fn == "drop_random_reward"   // chest_random.lua: (x, y, entity_id, rand_x, rand_y)
+                                        ? b.Call(fn, 512 * (k % 10) + 13 * k, 1024 + 37 * k, b.NewEntity(512 * (k % 10) + 13 * k, 1024 + 37 * k), 0, -2000)
+                                        : b.Call(fn, 512 * (k % 10) + 13 * k, 1024 + 37 * k))
+                                        counts[p.Kind + " " + p.File] = (counts.TryGetValue(p.Kind + " " + p.File, out int c) ? c : 0) + 1;
+                                Console.WriteLine(fn + ": " + (counts.Count == 0 ? "nothing" : string.Join(", ", counts.OrderByDescending(kv => kv.Value).Select(kv => kv.Value + "x " + kv.Key))));
+                            }
+                            if (b.Missing.Count > 0) Console.WriteLine("engine calls we lack: " + string.Join(", ", b.Missing));
+                            foreach (var e in b.Errors.Take(10)) Console.WriteLine("error: " + e);
+                            return b.Errors.Count > 0 ? 1 : 0;
+                        }
+                        case "pixel-scene":   // pixel-scene <noita> <materials.png> [aarrggbb=material ...]: the scene as Terraria tiles (one letter per material); the pairs = the script's color_material
+                        {
+                            if (!files.TryRead(args[2], out var png)) throw new FileNotFoundException(args[2]);
+                            var pngImg = Terranoita.Noita.NoitaPng.Read(png);
+                            var wang = Terranoita.Noita.PixelScene.WangColors(Text(files, "data/materials.xml"));
+                            var overrides = args.Skip(3).Select(x => x.Split('=')).Where(x => x.Length == 2)
+                                .ToDictionary(x => uint.Parse(x[0], System.Globalization.NumberStyles.HexNumber), x => x[1]);
+                            var grid = Terranoita.Noita.PixelScene.Decode(pngImg, wang, overrides);
+                            var unmapped = new Dictionary<uint, int>();
+                            for (int y = 0; y < pngImg.Height; y++)
+                                for (int x = 0; x < pngImg.Width; x++)
+                                {
+                                    uint c = pngImg.At(x, y);
+                                    if ((c >> 24) != 0 && !wang.ContainsKey(c & 0xFFFFFF) && !overrides.ContainsKey(c))
+                                        unmapped[c] = unmapped.TryGetValue(c, out int u) ? u + 1 : 1;
+                                }
+                            if (unmapped.Count > 0)
+                                Console.WriteLine("colours that are no material: " + string.Join(", ", unmapped.OrderByDescending(kv => kv.Value).Take(12).Select(kv => kv.Key.ToString("x8") + " x" + kv.Value)));
+                            var tiles = Terranoita.Noita.PixelScene.Downscale(grid);
+                            var letters = new Dictionary<string, char>();
+                            for (int y = 0; y < tiles.GetLength(1); y++)
+                            {
+                                var row = new System.Text.StringBuilder();
+                                for (int x = 0; x < tiles.GetLength(0); x++)
+                                {
+                                    var m = tiles[x, y];
+                                    if (m != null && !letters.ContainsKey(m)) letters[m] = (char)('a' + letters.Count % 26);
+                                    row.Append(m == null ? '.' : letters[m]);
+                                }
+                                Console.WriteLine(row);
+                            }
+                            Console.WriteLine(grid.GetLength(0) + "x" + grid.GetLength(1) + " px -> " + tiles.GetLength(0) + "x" + tiles.GetLength(1) +
+                                              " tiles; " + string.Join(", ", letters.Select(kv => kv.Value + "=" + kv.Key)));
+                            return 0;
+                        }
+                        case "lua-wand":   // lua-wand <noita> <script.lua> [count]: wands made by Noita's own procedural script
+                        {
+                            int n = args.Length > 3 ? int.Parse(args[3]) : 3;
+                            for (int k = 0; k < n; k++)
+                            {
+                                var maker = new Terranoita.Noita.LuaWandMaker(p => Text(files, p), k + 1);
+                                Terranoita.Noita.MadeWand w;
+                                try { w = args[2].EndsWith(".xml") ? maker.MakeEntity(args[2], 100 * k, 200 + 37 * k) : maker.Make(args[2], 100 * k, 200 + 37 * k); }
+                                catch (MoonSharp.Interpreter.InterpreterException ex) { Console.WriteLine("lua error: " + ex.DecoratedMessage); return 1; }
+                                Console.WriteLine("'" + w.Name + "' " + w.Sprite + " | casts " + w.SpellsPerCast + " shuffle " + w.Shuffle + " delay " + w.CastDelay +
+                                                  " recharge " + w.RechargeTime + " mana " + w.ManaMax + "/" + w.ManaChargeSpeed + " capacity " + w.Capacity +
+                                                  " spread " + w.Spread + " speed " + w.SpeedMultiplier + " | spells " + string.Join(" ", w.Spells) +
+                                                  (w.AlwaysCast.Count > 0 ? " | always " + string.Join(" ", w.AlwaysCast) : "") +
+                                                  (w.Missing.Count > 0 ? " | engine calls we lack: " + string.Join(", ", w.Missing) : ""));
+                                if (Environment.GetEnvironmentVariable("TN_RAW") == "1") Console.WriteLine("   raw: " + string.Join("; ", w.Raw.Select(kv => kv.Key + "=" + kv.Value)));
+                            }
+                            return 0;
+                        }
+                        case "lua-check":   // lua-check <noita> <file.lua>...: compiles each file (MoonSharp) without running it; syntax errors with line numbers
+                        {
+                            int bad = 0;
+                            foreach (var f in args.Skip(2))
+                            {
+                                try { new MoonSharp.Interpreter.Script().LoadString(File.ReadAllText(f), null, f); Console.WriteLine("ok " + f); }
+                                catch (MoonSharp.Interpreter.InterpreterException ex) { bad++; Console.WriteLine("ERROR " + f + ": " + ex.DecoratedMessage); }
+                            }
+                            return bad;
+                        }
+                        case "probe-cast-check":   // probe-cast-check <noita> <noita_probe.jsonl>: our cast layer (gun.lua in MoonSharp) against Noita's real casts: root projectile files and mana
+                        {
+                            Func<string, string> read = p => Text(files, p);
+                            int all = 0, same = 0;
+                            var reasons = new Dictionary<string, int>();
+                            foreach (var row in NoitaProbe.Read(File.ReadAllText(args[2])))
+                            {
+                                all++;
+                                var gun = new LuaGun(read, null, 1);
+                                // the probe's wand (tools/noita_probe init.lua make_wand)
+                                var w = new LuaWand { SpellsPerCast = 1, RechargeTime = 30, CastDelay = 10, Capacity = row.Deck.Length, Spread = 0 };
+                                foreach (var d in row.Deck) w.Spells.Add((d, -1));
+                                string why = null;
+                                try
+                                {
+                                    gun.Load(w);
+                                    var cast = gun.Cast(100000);
+                                    var ours = cast.Shots.GroupBy(x => x.File).ToDictionary(g => g.Key, g => g.Count());
+                                    var noita = row.Shots.Where(x => string.IsNullOrEmpty(x.Parent) || x.Parent.EndsWith("/player.xml")).GroupBy(x => x.File).ToDictionary(g => g.Key, g => g.Count());
+                                    foreach (var f in ours.Keys.Union(noita.Keys))
+                                    {
+                                        ours.TryGetValue(f, out int a1); noita.TryGetValue(f, out int b1);
+                                        if (a1 != b1) { why = "shots " + Path.GetFileNameWithoutExtension(f) + " " + a1 + " (Noita " + b1 + ")"; break; }
+                                    }
+                                    double mana = 100000 - cast.Mana;
+                                    if (why == null && row.ManaUsed.HasValue && Math.Abs(mana - row.ManaUsed.Value) > 0.5)
+                                        why = "mana " + mana + " (Noita " + row.ManaUsed + ")";
+                                }
+                                catch (Exception ex) { why = "error " + ex.GetType().Name; }
+                                if (why == null) same++;
+                                else
+                                {
+                                    Console.WriteLine(row.Name + ": " + why);
+                                    var key = why.Split(' ')[0];
+                                    reasons[key] = (reasons.TryGetValue(key, out int c) ? c : 0) + 1;
+                                }
+                            }
+                            Console.WriteLine("cast layer matching Noita (root shots + mana): " + same + " of " + all + "; " + string.Join(", ", reasons.Select(kv => kv.Key + " " + kv.Value)));
+                            return 0;
+                        }
+                        case "probe-compare":   // probe-compare <noita> <noita_probe.jsonl> <probe_game.jsonl> [out.txt]: our casts against Noita's, field by field (PC-23)
+                        {
+                            var noita = NoitaProbe.Read(File.ReadAllText(args[2]));
+                            var ours = File.Exists(args[3]) ? NoitaProbe.Read(File.ReadAllText(args[3])) : new List<ProbeRow>();
+                            var verdicts = ProbeCompare.CompareAll(noita, ours);
+                            // per cast: OK, or what it does differently (behaviour, PC-30) and the numbers that differ
+                            var lines = verdicts.Select(v => v.Name + ": " + (v.Matches ? "OK" :
+                                (v.BehavesLike ? "" : "DOES " + string.Join("; ", v.Behaviour) + " | ") +
+                                "numbers " + string.Join("; ", v.Differences.Except(v.Behaviour)))).ToList();
+                            string summary = ProbeCompare.Summary(verdicts);
+                            Console.WriteLine(summary);
+                            void Top(string title, IEnumerable<string> diffs)
+                            {
+                                Console.WriteLine(title);
+                                foreach (var g in diffs.Select(d => d.Split(':')[0]).GroupBy(x => x).OrderByDescending(g => g.Count()).Take(12))
+                                    Console.WriteLine("  " + g.Count() + "x " + g.Key);
+                            }
+                            Top("behaviour differences:", verdicts.SelectMany(v => v.Behaviour));
+                            Top("number differences:", verdicts.SelectMany(v => v.Differences.Except(v.Behaviour)));
+                            if (args.Length > 4)
+                                File.WriteAllLines(args[4], new[] { summary }.Concat(lines));
+                            return 0;
+                        }
+                        case "probe-tests":   // probe-tests <noita> <tests.lua> <tests.json>: the casts the Noita probe mod and our SpellsTest both measure
+                        {
+                            var actions = new LuaWandMaker(p => Text(files, p)).Actions().Select(a => (a.id, a.type));
+                            var tests = ProbeTests.Build(actions);
+                            // PC-30 builds: 50 of Noita's own random wands (wand_level_01..06.xml, fixed seeds), made once here and
+                            // written into both games' test files, so Noita and Terraria cast the same decks
+                            var wands = new List<(int, int, MadeWand)>();
+                            // PC-37 d: 50 more (100 in all): the first 50 keep their seeds, so their rows stay valid
+                            for (int i = 0; i < 100; i++)
+                            {
+                                int level = 1 + i % 6;
+                                var maker = new LuaWandMaker(p => Text(files, p), 1000 + i);
+                                wands.Add((level, i, maker.MakeEntity("data/entities/items/wand_level_0" + level + ".xml", i * 512, level * 512)));
+                            }
+                            tests.AddRange(ProbeTests.RandomWands(wands));
+                            tests.AddRange(ProbeTests.Synergy(actions.Select(a => a.id), NoitaPerks.Read(p => Text(files, p)).Select(k => k.Id)));
+                            File.WriteAllText(args[2], ProbeTests.ToLua(tests));
+                            File.WriteAllText(args[3], new JsonArray(tests.Select(t => (JsonNode)new JsonObject
+                            {
+                                ["name"] = t.Name,
+                                ["deck"] = new JsonArray(t.Deck.Select(d => (JsonNode)d).ToArray()),
+                                ["spells_per_cast"] = t.SpellsPerCast,
+                                ["spread"] = t.Spread,
+                                ["speed_multiplier"] = t.SpeedMultiplier,
+                                ["always_cast"] = new JsonArray(t.AlwaysCast.Select(d => (JsonNode)d).ToArray()),
+                                ["perks"] = new JsonArray(t.Perks.Select(d => (JsonNode)d).ToArray()),
+                            }).ToArray()).ToJsonString(new JsonSerializerOptions { WriteIndented = false }));
+                            Console.WriteLine(tests.Count + " tests: " + string.Join(", ", tests.GroupBy(t => t.Name.Split(':')[0]).Select(g => g.Key + " " + g.Count())));
+                            return 0;
+                        }
+                        case "magic-coverage":   // magic-coverage <noita> [out.json]: per spell, what of its Noita entities our runtime runs (SpellRuntime; design/magic_plan.md)
+                        {
+                            Func<string, string> read = p => Text(files, p);
+                            var ids = new LuaGun(read).ActionIds();
+                            var entities = new Dictionary<string, XmlEntity>(StringComparer.OrdinalIgnoreCase);
+                            XmlEntity Ent(string f)
+                            {
+                                if (!entities.TryGetValue(f, out var e))
+                                {
+                                    try { e = read(f) == null ? null : NoitaEntityXml.Load(f, read); } catch { e = null; }
+                                    entities[f] = e;
+                                }
+                                return e;
+                            }
+                            var rows = new JsonObject();
+                            var byType = new Dictionary<string, List<string>>();
+                            int all = 0, fullyRun = 0, errors = 0;
+                            foreach (var id in ids)
+                            {
+                                all++;
+                                var fileSet = new SortedSet<string>(StringComparer.OrdinalIgnoreCase);
+                                string error = null;
+                                void Add(LuaShot sh)
+                                {
+                                    fileSet.Add(sh.File);
+                                    foreach (var key in new[] { "extra_entities", "game_effect_entities" })
+                                        foreach (var f in sh.Text(key).Split(',', StringSplitOptions.RemoveEmptyEntries))
+                                            fileSet.Add(f.Trim());
+                                    foreach (var pl in sh.Payload)
+                                        Add(pl);
+                                }
+                                try
+                                {
+                                    // the spell alone; a modifier or draw spell needs a projectile after it (LIGHT_BULLET)
+                                    foreach (var deck in new[] { new[] { id }, new[] { id, "LIGHT_BULLET" } })
+                                    {
+                                        var gun = new LuaGun(read, null, 1);
+                                        var w = new LuaWand { SpellsPerCast = 1, RechargeTime = 30, CastDelay = 10, Capacity = 26 };
+                                        foreach (var d in deck) w.Spells.Add((d, -1));
+                                        gun.Load(w);
+                                        var cast = gun.Cast(100000);
+                                        foreach (var sh in cast.Shots) Add(sh);
+                                        if (fileSet.Count > 0) break;
+                                    }
+                                }
+                                catch (Exception ex) { error = ex.GetType().Name + ": " + ex.Message; errors++; }
+                                fileSet.Remove("");
+                                var notRun = new SortedSet<string>(StringComparer.Ordinal);
+                                var unread = new SortedSet<string>(StringComparer.Ordinal);
+                                var missing = new List<string>();
+                                foreach (var f in fileSet)
+                                {
+                                    var e = Ent(f);
+                                    if (e == null) { missing.Add(f); continue; }
+                                    foreach (var t in SpellRuntime.NotRun(e)) notRun.Add(t);
+                                    foreach (var t in SpellRuntime.UnreadFields(e)) unread.Add(t);
+                                }
+                                if (notRun.Count == 0 && error == null && missing.Count == 0) fullyRun++;
+                                foreach (var t in notRun)
+                                    (byType.TryGetValue(t, out var l) ? l : byType[t] = new List<string>()).Add(id);
+                                rows[id] = new JsonObject
+                                {
+                                    ["files"] = new JsonArray(fileSet.Select(f => (JsonNode)f).ToArray()),
+                                    ["not_run"] = new JsonArray(notRun.Select(f => (JsonNode)f).ToArray()),
+                                    ["projectile_fields_not_read"] = new JsonArray(unread.Select(f => (JsonNode)f).ToArray()),
+                                    ["missing_files"] = new JsonArray(missing.Select(f => (JsonNode)f).ToArray()),
+                                    ["error"] = error,
+                                };
+                            }
+                            Console.WriteLine("static coverage (every component type of the spell's entities has code; not 'matches Noita'): " + fullyRun + " of " + all + " spells; cast errors " + errors);
+                            foreach (var kv in byType.OrderByDescending(kv => kv.Value.Count))
+                                Console.WriteLine("  " + kv.Key + ": " + kv.Value.Count + " spells, e.g. " + string.Join(",", kv.Value.Take(5)));
+                            if (args.Length > 2)
+                            {
+                                var doc = new JsonObject
+                                {
+                                    ["_sources"] = "tncli magic-coverage on the player's Noita (gun.lua casts of each spell, its entity files with Base, SpellRuntime lists)",
+                                    ["static_coverage"] = fullyRun + " of " + all,
+                                    ["spells"] = rows,
+                                };
+                                File.WriteAllText(args[2], doc.ToJsonString(new JsonSerializerOptions { WriteIndented = true }));
+                            }
+                            return 0;
+                        }
+                        case "lua-cast":   // lua-cast <noita> <SPELL,SPELL,...> [casts] [always,cast]: Noita's own gun.lua shooting a wand
+                        {
+                            var gun = new Terranoita.Noita.LuaGun(p => Text(files, p));
+                            var w = new Terranoita.Noita.LuaWand { SpellsPerCast = 1, RechargeTime = 30, CastDelay = 10, Capacity = 26 };
+                            foreach (var id in args[2].Split(',', StringSplitOptions.RemoveEmptyEntries))
+                                w.Spells.Add((id, -1));
+                            if (args.Length > 4)
+                                w.AlwaysCast.AddRange(args[4].Split(',', StringSplitOptions.RemoveEmptyEntries));
+                            gun.Load(w);
+                            int casts = args.Length > 3 ? int.Parse(args[3]) : 3;
+                            float mana = 1000;
+                            for (int k = 0; k < casts; k++)
+                            {
+                                var c = gun.Cast(mana);
+                                mana = c.Mana;
+                                Console.WriteLine("cast " + (k + 1) + ": played " + string.Join(" ", c.Played) + " | delay " + c.CastDelay + " recharge " + c.Recharge + " mana " + c.Mana + " recoil " + c.Recoil +
+                                                  (c.Missing.Count > 0 ? " | engine calls we lack: " + string.Join(", ", c.Missing) : ""));
+                                void Dump(System.Collections.Generic.List<Terranoita.Noita.LuaShot> shots, string ind)
+                                {
+                                    foreach (var s in shots)
+                                    {
+                                        Console.WriteLine(ind + s.File + (s.Trigger != null ? " [" + s.Trigger + " " + s.TriggerFrames + "]" : "") +
+                                                          " dmg+" + s.Get("damage_projectile_add") + " speed*" + s.Get("speed_multiplier") + " spread " + s.Get("spread_degrees") +
+                                                          (s.Text("extra_entities") != "" ? " extra " + s.Text("extra_entities") : ""));
+                                        Dump(s.Payload, ind + "    ");
+                                    }
+                                }
+                                Dump(c.Shots, "  ");
+                            }
+                            return 0;
+                        }
+                        case "wak-get":   // wak-get <noita> <path> <out file>: a file as it is (images)
+                            if (!files.TryRead(args[2], out var bytes)) throw new FileNotFoundException(args[2]);
+                            File.WriteAllBytes(args[3], bytes);
+                            return 0;
                         case "entity":
                         {
-                            string path = args[2].Contains('/') ? args[2] : FindEntity(files, args[2], null);
+                            string path = args[2].Contains('/') ? args[2]
+                                : new EntityLookup(files.Archive.Entries.Select(x => x.Path), p => Text(files, p), null).Find(args[2], null, null, null).Path
+                                  ?? throw new FileNotFoundException("no entity file for " + args[2]);
                             var facts = EnemyJson(files, path);
-                            Console.WriteLine(facts.ToJsonString(new JsonSerializerOptions { WriteIndented = true }));
+                            Console.WriteLine(facts.ToJsonString(new JsonSerializerOptions { TypeInfoResolver = new System.Text.Json.Serialization.Metadata.DefaultJsonTypeInfoResolver(), WriteIndented = true }));
                             return 0;
                         }
                         case "facts":
                             return Facts(files, args[2], args[3]);
+                        case "spells":
+                            return SpellFacts(files, args[2]);
+                        case "shot-script":   // shot-script <noita> <extra_entity.xml> [frames] [projectile.xml]: Noita's shot scripts on a fake shot
+                            return ShotScript(files, args[2], args.Length > 3 ? int.Parse(args[3]) : 120, args.Length > 4 ? args[4] : null);
                     }
                 }
             }
@@ -63,68 +468,26 @@ namespace Terranoita.Cli
 
         static string Text(NoitaFiles files, string path) => files.TryReadText(path, out var t) ? t : null;
 
-        /// <summary>The sheet's guessed path if it exists, otherwise any entity XML named &lt;id&gt;.xml.</summary>
-        static string FindEntity(NoitaFiles files, string id, string guess)
-        {
-            if (guess != null && files.Archive.Contains(guess))
-                return guess;
-            var hits = files.Archive.Entries
-                .Where(e => e.Path.StartsWith("data/entities/", StringComparison.OrdinalIgnoreCase) &&
-                            e.Path.EndsWith("/" + id + ".xml", StringComparison.OrdinalIgnoreCase))
-                .Select(e => e.Path).OrderBy(p => p.Length).ToList();
-            return hits.FirstOrDefault();
-        }
-
         static JsonObject EnemyJson(NoitaFiles files, string path)
         {
             var e = NoitaEntity.Load(p => Text(files, p), path);
             var f = EnemyFacts.From(e);
-            var ranged = new JsonArray();
-            foreach (var r in f.Ranged)
-            {
-                var o = new JsonObject
-                {
-                    ["source"] = r.Source,
-                    ["entity_file"] = r.EntityFile,
-                    ["frames_between"] = r.FramesBetween,
-                    ["min_distance_px"] = r.MinDistance,
-                    ["max_distance_px"] = r.MaxDistance,
-                    ["count_min"] = r.CountMin,
-                    ["count_max"] = r.CountMax,
-                    ["state_frames"] = r.StateFrames,
-                };
-                if (r.EntityFile != null && files.TryReadText(r.EntityFile, out _))
-                {
-                    try
-                    {
-                        var p = ProjectileFacts.From(NoitaEntity.Load(x => Text(files, x), r.EntityFile));
-                        o["projectile"] = new JsonObject
-                        {
-                            ["sprite"] = p.Sprite,
-                            ["speed_min"] = p.SpeedMin,
-                            ["speed_max"] = p.SpeedMax,
-                            ["gravity_y"] = p.GravityY,
-                            ["lifetime_frames"] = p.LifetimeFrames,
-                            ["explosion_radius_px"] = p.ExplosionRadius,
-                            ["damage"] = p.Damage,
-                            ["audio_root"] = p.AudioRoot,
-                            ["explosion_sound"] = p.ExplosionSound,
-                        };
-                    }
-                    catch (Exception ex)
-                    {
-                        o["projectile_error"] = ex.Message;
-                    }
-                }
-                ranged.Add(o);
-            }
+            var dump = EntityDump.Of(e);
+            var ranged = RangedJson(files, f.Ranged);
             var mult = new JsonObject();
             foreach (var kv in f.DamageMultipliers)
                 mult[kv.Key] = kv.Value;
             string spriteImage = null;
+            var animations = new JsonArray();
             if (f.Sprite != null)
             {
-                try { spriteImage = NoitaSprite.Load(p => Text(files, p), f.Sprite).Image; }
+                try
+                {
+                    var sprite = NoitaSprite.Load(p => Text(files, p), f.Sprite);
+                    spriteImage = sprite.Image;
+                    foreach (var name in sprite.Animations.Keys.OrderBy(k => k, StringComparer.Ordinal))
+                        animations.Add(name);
+                }
                 catch (Exception) { }
             }
             return new JsonObject
@@ -135,6 +498,7 @@ namespace Terranoita.Cli
                 ["sprite"] = f.Sprite,
                 ["sprite_image"] = spriteImage,
                 ["sprite_image_exists"] = spriteImage != null && files.TryRead(spriteImage, out _),
+                ["sprite_animations"] = animations,
                 ["hitbox_noita_px"] = f.HitboxNoitaPx == null ? null : new JsonArray(f.HitboxNoitaPx[0], f.HitboxNoitaPx[1]),
                 ["melee_frames_between"] = f.MeleeFramesBetween,
                 ["melee_max_distance_px"] = f.MeleeRange,
@@ -161,7 +525,134 @@ namespace Terranoita.Cli
                 ["audio_roots"] = new JsonArray(f.AudioRoots.Select(a => (JsonNode)a).ToArray()),
                 ["damage_multipliers"] = mult,
                 ["ranged"] = ranged,
+                ["ranged_disabled"] = RangedJson(files, f.RangedDisabled),
+                ["components"] = DumpJson(dump),
+                ["scripts"] = new JsonArray(EntityDump.Scripts(dump).Select(x => (JsonNode)x).ToArray()),
+                ["script_entities"] = ScriptEntities(files, EntityDump.Scripts(dump)),
+                ["script_projectiles"] = ScriptProjectiles(files, EntityDump.Scripts(dump)),
             };
+        }
+
+        static JsonArray RangedJson(NoitaFiles files, List<RangedAttackFacts> list)
+        {
+            var ranged = new JsonArray();
+            foreach (var r in list)
+            {
+                var o = new JsonObject
+                {
+                    ["source"] = r.Source,
+                    ["entity_file"] = r.EntityFile,
+                    ["frames_between"] = r.FramesBetween,
+                    ["min_distance_px"] = r.MinDistance,
+                    ["max_distance_px"] = r.MaxDistance,
+                    ["count_min"] = r.CountMin,
+                    ["count_max"] = r.CountMax,
+                    ["state_frames"] = r.StateFrames,
+                };
+                if (r.EntityFile != null && files.TryReadText(r.EntityFile, out _))
+                {
+                    try
+                    {
+                        o["projectile"] = ProjectileJson(files, r.EntityFile);
+                    }
+                    catch (Exception ex)
+                    {
+                        o["projectile_error"] = ex.Message;
+                    }
+                }
+                ranged.Add(o);
+            }
+            return ranged;
+        }
+
+        /// <summary>Entity files each script names (what a nest releases, what a creature summons), not the script itself.</summary>
+        static JsonObject ScriptEntities(NoitaFiles files, IEnumerable<string> scripts)
+        {
+            var o = new JsonObject();
+            foreach (var script in scripts)
+            {
+                var text = Text(files, script);
+                o[script] = text == null ? null
+                    : new JsonArray(EntityDump.EntityFilesIn(text).Select(x => (JsonNode)x).ToArray());
+            }
+            return o;
+        }
+
+        static JsonObject ProjectileJson(NoitaFiles files, string file)
+        {
+            var p = ProjectileFacts.From(NoitaEntity.Load(x => Text(files, x), file));
+            return new JsonObject
+            {
+                ["sprite"] = p.Sprite,
+                ["speed_min"] = p.SpeedMin,
+                ["speed_max"] = p.SpeedMax,
+                ["gravity_y"] = p.GravityY,
+                ["lifetime_frames"] = p.LifetimeFrames,
+                ["explosion_radius_px"] = p.ExplosionRadius,
+                ["damage"] = p.Damage,
+                ["audio_root"] = p.AudioRoot,
+                ["explosion_sound"] = p.ExplosionSound,
+                ["components"] = DumpJson(EntityDump.Of(NoitaEntity.Load(x => Text(files, x), file))),
+            };
+        }
+
+        /// <summary>Projectile facts of the projectile/explosion files a creature's scripts load (death explosions, script attacks).</summary>
+        static JsonObject ScriptProjectiles(NoitaFiles files, IEnumerable<string> scripts)
+        {
+            var o = new JsonObject();
+            foreach (var script in scripts)
+            {
+                var text = Text(files, script);
+                if (text == null)
+                    continue;
+                foreach (var file in EntityDump.EntityFilesIn(text).Where(x => x.StartsWith("data/entities/projectiles/") && x.EndsWith(".xml")))
+                {
+                    if (o.ContainsKey(file) || !files.TryReadText(file, out _))
+                        continue;
+                    try { o[file] = ProjectileJson(files, file); }
+                    catch (Exception ex) { o[file] = new JsonObject { ["error"] = ex.Message }; }
+                }
+            }
+            return o;
+        }
+
+        /// <summary>Components as JSON: {component, entity (child entities only), attrs, children}.</summary>
+        static JsonArray DumpJson(List<EntityDump.Item> items)
+        {
+            var a = new JsonArray();
+            foreach (var i in items)
+            {
+                var o = NodeJson(i.Component);
+                if (i.Entity != null)
+                    o["entity"] = i.Entity;
+                a.Add(o);
+            }
+            return a;
+        }
+
+        static JsonObject NodeJson(NxmlNode n)
+        {
+            var attrs = new JsonObject();
+            foreach (var kv in n.Attributes.OrderBy(k => k.Key, StringComparer.Ordinal))
+                attrs[kv.Key] = kv.Value;
+            var o = new JsonObject { ["component"] = n.Name, ["attrs"] = attrs };
+            if (n.Children.Count > 0)
+                o["children"] = new JsonArray(n.Children.Select(c => (JsonNode)NodeJson(c)).ToArray());
+            return o;
+        }
+
+        static void CollectComponentNames(JsonNode node, HashSet<string> names)
+        {
+            if (node is JsonObject o)
+            {
+                if (o["component"] is JsonValue v && o["attrs"] != null)
+                    names.Add((string)v);
+                foreach (var kv in o)
+                    CollectComponentNames(kv.Value, names);
+            }
+            else if (node is JsonArray arr)
+                foreach (var x in arr)
+                    CollectComponentNames(x, names);
         }
 
         static int Facts(NoitaFiles files, string enemiesSheet, string outPath)
@@ -169,12 +660,14 @@ namespace Terranoita.Cli
             var sheet = JsonNode.Parse(File.ReadAllText(enemiesSheet));
             var result = new JsonObject();
             int ok = 0, missing = 0, failed = 0;
+            var translations = files.TryReadText("data/translations/common.csv", out var csv) ? NoitaTranslations.Parse(csv) : null;
+            var lookup = new EntityLookup(files.Archive.Entries.Select(x => x.Path), p => Text(files, p), translations);
             foreach (var row in sheet["rows"].AsArray())
             {
                 string id = (string)row["id"];
-                string guess = (string)row["noita_entity"];
-                string path = FindEntity(files, id, guess);
-                if (path == null)
+                var found = lookup.Find(id, (string)row["noita_entity"], (string)row["name_key"], (string)row["name_en"]);
+                var candidates = new JsonArray(found.Candidates.Select(c => (JsonNode)c).ToArray());
+                if (found.Path == null)
                 {
                     result[id] = new JsonObject { ["error"] = "no entity file found for this id" };
                     missing++;
@@ -182,18 +675,177 @@ namespace Terranoita.Cli
                 }
                 try
                 {
-                    result[id] = EnemyJson(files, path);
+                    var o = EnemyJson(files, found.Path);
+                    o["found_by"] = found.How;
+                    o["candidates"] = candidates;
+                    result[id] = o;
                     ok++;
                 }
                 catch (Exception ex)
                 {
-                    result[id] = new JsonObject { ["entity"] = path, ["error"] = ex.Message };
+                    result[id] = new JsonObject { ["entity"] = found.Path, ["error"] = ex.Message };
                     failed++;
                 }
             }
-            File.WriteAllText(outPath, result.ToJsonString(new JsonSerializerOptions { WriteIndented = true }));
+            // what each component attribute means and defaults to, from Noita's own modding documentation
+            var names = new HashSet<string>(StringComparer.Ordinal);
+            CollectComponentNames(result, names);
+            string docPath = Path.Combine(files.GameDir, "tools_modding", "component_documentation.txt");
+            if (File.Exists(docPath))
+            {
+                var docs = new JsonObject();
+                foreach (var kv in ComponentDocs.Split(File.ReadAllText(docPath)).Where(kv => names.Contains(kv.Key)).OrderBy(kv => kv.Key, StringComparer.Ordinal))
+                    docs[kv.Key] = kv.Value;
+                result["_component_docs"] = docs;
+            }
+            else
+                Console.Error.WriteLine("note: " + docPath + " not found; facts written without component documentation");
+            File.WriteAllText(outPath, result.ToJsonString(new JsonSerializerOptions { TypeInfoResolver = new System.Text.Json.Serialization.Metadata.DefaultJsonTypeInfoResolver(), WriteIndented = true, Encoder = System.Text.Encodings.Web.JavaScriptEncoder.UnsafeRelaxedJsonEscaping }));
             Console.WriteLine($"facts: {ok} read, {missing} without an entity file, {failed} failed -> {outPath}");
             return 0;
+        }
+
+        /// <summary>Stage 3 facts: spells (gun_actions.lua), their projectiles, wand entities; for tools/apply_spells.py.</summary>
+        static int SpellFacts(NoitaFiles files, string outPath)
+        {
+            var translations = files.TryReadText("data/translations/common.csv", out var csv) ? NoitaTranslations.Parse(csv) : null;
+            string En(string key) => key != null && key.StartsWith("$") ? translations?.Get(key.Substring(1), "en") : null;
+            var lua = Text(files, GunActions.Path) ?? throw new FileNotFoundException(GunActions.Path);
+            // gun.lua's constants (ACTION_DRAW_RELOAD_TIME_INCREASE...) for the action functions that use them
+            var actions = GunActions.Parse(lua, GunActions.Constants(Text(files, "data/scripts/gun/gun.lua")));
+            var spells = new JsonObject();
+            var projectileFiles = new SortedSet<string>(StringComparer.Ordinal);
+            foreach (var a in actions)
+            {
+                if (a.Id == null || spells.ContainsKey(a.Id))
+                    continue;
+                var fields = new JsonObject();
+                foreach (var kv in a.Fields)
+                    fields[kv.Key] = kv.Value;
+                var o = new JsonObject
+                {
+                    ["name_key"] = a.Name, ["name_en"] = En(a.Name), ["description_key"] = a.Description, ["description_en"] = En(a.Description),
+                    ["sprite"] = a.Sprite, ["type"] = a.Type,
+                    ["spawn_level"] = a.SpawnLevel == null ? null : new JsonArray(a.SpawnLevel.Select(x => (JsonNode)x).ToArray()),
+                    ["spawn_probability"] = a.SpawnProbability == null ? null : new JsonArray(a.SpawnProbability.Select(x => (JsonNode)x).ToArray()),
+                    ["price"] = a.Price, ["mana"] = a.Mana, ["max_uses"] = a.MaxUses,
+                    ["related_projectiles"] = new JsonArray(a.RelatedProjectiles.Select(x => (JsonNode)x).ToArray()),
+                    ["projectiles"] = new JsonArray(a.Projectiles.Select(x => (JsonNode)x).ToArray()),
+                    ["triggers"] = new JsonArray(a.Triggers.Select(t => (JsonNode)new JsonObject { ["kind"] = t.Kind, ["file"] = t.File, ["draws"] = t.Draws, ["frames"] = t.Frames }).ToArray()),
+                    ["draws"] = a.Draws,
+                    ["config_add"] = Dict(a.ConfigAdd), ["config_mul"] = Dict(a.ConfigMul),
+                    ["config_set"] = new JsonObject(a.ConfigSet.Select(kv => new KeyValuePair<string, JsonNode>(kv.Key, kv.Value))),
+                    ["reload_add"] = a.ReloadAdd,
+                    ["shot_add"] = Dict(a.ShotAdd), ["shot_set"] = Dict(a.ShotSet),
+                    ["clamps"] = new JsonArray(a.Clamps.Select(x => (JsonNode)x).ToArray()),
+                    ["conditional"] = a.Conditional,
+                    ["calls"] = new JsonArray(a.Calls.Select(x => (JsonNode)x).ToArray()),
+                    ["unparsed"] = new JsonArray(a.Unparsed.Select(x => (JsonNode)x).ToArray()),
+                    ["fields"] = fields,
+                };
+                spells[a.Id] = o;
+                foreach (var f in a.RelatedProjectiles.Concat(a.Projectiles).Concat(a.Triggers.Select(t => t.File)))
+                    projectileFiles.Add(f);
+            }
+            var projectiles = new JsonObject();
+            foreach (var f in projectileFiles)
+            {
+                try { projectiles[f] = ProjectileJson(files, f); }
+                catch (Exception ex) { projectiles[f] = new JsonObject { ["error"] = ex.Message }; }
+            }
+            // wands: item entities with an AbilityComponent that has a gun_config (fixed and template wands)
+            var wands = new JsonObject();
+            foreach (var path in files.Archive.Entries.Select(e => e.Path).Where(p => p.StartsWith("data/entities/items/") && p.EndsWith(".xml")).OrderBy(p => p, StringComparer.Ordinal))
+            {
+                var text = Text(files, path);
+                if (text == null || text.IndexOf("gun_config", StringComparison.Ordinal) < 0)
+                    continue;
+                try
+                {
+                    var e = NoitaEntity.Load(x => Text(files, x), path);
+                    var ab = e.Component("AbilityComponent");
+                    if (ab == null || ab.Child("gun_config") == null)
+                        continue;
+                    wands[path] = new JsonObject
+                    {
+                        ["ability"] = NodeJson(ab),
+                        ["scripts"] = new JsonArray(e.ComponentsNamed("LuaComponent").SelectMany(l => l.Attributes.Where(kv => kv.Key.StartsWith("script_")).Select(kv => kv.Value)).Distinct().Select(x => (JsonNode)x).ToArray()),
+                    };
+                }
+                catch (Exception ex) { wands[path] = new JsonObject { ["error"] = ex.Message }; }
+            }
+            var result = new JsonObject { ["spells"] = spells, ["projectiles"] = projectiles, ["wands"] = wands };
+            File.WriteAllText(outPath, result.ToJsonString(new JsonSerializerOptions { TypeInfoResolver = new System.Text.Json.Serialization.Metadata.DefaultJsonTypeInfoResolver(), WriteIndented = true, Encoder = System.Text.Encodings.Web.JavaScriptEncoder.UnsafeRelaxedJsonEscaping }));
+            int unparsed = actions.Count(a => a.Unparsed.Count > 0);
+            Console.WriteLine($"spells: {spells.Count} ({unparsed} need hand work), {projectiles.Count} projectile files, {wands.Count} wand entities -> {outPath}");
+            return 0;
+        }
+
+        static JsonObject Dict(Dictionary<string, float> d) =>
+            new JsonObject(d.Select(kv => new KeyValuePair<string, JsonNode>(kv.Key, kv.Value)));
+
+        /// <summary>A shot the CLI owns: flies by its velocity, never hits anything.</summary>
+        sealed class CliShotHost : ShotHostBase
+        {
+            public int Frame;
+            public readonly Dictionary<int, float[]> Shots = new Dictionary<int, float[]>();
+            public readonly List<string> Events = new List<string>();
+            public override int FrameNum => Frame;
+            // entity 1 = the caster, standing at 0,0 (scripts reach it through ProjectileComponent.mWhoShot)
+            public override bool GetPosition(int e, out float x, out float y) { x = y = 0; if (e == 1) return true; if (!Shots.TryGetValue(e, out var s)) return false; x = s[0]; y = s[1]; return true; }
+            public override string GetField(int e, string component, string field) =>
+                Shots.ContainsKey(e) && component == "ProjectileComponent" && (field == "mWhoShot" || field == "mShooterHerdId") ? "1" : null;
+            public override bool SetField(int e, string component, string field, string value)
+            {
+                if (component == "ProjectileComponent")
+                    Events.Add($"frame {Frame}: {component}.{field} = {value}");
+                return false;
+            }
+            public override void SetPosition(int e, float x, float y) { if (Shots.TryGetValue(e, out var s)) { s[0] = x; s[1] = y; } }
+            public override bool GetVelocity(int e, out float vx, out float vy) { vx = vy = 0; if (!Shots.TryGetValue(e, out var s)) return false; vx = s[2]; vy = s[3]; return true; }
+            public override void SetVelocity(int e, float vx, float vy) { if (Shots.TryGetValue(e, out var s)) { s[2] = vx; s[3] = vy; } }
+            public override void Kill(int e) { Events.Add($"frame {Frame}: shot killed"); Shots.Remove(e); }
+            public override int Load(string file, float x, float y) { Events.Add($"frame {Frame}: EntityLoad {file} at {x:0.#},{y:0.#}"); return 0; }
+            public override void Screenshake(float x, float y, float strength) => Events.Add($"frame {Frame}: screenshake {strength:0.#}");
+        }
+
+        static int ShotScript(NoitaFiles files, string xml, int frames, string projectile)
+        {
+            string docPath = Path.Combine(files.GameDir, "tools_modding", "component_documentation.txt");
+            var types = File.Exists(docPath) ? ComponentFieldTypes.Parse(File.ReadAllText(docPath)) : null;
+            if (types == null)
+                Console.WriteLine("note: no component_documentation.txt, values are typed by their text");
+            projectile = projectile ?? "data/entities/projectiles/deck/light_bullet.xml";
+            if (Text(files, projectile) == null)
+                projectile = null;
+            var host = new CliShotHost();
+            var lua = new LuaShotScripts(host, p => Text(files, p), types) { Log = m => Console.WriteLine("script error: " + m) };
+            int shot = lua.CreateShot(projectile);
+            host.Shots[shot] = new float[] { 0, 0, 300, 0 };
+            int child = lua.AttachExtra(shot, xml);
+            Console.WriteLine($"shot {shot} ({projectile ?? "no projectile file"}), {xml} -> entity {child}");
+            Console.WriteLine("components: " + string.Join(", ", new[] { child }.Concat(lua.ChildrenOf(child))
+                .SelectMany(e => lua.Components(e, null, false)).Select(c => c.Type + (c.Enabled ? "" : " (off)"))));
+            for (int f = 1; f <= frames; f++)
+            {
+                host.Frame = f;
+                foreach (var s in host.Shots.Values) { s[0] += s[2] / 60f; s[1] += s[3] / 60f; }
+                lua.Update(f);
+                if (f % 10 == 0 || !host.Shots.ContainsKey(shot))
+                {
+                    if (host.Shots.TryGetValue(shot, out var s))
+                        Console.WriteLine($"frame {f,4}: pos {s[0],8:0.0} {s[1],8:0.0}  vel {s[2],8:0.0} {s[3],8:0.0}");
+                    else
+                    {
+                        Console.WriteLine($"frame {f,4}: shot gone");
+                        break;
+                    }
+                }
+            }
+            foreach (var e in host.Events) Console.WriteLine(e);
+            Console.WriteLine("missing: " + (lua.Missing.Count == 0 ? "none" : string.Join(", ", lua.Missing)));
+            Console.WriteLine("errors: " + (lua.Errors.Count == 0 ? "none" : string.Join(" | ", lua.Errors)));
+            return lua.Errors.Count == 0 ? 0 : 1;
         }
     }
 }

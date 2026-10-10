@@ -178,6 +178,465 @@
    "purpose": "Mark the hit in progress as Noita 'projectile', 'explosion' or 'melee' (melee projectiles) for npc_strike; cleared by a postfix.",
    "stage": "1a",
    "_unverified": {}
+  },
+  {
+   "id": "tile_kill",
+   "target": "Terraria.WorldGen:KillTile(int, int, bool, bool, bool)",
+   "patch": "postfix",
+   "system": "block_physics",
+   "purpose": "A tile was removed: its neighbours are disturbed (loose ones may fall, the player's buildings check support).",
+   "stage": "2",
+   "_unverified": {}
+  },
+  {
+   "id": "tile_place",
+   "target": "Terraria.WorldGen:PlaceTile(int, int, int, bool, bool, int, int)",
+   "patch": "postfix",
+   "system": "block_physics",
+   "purpose": "plr >= 0: the player placed it, so it needs support (author: buildings without support collapse).",
+   "stage": "2",
+   "_unverified": {}
+  },
+  {
+   "id": "world_load",
+   "target": "Terraria.IO.WorldFile:LoadWorld()",
+   "patch": "postfix",
+   "system": "block_physics",
+   "purpose": "Read which tiles the player placed (<world>.terranoita).",
+   "stage": "2",
+   "_unverified": {}
+  },
+  {
+   "id": "world_save",
+   "target": "Terraria.IO.WorldFile:SaveWorld(bool, bool, bool)",
+   "patch": "postfix",
+   "system": "block_physics",
+   "purpose": "Write which tiles the player placed.",
+   "stage": "2",
+   "_unverified": {}
+  },
+  {
+   "id": "player_spawn",
+   "target": "Terraria.Player:Spawn(PlayerSpawnContext)",
+   "patch": "postfix",
+   "system": "block_physics",
+   "purpose": "A respawned player loses all Noita status effects (author: burning went on after death).",
+   "stage": "2",
+   "_unverified": {}
+  },
+  {
+   "id": "projectile_update",
+   "target": "Terraria.Projectile:Update(int)",
+   "patch": "postfix",
+   "system": "block_physics",
+   "purpose": "Fire projectiles (Molotov, flames, hellfire...) set burnable tiles on fire.",
+   "stage": "2",
+   "_unverified": {}
+  },
+  {
+   "id": "projectile_kill",
+   "target": "Terraria.Projectile:Kill()",
+   "patch": "prefix",
+   "system": "block_physics",
+   "purpose": "A fire projectile (flare, fire arrow, fireball...) that dies on a block sets the burnable tiles around it on fire (author).",
+   "stage": "2",
+   "_unverified": {}
+  },
+  {
+   "id": "player_buffs",
+   "target": "Terraria.Player:UpdateBuffs(int)",
+   "patch": "postfix",
+   "system": "noita_status",
+   "purpose": "Noita status effects set the player's flags (speed, confused, immune...).",
+   "stage": "2",
+   "_unverified": {}
+  },
+  {
+   "id": "player_liferegen",
+   "target": "Terraria.Player:UpdateLifeRegen()",
+   "patch": "prefix",
+   "system": "noita_status",
+   "purpose": "Noita status effects hurt or heal over time.",
+   "stage": "2",
+   "_unverified": {}
+  },
+  {
+   "id": "buffs_draw",
+   "target": "Terraria.Main:DrawInterface_Resources_Buffs()",
+   "patch": "postfix",
+   "system": "noita_status",
+   "purpose": "Noita status icons after Terraria's buff icons.",
+   "stage": "2",
+   "_unverified": {}
+  },
+  {
+   "id": "fluids_draw",
+   "target": "Terraria.Main:DrawPlayers_AfterProjectiles()",
+   "patch": "postfix",
+   "system": "block_physics",
+   "purpose": "Noita liquids and gases drawn in front of the player, see-through like Terraria's water.",
+   "stage": "2",
+   "_unverified": {}
+  },
+  {
+   "id": "player_draw",
+   "target": "Terraria.Graphics.Renderers.LegacyPlayerRenderer:DrawPlayer(Camera, Player, ...)",
+   "patch": "prefix",
+   "system": "noita_status",
+   "purpose": "Invisible or polymorphed player: Terraria does not draw them.",
+   "stage": "2",
+   "_unverified": {}
+  },
+  {
+   "id": "player_form_draw",
+   "target": "Terraria.Main:DrawPlayers_AfterProjectiles()",
+   "patch": "postfix",
+   "system": "noita_status",
+   "purpose": "A polymorphed player is drawn as the Noita creature.",
+   "stage": "2",
+   "_unverified": {}
+  },
+  {
+   "id": "mouse_over",
+   "target": "Terraria.Main:DrawMouseOver()",
+   "patch": "postfix",
+   "system": "block_physics",
+   "purpose": "The name of the liquid under the mouse (??? if not touched yet), shown like a sign's text.",
+   "stage": "2",
+   "_unverified": {}
+  },
+  {
+   "id": "cursor_draw",
+   "target": "Terraria.Main:DrawInterface_36_Cursor()",
+   "patch": "postfix",
+   "system": "block_physics",
+   "purpose": "The hover name of a liquid drawn next to the cursor, last, so nothing covers it.",
+   "stage": "2",
+   "_unverified": {}
+  },
+  {
+   "id": "npc_health_bars",
+   "target": "Terraria.Main:DrawInterface_14_EntityHealthBars()",
+   "patch": "prefix",
+   "system": "carrier_npc",
+   "purpose": "One health bar per Noita worm: the body segments look unhurt while the bars are drawn.",
+   "stage": "1b",
+   "_unverified": {}
+  },
+  {
+   "id": "magic_item_defaults",
+   "target": "Terraria.Item:SetDefaults(int, ItemVariant)",
+   "patch": "postfix",
+   "system": "wand_slots",
+   "purpose": "Spell and wand items (unused item types): stack 1, no use of their own.",
+   "stage": "3",
+   "_unverified": {}
+  },
+  {
+   "id": "magic_item_prefix",
+   "target": "Terraria.Item:Prefix(int)",
+   "patch": "prefix",
+   "system": "wand_slots",
+   "purpose": "The prefix byte of a spell or wand item is which spell or wand: kept, never rolled.",
+   "stage": "3",
+   "_unverified": {}
+  },
+  {
+   "id": "magic_item_name",
+   "target": "Terraria.Item:get_Name()",
+   "patch": "postfix",
+   "system": "wand_slots",
+   "purpose": "Spell and wand names from the player's Noita (in the game's language).",
+   "stage": "3",
+   "_unverified": {}
+  },
+  {
+   "id": "magic_item_affix",
+   "target": "Terraria.Item:AffixName()",
+   "patch": "postfix",
+   "system": "wand_slots",
+   "purpose": "No prefix words before spell and wand names.",
+   "stage": "3",
+   "_unverified": {}
+  },
+  {
+   "id": "magic_item_icon",
+   "target": "Terraria.UI.ItemSlot:DrawItemIcon(Item, int, SpriteBatch, Vector2, float, float, Color, float, bool)",
+   "patch": "prefix",
+   "system": "wand_slots",
+   "purpose": "Spell and wand icons from the player's Noita in every slot.",
+   "stage": "3",
+   "_unverified": {}
+  },
+  {
+   "id": "magic_item_world",
+   "target": "Terraria.Main:DrawItem(WorldItem, int)",
+   "patch": "prefix",
+   "system": "wand_slots",
+   "purpose": "Spells and wands lying on the ground drawn with their Noita pictures.",
+   "stage": "3",
+   "_unverified": {}
+  },
+  {
+   "id": "magic_item_tooltip",
+   "target": "Terraria.Main:MouseText_DrawItemTooltip_GetLinesInfo(Item, ref int, float, ref int, string[], Color[])",
+   "patch": "postfix",
+   "system": "wand_slots",
+   "purpose": "Tooltips of spells and wands: Noita's stats.",
+   "stage": "3",
+   "_unverified": {}
+  },
+  {
+   "id": "magic_held_wand",
+   "target": "Terraria.Main:DrawPlayers_AfterProjectiles()",
+   "patch": "postfix",
+   "system": "spells",
+   "purpose": "The held wand drawn in the player's hand, pointing at the mouse.",
+   "stage": "3",
+   "_unverified": {}
+  },
+  {
+   "id": "spell_shots_update",
+   "target": "Terraria.Main:UpdateWorld_Projectiles()",
+   "patch": "postfix",
+   "system": "spells",
+   "purpose": "The player's spell projectiles move, hit and explode.",
+   "stage": "3",
+   "_unverified": {}
+  },
+  {
+   "id": "spell_shots_draw",
+   "target": "Terraria.Main:DrawProjectiles()",
+   "patch": "postfix",
+   "system": "spells",
+   "purpose": "The player's spell projectiles drawn.",
+   "stage": "3",
+   "_unverified": {}
+  },
+  {
+   "id": "wand_window_draw",
+   "target": "Terraria.Main:DrawInterface_27_Inventory()",
+   "patch": "postfix",
+   "system": "wand_slots",
+   "purpose": "The wand window (key U): wand slots, stats, spell slots.",
+   "stage": "3",
+   "_unverified": {}
+  },
+  {
+   "id": "wand_enter_world",
+   "target": "Terraria.Player+Hooks:EnterWorld(int)",
+   "patch": "postfix",
+   "system": "wand_slots",
+   "purpose": "The character's wand slots read; a new character gets Noita's starting wands.",
+   "stage": "3",
+   "_unverified": {}
+  },
+  {
+   "id": "cave_wands_draw",
+   "target": "Terraria.Main:DrawItems()",
+   "patch": "postfix",
+   "system": "wand_slots",
+   "purpose": "Noita wands lying in the caves (WorldLoot), picked up by touching.",
+   "stage": "3",
+   "_unverified": {}
+  },
+  {
+   "id": "magic_item_prefix2",
+   "target": "Terraria.Item:Prefix(int, ref bool)",
+   "patch": "prefix",
+   "system": "wand_slots",
+   "purpose": "The overload loading uses: spell and wand numbers kept when items are read back.",
+   "stage": "3",
+   "_unverified": {}
+  },
+  {
+   "id": "test_screenshot",
+   "target": "Terraria.Main:DoDraw(GameTime)",
+   "patch": "postfix",
+   "system": "test_tools",
+   "purpose": "Tests: the drawn screen saved as a picture when a test asks for it.",
+   "stage": "3",
+   "_unverified": {}
+  },
+  {
+   "id": "magic_item_rollprefix",
+   "target": "Terraria.Item:CanRollPrefix(int)",
+   "patch": "prefix",
+   "system": "wand_slots",
+   "purpose": "Item.FixAgainstExploit clears prefixes an item cannot roll: spell and wand numbers pass.",
+   "stage": "3",
+   "_unverified": {}
+  },
+  {
+   "id": "test_screenshot_target",
+   "target": "Microsoft.Xna.Framework.Graphics.GraphicsDevice:SetRenderTarget(RenderTarget2D)",
+   "patch": "prefix",
+   "system": "test_tools",
+   "purpose": "Tests: for one frame the screen is drawn into a picture.",
+   "stage": "3",
+   "_unverified": {}
+  },
+  {
+   "id": "menu_logo",
+   "target": "Terraria.Main:DrawVersionNumber(Color, float)",
+   "patch": "postfix",
+   "system": "menu",
+   "purpose": "NOITA written over Terraria's logo in the main menu (TERRA NOITA).",
+   "stage": "3",
+   "_unverified": {}
+  },
+  {
+   "id": "progress_draw",
+   "target": "Terraria.Main:DrawInterface_33_MouseText()",
+   "patch": "prefix",
+   "system": "progress",
+   "purpose": "The progress window (key O) and its inventory button.",
+   "stage": "3",
+   "_unverified": {}
+  },
+  {
+   "id": "progress_enter_world",
+   "target": "Terraria.Player+Hooks:EnterWorld(int)",
+   "patch": "postfix",
+   "system": "progress",
+   "purpose": "The character's progress book loaded on entering a world.",
+   "stage": "3",
+   "_unverified": {}
+  },
+  {
+   "id": "chat_log",
+   "target": "Terraria.Main:NewText(string, Color)",
+   "patch": "postfix",
+   "system": "progress",
+   "purpose": "Chat lines into the log (the author's notes while testing line up with SLOW update lines).",
+   "stage": "3",
+   "_unverified": {}
+  },
+  {
+   "id": "cart_draw",
+   "target": "Terraria.Main:DrawProjectiles()",
+   "patch": "postfix",
+   "system": "noita_actions",
+   "purpose": "The minecart of Noita's start drawn.",
+   "stage": "3",
+   "_unverified": {}
+  },
+  {
+   "id": "mana_crystal_cap",
+   "target": "Terraria.Player:ItemCheck_UseManaCrystal(Item)",
+   "patch": "transpiler",
+   "system": "mana_cap",
+   "purpose": "15 Mana Crystals instead of 10 (cap 300).",
+   "stage": "3",
+   "_unverified": {}
+  },
+  {
+   "id": "mana_load_cap",
+   "target": "Terraria.Player:Deserialize(PlayerFileData, Player, BinaryReader, int, ref bool)",
+   "patch": "transpiler",
+   "system": "mana_cap",
+   "purpose": "A loaded player keeps up to 300 crystal mana and 600 mana.",
+   "stage": "3",
+   "_unverified": {}
+  },
+  {
+   "id": "mana_total_cap",
+   "target": "Terraria.Player:Update(int)",
+   "patch": "transpiler",
+   "system": "mana_cap",
+   "purpose": "Total max mana capped at 600 instead of 400.",
+   "stage": "3",
+   "_unverified": {}
+  },
+  {
+   "id": "mana_stars_classic",
+   "target": "Terraria.GameContent.UI.ResourceSets.ClassicPlayerResourcesDisplaySet:DrawMana()",
+   "patch": "transpiler",
+   "system": "mana_cap",
+   "purpose": "Classic bar: 15 stars, 20 to 40 mana each.",
+   "stage": "3",
+   "_unverified": {}
+  },
+  {
+   "id": "mana_stars_snapshot",
+   "target": "Terraria.GameContent.UI.ResourceSets.PlayerStatsSnapshot:.ctor(Player)",
+   "patch": "postfix",
+   "system": "mana_cap",
+   "purpose": "Fancy and bar styles: 15 stars, 20 to 40 mana each.",
+   "stage": "3",
+   "_unverified": {}
+  },
+  {
+   "id": "menu_background",
+   "target": "Terraria.Main:DrawMenu(GameTime)",
+   "patch": "prefix",
+   "system": "menu_look",
+   "purpose": "Noita's sky (weather_gfx parallax layers) behind the main menu.",
+   "stage": "3",
+   "_unverified": {}
+  },
+  {
+   "id": "menu_music",
+   "target": "Terraria.Main:UpdateAudio_DecideOnNewMusic()",
+   "patch": "postfix",
+   "system": "menu_look",
+   "purpose": "Terraria's title music off while Noita's menu music (event:/music/menu/main) plays.",
+   "stage": "3",
+   "_unverified": {}
+  },
+  {
+   "id": "skip_splash",
+   "target": "Terraria.Main:DrawSplash(GameTime)",
+   "patch": "call",
+   "system": "menu_look",
+   "purpose": "No RE-LOGIC intro: patched by hand at launch (before the menu), quick splash path, logo timeline skipped.",
+   "stage": "3",
+   "_unverified": {}
+  },
+  {
+   "id": "worldgen_passes",
+   "target": "Terraria.WorldGen:AddPasses()",
+   "patch": "postfix",
+   "system": "loot",
+   "purpose": "Noita's content in Terraria's own world generation: a loot pass after Final Cleanup fills chests by Noita's chest_random.lua (design/worldgen_plan.md).",
+   "stage": "4",
+   "_unverified": {}
+  },
+  {
+   "id": "perk_death",
+   "target": "Terraria.Player:KillMe(PlayerDeathReason, double, int, bool)",
+   "patch": "postfix",
+   "system": "perks",
+   "purpose": "Noita perks are lost on death; with more than 10 a quarter drop as perk items (PC-34).",
+   "stage": "3",
+   "_unverified": {}
+  },
+  {
+   "id": "host_and_play",
+   "target": "Terraria.Main:HostAndPlay()",
+   "patch": "transpiler",
+   "system": "host_server",
+   "purpose": "Host & Play starts Terranoita.exe -server (the same mod) instead of plain TerrariaServer.exe, which deleted our items in chests (PC-38).",
+   "stage": "3",
+   "_unverified": {}
+  },
+  {
+   "id": "npc_carrier_defaults",
+   "target": "Terraria.NPC:SetDefaults(int, NPCSpawnParams)",
+   "patch": "postfix",
+   "system": "host_server",
+   "purpose": "Type 146 (our creatures' carrier) gets lifeMax 1, not 0: clients deactivated full-life creatures from the server (PC-38).",
+   "stage": "3",
+   "_unverified": {}
+  },
+  {
+   "id": "net_register",
+   "target": "Terraria.Initializers.NetworkInitializer:Load()",
+   "patch": "postfix",
+   "system": "host_server",
+   "purpose": "Registers Terranoita's net module right after Terraria's own on the server (same id on every side; PC-40).",
+   "stage": "3",
+   "_unverified": {}
   }
  ]
 }

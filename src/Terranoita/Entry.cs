@@ -1,4 +1,4 @@
-using System;
+﻿using System;
 using System.Linq;
 using System.Reflection;
 using HarmonyLib;
@@ -17,8 +17,11 @@ namespace Terranoita.Game
     /// <summary>Called by Terranoita.exe after Terraria.exe is loaded and before Terraria starts.</summary>
     public static class Entry
     {
-        /// <summary>The latest stage this build contains.</summary>
-        public const string Stage = "1a";
+        /// <summary>
+        /// The latest stage this build contains. TERRANOITA_STAGE=1b tries the next stage's enemies in a test run
+        /// before it ships (its sheet rows must be complete: preflight --gate 1b).
+        /// </summary>
+        public static readonly string Stage = Environment.GetEnvironmentVariable("TERRANOITA_STAGE") ?? "1b";
 
         public static Action<string> Log = _ => { };
         public static string NoitaDir;
@@ -27,10 +30,21 @@ namespace Terranoita.Game
         static readonly System.Collections.Generic.HashSet<string> Reported = new System.Collections.Generic.HashSet<string>();
 
         /// <summary>Log an exception from a patch once per place and kind (Terraria swallows them silently).</summary>
+        /// <summary>Errors so far (tests see whether one happened during a step).</summary>
+        public static int Errors;
+
         public static void Error(string where, Exception ex)
         {
+            Errors++;
             if (Reported.Add(where + ex.GetType().Name))
                 Log("ERROR in " + where + ": " + ex);
+        }
+
+        /// <summary>Log a warning once.</summary>
+        public static void Warn(string message)
+        {
+            if (Reported.Add(message))
+                Log("WARN " + message);
         }
 
         /// <summary>ReLogic.OS.Platform.Get&lt;IPathService&gt;().GetStoragePath("Terraria"), as Program.LaunchGame does.
@@ -64,20 +78,30 @@ namespace Terranoita.Game
             int sd = Array.FindIndex(args, a => string.Equals(a, "-savedirectory", StringComparison.OrdinalIgnoreCase));
             Terraria.Program.SavePath = sd >= 0 && sd + 1 < args.Length ? args[sd + 1] : DefaultSavePath();
             Log("Terraria save folder: " + Terraria.Program.SavePath);
-            Terraria.Main.OnEngineLoad += ApplyPatches;
+            if (HostServer.ServerMode)
+                HostServer.StartServer(ApplyPatches);   // the world's server (Terranoita.exe -server): no menu, no engine load
+            else
+            {
+                Terraria.Main.OnEngineLoad += ApplyPatches;
+                SkipSplash.Apply();
+            }
         }
 
         static void ApplyPatches()
         {
+            Magic.MagicItems.Init();
+            if (!Terraria.Main.dedServ)
+                TerranoitaNet.Register();   // Terraria registered its modules in Initialize already (the server: NetworkInitializer.Load postfix)   // before any player or world is loaded: Terraria keeps the spell and wand items
             var harmony = _harmony = new Harmony("gg.melty.terranoita");
             harmony.PatchAll(typeof(Entry).Assembly);
             NoitaArt.Preload();
             NoitaSound.Open(NoitaDir);
 
-            // Oracle: every hook the sheet lists for a built stage must have a patch class, and the reverse.
+            // Oracle: every hook the sheet lists must have a patch class, and the reverse. PatchAll applies every patch
+            // whatever the stage (Stage only picks the creatures), so every hook is checked.
             var implemented = typeof(Entry).Assembly.GetTypes()
                 .Select(t => t.GetCustomAttribute<HookAttribute>()?.Id).Where(id => id != null).ToList();
-            foreach (var h in Hooks.All.Where(h => h.Patch != "call" && Defs.InStage(h.Stage, Stage)))
+            foreach (var h in Hooks.All.Where(h => h.Patch != "call"))
                 Log((implemented.Contains(h.Id) ? "hook ok      " : "hook MISSING ") + h.Id + " -> " + h.Target);
             foreach (var id in implemented.Where(id => Hooks.All.All(h => h.Id != id)))
                 Log("hook not in the sheet: " + id);

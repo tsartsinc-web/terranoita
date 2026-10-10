@@ -8,6 +8,14 @@ namespace Terranoita.Game
     {
         [System.ThreadStatic] static string _kind;
 
+        /// <summary>A hit of a Noita damage type (its multipliers and immunities apply), e.g. a creature's explosion.</summary>
+        public static void StrikeAs(NPC n, string kind, int damage, float knockback, int dir)
+        {
+            _kind = kind;
+            try { n.StrikeNPCNoInteraction(damage, knockback, dir); }
+            finally { _kind = null; }
+        }
+
         [Hook("hit_by_item")]
         [HarmonyPatch(typeof(Player), "ProcessHitAgainstNPC")]
         static class ItemHit
@@ -30,9 +38,29 @@ namespace Terranoita.Game
         [HarmonyPatch(typeof(NPC), nameof(NPC.StrikeNPC))]
         static class Strike
         {
-            static void Prefix(NPC __instance, ref int Damage)
+            static bool Prefix(NPC __instance, ref int Damage, object[] __args, ref int __result)
+            {
+                // a worm's body: the head takes the hit (its shield, multipliers, hurt sound and death)
+                var head = Carriers.HeadOfSegment(__instance);
+                if (head != null)
+                {
+                    if (head.active && Carriers.Get(head) != null)
+                        __result = head.StrikeNPC(Damage, 0f, (int)__args[2], (bool)__args[3], (bool)__args[4], (int)__args[5]);
+                    return false;
+                }
+                Hit(__instance, ref Damage);
+                return true;
+            }
+
+            static void Hit(NPC __instance, ref int Damage)
             {
                 var n = Carriers.Get(__instance);
+                if (n != null && n.Shield)
+                {
+                    n.Shield = false;     // a support shield takes the whole hit
+                    Damage = 0;
+                    return;
+                }
                 if (n?.Def.DmgMult == null)
                     return;
                 string kind = _kind ?? "melee";

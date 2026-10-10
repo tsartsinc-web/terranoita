@@ -105,6 +105,19 @@ namespace Terranoita.Tests
         }
 
         [Fact]
+        public void Entity_RemoveFromBaseDropsTheBaseComponent()
+        {
+            var files = new Dictionary<string, string>
+            {
+                ["b.xml"] = @"<Entity><ProjectileComponent damage=""1"" /><DamageModelComponent hp=""1"" /></Entity>",
+                ["e.xml"] = @"<Entity><Base file=""b.xml""><ProjectileComponent _remove_from_base=""1"" /></Base></Entity>",
+            };
+            var e = NoitaEntity.Load(p => files.TryGetValue(p, out var t) ? t : null, "e.xml");
+            Assert.Null(e.Component("ProjectileComponent"));
+            Assert.NotNull(e.Component("DamageModelComponent"));
+        }
+
+        [Fact]
         public void Projectile_FactsAndUnits()
         {
             var e = NoitaEntity.Load(_ => @"<Entity>
@@ -160,6 +173,16 @@ namespace Terranoita.Tests
             var attackIds = new HashSet<string>(Attacks.All.Select(a => a.Id));
             Assert.All(Enemies.All, e => Assert.All(e.Attacks, a => Assert.Contains(a, attackIds)));
             Assert.Equal(12, Enemies.All.Count(e => e.Stage == "1a"));
+        }
+    
+        [Fact]
+        public void Nxml_ACommentBetweenAttributesKeepsTheRest()
+        {
+            // data/entities/projectiles/deck/glitter_bomb.xml: its shards were lost after this comment
+            var root = Nxml.Parse("<config_explosion damage=\"1\" durability=\"11\" <!-- fuse is 11 --> load_this_entity=\"a.xml\" ></config_explosion>");
+            var e = root.Children[0];
+            Assert.Equal("a.xml", e.Attributes["load_this_entity"]);
+            Assert.Equal("11", e.Attributes["durability"]);
         }
     }
 }

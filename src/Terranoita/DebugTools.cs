@@ -13,18 +13,84 @@ namespace Terranoita.Game
     ///   Ctrl+Shift+N  spawn the next built Noita enemy 12 tiles in front of the player
     ///   TERRANOITA_AUTOTEST=1  enter the first player/world of the save folder, make the player unkillable, spawn
     ///                          every built enemy in turn and log what happens (use with -savedirectory on a copy).
+    ///   TERRANOITA_AUTOTEST_STAGE=1b  only that stage's enemies;  TERRANOITA_AUTOTEST_EXIT=1  close the game when done
+    ///                          (tools/pc_step.ps1 -AutoTest runs both and keeps the log).
     /// </summary>
     public static class DebugTools
     {
         static int _next;
+        static LiquidDef _liquid;
         static readonly bool Auto = Environment.GetEnvironmentVariable("TERRANOITA_AUTOTEST") == "1";
-        static readonly bool Showcase = Environment.GetEnvironmentVariable("TERRANOITA_SHOWCASE") == "1";
+        /// <summary>The autotest is running: natural Noita spawns are off.</summary>
+        public static bool Testing => Auto;
+        static readonly string OnlyStage = Environment.GetEnvironmentVariable("TERRANOITA_AUTOTEST_STAGE");
+        static readonly bool ExitWhenDone = Environment.GetEnvironmentVariable("TERRANOITA_AUTOTEST_EXIT") == "1";
+        /// <summary>TERRANOITA_AUTOTEST_SECONDS: how long each enemy is watched (default 6).</summary>
+        static readonly int Each = 60 * (int.TryParse(Environment.GetEnvironmentVariable("TERRANOITA_AUTOTEST_SECONDS"), out int sec) && sec > 0 ? sec : 6);
+        /// <summary>TERRANOITA_AUTOTEST_PLACES=1: each enemy in another place (loot comes from where it dies).</summary>
+        static readonly bool Places = Environment.GetEnvironmentVariable("TERRANOITA_AUTOTEST_PLACES") == "1";
+        static readonly string Join = Environment.GetEnvironmentVariable("TERRANOITA_AUTOTEST_JOIN");
+        static Magic.WandData _mpWand;
         static int _menuFrames, _worldFrames, _autoIndex;
-        static bool _entering;
-        const string TestPlayer = "Terranoita Test";
+
+        // a ground tile that makes the place, and its layer: 0 surface, 1 below the surface, 2 rock layer
+        static readonly (string name, ushort[] tiles, int layer)[] PlaceList =
+        {
+            ("forest", new ushort[] { Terraria.ID.TileID.Grass }, 0),
+            ("snow", new ushort[] { Terraria.ID.TileID.SnowBlock }, 0),
+            ("desert", new ushort[] { Terraria.ID.TileID.Sand }, 0),
+            ("jungle", new ushort[] { Terraria.ID.TileID.JungleGrass }, 1),
+            ("caverns", new ushort[] { Terraria.ID.TileID.Stone }, 2),
+            ("ice caves", new ushort[] { Terraria.ID.TileID.IceBlock }, 2),
+            ("mushroom", new ushort[] { Terraria.ID.TileID.MushroomGrass }, 1),
+            ("marble", new ushort[] { Terraria.ID.TileID.Marble }, 1),
+            ("granite", new ushort[] { Terraria.ID.TileID.Granite }, 1),
+            ("underground desert", new ushort[] { Terraria.ID.TileID.Sandstone, Terraria.ID.TileID.HardenedSand }, 1),
+            ("dungeon", new ushort[] { Terraria.ID.TileID.BlueDungeonBrick, Terraria.ID.TileID.GreenDungeonBrick, Terraria.ID.TileID.PinkDungeonBrick }, 1),
+            ("underworld", new ushort[] { Terraria.ID.TileID.Ash }, 1),
+        };
+
+        /// <summary>Put the player on a random spot of the next place (a tile of its kind with room above).</summary>
+        static void MoveToPlace(Player p, int index)
+        {
+            var place = PlaceList[index % PlaceList.Length];
+            int top = place.layer == 0 ? 60 : place.layer == 1 ? (int)Main.worldSurface : (int)Main.rockLayer;
+            int bottom = place.layer == 0 ? (int)Main.worldSurface : Main.maxTilesY - 60;
+            for (int attempt = 0; attempt < 300000; attempt++)
+            {
+                int x = Main.rand.Next(60, Main.maxTilesX - 60), y = Main.rand.Next(top, bottom);
+                var t = Main.tile[x, y];
+                if (t == null || !t.active() || Array.IndexOf(place.tiles, t.type) < 0)
+                    continue;
+                bool room = true;
+                for (int dx = -1; dx <= 1 && room; dx++)
+                    for (int dy = 1; dy <= 3 && room; dy++)
+                    {
+                        var a = Main.tile[x + dx, y - dy];
+                        room = a == null || ((!a.active() || !Main.tileSolid[a.type]) && a.liquid == 0);
+                    }
+                if (!room)
+                    continue;
+                p.Teleport(new Vector2(x * 16 + 8 - p.width / 2f, y * 16 - p.height));
+                p.velocity = Vector2.Zero;
+                Entry.Log("AUTOTEST: place " + place.name + " at " + x + "," + y + (Main.hardMode ? " (hardmode)" : ""));
+                return;
+            }
+            Entry.Log("AUTOTEST: place " + place.name + " not found");
+        }
+        static bool _entering, _generating;
+        // TERRANOITA_AUTOTEST_PLAYER: another test character (a second client of the multiplayer test)
+        static readonly string TestPlayer = Environment.GetEnvironmentVariable("TERRANOITA_AUTOTEST_PLAYER") ?? "Terranoita Test";
         static readonly NoitaNpc[] _seen = new NoitaNpc[Main.maxNPCs];
 
         static EnemyDef[] Built => Enemies.All.Where(e => Defs.InStage(e.Stage, Entry.Stage)).ToArray();
+
+        /// <summary>Within the visible screen and not inside solid tiles (a worm underground, a ghost in a wall).</summary>
+        static bool OnScreen(NPC n)
+        {
+            var screen = new Rectangle((int)Main.screenPosition.X, (int)Main.screenPosition.Y, Main.screenWidth, Main.screenHeight);
+            return screen.Intersects(n.Hitbox) && !Collision.SolidCollision(n.position + new Vector2(n.width / 4f, n.height / 4f), n.width / 2, n.height / 2);
+        }
 
         static void SpawnInFront(EnemyDef e, int tiles)
         {
@@ -41,12 +107,31 @@ namespace Terranoita.Game
         static void Update()
         {
             NoitaSound.Update();
+            Multiplayer.Update();
+            try { Carriers.Sweep(); }
+            catch (Exception ex) { Entry.Error("segments sweep", ex); }
+            try { Magic.WandWindow.Update(); Magic.Casting.Update(); if (!Main.gameMenu) Magic.WorldLoot.Update(); ProgressWindow.Update(); NoitaActions.Update(); SlowFrames.EndUpdate(); }
+            catch (Exception ex) { Entry.Error("magic update", ex); }
             if (Auto)
                 AutoTest();
             if (Main.gameMenu || Main.drawingPlayerChat || Main.editSign || Main.editChest)
                 return;
             bool ctrl = Main.keyState.IsKeyDown(Keys.LeftControl) || Main.keyState.IsKeyDown(Keys.RightControl);
             bool shift = Main.keyState.IsKeyDown(Keys.LeftShift) || Main.keyState.IsKeyDown(Keys.RightShift);
+            // Ctrl+Shift+K picks the next Noita liquid or gas, Ctrl+Shift+L pours it at the mouse
+            if (ctrl && shift && Main.keyState.IsKeyDown(Keys.K) && !Main.oldKeyState.IsKeyDown(Keys.K))
+            {
+                var all = Liquids.All.Where(l => l.Creative).ToArray();
+                _liquid = all[(Array.IndexOf(all, _liquid) + 1) % all.Length];
+                Main.NewText("Terranoita: " + NoitaArt.Text(_liquid.NameKey, _liquid.Id) + " (" + _liquid.Id + ")", new Color(120, 200, 255));
+            }
+            if (ctrl && shift && Main.keyState.IsKeyDown(Keys.L))
+                Physics.Fluids.Add((int)(Main.MouseWorld.X / 16), (int)(Main.MouseWorld.Y / 16), (_liquid ?? Liquids.All.First(l => l.Id == "acid")).Id, 60);
+            if (ctrl && shift && Main.keyState.IsKeyDown(Keys.H) && !Main.oldKeyState.IsKeyDown(Keys.H) && Physics.LiquidGallery.Home.HasValue)
+            {
+                Main.LocalPlayer.Teleport(Physics.LiquidGallery.Home.Value, -1);
+                Main.LocalPlayer.velocity = Vector2.Zero;
+            }
             if (ctrl && shift && Main.keyState.IsKeyDown(Keys.N) && !Main.oldKeyState.IsKeyDown(Keys.N))
             {
                 var all = Built;
@@ -58,8 +143,24 @@ namespace Terranoita.Game
 
         static void AutoTest()
         {
+            // a test game runs minimized and must never pause: with "Play when unfocused" off (the test profile's
+            // config.json), Terraria pauses the world as soon as another window is active (FocusHelper.UpdateFocus) while
+            // our frame hook keeps counting: the release probe of 2026-10-09 recorded shots that never moved from then on
+            Main.SettingPlayWhenUnfocused = true;
             if (Main.gameMenu)
             {
+                if (_generating)
+                {
+                    // a new world is being made on Terraria's own thread; then back to the main menu and in
+                    if (WorldGen.generatingWorld)
+                        return;
+                    _generating = false;
+                    _entering = false;
+                    _menuFrames = 0;
+                    Main.menuMode = 0;
+                    Entry.Log("AUTOTEST: new world made");
+                    return;
+                }
                 if (_entering || Main.menuMode != 0 || ++_menuFrames < 120)
                     return;
                 _entering = true;
@@ -76,54 +177,228 @@ namespace Terranoita.Game
                     Entry.Log("AUTOTEST: created test character " + TestPlayer);
                 }
                 Main.LoadWorlds();
+                // TERRANOITA_AUTOTEST_NEWWORLD=name: tests in a fresh world of their own (author), made once
+                string fresh = Environment.GetEnvironmentVariable("TERRANOITA_AUTOTEST_NEWWORLD");
+                if (!string.IsNullOrEmpty(fresh) && !Main.WorldList.Any(w => w.Name == fresh))
+                {
+                    // TERRANOITA_AUTOTEST_WORLDSIZE: 0 small (default), 1 medium, 2 large
+                    int size = int.TryParse(Environment.GetEnvironmentVariable("TERRANOITA_AUTOTEST_WORLDSIZE"), out int sz) ? sz : 0;
+                    Entry.Log("AUTOTEST: making a new " + (size == 1 ? "medium" : size == 2 ? "large" : "small") + " world " + fresh);
+                    Main.worldName = fresh;
+                    WorldGen.SetWorldSize(size);
+                    Main.ActiveWorldFileData = Terraria.IO.WorldFile.CreateMetadata(fresh, false, 0);
+                    Main.ActiveWorldFileData.SetSeedToRandom();
+                    WorldGen.CreateNewWorld(null, null, null);
+                    _generating = true;
+                    return;
+                }
                 if (Main.PlayerList.Count == 0 || Main.WorldList.Count == 0)
                 {
                     Entry.Log("AUTOTEST: no player or world in " + Main.SavePath);
                     return;
                 }
                 var who = Main.PlayerList.First(f => f.Name == TestPlayer);
-                Entry.Log("AUTOTEST: entering " + Main.WorldList[0].Name + " as " + who.Name);
+                // TERRANOITA_AUTOTEST_JOIN=ip:port (game_test -Mode mp): the test character joins a running server instead
+                if (!string.IsNullOrEmpty(Join))
+                {
+                    var hp = Join.Split(':');
+                    Entry.Log("AUTOTEST: joining " + Join + " as " + who.Name);
+                    Main.SelectPlayer(who);
+                    Netplay.ListenPort = hp.Length > 1 && int.TryParse(hp[1], out int port) ? port : 7777;
+                    Netplay.SetRemoteIP(hp[0]);
+                    Main.menuMode = 14;
+                    Netplay.StartTcpClient();
+                    return;
+                }
+                // TERRANOITA_AUTOTEST_WORLD: a world by name (a copy of the author's), else the first one
+                string wanted = fresh ?? Environment.GetEnvironmentVariable("TERRANOITA_AUTOTEST_WORLD");
+                var world = Main.WorldList.FirstOrDefault(w => w.Name == wanted || System.IO.Path.GetFileNameWithoutExtension(w.Path) == wanted) ?? Main.WorldList[0];
+                Entry.Log("AUTOTEST: entering " + world.Name + " as " + who.Name);
                 Main.SelectPlayer(who);
-                Main.WorldList[0].SetAsActive();
+                world.SetAsActive();
                 WorldGen.playWorld();
                 Main.menuMode = 10;
                 return;
             }
             var p = Main.LocalPlayer;
-            // keep the test character alive but still taking hits, so attacks show in the log
+            if (Cart.TestOn)
+            {
+                Cart.Test(p, ++_worldFrames);
+                return;
+            }
+            // keep the test character alive but still taking hits, so attacks show in the log (author: 1000 hp)
+            p.statLifeMax = p.statLifeMax2 = 1000;
             if (p.statLife < p.statLifeMax2 / 2)
                 p.statLife = p.statLifeMax2;
             _worldFrames++;
-            var all = Built;
-            if (Showcase)
+            // only the enemy under test: Terraria's own hostile NPCs are removed as soon as they appear
+            // (not in multiplayer: a client does not own the NPCs, and it would hide the server's creatures from itself)
+            for (int i = 0; i < Main.maxNPCs && string.IsNullOrEmpty(Join); i++)
             {
-                // TERRANOITA_SHOWCASE=1: noon, and a group of Noita enemies around the player, for the listing's screenshots
+                var other = Main.npc[i];
+                if (other.active && !other.friendly && !other.townNPC && Carriers.Get(other) == null && !Carriers.IsSegment(other))
+                    other.active = false;
+            }
+            if (!string.IsNullOrEmpty(Join))
+            {
+                // multiplayer: what of the server's Noita creatures this client knows (PC-38). At frame 120 the test
+                // character goes into the caves (no town nearby, no daylight rule), where Noita creatures come
                 if (_worldFrames == 120)
                 {
-                    Main.dayTime = true;
-                    Main.time = 27000;
-                    foreach (var (id, tiles) in new[] { ("shotgunner_weak", 9), ("miner_weak", 14), ("zombie_weak", -6), ("firemage_weak", -11), ("bat", 5) })
+                    int cx = (int)(p.Center.X / 16);
+                    for (int y = (int)Main.rockLayer + 20; y < Main.maxTilesY - 250; y++)
                     {
-                        int dir = p.direction;
-                        p.direction = Math.Sign(tiles);
-                        SpawnInFront(Defs.Enemy[id], Math.Abs(tiles));
-                        p.direction = dir;
+                        bool air = true;
+                        for (int dx = -1; dx <= 1 && air; dx++)
+                            for (int dy = -3; dy <= 0 && air; dy++)
+                            {
+                                var t = Main.tile[cx + dx, y + dy];
+                                air = t != null && !(t.active() && Main.tileSolid[t.type]) && t.liquid == 0;
+                            }
+                        var below = Main.tile[cx, y + 1];
+                        if (air && below != null && below.active() && Main.tileSolid[below.type])
+                        {
+                            p.Teleport(new Vector2(cx * 16 - p.width / 2f + 8, (y + 1) * 16 - p.height), 1);
+                            p.velocity = Vector2.Zero;
+                            NetMessage.SendData(13, -1, -1, null, p.whoAmI);   // PlayerControls: the server learns where we are
+                            Entry.Log("MPTEST: into the caves at tile " + cx + "," + y);
+                            break;
+                        }
                     }
-                    Entry.Log("AUTOTEST: showcase ready");
+                }
+                // TERRANOITA_MPTEST_CAST=1: this client casts a Spark Bolt every second (the other client should see it)
+                if (Environment.GetEnvironmentVariable("TERRANOITA_MPTEST_CAST") == "1" && _worldFrames >= 200)
+                {
+                    if (_mpWand == null)
+                    {
+                        _mpWand = Magic.WandStore.NewWand();
+                        _mpWand.Name = "mp test"; _mpWand.Sprite = "data/items_gfx/handgun.xml";
+                        _mpWand.Slots = new[] { "LIGHT_BULLET" }; _mpWand.Uses = new[] { -1 };
+                        _mpWand.CastDelay = 60; _mpWand.RechargeTime = 60; _mpWand.ManaMax = 300; _mpWand.ManaChargeSpeed = 300;
+                        p.inventory[0] = Magic.MagicItems.MakeWand(_mpWand);
+                        p.selectedItemState.Select(0);
+                    }
+                    Magic.Casting.TestAim = p.Center + new Vector2(300 * p.direction, -40);
+                    Magic.Casting.TestFire = true;
+                }
+                if (_worldFrames % 300 == 0)
+                    Entry.Log("MPTEST frame " + _worldFrames + ": remote shots " + Magic.SpellShots.RemoteCount + ", casts " + Magic.Casting.TestCasts + ", at tile " + (int)(p.Center.X / 16) + "," + (int)(p.Center.Y / 16) + ", netMode " + Main.netMode + ", Noita creatures " +
+                              Enumerable.Range(0, Main.maxNPCs).Count(i => Main.npc[i].active && Carriers.Get(Main.npc[i]) != null) + ", segments " +
+                              Enumerable.Range(0, Main.maxNPCs).Count(i => Main.npc[i].active && Carriers.IsSegment(Main.npc[i])) + ", other npcs " +
+                              Enumerable.Range(0, Main.maxNPCs).Count(i => Main.npc[i].active && Carriers.Get(Main.npc[i]) == null && !Carriers.IsSegment(Main.npc[i])) +
+                              "; carrier npcs received: " + string.Join(",", Enumerable.Range(0, Main.maxNPCs).Where(i => Main.npc[i].active && Main.npc[i].type == Carriers.CarrierType)
+                                  .Select(i => "#" + i + " tag " + Main.npc[i].ai[3] + " at " + (int)((Main.npc[i].Center.X - p.Center.X) / 16) + "," + (int)((Main.npc[i].Center.Y - p.Center.Y) / 16))));
+                if (_worldFrames >= 5400 && ExitWhenDone)
+                    Main.instance.Exit();
+                return;
+            }
+            if (Physics.LiquidGallery.Enabled)
+            {
+                Physics.LiquidGallery.Frame(p, _worldFrames);
+                if (Physics.LiquidAudit.Enabled)
+                {
+                    Physics.LiquidAudit.Frame(p, _worldFrames);
+                    if (Physics.LiquidAudit.Done && ExitWhenDone)
+                        Main.instance.Exit();
                 }
                 return;
             }
+            if (Magic.SpellProbeTest.Enabled)
+            {
+                Magic.SpellProbeTest.Frame(p, _worldFrames);
+                if (Magic.SpellProbeTest.Done && ExitWhenDone)
+                    Main.instance.Exit();
+                return;
+            }
+            if (Magic.SpellsTest.Enabled)
+            {
+                Magic.SpellsTest.Frame(p, _worldFrames);
+                if (Magic.SpellsTest.Done && ExitWhenDone)
+                    Main.instance.Exit();
+                return;
+            }
+            if (Magic.WandsTest.Enabled)
+            {
+                Magic.WandsTest.Frame(p, _worldFrames);
+                if (Magic.WandsTest.Done && ExitWhenDone)
+                    Main.instance.Exit();
+                return;
+            }
+            if (Magic.Sandbox.Enabled)
+            {
+                Magic.Sandbox.Frame(p, _worldFrames);
+                return;
+            }
+            if (Magic.MagicTest.Enabled)
+            {
+                Magic.MagicTest.Frame(p, _worldFrames);
+                if (_worldFrames == Magic.MagicTest.Length && ExitWhenDone)
+                    Main.instance.Exit();
+                return;
+            }
+            if (Physics.PerfTest.Enabled)
+            {
+                Physics.PerfTest.Frame(p, _worldFrames);
+                if (_worldFrames == Physics.PerfTest.Length && ExitWhenDone)
+                    Main.instance.Exit();
+                return;
+            }
+            if (Magic.PerksAllTest.Enabled)
+            {
+                Magic.PerksAllTest.Frame(p, _worldFrames);
+                if (Magic.PerksAllTest.Done && ExitWhenDone)
+                    Main.instance.Exit();
+                return;
+            }
+            if (Magic.PerkTest.Enabled)
+            {
+                Magic.PerkTest.Frame(p, _worldFrames);
+                if (_worldFrames == Magic.PerkTest.Length && ExitWhenDone)
+                    Main.instance.Exit();
+                return;
+            }
+            if (Physics.ReactionTest.Enabled)
+            {
+                Physics.ReactionTest.Frame(p, _worldFrames);
+                if (_worldFrames == Physics.ReactionTest.Length && ExitWhenDone)
+                    Main.instance.Exit();
+                return;
+            }
+            if (Physics.PhysicsTest.Enabled)
+            {
+                Physics.PhysicsTest.Frame(p, _worldFrames);
+                if (_worldFrames == Physics.PhysicsTest.Length)
+                {
+                    Entry.Log("AUTOTEST: done (physics)");
+                    if (ExitWhenDone)
+                        Main.instance.Exit();
+                }
+                return;
+            }
+            var all = OnlyStage == null ? Built : Built.Where(e => e.Stage == OnlyStage).ToArray();
+            // TERRANOITA_AUTOTEST_ONLY=worm,eel: just these enemies
+            var only = Environment.GetEnvironmentVariable("TERRANOITA_AUTOTEST_ONLY");
+            if (!string.IsNullOrEmpty(only))
+                all = all.Where(e => only.Split(',').Contains(e.Id)).ToArray();
+            if (_worldFrames >= 300 && (_worldFrames - 300) % Each == Each / 2)
+                WormBodyCheck();
             // one enemy every 6 seconds, starting 5 seconds in; then a natural-spawn check
-            if (_worldFrames >= 300 && (_worldFrames - 300) % 360 == 0 && _autoIndex < all.Length)
+            if (_worldFrames >= 300 && (_worldFrames - 300) % Each == 0 && _autoIndex < all.Length)
             {
                 var e = all[_autoIndex++];
-                // one enemy at a time: remove the previous ones
+                // one enemy at a time: kill the previous ones (so their loot is tested), remove what survives
                 for (int i = 0; i < Main.maxNPCs; i++)
                     if (Main.npc[i].active && Carriers.Get(Main.npc[i]) != null)
                     {
-                        Carriers.Forget(Main.npc[i]);
-                        Main.npc[i].active = false;
+                        Main.npc[i].StrikeNPCNoInteraction(Main.npc[i].lifeMax * 10, 0f, 0);
+                        if (Main.npc[i].active && Carriers.Get(Main.npc[i]) != null)
+                        {
+                            Carriers.Forget(Main.npc[i]);
+                            Main.npc[i].active = false;
+                        }
                     }
+                if (Places)
+                    MoveToPlace(p, _autoIndex);
                 Entry.Log("AUTOTEST: spawning " + e.Id);
                 SpawnInFront(e, 10);
             }
@@ -144,11 +419,44 @@ namespace Terranoita.Game
                 var live = Enumerable.Range(0, Main.maxNPCs).Select(i => Main.npc[i])
                     .Where(n => n.active && Carriers.Get(n) != null)
                     .Select(n => Carriers.Get(n).Def.Id + "@" + (int)((n.Center.X - p.Center.X) / 16) + "," + (int)((n.Center.Y - p.Center.Y) / 16) +
-                                 " " + Carriers.Get(n).Brain.Anim + " hp" + n.life);
+                                 " " + Carriers.Get(n).Brain.Anim + " hp" + n.life + (OnScreen(n) ? "" : " OFFSCREEN"));
                 Entry.Log("AUTOTEST: player hp " + p.statLife + "; " + string.Join(" | ", live));
             }
-            if (_worldFrames == 300 + 360 * all.Length + 600)
+            if (_worldFrames == 300 + Each * all.Length + 600)
+            {
                 Entry.Log("AUTOTEST: done; Noita enemies alive: " + Carriers.CountNear(p.Center, 99999));
+                if (ExitWhenDone)
+                    Main.instance.Exit();
+            }
+        }
+
+        /// <summary>Halfway through a worm's turn: hit its middle segment and log what the head took (worm bodies).</summary>
+        static void WormBodyCheck()
+        {
+            for (int i = 0; i < Main.maxNPCs; i++)
+            {
+                var head = Main.npc[i];
+                var n = head.active ? Carriers.Get(head) : null;
+                if (n?.Parts == null)
+                    continue;
+                int alive = n.Parts.Count(j => j >= 0 && Main.npc[j].active && Carriers.IsSegment(Main.npc[j]));
+                int mid = n.Parts[n.Parts.Length / 2];
+                if (mid < 0 || !Main.npc[mid].active)
+                {
+                    Entry.Log("AUTOTEST: worm " + n.Def.Id + " segments " + alive + "/" + n.Parts.Length + ", middle one missing");
+                    continue;
+                }
+                var seg = Main.npc[mid];
+                int before = head.life;
+                seg.StrikeNPC(10, 0f, 1, false, false, 0);
+                Entry.Log("AUTOTEST: worm " + n.Def.Id + " segments " + alive + "/" + n.Parts.Length + "; middle at " +
+                          (int)((seg.Center.X - head.Center.X) / 16) + "," + (int)((seg.Center.Y - head.Center.Y) / 16) +
+                          " tiles from the head; hit it for 10: head life " + before + " -> " + head.life + ", segment life " + seg.life);
+            }
+            int stray = Enumerable.Range(0, Main.maxNPCs).Count(i => Main.npc[i].active && Carriers.IsSegment(Main.npc[i]) &&
+                                                                       Carriers.Get(Carriers.HeadOfSegment(Main.npc[i])) == null);
+            if (stray > 0)
+                Entry.Log("AUTOTEST: " + stray + " worm segments without a head");
         }
 
         [Hook("main_update")]

@@ -41,6 +41,13 @@
    "_unverified": {}
   },
   {
+   "id": "terraria_twin",
+   "description": "Author: besides the gold, the loot of a Terraria enemy of similar strength from the same place.",
+   "rule": "on every noita_gold kill: Terraria enemies (not boss/critter/town, own drop rules) whose bestiary biome is where the player is (special biomes first, else Surface/Underground/Caverns); one of the 3 with the nearest normal-mode max life; its drop rules rolled by Terraria's ItemDropResolver at the kill (no coins)",
+   "stage": "1b",
+   "_unverified": {}
+  },
+  {
    "id": "boss_reward",
    "description": "Boss loot.",
    "rule": null,

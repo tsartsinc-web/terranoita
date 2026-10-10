@@ -1,0 +1,726 @@
+{
+ "sheet": "status_effects",
+ "description": "Stage 2: Noita status effects, run by our code with Noita's icons.",
+ "key": "id",
+ "columns": {
+  "id": {
+   "type": "string",
+   "desc": "Noita status effect id (status_list.lua)."
+  },
+  "name_key": {
+   "type": "string",
+   "desc": "Name in Noita's common.csv."
+  },
+  "desc_key": {
+   "type": "string",
+   "desc": "Description in Noita's common.csv."
+  },
+  "icon": {
+   "type": "string",
+   "desc": "Icon in data.wak."
+  },
+  "harmful": {
+   "type": "bool",
+   "desc": "Noita is_harmful."
+  },
+  "protects_from_fire": {
+   "type": "bool",
+   "desc": "Noita protects_from_fire: puts out and keeps off fire."
+  },
+  "removes_cause": {
+   "type": "bool",
+   "desc": "Noita remove_cells_that_cause_when_activated: the liquid that caused it is used up."
+  },
+  "mechanic": {
+   "type": "string",
+   "desc": "What our code does while it lasts."
+  },
+  "cancels": {
+   "type": "string[]",
+   "desc": "Opposite effects it ends when it starts (author: the rest stay together)."
+  },
+  "seconds": {
+   "type": "number",
+   "desc": "How long one touch lasts (refreshed while touching)."
+  },
+  "stage": {
+   "type": "enum",
+   "values": [
+    "1a",
+    "1b",
+    "1c",
+    "2",
+    "3",
+    "4"
+   ],
+   "desc": "Stage that builds it."
+  }
+ },
+ "rows": [
+  {
+   "id": "WET",
+   "name_key": "status_wet",
+   "desc_key": "statusdesc_wet",
+   "icon": "data/ui_gfx/status_indicators/wet.png",
+   "harmful": false,
+   "protects_from_fire": true,
+   "removes_cause": false,
+   "cancels": [
+    "BLOODY",
+    "INGESTION_ON_FIRE",
+    "JARATE",
+    "OILED",
+    "ON_FIRE",
+    "SLIMY"
+   ],
+   "mechanic": "puts out fire and keeps it off",
+   "seconds": 10,
+   "stage": "2",
+   "_unverified": {},
+   "_sources": {
+    "all": "status_list.lua"
+   }
+  },
+  {
+   "id": "OILED",
+   "name_key": "status_oiled",
+   "desc_key": "statusdesc_oiled",
+   "icon": "data/ui_gfx/status_indicators/oiled.png",
+   "harmful": false,
+   "protects_from_fire": true,
+   "removes_cause": false,
+   "cancels": [
+    "WET"
+   ],
+   "mechanic": "drips oil; puts out fire (Noita protects_from_fire)",
+   "seconds": 15,
+   "stage": "2",
+   "_unverified": {},
+   "_sources": {
+    "all": "status_list.lua"
+   }
+  },
+  {
+   "id": "BLOODY",
+   "name_key": "status_bloody",
+   "desc_key": "statusdesc_bloody",
+   "icon": "data/ui_gfx/status_indicators/bloody.png",
+   "harmful": false,
+   "protects_from_fire": true,
+   "removes_cause": false,
+   "cancels": [
+    "WET"
+   ],
+   "mechanic": "drips blood; puts out fire",
+   "seconds": 10,
+   "stage": "2",
+   "_unverified": {},
+   "_sources": {
+    "all": "status_list.lua"
+   }
+  },
+  {
+   "id": "SLIMY",
+   "name_key": "status_slimy",
+   "desc_key": "statusdesc_slimy",
+   "icon": "data/ui_gfx/status_indicators/slimy.png",
+   "harmful": false,
+   "protects_from_fire": true,
+   "removes_cause": false,
+   "cancels": [
+    "MOVEMENT_FASTER_2X",
+    "WET"
+   ],
+   "mechanic": "70% movement speed; puts out fire",
+   "seconds": 10,
+   "stage": "2",
+   "_unverified": {},
+   "_sources": {
+    "all": "status_list.lua"
+   }
+  },
+  {
+   "id": "RADIOACTIVE",
+   "name_key": "status_radioactive",
+   "desc_key": "statusdesc_radioactive",
+   "icon": "data/ui_gfx/status_indicators/radioactive.png",
+   "harmful": true,
+   "protects_from_fire": true,
+   "removes_cause": false,
+   "cancels": [
+    "HP_REGENERATION"
+   ],
+   "mechanic": "loses 6 hp/s; puts out fire",
+   "seconds": 6,
+   "stage": "2",
+   "_unverified": {},
+   "_sources": {
+    "all": "status_list.lua"
+   }
+  },
+  {
+   "id": "ALCOHOLIC",
+   "name_key": "status_alcoholic",
+   "desc_key": "statusdesc_alcoholic",
+   "icon": "data/ui_gfx/status_indicators/alcoholic.png",
+   "harmful": true,
+   "protects_from_fire": false,
+   "removes_cause": false,
+   "cancels": [],
+   "mechanic": "stumbles (random sideways push)",
+   "seconds": 20,
+   "stage": "2",
+   "_unverified": {},
+   "_sources": {
+    "all": "status_list.lua"
+   }
+  },
+  {
+   "id": "INGESTION_DRUNK",
+   "name_key": "status_ingestion_alcoholic_02",
+   "desc_key": "statusdesc_ingestion_alcoholic_02",
+   "icon": "data/ui_gfx/status_indicators/drunk.png",
+   "harmful": true,
+   "protects_from_fire": false,
+   "removes_cause": false,
+   "cancels": [],
+   "mechanic": "stumbles (random sideways push)",
+   "seconds": 20,
+   "stage": "2",
+   "_unverified": {},
+   "_sources": {
+    "all": "status_list.lua"
+   }
+  },
+  {
+   "id": "POISONED",
+   "name_key": "status_poisoned",
+   "desc_key": "statusdesc_poisoned",
+   "icon": "data/ui_gfx/status_indicators/poisoned.png",
+   "harmful": true,
+   "protects_from_fire": false,
+   "removes_cause": false,
+   "cancels": [
+    "HP_REGENERATION"
+   ],
+   "mechanic": "loses 2 hp/s",
+   "seconds": 5,
+   "stage": "2",
+   "_unverified": {},
+   "_sources": {
+    "all": "status_list.lua"
+   }
+  },
+  {
+   "id": "FOOD_POISONING",
+   "name_key": "status_food_poisoning",
+   "desc_key": "statusdesc_food_poisoning",
+   "icon": "data/ui_gfx/status_indicators/food_poisoning.png",
+   "harmful": true,
+   "protects_from_fire": false,
+   "removes_cause": false,
+   "cancels": [
+    "HP_REGENERATION",
+    "MOVEMENT_FASTER_2X"
+   ],
+   "mechanic": "loses 2 hp/s, 80% movement speed",
+   "seconds": 8,
+   "stage": "2",
+   "_unverified": {},
+   "_sources": {
+    "all": "status_list.lua"
+   }
+  },
+  {
+   "id": "ON_FIRE",
+   "name_key": "status_on_fire",
+   "desc_key": "statusdesc_on_fire",
+   "icon": "data/ui_gfx/status_indicators/on_fire.png",
+   "harmful": true,
+   "protects_from_fire": false,
+   "removes_cause": false,
+   "cancels": [
+    "CHILLED",
+    "INGESTION_FREEZING",
+    "WET"
+   ],
+   "mechanic": "burns: Terraria's on-fire damage and flames; lights what it touches",
+   "seconds": 4,
+   "stage": "2",
+   "_unverified": {},
+   "_sources": {
+    "all": "status_list.lua"
+   }
+  },
+  {
+   "id": "INGESTION_ON_FIRE",
+   "name_key": "status_internal_fire",
+   "desc_key": "statusdesc_internal_fire",
+   "icon": "data/ui_gfx/status_indicators/internal_fire.png",
+   "harmful": true,
+   "protects_from_fire": false,
+   "removes_cause": false,
+   "cancels": [
+    "CHILLED",
+    "INGESTION_FREEZING",
+    "WET"
+   ],
+   "mechanic": "burns: Terraria's on-fire damage and flames; lights what it touches",
+   "seconds": 4,
+   "stage": "2",
+   "_unverified": {},
+   "_sources": {
+    "all": "status_list.lua"
+   }
+  },
+  {
+   "id": "TRIP",
+   "name_key": "status_trip_03",
+   "desc_key": "statusdesc_trip_03",
+   "icon": "data/ui_gfx/status_indicators/trip.png",
+   "harmful": false,
+   "protects_from_fire": false,
+   "removes_cause": false,
+   "cancels": [],
+   "mechanic": "sparkles of every colour around the player",
+   "seconds": 10,
+   "stage": "2",
+   "_unverified": {},
+   "_sources": {
+    "all": "status_list.lua"
+   }
+  },
+  {
+   "id": "CONFUSION",
+   "name_key": "status_confusion",
+   "desc_key": "statusdesc_confusion",
+   "icon": "data/ui_gfx/status_indicators/confusion.png",
+   "harmful": true,
+   "protects_from_fire": false,
+   "removes_cause": false,
+   "cancels": [],
+   "mechanic": "left and right swapped (Terraria confused)",
+   "seconds": 6,
+   "stage": "2",
+   "_unverified": {},
+   "_sources": {
+    "all": "status_list.lua"
+   }
+  },
+  {
+   "id": "WEAKNESS",
+   "name_key": "status_weakness",
+   "desc_key": "statusdesc_weakness",
+   "icon": "data/ui_gfx/status_indicators/weakness.png",
+   "harmful": false,
+   "protects_from_fire": false,
+   "removes_cause": false,
+   "cancels": [
+    "BERSERK",
+    "PROTECTION_ALL"
+   ],
+   "mechanic": "takes double damage",
+   "seconds": 15,
+   "stage": "2",
+   "_unverified": {},
+   "_sources": {
+    "all": "status_list.lua"
+   }
+  },
+  {
+   "id": "HP_REGENERATION",
+   "name_key": "status_hp_regeneration",
+   "desc_key": "statusdesc_hp_regeneration",
+   "icon": "data/ui_gfx/status_indicators/hp_regeneration.png",
+   "harmful": false,
+   "protects_from_fire": false,
+   "removes_cause": false,
+   "cancels": [
+    "FOOD_POISONING",
+    "POISONED",
+    "RADIOACTIVE"
+   ],
+   "mechanic": "heals 10 hp/s",
+   "seconds": 6,
+   "stage": "2",
+   "_unverified": {},
+   "_sources": {
+    "all": "status_list.lua"
+   }
+  },
+  {
+   "id": "MANA_REGENERATION",
+   "name_key": "status_mana_regeneration",
+   "desc_key": "statusdesc_mana_regeneration",
+   "icon": "data/ui_gfx/status_indicators/mana_regeneration.png",
+   "harmful": false,
+   "protects_from_fire": false,
+   "removes_cause": false,
+   "cancels": [],
+   "mechanic": "mana refills fast",
+   "seconds": 15,
+   "stage": "2",
+   "_unverified": {},
+   "_sources": {
+    "all": "status_list.lua"
+   }
+  },
+  {
+   "id": "MOVEMENT_FASTER_2X",
+   "name_key": "status_movement_faster",
+   "desc_key": "statusdesc_movement_faster",
+   "icon": "data/ui_gfx/status_indicators/movement_faster.png",
+   "harmful": false,
+   "protects_from_fire": false,
+   "removes_cause": false,
+   "cancels": [
+    "CHILLED",
+    "FOOD_POISONING",
+    "SLIMY"
+   ],
+   "mechanic": "double movement speed",
+   "seconds": 15,
+   "stage": "2",
+   "_unverified": {},
+   "_sources": {
+    "all": "status_list.lua"
+   }
+  },
+  {
+   "id": "FASTER_LEVITATION",
+   "name_key": "status_faster_levitation",
+   "desc_key": "statusdesc_faster_levitation",
+   "icon": "data/ui_gfx/status_indicators/faster_levitation.png",
+   "harmful": false,
+   "protects_from_fire": false,
+   "removes_cause": false,
+   "cancels": [],
+   "mechanic": "holding jump lifts the player",
+   "seconds": 15,
+   "stage": "2",
+   "_unverified": {},
+   "_sources": {
+    "all": "status_list.lua"
+   }
+  },
+  {
+   "id": "NIGHTVISION",
+   "name_key": "status_nightvision",
+   "desc_key": "statusdesc_nightvision",
+   "icon": "data/ui_gfx/status_indicators/nightvision.png",
+   "harmful": false,
+   "protects_from_fire": false,
+   "removes_cause": false,
+   "cancels": [],
+   "mechanic": "sees in the dark (Terraria night owl)",
+   "seconds": 30,
+   "stage": "2",
+   "_unverified": {},
+   "_sources": {
+    "all": "status_list.lua"
+   }
+  },
+  {
+   "id": "INVISIBILITY",
+   "name_key": "status_invisibility",
+   "desc_key": "statusdesc_invisibility",
+   "icon": "data/ui_gfx/status_indicators/invisibility.png",
+   "harmful": false,
+   "protects_from_fire": false,
+   "removes_cause": false,
+   "cancels": [],
+   "mechanic": "invisible; Noita enemies lose sight of the player",
+   "seconds": 15,
+   "stage": "2",
+   "_unverified": {},
+   "_sources": {
+    "all": "status_list.lua"
+   }
+  },
+  {
+   "id": "PROTECTION_ALL",
+   "name_key": "status_protection_all",
+   "desc_key": "statusdesc_protection_all",
+   "icon": "data/ui_gfx/status_indicators/protection_all.png",
+   "harmful": false,
+   "protects_from_fire": false,
+   "removes_cause": false,
+   "cancels": [
+    "WEAKNESS"
+   ],
+   "mechanic": "takes no damage",
+   "seconds": 15,
+   "stage": "2",
+   "_unverified": {},
+   "_sources": {
+    "all": "status_list.lua"
+   }
+  },
+  {
+   "id": "BERSERK",
+   "name_key": "status_berserk",
+   "desc_key": "statusdesc_berserk",
+   "icon": "data/ui_gfx/status_indicators/berserk.png",
+   "harmful": true,
+   "protects_from_fire": false,
+   "removes_cause": false,
+   "cancels": [
+    "WEAKNESS"
+   ],
+   "mechanic": "deals double damage",
+   "seconds": 15,
+   "stage": "2",
+   "_unverified": {},
+   "_sources": {
+    "all": "status_list.lua"
+   }
+  },
+  {
+   "id": "CHARM",
+   "name_key": "status_charm",
+   "desc_key": "statusdesc_charm",
+   "icon": "data/ui_gfx/status_indicators/charm.png",
+   "harmful": false,
+   "protects_from_fire": false,
+   "removes_cause": false,
+   "cancels": [],
+   "mechanic": "Noita enemies that touch it fight for the player",
+   "seconds": 30,
+   "stage": "2",
+   "_unverified": {},
+   "_sources": {
+    "all": "status_list.lua"
+   }
+  },
+  {
+   "id": "POLYMORPH",
+   "name_key": "status_polymorph",
+   "desc_key": "statusdesc_polymorph",
+   "icon": "data/ui_gfx/status_indicators/polymorph.png",
+   "harmful": true,
+   "protects_from_fire": false,
+   "removes_cause": true,
+   "cancels": [
+    "POLYMORPH_RANDOM",
+    "POLYMORPH_UNSTABLE"
+   ],
+   "mechanic": "cannot use items, 60% movement speed",
+   "seconds": 8,
+   "stage": "2",
+   "_unverified": {},
+   "_sources": {
+    "all": "status_list.lua"
+   }
+  },
+  {
+   "id": "POLYMORPH_RANDOM",
+   "name_key": "status_polymorph_random",
+   "desc_key": "statusdesc_polymorph_random",
+   "icon": "data/ui_gfx/status_indicators/polymorph_random.png",
+   "harmful": true,
+   "protects_from_fire": false,
+   "removes_cause": true,
+   "cancels": [
+    "POLYMORPH",
+    "POLYMORPH_UNSTABLE"
+   ],
+   "mechanic": "cannot use items, 60% movement speed",
+   "seconds": 8,
+   "stage": "2",
+   "_unverified": {},
+   "_sources": {
+    "all": "status_list.lua"
+   }
+  },
+  {
+   "id": "POLYMORPH_UNSTABLE",
+   "name_key": "status_polymorph_random",
+   "desc_key": "statusdesc_polymorph_random",
+   "icon": "data/ui_gfx/status_indicators/polymorph_random.png",
+   "harmful": true,
+   "protects_from_fire": false,
+   "removes_cause": true,
+   "cancels": [
+    "POLYMORPH",
+    "POLYMORPH_RANDOM"
+   ],
+   "mechanic": "cannot use items, 60% movement speed",
+   "seconds": 8,
+   "stage": "2",
+   "_unverified": {},
+   "_sources": {
+    "all": "status_list.lua"
+   }
+  },
+  {
+   "id": "TELEPORTATION",
+   "name_key": "status_teleportation",
+   "desc_key": "statusdesc_teleportation",
+   "icon": "data/ui_gfx/status_indicators/teleportation.png",
+   "harmful": true,
+   "protects_from_fire": false,
+   "removes_cause": false,
+   "cancels": [
+    "UNSTABLE_TELEPORTATION"
+   ],
+   "mechanic": "every 2 s teleports 10-25 tiles to a free spot",
+   "seconds": 6,
+   "stage": "2",
+   "_unverified": {},
+   "_sources": {
+    "all": "status_list.lua"
+   }
+  },
+  {
+   "id": "UNSTABLE_TELEPORTATION",
+   "name_key": "status_teleportation",
+   "desc_key": "statusdesc_teleportation",
+   "icon": "data/ui_gfx/status_indicators/teleportation.png",
+   "harmful": true,
+   "protects_from_fire": false,
+   "removes_cause": false,
+   "cancels": [
+    "TELEPORTATION"
+   ],
+   "mechanic": "every 2 s teleports 40-80 tiles to a free spot",
+   "seconds": 6,
+   "stage": "2",
+   "_unverified": {},
+   "_sources": {
+    "all": "status_list.lua"
+   }
+  },
+  {
+   "id": "WORM_ATTRACTOR",
+   "name_key": "status_worm_attractor",
+   "desc_key": "statusdesc_worm_attractor",
+   "icon": "data/ui_gfx/status_indicators/worm_attractor.png",
+   "harmful": true,
+   "protects_from_fire": false,
+   "removes_cause": false,
+   "cancels": [],
+   "mechanic": "Noita worms hunt the player from twice as far",
+   "seconds": 30,
+   "stage": "2",
+   "_unverified": {},
+   "_sources": {
+    "all": "status_list.lua"
+   }
+  },
+  {
+   "id": "INGESTION_FREEZING",
+   "name_key": "status_ingestion_freezing",
+   "desc_key": "statusdesc_ingestion_freezing",
+   "icon": "data/ui_gfx/status_indicators/ingestion_freezing.png",
+   "harmful": true,
+   "protects_from_fire": false,
+   "removes_cause": false,
+   "cancels": [
+    "INGESTION_ON_FIRE",
+    "ON_FIRE"
+   ],
+   "mechanic": "frozen in place (Terraria frozen)",
+   "seconds": 3,
+   "stage": "2",
+   "_unverified": {},
+   "_sources": {
+    "all": "status_list.lua"
+   }
+  },
+  {
+   "id": "CHILLED",
+   "name_key": "status_ingestion_freezing",
+   "desc_key": "statusdesc_ingestion_freezing",
+   "icon": "data/ui_gfx/status_indicators/ingestion_freezing.png",
+   "harmful": true,
+   "protects_from_fire": false,
+   "removes_cause": false,
+   "cancels": [
+    "INGESTION_ON_FIRE",
+    "MOVEMENT_FASTER_2X",
+    "ON_FIRE"
+   ],
+   "mechanic": "half movement speed (author: freezing liquid slows on touch; Noita icon and name of freezing)",
+   "seconds": 4,
+   "stage": "2",
+   "_unverified": {},
+   "_sources": {
+    "all": "status_list.lua (CHILLED)"
+   }
+  },
+  {
+   "id": "FARTS",
+   "name_key": "status_farts",
+   "desc_key": "statusdesc_farts",
+   "icon": "data/ui_gfx/status_indicators/farts.png",
+   "harmful": true,
+   "protects_from_fire": false,
+   "removes_cause": false,
+   "cancels": [],
+   "mechanic": "green puffs (Terraria stinky)",
+   "seconds": 15,
+   "stage": "2",
+   "_unverified": {},
+   "_sources": {
+    "all": "status_list.lua"
+   }
+  },
+  {
+   "id": "RAINBOW_FARTS",
+   "name_key": "status_rainbow_farts",
+   "desc_key": "statusdesc_rainbow_farts",
+   "icon": "data/ui_gfx/status_indicators/farts.png",
+   "harmful": false,
+   "protects_from_fire": false,
+   "removes_cause": false,
+   "cancels": [],
+   "mechanic": "rainbow puffs",
+   "seconds": 15,
+   "stage": "2",
+   "_unverified": {},
+   "_sources": {
+    "all": "status_list.lua"
+   }
+  },
+  {
+   "id": "JARATE",
+   "name_key": "status_jarate",
+   "desc_key": "statusdesc_jarate",
+   "icon": "data/ui_gfx/status_indicators/jarate.png",
+   "harmful": false,
+   "protects_from_fire": false,
+   "removes_cause": false,
+   "cancels": [
+    "WET"
+   ],
+   "mechanic": "yellow drips",
+   "seconds": 15,
+   "stage": "2",
+   "_unverified": {},
+   "_sources": {
+    "all": "status_list.lua"
+   }
+  },
+  {
+   "id": "ELECTROCUTION",
+   "name_key": "none",
+   "desc_key": "none",
+   "icon": "none",
+   "harmful": true,
+   "protects_from_fire": false,
+   "removes_cause": false,
+   "cancels": [],
+   "mechanic": "creatures cannot move while it lasts (disable_movement); the player gets Terraria's Electrified buff instead (author 2026-10-08)",
+   "seconds": 0.667,
+   "stage": "3",
+   "_unverified": {
+    "name_key": "Noita shows no status for it; a name/icon from data/entities/misc/effect_electricity.xml if it has one (PC)",
+    "icon": "as name_key"
+   },
+   "_sources": {
+    "all": "data/entities/misc/effect_electricity.xml GameEffectComponent (frames 40) via electricity_facts.json",
+    "harmful": "it stuns and comes with electricity damage"
+   }
+  }
+ ]
+}

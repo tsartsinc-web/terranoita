@@ -5,6 +5,7 @@ using HarmonyLib;
 using Microsoft.Xna.Framework;
 using Terranoita.Generated;
 using Terraria;
+using Terraria.ID;
 
 namespace Terranoita.Game
 {
@@ -16,6 +17,7 @@ namespace Terranoita.Game
     {
         const int MaxNear = 4;            // Noita enemies within 120 tiles of the player
         const int ChancePerFrame = 480;   // ~ one roll every 8 seconds at spawn weight 1
+        const int PreHardmodeMaxLife = 1000;  // author: tougher enemies only after the Wall of Flesh
 
         static List<(EnemyDef def, Func<Player, int, int, bool>[] where)> _pool;
 
@@ -27,6 +29,7 @@ namespace Terranoita.Game
                 if (!Defs.InStage(e.Stage, Entry.Stage) || e.SpawnRule != "natural")
                     continue;
                 var checks = new List<Func<Player, int, int, bool>>();
+                bool tough = e.NoitaHp * Defs.Tier[e.Tier].HpMult > PreHardmodeMaxLife;
                 foreach (var loc in e.SpawnIn ?? new string[0])
                 {
                     if (!Defs.Biome.TryGetValue(loc, out var b) || !Defs.Zone.TryGetValue(b.Zone, out var z))
@@ -34,7 +37,10 @@ namespace Terranoita.Game
                     if (!ZoneChecks.All.TryGetValue(z.Id, out var check) || check == null)
                         continue;
                     var zone = z;
-                    checks.Add((p, x, y) => Unlocked(zone) && check(p, x, y));
+                    // on the surface the hostile ones come only at night (author: bombers and shooters by day killed him);
+                    // blood moon and eclipse count as night; peaceful animals and fish keep coming by day
+                    bool nightOnly = zone.Id.StartsWith("surface") && e.Ai != "helpless_walker" && !Swims(e);
+                    checks.Add((p, x, y) => Unlocked(zone) && (!tough || Main.hardMode) && (!nightOnly || !Main.dayTime || Main.eclipse || Main.bloodMoon) && check(p, x, y));
                 }
                 if (checks.Count > 0)
                     _pool.Add((e, checks.ToArray()));
@@ -54,13 +60,44 @@ namespace Terranoita.Game
             }
         }
 
+        static readonly bool TestSpawn = Environment.GetEnvironmentVariable("TERRANOITA_TEST_SPAWN") == "1";
+
         static void Roll()
         {
-            if (Main.netMode != 0 || Main.gameMenu || !NoitaArt.Ready)
+            // single player, or the world's server for every player (multiplayer: clients make no creatures, as in Terraria)
+            if (Main.netMode == 1 || (Main.gameMenu && !Main.dedServ) || !NoitaArt.Ready || DebugTools.Testing)
                 return;
             if (_pool == null)
                 Build();
-            var p = Main.LocalPlayer;
+            if (Main.netMode == 2)
+            {
+                for (int k = 0; k < Main.maxPlayers; k++)
+                    if (Main.player[k].active)
+                    {
+                        // test (game_test -Mode mp with the server started with TERRANOITA_TEST_SPAWN=1): a weak zombie next
+                        // to every player every 5 s, whatever the place and time, so the client's side can be checked
+                        if (TestSpawn && Main.GameUpdateCount % 300 == 0)
+                        {
+                            var pl = Main.player[k];
+                            if (Main.dayTime)
+                            {
+                                Main.dayTime = false;   // the test is at night (author): surface creatures come too
+                                Main.time = 0;
+                                NetMessage.SendData(7);
+                            }
+                            int who = Carriers.Spawn(Enemies.All.First(e => e.Id == "zombie_weak"), (int)pl.Center.X + 160, (int)pl.Bottom.Y);
+                            Entry.Log("TEST server: player " + k + " at tile " + (int)(pl.Center.X / 16) + "," + (int)(pl.Center.Y / 16) + " -> #" + who +
+                                      "; carriers alive " + Enumerable.Range(0, Main.maxNPCs).Count(i => Main.npc[i].active && Main.npc[i].type == Carriers.CarrierType));
+                        }
+                        RollFor(Main.player[k]);
+                    }
+                return;
+            }
+            RollFor(Main.LocalPlayer);
+        }
+
+        static void RollFor(Player p)
+        {
             if (!p.active || p.dead || p.townNPCs > 1 || p.ZonePeaceCandle || Main.CurrentFrameFlags.AnyActiveBossNPC)
                 return;
             if (Main.rand.Next(ChancePerFrame) != 0)
@@ -89,6 +126,7 @@ namespace Terranoita.Game
                 bool grounded = Solid(x, floor + 1);
                 var options = _pool.Where(o => (only == null || o.def == only) &&
                                                (grounded || o.def.Flies) &&
+                                               (!Swims(o.def) || Water(x, floor)) &&
                                                o.where.Any(w => w(p, x, floor))).ToList();
                 if (only != null && options.Count == 0)
                     options = _pool.Where(o => o.def == only).ToList();
@@ -102,6 +140,15 @@ namespace Terranoita.Game
                 return Carriers.Spawn(pick, x * 16 + 8, (floor + 1) * 16);
             }
             return -1;
+        }
+
+        // fish and lampreys only come in water (author: a fish spawned on the surface)
+        static bool Swims(EnemyDef e) => e.Ai == "swimmer" || e.Ai == "worm_water";
+
+        static bool Water(int x, int y)
+        {
+            var t = Main.tile[x, y];
+            return t != null && t.liquid > 128 && t.liquidType() == LiquidID.Water;
         }
 
         static bool Solid(int x, int y)

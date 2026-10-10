@@ -33,7 +33,13 @@ namespace Terranoita.Launcher
                 return 0;
             }
             string here = AppDomain.CurrentDomain.BaseDirectory;
-            Log.Open();
+            // -server: the world's server for playing together (Host & Play starts us so; the mod's Host & Play patch):
+            // Terraria.exe as TerrariaServer.exe runs it (that build differs only by Main.dedServ = true before the game
+            // starts), with the same mod in it. Its own log, so the host's game log stays.
+            bool server = Array.IndexOf(args, "-server") >= 0;
+            // TERRANOITA_LOG: a log name of its own (the second client of the multiplayer test)
+            string logName = Environment.GetEnvironmentVariable("TERRANOITA_LOG");
+            Log.Open(logName ?? (server ? "server" : "latest"), logName != null ? logName + "_previous" : server ? "server_previous" : "previous");
             Log.Write("Terranoita launcher " + typeof(Program).Assembly.GetName().Version + ", folder " + here);
             try
             {
@@ -66,6 +72,14 @@ namespace Terranoita.Launcher
                 AppDomain.CurrentDomain.AssemblyResolve += (s, e) => ResolveEmbedded(terraria, e.Name);
                 Log.Write("Loaded " + terraria.FullName);
 
+                if (server)
+                {
+                    // the mod sets Main.dedServ where TerrariaServer.exe does (Program.RunGame): Main must not be touched
+                    // before Terraria has its save folder (Main's static setup reads it)
+                    Environment.SetEnvironmentVariable("TERRANOITA_SERVER", "1");
+                    passThrough.Remove("-server");
+                    Log.Write("server mode");
+                }
                 StartMod(here, terraria, noitaDir);
 
                 MethodInfo entry = terraria.GetType("Terraria.WindowsLaunch", true)
@@ -136,14 +150,14 @@ namespace Terranoita.Launcher
         public static string Folder => Path.Combine(
             Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData), "Terranoita", "logs");
 
-        public static void Open()
+        public static void Open(string name = "latest", string previous = "previous")
         {
             try
             {
                 Directory.CreateDirectory(Folder);
-                string latest = Path.Combine(Folder, "latest.log");
+                string latest = Path.Combine(Folder, name + ".log");
                 if (File.Exists(latest))
-                    File.Copy(latest, Path.Combine(Folder, "previous.log"), true);
+                    File.Copy(latest, Path.Combine(Folder, previous + ".log"), true);
                 _w = new StreamWriter(latest, false) { AutoFlush = true };
             }
             catch (Exception)

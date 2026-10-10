@@ -1,0 +1,1141 @@
+16:41:48.565 Terranoita launcher 0.1.0.0, folder D:\steam\steamapps\common\Terraria\
+16:41:48.567 Noita folder: D:\steam\steamapps\common\Noita
+16:41:48.573 Loaded Terraria, Version=1.4.5.8, Culture=neutral, PublicKeyToken=null
+16:41:48.578 Terraria assemblies loaded: 1
+16:41:48.610 Noita data.wak: 14745 files
+16:41:48.639 Terraria save folder: C:\Users\user\AppData\Local\Terranoita\testsave
+16:41:48.655 Resolved ReLogic from Terraria.exe resource Terraria.Libraries.ReLogic.ReLogic.dll
+16:41:48.804 Resolved Newtonsoft.Json from Terraria.exe resource Terraria.Libraries.JSON.NET.Newtonsoft.Json.dll
+16:41:48.809 Starting Terraria
+16:41:49.315 Resolved Steamworks.NET from Terraria.exe resource Terraria.Libraries.Steamworks.NET.Windows.Steamworks.NET.dll
+16:41:51.058 Resolved Ionic.Zip.CF from Terraria.exe resource Terraria.Libraries.DotNetZip.Ionic.Zip.CF.dll
+16:41:51.389 Resolved SteelSeriesEngineWrapper from Terraria.exe resource Terraria.Libraries.SteelSeries.SteelSeriesEngineWrapper.dll
+16:41:51.620 Resolved MP3Sharp from Terraria.exe resource Terraria.Libraries.MP3Sharp.MP3Sharp.dll
+16:41:58.496 Resolved RailSDK.Net from Terraria.exe resource Terraria.Libraries.RailSDK.Windows.RailSDK.Net.dll
+16:41:58.641 Resolved CsvHelper from Terraria.exe resource Terraria.Libraries.CsvHelper.CsvHelper.dll
+16:42:00.605 Resolved NVorbis from Terraria.exe resource Terraria.Libraries.NVorbis.NVorbis.dll
+16:42:05.815 Noita sprites loaded: 243, failed: 9
+16:42:06.069 Noita sounds ready
+16:42:06.070 hook ok      main_update -> Terraria.Main:DoUpdate(ref GameTime)
+16:42:06.070 hook ok      npc_spawn -> Terraria.NPC:SpawnNPC()
+16:42:06.071 hook ok      npc_ai -> Terraria.NPC:AI()
+16:42:06.071 hook ok      npc_findframe -> Terraria.NPC:FindFrame()
+16:42:06.072 hook ok      npc_draw -> Terraria.Main:DrawNPC(NPC, bool)
+16:42:06.072 hook ok      npc_name -> Terraria.NPC:get_TypeName()
+16:42:06.073 hook ok      npc_hiteffect -> Terraria.NPC:HitEffect(int, double)
+16:42:06.073 hook ok      npc_loot -> Terraria.NPC:NPCLoot()
+16:42:06.073 hook ok      npc_strike -> Terraria.NPC:StrikeNPC(int, float, int, bool, bool, int)
+16:42:06.074 hook ok      shots_update -> Terraria.Main:UpdateWorld_Projectiles()
+16:42:06.074 hook ok      shots_draw -> Terraria.Main:DrawProjectiles()
+16:42:06.075 hook ok      hit_by_item -> Terraria.Player:ProcessHitAgainstNPC(Item, Rectangle, int, float, int)
+16:42:06.075 hook ok      hit_by_projectile -> Terraria.Projectile:Damage_PVE_Inner(int, NPC, Rectangle, float, int[], ref bool)
+16:42:06.079 Terranoita patches applied: 13 methods
+16:42:08.158 AUTOTEST: entering путь свободы as Terranoita Test
+16:42:10.468 AUTOTEST: player hp 100; 
+16:42:11.484 AUTOTEST: player hp 100; 
+16:42:12.484 AUTOTEST: player hp 100; 
+16:42:13.485 AUTOTEST: player hp 100; 
+16:42:14.518 AUTOTEST: place snow at 1315,316
+16:42:14.518 AUTOTEST: spawning weakspirit
+16:42:14.526 spawned weakspirit (Каамо-Ааве) #2 life 900 at tile 1325,324
+16:42:14.527 AUTOTEST: player hp 100; weakspirit@10,8 stand hp900
+16:42:15.768 AUTOTEST: player hp 100; weakspirit@6,5 fly hp900
+16:42:16.768 AUTOTEST: player hp 100; weakspirit@2,2 fly hp900 OFFSCREEN
+16:42:17.815 loot of weakspirit like Ледяной слизень (147): Гель
+16:42:17.816 killed weakspirit #2
+16:42:17.818 AUTOTEST: place desert at 309,234
+16:42:17.818 AUTOTEST: spawning slimespirit
+16:42:17.819 spawned slimespirit (Нева-Ааве) #3 life 300 at tile 319,234
+16:42:17.820 AUTOTEST: weakspirit #2 gone after 180 brain frames: active=False type=146 life=-8090/900 timeLeft=749 pos=1314,314
+16:42:17.820 AUTOTEST: player hp 100; slimespirit@10,0 stand hp300
+16:42:18.901 AUTOTEST: player hp 100; slimespirit@5,0 fly hp300
+16:42:19.901 AUTOTEST: player hp 100; slimespirit@0,0 fly hp300
+16:42:20.919 loot of slimespirit like Краб (67): 
+16:42:20.919 killed slimespirit #3
+16:42:20.921 AUTOTEST: place jungle at 3477,719
+16:42:20.921 AUTOTEST: spawning confusespirit
+16:42:20.922 spawned confusespirit (Уту-Ааве) #2 life 300 at tile 3487,724
+16:42:20.922 AUTOTEST: slimespirit #3 gone after 180 brain frames: active=False type=146 life=-2697/300 timeLeft=749 pos=308,232
+16:42:20.922 AUTOTEST: player hp 100; confusespirit@10,5 stand hp300
+16:42:22.434 AUTOTEST: player hp 100; confusespirit@5,3 fly hp300
+16:42:23.451 AUTOTEST: player hp 100; confusespirit@1,1 fly hp300 OFFSCREEN
+16:42:24.452 loot of confusespirit like Шипастый слизень джунглей (204): Гель, Жало
+16:42:24.452 killed confusespirit #2
+16:42:24.455 AUTOTEST: place caverns at 208,747
+16:42:24.455 AUTOTEST: spawning berserkspirit
+16:42:24.456 spawned berserkspirit (Виха-Ааве) #3 life 900 at tile 218,745
+16:42:24.456 AUTOTEST: confusespirit #2 gone after 180 brain frames: active=False type=146 life=-2697/300 timeLeft=749 pos=3476,717
+16:42:24.456 AUTOTEST: player hp 100; berserkspirit@10,-1 stand hp900 OFFSCREEN
+16:42:25.634 WARN aura berserkspirit.aura: berserk has no Terraria player effect yet
+16:42:25.768 AUTOTEST: player hp 100; berserkspirit@5,0 fly hp900 OFFSCREEN
+16:42:26.769 AUTOTEST: player hp 100; berserkspirit@0,0 fly hp900
+16:42:27.769 loot of berserkspirit like Споровый скелет (635): 
+16:42:27.769 killed berserkspirit #3
+16:42:27.771 AUTOTEST: place ice caves at 987,532
+16:42:27.771 AUTOTEST: spawning giantshooter
+16:42:27.772 spawned giantshooter (Эйтинульяска) #2 life 250 at tile 997,530
+16:42:27.772 AUTOTEST: berserkspirit #3 gone after 180 brain frames: active=False type=146 life=-8090/900 timeLeft=749 pos=207,745
+16:42:27.773 AUTOTEST: player hp 100; giantshooter@10,-2 stand hp250 OFFSCREEN
+16:42:28.835 AUTOTEST: player hp 100; giantshooter@10,-2 walk hp250 OFFSCREEN
+16:42:29.885 AUTOTEST: player hp 100; giantshooter@10,-2 walk hp250 OFFSCREEN
+16:42:30.886 loot of giantshooter like Снежный флинкс (185): Мех флинкса
+16:42:30.886 killed giantshooter #2
+16:42:30.889 AUTOTEST: place mushroom at 194,786
+16:42:30.889 AUTOTEST: spawning giantshooter_weak
+16:42:30.890 spawned giantshooter_weak (Хейкко эйтинульяска) #3 life 100 at tile 204,786
+16:42:30.890 AUTOTEST: giantshooter #2 gone after 180 brain frames: active=False type=146 life=-2249/250 timeLeft=749 pos=996,526
+16:42:30.890 AUTOTEST: player hp 100; giantshooter_weak@10,0 stand hp100
+16:42:31.935 AUTOTEST: player hp 100; giantshooter_weak@7,0 walk hp100
+16:42:32.936 AUTOTEST: player hp 100; giantshooter_weak@5,0 stand hp100
+16:42:33.936 giantshooter_weak death explosion giantshooter_weak.explodes_into_acid_on_death hits for 75
+16:42:33.936 loot of giantshooter_weak like Споровая летучая мышь (634): 
+16:42:33.937 killed giantshooter_weak #3
+16:42:33.946 AUTOTEST: place marble at 3277,852
+16:42:33.946 AUTOTEST: spawning nest_fly
+16:42:33.947 spawned nest_fly (Amppari Hive) #2 life 500 at tile 3287,850
+16:42:33.947 AUTOTEST: giantshooter_weak #3 gone after 180 brain frames: active=False type=146 life=-899/100 timeLeft=749 pos=198,782
+16:42:33.948 AUTOTEST: player hp 25; nest_fly@10,-2 stand hp500 OFFSCREEN
+16:42:34.969 nest_fly starts nest_fly.release at 10 tiles
+16:42:34.970 spawned fly (Амппари) #3 life 150 at tile 3288,849
+16:42:34.971 AUTOTEST: player hp 100; nest_fly@10,-3 attack hp500 OFFSCREEN | fly@10,-2 fly hp150 OFFSCREEN
+16:42:35.969 AUTOTEST: player hp 100; nest_fly@10,-3 stand hp500 OFFSCREEN | fly@10,-2 fly hp150 OFFSCREEN
+16:42:36.970 loot of nest_fly like Шипастый слизень джунглей (204): Гель x2, Жало
+16:42:36.970 killed nest_fly #2
+16:42:36.971 loot of fly like Шипастый слизень джунглей (204): Гель x2, Жало
+16:42:36.972 killed fly #3
+16:42:36.973 AUTOTEST: place granite at 1535,767
+16:42:36.973 AUTOTEST: spawning duck
+16:42:36.974 spawned duck (Анкка) #4 life 5 at tile 1545,767
+16:42:36.974 AUTOTEST: nest_fly #2 gone after 180 brain frames: active=False type=146 life=-4497/500 timeLeft=749 pos=3285,846
+16:42:36.974 AUTOTEST: fly #3 gone after 121 brain frames: active=False type=146 life=-1347/150 timeLeft=749 pos=3287,847
+16:42:36.974 AUTOTEST: player hp 100; duck@10,0 stand hp5
+16:42:38.119 AUTOTEST: player hp 100; duck@15,13 jump_fall hp5
+16:42:39.120 AUTOTEST: player hp 100; duck@18,47 walk hp5 OFFSCREEN
+16:42:40.002 killed duck #4
+16:42:40.003 AUTOTEST: duck #4 gone after 173 brain frames: active=False type=146 life=-44/5 timeLeft=680 pos=1555,817
+16:42:40.120 AUTOTEST: place underground desert at 2360,670
+16:42:40.120 AUTOTEST: spawning firemage
+16:42:40.121 spawned firemage (Эльдари) #2 life 1500 at tile 2370,668
+16:42:40.122 AUTOTEST: player hp 100; firemage@10,-2 stand hp1500 OFFSCREEN
+16:42:41.286 AUTOTEST: player hp 100; firemage@9,-4 stand hp1500
+16:42:41.319 firemage starts firemage.ghostly_fireball at 10 tiles
+16:42:41.623 firemage shot ghostly_fireball hits for 169
+16:42:42.286 AUTOTEST: player hp 100; firemage@9,-4 walk hp1500
+16:42:43.287 loot of firemage like Гигантский муравьиный лев-воин (508): Муравьиная челюсть x2
+16:42:43.287 killed firemage #2
+16:42:43.289 AUTOTEST: place dungeon at 879,679
+16:42:43.289 AUTOTEST: spawning hpcrystal
+16:42:43.290 spawned hpcrystal (Элвютюскристалли) #3 life 6000 at tile 889,678
+16:42:43.290 AUTOTEST: firemage #2 gone after 180 brain frames: active=False type=146 life=-13490/1500 timeLeft=749 pos=2367,664
+16:42:43.290 AUTOTEST: player hp 100; hpcrystal@10,-1 stand hp6000 OFFSCREEN
+16:42:44.502 AUTOTEST: player hp 100; hpcrystal@10,-2 stand hp6000
+16:42:45.502 AUTOTEST: player hp 100; hpcrystal@10,-2 stand hp6000
+16:42:46.504 loot of hpcrystal like Оборванный колдун (282): 
+16:42:46.504 killed hpcrystal #3
+16:42:46.509 AUTOTEST: place underworld at 2461,1005
+16:42:46.509 AUTOTEST: spawning failed_alchemist_b
+16:42:46.509 spawned failed_alchemist_b (Эпяалкемисти) #2 life 300 at tile 2471,1003
+16:42:46.510 AUTOTEST: hpcrystal #3 gone after 180 brain frames: active=False type=146 life=-41990/6000 timeLeft=749 pos=888,673
+16:42:46.510 AUTOTEST: player hp 100; failed_alchemist_b@10,-2 stand hp300
+16:42:48.203 AUTOTEST: player hp 100; failed_alchemist_b@9,-2 stand hp300
+16:42:49.170 AUTOTEST: failed_alchemist_b #2 gone after 118 brain frames: active=False type=146 life=300/300 timeLeft=748 pos=2470,998
+16:42:49.204 AUTOTEST: player hp 100; 
+16:42:50.204 AUTOTEST: place forest at 1269,91
+16:42:50.204 AUTOTEST: spawning fish
+16:42:50.205 spawned fish (Эвякяс) #2 life 5 at tile 1279,92
+16:42:50.207 AUTOTEST: player hp 100; fish@10,1 stand hp5
+16:42:51.303 AUTOTEST: player hp 100; fish@11,0 walk hp5
+16:42:52.305 AUTOTEST: player hp 100; fish@10,1 walk hp5
+16:42:53.304 killed fish #2
+16:42:53.305 AUTOTEST: place snow at 1366,251
+16:42:53.306 AUTOTEST: spawning wizard_hearty
+16:42:53.307 spawned wizard_hearty (Хаавойттаяместари) #3 life 1200 at tile 1376,269
+16:42:53.307 AUTOTEST: fish #2 gone after 180 brain frames: active=False type=146 life=-44/5 timeLeft=749 pos=1281,90
+16:42:53.308 AUTOTEST: player hp 100; wizard_hearty@10,18 stand hp1200
+16:42:54.438 AUTOTEST: player hp 100; wizard_hearty@9,11 fly hp1200
+16:42:55.438 AUTOTEST: player hp 100; wizard_hearty@9,1 fly hp1200
+16:42:55.654 wizard_hearty starts wizard_hearty.projectile at 9 tiles
+16:42:56.071 wizard_hearty shot wizard_hearty_shot hits for 15
+16:42:56.439 loot of wizard_hearty like Замороженный зомби (161): 
+16:42:56.439 killed wizard_hearty #3
+16:42:56.441 AUTOTEST: place desert at 2747,226
+16:42:56.441 AUTOTEST: spawning necromancer
+16:42:56.442 spawned necromancer (Хахмонвайхтая) #2 life 500 at tile 2757,228
+16:42:56.442 AUTOTEST: wizard_hearty #3 gone after 180 brain frames: active=False type=146 life=-10797/1200 timeLeft=749 pos=1374,241
+16:42:56.442 AUTOTEST: player hp 85; necromancer@10,1 stand hp500
+16:42:57.471 AUTOTEST: player hp 85; necromancer@10,1 stand hp500
+16:42:58.472 AUTOTEST: player hp 85; necromancer@10,1 stand hp500
+16:42:58.503 necromancer starts necromancer.chaotic_polymorphine at 10 tiles
+16:42:58.837 necromancer shot chaotic_polymorphine hits for 38
+16:42:59.472 loot of necromancer like Муравьиный лев (69): 
+16:42:59.472 killed necromancer #2
+16:42:59.474 AUTOTEST: place jungle at 2902,657
+16:42:59.474 AUTOTEST: spawning scavenger_invis
+16:42:59.475 spawned scavenger_invis (Хяйвехииси) #3 life 150 at tile 2912,659
+16:42:59.475 AUTOTEST: necromancer #2 gone after 180 brain frames: active=False type=146 life=-4497/500 timeLeft=749 pos=2756,224
+16:42:59.475 AUTOTEST: player hp 99; scavenger_invis@10,1 stand hp150
+16:43:00.204 scavenger_invis starts scavenger_invis.turns_other_enemies_link_status_effects_invisible_invisible at 10 tiles
+16:43:00.588 AUTOTEST: player hp 97; scavenger_invis@9,1 stand hp150
+16:43:01.453 scavenger_invis starts scavenger_invis.turns_other_enemies_link_status_effects_invisible_invisible at 10 tiles
+16:43:01.587 AUTOTEST: player hp 95; scavenger_invis@9,1 attack hp150
+16:43:02.588 loot of scavenger_invis like Шипастый слизень джунглей (204): Гель x2, Жало
+16:43:02.588 killed scavenger_invis #3
+16:43:02.590 AUTOTEST: place caverns at 2650,489
+16:43:02.590 AUTOTEST: spawning lukki
+16:43:02.591 spawned lukki (Хямяхякки) #2 life 650 at tile 2660,494
+16:43:02.591 AUTOTEST: scavenger_invis #3 gone after 180 brain frames: active=False type=146 life=-1347/150 timeLeft=749 pos=2911,656
+16:43:02.592 AUTOTEST: player hp 93; lukki@10,4 stand hp650 OFFSCREEN
+16:43:03.070 lukki starts lukki.melee at 7 tiles
+16:43:03.070 lukki melee lukki.melee hits for 19
+16:43:03.672 AUTOTEST: player hp 72; lukki@4,0 walk hp650
+16:43:03.738 lukki starts lukki.melee at 4 tiles
+16:43:03.738 lukki melee lukki.melee hits for 19
+16:43:04.404 lukki starts lukki.melee at 2 tiles
+16:43:04.404 lukki melee lukki.melee hits for 19
+16:43:04.672 AUTOTEST: player hp 100; lukki@2,0 attack hp650
+16:43:05.070 lukki starts lukki.melee at 2 tiles
+16:43:05.071 lukki melee lukki.melee hits for 19
+16:43:05.672 loot of lukki like Мимик (85): Шипастые ботинки
+16:43:05.672 killed lukki #2
+16:43:05.674 AUTOTEST: place ice caves at 980,552
+16:43:05.674 AUTOTEST: spawning lukki_longleg
+16:43:05.675 spawned lukki_longleg (Лукки) #3 life 800 at tile 990,550
+16:43:05.675 AUTOTEST: lukki #2 gone after 180 brain frames: active=False type=146 life=-12347/650 timeLeft=749 pos=2650,485
+16:43:05.675 AUTOTEST: player hp 81; lukki_longleg@10,-2 stand hp800 OFFSCREEN
+16:43:06.038 lukki_longleg starts lukki_longleg.melee at 9 tiles
+16:43:06.039 lukki_longleg melee lukki_longleg.melee hits for 19
+16:43:06.705 AUTOTEST: player hp 62; lukki_longleg@15,-5 walk hp800 OFFSCREEN
+16:43:07.731 AUTOTEST: player hp 62; lukki_longleg@18,-5 walk hp800 OFFSCREEN
+16:43:08.757 loot of lukki_longleg like Скелет-викинг (167): 
+16:43:08.757 killed lukki_longleg #3
+16:43:08.761 AUTOTEST: place mushroom at 155,775
+16:43:08.762 AUTOTEST: spawning lukki_tiny
+16:43:08.762 spawned lukki_tiny (Пиккухямяхякки) #2 life 350 at tile 165,773
+16:43:08.762 AUTOTEST: lukki_longleg #3 gone after 93 brain frames: active=False type=146 life=-15197/800 timeLeft=749 pos=988,546
+16:43:08.763 AUTOTEST: player hp 62; lukki_tiny@10,-1 stand hp350 OFFSCREEN
+16:43:09.756 AUTOTEST: player hp 62; lukki_tiny@10,-1 stand hp350 OFFSCREEN
+16:43:10.792 AUTOTEST: player hp 62; lukki_tiny@10,-1 stand hp350 OFFSCREEN
+16:43:11.739 loot of lukki_tiny like Споровый скелет (635): 
+16:43:11.739 killed lukki_tiny #2
+16:43:11.742 AUTOTEST: place marble at 3484,888
+16:43:11.743 AUTOTEST: spawning acidshooter
+16:43:11.743 spawned acidshooter (Хаппонульяска) #3 life 50 at tile 3494,890
+16:43:11.743 AUTOTEST: lukki_tiny #2 gone after 0 brain frames: active=False type=146 life=-6647/350 timeLeft=750 pos=164,770
+16:43:11.744 AUTOTEST: player hp 62; acidshooter@10,2 stand hp50
+16:43:12.753 AUTOTEST: player hp 62; acidshooter@10,2 stand hp50
+16:43:13.745 AUTOTEST: player hp 62; acidshooter@10,2 stand hp50
+16:43:14.754 loot of acidshooter like Шершень (42): Жало
+16:43:14.754 killed acidshooter #3
+16:43:14.758 AUTOTEST: place granite at 729,888
+16:43:14.758 AUTOTEST: spawning shotgunner
+16:43:14.758 spawned shotgunner (Хауликкохийси) #2 life 45 at tile 739,909
+16:43:14.758 AUTOTEST: acidshooter #3 gone after 0 brain frames: active=False type=146 life=-449/50 timeLeft=750 pos=3493,887
+16:43:14.759 AUTOTEST: player hp 62; shotgunner@10,21 stand hp45
+16:43:15.751 AUTOTEST: player hp 62; shotgunner@10,21 stand hp45
+16:43:16.749 AUTOTEST: player hp 62; shotgunner@10,21 stand hp45
+16:43:17.733 loot of shotgunner like Гранитный элементаль (483): Гранитный блок x5
+16:43:17.733 killed shotgunner #2
+16:43:17.737 AUTOTEST: place underground desert at 2424,792
+16:43:17.737 AUTOTEST: spawning shotgunner_hell
+16:43:17.738 spawned shotgunner_hell (Хорнахийси) #3 life 870 at tile 2434,794
+16:43:17.738 AUTOTEST: shotgunner #2 gone after 0 brain frames: active=False type=146 life=-404/45 timeLeft=750 pos=738,907
+16:43:17.738 AUTOTEST: player hp 62; shotgunner_hell@10,2 stand hp870
+16:43:18.740 AUTOTEST: player hp 62; shotgunner_hell@8,2 walk hp870
+16:43:19.604 shotgunner_hell starts shotgunner_hell.projectile at 5 tiles
+16:43:19.638 shotgunner_hell shot shotgunner_hell_shot hits for 20
+16:43:19.739 AUTOTEST: player hp 100; shotgunner_hell@6,2 attack hp870
+16:43:20.739 loot of shotgunner_hell like Гигантский муравьиный лев-воин (508): Муравьиная челюсть
+16:43:20.739 killed shotgunner_hell #3
+16:43:20.742 AUTOTEST: place dungeon at 616,661
+16:43:20.742 AUTOTEST: spawning missilecrab
+16:43:20.742 spawned missilecrab (Хейнясиркка) #4 life 3600 at tile 626,662
+16:43:20.742 AUTOTEST: shotgunner_hell #3 gone after 137 brain frames: active=False type=146 life=-7820/870 timeLeft=749 pos=2428,791
+16:43:20.743 AUTOTEST: player hp 100; missilecrab@10,1 stand hp3600 OFFSCREEN
+16:43:21.923 AUTOTEST: player hp 100; missilecrab@5,0 walk hp3600
+16:43:22.288 missilecrab starts missilecrab.missiles at 3 tiles
+16:43:22.922 AUTOTEST: player hp 100; missilecrab@1,-6 jump_up hp3600
+16:43:23.238 missilecrab starts missilecrab.melee at 1 tiles
+16:43:23.239 missilecrab melee missilecrab.melee hits for 37
+16:43:23.923 loot of missilecrab like Оборванный колдун (282): 
+16:43:23.923 killed missilecrab #4
+16:43:23.925 AUTOTEST: place underworld at 2533,1006
+16:43:23.925 AUTOTEST: spawning spitmonster
+16:43:23.926 spawned spitmonster (Хельветин сюлькийя) #2 life 3000 at tile 2543,1027
+16:43:23.926 AUTOTEST: missilecrab #4 gone after 180 brain frames: active=False type=146 life=-7190/3600 timeLeft=749 pos=613,658
+16:43:23.927 AUTOTEST: player hp 63; spitmonster@10,20 stand hp3000
+16:43:24.924 AUTOTEST: player hp 63; spitmonster@7,50 jump_up hp2968 OFFSCREEN
+16:43:25.923 AUTOTEST: player hp 63; spitmonster@6,50 jump_up hp2904 OFFSCREEN
+16:43:26.923 loot of spitmonster like Демон (62): 
+16:43:26.923 killed spitmonster #2
+16:43:26.925 AUTOTEST: place forest at 2146,252
+16:43:26.925 AUTOTEST: spawning gazer
+16:43:26.926 spawned gazer (Хельветинкатсе) #3 life 4500 at tile 2156,252
+16:43:26.926 AUTOTEST: spitmonster #2 gone after 180 brain frames: active=False type=146 life=-27110/3000 timeLeft=612 pos=2538,1053
+16:43:26.926 AUTOTEST: player hp 63; gazer@10,0 stand hp4500
+16:43:27.722 gazer starts gazer.lava at 10 tiles
+16:43:27.940 AUTOTEST: player hp 63; gazer@10,-3 attack hp4500
+16:43:28.073 gazer shot lava hits for 169
+16:43:28.940 AUTOTEST: player hp 100; gazer@14,-5 fly hp4500
+16:43:29.940 loot of gazer like Мох-зомби (691): Ксеноновый мох
+16:43:29.940 killed gazer #3
+16:43:29.942 AUTOTEST: place snow at 1272,264
+16:43:29.942 AUTOTEST: spawning worm_end
+16:43:29.943 spawned worm_end (Хельветинмато) #2 life 12500 at tile 1282,274
+16:43:29.943 AUTOTEST: gazer #3 gone after 180 brain frames: active=False type=146 life=-40482/4500 timeLeft=749 pos=2163,243
+16:43:29.943 AUTOTEST: player hp 100; worm_end@10,9 stand hp12500
+16:43:30.040 AUTOTEST: worm_end #2 gone after 6 brain frames: active=False type=146 life=12500/12500 timeLeft=748 pos=1280,270
+16:43:30.940 AUTOTEST: player hp 100; 
+16:43:31.940 AUTOTEST: player hp 100; 
+16:43:32.941 AUTOTEST: place desert at 336,234
+16:43:32.941 AUTOTEST: spawning mimic_potion
+16:43:32.942 spawned mimic_potion (Хенкевя поту) #2 life 500 at tile 346,233
+16:43:32.942 AUTOTEST: player hp 100; mimic_potion@10,0 stand hp500
+16:43:33.957 AUTOTEST: player hp 100; mimic_potion@10,0 stand hp500
+16:43:34.957 AUTOTEST: player hp 100; mimic_potion@10,0 stand hp500
+16:43:35.957 loot of mimic_potion like Розовая медуза (64): Светящаяся палочка
+16:43:35.957 killed mimic_potion #2
+16:43:35.961 AUTOTEST: place jungle at 3167,889
+16:43:35.961 AUTOTEST: spawning giant
+16:43:35.962 spawned giant (Хииденкиви) #3 life 600 at tile 3177,887
+16:43:35.962 AUTOTEST: mimic_potion #2 gone after 180 brain frames: active=False type=146 life=-4482/500 timeLeft=749 pos=345,231
+16:43:35.963 AUTOTEST: player hp 100; giant@10,-2 stand hp600 OFFSCREEN
+16:43:37.024 AUTOTEST: player hp 100; giant@9,-2 walk hp600 OFFSCREEN
+16:43:38.023 AUTOTEST: player hp 100; giant@9,-2 walk hp600 OFFSCREEN
+16:43:39.024 loot of giant like Доктор Бонс (52): Шляпа археолога
+16:43:39.024 killed giant #3
+16:43:39.026 AUTOTEST: place caverns at 4084,493
+16:43:39.026 AUTOTEST: spawning wraith_glowing
+16:43:39.027 spawned wraith_glowing (Хохтава хюпиё) #2 life 1475 at tile 4094,494
+16:43:39.027 AUTOTEST: giant #3 gone after 180 brain frames: active=False type=146 life=-5397/600 timeLeft=749 pos=3176,883
+16:43:39.028 AUTOTEST: player hp 100; wraith_glowing@10,1 stand hp1475 OFFSCREEN
+16:43:40.090 AUTOTEST: player hp 100; wraith_glowing@5,0 fly hp1475
+16:43:41.090 AUTOTEST: player hp 100; wraith_glowing@0,0 fly hp1475
+16:43:42.091 loot of wraith_glowing like Нимфа (196): Металлодетектор
+16:43:42.091 killed wraith_glowing #2
+16:43:42.095 AUTOTEST: place ice caves at 1276,587
+16:43:42.095 AUTOTEST: spawning statue_physics
+16:43:42.096 spawned statue_physics (Хохтонамио) #3 life 600 at tile 1286,585
+16:43:42.096 AUTOTEST: wraith_glowing #2 gone after 180 brain frames: active=False type=146 life=-13272/1475 timeLeft=749 pos=4083,491
+16:43:42.096 AUTOTEST: player hp 100; statue_physics@10,-2 stand hp600 OFFSCREEN
+16:43:43.124 AUTOTEST: player hp 100; statue_physics@10,-2 fly hp600 OFFSCREEN
+16:43:44.124 AUTOTEST: player hp 100; statue_physics@10,-2 fly hp600 OFFSCREEN
+16:43:45.124 loot of statue_physics like Ледяной мимик (629): Шквальные ботинки
+16:43:45.124 killed statue_physics #3
+16:43:45.128 AUTOTEST: place mushroom at 2866,833
+16:43:45.128 AUTOTEST: spawning ghost
+16:43:45.128 spawned ghost (Хоуре) #2 life 6000 at tile 2876,831
+16:43:45.128 AUTOTEST: statue_physics #3 gone after 180 brain frames: active=False type=146 life=-2397/600 timeLeft=749 pos=1286,581
+16:43:45.129 AUTOTEST: player hp 100; ghost@10,-2 stand hp6000 OFFSCREEN
+16:43:46.291 AUTOTEST: player hp 100; ghost@11,-1 fly hp6000 OFFSCREEN
+16:43:47.291 AUTOTEST: player hp 100; ghost@12,-1 fly hp6000 OFFSCREEN
+16:43:48.335 AUTOTEST: place marble at 3455,874
+16:43:48.336 AUTOTEST: spawning fungus_giga
+16:43:48.337 spawned fungus_giga (Хухтасиени) #3 life 4980 at tile 3465,882
+16:43:48.337 AUTOTEST: ghost #2 gone after 149 brain frames: active=False type=146 life=5999/6000 timeLeft=749 pos=2878,828
+16:43:48.339 AUTOTEST: player hp 100; fungus_giga@10,6 stand hp4980 OFFSCREEN
+16:43:49.335 AUTOTEST: player hp 100; fungus_giga@10,6 stand hp4980 OFFSCREEN
+16:43:50.328 AUTOTEST: player hp 100; fungus_giga@10,6 stand hp4980 OFFSCREEN
+16:43:51.334 loot of fungus_giga like Горгона Медуза (480): 
+16:43:51.334 killed fungus_giga #3
+16:43:51.338 AUTOTEST: place granite at 3612,668
+16:43:51.339 AUTOTEST: spawning zombie
+16:43:51.340 spawned zombie (Хуртта) #2 life 25 at tile 3622,669
+16:43:51.342 AUTOTEST: fungus_giga #3 gone after 0 brain frames: active=False type=146 life=-44810/4980 timeLeft=750 pos=3464,876
+16:43:51.342 AUTOTEST: player hp 100; zombie@10,1 stand hp25
+16:43:52.316 AUTOTEST: player hp 100; zombie@10,1 stand hp25
+16:43:53.317 AUTOTEST: player hp 100; zombie@10,1 stand hp25
+16:43:54.333 loot of zombie like Тропическая летучая мышь (51): 
+16:43:54.333 killed zombie #2
+16:43:54.335 AUTOTEST: place underground desert at 2492,748
+16:43:54.335 AUTOTEST: spawning wraith
+16:43:54.335 spawned wraith (Хюпиё) #3 life 4425 at tile 2502,765
+16:43:54.335 AUTOTEST: zombie #2 gone after 0 brain frames: active=False type=146 life=-224/25 timeLeft=750 pos=3621,667
+16:43:54.336 AUTOTEST: player hp 100; wraith@10,17 stand hp4425
+16:43:55.339 AUTOTEST: player hp 100; wraith@10,17 stand hp4425
+16:43:56.315 AUTOTEST: player hp 100; wraith@10,17 stand hp4425
+16:43:57.375 loot of wraith like Гигантский муравьиный лев (509): 
+16:43:57.375 killed wraith #3
+16:43:57.377 AUTOTEST: place dungeon at 694,485
+16:43:57.377 AUTOTEST: spawning scavenger_clusterbomb
+16:43:57.378 spawned scavenger_clusterbomb (Исохийси) #2 life 600 at tile 704,498
+16:43:57.378 AUTOTEST: wraith #3 gone after 46 brain frames: active=False type=146 life=-39815/4425 timeLeft=749 pos=2499,760
+16:43:57.378 AUTOTEST: player hp 100; scavenger_clusterbomb@10,12 stand hp600
+16:43:58.408 AUTOTEST: player hp 100; scavenger_clusterbomb@7,13 walk hp600
+16:43:59.408 AUTOTEST: player hp 100; scavenger_clusterbomb@3,16 stand hp600
+16:44:00.408 loot of scavenger_clusterbomb like Слизень из темницы (71): Золотой ключ
+16:44:00.408 killed scavenger_clusterbomb #2
+16:44:00.411 AUTOTEST: place underworld at 2118,1005
+16:44:00.411 AUTOTEST: spawning tank_rocket
+16:44:00.412 spawned tank_rocket (ИТ-Танкки) #3 life 500 at tile 2128,1003
+16:44:00.412 AUTOTEST: scavenger_clusterbomb #2 gone after 180 brain frames: active=False type=146 life=-1197/600 timeLeft=749 pos=699,498
+16:44:00.412 AUTOTEST: player hp 100; tank_rocket@10,-2 stand hp500 OFFSCREEN
+16:44:01.425 AUTOTEST: player hp 100; tank_rocket@10,-2 walk hp500 OFFSCREEN
+16:44:02.425 AUTOTEST: player hp 100; tank_rocket@10,-2 walk hp500 OFFSCREEN
+16:44:03.426 loot of tank_rocket like Демон вуду (66): Кукла вуду Гида
+16:44:03.426 killed tank_rocket #3
+16:44:03.429 AUTOTEST: place forest at 2122,253
+16:44:03.429 AUTOTEST: spawning icer
+16:44:03.430 spawned icer (Йяахдютюслайте) #2 life 600 at tile 2132,252
+16:44:03.430 AUTOTEST: tank_rocket #3 gone after 180 brain frames: active=False type=146 life=-997/500 timeLeft=749 pos=2127,1000
+16:44:03.430 AUTOTEST: player hp 100; icer@10,-1 stand hp600
+16:44:03.841 icer starts icer.icethrower at 10 tiles
+16:44:04.141 icer shot icethrower hits for 75
+16:44:04.426 AUTOTEST: player hp 100; icer@13,-1 walk hp600
+16:44:04.691 icer starts icer.icethrower at 14 tiles
+16:44:05.141 icer shot icethrower hits for 75
+16:44:05.426 AUTOTEST: player hp 100; icer@16,0 walk hp600
+16:44:05.541 icer starts icer.icethrower at 17 tiles
+16:44:06.093 icer shot icethrower hits for 75
+16:44:06.391 icer starts icer.icethrower at 19 tiles
+16:44:06.426 loot of icer like Мох-зомби (691): Криптоновый мох
+16:44:06.426 killed icer #2
+16:44:06.427 AUTOTEST: place snow at 1149,263
+16:44:06.428 AUTOTEST: spawning iceskull
+16:44:06.428 spawned iceskull (Йяатиё) #3 life 75 at tile 1159,261
+16:44:06.429 AUTOTEST: icer #2 gone after 180 brain frames: active=False type=146 life=-1190/600 timeLeft=749 pos=2126,249
+16:44:06.429 AUTOTEST: player hp 100; iceskull@10,-1 stand hp75
+16:44:07.158 iceskull starts iceskull.iceball at 6 tiles
+16:44:07.459 iceskull starts iceskull.lunge at 5 tiles
+16:44:07.460 AUTOTEST: player hp 100; iceskull@4,0 fly hp75
+16:44:07.575 iceskull lunge iceskull.lunge hits for 6
+16:44:07.658 iceskull starts iceskull.melee at 1 tiles
+16:44:08.141 iceskull starts iceskull.melee at 1 tiles
+16:44:08.391 iceskull shot iceball hits for 32
+16:44:08.459 AUTOTEST: player hp 62; iceskull@2,0 fly hp75
+16:44:08.575 iceskull starts iceskull.iceball at 3 tiles
+16:44:09.325 iceskull starts iceskull.melee at 1 tiles
+16:44:09.325 iceskull melee iceskull.melee hits for 5
+16:44:09.458 iceskull starts iceskull.lunge at 3 tiles
+16:44:09.459 loot of iceskull like Ледяной слизень (147): Гель
+16:44:09.460 killed iceskull #3
+16:44:09.462 AUTOTEST: place desert at 3917,257
+16:44:09.462 AUTOTEST: spawning frog_big
+16:44:09.463 spawned frog_big (Йяттиконна) #2 life 110 at tile 3927,264
+16:44:09.463 AUTOTEST: iceskull #3 gone after 180 brain frames: active=False type=146 life=-674/75 timeLeft=749 pos=1140,259
+16:44:09.463 AUTOTEST: player hp 57; frog_big@10,7 stand hp110
+16:44:10.358 frog_big starts frog_big.tongue at 5 tiles
+16:44:10.492 frog_big starts frog_big.lunge at 5 tiles
+16:44:10.493 AUTOTEST: player hp 57; frog_big@5,0 attack hp110
+16:44:10.625 frog_big lunge frog_big.lunge hits for 10
+16:44:10.709 frog_big starts frog_big.tentacle at 0 tiles
+16:44:11.493 AUTOTEST: player hp 100; frog_big@1,-1 jump_up hp110
+16:44:12.493 loot of frog_big like Морская улитка (220): Пурпурная слизь
+16:44:12.493 killed frog_big #2
+16:44:12.496 AUTOTEST: place jungle at 3039,493
+16:44:12.496 AUTOTEST: spawning drone_lasership
+16:44:12.497 spawned drone_lasership (Йяттилазер-леннокки) #3 life 550 at tile 3049,491
+16:44:12.497 AUTOTEST: frog_big #2 gone after 180 brain frames: active=False type=146 life=-989/110 timeLeft=749 pos=3902,255
+16:44:12.498 AUTOTEST: player hp 100; drone_lasership@10,-2 stand hp550 OFFSCREEN
+16:44:13.576 AUTOTEST: player hp 100; drone_lasership@10,-2 fly hp550 OFFSCREEN
+16:44:14.576 AUTOTEST: player hp 100; drone_lasership@10,-2 fly hp550 OFFSCREEN
+16:44:15.576 loot of drone_lasership like Доктор Бонс (52): Шляпа археолога
+16:44:15.576 killed drone_lasership #3
+16:44:15.578 AUTOTEST: place caverns at 3932,567
+16:44:15.578 AUTOTEST: spawning worm_big
+16:44:15.579 spawned worm_big (Яттимато) #2 life 14000 at tile 3942,572
+16:44:15.579 AUTOTEST: drone_lasership #3 gone after 180 brain frames: active=False type=146 life=-1097/550 timeLeft=749 pos=3048,488
+16:44:15.580 AUTOTEST: player hp 100; worm_big@10,4 stand hp14000
+16:44:16.626 AUTOTEST: player hp 100; worm_big@1,12 walk hp14000 OFFSCREEN
+16:44:17.626 AUTOTEST: player hp 100; worm_big@-8,-7 walk hp14000
+16:44:18.626 loot of worm_big like Потерявшаяся девочка (195): Металлодетектор
+16:44:18.627 killed worm_big #2
+16:44:18.630 AUTOTEST: place ice caves at 933,493
+16:44:18.630 AUTOTEST: spawning miner_santa
+16:44:18.631 spawned miner_santa (Йоулухийси) #3 life 200 at tile 943,491
+16:44:18.631 AUTOTEST: worm_big #2 gone after 180 brain frames: active=False type=146 life=-125997/14000 timeLeft=749 pos=3922,558
+16:44:18.631 AUTOTEST: player hp 100; miner_santa@10,-2 stand hp200 OFFSCREEN
+16:44:19.676 AUTOTEST: player hp 100; miner_santa@9,-2 jump_up hp200 OFFSCREEN
+16:44:20.677 AUTOTEST: player hp 100; miner_santa@9,-2 jump_up hp200 OFFSCREEN
+16:44:21.676 loot of miner_santa like Снежный флинкс (185): Мех флинкса x3
+16:44:21.676 killed miner_santa #3
+16:44:21.679 AUTOTEST: place mushroom at 192,817
+16:44:21.680 AUTOTEST: spawning failed_alchemist
+16:44:21.680 spawned failed_alchemist (Кадотетту алкемисти) #2 life 800 at tile 202,826
+16:44:21.680 AUTOTEST: miner_santa #3 gone after 180 brain frames: active=False type=146 life=-1799/200 timeLeft=749 pos=942,488
+16:44:21.681 AUTOTEST: player hp 100; failed_alchemist@10,7 stand hp800
+16:44:22.710 AUTOTEST: player hp 100; failed_alchemist@7,4 jump_up hp800
+16:44:23.710 AUTOTEST: player hp 100; failed_alchemist@5,1 jump_fall hp800
+16:44:24.710 loot of failed_alchemist like Споровый скелет (635): 
+16:44:24.710 killed failed_alchemist #2
+16:44:24.715 AUTOTEST: place marble at 2933,760
+16:44:24.715 AUTOTEST: spawning skullfly
+16:44:24.716 spawned skullfly (Каллокярпянен) #3 life 1260 at tile 2943,758
+16:44:24.716 AUTOTEST: failed_alchemist #2 gone after 180 brain frames: active=False type=146 life=-7197/800 timeLeft=749 pos=194,820
+16:44:24.717 AUTOTEST: player hp 100; skullfly@10,-2 stand hp1260
+16:44:25.744 AUTOTEST: player hp 100; skullfly@10,-4 fly hp1260
+16:44:25.942 skullfly starts skullfly.path_of_dark_flame at 10 tiles
+16:44:26.143 skullfly shot path_of_dark_flame hits for 60
+16:44:26.744 AUTOTEST: player hp 100; skullfly@12,-4 fly hp1260
+16:44:27.744 loot of skullfly like Доктор Бонс (52): Шляпа археолога
+16:44:27.744 killed skullfly #3
+16:44:27.748 AUTOTEST: place granite at 707,875
+16:44:27.749 AUTOTEST: spawning skullrat
+16:44:27.749 spawned skullrat (Каллоротта) #2 life 1110 at tile 717,888
+16:44:27.750 AUTOTEST: skullfly #3 gone after 180 brain frames: active=False type=146 life=-11330/1260 timeLeft=749 pos=2936,752
+16:44:27.750 AUTOTEST: player hp 100; skullrat@10,13 stand hp1110
+16:44:28.744 AUTOTEST: player hp 100; skullrat@5,9 jump_fall hp1068
+16:44:29.744 AUTOTEST: player hp 100; skullrat@1,8 jump_up hp1064
+16:44:30.744 loot of skullrat like Гранитный элементаль (483): Гранитный блок x7
+16:44:30.744 killed skullrat #2
+16:44:30.746 AUTOTEST: place underground desert at 2314,686
+16:44:30.746 AUTOTEST: spawning worm_skull
+16:44:30.747 spawned worm_skull (Калмамато) #3 life 7500 at tile 2324,684
+16:44:30.747 AUTOTEST: skullrat #2 gone after 180 brain frames: active=False type=146 life=-10030/1110 timeLeft=749 pos=706,883
+16:44:30.747 AUTOTEST: player hp 100; worm_skull@10,-2 stand hp7500 OFFSCREEN
+16:44:31.744 AUTOTEST: player hp 100; worm_skull@7,-1 walk hp7500 OFFSCREEN
+16:44:32.743 AUTOTEST: player hp 100; worm_skull@0,20 walk hp7500 OFFSCREEN
+16:44:33.744 loot of worm_skull like Гигантский муравьиный лев-воин (508): Муравьиная челюсть
+16:44:33.744 killed worm_skull #3
+16:44:33.747 AUTOTEST: place dungeon at 746,560
+16:44:33.748 AUTOTEST: spawning lukki_dark
+16:44:33.748 spawned lukki_dark (Каммолукки) #2 life 7200 at tile 756,558
+16:44:33.748 AUTOTEST: worm_skull #3 gone after 180 brain frames: active=False type=146 life=-67490/7500 timeLeft=749 pos=2275,716
+16:44:33.749 AUTOTEST: player hp 100; lukki_dark@10,-2 stand hp7200 OFFSCREEN
+16:44:34.794 AUTOTEST: player hp 100; lukki_dark@10,-2 walk hp7200 OFFSCREEN
+16:44:35.795 AUTOTEST: player hp 100; lukki_dark@10,-2 walk hp7200 OFFSCREEN
+16:44:36.795 loot of lukki_dark like Слизень из темницы (71): Золотой ключ
+16:44:36.795 killed lukki_dark #2
+16:44:36.797 AUTOTEST: place underworld at 3030,1060
+16:44:36.797 AUTOTEST: spawning lukki_creepy_long
+16:44:36.798 spawned lukki_creepy_long (Касвотон Лукки) #3 life 1800 at tile 3040,1069
+16:44:36.798 AUTOTEST: lukki_dark #2 gone after 180 brain frames: active=False type=146 life=-7190/7200 timeLeft=749 pos=755,554
+16:44:36.799 AUTOTEST: player hp 100; lukki_creepy_long@10,8 stand hp1800
+16:44:37.210 lukki_creepy_long starts lukki_creepy_long.melee at 11 tiles
+16:44:37.210 lukki_creepy_long melee lukki_creepy_long.melee hits for 38
+16:44:37.877 lukki_creepy_long starts lukki_creepy_long.melee at 12 tiles
+16:44:37.877 lukki_creepy_long melee lukki_creepy_long.melee hits for 38
+16:44:37.879 AUTOTEST: player hp 100; lukki_creepy_long@11,4 attack hp1617
+16:44:38.878 AUTOTEST: player hp 99; lukki_creepy_long@16,-7 walk hp1433
+16:44:39.878 loot of lukki_creepy_long like Демон (62): 
+16:44:39.878 killed lukki_creepy_long #3
+16:44:39.880 AUTOTEST: place forest at 2825,121
+16:44:39.880 AUTOTEST: spawning ultimate_killer
+16:44:39.881 spawned ultimate_killer (Каухухирвиё) #2 life 1650 at tile 2835,142
+16:44:39.882 AUTOTEST: lukki_creepy_long #3 gone after 180 brain frames: active=False type=146 life=-34741/1800 timeLeft=749 pos=3033,1064
+16:44:39.882 AUTOTEST: player hp 100; ultimate_killer@10,21 stand hp1650
+16:44:40.961 AUTOTEST: player hp 96; ultimate_killer@7,53 jump_fall hp1650 OFFSCREEN
+16:44:41.962 AUTOTEST: player hp 92; ultimate_killer@4,90 jump_fall hp1650 OFFSCREEN
+16:44:42.978 loot of ultimate_killer like Гоблин-разведчик (73): Потрепанная ткань
+16:44:42.978 killed ultimate_killer #2
+16:44:42.981 AUTOTEST: place snow at 1136,262
+16:44:42.981 AUTOTEST: spawning scavenger_shield
+16:44:42.982 spawned scavenger_shield (Кильпихииси) #3 life 540 at tile 1146,264
+16:44:42.982 AUTOTEST: ultimate_killer #2 gone after 180 brain frames: active=False type=146 life=-14840/1650 timeLeft=608 pos=2828,239
+16:44:42.982 AUTOTEST: player hp 88; scavenger_shield@10,1 stand hp540
+16:44:43.607 scavenger_shield starts scavenger_shield.shield_buff at 10 tiles
+16:44:43.995 AUTOTEST: player hp 84; scavenger_shield@9,1 stand hp540
+16:44:44.861 scavenger_shield starts scavenger_shield.shield_buff at 10 tiles
+16:44:44.995 AUTOTEST: player hp 80; scavenger_shield@9,1 attack hp540
+16:44:45.996 loot of scavenger_shield like Ледяной слизень (147): Гель x2
+16:44:45.996 killed scavenger_shield #3
+16:44:46.001 AUTOTEST: place desert at 2436,244
+16:44:46.001 AUTOTEST: spawning crystal_physics
+16:44:46.002 spawned crystal_physics (Киротту кристалли) #2 life 2400 at tile 2446,244
+16:44:46.002 AUTOTEST: scavenger_shield #3 gone after 180 brain frames: active=False type=146 life=-4850/540 timeLeft=749 pos=1145,261
+16:44:46.002 AUTOTEST: player hp 76; crystal_physics@10,0 stand hp2400
+16:44:47.012 AUTOTEST: player hp 72; crystal_physics@10,0 stand hp2400
+16:44:48.012 AUTOTEST: player hp 68; crystal_physics@10,0 stand hp2400
+16:44:49.012 loot of crystal_physics like Муравьиный лев (69): 
+16:44:49.012 killed crystal_physics #2
+16:44:49.015 AUTOTEST: place jungle at 3318,927
+16:44:49.015 AUTOTEST: spawning phantom_b
+16:44:49.016 spawned phantom_b (Киуккукалма) #3 life 300 at tile 3328,942
+16:44:49.016 AUTOTEST: crystal_physics #2 gone after 180 brain frames: active=False type=146 life=-4790/2400 timeLeft=749 pos=2445,241
+16:44:49.016 AUTOTEST: player hp 64; phantom_b@10,14 stand hp300
+16:44:50.045 AUTOTEST: player hp 60; phantom_b@9,9 fly hp300
+16:44:51.046 AUTOTEST: player hp 56; phantom_b@9,4 fly hp300
+16:44:51.495 phantom_b starts phantom_b.energy_orb at 10 tiles
+16:44:52.045 phantom_b shot energy_orb hits for 30
+16:44:52.046 loot of phantom_b like Шипастый слизень джунглей (204): Гель, Жало
+16:44:52.046 killed phantom_b #3
+16:44:52.048 AUTOTEST: place caverns at 1627,948
+16:44:52.048 AUTOTEST: spawning blob
+16:44:52.049 spawned blob (Киуккумёуккю) #2 life 150 at tile 1637,946
+16:44:52.049 AUTOTEST: phantom_b #3 gone after 180 brain frames: active=False type=146 life=-2697/300 timeLeft=749 pos=3327,923
+16:44:52.050 AUTOTEST: player hp 100; blob@10,-1 stand hp150 OFFSCREEN
+16:44:53.062 AUTOTEST: player hp 96; blob@9,0 jump_up hp150 OFFSCREEN
+16:44:54.063 AUTOTEST: player hp 92; blob@9,0 jump_up hp150 OFFSCREEN
+16:44:55.063 loot of blob like Мать слизней (16): Гель
+16:44:55.063 killed blob #2
+16:44:55.066 AUTOTEST: place ice caves at 987,496
+16:44:55.066 AUTOTEST: spawning tank
+16:44:55.068 spawned tank (КК-Танкки) #3 life 450 at tile 997,508
+16:44:55.068 AUTOTEST: blob #2 gone after 180 brain frames: active=False type=146 life=-1347/150 timeLeft=749 pos=1636,945
+16:44:55.068 AUTOTEST: player hp 88; tank@10,11 stand hp450
+16:44:56.063 AUTOTEST: player hp 84; tank@7,11 walk hp450
+16:44:57.063 AUTOTEST: player hp 80; tank@6,11 walk hp450
+16:44:58.063 loot of tank like Ледяной мимик (629): Коньки
+16:44:58.063 killed tank #3
+16:44:58.065 AUTOTEST: place mushroom at 1963,780
+16:44:58.066 AUTOTEST: spawning wizard_homing
+16:44:58.066 spawned wizard_homing (Кохденнусместари) #2 life 3600 at tile 1973,780
+16:44:58.066 AUTOTEST: tank #3 gone after 180 brain frames: active=False type=146 life=-897/450 timeLeft=749 pos=994,505
+16:44:58.067 AUTOTEST: player hp 78; wizard_homing@10,0 stand hp3600
+16:44:59.163 AUTOTEST: player hp 78; wizard_homing@10,-3 fly hp3600
+16:44:59.529 wizard_homing starts wizard_homing.projectile at 10 tiles
+16:44:59.995 wizard_homing shot wizard_homing_shot hits for 30
+16:45:00.163 AUTOTEST: player hp 100; wizard_homing@10,-4 fly hp3600
+16:45:01.163 loot of wizard_homing like Споровый скелет (635): 
+16:45:01.163 killed wizard_homing #2
+16:45:01.166 AUTOTEST: place marble at 2924,721
+16:45:01.166 AUTOTEST: spawning healerdrone_physics
+16:45:01.167 spawned healerdrone_physics (Корьяусленнокки) #3 life 165 at tile 2934,720
+16:45:01.167 AUTOTEST: wizard_homing #2 gone after 180 brain frames: active=False type=146 life=-32390/3600 timeLeft=749 pos=1971,772
+16:45:01.167 AUTOTEST: player hp 100; healerdrone_physics@10,0 stand hp165 OFFSCREEN
+16:45:02.293 AUTOTEST: player hp 100; healerdrone_physics@9,-2 fly hp165 OFFSCREEN
+16:45:03.299 AUTOTEST: player hp 100; healerdrone_physics@9,-2 fly hp165 OFFSCREEN
+16:45:04.285 loot of healerdrone_physics like Доктор Бонс (52): Шляпа археолога
+16:45:04.285 killed healerdrone_physics #3
+16:45:04.288 AUTOTEST: place granite at 3631,701
+16:45:04.289 AUTOTEST: spawning scavenger_grenade
+16:45:04.289 spawned scavenger_grenade (Кранухийси) #2 life 50 at tile 3641,700
+16:45:04.290 AUTOTEST: healerdrone_physics #3 gone after 12 brain frames: active=False type=146 life=-320/165 timeLeft=749 pos=2933,716
+16:45:04.290 AUTOTEST: player hp 100; scavenger_grenade@10,-1 stand hp50
+16:45:05.304 AUTOTEST: player hp 100; scavenger_grenade@10,-1 stand hp50
+16:45:06.305 AUTOTEST: player hp 100; scavenger_grenade@10,-1 stand hp50
+16:45:07.302 loot of scavenger_grenade like Шершень (42): Жало
+16:45:07.302 killed scavenger_grenade #2
+16:45:07.305 AUTOTEST: place underground desert at 2490,748
+16:45:07.305 AUTOTEST: spawning playerghost
+16:45:07.307 spawned playerghost (Куммитус) #3 life 500 at tile 2500,760
+16:45:07.308 AUTOTEST: scavenger_grenade #2 gone after 0 brain frames: active=False type=146 life=-449/50 timeLeft=750 pos=3640,697
+16:45:07.308 AUTOTEST: player hp 100; playerghost@10,11 stand hp500
+16:45:08.298 AUTOTEST: player hp 100; playerghost@10,11 stand hp500
+16:45:09.341 AUTOTEST: player hp 100; playerghost@10,11 stand hp500
+16:45:10.288 loot of playerghost like Ползун гробниц (513): Затвердевшая окаменелость x2
+16:45:10.288 killed playerghost #3
+16:45:10.290 AUTOTEST: place dungeon at 969,830
+16:45:10.290 AUTOTEST: spawning roboguard_big
+16:45:10.291 spawned roboguard_big (Кюрмюниска) #2 life 8000 at tile 979,841
+16:45:10.291 AUTOTEST: playerghost #3 gone after 0 brain frames: active=False type=146 life=-999/500 timeLeft=750 pos=2499,756
+16:45:10.291 AUTOTEST: player hp 100; roboguard_big@10,10 stand hp8000 OFFSCREEN
+16:45:11.292 AUTOTEST: player hp 100; roboguard_big@10,10 stand hp8000 OFFSCREEN
+16:45:12.303 AUTOTEST: player hp 100; roboguard_big@10,10 stand hp8000 OFFSCREEN
+16:45:13.305 loot of roboguard_big like Некромант (284): 
+16:45:13.305 killed roboguard_big #2
+16:45:13.309 AUTOTEST: place underworld at 1914,1008
+16:45:13.310 AUTOTEST: spawning fungus
+16:45:13.313 spawned fungus (Лаахустуссиени) #3 life 130 at tile 1924,1023
+16:45:13.313 AUTOTEST: roboguard_big #2 gone after 0 brain frames: active=False type=146 life=-15982/8000 timeLeft=750 pos=978,838
+16:45:13.314 AUTOTEST: player hp 100; fungus@10,15 stand hp130
+16:45:14.284 AUTOTEST: player hp 100; fungus@10,15 stand hp130
+16:45:15.303 AUTOTEST: player hp 100; fungus@10,15 stand hp130
+16:45:16.284 loot of fungus like Демон (62): 
+16:45:16.284 killed fungus #3
+16:45:16.286 AUTOTEST: place forest at 2265,247
+16:45:16.287 AUTOTEST: spawning sheep
+16:45:16.289 spawned sheep (Ламмас) #2 life 5 at tile 2275,246
+16:45:16.290 AUTOTEST: fungus #3 gone after 0 brain frames: active=False type=146 life=-1169/130 timeLeft=750 pos=1923,1020
+16:45:16.290 AUTOTEST: player hp 100; sheep@10,0 stand hp5
+16:45:17.301 AUTOTEST: player hp 100; sheep@10,0 stand hp5
+16:45:18.299 AUTOTEST: player hp 100; sheep@10,0 stand hp5
+16:45:19.302 killed sheep #2
+16:45:19.304 AUTOTEST: place snow at 1149,263
+16:45:19.304 AUTOTEST: spawning tank_super
+16:45:19.305 spawned tank_super (КК-Танкки) #3 life 950 at tile 1159,261
+16:45:19.305 AUTOTEST: sheep #2 gone after 0 brain frames: active=False type=146 life=-44/5 timeLeft=750 pos=2274,243
+16:45:19.305 AUTOTEST: player hp 100; tank_super@10,-2 stand hp950 OFFSCREEN
+16:45:19.813 tank_super starts tank_super.laser_blasts at 10 tiles
+16:45:19.880 tank_super shot laser_blasts hits for 13
+16:45:20.113 tank_super starts tank_super.grenade at 6 tiles
+16:45:20.281 AUTOTEST: player hp 87; tank_super@5,-2 attack hp950 OFFSCREEN
+16:45:20.613 tank_super starts tank_super.laser_blasts at 5 tiles
+16:45:20.646 tank_super shot laser_blasts hits for 13
+16:45:21.281 AUTOTEST: player hp 74; tank_super@3,-2 walk hp950 OFFSCREEN
+16:45:21.413 tank_super starts tank_super.laser_blasts at 3 tiles
+16:45:21.429 tank_super shot laser_blasts hits for 13
+16:45:21.530 tank_super starts tank_super.grenade at 3 tiles
+16:45:22.213 tank_super starts tank_super.laser_blasts at 3 tiles
+16:45:22.230 tank_super shot laser_blasts hits for 13
+16:45:22.282 loot of tank_super like Ледяной слизень (147): Гель x2
+16:45:22.282 killed tank_super #3
+16:45:22.284 AUTOTEST: place desert at 329,235
+16:45:22.284 AUTOTEST: spawning drone_physics
+16:45:22.285 spawned drone_physics (Леннокки) #2 life 40 at tile 339,233
+16:45:22.285 AUTOTEST: tank_super #3 gone after 172 brain frames: active=False type=146 life=-1897/950 timeLeft=749 pos=1158,258
+16:45:22.285 AUTOTEST: player hp 100; drone_physics@10,-1 stand hp40 OFFSCREEN
+16:45:23.332 AUTOTEST: player hp 100; drone_physics@9,-1 fly hp40 OFFSCREEN
+16:45:24.325 AUTOTEST: player hp 100; drone_physics@9,-1 fly hp40 OFFSCREEN
+16:45:25.320 loot of drone_physics like Краб (67): 
+16:45:25.320 killed drone_physics #2
+16:45:25.323 AUTOTEST: place jungle at 3344,743
+16:45:25.323 AUTOTEST: spawning flamer
+16:45:25.324 spawned flamer (Лиеккари) #3 life 200 at tile 3354,762
+16:45:25.324 AUTOTEST: drone_physics #2 gone after 16 brain frames: active=False type=146 life=-77/40 timeLeft=749 pos=337,231
+16:45:25.325 AUTOTEST: player hp 100; flamer@10,18 stand hp200
+16:45:26.330 AUTOTEST: player hp 100; flamer@10,18 stand hp200
+16:45:27.326 AUTOTEST: player hp 100; flamer@10,18 stand hp200
+16:45:28.322 loot of flamer like Людоед (43): Лоза
+16:45:28.322 killed flamer #3
+16:45:28.325 AUTOTEST: place caverns at 2083,668
+16:45:28.325 AUTOTEST: spawning scavenger_glue
+16:45:28.325 spawned scavenger_glue (Лиймахийси) #2 life 220 at tile 2093,666
+16:45:28.326 AUTOTEST: flamer #3 gone after 0 brain frames: active=False type=146 life=-397/200 timeLeft=750 pos=3353,759
+16:45:28.326 AUTOTEST: player hp 100; scavenger_glue@10,-2 stand hp220 OFFSCREEN
+16:45:29.331 AUTOTEST: player hp 100; scavenger_glue@10,-2 stand hp220 OFFSCREEN
+16:45:30.330 AUTOTEST: player hp 100; scavenger_glue@10,-2 stand hp220 OFFSCREEN
+16:45:31.335 loot of scavenger_glue like Тим (45): Шляпа колдуна
+16:45:31.335 killed scavenger_glue #2
+16:45:31.341 AUTOTEST: place ice caves at 1156,616
+16:45:31.342 AUTOTEST: spawning slimeshooter
+16:45:31.343 spawned slimeshooter (Лиманульяска) #3 life 38 at tile 1166,622
+16:45:31.343 AUTOTEST: scavenger_glue #2 gone after 0 brain frames: active=False type=146 life=-1977/220 timeLeft=750 pos=2092,663
+16:45:31.344 AUTOTEST: player hp 100; slimeshooter@10,6 stand hp38
+16:45:32.337 AUTOTEST: player hp 100; slimeshooter@10,6 stand hp38
+16:45:33.322 AUTOTEST: player hp 100; slimeshooter@10,6 stand hp38
+16:45:34.330 loot of slimeshooter like Ледяная летучая мышь (150): 
+16:45:34.331 killed slimeshooter #3
+16:45:34.333 AUTOTEST: place mushroom at 203,786
+16:45:34.333 AUTOTEST: spawning wizard_neutral
+16:45:34.334 spawned wizard_neutral (Маадойттаяместари) #2 life 500 at tile 213,784
+16:45:34.334 AUTOTEST: slimeshooter #3 gone after 0 brain frames: active=False type=146 life=-341/38 timeLeft=750 pos=1165,619
+16:45:34.334 AUTOTEST: player hp 100; wizard_neutral@10,-1 stand hp500 OFFSCREEN
+16:45:35.332 AUTOTEST: player hp 100; wizard_neutral@10,-2 fly hp500 OFFSCREEN
+16:45:36.332 AUTOTEST: player hp 100; wizard_neutral@9,-2 fly hp500 OFFSCREEN
+16:45:37.332 loot of wizard_neutral like Споровый скелет (635): 
+16:45:37.332 killed wizard_neutral #2
+16:45:37.335 AUTOTEST: place marble at 3493,889
+16:45:37.336 AUTOTEST: spawning shaman
+16:45:37.336 spawned shaman (Мяркияйнен) #3 life 250 at tile 3503,896
+16:45:37.336 AUTOTEST: wizard_neutral #2 gone after 146 brain frames: active=False type=146 life=-4497/500 timeLeft=749 pos=212,779
+16:45:37.337 AUTOTEST: player hp 100; shaman@10,7 stand hp250
+16:45:38.332 AUTOTEST: player hp 100; shaman@7,3 jump_up hp250
+16:45:39.332 AUTOTEST: player hp 100; shaman@6,2 walk hp250
+16:45:40.332 loot of shaman like Доктор Бонс (52): Шляпа археолога
+16:45:40.332 killed shaman #3
+16:45:40.336 AUTOTEST: place granite at 1511,792
+16:45:40.336 AUTOTEST: spawning necrobot_super
+16:45:40.337 spawned necrobot_super (Маррасконе) #2 life 8400 at tile 1521,792
+16:45:40.337 AUTOTEST: shaman #3 gone after 180 brain frames: active=False type=146 life=-2249/250 timeLeft=749 pos=3501,891
+16:45:40.338 AUTOTEST: player hp 100; necrobot_super@10,0 stand hp8400
+16:45:41.333 AUTOTEST: player hp 100; necrobot_super@7,0 walk hp8400
+16:45:42.332 AUTOTEST: player hp 100; necrobot_super@7,-5 jump_up hp8400
+16:45:43.333 loot of necrobot_super like Гранитный элементаль (483): Гранитный блок x9
+16:45:43.333 killed necrobot_super #2
+16:45:43.335 AUTOTEST: place underground desert at 2476,548
+16:45:43.335 AUTOTEST: spawning bigzombie
+16:45:43.336 spawned bigzombie (Мятяневя руумис) #3 life 400 at tile 2486,546
+16:45:43.336 AUTOTEST: necrobot_super #2 gone after 180 brain frames: active=False type=146 life=-16790/8400 timeLeft=749 pos=1518,785
+16:45:43.336 AUTOTEST: player hp 100; bigzombie@10,-2 stand hp400 OFFSCREEN
+16:45:44.416 AUTOTEST: player hp 100; bigzombie@9,-1 jump_up hp400 OFFSCREEN
+16:45:45.417 AUTOTEST: player hp 100; bigzombie@9,-1 jump_up hp400 OFFSCREEN
+16:45:46.416 loot of bigzombie like Ползун гробниц (513): Затвердевшая окаменелость
+16:45:46.416 killed bigzombie #3
+16:45:46.418 AUTOTEST: place dungeon at 496,623
+16:45:46.418 AUTOTEST: spawning meatmaggot
+16:45:46.419 spawned meatmaggot (Мятярюомия) #2 life 1050 at tile 506,623
+16:45:46.420 AUTOTEST: bigzombie #3 gone after 180 brain frames: active=False type=146 life=-3597/400 timeLeft=749 pos=2485,543
+16:45:46.420 AUTOTEST: player hp 100; meatmaggot@10,0 stand hp1050
+16:45:47.549 AUTOTEST: player hp 100; meatmaggot@4,1 walk hp1050 OFFSCREEN
+16:45:47.982 meatmaggot starts meatmaggot.worm_bite at 1 tiles
+16:45:47.982 meatmaggot melee meatmaggot.worm_bite hits for 30
+16:45:48.550 AUTOTEST: player hp 70; meatmaggot@-3,0 walk hp1050 OFFSCREEN
+16:45:49.549 loot of meatmaggot like Слизень из темницы (71): Золотой ключ
+16:45:49.549 killed meatmaggot #2
+16:45:49.551 AUTOTEST: place underworld at 879,1014
+16:45:49.551 AUTOTEST: spawning chest_leggy
+16:45:49.553 spawned chest_leggy (Хямяхякки) #3 life 3000 at tile 889,1035
+16:45:49.553 AUTOTEST: meatmaggot #2 gone after 180 brain frames: active=False type=146 life=-9440/1050 timeLeft=749 pos=493,624
+16:45:49.553 AUTOTEST: player hp 70; chest_leggy@10,20 stand hp3000
+16:45:50.566 AUTOTEST: player hp 70; chest_leggy@10,20 stand hp3000
+16:45:51.600 AUTOTEST: player hp 70; chest_leggy@10,20 stand hp3000
+16:45:52.600 loot of chest_leggy like Демон вуду (66): Кукла вуду Гида
+16:45:52.600 killed chest_leggy #3
+16:45:52.602 AUTOTEST: place forest at 2264,247
+16:45:52.602 AUTOTEST: spawning chest_mimic
+16:45:52.603 spawned chest_mimic (Маткия) #4 life 1500 at tile 2274,246
+16:45:52.603 AUTOTEST: chest_leggy #3 gone after 180 brain frames: active=False type=146 life=-56982/3000 timeLeft=749 pos=887,1031
+16:45:52.604 AUTOTEST: player hp 70; chest_mimic@10,-1 stand hp1500
+16:45:53.600 AUTOTEST: player hp 70; chest_mimic@10,-1 stand hp1500
+16:45:54.601 AUTOTEST: player hp 70; chest_mimic@10,-1 stand hp1500
+16:45:55.600 loot of chest_mimic like Гоблин-разведчик (73): Потрепанная ткань x2
+16:45:55.601 killed chest_mimic #4
+16:45:55.603 AUTOTEST: place snow at 1151,263
+16:45:55.604 AUTOTEST: spawning worm
+16:45:55.604 spawned worm (Мато) #1 life 1000 at tile 1161,261
+16:45:55.604 AUTOTEST: chest_mimic #4 gone after 180 brain frames: active=False type=146 life=-13482/1500 timeLeft=749 pos=2273,243
+16:45:55.605 AUTOTEST: player hp 70; worm@10,-1 stand hp1000 OFFSCREEN
+16:45:56.600 AUTOTEST: player hp 70; worm@7,0 walk hp1000 OFFSCREEN
+16:45:57.116 worm starts worm.worm_bite at 2 tiles
+16:45:57.116 worm melee worm.worm_bite hits for 25
+16:45:57.600 AUTOTEST: player hp 100; worm@0,0 walk hp1000
+16:45:58.602 loot of worm like Ледяной слизень (147): Гель x2
+16:45:58.602 killed worm #1
+16:45:58.604 AUTOTEST: place desert at 2689,222
+16:45:58.605 AUTOTEST: spawning scavenger_mine
+16:45:58.605 spawned scavenger_mine (Миинанкюльвяя) #2 life 150 at tile 2699,222
+16:45:58.605 AUTOTEST: worm #1 gone after 180 brain frames: active=False type=146 life=-8999/1000 timeLeft=749 pos=1133,257
+16:45:58.606 AUTOTEST: player hp 100; scavenger_mine@10,0 stand hp150
+16:45:59.767 AUTOTEST: player hp 100; scavenger_mine@9,0 stand hp150
+16:46:00.767 AUTOTEST: player hp 100; scavenger_mine@9,0 stand hp150
+16:46:01.767 loot of scavenger_mine like Муравьиный лев (69): 
+16:46:01.767 killed scavenger_mine #2
+16:46:01.769 AUTOTEST: place jungle at 3220,895
+16:46:01.769 AUTOTEST: spawning miniblob
+16:46:01.770 spawned miniblob (Мёуккю) #1 life 175 at tile 3230,897
+16:46:01.770 AUTOTEST: scavenger_mine #2 gone after 180 brain frames: active=False type=146 life=-299/150 timeLeft=749 pos=2698,219
+16:46:01.770 AUTOTEST: player hp 100; miniblob@10,2 stand hp175
+16:46:02.768 AUTOTEST: player hp 100; miniblob@5,4 jump_fall hp175
+16:46:03.832 AUTOTEST: player hp 100; miniblob@3,6 jump_fall hp175
+16:46:04.838 loot of miniblob like Людоед (43): Лоза
+16:46:04.838 killed miniblob #1
+16:46:04.840 AUTOTEST: place caverns at 4001,801
+16:46:04.840 AUTOTEST: spawning lasershooter
+16:46:04.841 spawned lasershooter (Мулккио) #2 life 1800 at tile 4011,799
+16:46:04.841 AUTOTEST: miniblob #1 gone after 89 brain frames: active=False type=146 life=-1557/175 timeLeft=749 pos=3223,899
+16:46:04.842 AUTOTEST: player hp 100; lasershooter@10,-1 stand hp1800 OFFSCREEN
+16:46:05.818 AUTOTEST: player hp 100; lasershooter@10,-2 fly hp1800 OFFSCREEN
+16:46:06.818 AUTOTEST: player hp 100; lasershooter@10,-2 fly hp1800 OFFSCREEN
+16:46:07.818 loot of lasershooter like Нимфа (196): Металлодетектор
+16:46:07.818 killed lasershooter #2
+16:46:07.825 AUTOTEST: place ice caves at 998,460
+16:46:07.825 AUTOTEST: spawning monk
+16:46:07.826 spawned monk (Мункки) #1 life 700 at tile 1008,461
+16:46:07.826 AUTOTEST: lasershooter #2 gone after 157 brain frames: active=False type=146 life=-16190/1800 timeLeft=749 pos=4011,796
+16:46:07.826 AUTOTEST: player hp 100; monk@10,0 stand hp700
+16:46:08.334 monk starts monk.projectile at 9 tiles
+16:46:08.517 monk shot monk_shot hits for 30
+16:46:08.836 AUTOTEST: player hp 70; monk@12,0 walk hp700
+16:46:09.834 AUTOTEST: player hp 70; monk@9,-12 jump_fall hp700
+16:46:10.836 loot of monk like Снежный флинкс (185): Мех флинкса x2
+16:46:10.837 killed monk #1
+16:46:10.840 AUTOTEST: place mushroom at 2804,884
+16:46:10.840 AUTOTEST: spawning wizard_poly
+16:46:10.841 spawned wizard_poly (Муодонмуутосместари) #2 life 400 at tile 2814,884
+16:46:10.841 AUTOTEST: monk #1 gone after 180 brain frames: active=False type=146 life=-6297/700 timeLeft=749 pos=1001,459
+16:46:10.841 AUTOTEST: player hp 70; wizard_poly@10,0 stand hp400
+16:46:11.902 AUTOTEST: player hp 70; wizard_poly@10,-3 fly hp400
+16:46:12.767 wizard_poly starts wizard_poly.polymorphing at 11 tiles
+16:46:12.902 AUTOTEST: player hp 70; wizard_poly@10,-4 attack hp400
+16:46:13.268 wizard_poly shot polymorphing hits for 15
+16:46:13.902 loot of wizard_poly like Споровая летучая мышь (634): 
+16:46:13.902 killed wizard_poly #2
+16:46:13.905 AUTOTEST: place marble at 1663,440
+16:46:13.905 AUTOTEST: spawning ant
+16:46:13.906 spawned ant (Муркку) #1 life 500 at tile 1673,438
+16:46:13.907 AUTOTEST: wizard_poly #2 gone after 180 brain frames: active=False type=146 life=-3597/400 timeLeft=749 pos=2811,876
+16:46:13.907 AUTOTEST: player hp 55; ant@10,-2 stand hp500 OFFSCREEN
+16:46:15.019 AUTOTEST: player hp 55; ant@8,-4 walk hp500
+16:46:15.159 ant starts ant.acid_spray at 9 tiles
+16:46:16.035 AUTOTEST: player hp 55; ant@6,-3 walk hp500
+16:46:17.035 loot of ant like Пожиратель (7): Зуб червя x6
+16:46:17.035 killed ant #1
+16:46:17.038 AUTOTEST: place granite at 3624,717
+16:46:17.038 AUTOTEST: spawning scavenger_poison
+16:46:17.039 spawned scavenger_poison (Мюрккюхийси) #2 life 600 at tile 3634,718
+16:46:17.039 AUTOTEST: ant #1 gone after 180 brain frames: active=False type=146 life=-4497/500 timeLeft=749 pos=1666,437
+16:46:17.039 AUTOTEST: player hp 55; scavenger_poison@10,0 stand hp600
+16:46:17.617 scavenger_poison starts scavenger_poison.poison_trail_shot at 9 tiles
+16:46:18.085 AUTOTEST: player hp 55; scavenger_poison@9,0 stand hp600
+16:46:18.700 scavenger_poison starts scavenger_poison.poison_trail_shot at 9 tiles
+16:46:19.085 AUTOTEST: player hp 55; scavenger_poison@9,0 stand hp600
+16:46:19.784 scavenger_poison starts scavenger_poison.poison_trail_shot at 9 tiles
+16:46:20.085 loot of scavenger_poison like Гранитный голем (482): Гранитный блок x9, Шлем ночного видения
+16:46:20.085 killed scavenger_poison #2
+16:46:20.089 AUTOTEST: place underground desert at 2408,568
+16:46:20.089 AUTOTEST: spawning fungus_tiny
+16:46:20.089 spawned fungus_tiny (Мюрккюняпиккя) #1 life 480 at tile 2418,571
+16:46:20.090 AUTOTEST: scavenger_poison #2 gone after 180 brain frames: active=False type=146 life=-1197/600 timeLeft=749 pos=3633,714
+16:46:20.090 AUTOTEST: player hp 55; fungus_tiny@10,3 stand hp480
+16:46:21.102 AUTOTEST: player hp 55; fungus_tiny@8,4 walk hp480
+16:46:21.118 fungus_tiny starts fungus_tiny.lunge at 9 tiles
+16:46:21.351 fungus_tiny lunge fungus_tiny.lunge hits for 19
+16:46:22.102 AUTOTEST: player hp 100; fungus_tiny@2,0 walk hp480
+16:46:23.102 fungus_tiny death explosion fungus_tiny.explodes_on_death hits for 375
+16:46:23.102 loot of fungus_tiny like Гигантский муравьиный лев (509): 
+16:46:23.104 killed fungus_tiny #1
+16:46:23.105 AUTOTEST: place dungeon at 693,527
+16:46:23.105 AUTOTEST: spawning eel
+16:46:23.106 spawned eel (Нахкиайнен) #2 life 1000 at tile 703,525
+16:46:23.106 AUTOTEST: fungus_tiny #1 gone after 180 brain frames: active=False type=146 life=-4310/480 timeLeft=749 pos=2404,565
+16:46:23.107 AUTOTEST: player hp 0; eel@10,-1 stand hp1000 OFFSCREEN
+16:46:24.119 AUTOTEST: player hp 100; eel@10,-1 walk hp1000 OFFSCREEN
+16:46:25.119 AUTOTEST: player hp 100; eel@10,-1 walk hp1000 OFFSCREEN
+16:46:25.270 AUTOTEST: eel #2 gone after 129 brain frames: active=False type=146 life=1000/1000 timeLeft=748 pos=702,523
+16:46:26.120 AUTOTEST: place underworld at 2165,1054
+16:46:26.120 AUTOTEST: spawning deer
+16:46:26.121 spawned deer (Неликойпи) #1 life 40 at tile 2175,1064
+16:46:26.121 AUTOTEST: player hp 100; deer@10,10 stand hp40
+16:46:26.182 killed deer #1
+16:46:26.183 AUTOTEST: deer #1 gone after 1 brain frames: active=False type=146 life=-9/40 timeLeft=750 pos=2174,1061
+16:46:27.169 AUTOTEST: player hp 100; 
+16:46:28.170 AUTOTEST: player hp 100; 
+16:46:29.227 AUTOTEST: place forest at 2818,119
+16:46:29.227 AUTOTEST: spawning fungus_big
+16:46:29.229 spawned fungus_big (Нуйямаликка) #1 life 380 at tile 2828,121
+16:46:29.229 AUTOTEST: player hp 100; fungus_big@10,1 stand hp380
+16:46:30.223 AUTOTEST: player hp 100; fungus_big@10,1 stand hp380
+16:46:31.223 AUTOTEST: player hp 100; fungus_big@10,1 stand hp380
+16:46:32.225 fungus_big death explosion fungus_big.explodes_on_death hits for 125
+16:46:32.225 loot of fungus_big like Гоблин-разведчик (73): Потрепанная ткань x2
+16:46:32.226 killed fungus_big #1
+16:46:32.228 AUTOTEST: place snow at 1248,264
+16:46:32.228 AUTOTEST: spawning ethereal_being
+16:46:32.229 spawned ethereal_being (Олематон) #2 life 4650 at tile 1258,269
+16:46:32.229 AUTOTEST: fungus_big #1 gone after 0 brain frames: active=False type=146 life=-3419/380 timeLeft=750 pos=2827,117
+16:46:32.229 AUTOTEST: player hp 0; ethereal_being@10,3 stand hp4650
+16:46:33.230 AUTOTEST: player hp 100; ethereal_being@10,3 stand hp4650
+16:46:34.213 AUTOTEST: player hp 100; ethereal_being@10,3 stand hp4650
+16:46:35.224 loot of ethereal_being like Ледяной слизень (147): Гель x2
+16:46:35.224 killed ethereal_being #2
+16:46:35.227 AUTOTEST: place desert at 2411,243
+16:46:35.227 AUTOTEST: spawning dark_alchemist
+16:46:35.228 spawned dark_alchemist (Пахан муйсто) #1 life 1500 at tile 2421,243
+16:46:35.228 AUTOTEST: ethereal_being #2 gone after 0 brain frames: active=False type=146 life=-41840/4650 timeLeft=750 pos=1255,263
+16:46:35.229 AUTOTEST: player hp 100; dark_alchemist@10,0 stand hp1500
+16:46:36.212 AUTOTEST: player hp 100; dark_alchemist@10,0 stand hp1500
+16:46:37.220 AUTOTEST: player hp 100; dark_alchemist@10,0 stand hp1500
+16:46:38.212 loot of dark_alchemist like Муравьиный лев (69): 
+16:46:38.212 killed dark_alchemist #1
+16:46:38.214 AUTOTEST: place jungle at 3405,596
+16:46:38.214 AUTOTEST: spawning icemage
+16:46:38.215 spawned icemage (Паккасукко) #2 life 250 at tile 3415,594
+16:46:38.215 AUTOTEST: dark_alchemist #1 gone after 0 brain frames: active=False type=146 life=-13482/1500 timeLeft=750 pos=2420,240
+16:46:38.215 AUTOTEST: player hp 100; icemage@10,-2 stand hp250 OFFSCREEN
+16:46:39.216 AUTOTEST: player hp 100; icemage@10,-2 stand hp250 OFFSCREEN
+16:46:40.221 AUTOTEST: player hp 100; icemage@10,-2 stand hp250 OFFSCREEN
+16:46:41.219 loot of icemage like Людоед (43): Лоза
+16:46:41.220 killed icemage #2
+16:46:41.221 AUTOTEST: place caverns at 1808,455
+16:46:41.222 AUTOTEST: spawning wizard_returner
+16:46:41.222 spawned wizard_returner (Палауттаяместари) #1 life 700 at tile 1818,453
+16:46:41.222 AUTOTEST: icemage #2 gone after 0 brain frames: active=False type=146 life=-2249/250 timeLeft=750 pos=3414,590
+16:46:41.224 AUTOTEST: player hp 100; wizard_returner@10,-1 stand hp700 OFFSCREEN
+16:46:42.211 AUTOTEST: player hp 100; wizard_returner@10,-1 stand hp700 OFFSCREEN
+16:46:43.220 AUTOTEST: player hp 100; wizard_returner@10,-1 stand hp700 OFFSCREEN
+16:46:44.225 loot of wizard_returner like Пожиратель (7): Зуб червя x5
+16:46:44.225 killed wizard_returner #1
+16:46:44.230 AUTOTEST: place ice caves at 827,576
+16:46:44.230 AUTOTEST: spawning scavenger_heal
+16:46:44.231 spawned scavenger_heal (Парантаяхийси) #2 life 70 at tile 837,574
+16:46:44.231 AUTOTEST: wizard_returner #1 gone after 0 brain frames: active=False type=146 life=-2797/700 timeLeft=750 pos=1817,450
+16:46:44.231 AUTOTEST: player hp 100; scavenger_heal@10,-2 stand hp70 OFFSCREEN
+16:46:45.220 AUTOTEST: player hp 100; scavenger_heal@10,-2 stand hp70 OFFSCREEN
+16:46:46.224 AUTOTEST: player hp 100; scavenger_heal@10,-2 stand hp70 OFFSCREEN
+16:46:47.220 loot of scavenger_heal like Снежный флинкс (185): Мех флинкса x3, Компас
+16:46:47.220 killed scavenger_heal #2
+16:46:47.222 AUTOTEST: place mushroom at 2839,833
+16:46:47.222 AUTOTEST: spawning statue
+16:46:47.223 spawned statue (Патсас) #1 life 700 at tile 2849,833
+16:46:47.223 AUTOTEST: scavenger_heal #2 gone after 0 brain frames: active=False type=146 life=-627/70 timeLeft=750 pos=836,571
+16:46:47.223 AUTOTEST: player hp 100; statue@10,0 stand hp700
+16:46:48.214 AUTOTEST: player hp 100; statue@10,0 stand hp700
+16:46:49.230 AUTOTEST: player hp 100; statue@10,0 stand hp700
+16:46:50.216 loot of statue like Споровая летучая мышь (634): 
+16:46:50.216 killed statue #1
+16:46:50.220 AUTOTEST: place marble at 3493,889
+16:46:50.220 AUTOTEST: spawning spearbot
+16:46:50.221 spawned spearbot (Пейтсивартия) #2 life 900 at tile 3503,896
+16:46:50.221 AUTOTEST: statue #1 gone after 0 brain frames: active=False type=146 life=-6297/700 timeLeft=750 pos=2848,829
+16:46:50.221 AUTOTEST: player hp 100; spearbot@10,5 stand hp900
+16:46:51.220 AUTOTEST: player hp 100; spearbot@10,5 stand hp900
+16:46:52.211 AUTOTEST: player hp 100; spearbot@10,5 stand hp900
+16:46:53.229 loot of spearbot like Горгона Медуза (480): 
+16:46:53.229 killed spearbot #2
+16:46:53.232 AUTOTEST: place granite at 702,842
+16:46:53.232 AUTOTEST: spawning worm_tiny
+16:46:53.232 spawned worm_tiny (Пиккумато) #1 life 300 at tile 712,863
+16:46:53.233 AUTOTEST: spearbot #2 gone after 0 brain frames: active=False type=146 life=-1797/900 timeLeft=750 pos=3502,890
+16:46:53.236 AUTOTEST: player hp 100; worm_tiny@10,21 stand hp300
+16:46:54.234 AUTOTEST: player hp 100; worm_tiny@10,21 stand hp300
+16:46:55.233 AUTOTEST: player hp 100; worm_tiny@10,21 stand hp300
+16:46:56.233 loot of worm_tiny like Гранитный голем (482): Гранитный блок x9
+16:46:56.233 killed worm_tiny #1
+16:46:56.237 AUTOTEST: place underground desert at 2545,400
+16:46:56.237 AUTOTEST: spawning tentacler_small
+16:46:56.240 spawned tentacler_small (Пиккутурсо) #2 life 75 at tile 2555,400
+16:46:56.240 AUTOTEST: worm_tiny #1 gone after 0 brain frames: active=False type=146 life=-2697/300 timeLeft=750 pos=712,862
+16:46:56.241 AUTOTEST: player hp 100; tentacler_small@10,0 stand hp75 OFFSCREEN
+16:46:57.223 AUTOTEST: player hp 100; tentacler_small@10,0 stand hp75 OFFSCREEN
+16:46:58.229 AUTOTEST: player hp 100; tentacler_small@10,0 stand hp75 OFFSCREEN
+16:46:59.209 loot of tentacler_small like Ползун гробниц (513): 
+16:46:59.209 killed tentacler_small #2
+16:46:59.211 AUTOTEST: place dungeon at 861,634
+16:46:59.211 AUTOTEST: spawning shooterflower
+16:46:59.212 spawned shooterflower (Пласмакукка) #1 life 500 at tile 871,640
+16:46:59.213 AUTOTEST: tentacler_small #2 gone after 0 brain frames: active=False type=146 life=-672/75 timeLeft=750 pos=2554,397
+16:46:59.213 AUTOTEST: player hp 100; shooterflower@10,5 stand hp500 OFFSCREEN
+16:47:00.216 AUTOTEST: player hp 100; shooterflower@10,5 stand hp500 OFFSCREEN
+16:47:01.232 AUTOTEST: player hp 100; shooterflower@10,5 stand hp500 OFFSCREEN
+16:47:02.214 loot of shooterflower like Ледяной мимик (629): Снежковая пушка
+16:47:02.215 killed shooterflower #1
+16:47:02.217 AUTOTEST: place underworld at 3230,1071
+16:47:02.217 AUTOTEST: spawning elk
+16:47:02.217 spawned elk (Поро) #2 life 50 at tile 3240,1092
+16:47:02.218 AUTOTEST: shooterflower #1 gone after 0 brain frames: active=False type=146 life=-4497/500 timeLeft=750 pos=870,637
+16:47:02.220 AUTOTEST: player hp 100; elk@10,20 stand hp50
+16:47:03.224 AUTOTEST: player hp 100; elk@10,20 stand hp50
+16:47:04.213 AUTOTEST: player hp 100; elk@10,20 stand hp50
+16:47:05.222 killed elk #2
+16:47:05.224 AUTOTEST: place forest at 2303,247
+16:47:05.224 AUTOTEST: spawning alchemist
+16:47:05.225 spawned alchemist (Алкемисти) #1 life 150 at tile 2313,248
+16:47:05.225 AUTOTEST: elk #2 gone after 0 brain frames: active=False type=146 life=-449/50 timeLeft=750 pos=3238,1089
+16:47:05.226 AUTOTEST: player hp 100; alchemist@10,1 stand hp150
+16:47:06.214 AUTOTEST: player hp 100; alchemist@10,1 stand hp150
+16:47:07.225 AUTOTEST: player hp 100; alchemist@10,1 stand hp150
+16:47:08.232 loot of alchemist like Муравьиный лев (69): 
+16:47:08.232 killed alchemist #1
+16:47:08.237 AUTOTEST: place snow at 1273,264
+16:47:08.237 AUTOTEST: spawning bloom
+16:47:08.239 spawned bloom (Пуска) #2 life 400 at tile 1283,275
+16:47:08.239 AUTOTEST: alchemist #1 gone after 0 brain frames: active=False type=146 life=-1349/150 timeLeft=750 pos=2312,246
+16:47:08.240 AUTOTEST: player hp 100; bloom@10,10 stand hp400
+16:47:09.220 AUTOTEST: player hp 100; bloom@10,10 stand hp400
+16:47:10.231 AUTOTEST: player hp 100; bloom@10,10 stand hp400
+16:47:11.212 loot of bloom like Замороженный зомби (161): 
+16:47:11.212 killed bloom #2
+16:47:11.215 AUTOTEST: place desert at 2583,224
+16:47:11.215 AUTOTEST: spawning neutralizer
+16:47:11.216 spawned neutralizer (Пюсяйттяйя) #1 life 7250 at tile 2593,225
+16:47:11.216 AUTOTEST: bloom #2 gone after 0 brain frames: active=False type=146 life=-3597/400 timeLeft=750 pos=1282,272
+16:47:11.216 AUTOTEST: player hp 100; neutralizer@10,0 stand hp7250
+16:47:12.208 AUTOTEST: player hp 100; neutralizer@10,0 stand hp7250
+16:47:13.237 AUTOTEST: player hp 100; neutralizer@10,0 stand hp7250
+16:47:14.229 loot of neutralizer like Муравьиный лев (69): Муравьиная челюсть x2
+16:47:14.229 killed neutralizer #1
+16:47:14.232 AUTOTEST: place jungle at 3107,336
+16:47:14.232 AUTOTEST: spawning coward
+16:47:14.233 spawned coward (Раукка) #2 life 300 at tile 3117,334
+16:47:14.234 AUTOTEST: neutralizer #1 gone after 0 brain frames: active=False type=146 life=-14482/7250 timeLeft=750 pos=2592,222
+16:47:14.234 AUTOTEST: player hp 100; coward@10,-2 stand hp300
+16:47:15.223 AUTOTEST: player hp 100; coward@11,-4 walk hp300
+16:47:15.856 AUTOTEST: coward #2 gone after 93 brain frames: active=False type=146 life=300/300 timeLeft=748 pos=3119,329
+16:47:16.222 AUTOTEST: player hp 100; 
+16:47:17.223 AUTOTEST: place caverns at 571,833
+16:47:17.223 AUTOTEST: spawning roboguard
+16:47:17.224 spawned roboguard (Роботтикюття) #1 life 500 at tile 581,832
+16:47:17.224 AUTOTEST: player hp 100; roboguard@10,-1 stand hp500 OFFSCREEN
+16:47:17.638 roboguard starts roboguard.projectile at 10 tiles
+16:47:18.240 AUTOTEST: player hp 100; roboguard@9,-1 stand hp500 OFFSCREEN
+16:47:18.438 roboguard starts roboguard.projectile at 10 tiles
+16:47:19.239 roboguard starts roboguard.projectile at 10 tiles
+16:47:19.243 AUTOTEST: player hp 100; roboguard@9,-1 attack hp500 OFFSCREEN
+16:47:19.305 roboguard shot roboguard_shot hits for 21
+16:47:20.241 loot of roboguard like Потерявшаяся девочка (195): Металлодетектор
+16:47:20.241 killed roboguard #1
+16:47:20.244 AUTOTEST: place ice caves at 951,556
+16:47:20.244 AUTOTEST: spawning scavenger_smg
+16:47:20.245 spawned scavenger_smg (Рюнккюхийси) #2 life 50 at tile 961,554
+16:47:20.246 AUTOTEST: roboguard #1 gone after 180 brain frames: active=False type=146 life=-997/500 timeLeft=749 pos=579,829
+16:47:20.247 AUTOTEST: player hp 100; scavenger_smg@10,-2 stand hp50 OFFSCREEN
+16:47:21.258 AUTOTEST: player hp 100; scavenger_smg@10,-2 stand hp50 OFFSCREEN
+16:47:21.274 AUTOTEST: scavenger_smg #2 gone after 61 brain frames: active=False type=146 life=50/50 timeLeft=748 pos=961,551
+16:47:22.257 AUTOTEST: player hp 100; 
+16:47:23.257 AUTOTEST: place mushroom at 2825,884
+16:47:23.257 AUTOTEST: spawning goblin_bomb
+16:47:23.259 spawned goblin_bomb (Сяхикяйсменнинкяйнен) #1 life 100 at tile 2835,884
+16:47:23.259 AUTOTEST: player hp 100; goblin_bomb@10,0 stand hp100
+16:47:24.291 AUTOTEST: player hp 100; goblin_bomb@7,0 stand hp100
+16:47:25.293 AUTOTEST: player hp 100; goblin_bomb@7,0 stand hp100
+16:47:26.155 goblin_bomb starts goblin_bomb.glitter_bomb at 7 tiles
+16:47:26.190 goblin_bomb shot glitter_bomb hits for 38
+16:47:26.299 loot of goblin_bomb like Споровый скелет (635): 
+16:47:26.299 killed goblin_bomb #1
+16:47:26.304 AUTOTEST: place marble at 2919,760
+16:47:26.304 AUTOTEST: spawning thunderskull
+16:47:26.305 spawned thunderskull (Сяхкиё) #2 life 450 at tile 2929,761
+16:47:26.305 AUTOTEST: goblin_bomb #1 gone after 180 brain frames: active=False type=146 life=-897/100 timeLeft=749 pos=2832,881
+16:47:26.305 AUTOTEST: player hp 62; thunderskull@10,1 stand hp450
+16:47:27.373 AUTOTEST: player hp 58; thunderskull@10,-3 fly hp450
+16:47:28.374 AUTOTEST: player hp 54; thunderskull@9,-4 fly hp450
+16:47:29.374 loot of thunderskull like Людоед (43): Лоза
+16:47:29.374 killed thunderskull #2
+16:47:29.377 AUTOTEST: place granite at 699,874
+16:47:29.378 AUTOTEST: spawning assassin
+16:47:29.378 spawned assassin (Саламурхааяроботти) #1 life 800 at tile 709,877
+16:47:29.378 AUTOTEST: thunderskull #2 gone after 180 brain frames: active=False type=146 life=-4047/450 timeLeft=749 pos=2927,753
+16:47:29.379 AUTOTEST: player hp 50; assassin@10,3 stand hp800
+16:47:30.390 assassin starts assassin.lunge at 6 tiles
+16:47:30.391 AUTOTEST: player hp 97; assassin@5,0 jump_up hp800
+16:47:30.522 assassin lunge assassin.lunge hits for 34
+16:47:30.590 assassin starts assassin.melee at 0 tiles
+16:47:31.157 assassin starts assassin.melee at 1 tiles
+16:47:31.392 AUTOTEST: player hp 59; assassin@1,0 attack hp800
+16:47:31.489 assassin starts assassin.melee at 0 tiles
+16:47:31.490 assassin melee assassin.melee hits for 46
+16:47:32.390 assassin starts assassin.lunge at 3 tiles
+16:47:32.392 loot of assassin like Гранитный голем (482): Гранитный блок x6
+16:47:32.392 killed assassin #1
+16:47:32.394 AUTOTEST: place underground desert at 2437,786
+16:47:32.394 AUTOTEST: spawning wizard_twitchy
+16:47:32.394 spawned wizard_twitchy (Саткиместари) #2 life 500 at tile 2447,788
+16:47:32.395 AUTOTEST: assassin #1 gone after 180 brain frames: active=False type=146 life=-1597/800 timeLeft=749 pos=691,871
+16:47:32.395 AUTOTEST: player hp 98; wizard_twitchy@10,2 stand hp500
+16:47:33.340 wizard_twitchy starts wizard_twitchy.twitching_shot at 10 tiles
+16:47:33.392 AUTOTEST: player hp 94; wizard_twitchy@10,-4 attack hp500
+16:47:33.807 wizard_twitchy shot twitching_shot hits for 15
+16:47:34.392 AUTOTEST: player hp 75; wizard_twitchy@9,-5 fly hp500
+16:47:35.274 wizard_twitchy starts wizard_twitchy.twitching_shot at 10 tiles
+16:47:35.409 loot of wizard_twitchy like Гигантский муравьиный лев-воин (508): 
+16:47:35.409 killed wizard_twitchy #2
+16:47:35.411 AUTOTEST: place dungeon at 959,808
+16:47:35.411 AUTOTEST: spawning wizard_tele
+16:47:35.412 spawned wizard_tele (Сииртяяместари) #1 life 400 at tile 949,808
+16:47:35.412 AUTOTEST: wizard_twitchy #2 gone after 180 brain frames: active=False type=146 life=-4497/500 timeLeft=749 pos=2444,778
+16:47:35.412 AUTOTEST: player hp 71; wizard_tele@-10,0 stand hp400
+16:47:36.440 AUTOTEST: player hp 67; wizard_tele@-9,-3 fly hp400
+16:47:37.307 wizard_tele starts wizard_tele.teleportation at 10 tiles
+16:47:37.440 AUTOTEST: player hp 63; wizard_tele@-9,-4 attack hp400
+16:47:37.757 wizard_tele shot teleportation hits for 15
+16:47:38.441 loot of wizard_tele like Слизень из темницы (71): Золотой ключ
+16:47:38.441 killed wizard_tele #1
+16:47:38.443 AUTOTEST: place underworld at 1713,1022
+16:47:38.443 AUTOTEST: spawning scorpion
+16:47:38.444 spawned scorpion (Скорпиони) #2 life 5 at tile 1703,1020
+16:47:38.444 AUTOTEST: wizard_tele #1 gone after 180 brain frames: active=False type=146 life=-3597/400 timeLeft=749 pos=951,799
+16:47:38.445 AUTOTEST: player hp 97; scorpion@-10,-1 stand hp5 OFFSCREEN
+16:47:39.457 AUTOTEST: player hp 93; scorpion@-10,-1 walk hp5 OFFSCREEN
+16:47:40.502 AUTOTEST: player hp 90; scorpion@-10,-1 walk hp5 OFFSCREEN
+16:47:41.507 killed scorpion #2
+16:47:41.509 AUTOTEST: place forest at 2134,252
+16:47:41.509 AUTOTEST: spawning sniper_hell
+16:47:41.510 spawned sniper_hell (Хорнаснипухийси) #1 life 1440 at tile 2124,253
+16:47:41.510 AUTOTEST: scorpion #2 gone after 104 brain frames: active=False type=146 life=-44/5 timeLeft=749 pos=1703,1019
+16:47:41.510 AUTOTEST: player hp 90; sniper_hell@-10,0 stand hp1440
+16:47:42.497 AUTOTEST: player hp 90; sniper_hell@-10,0 stand hp1440
+16:47:43.496 AUTOTEST: player hp 90; sniper_hell@-10,0 stand hp1440
+16:47:44.511 loot of sniper_hell like Мох-зомби (691): Неоновый мох
+16:47:44.511 killed sniper_hell #1
+16:47:44.514 AUTOTEST: place snow at 1266,264
+16:47:44.514 AUTOTEST: spawning sniper
+16:47:44.515 spawned sniper (Снипухийси) #2 life 180 at tile 1256,265
+16:47:44.515 AUTOTEST: sniper_hell #1 gone after 0 brain frames: active=False type=146 life=-12950/1440 timeLeft=750 pos=2123,250
+16:47:44.516 AUTOTEST: player hp 90; sniper@-10,0 stand hp180
+16:47:45.508 AUTOTEST: player hp 90; sniper@-10,0 stand hp180
+16:47:46.509 AUTOTEST: player hp 90; sniper@-10,0 stand hp180
+16:47:47.515 loot of sniper like Замороженный зомби (161): 
+16:47:47.515 killed sniper #2
+16:47:47.517 AUTOTEST: place desert at 2569,228
+16:47:47.518 AUTOTEST: spawning wizard_dark
+16:47:47.518 spawned wizard_dark (Сокайсунместари) #1 life 400 at tile 2559,236
+16:47:47.518 AUTOTEST: sniper #2 gone after 0 brain frames: active=False type=146 life=-1617/180 timeLeft=750 pos=1255,262
+16:47:47.518 AUTOTEST: player hp 90; wizard_dark@-10,8 stand hp400
+16:47:48.515 AUTOTEST: player hp 90; wizard_dark@-10,8 stand hp400
+16:47:49.502 AUTOTEST: player hp 90; wizard_dark@-10,8 stand hp400
+16:47:50.516 loot of wizard_dark like Муравьиный лев (69): 
+16:47:50.516 killed wizard_dark #1
+16:47:50.519 AUTOTEST: place jungle at 3395,875
+16:47:50.519 AUTOTEST: spawning phantom_a
+16:47:50.520 spawned phantom_a (Спирааликалма) #2 life 300 at tile 3385,873
+16:47:50.520 AUTOTEST: wizard_dark #1 gone after 0 brain frames: active=False type=146 life=-3597/400 timeLeft=750 pos=2558,233
+16:47:50.520 AUTOTEST: player hp 90; phantom_a@-10,-2 stand hp300
+16:47:51.528 AUTOTEST: player hp 90; phantom_a@-10,-2 stand hp300
+16:47:52.497 AUTOTEST: player hp 90; phantom_a@-10,-2 stand hp300
+16:47:53.516 loot of phantom_a like Шипастый слизень джунглей (204): Гель x2, Жало
+16:47:53.516 killed phantom_a #2
+16:47:53.518 AUTOTEST: place caverns at 4017,864
+16:47:53.519 AUTOTEST: spawning wolf
+16:47:53.519 spawned wolf (Суси) #1 life 30 at tile 4007,862
+16:47:53.519 AUTOTEST: phantom_a #2 gone after 0 brain frames: active=False type=146 life=-2697/300 timeLeft=750 pos=3384,869
+16:47:53.520 AUTOTEST: player hp 90; wolf@-10,-1 stand hp30 OFFSCREEN
+16:47:54.517 AUTOTEST: player hp 90; wolf@-10,-1 stand hp30 OFFSCREEN
+16:47:55.508 AUTOTEST: player hp 86; wolf@-9,-1 walk hp30 OFFSCREEN
+16:47:56.508 loot of wolf like Кошенильный жук (217): Красный хитин
+16:47:56.508 killed wolf #1
+16:47:56.511 AUTOTEST: place ice caves at 1156,616
+16:47:56.511 AUTOTEST: spawning thundermage_big
+16:47:56.511 spawned thundermage_big (Суур-Укко) #2 life 6000 at tile 1146,637
+16:47:56.511 AUTOTEST: wolf #1 gone after 81 brain frames: active=False type=146 life=-269/30 timeLeft=749 pos=4007,860
+16:47:56.512 AUTOTEST: player hp 85; thundermage_big@-10,19 stand hp6000
+16:47:58.114 Terraria exited

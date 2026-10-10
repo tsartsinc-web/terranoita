@@ -1,0 +1,2064 @@
+{
+ "sheet": "enemy_blood",
+ "description": "Stage 2: what each Noita creature bleeds.",
+ "key": "id",
+ "columns": {
+  "id": {
+   "type": "ref",
+   "ref": "enemies",
+   "desc": "Enemy."
+  },
+  "blood": {
+   "type": "string",
+   "desc": "Noita blood_material: what hits spill and the body leaves ('none')."
+  },
+  "spray": {
+   "type": "string",
+   "desc": "Noita blood_spray_material ('none')."
+  },
+  "stage": {
+   "type": "enum",
+   "values": [
+    "1a",
+    "1b",
+    "1c",
+    "2",
+    "3",
+    "4"
+   ],
+   "desc": "Stage that builds it."
+  }
+ },
+ "rows": [
+  {
+   "id": "weakspirit",
+   "blood": "plasma_fading",
+   "spray": "plasma_fading",
+   "stage": "2",
+   "_unverified": {},
+   "_sources": {
+    "all": "noita_facts.json weakspirit DamageModelComponent (no blood_material = Noita default blood_fading, _component_docs)"
+   }
+  },
+  {
+   "id": "slimespirit",
+   "blood": "plasma_fading",
+   "spray": "plasma_fading",
+   "stage": "2",
+   "_unverified": {},
+   "_sources": {
+    "all": "noita_facts.json slimespirit DamageModelComponent (no blood_material = Noita default blood_fading, _component_docs)"
+   }
+  },
+  {
+   "id": "confusespirit",
+   "blood": "plasma_fading",
+   "spray": "plasma_fading",
+   "stage": "2",
+   "_unverified": {},
+   "_sources": {
+    "all": "noita_facts.json confusespirit DamageModelComponent (no blood_material = Noita default blood_fading, _component_docs)"
+   }
+  },
+  {
+   "id": "berserkspirit",
+   "blood": "plasma_fading",
+   "spray": "plasma_fading",
+   "stage": "2",
+   "_unverified": {},
+   "_sources": {
+    "all": "noita_facts.json berserkspirit DamageModelComponent (no blood_material = Noita default blood_fading, _component_docs)"
+   }
+  },
+  {
+   "id": "giantshooter",
+   "blood": "acid",
+   "spray": "acid",
+   "stage": "2",
+   "_unverified": {},
+   "_sources": {
+    "all": "noita_facts.json giantshooter DamageModelComponent (no blood_material = Noita default blood_fading, _component_docs)"
+   }
+  },
+  {
+   "id": "giantshooter_weak",
+   "blood": "acid",
+   "spray": "acid",
+   "stage": "2",
+   "_unverified": {},
+   "_sources": {
+    "all": "noita_facts.json giantshooter_weak DamageModelComponent (no blood_material = Noita default blood_fading, _component_docs)"
+   }
+  },
+  {
+   "id": "fly",
+   "blood": "blood_fading",
+   "spray": "blood",
+   "stage": "2",
+   "_unverified": {},
+   "_sources": {
+    "all": "noita_facts.json fly DamageModelComponent (no blood_material = Noita default blood_fading, _component_docs)"
+   }
+  },
+  {
+   "id": "nest_fly",
+   "blood": "blood_fading",
+   "spray": "none",
+   "stage": "2",
+   "_unverified": {},
+   "_sources": {
+    "all": "noita_facts.json nest_fly DamageModelComponent (no blood_material = Noita default blood_fading, _component_docs)"
+   }
+  },
+  {
+   "id": "duck",
+   "blood": "blood_fading",
+   "spray": "none",
+   "stage": "2",
+   "_unverified": {},
+   "_sources": {
+    "all": "noita_facts.json duck DamageModelComponent (no blood_material = Noita default blood_fading, _component_docs)"
+   }
+  },
+  {
+   "id": "firemage",
+   "blood": "lava",
+   "spray": "lava",
+   "stage": "2",
+   "_unverified": {},
+   "_sources": {
+    "all": "noita_facts.json firemage DamageModelComponent (no blood_material = Noita default blood_fading, _component_docs)"
+   }
+  },
+  {
+   "id": "hpcrystal",
+   "blood": "sand_blue",
+   "spray": "none",
+   "stage": "2",
+   "_unverified": {},
+   "_sources": {
+    "all": "noita_facts.json hpcrystal DamageModelComponent (no blood_material = Noita default blood_fading, _component_docs)"
+   }
+  },
+  {
+   "id": "death_orb_lab",
+   "blood": "none",
+   "spray": "none",
+   "stage": "2",
+   "_unverified": {},
+   "_sources": {
+    "all": "no DamageModelComponent in facts"
+   }
+  },
+  {
+   "id": "failed_alchemist_b",
+   "blood": "slime",
+   "spray": "slime",
+   "stage": "2",
+   "_unverified": {},
+   "_sources": {
+    "all": "noita_facts.json failed_alchemist_b DamageModelComponent (no blood_material = Noita default blood_fading, _component_docs)"
+   }
+  },
+  {
+   "id": "fish",
+   "blood": "blood_fading",
+   "spray": "none",
+   "stage": "2",
+   "_unverified": {},
+   "_sources": {
+    "all": "noita_facts.json fish DamageModelComponent (no blood_material = Noita default blood_fading, _component_docs)"
+   }
+  },
+  {
+   "id": "gate_monster_c",
+   "blood": "spark_red",
+   "spray": "spark_red",
+   "stage": "2",
+   "_unverified": {},
+   "_sources": {
+    "all": "noita_facts.json gate_monster_c DamageModelComponent (no blood_material = Noita default blood_fading, _component_docs)"
+   }
+  },
+  {
+   "id": "gate_monster_b",
+   "blood": "spark_red",
+   "spray": "spark_red",
+   "stage": "2",
+   "_unverified": {},
+   "_sources": {
+    "all": "noita_facts.json gate_monster_b DamageModelComponent (no blood_material = Noita default blood_fading, _component_docs)"
+   }
+  },
+  {
+   "id": "gate_monster_d",
+   "blood": "spark_red",
+   "spray": "spark_red",
+   "stage": "2",
+   "_unverified": {},
+   "_sources": {
+    "all": "noita_facts.json gate_monster_d DamageModelComponent (no blood_material = Noita default blood_fading, _component_docs)"
+   }
+  },
+  {
+   "id": "gate_monster_a",
+   "blood": "spark_red",
+   "spray": "spark_red",
+   "stage": "2",
+   "_unverified": {},
+   "_sources": {
+    "all": "noita_facts.json gate_monster_a DamageModelComponent (no blood_material = Noita default blood_fading, _component_docs)"
+   }
+  },
+  {
+   "id": "darkghost",
+   "blood": "blood_worm",
+   "spray": "blood_worm",
+   "stage": "2",
+   "_unverified": {},
+   "_sources": {
+    "all": "noita_facts.json darkghost DamageModelComponent (no blood_material = Noita default blood_fading, _component_docs)"
+   }
+  },
+  {
+   "id": "snowcrystal",
+   "blood": "sand_blue",
+   "spray": "none",
+   "stage": "2",
+   "_unverified": {},
+   "_sources": {
+    "all": "noita_facts.json snowcrystal DamageModelComponent (no blood_material = Noita default blood_fading, _component_docs)"
+   }
+  },
+  {
+   "id": "wizard_hearty",
+   "blood": "blood_fading",
+   "spray": "none",
+   "stage": "2",
+   "_unverified": {},
+   "_sources": {
+    "all": "noita_facts.json wizard_hearty DamageModelComponent (no blood_material = Noita default blood_fading, _component_docs)"
+   }
+  },
+  {
+   "id": "necromancer",
+   "blood": "bone",
+   "spray": "bone",
+   "stage": "2",
+   "_unverified": {},
+   "_sources": {
+    "all": "noita_facts.json necromancer DamageModelComponent (no blood_material = Noita default blood_fading, _component_docs)"
+   }
+  },
+  {
+   "id": "scavenger_invis",
+   "blood": "blood_fading",
+   "spray": "blood",
+   "stage": "2",
+   "_unverified": {},
+   "_sources": {
+    "all": "noita_facts.json scavenger_invis DamageModelComponent (no blood_material = Noita default blood_fading, _component_docs)"
+   }
+  },
+  {
+   "id": "lukki",
+   "blood": "slime_green",
+   "spray": "slime_green",
+   "stage": "2",
+   "_unverified": {},
+   "_sources": {
+    "all": "noita_facts.json lukki DamageModelComponent (no blood_material = Noita default blood_fading, _component_docs)"
+   }
+  },
+  {
+   "id": "lukki_longleg",
+   "blood": "slime_green",
+   "spray": "slime_green",
+   "stage": "2",
+   "_unverified": {},
+   "_sources": {
+    "all": "noita_facts.json lukki_longleg DamageModelComponent (no blood_material = Noita default blood_fading, _component_docs)"
+   }
+  },
+  {
+   "id": "lukki_tiny",
+   "blood": "slime_green",
+   "spray": "slime_green",
+   "stage": "2",
+   "_unverified": {},
+   "_sources": {
+    "all": "noita_facts.json lukki_tiny DamageModelComponent (no blood_material = Noita default blood_fading, _component_docs)"
+   }
+  },
+  {
+   "id": "longleg",
+   "blood": "blood_fading",
+   "spray": "blood",
+   "stage": "2",
+   "_unverified": {},
+   "_sources": {
+    "all": "noita_facts.json longleg DamageModelComponent (no blood_material = Noita default blood_fading, _component_docs)"
+   }
+  },
+  {
+   "id": "nest_longleg",
+   "blood": "none",
+   "spray": "none",
+   "stage": "2",
+   "_unverified": {},
+   "_sources": {
+    "all": "no DamageModelComponent in facts"
+   }
+  },
+  {
+   "id": "acidshooter",
+   "blood": "slime_green",
+   "spray": "acid",
+   "stage": "2",
+   "_unverified": {},
+   "_sources": {
+    "all": "noita_facts.json acidshooter DamageModelComponent (no blood_material = Noita default blood_fading, _component_docs)"
+   }
+  },
+  {
+   "id": "acidshooter_weak",
+   "blood": "slime_green",
+   "spray": "acid",
+   "stage": "2",
+   "_unverified": {},
+   "_sources": {
+    "all": "noita_facts.json acidshooter_weak DamageModelComponent (no blood_material = Noita default blood_fading, _component_docs)"
+   }
+  },
+  {
+   "id": "shotgunner",
+   "blood": "blood_fading",
+   "spray": "blood",
+   "stage": "2",
+   "_unverified": {},
+   "_sources": {
+    "all": "noita_facts.json shotgunner DamageModelComponent (no blood_material = Noita default blood_fading, _component_docs)"
+   }
+  },
+  {
+   "id": "shotgunner_weak",
+   "blood": "blood_fading",
+   "spray": "blood",
+   "stage": "2",
+   "_unverified": {},
+   "_sources": {
+    "all": "noita_facts.json shotgunner_weak DamageModelComponent (no blood_material = Noita default blood_fading, _component_docs)"
+   }
+  },
+  {
+   "id": "shotgunner_hell",
+   "blood": "liquid_fire",
+   "spray": "liquid_fire",
+   "stage": "2",
+   "_unverified": {},
+   "_sources": {
+    "all": "noita_facts.json shotgunner_hell DamageModelComponent (no blood_material = Noita default blood_fading, _component_docs)"
+   }
+  },
+  {
+   "id": "missilecrab",
+   "blood": "oil",
+   "spray": "oil",
+   "stage": "2",
+   "_unverified": {},
+   "_sources": {
+    "all": "noita_facts.json missilecrab DamageModelComponent (no blood_material = Noita default blood_fading, _component_docs)"
+   }
+  },
+  {
+   "id": "spitmonster",
+   "blood": "endslime_blood",
+   "spray": "endslime_blood",
+   "stage": "2",
+   "_unverified": {},
+   "_sources": {
+    "all": "noita_facts.json spitmonster DamageModelComponent (no blood_material = Noita default blood_fading, _component_docs)"
+   }
+  },
+  {
+   "id": "gazer",
+   "blood": "lava",
+   "spray": "lava",
+   "stage": "2",
+   "_unverified": {},
+   "_sources": {
+    "all": "noita_facts.json gazer DamageModelComponent (no blood_material = Noita default blood_fading, _component_docs)"
+   }
+  },
+  {
+   "id": "worm_end",
+   "blood": "lava",
+   "spray": "lava",
+   "stage": "2",
+   "_unverified": {},
+   "_sources": {
+    "all": "noita_facts.json worm_end DamageModelComponent (no blood_material = Noita default blood_fading, _component_docs)"
+   }
+  },
+  {
+   "id": "mimic_potion",
+   "blood": "blood_fading",
+   "spray": "none",
+   "stage": "2",
+   "_unverified": {},
+   "_sources": {
+    "all": "noita_facts.json mimic_potion DamageModelComponent (no blood_material = Noita default blood_fading, _component_docs)"
+   }
+  },
+  {
+   "id": "giant",
+   "blood": "blood_cold",
+   "spray": "blood_cold",
+   "stage": "2",
+   "_unverified": {},
+   "_sources": {
+    "all": "noita_facts.json giant DamageModelComponent (no blood_material = Noita default blood_fading, _component_docs)"
+   }
+  },
+  {
+   "id": "wraith_glowing",
+   "blood": "plasma_fading",
+   "spray": "plasma_fading",
+   "stage": "2",
+   "_unverified": {},
+   "_sources": {
+    "all": "noita_facts.json wraith_glowing DamageModelComponent (no blood_material = Noita default blood_fading, _component_docs)"
+   }
+  },
+  {
+   "id": "statue_physics",
+   "blood": "plasma_fading_green",
+   "spray": "plasma_fading_green",
+   "stage": "2",
+   "_unverified": {},
+   "_sources": {
+    "all": "noita_facts.json statue_physics DamageModelComponent (no blood_material = Noita default blood_fading, _component_docs)"
+   }
+  },
+  {
+   "id": "ghost_crystal",
+   "blood": "sand_blue",
+   "spray": "none",
+   "stage": "2",
+   "_unverified": {},
+   "_sources": {
+    "all": "noita_facts.json ghost_crystal DamageModelComponent (no blood_material = Noita default blood_fading, _component_docs)"
+   }
+  },
+  {
+   "id": "ghost",
+   "blood": "blood_worm",
+   "spray": "blood_worm",
+   "stage": "2",
+   "_unverified": {},
+   "_sources": {
+    "all": "noita_facts.json ghost DamageModelComponent (no blood_material = Noita default blood_fading, _component_docs)"
+   }
+  },
+  {
+   "id": "fungus_giga",
+   "blood": "blood_fungi",
+   "spray": "blood_fungi",
+   "stage": "2",
+   "_unverified": {},
+   "_sources": {
+    "all": "noita_facts.json fungus_giga DamageModelComponent (no blood_material = Noita default blood_fading, _component_docs)"
+   }
+  },
+  {
+   "id": "zombie_weak",
+   "blood": "blood_fading",
+   "spray": "blood",
+   "stage": "2",
+   "_unverified": {},
+   "_sources": {
+    "all": "noita_facts.json zombie_weak DamageModelComponent (no blood_material = Noita default blood_fading, _component_docs)"
+   }
+  },
+  {
+   "id": "zombie",
+   "blood": "blood_fading",
+   "spray": "blood",
+   "stage": "2",
+   "_unverified": {},
+   "_sources": {
+    "all": "noita_facts.json zombie DamageModelComponent (no blood_material = Noita default blood_fading, _component_docs)"
+   }
+  },
+  {
+   "id": "wraith",
+   "blood": "plasma_fading_pink",
+   "spray": "plasma_fading_pink",
+   "stage": "2",
+   "_unverified": {},
+   "_sources": {
+    "all": "noita_facts.json wraith DamageModelComponent (no blood_material = Noita default blood_fading, _component_docs)"
+   }
+  },
+  {
+   "id": "scavenger_clusterbomb",
+   "blood": "blood_fading",
+   "spray": "blood",
+   "stage": "2",
+   "_unverified": {},
+   "_sources": {
+    "all": "noita_facts.json scavenger_clusterbomb DamageModelComponent (no blood_material = Noita default blood_fading, _component_docs)"
+   }
+  },
+  {
+   "id": "tank_rocket",
+   "blood": "oil",
+   "spray": "oil",
+   "stage": "2",
+   "_unverified": {},
+   "_sources": {
+    "all": "noita_facts.json tank_rocket DamageModelComponent (no blood_material = Noita default blood_fading, _component_docs)"
+   }
+  },
+  {
+   "id": "icer",
+   "blood": "oil",
+   "spray": "oil",
+   "stage": "2",
+   "_unverified": {},
+   "_sources": {
+    "all": "noita_facts.json icer DamageModelComponent (no blood_material = Noita default blood_fading, _component_docs)"
+   }
+  },
+  {
+   "id": "iceskull",
+   "blood": "blood_cold",
+   "spray": "blood_cold",
+   "stage": "2",
+   "_unverified": {},
+   "_sources": {
+    "all": "noita_facts.json iceskull DamageModelComponent (no blood_material = Noita default blood_fading, _component_docs)"
+   }
+  },
+  {
+   "id": "frog_big",
+   "blood": "blood_fading",
+   "spray": "none",
+   "stage": "2",
+   "_unverified": {},
+   "_sources": {
+    "all": "noita_facts.json frog_big DamageModelComponent (no blood_material = Noita default blood_fading, _component_docs)"
+   }
+  },
+  {
+   "id": "drone_lasership",
+   "blood": "oil",
+   "spray": "oil",
+   "stage": "2",
+   "_unverified": {},
+   "_sources": {
+    "all": "noita_facts.json drone_lasership DamageModelComponent (no blood_material = Noita default blood_fading, _component_docs)"
+   }
+  },
+  {
+   "id": "worm_big",
+   "blood": "blood_worm",
+   "spray": "blood_worm",
+   "stage": "2",
+   "_unverified": {},
+   "_sources": {
+    "all": "noita_facts.json worm_big DamageModelComponent (no blood_material = Noita default blood_fading, _component_docs)"
+   }
+  },
+  {
+   "id": "miner_santa",
+   "blood": "blood_fading",
+   "spray": "none",
+   "stage": "2",
+   "_unverified": {},
+   "_sources": {
+    "all": "noita_facts.json miner_santa DamageModelComponent (no blood_material = Noita default blood_fading, _component_docs)"
+   }
+  },
+  {
+   "id": "failed_alchemist",
+   "blood": "bone",
+   "spray": "bone",
+   "stage": "2",
+   "_unverified": {},
+   "_sources": {
+    "all": "noita_facts.json failed_alchemist DamageModelComponent (no blood_material = Noita default blood_fading, _component_docs)"
+   }
+  },
+  {
+   "id": "skullfly",
+   "blood": "slime",
+   "spray": "slime",
+   "stage": "2",
+   "_unverified": {},
+   "_sources": {
+    "all": "noita_facts.json skullfly DamageModelComponent (no blood_material = Noita default blood_fading, _component_docs)"
+   }
+  },
+  {
+   "id": "skullrat",
+   "blood": "blood",
+   "spray": "blood",
+   "stage": "2",
+   "_unverified": {},
+   "_sources": {
+    "all": "noita_facts.json skullrat DamageModelComponent (no blood_material = Noita default blood_fading, _component_docs)"
+   }
+  },
+  {
+   "id": "worm_skull",
+   "blood": "plasma_fading",
+   "spray": "plasma_fading",
+   "stage": "2",
+   "_unverified": {},
+   "_sources": {
+    "all": "noita_facts.json worm_skull DamageModelComponent (no blood_material = Noita default blood_fading, _component_docs)"
+   }
+  },
+  {
+   "id": "lukki_dark",
+   "blood": "slime",
+   "spray": "slime",
+   "stage": "2",
+   "_unverified": {},
+   "_sources": {
+    "all": "noita_facts.json lukki_dark DamageModelComponent (no blood_material = Noita default blood_fading, _component_docs)"
+   }
+  },
+  {
+   "id": "lukki_creepy_long",
+   "blood": "blood_worm",
+   "spray": "blood_worm",
+   "stage": "2",
+   "_unverified": {},
+   "_sources": {
+    "all": "noita_facts.json lukki_creepy_long DamageModelComponent (no blood_material = Noita default blood_fading, _component_docs)"
+   }
+  },
+  {
+   "id": "ultimate_killer",
+   "blood": "blood_fading",
+   "spray": "blood",
+   "stage": "2",
+   "_unverified": {},
+   "_sources": {
+    "all": "noita_facts.json ultimate_killer DamageModelComponent (no blood_material = Noita default blood_fading, _component_docs)"
+   }
+  },
+  {
+   "id": "scavenger_shield",
+   "blood": "blood_fading",
+   "spray": "blood",
+   "stage": "2",
+   "_unverified": {},
+   "_sources": {
+    "all": "noita_facts.json scavenger_shield DamageModelComponent (no blood_material = Noita default blood_fading, _component_docs)"
+   }
+  },
+  {
+   "id": "crystal_physics",
+   "blood": "plasma_fading_pink",
+   "spray": "plasma_fading_pink",
+   "stage": "2",
+   "_unverified": {},
+   "_sources": {
+    "all": "noita_facts.json crystal_physics DamageModelComponent (no blood_material = Noita default blood_fading, _component_docs)"
+   }
+  },
+  {
+   "id": "phantom_b",
+   "blood": "plasma_fading",
+   "spray": "plasma_fading",
+   "stage": "2",
+   "_unverified": {},
+   "_sources": {
+    "all": "noita_facts.json phantom_b DamageModelComponent (no blood_material = Noita default blood_fading, _component_docs)"
+   }
+  },
+  {
+   "id": "blob",
+   "blood": "blood_fading",
+   "spray": "none",
+   "stage": "2",
+   "_unverified": {},
+   "_sources": {
+    "all": "noita_facts.json blob DamageModelComponent (no blood_material = Noita default blood_fading, _component_docs)"
+   }
+  },
+  {
+   "id": "boss_sky",
+   "blood": "blood_fading",
+   "spray": "none",
+   "stage": "2",
+   "_unverified": {},
+   "_sources": {
+    "all": "noita_facts.json boss_sky DamageModelComponent (no blood_material = Noita default blood_fading, _component_docs)"
+   }
+  },
+  {
+   "id": "tank",
+   "blood": "oil",
+   "spray": "oil",
+   "stage": "2",
+   "_unverified": {},
+   "_sources": {
+    "all": "noita_facts.json tank DamageModelComponent (no blood_material = Noita default blood_fading, _component_docs)"
+   }
+  },
+  {
+   "id": "wizard_homing",
+   "blood": "blood_fading",
+   "spray": "none",
+   "stage": "2",
+   "_unverified": {},
+   "_sources": {
+    "all": "noita_facts.json wizard_homing DamageModelComponent (no blood_material = Noita default blood_fading, _component_docs)"
+   }
+  },
+  {
+   "id": "boss_centipede",
+   "blood": "slime_green",
+   "spray": "slime_green",
+   "stage": "2",
+   "_unverified": {},
+   "_sources": {
+    "all": "noita_facts.json boss_centipede DamageModelComponent (no blood_material = Noita default blood_fading, _component_docs)"
+   }
+  },
+  {
+   "id": "boss_centipede_minion",
+   "blood": "blood_fungi",
+   "spray": "blood_fungi",
+   "stage": "2",
+   "_unverified": {},
+   "_sources": {
+    "all": "noita_facts.json boss_centipede_minion DamageModelComponent (no blood_material = Noita default blood_fading, _component_docs)"
+   }
+  },
+  {
+   "id": "slimeshooter_boss_limbs",
+   "blood": "radioactive_liquid_fading",
+   "spray": "blood",
+   "stage": "2",
+   "_unverified": {},
+   "_sources": {
+    "all": "noita_facts.json slimeshooter_boss_limbs DamageModelComponent (no blood_material = Noita default blood_fading, _component_docs)"
+   }
+  },
+  {
+   "id": "boss_limbs",
+   "blood": "slime_green",
+   "spray": "none",
+   "stage": "2",
+   "_unverified": {},
+   "_sources": {
+    "all": "noita_facts.json boss_limbs DamageModelComponent (no blood_material = Noita default blood_fading, _component_docs)"
+   }
+  },
+  {
+   "id": "boss_robot",
+   "blood": "liquid_fire",
+   "spray": "none",
+   "stage": "2",
+   "_unverified": {},
+   "_sources": {
+    "all": "noita_facts.json boss_robot DamageModelComponent (no blood_material = Noita default blood_fading, _component_docs)"
+   }
+  },
+  {
+   "id": "boss_meat",
+   "blood": "blood_fading",
+   "spray": "none",
+   "stage": "2",
+   "_unverified": {},
+   "_sources": {
+    "all": "noita_facts.json boss_meat DamageModelComponent (no blood_material = Noita default blood_fading, _component_docs)"
+   }
+  },
+  {
+   "id": "frog",
+   "blood": "blood_fading",
+   "spray": "none",
+   "stage": "2",
+   "_unverified": {},
+   "_sources": {
+    "all": "noita_facts.json frog DamageModelComponent (no blood_material = Noita default blood_fading, _component_docs)"
+   }
+  },
+  {
+   "id": "healerdrone_physics",
+   "blood": "oil",
+   "spray": "oil",
+   "stage": "2",
+   "_unverified": {},
+   "_sources": {
+    "all": "noita_facts.json healerdrone_physics DamageModelComponent (no blood_material = Noita default blood_fading, _component_docs)"
+   }
+  },
+  {
+   "id": "scavenger_grenade",
+   "blood": "blood_fading",
+   "spray": "blood",
+   "stage": "2",
+   "_unverified": {},
+   "_sources": {
+    "all": "noita_facts.json scavenger_grenade DamageModelComponent (no blood_material = Noita default blood_fading, _component_docs)"
+   }
+  },
+  {
+   "id": "playerghost",
+   "blood": "blood_fading",
+   "spray": "blood",
+   "stage": "2",
+   "_unverified": {},
+   "_sources": {
+    "all": "noita_facts.json playerghost DamageModelComponent (no blood_material = Noita default blood_fading, _component_docs)"
+   }
+  },
+  {
+   "id": "roboguard_big",
+   "blood": "oil",
+   "spray": "oil",
+   "stage": "2",
+   "_unverified": {},
+   "_sources": {
+    "all": "noita_facts.json roboguard_big DamageModelComponent (no blood_material = Noita default blood_fading, _component_docs)"
+   }
+  },
+  {
+   "id": "fungus",
+   "blood": "blood_fungi",
+   "spray": "blood_fungi",
+   "stage": "2",
+   "_unverified": {},
+   "_sources": {
+    "all": "noita_facts.json fungus DamageModelComponent (no blood_material = Noita default blood_fading, _component_docs)"
+   }
+  },
+  {
+   "id": "sheep",
+   "blood": "blood_fading",
+   "spray": "none",
+   "stage": "2",
+   "_unverified": {},
+   "_sources": {
+    "all": "noita_facts.json sheep DamageModelComponent (no blood_material = Noita default blood_fading, _component_docs)"
+   }
+  },
+  {
+   "id": "sheep_bat",
+   "blood": "blood_fading",
+   "spray": "none",
+   "stage": "2",
+   "_unverified": {},
+   "_sources": {
+    "all": "noita_facts.json sheep_bat DamageModelComponent (no blood_material = Noita default blood_fading, _component_docs)"
+   }
+  },
+  {
+   "id": "sheep_fly",
+   "blood": "blood_fading",
+   "spray": "none",
+   "stage": "2",
+   "_unverified": {},
+   "_sources": {
+    "all": "noita_facts.json sheep_fly DamageModelComponent (no blood_material = Noita default blood_fading, _component_docs)"
+   }
+  },
+  {
+   "id": "tank_super",
+   "blood": "oil",
+   "spray": "oil",
+   "stage": "2",
+   "_unverified": {},
+   "_sources": {
+    "all": "noita_facts.json tank_super DamageModelComponent (no blood_material = Noita default blood_fading, _component_docs)"
+   }
+  },
+  {
+   "id": "drone_physics",
+   "blood": "oil",
+   "spray": "oil",
+   "stage": "2",
+   "_unverified": {},
+   "_sources": {
+    "all": "noita_facts.json drone_physics DamageModelComponent (no blood_material = Noita default blood_fading, _component_docs)"
+   }
+  },
+  {
+   "id": "bat",
+   "blood": "slime",
+   "spray": "slime",
+   "stage": "2",
+   "_unverified": {},
+   "_sources": {
+    "all": "noita_facts.json bat DamageModelComponent (no blood_material = Noita default blood_fading, _component_docs)"
+   }
+  },
+  {
+   "id": "flamer",
+   "blood": "oil",
+   "spray": "oil",
+   "stage": "2",
+   "_unverified": {},
+   "_sources": {
+    "all": "noita_facts.json flamer DamageModelComponent (no blood_material = Noita default blood_fading, _component_docs)"
+   }
+  },
+  {
+   "id": "fireskull",
+   "blood": "gunpowder_unstable",
+   "spray": "gunpowder_unstable",
+   "stage": "2",
+   "_unverified": {},
+   "_sources": {
+    "all": "noita_facts.json fireskull DamageModelComponent (no blood_material = Noita default blood_fading, _component_docs)"
+   }
+  },
+  {
+   "id": "scavenger_glue",
+   "blood": "blood_fading",
+   "spray": "blood",
+   "stage": "2",
+   "_unverified": {},
+   "_sources": {
+    "all": "noita_facts.json scavenger_glue DamageModelComponent (no blood_material = Noita default blood_fading, _component_docs)"
+   }
+  },
+  {
+   "id": "slimeshooter_weak",
+   "blood": "radioactive_liquid",
+   "spray": "radioactive_liquid",
+   "stage": "2",
+   "_unverified": {},
+   "_sources": {
+    "all": "noita_facts.json slimeshooter_weak DamageModelComponent (no blood_material = Noita default blood_fading, _component_docs)"
+   }
+  },
+  {
+   "id": "slimeshooter",
+   "blood": "radioactive_liquid",
+   "spray": "radioactive_liquid",
+   "stage": "2",
+   "_unverified": {},
+   "_sources": {
+    "all": "noita_facts.json slimeshooter DamageModelComponent (no blood_material = Noita default blood_fading, _component_docs)"
+   }
+  },
+  {
+   "id": "maggot_tiny",
+   "blood": "material_darkness",
+   "spray": "material_darkness",
+   "stage": "2",
+   "_unverified": {},
+   "_sources": {
+    "all": "noita_facts.json maggot_tiny DamageModelComponent (no blood_material = Noita default blood_fading, _component_docs)"
+   }
+  },
+  {
+   "id": "pebble",
+   "blood": "blood_cold",
+   "spray": "blood_cold",
+   "stage": "2",
+   "_unverified": {},
+   "_sources": {
+    "all": "noita_facts.json pebble DamageModelComponent (no blood_material = Noita default blood_fading, _component_docs)"
+   }
+  },
+  {
+   "id": "wizard_neutral",
+   "blood": "blood_fading",
+   "spray": "none",
+   "stage": "2",
+   "_unverified": {},
+   "_sources": {
+    "all": "noita_facts.json wizard_neutral DamageModelComponent (no blood_material = Noita default blood_fading, _component_docs)"
+   }
+  },
+  {
+   "id": "shaman",
+   "blood": "water_swamp",
+   "spray": "water_swamp",
+   "stage": "2",
+   "_unverified": {},
+   "_sources": {
+    "all": "noita_facts.json shaman DamageModelComponent (no blood_material = Noita default blood_fading, _component_docs)"
+   }
+  },
+  {
+   "id": "necrobot_super",
+   "blood": "oil",
+   "spray": "oil",
+   "stage": "2",
+   "_unverified": {},
+   "_sources": {
+    "all": "noita_facts.json necrobot_super DamageModelComponent (no blood_material = Noita default blood_fading, _component_docs)"
+   }
+  },
+  {
+   "id": "minipit",
+   "blood": "blood_fungi",
+   "spray": "blood_fungi",
+   "stage": "2",
+   "_unverified": {},
+   "_sources": {
+    "all": "noita_facts.json minipit DamageModelComponent (no blood_material = Noita default blood_fading, _component_docs)"
+   }
+  },
+  {
+   "id": "bigzombietorso",
+   "blood": "blood_fading",
+   "spray": "none",
+   "stage": "2",
+   "_unverified": {},
+   "_sources": {
+    "all": "noita_facts.json bigzombietorso DamageModelComponent (no blood_material = Noita default blood_fading, _component_docs)"
+   }
+  },
+  {
+   "id": "bigzombiehead",
+   "blood": "blood_fading",
+   "spray": "blood",
+   "stage": "2",
+   "_unverified": {},
+   "_sources": {
+    "all": "noita_facts.json bigzombiehead DamageModelComponent (no blood_material = Noita default blood_fading, _component_docs)"
+   }
+  },
+  {
+   "id": "bigzombie",
+   "blood": "blood_fading",
+   "spray": "none",
+   "stage": "2",
+   "_unverified": {},
+   "_sources": {
+    "all": "noita_facts.json bigzombie DamageModelComponent (no blood_material = Noita default blood_fading, _component_docs)"
+   }
+  },
+  {
+   "id": "meatmaggot",
+   "blood": "blood_worm",
+   "spray": "blood_worm",
+   "stage": "2",
+   "_unverified": {},
+   "_sources": {
+    "all": "noita_facts.json meatmaggot DamageModelComponent (no blood_material = Noita default blood_fading, _component_docs)"
+   }
+  },
+  {
+   "id": "chest_leggy",
+   "blood": "blood_fading",
+   "spray": "none",
+   "stage": "2",
+   "_unverified": {},
+   "_sources": {
+    "all": "noita_facts.json chest_leggy DamageModelComponent (no blood_material = Noita default blood_fading, _component_docs)"
+   }
+  },
+  {
+   "id": "chest_mimic",
+   "blood": "blood_fading",
+   "spray": "none",
+   "stage": "2",
+   "_unverified": {},
+   "_sources": {
+    "all": "noita_facts.json chest_mimic DamageModelComponent (no blood_material = Noita default blood_fading, _component_docs)"
+   }
+  },
+  {
+   "id": "worm",
+   "blood": "blood_worm",
+   "spray": "blood_worm",
+   "stage": "2",
+   "_unverified": {},
+   "_sources": {
+    "all": "noita_facts.json worm DamageModelComponent (no blood_material = Noita default blood_fading, _component_docs)"
+   }
+  },
+  {
+   "id": "blood_orb",
+   "blood": "none",
+   "spray": "none",
+   "stage": "2",
+   "_unverified": {},
+   "_sources": {
+    "all": "no DamageModelComponent in facts"
+   }
+  },
+  {
+   "id": "death_orb_throne",
+   "blood": "none",
+   "spray": "none",
+   "stage": "2",
+   "_unverified": {},
+   "_sources": {
+    "all": "no DamageModelComponent in facts"
+   }
+  },
+  {
+   "id": "boss_wizard",
+   "blood": "blood",
+   "spray": "blood",
+   "stage": "2",
+   "_unverified": {},
+   "_sources": {
+    "all": "noita_facts.json boss_wizard DamageModelComponent (no blood_material = Noita default blood_fading, _component_docs)"
+   }
+  },
+  {
+   "id": "scavenger_mine",
+   "blood": "blood_fading",
+   "spray": "blood",
+   "stage": "2",
+   "_unverified": {},
+   "_sources": {
+    "all": "noita_facts.json scavenger_mine DamageModelComponent (no blood_material = Noita default blood_fading, _component_docs)"
+   }
+  },
+  {
+   "id": "player",
+   "blood": "blood_fading",
+   "spray": "blood",
+   "stage": "2",
+   "_unverified": {},
+   "_sources": {
+    "all": "noita_facts.json player DamageModelComponent (no blood_material = Noita default blood_fading, _component_docs)"
+   }
+  },
+  {
+   "id": "miniblob",
+   "blood": "blood_fading",
+   "spray": "none",
+   "stage": "2",
+   "_unverified": {},
+   "_sources": {
+    "all": "noita_facts.json miniblob DamageModelComponent (no blood_material = Noita default blood_fading, _component_docs)"
+   }
+  },
+  {
+   "id": "lasershooter",
+   "blood": "slime_green",
+   "spray": "slime_green",
+   "stage": "2",
+   "_unverified": {},
+   "_sources": {
+    "all": "noita_facts.json lasershooter DamageModelComponent (no blood_material = Noita default blood_fading, _component_docs)"
+   }
+  },
+  {
+   "id": "monk",
+   "blood": "oil",
+   "spray": "none",
+   "stage": "2",
+   "_unverified": {},
+   "_sources": {
+    "all": "noita_facts.json monk DamageModelComponent (no blood_material = Noita default blood_fading, _component_docs)"
+   }
+  },
+  {
+   "id": "wizard_poly",
+   "blood": "blood_fading",
+   "spray": "none",
+   "stage": "2",
+   "_unverified": {},
+   "_sources": {
+    "all": "noita_facts.json wizard_poly DamageModelComponent (no blood_material = Noita default blood_fading, _component_docs)"
+   }
+  },
+  {
+   "id": "ant",
+   "blood": "slime",
+   "spray": "slime",
+   "stage": "2",
+   "_unverified": {},
+   "_sources": {
+    "all": "noita_facts.json ant DamageModelComponent (no blood_material = Noita default blood_fading, _component_docs)"
+   }
+  },
+  {
+   "id": "scavenger_poison",
+   "blood": "blood_fading",
+   "spray": "blood",
+   "stage": "2",
+   "_unverified": {},
+   "_sources": {
+    "all": "noita_facts.json scavenger_poison DamageModelComponent (no blood_material = Noita default blood_fading, _component_docs)"
+   }
+  },
+  {
+   "id": "fungus_tiny",
+   "blood": "blood_fungi",
+   "spray": "blood_fungi",
+   "stage": "2",
+   "_unverified": {},
+   "_sources": {
+    "all": "noita_facts.json fungus_tiny DamageModelComponent (no blood_material = Noita default blood_fading, _component_docs)"
+   }
+  },
+  {
+   "id": "eel",
+   "blood": "blood_worm",
+   "spray": "blood_worm",
+   "stage": "2",
+   "_unverified": {},
+   "_sources": {
+    "all": "noita_facts.json eel DamageModelComponent (no blood_material = Noita default blood_fading, _component_docs)"
+   }
+  },
+  {
+   "id": "deer",
+   "blood": "blood_fading",
+   "spray": "none",
+   "stage": "2",
+   "_unverified": {},
+   "_sources": {
+    "all": "noita_facts.json deer DamageModelComponent (no blood_material = Noita default blood_fading, _component_docs)"
+   }
+  },
+  {
+   "id": "fungus_big",
+   "blood": "blood_fungi",
+   "spray": "blood_fungi",
+   "stage": "2",
+   "_unverified": {},
+   "_sources": {
+    "all": "noita_facts.json fungus_big DamageModelComponent (no blood_material = Noita default blood_fading, _component_docs)"
+   }
+  },
+  {
+   "id": "ethereal_being",
+   "blood": "plasma_fading",
+   "spray": "plasma_fading",
+   "stage": "2",
+   "_unverified": {},
+   "_sources": {
+    "all": "noita_facts.json ethereal_being DamageModelComponent (no blood_material = Noita default blood_fading, _component_docs)"
+   }
+  },
+  {
+   "id": "dark_alchemist",
+   "blood": "blood_fading",
+   "spray": "none",
+   "stage": "2",
+   "_unverified": {},
+   "_sources": {
+    "all": "noita_facts.json dark_alchemist DamageModelComponent (no blood_material = Noita default blood_fading, _component_docs)"
+   }
+  },
+  {
+   "id": "icemage",
+   "blood": "snow",
+   "spray": "snow",
+   "stage": "2",
+   "_unverified": {},
+   "_sources": {
+    "all": "noita_facts.json icemage DamageModelComponent (no blood_material = Noita default blood_fading, _component_docs)"
+   }
+  },
+  {
+   "id": "wizard_returner",
+   "blood": "blood_fading",
+   "spray": "none",
+   "stage": "2",
+   "_unverified": {},
+   "_sources": {
+    "all": "noita_facts.json wizard_returner DamageModelComponent (no blood_material = Noita default blood_fading, _component_docs)"
+   }
+  },
+  {
+   "id": "scavenger_heal",
+   "blood": "blood_fading",
+   "spray": "blood",
+   "stage": "2",
+   "_unverified": {},
+   "_sources": {
+    "all": "noita_facts.json scavenger_heal DamageModelComponent (no blood_material = Noita default blood_fading, _component_docs)"
+   }
+  },
+  {
+   "id": "statue",
+   "blood": "blood_fading",
+   "spray": "blood",
+   "stage": "2",
+   "_unverified": {},
+   "_sources": {
+    "all": "noita_facts.json statue DamageModelComponent (no blood_material = Noita default blood_fading, _component_docs)"
+   }
+  },
+  {
+   "id": "spearbot",
+   "blood": "oil",
+   "spray": "oil",
+   "stage": "2",
+   "_unverified": {},
+   "_sources": {
+    "all": "noita_facts.json spearbot DamageModelComponent (no blood_material = Noita default blood_fading, _component_docs)"
+   }
+  },
+  {
+   "id": "wand_ghost_charmed",
+   "blood": "plasma_fading",
+   "spray": "blood",
+   "stage": "2",
+   "_unverified": {},
+   "_sources": {
+    "all": "noita_facts.json wand_ghost_charmed DamageModelComponent (no blood_material = Noita default blood_fading, _component_docs)"
+   }
+  },
+  {
+   "id": "worm_tiny",
+   "blood": "blood_worm",
+   "spray": "blood_worm",
+   "stage": "2",
+   "_unverified": {},
+   "_sources": {
+    "all": "noita_facts.json worm_tiny DamageModelComponent (no blood_material = Noita default blood_fading, _component_docs)"
+   }
+  },
+  {
+   "id": "tentacler_small",
+   "blood": "blood_fungi",
+   "spray": "blood_fungi",
+   "stage": "2",
+   "_unverified": {},
+   "_sources": {
+    "all": "noita_facts.json tentacler_small DamageModelComponent (no blood_material = Noita default blood_fading, _component_docs)"
+   }
+  },
+  {
+   "id": "shooterflower",
+   "blood": "slime_green",
+   "spray": "slime_green",
+   "stage": "2",
+   "_unverified": {},
+   "_sources": {
+    "all": "noita_facts.json shooterflower DamageModelComponent (no blood_material = Noita default blood_fading, _component_docs)"
+   }
+  },
+  {
+   "id": "elk",
+   "blood": "blood_fading",
+   "spray": "none",
+   "stage": "2",
+   "_unverified": {},
+   "_sources": {
+    "all": "noita_facts.json elk DamageModelComponent (no blood_material = Noita default blood_fading, _component_docs)"
+   }
+  },
+  {
+   "id": "alchemist",
+   "blood": "blood_fading",
+   "spray": "blood",
+   "stage": "2",
+   "_unverified": {},
+   "_sources": {
+    "all": "noita_facts.json alchemist DamageModelComponent (no blood_material = Noita default blood_fading, _component_docs)"
+   }
+  },
+  {
+   "id": "bloom",
+   "blood": "slime",
+   "spray": "slime",
+   "stage": "2",
+   "_unverified": {},
+   "_sources": {
+    "all": "noita_facts.json bloom DamageModelComponent (no blood_material = Noita default blood_fading, _component_docs)"
+   }
+  },
+  {
+   "id": "neutralizer",
+   "blood": "oil",
+   "spray": "oil",
+   "stage": "2",
+   "_unverified": {},
+   "_sources": {
+    "all": "noita_facts.json neutralizer DamageModelComponent (no blood_material = Noita default blood_fading, _component_docs)"
+   }
+  },
+  {
+   "id": "coward",
+   "blood": "blood_fading",
+   "spray": "blood",
+   "stage": "2",
+   "_unverified": {},
+   "_sources": {
+    "all": "noita_facts.json coward DamageModelComponent (no blood_material = Noita default blood_fading, _component_docs)"
+   }
+  },
+  {
+   "id": "roboguard",
+   "blood": "oil",
+   "spray": "oil",
+   "stage": "2",
+   "_unverified": {},
+   "_sources": {
+    "all": "noita_facts.json roboguard DamageModelComponent (no blood_material = Noita default blood_fading, _component_docs)"
+   }
+  },
+  {
+   "id": "rat",
+   "blood": "blood_fading",
+   "spray": "none",
+   "stage": "2",
+   "_unverified": {},
+   "_sources": {
+    "all": "noita_facts.json rat DamageModelComponent (no blood_material = Noita default blood_fading, _component_docs)"
+   }
+  },
+  {
+   "id": "plague_rats_rat",
+   "blood": "blood_fading",
+   "spray": "none",
+   "stage": "2",
+   "_unverified": {},
+   "_sources": {
+    "all": "noita_facts.json plague_rats_rat DamageModelComponent (no blood_material = Noita default blood_fading, _component_docs)"
+   }
+  },
+  {
+   "id": "scavenger_smg",
+   "blood": "blood_fading",
+   "spray": "blood",
+   "stage": "2",
+   "_unverified": {},
+   "_sources": {
+    "all": "noita_facts.json scavenger_smg DamageModelComponent (no blood_material = Noita default blood_fading, _component_docs)"
+   }
+  },
+  {
+   "id": "goblin_bomb",
+   "blood": "blood_fading",
+   "spray": "blood",
+   "stage": "2",
+   "_unverified": {},
+   "_sources": {
+    "all": "noita_facts.json goblin_bomb DamageModelComponent (no blood_material = Noita default blood_fading, _component_docs)"
+   }
+  },
+  {
+   "id": "thunderskull",
+   "blood": "blood_cold",
+   "spray": "blood_cold",
+   "stage": "2",
+   "_unverified": {},
+   "_sources": {
+    "all": "noita_facts.json thunderskull DamageModelComponent (no blood_material = Noita default blood_fading, _component_docs)"
+   }
+  },
+  {
+   "id": "assassin",
+   "blood": "oil",
+   "spray": "oil",
+   "stage": "2",
+   "_unverified": {},
+   "_sources": {
+    "all": "noita_facts.json assassin DamageModelComponent (no blood_material = Noita default blood_fading, _component_docs)"
+   }
+  },
+  {
+   "id": "wizard_twitchy",
+   "blood": "blood_fading",
+   "spray": "none",
+   "stage": "2",
+   "_unverified": {},
+   "_sources": {
+    "all": "noita_facts.json wizard_twitchy DamageModelComponent (no blood_material = Noita default blood_fading, _component_docs)"
+   }
+  },
+  {
+   "id": "parallel_tentacles",
+   "blood": "slime_green",
+   "spray": "none",
+   "stage": "2",
+   "_unverified": {},
+   "_sources": {
+    "all": "noita_facts.json parallel_tentacles DamageModelComponent (no blood_material = Noita default blood_fading, _component_docs)"
+   }
+  },
+  {
+   "id": "boss_pit",
+   "blood": "slime_green",
+   "spray": "none",
+   "stage": "2",
+   "_unverified": {},
+   "_sources": {
+    "all": "noita_facts.json boss_pit DamageModelComponent (no blood_material = Noita default blood_fading, _component_docs)"
+   }
+  },
+  {
+   "id": "wizard_tele",
+   "blood": "magic_liquid_teleportation",
+   "spray": "none",
+   "stage": "2",
+   "_unverified": {},
+   "_sources": {
+    "all": "noita_facts.json wizard_tele DamageModelComponent (no blood_material = Noita default blood_fading, _component_docs)"
+   }
+  },
+  {
+   "id": "scorpion",
+   "blood": "blood_fading",
+   "spray": "none",
+   "stage": "2",
+   "_unverified": {},
+   "_sources": {
+    "all": "noita_facts.json scorpion DamageModelComponent (no blood_material = Noita default blood_fading, _component_docs)"
+   }
+  },
+  {
+   "id": "necromancer_super",
+   "blood": "bone",
+   "spray": "bone",
+   "stage": "2",
+   "_unverified": {},
+   "_sources": {
+    "all": "noita_facts.json necromancer_super DamageModelComponent (no blood_material = Noita default blood_fading, _component_docs)"
+   }
+  },
+  {
+   "id": "sniper_hell",
+   "blood": "liquid_fire",
+   "spray": "liquid_fire",
+   "stage": "2",
+   "_unverified": {},
+   "_sources": {
+    "all": "noita_facts.json sniper_hell DamageModelComponent (no blood_material = Noita default blood_fading, _component_docs)"
+   }
+  },
+  {
+   "id": "sniper",
+   "blood": "blood_fading",
+   "spray": "none",
+   "stage": "2",
+   "_unverified": {},
+   "_sources": {
+    "all": "noita_facts.json sniper DamageModelComponent (no blood_material = Noita default blood_fading, _component_docs)"
+   }
+  },
+  {
+   "id": "wizard_dark",
+   "blood": "blood_fading",
+   "spray": "none",
+   "stage": "2",
+   "_unverified": {},
+   "_sources": {
+    "all": "noita_facts.json wizard_dark DamageModelComponent (no blood_material = Noita default blood_fading, _component_docs)"
+   }
+  },
+  {
+   "id": "phantom_a",
+   "blood": "plasma_fading",
+   "spray": "plasma_fading",
+   "stage": "2",
+   "_unverified": {},
+   "_sources": {
+    "all": "noita_facts.json phantom_a DamageModelComponent (no blood_material = Noita default blood_fading, _component_docs)"
+   }
+  },
+  {
+   "id": "firemage_weak",
+   "blood": "lava",
+   "spray": "lava",
+   "stage": "2",
+   "_unverified": {},
+   "_sources": {
+    "all": "noita_facts.json firemage_weak DamageModelComponent (no blood_material = Noita default blood_fading, _component_docs)"
+   }
+  },
+  {
+   "id": "necromancer_shop",
+   "blood": "bone",
+   "spray": "bone",
+   "stage": "2",
+   "_unverified": {},
+   "_sources": {
+    "all": "noita_facts.json necromancer_shop DamageModelComponent (no blood_material = Noita default blood_fading, _component_docs)"
+   }
+  },
+  {
+   "id": "boss_dragon",
+   "blood": "blood_fading",
+   "spray": "none",
+   "stage": "2",
+   "_unverified": {},
+   "_sources": {
+    "all": "noita_facts.json boss_dragon DamageModelComponent (no blood_material = Noita default blood_fading, _component_docs)"
+   }
+  },
+  {
+   "id": "wolf",
+   "blood": "blood_fading",
+   "spray": "none",
+   "stage": "2",
+   "_unverified": {},
+   "_sources": {
+    "all": "noita_facts.json wolf DamageModelComponent (no blood_material = Noita default blood_fading, _component_docs)"
+   }
+  },
+  {
+   "id": "thundermage_big",
+   "blood": "diamond",
+   "spray": "diamond",
+   "stage": "2",
+   "_unverified": {},
+   "_sources": {
+    "all": "noita_facts.json thundermage_big DamageModelComponent (no blood_material = Noita default blood_fading, _component_docs)"
+   }
+  },
+  {
+   "id": "fish_large",
+   "blood": "blood_fading",
+   "spray": "none",
+   "stage": "2",
+   "_unverified": {},
+   "_sources": {
+    "all": "noita_facts.json fish_large DamageModelComponent (no blood_material = Noita default blood_fading, _component_docs)"
+   }
+  },
+  {
+   "id": "bigbat",
+   "blood": "slime",
+   "spray": "slime",
+   "stage": "2",
+   "_unverified": {},
+   "_sources": {
+    "all": "noita_facts.json bigbat DamageModelComponent (no blood_material = Noita default blood_fading, _component_docs)"
+   }
+  },
+  {
+   "id": "ghoul",
+   "blood": "slime",
+   "spray": "slime",
+   "stage": "2",
+   "_unverified": {},
+   "_sources": {
+    "all": "noita_facts.json ghoul DamageModelComponent (no blood_material = Noita default blood_fading, _component_docs)"
+   }
+  },
+  {
+   "id": "fish_giga",
+   "blood": "blood",
+   "spray": "none",
+   "stage": "2",
+   "_unverified": {},
+   "_sources": {
+    "all": "noita_facts.json fish_giga DamageModelComponent (no blood_material = Noita default blood_fading, _component_docs)"
+   }
+  },
+  {
+   "id": "wand_ghost",
+   "blood": "plasma_fading",
+   "spray": "blood",
+   "stage": "2",
+   "_unverified": {},
+   "_sources": {
+    "all": "noita_facts.json wand_ghost DamageModelComponent (no blood_material = Noita default blood_fading, _component_docs)"
+   }
+  },
+  {
+   "id": "skygazer",
+   "blood": "magic_liquid_random_polymorph",
+   "spray": "magic_liquid_random_polymorph",
+   "stage": "2",
+   "_unverified": {},
+   "_sources": {
+    "all": "noita_facts.json skygazer DamageModelComponent (no blood_material = Noita default blood_fading, _component_docs)"
+   }
+  },
+  {
+   "id": "skycrystal_physics",
+   "blood": "plasma_fading",
+   "spray": "plasma_fading",
+   "stage": "2",
+   "_unverified": {},
+   "_sources": {
+    "all": "noita_facts.json skycrystal_physics DamageModelComponent (no blood_material = Noita default blood_fading, _component_docs)"
+   }
+  },
+  {
+   "id": "wisp",
+   "blood": "plasma_fading",
+   "spray": "plasma_fading",
+   "stage": "2",
+   "_unverified": {},
+   "_sources": {
+    "all": "noita_facts.json wisp DamageModelComponent (no blood_material = Noita default blood_fading, _component_docs)"
+   }
+  },
+  {
+   "id": "islandspirit",
+   "blood": "spark_blue",
+   "spray": "spark_blue",
+   "stage": "2",
+   "_unverified": {},
+   "_sources": {
+    "all": "noita_facts.json islandspirit DamageModelComponent (no blood_material = Noita default blood_fading, _component_docs)"
+   }
+  },
+  {
+   "id": "miner_hell",
+   "blood": "liquid_fire",
+   "spray": "liquid_fire",
+   "stage": "2",
+   "_unverified": {},
+   "_sources": {
+    "all": "noita_facts.json miner_hell DamageModelComponent (no blood_material = Noita default blood_fading, _component_docs)"
+   }
+  },
+  {
+   "id": "cook",
+   "blood": "blood_fading",
+   "spray": "blood",
+   "stage": "2",
+   "_unverified": {},
+   "_sources": {
+    "all": "noita_facts.json cook DamageModelComponent (no blood_material = Noita default blood_fading, _component_docs)"
+   }
+  },
+  {
+   "id": "miner",
+   "blood": "blood_fading",
+   "spray": "blood",
+   "stage": "2",
+   "_unverified": {},
+   "_sources": {
+    "all": "noita_facts.json miner DamageModelComponent (no blood_material = Noita default blood_fading, _component_docs)"
+   }
+  },
+  {
+   "id": "miner_weak",
+   "blood": "blood_fading",
+   "spray": "blood",
+   "stage": "2",
+   "_unverified": {},
+   "_sources": {
+    "all": "noita_facts.json miner_weak DamageModelComponent (no blood_material = Noita default blood_fading, _component_docs)"
+   }
+  },
+  {
+   "id": "sentry",
+   "blood": "oil",
+   "spray": "oil",
+   "stage": "2",
+   "_unverified": {},
+   "_sources": {
+    "all": "noita_facts.json sentry DamageModelComponent (no blood_material = Noita default blood_fading, _component_docs)"
+   }
+  },
+  {
+   "id": "soldier",
+   "blood": "oil",
+   "spray": "oil",
+   "stage": "2",
+   "_unverified": {},
+   "_sources": {
+    "all": "noita_facts.json soldier DamageModelComponent (no blood_material = Noita default blood_fading, _component_docs)"
+   }
+  },
+  {
+   "id": "scavenger_leader",
+   "blood": "blood_fading",
+   "spray": "blood",
+   "stage": "2",
+   "_unverified": {},
+   "_sources": {
+    "all": "noita_facts.json scavenger_leader DamageModelComponent (no blood_material = Noita default blood_fading, _component_docs)"
+   }
+  },
+  {
+   "id": "turret",
+   "blood": "oil",
+   "spray": "oil",
+   "stage": "2",
+   "_unverified": {},
+   "_sources": {
+    "all": "noita_facts.json turret DamageModelComponent (no blood_material = Noita default blood_fading, _component_docs)"
+   }
+  },
+  {
+   "id": "maggot",
+   "blood": "slime_green",
+   "spray": "slime_green",
+   "stage": "2",
+   "_unverified": {},
+   "_sources": {
+    "all": "noita_facts.json maggot DamageModelComponent (no blood_material = Noita default blood_fading, _component_docs)"
+   }
+  },
+  {
+   "id": "friend",
+   "blood": "blood_fading",
+   "spray": "blood",
+   "stage": "2",
+   "_unverified": {},
+   "_sources": {
+    "all": "noita_facts.json friend DamageModelComponent (no blood_material = Noita default blood_fading, _component_docs)"
+   }
+  },
+  {
+   "id": "friend_hostile",
+   "blood": "none",
+   "spray": "none",
+   "stage": "2",
+   "_unverified": {},
+   "_sources": {
+    "all": "no DamageModelComponent in facts"
+   }
+  },
+  {
+   "id": "trap_acid",
+   "blood": "none",
+   "spray": "none",
+   "stage": "2",
+   "_unverified": {},
+   "_sources": {
+    "all": "no DamageModelComponent in facts"
+   }
+  },
+  {
+   "id": "trap_arrow",
+   "blood": "sand",
+   "spray": "none",
+   "stage": "2",
+   "_unverified": {},
+   "_sources": {
+    "all": "noita_facts.json trap_arrow DamageModelComponent (no blood_material = Noita default blood_fading, _component_docs)"
+   }
+  },
+  {
+   "id": "trap_fire",
+   "blood": "none",
+   "spray": "none",
+   "stage": "2",
+   "_unverified": {},
+   "_sources": {
+    "all": "no DamageModelComponent in facts"
+   }
+  },
+  {
+   "id": "trap_thunder",
+   "blood": "none",
+   "spray": "none",
+   "stage": "2",
+   "_unverified": {},
+   "_sources": {
+    "all": "no DamageModelComponent in facts"
+   }
+  },
+  {
+   "id": "miner_fire",
+   "blood": "blood",
+   "spray": "blood",
+   "stage": "2",
+   "_unverified": {},
+   "_sources": {
+    "all": "noita_facts.json miner_fire DamageModelComponent (no blood_material = Noita default blood_fading, _component_docs)"
+   }
+  },
+  {
+   "id": "nest_firebug",
+   "blood": "lava",
+   "spray": "none",
+   "stage": "2",
+   "_unverified": {},
+   "_sources": {
+    "all": "noita_facts.json nest_firebug DamageModelComponent (no blood_material = Noita default blood_fading, _component_docs)"
+   }
+  },
+  {
+   "id": "firebug",
+   "blood": "lava",
+   "spray": "lava",
+   "stage": "2",
+   "_unverified": {},
+   "_sources": {
+    "all": "noita_facts.json firebug DamageModelComponent (no blood_material = Noita default blood_fading, _component_docs)"
+   }
+  },
+  {
+   "id": "bigfirebug",
+   "blood": "lava",
+   "spray": "lava",
+   "stage": "2",
+   "_unverified": {},
+   "_sources": {
+    "all": "noita_facts.json bigfirebug DamageModelComponent (no blood_material = Noita default blood_fading, _component_docs)"
+   }
+  },
+  {
+   "id": "necrobot",
+   "blood": "oil",
+   "spray": "oil",
+   "stage": "2",
+   "_unverified": {},
+   "_sources": {
+    "all": "noita_facts.json necrobot DamageModelComponent (no blood_material = Noita default blood_fading, _component_docs)"
+   }
+  },
+  {
+   "id": "tentacler",
+   "blood": "blood_fungi",
+   "spray": "blood_fungi",
+   "stage": "2",
+   "_unverified": {},
+   "_sources": {
+    "all": "noita_facts.json tentacler DamageModelComponent (no blood_material = Noita default blood_fading, _component_docs)"
+   }
+  },
+  {
+   "id": "drone_shield",
+   "blood": "oil",
+   "spray": "oil",
+   "stage": "2",
+   "_unverified": {},
+   "_sources": {
+    "all": "noita_facts.json drone_shield DamageModelComponent (no blood_material = Noita default blood_fading, _component_docs)"
+   }
+  },
+  {
+   "id": "wizard_weaken",
+   "blood": "blood_fading",
+   "spray": "none",
+   "stage": "2",
+   "_unverified": {},
+   "_sources": {
+    "all": "noita_facts.json wizard_weaken DamageModelComponent (no blood_material = Noita default blood_fading, _component_docs)"
+   }
+  },
+  {
+   "id": "barfer",
+   "blood": "blood_fading",
+   "spray": "none",
+   "stage": "2",
+   "_unverified": {},
+   "_sources": {
+    "all": "noita_facts.json barfer DamageModelComponent (no blood_material = Noita default blood_fading, _component_docs)"
+   }
+  },
+  {
+   "id": "thundermage",
+   "blood": "diamond",
+   "spray": "diamond",
+   "stage": "2",
+   "_unverified": {},
+   "_sources": {
+    "all": "noita_facts.json thundermage DamageModelComponent (no blood_material = Noita default blood_fading, _component_docs)"
+   }
+  },
+  {
+   "id": "wraith_storm",
+   "blood": "plasma_fading",
+   "spray": "plasma_fading",
+   "stage": "2",
+   "_unverified": {},
+   "_sources": {
+    "all": "noita_facts.json wraith_storm DamageModelComponent (no blood_material = Noita default blood_fading, _component_docs)"
+   }
+  },
+  {
+   "id": "boss_ghost_polyp",
+   "blood": "acid",
+   "spray": "none",
+   "stage": "2",
+   "_unverified": {},
+   "_sources": {
+    "all": "noita_facts.json boss_ghost_polyp DamageModelComponent (no blood_material = Noita default blood_fading, _component_docs)"
+   }
+  },
+  {
+   "id": "boss_ghost",
+   "blood": "plasma_fading",
+   "spray": "plasma_fading",
+   "stage": "2",
+   "_unverified": {},
+   "_sources": {
+    "all": "noita_facts.json boss_ghost DamageModelComponent (no blood_material = Noita default blood_fading, _component_docs)"
+   }
+  },
+  {
+   "id": "wizard_swapper",
+   "blood": "blood_fading",
+   "spray": "none",
+   "stage": "2",
+   "_unverified": {},
+   "_sources": {
+    "all": "noita_facts.json wizard_swapper DamageModelComponent (no blood_material = Noita default blood_fading, _component_docs)"
+   }
+  },
+  {
+   "id": "hidden",
+   "blood": "oil",
+   "spray": "oil",
+   "stage": "2",
+   "_unverified": {},
+   "_sources": {
+    "all": "noita_facts.json hidden DamageModelComponent (no blood_material = Noita default blood_fading, _component_docs)"
+   }
+  },
+  {
+   "id": "enlightened_alchemist",
+   "blood": "slime",
+   "spray": "slime",
+   "stage": "2",
+   "_unverified": {},
+   "_sources": {
+    "all": "noita_facts.json enlightened_alchemist DamageModelComponent (no blood_material = Noita default blood_fading, _component_docs)"
+   }
+  },
+  {
+   "id": "shaman_wind",
+   "blood": "blood_fading",
+   "spray": "none",
+   "stage": "2",
+   "_unverified": {},
+   "_sources": {
+    "all": "noita_facts.json shaman_wind DamageModelComponent (no blood_material = Noita default blood_fading, _component_docs)"
+   }
+  },
+  {
+   "id": "lurker",
+   "blood": "material_darkness",
+   "spray": "material_darkness",
+   "stage": "2",
+   "_unverified": {},
+   "_sources": {
+    "all": "noita_facts.json lurker DamageModelComponent (no blood_material = Noita default blood_fading, _component_docs)"
+   }
+  },
+  {
+   "id": "bloodcrystal_physics",
+   "blood": "plasma_fading_pink",
+   "spray": "plasma_fading_pink",
+   "stage": "2",
+   "_unverified": {},
+   "_sources": {
+    "all": "noita_facts.json bloodcrystal_physics DamageModelComponent (no blood_material = Noita default blood_fading, _component_docs)"
+   }
+  },
+  {
+   "id": "parallel_alchemist",
+   "blood": "slime",
+   "spray": "slime",
+   "stage": "2",
+   "_unverified": {},
+   "_sources": {
+    "all": "noita_facts.json parallel_alchemist DamageModelComponent (no blood_material = Noita default blood_fading, _component_docs)"
+   }
+  },
+  {
+   "id": "boss_alchemist",
+   "blood": "slime",
+   "spray": "slime",
+   "stage": "2",
+   "_unverified": {},
+   "_sources": {
+    "all": "noita_facts.json boss_alchemist DamageModelComponent (no blood_material = Noita default blood_fading, _component_docs)"
+   }
+  }
+ ]
+}

@@ -15,7 +15,7 @@ namespace Terranoita.Generated
             new Dictionary<string, Func<Player, int, int, bool>>
         {
             { "surface_forest", (p, x, y) => p.ZoneOverworldHeight && Terranoita.Game.Zones.NoBiome(p) && !p.ZoneBeach },
-            { "surface_water", (p, x, y) => p.ZoneOverworldHeight && Terranoita.Game.Zones.Water(x, y) },
+            { "surface_water", (p, x, y) => p.ZoneOverworldHeight && Terranoita.Game.Zones.NearWater(x, y, 12) },
             { "surface_desert", (p, x, y) => p.ZoneOverworldHeight && p.ZoneDesert },
             { "surface_snow", (p, x, y) => p.ZoneOverworldHeight && p.ZoneSnow },
             { "underground_dirt", (p, x, y) => p.ZoneDirtLayerHeight && Terranoita.Game.Zones.NoBiome(p) },

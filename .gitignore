@@ -487,5 +487,6 @@ $RECYCLE.BIN/
 build/
 *.facts.json
 noita_facts.json
+!design/sources/noita_facts.json
 decomp/
 *-decomp/

@@ -125,6 +125,13 @@ namespace Terranoita.Noita
                         i++;
                         break;
                     }
+                    if (Starts(text, i, "<!--"))
+                    {
+                        // a comment between attributes (glitter_bomb.xml's config_explosion): Noita reads on after it
+                        int end = text.IndexOf("-->", i + 4, StringComparison.Ordinal);
+                        i = end < 0 ? n : end + 3;
+                        continue;
+                    }
                     if (text[i] == '/' && i + 1 < n && text[i + 1] == '>')
                     {
                         selfClosing = true;

@@ -79,7 +79,7 @@
   },
   {
    "id": "enemy_spawning",
-   "description": "Each spawn attempt, roll the Noita enemies whose zone matches the spawn tile and player, weighted by tier.",
+   "description": "Each spawn attempt, roll the Noita enemies whose zone matches the spawn tile and player, weighted by tier. Enemies with more than 1000 Terraria life (noita_hp x tier hp_mult) spawn only in hardmode (author's rule).",
    "stage": "1a",
    "hooks": [
     "npc_spawn"
@@ -89,7 +89,7 @@
   },
   {
    "id": "enemy_ai",
-   "description": "One state machine per AI archetype, written against a small body/world interface so it is unit-tested without the game.",
+   "description": "One state machine per AI archetype, written against a small body/world interface so it is unit-tested without the game. Stage 1b adds movers that need the world (ITerrain: solid and liquid tiles): climb (lukki hold on to any tile, walls and ceilings), burrow (worms steer inside ground, arc out under gravity, leave a trail for their body), swim (fish stay in liquid, flop on land); phase and burrow pass through tiles (npc.noTileCollide); archetypes that flee (harmless animals) or wake when the target comes close (mimics); auras on their own clock, summons, heals, support, retaliation when hurt and death explosions (ISpecialAttackSink, carried out by Carriers.Attacks).",
    "stage": "1a",
    "hooks": [
     "npc_ai"
@@ -125,14 +125,15 @@
    "description": "Noita-style gold (coins by health), hearts and mana stars.",
    "stage": "1a",
    "hooks": [
-    "npc_loot"
+    "npc_loot",
+    "worldgen_passes"
    ],
    "code": "src/Terranoita/Loot.cs",
    "_unverified": {}
   },
   {
    "id": "test_tools",
-   "description": "Debug keys to spawn any Noita enemy near the player and log what happens, for repeatable in-game tests and screenshots.",
+   "description": "Debug keys to spawn any Noita enemy near the player and log what happens, for repeatable in-game tests and screenshots. TERRANOITA_STAGE=1b runs a test build with the next stage's enemies before it ships.",
    "stage": "1a",
    "hooks": [
     "main_update"
@@ -142,26 +143,93 @@
   },
   {
    "id": "block_physics",
-   "description": "Stage 2: disturbed blocks fall, burn, melt and explode; untouched caves, islands and clouds stay put.",
+   "description": "Stage 2 (sheet materials). Only disturbed tiles act: untouched caves, islands and clouds stay put. Disturbed = a neighbour was removed (dug, exploded, burned, fell away). Loose tiles (falls=powder) with nothing under them fall as Noita powders and pile up (slide down a free diagonal). Tiles the player placed (tracked per world in <world>.terranoita) need support: a connected group of them that touches no natural solid tile and no weightless tile (clouds) falls as one body and lands. Fire: burnable tiles next to lava, Noita fire shots, fire projectiles or burning tiles catch fire, burn burn_seconds, set the player and enemies on fire, spread to burnable neighbours, then vanish (or become burns_to); water next to them puts them out. Torches and campfires do not set things on fire. Ice and snow next to fire or lava melt to water.",
    "stage": "2",
-   "hooks": [],
-   "code": "-",
+   "hooks": [
+    "tile_kill",
+    "tile_place",
+    "world_load",
+    "world_save",
+    "projectile_update",
+    "projectile_kill",
+    "main_update",
+    "shots_draw"
+   ],
+   "code": "src/Terranoita/Physics/",
+   "_unverified": {}
+  },
+  {
+   "id": "noita_status",
+   "description": "Stage 2: Noita status effects (sheet status_effects) on the player: Noita's icon and name after Terraria's buff icons, effects run by our code (Terraria has no room for new buffs). Noita fire and poison from enemy shots and burning tiles use them too. Stains (a liquid's touch effects): Noita keeps them as pixels of material on the sprite and a new liquid covers the old, so a new stain ends the other stains (water washes off oil, slime, toxic sludge). Wet, oiled, bloody, slimy, radioactive put out fire and keep it off (protects_from_fire).",
+   "stage": "2",
+   "hooks": [
+    "player_buffs",
+    "player_liferegen",
+    "buffs_draw"
+   ],
+   "code": "src/Terranoita/Physics/Status.cs",
    "_unverified": {}
   },
   {
    "id": "wand_slots",
    "description": "Stage 3: four wand slots next to the Terraria inventory, Noita spell editing.",
    "stage": "3",
-   "hooks": [],
-   "code": "-",
+   "hooks": [
+    "magic_item_defaults",
+    "magic_item_prefix",
+    "magic_item_name",
+    "magic_item_affix",
+    "magic_item_icon",
+    "magic_item_world",
+    "magic_item_tooltip",
+    "wand_window_draw",
+    "wand_enter_world"
+   ],
+   "code": "src/Terranoita/Magic/MagicItems.cs, WandStore.cs, WandWindow.cs",
    "_unverified": {}
   },
   {
    "id": "spells",
-   "description": "Stage 3: Noita spells cast from wands; reuses the projectiles sheet.",
+   "description": "Stage 3: Noita spells cast from wands. spells.json and wands.json come from the player's gun_actions.lua and wand entities (tncli spells, tools/apply_spells.py); Spells/Gun.cs is Noita's deck/hand/discard cast loop (mana, multicast, modifiers, triggers, wrap, recharge), tested without the game.",
    "stage": "3",
-   "hooks": [],
-   "code": "-",
+   "hooks": [
+    "magic_held_wand",
+    "spell_shots_update",
+    "spell_shots_draw"
+   ],
+   "code": "src/Terranoita.Core/Noita/LuaGun.cs, LuaWandMaker.cs; src/Terranoita/Magic/Casting.cs, SpellShots.cs",
+   "_unverified": {}
+  },
+  {
+   "id": "progress",
+   "description": "Stage 3: Noita's Progress menu per character: spells, creatures, wands, liquids met (key O).",
+   "stage": "3",
+   "hooks": [
+    "progress_draw",
+    "progress_enter_world",
+    "chat_log"
+   ],
+   "code": "src/Terranoita/ProgressWindow.cs, src/Terranoita.Core/Progress/ProgressBook.cs",
+   "_unverified": {}
+  },
+  {
+   "id": "menu",
+   "description": "Stage 3: the main menu reads TERRA NOITA.",
+   "stage": "3",
+   "hooks": [
+    "menu_logo"
+   ],
+   "code": "src/Terranoita/MenuLogo.cs",
+   "_unverified": {}
+  },
+  {
+   "id": "noita_actions",
+   "description": "Stage 3: Noita's kick (F), drinking from a liquid (hold down), the start minecart.",
+   "stage": "3",
+   "hooks": [
+    "cart_draw"
+   ],
+   "code": "src/Terranoita/NoitaActions.cs, src/Terranoita/Cart.cs",
    "_unverified": {}
   },
   {
@@ -170,6 +238,55 @@
    "stage": "4",
    "hooks": [],
    "code": "-",
+   "_unverified": {}
+  },
+  {
+   "id": "mana_cap",
+   "description": "Stage 3: max mana 600 (15 Mana Crystals, 15 stars of 20 to 40 mana) for Noita's dear spells (author).",
+   "stage": "3",
+   "hooks": [
+    "mana_crystal_cap",
+    "mana_load_cap",
+    "mana_total_cap",
+    "mana_stars_classic",
+    "mana_stars_snapshot"
+   ],
+   "code": "src/Terranoita/Magic/ManaCap.cs",
+   "_unverified": {}
+  },
+  {
+   "id": "menu_look",
+   "description": "Stage 3: the main menu looks and sounds like Noita's: its sky and mountains, its menu music, PRESS F TO KICK GID! (author).",
+   "stage": "3",
+   "hooks": [
+    "menu_background",
+    "menu_music",
+    "skip_splash"
+   ],
+   "code": "src/Terranoita/MenuLogo.cs, src/Terranoita/NoitaSound.cs, src/Terranoita/SkipSplash.cs",
+   "_unverified": {}
+  },
+  {
+   "id": "perks",
+   "description": "Noita's perks as items: boss drops, used from the hand, kept per character, lost on death (design/perks.md).",
+   "stage": "3",
+   "hooks": [
+    "perk_death",
+    "npc_loot"
+   ],
+   "code": "src/Terranoita/Magic/Perks.cs",
+   "_unverified": {}
+  },
+  {
+   "id": "host_server",
+   "description": "Playing together: the host's server runs the mod too (launcher -server sets Main.dedServ).",
+   "stage": "3",
+   "hooks": [
+    "host_and_play",
+    "npc_carrier_defaults",
+    "net_register"
+   ],
+   "code": "src/Terranoita/HostServer.cs, src/Terranoita.Launcher/Program.cs",
    "_unverified": {}
   }
  ]

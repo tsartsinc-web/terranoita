@@ -27,17 +27,33 @@ NAMES = {
     "projectiles": ("ProjectileDef", "Projectiles"),
     "ai_archetypes": ("AiArchetypeDef", "AiArchetypes"),
     "biome_map": ("BiomeMapDef", "BiomeMap"),
+    "biome_spawns": ("BiomeSpawnDef", "BiomeSpawns"),
     "terraria_zones": ("TerrariaZoneDef", "TerrariaZones"),
     "balance": ("BalanceDef", "Balance"),
     "drops": ("DropDef", "Drops"),
     "systems": ("SystemDef", "Systems"),
     "hooks": ("HookDef", "Hooks"),
+    "materials": ("MaterialDef", "Materials"),
+    "liquids": ("LiquidDef", "Liquids"),
+    "reactions": ("ReactionDef", "Reactions"),
+    "status_effects": ("StatusEffectDef", "StatusEffects"),
+    "noita_solids": ("NoitaSolidDef", "NoitaSolids"),
+    "enemy_blood": ("EnemyBloodDef", "EnemyBlood"),
+    "cave_pools": ("CavePoolDef", "CavePools"),
+    "spells": ("SpellDef", "SpellTable"),
+    "wands": ("WandDef", "WandTable"),
+    "spell_projectiles": ("SpellProjectileDef", "SpellProjectiles"),
 }
 
 # object columns: C# type and how each value is written
 OBJECT_COLUMNS = {
     ("enemies", "dmg_mult"): "Dictionary<string, float>",
     ("attacks", "damage"): "Dictionary<string, float[]>",
+    ("spells", "config_add"): "Dictionary<string, float>",
+    ("spells", "config_mul"): "Dictionary<string, float>",
+    ("spells", "shot_add"): "Dictionary<string, float>",
+    ("spells", "config_set"): "Dictionary<string, float>",
+    ("spells", "shot_set"): "Dictionary<string, float>",
 }
 
 

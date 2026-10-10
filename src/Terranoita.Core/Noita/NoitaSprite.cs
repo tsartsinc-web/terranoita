@@ -141,6 +141,16 @@ namespace Terranoita.Noita
             return _byLang.TryGetValue("en", out var en) && en.TryGetValue(key, out var e) ? e : null;
         }
 
+        /// <summary>Keys ("animal_x", without $) whose English text is the given name, ignoring case.</summary>
+        public IEnumerable<string> KeysWithEnglish(string english)
+        {
+            if (string.IsNullOrEmpty(english) || !_byLang.TryGetValue("en", out var en))
+                yield break;
+            foreach (var kv in en)
+                if (string.Equals(kv.Value.Trim(), english.Trim(), StringComparison.OrdinalIgnoreCase))
+                    yield return kv.Key;
+        }
+
         static List<List<string>> Csv(string text)
         {
             var rows = new List<List<string>>();

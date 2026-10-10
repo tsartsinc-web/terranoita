@@ -1,0 +1,3363 @@
+{
+ "sheet": "wands",
+ "description": "Noita wand entities (stage 3): stats from their AbilityComponent.",
+ "key": "id",
+ "columns": {
+  "id": {
+   "type": "string",
+   "desc": "Entity file name without .xml."
+  },
+  "entity": {
+   "type": "string",
+   "desc": "Entity file in data.wak."
+  },
+  "name_key": {
+   "type": "string",
+   "desc": "AbilityComponent ui_name."
+  },
+  "sprite": {
+   "type": "string",
+   "desc": "AbilityComponent sprite_file."
+  },
+  "shuffle": {
+   "type": "bool",
+   "desc": "gun_config shuffle_deck_when_empty."
+  },
+  "spells_per_cast": {
+   "type": "int",
+   "desc": "gun_config actions_per_round."
+  },
+  "cast_delay": {
+   "type": "number",
+   "desc": "gunaction_config fire_rate_wait, frames."
+  },
+  "recharge_time": {
+   "type": "number",
+   "desc": "gun_config reload_time, frames."
+  },
+  "mana_max": {
+   "type": "number",
+   "desc": "AbilityComponent mana_max."
+  },
+  "mana_charge_speed": {
+   "type": "number",
+   "desc": "AbilityComponent mana_charge_speed, per second."
+  },
+  "capacity": {
+   "type": "int",
+   "desc": "gun_config deck_capacity."
+  },
+  "spread": {
+   "type": "number",
+   "desc": "gunaction_config spread_degrees."
+  },
+  "speed_multiplier": {
+   "type": "number",
+   "desc": "gunaction_config speed_multiplier."
+  },
+  "scripts": {
+   "type": "string[]",
+   "desc": "LuaComponent scripts (wands whose stats a script generates)."
+  },
+  "stage": {
+   "type": "enum",
+   "values": [
+    "3"
+   ],
+   "desc": "Wands come with stage 3."
+  }
+ },
+ "rows": [
+  {
+   "id": "base_book",
+   "entity": "data/entities/items/books/base_book.xml",
+   "name_key": "$booktitle01",
+   "sprite": null,
+   "mana_max": null,
+   "mana_charge_speed": null,
+   "shuffle": null,
+   "spells_per_cast": null,
+   "recharge_time": null,
+   "capacity": 0,
+   "cast_delay": null,
+   "spread": null,
+   "speed_multiplier": null,
+   "scripts": [],
+   "stage": "3",
+   "_unverified": {
+    "sprite": "not in the entity file",
+    "mana_max": "not in the entity file",
+    "mana_charge_speed": "not in the entity file",
+    "shuffle": "not in the entity file",
+    "spells_per_cast": "not in the entity file",
+    "recharge_time": "not in the entity file",
+    "cast_delay": "not in the entity file",
+    "spread": "not in the entity file",
+    "speed_multiplier": "not in the entity file"
+   },
+   "_sources": {
+    "all": "wand entity via tncli spells"
+   }
+  },
+  {
+   "id": "base_forged",
+   "entity": "data/entities/items/books/base_forged.xml",
+   "name_key": "$booktitle01",
+   "sprite": null,
+   "mana_max": null,
+   "mana_charge_speed": null,
+   "shuffle": null,
+   "spells_per_cast": null,
+   "recharge_time": null,
+   "capacity": 0,
+   "cast_delay": null,
+   "spread": null,
+   "speed_multiplier": null,
+   "scripts": [],
+   "stage": "3",
+   "_unverified": {
+    "sprite": "not in the entity file",
+    "mana_max": "not in the entity file",
+    "mana_charge_speed": "not in the entity file",
+    "shuffle": "not in the entity file",
+    "spells_per_cast": "not in the entity file",
+    "recharge_time": "not in the entity file",
+    "cast_delay": "not in the entity file",
+    "spread": "not in the entity file",
+    "speed_multiplier": "not in the entity file"
+   },
+   "_sources": {
+    "all": "wand entity via tncli spells"
+   }
+  },
+  {
+   "id": "book_all_spells",
+   "entity": "data/entities/items/books/book_all_spells.xml",
+   "name_key": "$booktitle_allspells",
+   "sprite": null,
+   "mana_max": null,
+   "mana_charge_speed": null,
+   "shuffle": null,
+   "spells_per_cast": null,
+   "recharge_time": null,
+   "capacity": 0,
+   "cast_delay": null,
+   "spread": null,
+   "speed_multiplier": null,
+   "scripts": [],
+   "stage": "3",
+   "_unverified": {
+    "sprite": "not in the entity file",
+    "mana_max": "not in the entity file",
+    "mana_charge_speed": "not in the entity file",
+    "shuffle": "not in the entity file",
+    "spells_per_cast": "not in the entity file",
+    "recharge_time": "not in the entity file",
+    "cast_delay": "not in the entity file",
+    "spread": "not in the entity file",
+    "speed_multiplier": "not in the entity file"
+   },
+   "_sources": {
+    "all": "wand entity via tncli spells"
+   }
+  },
+  {
+   "id": "beer_bottle",
+   "entity": "data/entities/items/easter/beer_bottle.xml",
+   "name_key": "$item_kaljapullo",
+   "sprite": null,
+   "mana_max": null,
+   "mana_charge_speed": null,
+   "shuffle": null,
+   "spells_per_cast": null,
+   "recharge_time": null,
+   "capacity": 0,
+   "cast_delay": null,
+   "spread": null,
+   "speed_multiplier": null,
+   "scripts": [
+    "data/scripts/items/potion.lua",
+    "data/scripts/items/potion_effect.lua"
+   ],
+   "stage": "3",
+   "_unverified": {
+    "sprite": "not in the entity file (set by data/scripts/items/potion.lua, data/scripts/items/potion_effect.lua)",
+    "mana_max": "not in the entity file (set by data/scripts/items/potion.lua, data/scripts/items/potion_effect.lua)",
+    "mana_charge_speed": "not in the entity file (set by data/scripts/items/potion.lua, data/scripts/items/potion_effect.lua)",
+    "shuffle": "not in the entity file (set by data/scripts/items/potion.lua, data/scripts/items/potion_effect.lua)",
+    "spells_per_cast": "not in the entity file (set by data/scripts/items/potion.lua, data/scripts/items/potion_effect.lua)",
+    "recharge_time": "not in the entity file (set by data/scripts/items/potion.lua, data/scripts/items/potion_effect.lua)",
+    "cast_delay": "not in the entity file (set by data/scripts/items/potion.lua, data/scripts/items/potion_effect.lua)",
+    "spread": "not in the entity file (set by data/scripts/items/potion.lua, data/scripts/items/potion_effect.lua)",
+    "speed_multiplier": "not in the entity file (set by data/scripts/items/potion.lua, data/scripts/items/potion_effect.lua)"
+   },
+   "_sources": {
+    "all": "wand entity via tncli spells"
+   }
+  },
+  {
+   "id": "minit_watering",
+   "entity": "data/entities/items/easter/minit_watering.xml",
+   "name_key": "$item_potion_with_material",
+   "sprite": null,
+   "mana_max": null,
+   "mana_charge_speed": null,
+   "shuffle": null,
+   "spells_per_cast": null,
+   "recharge_time": null,
+   "capacity": 0,
+   "cast_delay": null,
+   "spread": null,
+   "speed_multiplier": null,
+   "scripts": [
+    "data/scripts/items/potion.lua",
+    "data/scripts/items/potion_effect.lua"
+   ],
+   "stage": "3",
+   "_unverified": {
+    "sprite": "not in the entity file (set by data/scripts/items/potion.lua, data/scripts/items/potion_effect.lua)",
+    "mana_max": "not in the entity file (set by data/scripts/items/potion.lua, data/scripts/items/potion_effect.lua)",
+    "mana_charge_speed": "not in the entity file (set by data/scripts/items/potion.lua, data/scripts/items/potion_effect.lua)",
+    "shuffle": "not in the entity file (set by data/scripts/items/potion.lua, data/scripts/items/potion_effect.lua)",
+    "spells_per_cast": "not in the entity file (set by data/scripts/items/potion.lua, data/scripts/items/potion_effect.lua)",
+    "recharge_time": "not in the entity file (set by data/scripts/items/potion.lua, data/scripts/items/potion_effect.lua)",
+    "cast_delay": "not in the entity file (set by data/scripts/items/potion.lua, data/scripts/items/potion_effect.lua)",
+    "spread": "not in the entity file (set by data/scripts/items/potion.lua, data/scripts/items/potion_effect.lua)",
+    "speed_multiplier": "not in the entity file (set by data/scripts/items/potion.lua, data/scripts/items/potion_effect.lua)"
+   },
+   "_sources": {
+    "all": "wand entity via tncli spells"
+   }
+  },
+  {
+   "id": "flute",
+   "entity": "data/entities/items/flute.xml",
+   "name_key": "$item_ocarina",
+   "sprite": "data/items_gfx/flute.xml",
+   "mana_max": 2.0,
+   "mana_charge_speed": 30.0,
+   "shuffle": false,
+   "spells_per_cast": null,
+   "recharge_time": 1.0,
+   "capacity": 20,
+   "cast_delay": 2.0,
+   "spread": null,
+   "speed_multiplier": null,
+   "scripts": [
+    "data/scripts/particles/wand_pickup.lua",
+    "data/scripts/animals/wand_charm.lua",
+    ""
+   ],
+   "stage": "3",
+   "_unverified": {
+    "spells_per_cast": "not in the entity file (set by data/scripts/particles/wand_pickup.lua, data/scripts/animals/wand_charm.lua, )",
+    "spread": "not in the entity file (set by data/scripts/particles/wand_pickup.lua, data/scripts/animals/wand_charm.lua, )",
+    "speed_multiplier": "not in the entity file (set by data/scripts/particles/wand_pickup.lua, data/scripts/animals/wand_charm.lua, )"
+   },
+   "_sources": {
+    "all": "wand entity via tncli spells"
+   }
+  },
+  {
+   "id": "kantele",
+   "entity": "data/entities/items/kantele.xml",
+   "name_key": "$item_kantele",
+   "sprite": "data/items_gfx/kantele.xml",
+   "mana_max": 2.0,
+   "mana_charge_speed": 30.0,
+   "shuffle": false,
+   "spells_per_cast": null,
+   "recharge_time": 1.0,
+   "capacity": 20,
+   "cast_delay": 2.0,
+   "spread": null,
+   "speed_multiplier": null,
+   "scripts": [
+    "data/scripts/particles/wand_pickup.lua",
+    "data/scripts/animals/wand_charm.lua",
+    ""
+   ],
+   "stage": "3",
+   "_unverified": {
+    "spells_per_cast": "not in the entity file (set by data/scripts/particles/wand_pickup.lua, data/scripts/animals/wand_charm.lua, )",
+    "spread": "not in the entity file (set by data/scripts/particles/wand_pickup.lua, data/scripts/animals/wand_charm.lua, )",
+    "speed_multiplier": "not in the entity file (set by data/scripts/particles/wand_pickup.lua, data/scripts/animals/wand_charm.lua, )"
+   },
+   "_sources": {
+    "all": "wand entity via tncli spells"
+   }
+  },
+  {
+   "id": "leukaluu_kantele",
+   "entity": "data/entities/items/leukaluu_kantele.xml",
+   "name_key": "$item_leukaluu_kantele",
+   "sprite": "data/items_gfx/wands/custom/leukaluu_kantele.png",
+   "mana_max": 750.0,
+   "mana_charge_speed": 100.0,
+   "shuffle": false,
+   "spells_per_cast": null,
+   "recharge_time": 1.0,
+   "capacity": 20,
+   "cast_delay": 2.0,
+   "spread": null,
+   "speed_multiplier": null,
+   "scripts": [
+    "data/scripts/particles/wand_pickup.lua",
+    "data/scripts/animals/wand_charm.lua",
+    "",
+    "data/scripts/gun/procedural/wand_add_spells.lua"
+   ],
+   "stage": "3",
+   "_unverified": {
+    "spells_per_cast": "not in the entity file (set by data/scripts/particles/wand_pickup.lua, data/scripts/animals/wand_charm.lua, , data/scripts/gun/procedural/wand_add_spells.lua)",
+    "spread": "not in the entity file (set by data/scripts/particles/wand_pickup.lua, data/scripts/animals/wand_charm.lua, , data/scripts/gun/procedural/wand_add_spells.lua)",
+    "speed_multiplier": "not in the entity file (set by data/scripts/particles/wand_pickup.lua, data/scripts/animals/wand_charm.lua, , data/scripts/gun/procedural/wand_add_spells.lua)"
+   },
+   "_sources": {
+    "all": "wand entity via tncli spells"
+   }
+  },
+  {
+   "id": "beamstone",
+   "entity": "data/entities/items/pickup/beamstone.xml",
+   "name_key": "$item_mega_beam_stone",
+   "sprite": null,
+   "mana_max": null,
+   "mana_charge_speed": null,
+   "shuffle": null,
+   "spells_per_cast": null,
+   "recharge_time": null,
+   "capacity": 0,
+   "cast_delay": null,
+   "spread": null,
+   "speed_multiplier": null,
+   "scripts": [
+    "data/scripts/items/beamstone_kick.lua"
+   ],
+   "stage": "3",
+   "_unverified": {
+    "sprite": "not in the entity file (set by data/scripts/items/beamstone_kick.lua)",
+    "mana_max": "not in the entity file (set by data/scripts/items/beamstone_kick.lua)",
+    "mana_charge_speed": "not in the entity file (set by data/scripts/items/beamstone_kick.lua)",
+    "shuffle": "not in the entity file (set by data/scripts/items/beamstone_kick.lua)",
+    "spells_per_cast": "not in the entity file (set by data/scripts/items/beamstone_kick.lua)",
+    "recharge_time": "not in the entity file (set by data/scripts/items/beamstone_kick.lua)",
+    "cast_delay": "not in the entity file (set by data/scripts/items/beamstone_kick.lua)",
+    "spread": "not in the entity file (set by data/scripts/items/beamstone_kick.lua)",
+    "speed_multiplier": "not in the entity file (set by data/scripts/items/beamstone_kick.lua)"
+   },
+   "_sources": {
+    "all": "wand entity via tncli spells"
+   }
+  },
+  {
+   "id": "brimstone",
+   "entity": "data/entities/items/pickup/brimstone.xml",
+   "name_key": "$item_brimstone",
+   "sprite": null,
+   "mana_max": null,
+   "mana_charge_speed": null,
+   "shuffle": null,
+   "spells_per_cast": null,
+   "recharge_time": null,
+   "capacity": 0,
+   "cast_delay": null,
+   "spread": null,
+   "speed_multiplier": null,
+   "scripts": [],
+   "stage": "3",
+   "_unverified": {
+    "sprite": "not in the entity file",
+    "mana_max": "not in the entity file",
+    "mana_charge_speed": "not in the entity file",
+    "shuffle": "not in the entity file",
+    "spells_per_cast": "not in the entity file",
+    "recharge_time": "not in the entity file",
+    "cast_delay": "not in the entity file",
+    "spread": "not in the entity file",
+    "speed_multiplier": "not in the entity file"
+   },
+   "_sources": {
+    "all": "wand entity via tncli spells"
+   }
+  },
+  {
+   "id": "broken_wand",
+   "entity": "data/entities/items/pickup/broken_wand.xml",
+   "name_key": "$item_broken_wand",
+   "sprite": null,
+   "mana_max": null,
+   "mana_charge_speed": null,
+   "shuffle": null,
+   "spells_per_cast": null,
+   "recharge_time": null,
+   "capacity": 0,
+   "cast_delay": null,
+   "spread": null,
+   "speed_multiplier": null,
+   "scripts": [
+    "data/scripts/items/broken_wand_spells.lua",
+    "data/scripts/items/broken_wand_throw.lua"
+   ],
+   "stage": "3",
+   "_unverified": {
+    "sprite": "not in the entity file (set by data/scripts/items/broken_wand_spells.lua, data/scripts/items/broken_wand_throw.lua)",
+    "mana_max": "not in the entity file (set by data/scripts/items/broken_wand_spells.lua, data/scripts/items/broken_wand_throw.lua)",
+    "mana_charge_speed": "not in the entity file (set by data/scripts/items/broken_wand_spells.lua, data/scripts/items/broken_wand_throw.lua)",
+    "shuffle": "not in the entity file (set by data/scripts/items/broken_wand_spells.lua, data/scripts/items/broken_wand_throw.lua)",
+    "spells_per_cast": "not in the entity file (set by data/scripts/items/broken_wand_spells.lua, data/scripts/items/broken_wand_throw.lua)",
+    "recharge_time": "not in the entity file (set by data/scripts/items/broken_wand_spells.lua, data/scripts/items/broken_wand_throw.lua)",
+    "cast_delay": "not in the entity file (set by data/scripts/items/broken_wand_spells.lua, data/scripts/items/broken_wand_throw.lua)",
+    "spread": "not in the entity file (set by data/scripts/items/broken_wand_spells.lua, data/scripts/items/broken_wand_throw.lua)",
+    "speed_multiplier": "not in the entity file (set by data/scripts/items/broken_wand_spells.lua, data/scripts/items/broken_wand_throw.lua)"
+   },
+   "_sources": {
+    "all": "wand entity via tncli spells"
+   }
+  },
+  {
+   "id": "egg_fire",
+   "entity": "data/entities/items/pickup/egg_fire.xml",
+   "name_key": "$item_egg_fire",
+   "sprite": null,
+   "mana_max": null,
+   "mana_charge_speed": null,
+   "shuffle": null,
+   "spells_per_cast": null,
+   "recharge_time": null,
+   "capacity": 0,
+   "cast_delay": null,
+   "spread": null,
+   "speed_multiplier": null,
+   "scripts": [],
+   "stage": "3",
+   "_unverified": {
+    "sprite": "not in the entity file",
+    "mana_max": "not in the entity file",
+    "mana_charge_speed": "not in the entity file",
+    "shuffle": "not in the entity file",
+    "spells_per_cast": "not in the entity file",
+    "recharge_time": "not in the entity file",
+    "cast_delay": "not in the entity file",
+    "spread": "not in the entity file",
+    "speed_multiplier": "not in the entity file"
+   },
+   "_sources": {
+    "all": "wand entity via tncli spells"
+   }
+  },
+  {
+   "id": "egg_hollow",
+   "entity": "data/entities/items/pickup/egg_hollow.xml",
+   "name_key": "$item_egg_hollow",
+   "sprite": null,
+   "mana_max": null,
+   "mana_charge_speed": null,
+   "shuffle": null,
+   "spells_per_cast": null,
+   "recharge_time": null,
+   "capacity": 0,
+   "cast_delay": null,
+   "spread": null,
+   "speed_multiplier": null,
+   "scripts": [],
+   "stage": "3",
+   "_unverified": {
+    "sprite": "not in the entity file",
+    "mana_max": "not in the entity file",
+    "mana_charge_speed": "not in the entity file",
+    "shuffle": "not in the entity file",
+    "spells_per_cast": "not in the entity file",
+    "recharge_time": "not in the entity file",
+    "cast_delay": "not in the entity file",
+    "spread": "not in the entity file",
+    "speed_multiplier": "not in the entity file"
+   },
+   "_sources": {
+    "all": "wand entity via tncli spells"
+   }
+  },
+  {
+   "id": "egg_monster",
+   "entity": "data/entities/items/pickup/egg_monster.xml",
+   "name_key": "$item_egg",
+   "sprite": null,
+   "mana_max": null,
+   "mana_charge_speed": null,
+   "shuffle": null,
+   "spells_per_cast": null,
+   "recharge_time": null,
+   "capacity": 0,
+   "cast_delay": null,
+   "spread": null,
+   "speed_multiplier": null,
+   "scripts": [],
+   "stage": "3",
+   "_unverified": {
+    "sprite": "not in the entity file",
+    "mana_max": "not in the entity file",
+    "mana_charge_speed": "not in the entity file",
+    "shuffle": "not in the entity file",
+    "spells_per_cast": "not in the entity file",
+    "recharge_time": "not in the entity file",
+    "cast_delay": "not in the entity file",
+    "spread": "not in the entity file",
+    "speed_multiplier": "not in the entity file"
+   },
+   "_sources": {
+    "all": "wand entity via tncli spells"
+   }
+  },
+  {
+   "id": "egg_purple",
+   "entity": "data/entities/items/pickup/egg_purple.xml",
+   "name_key": "$item_egg_purple",
+   "sprite": null,
+   "mana_max": null,
+   "mana_charge_speed": null,
+   "shuffle": null,
+   "spells_per_cast": null,
+   "recharge_time": null,
+   "capacity": 0,
+   "cast_delay": null,
+   "spread": null,
+   "speed_multiplier": null,
+   "scripts": [],
+   "stage": "3",
+   "_unverified": {
+    "sprite": "not in the entity file",
+    "mana_max": "not in the entity file",
+    "mana_charge_speed": "not in the entity file",
+    "shuffle": "not in the entity file",
+    "spells_per_cast": "not in the entity file",
+    "recharge_time": "not in the entity file",
+    "cast_delay": "not in the entity file",
+    "spread": "not in the entity file",
+    "speed_multiplier": "not in the entity file"
+   },
+   "_sources": {
+    "all": "wand entity via tncli spells"
+   }
+  },
+  {
+   "id": "egg_red",
+   "entity": "data/entities/items/pickup/egg_red.xml",
+   "name_key": "$item_egg",
+   "sprite": null,
+   "mana_max": null,
+   "mana_charge_speed": null,
+   "shuffle": null,
+   "spells_per_cast": null,
+   "recharge_time": null,
+   "capacity": 0,
+   "cast_delay": null,
+   "spread": null,
+   "speed_multiplier": null,
+   "scripts": [],
+   "stage": "3",
+   "_unverified": {
+    "sprite": "not in the entity file",
+    "mana_max": "not in the entity file",
+    "mana_charge_speed": "not in the entity file",
+    "shuffle": "not in the entity file",
+    "spells_per_cast": "not in the entity file",
+    "recharge_time": "not in the entity file",
+    "cast_delay": "not in the entity file",
+    "spread": "not in the entity file",
+    "speed_multiplier": "not in the entity file"
+   },
+   "_sources": {
+    "all": "wand entity via tncli spells"
+   }
+  },
+  {
+   "id": "egg_slime",
+   "entity": "data/entities/items/pickup/egg_slime.xml",
+   "name_key": "$item_egg_slime",
+   "sprite": null,
+   "mana_max": null,
+   "mana_charge_speed": null,
+   "shuffle": null,
+   "spells_per_cast": null,
+   "recharge_time": null,
+   "capacity": 0,
+   "cast_delay": null,
+   "spread": null,
+   "speed_multiplier": null,
+   "scripts": [],
+   "stage": "3",
+   "_unverified": {
+    "sprite": "not in the entity file",
+    "mana_max": "not in the entity file",
+    "mana_charge_speed": "not in the entity file",
+    "shuffle": "not in the entity file",
+    "spells_per_cast": "not in the entity file",
+    "recharge_time": "not in the entity file",
+    "cast_delay": "not in the entity file",
+    "spread": "not in the entity file",
+    "speed_multiplier": "not in the entity file"
+   },
+   "_sources": {
+    "all": "wand entity via tncli spells"
+   }
+  },
+  {
+   "id": "egg_spiders",
+   "entity": "data/entities/items/pickup/egg_spiders.xml",
+   "name_key": "$item_egg_purple",
+   "sprite": null,
+   "mana_max": null,
+   "mana_charge_speed": null,
+   "shuffle": null,
+   "spells_per_cast": null,
+   "recharge_time": null,
+   "capacity": 0,
+   "cast_delay": null,
+   "spread": null,
+   "speed_multiplier": null,
+   "scripts": [],
+   "stage": "3",
+   "_unverified": {
+    "sprite": "not in the entity file",
+    "mana_max": "not in the entity file",
+    "mana_charge_speed": "not in the entity file",
+    "shuffle": "not in the entity file",
+    "spells_per_cast": "not in the entity file",
+    "recharge_time": "not in the entity file",
+    "cast_delay": "not in the entity file",
+    "spread": "not in the entity file",
+    "speed_multiplier": "not in the entity file"
+   },
+   "_sources": {
+    "all": "wand entity via tncli spells"
+   }
+  },
+  {
+   "id": "egg_worm",
+   "entity": "data/entities/items/pickup/egg_worm.xml",
+   "name_key": "$item_egg_worm",
+   "sprite": null,
+   "mana_max": null,
+   "mana_charge_speed": null,
+   "shuffle": null,
+   "spells_per_cast": null,
+   "recharge_time": null,
+   "capacity": 0,
+   "cast_delay": null,
+   "spread": null,
+   "speed_multiplier": null,
+   "scripts": [],
+   "stage": "3",
+   "_unverified": {
+    "sprite": "not in the entity file",
+    "mana_max": "not in the entity file",
+    "mana_charge_speed": "not in the entity file",
+    "shuffle": "not in the entity file",
+    "spells_per_cast": "not in the entity file",
+    "recharge_time": "not in the entity file",
+    "cast_delay": "not in the entity file",
+    "spread": "not in the entity file",
+    "speed_multiplier": "not in the entity file"
+   },
+   "_sources": {
+    "all": "wand entity via tncli spells"
+   }
+  },
+  {
+   "id": "evil_eye",
+   "entity": "data/entities/items/pickup/evil_eye.xml",
+   "name_key": "$item_evil_eye",
+   "sprite": null,
+   "mana_max": null,
+   "mana_charge_speed": null,
+   "shuffle": null,
+   "spells_per_cast": null,
+   "recharge_time": null,
+   "capacity": 0,
+   "cast_delay": null,
+   "spread": null,
+   "speed_multiplier": null,
+   "scripts": [
+    "data/scripts/items/evil_eye_beam.lua",
+    "data/scripts/items/evil_eye_state.lua"
+   ],
+   "stage": "3",
+   "_unverified": {
+    "sprite": "not in the entity file (set by data/scripts/items/evil_eye_beam.lua, data/scripts/items/evil_eye_state.lua)",
+    "mana_max": "not in the entity file (set by data/scripts/items/evil_eye_beam.lua, data/scripts/items/evil_eye_state.lua)",
+    "mana_charge_speed": "not in the entity file (set by data/scripts/items/evil_eye_beam.lua, data/scripts/items/evil_eye_state.lua)",
+    "shuffle": "not in the entity file (set by data/scripts/items/evil_eye_beam.lua, data/scripts/items/evil_eye_state.lua)",
+    "spells_per_cast": "not in the entity file (set by data/scripts/items/evil_eye_beam.lua, data/scripts/items/evil_eye_state.lua)",
+    "recharge_time": "not in the entity file (set by data/scripts/items/evil_eye_beam.lua, data/scripts/items/evil_eye_state.lua)",
+    "cast_delay": "not in the entity file (set by data/scripts/items/evil_eye_beam.lua, data/scripts/items/evil_eye_state.lua)",
+    "spread": "not in the entity file (set by data/scripts/items/evil_eye_beam.lua, data/scripts/items/evil_eye_state.lua)",
+    "speed_multiplier": "not in the entity file (set by data/scripts/items/evil_eye_beam.lua, data/scripts/items/evil_eye_state.lua)"
+   },
+   "_sources": {
+    "all": "wand entity via tncli spells"
+   }
+  },
+  {
+   "id": "gourd",
+   "entity": "data/entities/items/pickup/gourd.xml",
+   "name_key": "$item_gourd",
+   "sprite": null,
+   "mana_max": null,
+   "mana_charge_speed": null,
+   "shuffle": null,
+   "spells_per_cast": null,
+   "recharge_time": null,
+   "capacity": 0,
+   "cast_delay": null,
+   "spread": null,
+   "speed_multiplier": null,
+   "scripts": [],
+   "stage": "3",
+   "_unverified": {
+    "sprite": "not in the entity file",
+    "mana_max": "not in the entity file",
+    "mana_charge_speed": "not in the entity file",
+    "shuffle": "not in the entity file",
+    "spells_per_cast": "not in the entity file",
+    "recharge_time": "not in the entity file",
+    "cast_delay": "not in the entity file",
+    "spread": "not in the entity file",
+    "speed_multiplier": "not in the entity file"
+   },
+   "_sources": {
+    "all": "wand entity via tncli spells"
+   }
+  },
+  {
+   "id": "jar",
+   "entity": "data/entities/items/pickup/jar.xml",
+   "name_key": "$item_jar_with_material",
+   "sprite": null,
+   "mana_max": null,
+   "mana_charge_speed": null,
+   "shuffle": null,
+   "spells_per_cast": null,
+   "recharge_time": null,
+   "capacity": 0,
+   "cast_delay": null,
+   "spread": null,
+   "speed_multiplier": null,
+   "scripts": [
+    "data/scripts/items/potion.lua",
+    "data/scripts/items/potion_effect.lua",
+    "data/scripts/items/potion_glass_break.lua"
+   ],
+   "stage": "3",
+   "_unverified": {
+    "sprite": "not in the entity file (set by data/scripts/items/potion.lua, data/scripts/items/potion_effect.lua, data/scripts/items/potion_glass_break.lua)",
+    "mana_max": "not in the entity file (set by data/scripts/items/potion.lua, data/scripts/items/potion_effect.lua, data/scripts/items/potion_glass_break.lua)",
+    "mana_charge_speed": "not in the entity file (set by data/scripts/items/potion.lua, data/scripts/items/potion_effect.lua, data/scripts/items/potion_glass_break.lua)",
+    "shuffle": "not in the entity file (set by data/scripts/items/potion.lua, data/scripts/items/potion_effect.lua, data/scripts/items/potion_glass_break.lua)",
+    "spells_per_cast": "not in the entity file (set by data/scripts/items/potion.lua, data/scripts/items/potion_effect.lua, data/scripts/items/potion_glass_break.lua)",
+    "recharge_time": "not in the entity file (set by data/scripts/items/potion.lua, data/scripts/items/potion_effect.lua, data/scripts/items/potion_glass_break.lua)",
+    "cast_delay": "not in the entity file (set by data/scripts/items/potion.lua, data/scripts/items/potion_effect.lua, data/scripts/items/potion_glass_break.lua)",
+    "spread": "not in the entity file (set by data/scripts/items/potion.lua, data/scripts/items/potion_effect.lua, data/scripts/items/potion_glass_break.lua)",
+    "speed_multiplier": "not in the entity file (set by data/scripts/items/potion.lua, data/scripts/items/potion_effect.lua, data/scripts/items/potion_glass_break.lua)"
+   },
+   "_sources": {
+    "all": "wand entity via tncli spells"
+   }
+  },
+  {
+   "id": "moon",
+   "entity": "data/entities/items/pickup/moon.xml",
+   "name_key": "$item_moon",
+   "sprite": null,
+   "mana_max": null,
+   "mana_charge_speed": null,
+   "shuffle": null,
+   "spells_per_cast": null,
+   "recharge_time": null,
+   "capacity": 0,
+   "cast_delay": null,
+   "spread": null,
+   "speed_multiplier": null,
+   "scripts": [
+    "data/scripts/items/moon.lua"
+   ],
+   "stage": "3",
+   "_unverified": {
+    "sprite": "not in the entity file (set by data/scripts/items/moon.lua)",
+    "mana_max": "not in the entity file (set by data/scripts/items/moon.lua)",
+    "mana_charge_speed": "not in the entity file (set by data/scripts/items/moon.lua)",
+    "shuffle": "not in the entity file (set by data/scripts/items/moon.lua)",
+    "spells_per_cast": "not in the entity file (set by data/scripts/items/moon.lua)",
+    "recharge_time": "not in the entity file (set by data/scripts/items/moon.lua)",
+    "cast_delay": "not in the entity file (set by data/scripts/items/moon.lua)",
+    "spread": "not in the entity file (set by data/scripts/items/moon.lua)",
+    "speed_multiplier": "not in the entity file (set by data/scripts/items/moon.lua)"
+   },
+   "_sources": {
+    "all": "wand entity via tncli spells"
+   }
+  },
+  {
+   "id": "musicstone",
+   "entity": "data/entities/items/pickup/musicstone.xml",
+   "name_key": "$item_musicstone",
+   "sprite": null,
+   "mana_max": null,
+   "mana_charge_speed": null,
+   "shuffle": null,
+   "spells_per_cast": null,
+   "recharge_time": null,
+   "capacity": 0,
+   "cast_delay": null,
+   "spread": null,
+   "speed_multiplier": null,
+   "scripts": [],
+   "stage": "3",
+   "_unverified": {
+    "sprite": "not in the entity file",
+    "mana_max": "not in the entity file",
+    "mana_charge_speed": "not in the entity file",
+    "shuffle": "not in the entity file",
+    "spells_per_cast": "not in the entity file",
+    "recharge_time": "not in the entity file",
+    "cast_delay": "not in the entity file",
+    "spread": "not in the entity file",
+    "speed_multiplier": "not in the entity file"
+   },
+   "_sources": {
+    "all": "wand entity via tncli spells"
+   }
+  },
+  {
+   "id": "physics_die",
+   "entity": "data/entities/items/pickup/physics_die.xml",
+   "name_key": "$item_die",
+   "sprite": null,
+   "mana_max": null,
+   "mana_charge_speed": null,
+   "shuffle": null,
+   "spells_per_cast": null,
+   "recharge_time": null,
+   "capacity": 0,
+   "cast_delay": null,
+   "spread": null,
+   "speed_multiplier": null,
+   "scripts": [
+    "data/scripts/items/die_roll.lua",
+    "data/scripts/items/die_status.lua"
+   ],
+   "stage": "3",
+   "_unverified": {
+    "sprite": "not in the entity file (set by data/scripts/items/die_roll.lua, data/scripts/items/die_status.lua)",
+    "mana_max": "not in the entity file (set by data/scripts/items/die_roll.lua, data/scripts/items/die_status.lua)",
+    "mana_charge_speed": "not in the entity file (set by data/scripts/items/die_roll.lua, data/scripts/items/die_status.lua)",
+    "shuffle": "not in the entity file (set by data/scripts/items/die_roll.lua, data/scripts/items/die_status.lua)",
+    "spells_per_cast": "not in the entity file (set by data/scripts/items/die_roll.lua, data/scripts/items/die_status.lua)",
+    "recharge_time": "not in the entity file (set by data/scripts/items/die_roll.lua, data/scripts/items/die_status.lua)",
+    "cast_delay": "not in the entity file (set by data/scripts/items/die_roll.lua, data/scripts/items/die_status.lua)",
+    "spread": "not in the entity file (set by data/scripts/items/die_roll.lua, data/scripts/items/die_status.lua)",
+    "speed_multiplier": "not in the entity file (set by data/scripts/items/die_roll.lua, data/scripts/items/die_status.lua)"
+   },
+   "_sources": {
+    "all": "wand entity via tncli spells"
+   }
+  },
+  {
+   "id": "physics_gold_orb",
+   "entity": "data/entities/items/pickup/physics_gold_orb.xml",
+   "name_key": "$item_gold_orb",
+   "sprite": null,
+   "mana_max": null,
+   "mana_charge_speed": null,
+   "shuffle": null,
+   "spells_per_cast": null,
+   "recharge_time": null,
+   "capacity": 0,
+   "cast_delay": null,
+   "spread": null,
+   "speed_multiplier": null,
+   "scripts": [
+    "data/scripts/items/gold_orb.lua"
+   ],
+   "stage": "3",
+   "_unverified": {
+    "sprite": "not in the entity file (set by data/scripts/items/gold_orb.lua)",
+    "mana_max": "not in the entity file (set by data/scripts/items/gold_orb.lua)",
+    "mana_charge_speed": "not in the entity file (set by data/scripts/items/gold_orb.lua)",
+    "shuffle": "not in the entity file (set by data/scripts/items/gold_orb.lua)",
+    "spells_per_cast": "not in the entity file (set by data/scripts/items/gold_orb.lua)",
+    "recharge_time": "not in the entity file (set by data/scripts/items/gold_orb.lua)",
+    "cast_delay": "not in the entity file (set by data/scripts/items/gold_orb.lua)",
+    "spread": "not in the entity file (set by data/scripts/items/gold_orb.lua)",
+    "speed_multiplier": "not in the entity file (set by data/scripts/items/gold_orb.lua)"
+   },
+   "_sources": {
+    "all": "wand entity via tncli spells"
+   }
+  },
+  {
+   "id": "physics_gold_orb_greed",
+   "entity": "data/entities/items/pickup/physics_gold_orb_greed.xml",
+   "name_key": "$item_gold_orb_greed",
+   "sprite": null,
+   "mana_max": null,
+   "mana_charge_speed": null,
+   "shuffle": null,
+   "spells_per_cast": null,
+   "recharge_time": null,
+   "capacity": 0,
+   "cast_delay": null,
+   "spread": null,
+   "speed_multiplier": null,
+   "scripts": [
+    "data/scripts/items/gold_orb_greed.lua"
+   ],
+   "stage": "3",
+   "_unverified": {
+    "sprite": "not in the entity file (set by data/scripts/items/gold_orb_greed.lua)",
+    "mana_max": "not in the entity file (set by data/scripts/items/gold_orb_greed.lua)",
+    "mana_charge_speed": "not in the entity file (set by data/scripts/items/gold_orb_greed.lua)",
+    "shuffle": "not in the entity file (set by data/scripts/items/gold_orb_greed.lua)",
+    "spells_per_cast": "not in the entity file (set by data/scripts/items/gold_orb_greed.lua)",
+    "recharge_time": "not in the entity file (set by data/scripts/items/gold_orb_greed.lua)",
+    "cast_delay": "not in the entity file (set by data/scripts/items/gold_orb_greed.lua)",
+    "spread": "not in the entity file (set by data/scripts/items/gold_orb_greed.lua)",
+    "speed_multiplier": "not in the entity file (set by data/scripts/items/gold_orb_greed.lua)"
+   },
+   "_sources": {
+    "all": "wand entity via tncli spells"
+   }
+  },
+  {
+   "id": "physics_greed_die",
+   "entity": "data/entities/items/pickup/physics_greed_die.xml",
+   "name_key": "$item_greed_die",
+   "sprite": null,
+   "mana_max": null,
+   "mana_charge_speed": null,
+   "shuffle": null,
+   "spells_per_cast": null,
+   "recharge_time": null,
+   "capacity": 0,
+   "cast_delay": null,
+   "spread": null,
+   "speed_multiplier": null,
+   "scripts": [
+    "data/scripts/items/die_roll.lua",
+    "data/scripts/items/greed_die_status.lua"
+   ],
+   "stage": "3",
+   "_unverified": {
+    "sprite": "not in the entity file (set by data/scripts/items/die_roll.lua, data/scripts/items/greed_die_status.lua)",
+    "mana_max": "not in the entity file (set by data/scripts/items/die_roll.lua, data/scripts/items/greed_die_status.lua)",
+    "mana_charge_speed": "not in the entity file (set by data/scripts/items/die_roll.lua, data/scripts/items/greed_die_status.lua)",
+    "shuffle": "not in the entity file (set by data/scripts/items/die_roll.lua, data/scripts/items/greed_die_status.lua)",
+    "spells_per_cast": "not in the entity file (set by data/scripts/items/die_roll.lua, data/scripts/items/greed_die_status.lua)",
+    "recharge_time": "not in the entity file (set by data/scripts/items/die_roll.lua, data/scripts/items/greed_die_status.lua)",
+    "cast_delay": "not in the entity file (set by data/scripts/items/die_roll.lua, data/scripts/items/greed_die_status.lua)",
+    "spread": "not in the entity file (set by data/scripts/items/die_roll.lua, data/scripts/items/greed_die_status.lua)",
+    "speed_multiplier": "not in the entity file (set by data/scripts/items/die_roll.lua, data/scripts/items/greed_die_status.lua)"
+   },
+   "_sources": {
+    "all": "wand entity via tncli spells"
+   }
+  },
+  {
+   "id": "poopstone",
+   "entity": "data/entities/items/pickup/poopstone.xml",
+   "name_key": "$item_kakka",
+   "sprite": null,
+   "mana_max": null,
+   "mana_charge_speed": null,
+   "shuffle": null,
+   "spells_per_cast": null,
+   "recharge_time": null,
+   "capacity": 0,
+   "cast_delay": null,
+   "spread": null,
+   "speed_multiplier": null,
+   "scripts": [
+    "data/scripts/items/poopstone.lua"
+   ],
+   "stage": "3",
+   "_unverified": {
+    "sprite": "not in the entity file (set by data/scripts/items/poopstone.lua)",
+    "mana_max": "not in the entity file (set by data/scripts/items/poopstone.lua)",
+    "mana_charge_speed": "not in the entity file (set by data/scripts/items/poopstone.lua)",
+    "shuffle": "not in the entity file (set by data/scripts/items/poopstone.lua)",
+    "spells_per_cast": "not in the entity file (set by data/scripts/items/poopstone.lua)",
+    "recharge_time": "not in the entity file (set by data/scripts/items/poopstone.lua)",
+    "cast_delay": "not in the entity file (set by data/scripts/items/poopstone.lua)",
+    "spread": "not in the entity file (set by data/scripts/items/poopstone.lua)",
+    "speed_multiplier": "not in the entity file (set by data/scripts/items/poopstone.lua)"
+   },
+   "_sources": {
+    "all": "wand entity via tncli spells"
+   }
+  },
+  {
+   "id": "potion",
+   "entity": "data/entities/items/pickup/potion.xml",
+   "name_key": "$item_potion_with_material",
+   "sprite": null,
+   "mana_max": null,
+   "mana_charge_speed": null,
+   "shuffle": null,
+   "spells_per_cast": null,
+   "recharge_time": null,
+   "capacity": 0,
+   "cast_delay": null,
+   "spread": null,
+   "speed_multiplier": null,
+   "scripts": [
+    "data/scripts/items/potion.lua",
+    "data/scripts/items/potion_effect.lua",
+    "data/scripts/items/potion_glass_break.lua"
+   ],
+   "stage": "3",
+   "_unverified": {
+    "sprite": "not in the entity file (set by data/scripts/items/potion.lua, data/scripts/items/potion_effect.lua, data/scripts/items/potion_glass_break.lua)",
+    "mana_max": "not in the entity file (set by data/scripts/items/potion.lua, data/scripts/items/potion_effect.lua, data/scripts/items/potion_glass_break.lua)",
+    "mana_charge_speed": "not in the entity file (set by data/scripts/items/potion.lua, data/scripts/items/potion_effect.lua, data/scripts/items/potion_glass_break.lua)",
+    "shuffle": "not in the entity file (set by data/scripts/items/potion.lua, data/scripts/items/potion_effect.lua, data/scripts/items/potion_glass_break.lua)",
+    "spells_per_cast": "not in the entity file (set by data/scripts/items/potion.lua, data/scripts/items/potion_effect.lua, data/scripts/items/potion_glass_break.lua)",
+    "recharge_time": "not in the entity file (set by data/scripts/items/potion.lua, data/scripts/items/potion_effect.lua, data/scripts/items/potion_glass_break.lua)",
+    "cast_delay": "not in the entity file (set by data/scripts/items/potion.lua, data/scripts/items/potion_effect.lua, data/scripts/items/potion_glass_break.lua)",
+    "spread": "not in the entity file (set by data/scripts/items/potion.lua, data/scripts/items/potion_effect.lua, data/scripts/items/potion_glass_break.lua)",
+    "speed_multiplier": "not in the entity file (set by data/scripts/items/potion.lua, data/scripts/items/potion_effect.lua, data/scripts/items/potion_glass_break.lua)"
+   },
+   "_sources": {
+    "all": "wand entity via tncli spells"
+   }
+  },
+  {
+   "id": "powder_stash",
+   "entity": "data/entities/items/pickup/powder_stash.xml",
+   "name_key": "$item_powder_stash_with_material_3",
+   "sprite": null,
+   "mana_max": null,
+   "mana_charge_speed": null,
+   "shuffle": null,
+   "spells_per_cast": null,
+   "recharge_time": null,
+   "capacity": 0,
+   "cast_delay": null,
+   "spread": null,
+   "speed_multiplier": null,
+   "scripts": [
+    "data/scripts/items/potion_effect.lua",
+    "data/scripts/items/powder_stash.lua"
+   ],
+   "stage": "3",
+   "_unverified": {
+    "sprite": "not in the entity file (set by data/scripts/items/potion_effect.lua, data/scripts/items/powder_stash.lua)",
+    "mana_max": "not in the entity file (set by data/scripts/items/potion_effect.lua, data/scripts/items/powder_stash.lua)",
+    "mana_charge_speed": "not in the entity file (set by data/scripts/items/potion_effect.lua, data/scripts/items/powder_stash.lua)",
+    "shuffle": "not in the entity file (set by data/scripts/items/potion_effect.lua, data/scripts/items/powder_stash.lua)",
+    "spells_per_cast": "not in the entity file (set by data/scripts/items/potion_effect.lua, data/scripts/items/powder_stash.lua)",
+    "recharge_time": "not in the entity file (set by data/scripts/items/potion_effect.lua, data/scripts/items/powder_stash.lua)",
+    "cast_delay": "not in the entity file (set by data/scripts/items/potion_effect.lua, data/scripts/items/powder_stash.lua)",
+    "spread": "not in the entity file (set by data/scripts/items/potion_effect.lua, data/scripts/items/powder_stash.lua)",
+    "speed_multiplier": "not in the entity file (set by data/scripts/items/potion_effect.lua, data/scripts/items/powder_stash.lua)"
+   },
+   "_sources": {
+    "all": "wand entity via tncli spells"
+   }
+  },
+  {
+   "id": "runestone_base",
+   "entity": "data/entities/items/pickup/runestones/runestone_base.xml",
+   "name_key": "$item_runestone_slow",
+   "sprite": null,
+   "mana_max": null,
+   "mana_charge_speed": null,
+   "shuffle": null,
+   "spells_per_cast": null,
+   "recharge_time": null,
+   "capacity": 0,
+   "cast_delay": null,
+   "spread": null,
+   "speed_multiplier": null,
+   "scripts": [
+    "data/scripts/items/runestones/runestone_activate.lua",
+    "data/scripts/items/runestones/runestone_slow.lua"
+   ],
+   "stage": "3",
+   "_unverified": {
+    "sprite": "not in the entity file (set by data/scripts/items/runestones/runestone_activate.lua, data/scripts/items/runestones/runestone_slow.lua)",
+    "mana_max": "not in the entity file (set by data/scripts/items/runestones/runestone_activate.lua, data/scripts/items/runestones/runestone_slow.lua)",
+    "mana_charge_speed": "not in the entity file (set by data/scripts/items/runestones/runestone_activate.lua, data/scripts/items/runestones/runestone_slow.lua)",
+    "shuffle": "not in the entity file (set by data/scripts/items/runestones/runestone_activate.lua, data/scripts/items/runestones/runestone_slow.lua)",
+    "spells_per_cast": "not in the entity file (set by data/scripts/items/runestones/runestone_activate.lua, data/scripts/items/runestones/runestone_slow.lua)",
+    "recharge_time": "not in the entity file (set by data/scripts/items/runestones/runestone_activate.lua, data/scripts/items/runestones/runestone_slow.lua)",
+    "cast_delay": "not in the entity file (set by data/scripts/items/runestones/runestone_activate.lua, data/scripts/items/runestones/runestone_slow.lua)",
+    "spread": "not in the entity file (set by data/scripts/items/runestones/runestone_activate.lua, data/scripts/items/runestones/runestone_slow.lua)",
+    "speed_multiplier": "not in the entity file (set by data/scripts/items/runestones/runestone_activate.lua, data/scripts/items/runestones/runestone_slow.lua)"
+   },
+   "_sources": {
+    "all": "wand entity via tncli spells"
+   }
+  },
+  {
+   "id": "safe_haven",
+   "entity": "data/entities/items/pickup/safe_haven.xml",
+   "name_key": "$item_safe_haven",
+   "sprite": null,
+   "mana_max": null,
+   "mana_charge_speed": null,
+   "shuffle": null,
+   "spells_per_cast": null,
+   "recharge_time": null,
+   "capacity": 0,
+   "cast_delay": null,
+   "spread": null,
+   "speed_multiplier": null,
+   "scripts": [
+    "data/scripts/items/safe_haven_spawn.lua",
+    "data/scripts/items/safe_haven_throw.lua"
+   ],
+   "stage": "3",
+   "_unverified": {
+    "sprite": "not in the entity file (set by data/scripts/items/safe_haven_spawn.lua, data/scripts/items/safe_haven_throw.lua)",
+    "mana_max": "not in the entity file (set by data/scripts/items/safe_haven_spawn.lua, data/scripts/items/safe_haven_throw.lua)",
+    "mana_charge_speed": "not in the entity file (set by data/scripts/items/safe_haven_spawn.lua, data/scripts/items/safe_haven_throw.lua)",
+    "shuffle": "not in the entity file (set by data/scripts/items/safe_haven_spawn.lua, data/scripts/items/safe_haven_throw.lua)",
+    "spells_per_cast": "not in the entity file (set by data/scripts/items/safe_haven_spawn.lua, data/scripts/items/safe_haven_throw.lua)",
+    "recharge_time": "not in the entity file (set by data/scripts/items/safe_haven_spawn.lua, data/scripts/items/safe_haven_throw.lua)",
+    "cast_delay": "not in the entity file (set by data/scripts/items/safe_haven_spawn.lua, data/scripts/items/safe_haven_throw.lua)",
+    "spread": "not in the entity file (set by data/scripts/items/safe_haven_spawn.lua, data/scripts/items/safe_haven_throw.lua)",
+    "speed_multiplier": "not in the entity file (set by data/scripts/items/safe_haven_spawn.lua, data/scripts/items/safe_haven_throw.lua)"
+   },
+   "_sources": {
+    "all": "wand entity via tncli spells"
+   }
+  },
+  {
+   "id": "stonestone",
+   "entity": "data/entities/items/pickup/stonestone.xml",
+   "name_key": "$item_stonestone",
+   "sprite": null,
+   "mana_max": null,
+   "mana_charge_speed": null,
+   "shuffle": null,
+   "spells_per_cast": null,
+   "recharge_time": null,
+   "capacity": 0,
+   "cast_delay": null,
+   "spread": null,
+   "speed_multiplier": null,
+   "scripts": [
+    "data/scripts/items/stonestone.lua"
+   ],
+   "stage": "3",
+   "_unverified": {
+    "sprite": "not in the entity file (set by data/scripts/items/stonestone.lua)",
+    "mana_max": "not in the entity file (set by data/scripts/items/stonestone.lua)",
+    "mana_charge_speed": "not in the entity file (set by data/scripts/items/stonestone.lua)",
+    "shuffle": "not in the entity file (set by data/scripts/items/stonestone.lua)",
+    "spells_per_cast": "not in the entity file (set by data/scripts/items/stonestone.lua)",
+    "recharge_time": "not in the entity file (set by data/scripts/items/stonestone.lua)",
+    "cast_delay": "not in the entity file (set by data/scripts/items/stonestone.lua)",
+    "spread": "not in the entity file (set by data/scripts/items/stonestone.lua)",
+    "speed_multiplier": "not in the entity file (set by data/scripts/items/stonestone.lua)"
+   },
+   "_sources": {
+    "all": "wand entity via tncli spells"
+   }
+  },
+  {
+   "id": "summon_portal_broken",
+   "entity": "data/entities/items/pickup/summon_portal_broken.xml",
+   "name_key": "$action_broken_spell",
+   "sprite": null,
+   "mana_max": null,
+   "mana_charge_speed": null,
+   "shuffle": null,
+   "spells_per_cast": null,
+   "recharge_time": null,
+   "capacity": 0,
+   "cast_delay": null,
+   "spread": null,
+   "speed_multiplier": null,
+   "scripts": [],
+   "stage": "3",
+   "_unverified": {
+    "sprite": "not in the entity file",
+    "mana_max": "not in the entity file",
+    "mana_charge_speed": "not in the entity file",
+    "shuffle": "not in the entity file",
+    "spells_per_cast": "not in the entity file",
+    "recharge_time": "not in the entity file",
+    "cast_delay": "not in the entity file",
+    "spread": "not in the entity file",
+    "speed_multiplier": "not in the entity file"
+   },
+   "_sources": {
+    "all": "wand entity via tncli spells"
+   }
+  },
+  {
+   "id": "sunseed",
+   "entity": "data/entities/items/pickup/sun/sunseed.xml",
+   "name_key": "$item_sunseed",
+   "sprite": null,
+   "mana_max": null,
+   "mana_charge_speed": null,
+   "shuffle": null,
+   "spells_per_cast": null,
+   "recharge_time": null,
+   "capacity": 0,
+   "cast_delay": null,
+   "spread": null,
+   "speed_multiplier": null,
+   "scripts": [],
+   "stage": "3",
+   "_unverified": {
+    "sprite": "not in the entity file",
+    "mana_max": "not in the entity file",
+    "mana_charge_speed": "not in the entity file",
+    "shuffle": "not in the entity file",
+    "spells_per_cast": "not in the entity file",
+    "recharge_time": "not in the entity file",
+    "cast_delay": "not in the entity file",
+    "spread": "not in the entity file",
+    "speed_multiplier": "not in the entity file"
+   },
+   "_sources": {
+    "all": "wand entity via tncli spells"
+   }
+  },
+  {
+   "id": "sunstone",
+   "entity": "data/entities/items/pickup/sun/sunstone.xml",
+   "name_key": "$item_seed_c",
+   "sprite": null,
+   "mana_max": null,
+   "mana_charge_speed": null,
+   "shuffle": null,
+   "spells_per_cast": null,
+   "recharge_time": null,
+   "capacity": 0,
+   "cast_delay": null,
+   "spread": null,
+   "speed_multiplier": null,
+   "scripts": [
+    "data/scripts/buildings/sun/spot_2.lua"
+   ],
+   "stage": "3",
+   "_unverified": {
+    "sprite": "not in the entity file (set by data/scripts/buildings/sun/spot_2.lua)",
+    "mana_max": "not in the entity file (set by data/scripts/buildings/sun/spot_2.lua)",
+    "mana_charge_speed": "not in the entity file (set by data/scripts/buildings/sun/spot_2.lua)",
+    "shuffle": "not in the entity file (set by data/scripts/buildings/sun/spot_2.lua)",
+    "spells_per_cast": "not in the entity file (set by data/scripts/buildings/sun/spot_2.lua)",
+    "recharge_time": "not in the entity file (set by data/scripts/buildings/sun/spot_2.lua)",
+    "cast_delay": "not in the entity file (set by data/scripts/buildings/sun/spot_2.lua)",
+    "spread": "not in the entity file (set by data/scripts/buildings/sun/spot_2.lua)",
+    "speed_multiplier": "not in the entity file (set by data/scripts/buildings/sun/spot_2.lua)"
+   },
+   "_sources": {
+    "all": "wand entity via tncli spells"
+   }
+  },
+  {
+   "id": "pouch",
+   "entity": "data/entities/items/pickup/test/pouch.xml",
+   "name_key": "$item_potion_with_material",
+   "sprite": null,
+   "mana_max": null,
+   "mana_charge_speed": null,
+   "shuffle": null,
+   "spells_per_cast": null,
+   "recharge_time": null,
+   "capacity": 0,
+   "cast_delay": null,
+   "spread": null,
+   "speed_multiplier": null,
+   "scripts": [
+    "data/scripts/items/potion_effect.lua"
+   ],
+   "stage": "3",
+   "_unverified": {
+    "sprite": "not in the entity file (set by data/scripts/items/potion_effect.lua)",
+    "mana_max": "not in the entity file (set by data/scripts/items/potion_effect.lua)",
+    "mana_charge_speed": "not in the entity file (set by data/scripts/items/potion_effect.lua)",
+    "shuffle": "not in the entity file (set by data/scripts/items/potion_effect.lua)",
+    "spells_per_cast": "not in the entity file (set by data/scripts/items/potion_effect.lua)",
+    "recharge_time": "not in the entity file (set by data/scripts/items/potion_effect.lua)",
+    "cast_delay": "not in the entity file (set by data/scripts/items/potion_effect.lua)",
+    "spread": "not in the entity file (set by data/scripts/items/potion_effect.lua)",
+    "speed_multiplier": "not in the entity file (set by data/scripts/items/potion_effect.lua)"
+   },
+   "_sources": {
+    "all": "wand entity via tncli spells"
+   }
+  },
+  {
+   "id": "pouch_static",
+   "entity": "data/entities/items/pickup/test/pouch_static.xml",
+   "name_key": "$item_potion_with_material",
+   "sprite": null,
+   "mana_max": null,
+   "mana_charge_speed": null,
+   "shuffle": null,
+   "spells_per_cast": null,
+   "recharge_time": null,
+   "capacity": 0,
+   "cast_delay": null,
+   "spread": null,
+   "speed_multiplier": null,
+   "scripts": [
+    "data/scripts/items/potion_effect.lua"
+   ],
+   "stage": "3",
+   "_unverified": {
+    "sprite": "not in the entity file (set by data/scripts/items/potion_effect.lua)",
+    "mana_max": "not in the entity file (set by data/scripts/items/potion_effect.lua)",
+    "mana_charge_speed": "not in the entity file (set by data/scripts/items/potion_effect.lua)",
+    "shuffle": "not in the entity file (set by data/scripts/items/potion_effect.lua)",
+    "spells_per_cast": "not in the entity file (set by data/scripts/items/potion_effect.lua)",
+    "recharge_time": "not in the entity file (set by data/scripts/items/potion_effect.lua)",
+    "cast_delay": "not in the entity file (set by data/scripts/items/potion_effect.lua)",
+    "spread": "not in the entity file (set by data/scripts/items/potion_effect.lua)",
+    "speed_multiplier": "not in the entity file (set by data/scripts/items/potion_effect.lua)"
+   },
+   "_sources": {
+    "all": "wand entity via tncli spells"
+   }
+  },
+  {
+   "id": "thunderstone",
+   "entity": "data/entities/items/pickup/thunderstone.xml",
+   "name_key": "$item_thunderstone",
+   "sprite": null,
+   "mana_max": null,
+   "mana_charge_speed": null,
+   "shuffle": null,
+   "spells_per_cast": null,
+   "recharge_time": null,
+   "capacity": 0,
+   "cast_delay": null,
+   "spread": null,
+   "speed_multiplier": null,
+   "scripts": [],
+   "stage": "3",
+   "_unverified": {
+    "sprite": "not in the entity file",
+    "mana_max": "not in the entity file",
+    "mana_charge_speed": "not in the entity file",
+    "shuffle": "not in the entity file",
+    "spells_per_cast": "not in the entity file",
+    "recharge_time": "not in the entity file",
+    "cast_delay": "not in the entity file",
+    "spread": "not in the entity file",
+    "speed_multiplier": "not in the entity file"
+   },
+   "_sources": {
+    "all": "wand entity via tncli spells"
+   }
+  },
+  {
+   "id": "wandstone",
+   "entity": "data/entities/items/pickup/wandstone.xml",
+   "name_key": "$item_wandstone",
+   "sprite": null,
+   "mana_max": null,
+   "mana_charge_speed": null,
+   "shuffle": null,
+   "spells_per_cast": null,
+   "recharge_time": null,
+   "capacity": 0,
+   "cast_delay": null,
+   "spread": null,
+   "speed_multiplier": null,
+   "scripts": [],
+   "stage": "3",
+   "_unverified": {
+    "sprite": "not in the entity file",
+    "mana_max": "not in the entity file",
+    "mana_charge_speed": "not in the entity file",
+    "shuffle": "not in the entity file",
+    "spells_per_cast": "not in the entity file",
+    "recharge_time": "not in the entity file",
+    "cast_delay": "not in the entity file",
+    "spread": "not in the entity file",
+    "speed_multiplier": "not in the entity file"
+   },
+   "_sources": {
+    "all": "wand entity via tncli spells"
+   }
+  },
+  {
+   "id": "waterstone",
+   "entity": "data/entities/items/pickup/waterstone.xml",
+   "name_key": "$item_waterstone",
+   "sprite": null,
+   "mana_max": null,
+   "mana_charge_speed": null,
+   "shuffle": null,
+   "spells_per_cast": null,
+   "recharge_time": null,
+   "capacity": 0,
+   "cast_delay": null,
+   "spread": null,
+   "speed_multiplier": null,
+   "scripts": [
+    "data/scripts/items/waterstone.lua"
+   ],
+   "stage": "3",
+   "_unverified": {
+    "sprite": "not in the entity file (set by data/scripts/items/waterstone.lua)",
+    "mana_max": "not in the entity file (set by data/scripts/items/waterstone.lua)",
+    "mana_charge_speed": "not in the entity file (set by data/scripts/items/waterstone.lua)",
+    "shuffle": "not in the entity file (set by data/scripts/items/waterstone.lua)",
+    "spells_per_cast": "not in the entity file (set by data/scripts/items/waterstone.lua)",
+    "recharge_time": "not in the entity file (set by data/scripts/items/waterstone.lua)",
+    "cast_delay": "not in the entity file (set by data/scripts/items/waterstone.lua)",
+    "spread": "not in the entity file (set by data/scripts/items/waterstone.lua)",
+    "speed_multiplier": "not in the entity file (set by data/scripts/items/waterstone.lua)"
+   },
+   "_sources": {
+    "all": "wand entity via tncli spells"
+   }
+  },
+  {
+   "id": "starting_bomb_wand",
+   "entity": "data/entities/items/starting_bomb_wand.xml",
+   "name_key": null,
+   "sprite": "data/items_gfx/bomb_wand.xml",
+   "mana_max": null,
+   "mana_charge_speed": null,
+   "shuffle": true,
+   "spells_per_cast": null,
+   "recharge_time": 1.0,
+   "capacity": 1,
+   "cast_delay": 5.0,
+   "spread": null,
+   "speed_multiplier": null,
+   "scripts": [
+    "",
+    "data/scripts/animals/wand_charm.lua"
+   ],
+   "stage": "3",
+   "_unverified": {
+    "name_key": "not in the entity file (set by , data/scripts/animals/wand_charm.lua)",
+    "mana_max": "not in the entity file (set by , data/scripts/animals/wand_charm.lua)",
+    "mana_charge_speed": "not in the entity file (set by , data/scripts/animals/wand_charm.lua)",
+    "spells_per_cast": "not in the entity file (set by , data/scripts/animals/wand_charm.lua)",
+    "spread": "not in the entity file (set by , data/scripts/animals/wand_charm.lua)",
+    "speed_multiplier": "not in the entity file (set by , data/scripts/animals/wand_charm.lua)"
+   },
+   "_sources": {
+    "all": "wand entity via tncli spells"
+   }
+  },
+  {
+   "id": "starting_bomb_wand_rng",
+   "entity": "data/entities/items/starting_bomb_wand_rng.xml",
+   "name_key": "Bomb wand",
+   "sprite": "data/items_gfx/bomb_wand.xml",
+   "mana_max": 100.0,
+   "mana_charge_speed": 30.0,
+   "shuffle": false,
+   "spells_per_cast": null,
+   "recharge_time": 24.0,
+   "capacity": 3,
+   "cast_delay": 10.0,
+   "spread": null,
+   "speed_multiplier": null,
+   "scripts": [
+    "",
+    "data/scripts/animals/wand_charm.lua",
+    "data/scripts/gun/procedural/starting_bomb_wand.lua"
+   ],
+   "stage": "3",
+   "_unverified": {
+    "spells_per_cast": "not in the entity file (set by , data/scripts/animals/wand_charm.lua, data/scripts/gun/procedural/starting_bomb_wand.lua)",
+    "spread": "not in the entity file (set by , data/scripts/animals/wand_charm.lua, data/scripts/gun/procedural/starting_bomb_wand.lua)",
+    "speed_multiplier": "not in the entity file (set by , data/scripts/animals/wand_charm.lua, data/scripts/gun/procedural/starting_bomb_wand.lua)"
+   },
+   "_sources": {
+    "all": "wand entity via tncli spells"
+   }
+  },
+  {
+   "id": "starting_bomb_wand_rng_daily",
+   "entity": "data/entities/items/starting_bomb_wand_rng_daily.xml",
+   "name_key": "Bomb wand",
+   "sprite": "data/items_gfx/bomb_wand.xml",
+   "mana_max": 100.0,
+   "mana_charge_speed": 30.0,
+   "shuffle": false,
+   "spells_per_cast": null,
+   "recharge_time": 24.0,
+   "capacity": 3,
+   "cast_delay": 10.0,
+   "spread": null,
+   "speed_multiplier": null,
+   "scripts": [
+    "",
+    "data/scripts/animals/wand_charm.lua",
+    "data/scripts/gun/procedural/starting_bomb_wand_daily.lua"
+   ],
+   "stage": "3",
+   "_unverified": {
+    "spells_per_cast": "not in the entity file (set by , data/scripts/animals/wand_charm.lua, data/scripts/gun/procedural/starting_bomb_wand_daily.lua)",
+    "spread": "not in the entity file (set by , data/scripts/animals/wand_charm.lua, data/scripts/gun/procedural/starting_bomb_wand_daily.lua)",
+    "speed_multiplier": "not in the entity file (set by , data/scripts/animals/wand_charm.lua, data/scripts/gun/procedural/starting_bomb_wand_daily.lua)"
+   },
+   "_sources": {
+    "all": "wand entity via tncli spells"
+   }
+  },
+  {
+   "id": "starting_wand",
+   "entity": "data/entities/items/starting_wand.xml",
+   "name_key": "Bolt staff",
+   "sprite": "data/items_gfx/handgun.xml",
+   "mana_max": 100.0,
+   "mana_charge_speed": 30.0,
+   "shuffle": false,
+   "spells_per_cast": null,
+   "recharge_time": 24.0,
+   "capacity": 3,
+   "cast_delay": 10.0,
+   "spread": null,
+   "speed_multiplier": null,
+   "scripts": [
+    "",
+    "data/scripts/animals/wand_charm.lua"
+   ],
+   "stage": "3",
+   "_unverified": {
+    "spells_per_cast": "not in the entity file (set by , data/scripts/animals/wand_charm.lua)",
+    "spread": "not in the entity file (set by , data/scripts/animals/wand_charm.lua)",
+    "speed_multiplier": "not in the entity file (set by , data/scripts/animals/wand_charm.lua)"
+   },
+   "_sources": {
+    "all": "wand entity via tncli spells"
+   }
+  },
+  {
+   "id": "starting_wand_rng",
+   "entity": "data/entities/items/starting_wand_rng.xml",
+   "name_key": "Bolt staff",
+   "sprite": "data/items_gfx/handgun.xml",
+   "mana_max": 100.0,
+   "mana_charge_speed": 30.0,
+   "shuffle": false,
+   "spells_per_cast": null,
+   "recharge_time": 24.0,
+   "capacity": 3,
+   "cast_delay": 10.0,
+   "spread": null,
+   "speed_multiplier": null,
+   "scripts": [
+    "",
+    "data/scripts/animals/wand_charm.lua",
+    "data/scripts/gun/procedural/starting_wand.lua"
+   ],
+   "stage": "3",
+   "_unverified": {
+    "spells_per_cast": "not in the entity file (set by , data/scripts/animals/wand_charm.lua, data/scripts/gun/procedural/starting_wand.lua)",
+    "spread": "not in the entity file (set by , data/scripts/animals/wand_charm.lua, data/scripts/gun/procedural/starting_wand.lua)",
+    "speed_multiplier": "not in the entity file (set by , data/scripts/animals/wand_charm.lua, data/scripts/gun/procedural/starting_wand.lua)"
+   },
+   "_sources": {
+    "all": "wand entity via tncli spells"
+   }
+  },
+  {
+   "id": "starting_wand_rng_daily",
+   "entity": "data/entities/items/starting_wand_rng_daily.xml",
+   "name_key": "Bolt staff",
+   "sprite": "data/items_gfx/handgun.xml",
+   "mana_max": 100.0,
+   "mana_charge_speed": 30.0,
+   "shuffle": false,
+   "spells_per_cast": null,
+   "recharge_time": 24.0,
+   "capacity": 3,
+   "cast_delay": 10.0,
+   "spread": null,
+   "speed_multiplier": null,
+   "scripts": [
+    "",
+    "data/scripts/animals/wand_charm.lua",
+    "data/scripts/gun/procedural/starting_wand_daily.lua"
+   ],
+   "stage": "3",
+   "_unverified": {
+    "spells_per_cast": "not in the entity file (set by , data/scripts/animals/wand_charm.lua, data/scripts/gun/procedural/starting_wand_daily.lua)",
+    "spread": "not in the entity file (set by , data/scripts/animals/wand_charm.lua, data/scripts/gun/procedural/starting_wand_daily.lua)",
+    "speed_multiplier": "not in the entity file (set by , data/scripts/animals/wand_charm.lua, data/scripts/gun/procedural/starting_wand_daily.lua)"
+   },
+   "_sources": {
+    "all": "wand entity via tncli spells"
+   }
+  },
+  {
+   "id": "wand_daily_01",
+   "entity": "data/entities/items/wand_daily_01.xml",
+   "name_key": "Rapid bolt wand",
+   "sprite": "data/items_gfx/machinegun.xml",
+   "mana_max": 200.0,
+   "mana_charge_speed": 60.0,
+   "shuffle": true,
+   "spells_per_cast": 1,
+   "recharge_time": 18.0,
+   "capacity": 8,
+   "cast_delay": 5.0,
+   "spread": null,
+   "speed_multiplier": null,
+   "scripts": [
+    "data/scripts/particles/wand_pickup.lua",
+    "data/scripts/animals/wand_charm.lua",
+    "data/scripts/gun/procedural/wand_daily_01.lua"
+   ],
+   "stage": "3",
+   "_unverified": {
+    "spread": "not in the entity file (set by data/scripts/particles/wand_pickup.lua, data/scripts/animals/wand_charm.lua, data/scripts/gun/procedural/wand_daily_01.lua)",
+    "speed_multiplier": "not in the entity file (set by data/scripts/particles/wand_pickup.lua, data/scripts/animals/wand_charm.lua, data/scripts/gun/procedural/wand_daily_01.lua)"
+   },
+   "_sources": {
+    "all": "wand entity via tncli spells"
+   }
+  },
+  {
+   "id": "wand_daily_02",
+   "entity": "data/entities/items/wand_daily_02.xml",
+   "name_key": "Rapid bolt wand",
+   "sprite": "data/items_gfx/machinegun.xml",
+   "mana_max": 200.0,
+   "mana_charge_speed": 60.0,
+   "shuffle": true,
+   "spells_per_cast": 1,
+   "recharge_time": 18.0,
+   "capacity": 8,
+   "cast_delay": 5.0,
+   "spread": null,
+   "speed_multiplier": null,
+   "scripts": [
+    "data/scripts/particles/wand_pickup.lua",
+    "data/scripts/animals/wand_charm.lua",
+    "data/scripts/gun/procedural/wand_daily_02.lua"
+   ],
+   "stage": "3",
+   "_unverified": {
+    "spread": "not in the entity file (set by data/scripts/particles/wand_pickup.lua, data/scripts/animals/wand_charm.lua, data/scripts/gun/procedural/wand_daily_02.lua)",
+    "speed_multiplier": "not in the entity file (set by data/scripts/particles/wand_pickup.lua, data/scripts/animals/wand_charm.lua, data/scripts/gun/procedural/wand_daily_02.lua)"
+   },
+   "_sources": {
+    "all": "wand entity via tncli spells"
+   }
+  },
+  {
+   "id": "wand_daily_03",
+   "entity": "data/entities/items/wand_daily_03.xml",
+   "name_key": "Rapid bolt wand",
+   "sprite": "data/items_gfx/machinegun.xml",
+   "mana_max": 200.0,
+   "mana_charge_speed": 60.0,
+   "shuffle": true,
+   "spells_per_cast": 1,
+   "recharge_time": 18.0,
+   "capacity": 8,
+   "cast_delay": 5.0,
+   "spread": null,
+   "speed_multiplier": null,
+   "scripts": [
+    "data/scripts/particles/wand_pickup.lua",
+    "data/scripts/animals/wand_charm.lua",
+    "data/scripts/gun/procedural/wand_daily_03.lua"
+   ],
+   "stage": "3",
+   "_unverified": {
+    "spread": "not in the entity file (set by data/scripts/particles/wand_pickup.lua, data/scripts/animals/wand_charm.lua, data/scripts/gun/procedural/wand_daily_03.lua)",
+    "speed_multiplier": "not in the entity file (set by data/scripts/particles/wand_pickup.lua, data/scripts/animals/wand_charm.lua, data/scripts/gun/procedural/wand_daily_03.lua)"
+   },
+   "_sources": {
+    "all": "wand entity via tncli spells"
+   }
+  },
+  {
+   "id": "wand_daily_04",
+   "entity": "data/entities/items/wand_daily_04.xml",
+   "name_key": "Rapid bolt wand",
+   "sprite": "data/items_gfx/machinegun.xml",
+   "mana_max": 200.0,
+   "mana_charge_speed": 60.0,
+   "shuffle": true,
+   "spells_per_cast": 1,
+   "recharge_time": 18.0,
+   "capacity": 8,
+   "cast_delay": 5.0,
+   "spread": null,
+   "speed_multiplier": null,
+   "scripts": [
+    "data/scripts/particles/wand_pickup.lua",
+    "data/scripts/animals/wand_charm.lua",
+    "data/scripts/gun/procedural/wand_daily_04.lua"
+   ],
+   "stage": "3",
+   "_unverified": {
+    "spread": "not in the entity file (set by data/scripts/particles/wand_pickup.lua, data/scripts/animals/wand_charm.lua, data/scripts/gun/procedural/wand_daily_04.lua)",
+    "speed_multiplier": "not in the entity file (set by data/scripts/particles/wand_pickup.lua, data/scripts/animals/wand_charm.lua, data/scripts/gun/procedural/wand_daily_04.lua)"
+   },
+   "_sources": {
+    "all": "wand entity via tncli spells"
+   }
+  },
+  {
+   "id": "wand_daily_05",
+   "entity": "data/entities/items/wand_daily_05.xml",
+   "name_key": "Rapid bolt wand",
+   "sprite": "data/items_gfx/machinegun.xml",
+   "mana_max": 200.0,
+   "mana_charge_speed": 60.0,
+   "shuffle": true,
+   "spells_per_cast": 1,
+   "recharge_time": 18.0,
+   "capacity": 8,
+   "cast_delay": 5.0,
+   "spread": null,
+   "speed_multiplier": null,
+   "scripts": [
+    "data/scripts/particles/wand_pickup.lua",
+    "data/scripts/animals/wand_charm.lua",
+    "data/scripts/gun/procedural/wand_daily_05.lua"
+   ],
+   "stage": "3",
+   "_unverified": {
+    "spread": "not in the entity file (set by data/scripts/particles/wand_pickup.lua, data/scripts/animals/wand_charm.lua, data/scripts/gun/procedural/wand_daily_05.lua)",
+    "speed_multiplier": "not in the entity file (set by data/scripts/particles/wand_pickup.lua, data/scripts/animals/wand_charm.lua, data/scripts/gun/procedural/wand_daily_05.lua)"
+   },
+   "_sources": {
+    "all": "wand entity via tncli spells"
+   }
+  },
+  {
+   "id": "wand_daily_06",
+   "entity": "data/entities/items/wand_daily_06.xml",
+   "name_key": "Rapid bolt wand",
+   "sprite": "data/items_gfx/machinegun.xml",
+   "mana_max": 200.0,
+   "mana_charge_speed": 60.0,
+   "shuffle": true,
+   "spells_per_cast": 1,
+   "recharge_time": 18.0,
+   "capacity": 8,
+   "cast_delay": 5.0,
+   "spread": null,
+   "speed_multiplier": null,
+   "scripts": [
+    "data/scripts/particles/wand_pickup.lua",
+    "data/scripts/animals/wand_charm.lua",
+    "data/scripts/gun/procedural/wand_daily_06.lua"
+   ],
+   "stage": "3",
+   "_unverified": {
+    "spread": "not in the entity file (set by data/scripts/particles/wand_pickup.lua, data/scripts/animals/wand_charm.lua, data/scripts/gun/procedural/wand_daily_06.lua)",
+    "speed_multiplier": "not in the entity file (set by data/scripts/particles/wand_pickup.lua, data/scripts/animals/wand_charm.lua, data/scripts/gun/procedural/wand_daily_06.lua)"
+   },
+   "_sources": {
+    "all": "wand entity via tncli spells"
+   }
+  },
+  {
+   "id": "wand_level_01",
+   "entity": "data/entities/items/wand_level_01.xml",
+   "name_key": "Rapid bolt wand",
+   "sprite": "data/items_gfx/machinegun.xml",
+   "mana_max": 100.0,
+   "mana_charge_speed": 30.0,
+   "shuffle": true,
+   "spells_per_cast": 1,
+   "recharge_time": 18.0,
+   "capacity": 8,
+   "cast_delay": 5.0,
+   "spread": null,
+   "speed_multiplier": null,
+   "scripts": [
+    "data/scripts/particles/wand_pickup.lua",
+    "data/scripts/animals/wand_charm.lua",
+    "data/scripts/gun/procedural/wand_level_01.lua"
+   ],
+   "stage": "3",
+   "_unverified": {
+    "spread": "not in the entity file (set by data/scripts/particles/wand_pickup.lua, data/scripts/animals/wand_charm.lua, data/scripts/gun/procedural/wand_level_01.lua)",
+    "speed_multiplier": "not in the entity file (set by data/scripts/particles/wand_pickup.lua, data/scripts/animals/wand_charm.lua, data/scripts/gun/procedural/wand_level_01.lua)"
+   },
+   "_sources": {
+    "all": "wand entity via tncli spells"
+   }
+  },
+  {
+   "id": "wand_level_01_better",
+   "entity": "data/entities/items/wand_level_01_better.xml",
+   "name_key": "Rapid bolt wand",
+   "sprite": "data/items_gfx/machinegun.xml",
+   "mana_max": 100.0,
+   "mana_charge_speed": 30.0,
+   "shuffle": true,
+   "spells_per_cast": 1,
+   "recharge_time": 18.0,
+   "capacity": 8,
+   "cast_delay": 5.0,
+   "spread": null,
+   "speed_multiplier": null,
+   "scripts": [
+    "data/scripts/particles/wand_pickup.lua",
+    "data/scripts/animals/wand_charm.lua",
+    "data/scripts/gun/procedural/wand_level_01_better.lua"
+   ],
+   "stage": "3",
+   "_unverified": {
+    "spread": "not in the entity file (set by data/scripts/particles/wand_pickup.lua, data/scripts/animals/wand_charm.lua, data/scripts/gun/procedural/wand_level_01_better.lua)",
+    "speed_multiplier": "not in the entity file (set by data/scripts/particles/wand_pickup.lua, data/scripts/animals/wand_charm.lua, data/scripts/gun/procedural/wand_level_01_better.lua)"
+   },
+   "_sources": {
+    "all": "wand entity via tncli spells"
+   }
+  },
+  {
+   "id": "wand_level_01_p",
+   "entity": "data/entities/items/wand_level_01_p.xml",
+   "name_key": "Rapid bolt wand",
+   "sprite": "data/items_gfx/machinegun.xml",
+   "mana_max": 100.0,
+   "mana_charge_speed": 30.0,
+   "shuffle": true,
+   "spells_per_cast": 1,
+   "recharge_time": 18.0,
+   "capacity": 8,
+   "cast_delay": 5.0,
+   "spread": null,
+   "speed_multiplier": null,
+   "scripts": [
+    "data/scripts/particles/wand_pickup.lua",
+    "data/scripts/animals/wand_charm.lua",
+    "data/scripts/gun/procedural/wand_level_01.lua"
+   ],
+   "stage": "3",
+   "_unverified": {
+    "spread": "not in the entity file (set by data/scripts/particles/wand_pickup.lua, data/scripts/animals/wand_charm.lua, data/scripts/gun/procedural/wand_level_01.lua)",
+    "speed_multiplier": "not in the entity file (set by data/scripts/particles/wand_pickup.lua, data/scripts/animals/wand_charm.lua, data/scripts/gun/procedural/wand_level_01.lua)"
+   },
+   "_sources": {
+    "all": "wand entity via tncli spells"
+   }
+  },
+  {
+   "id": "wand_level_02",
+   "entity": "data/entities/items/wand_level_02.xml",
+   "name_key": "Rapid bolt wand",
+   "sprite": "data/items_gfx/machinegun.xml",
+   "mana_max": 200.0,
+   "mana_charge_speed": 60.0,
+   "shuffle": true,
+   "spells_per_cast": 1,
+   "recharge_time": 18.0,
+   "capacity": 8,
+   "cast_delay": 5.0,
+   "spread": null,
+   "speed_multiplier": null,
+   "scripts": [
+    "data/scripts/particles/wand_pickup.lua",
+    "data/scripts/animals/wand_charm.lua",
+    "data/scripts/gun/procedural/wand_level_02.lua"
+   ],
+   "stage": "3",
+   "_unverified": {
+    "spread": "not in the entity file (set by data/scripts/particles/wand_pickup.lua, data/scripts/animals/wand_charm.lua, data/scripts/gun/procedural/wand_level_02.lua)",
+    "speed_multiplier": "not in the entity file (set by data/scripts/particles/wand_pickup.lua, data/scripts/animals/wand_charm.lua, data/scripts/gun/procedural/wand_level_02.lua)"
+   },
+   "_sources": {
+    "all": "wand entity via tncli spells"
+   }
+  },
+  {
+   "id": "wand_level_02_better",
+   "entity": "data/entities/items/wand_level_02_better.xml",
+   "name_key": "Rapid bolt wand",
+   "sprite": "data/items_gfx/machinegun.xml",
+   "mana_max": 200.0,
+   "mana_charge_speed": 60.0,
+   "shuffle": true,
+   "spells_per_cast": 1,
+   "recharge_time": 18.0,
+   "capacity": 8,
+   "cast_delay": 5.0,
+   "spread": null,
+   "speed_multiplier": null,
+   "scripts": [
+    "data/scripts/particles/wand_pickup.lua",
+    "data/scripts/animals/wand_charm.lua",
+    "data/scripts/gun/procedural/wand_level_02_better.lua"
+   ],
+   "stage": "3",
+   "_unverified": {
+    "spread": "not in the entity file (set by data/scripts/particles/wand_pickup.lua, data/scripts/animals/wand_charm.lua, data/scripts/gun/procedural/wand_level_02_better.lua)",
+    "speed_multiplier": "not in the entity file (set by data/scripts/particles/wand_pickup.lua, data/scripts/animals/wand_charm.lua, data/scripts/gun/procedural/wand_level_02_better.lua)"
+   },
+   "_sources": {
+    "all": "wand entity via tncli spells"
+   }
+  },
+  {
+   "id": "wand_level_02_p",
+   "entity": "data/entities/items/wand_level_02_p.xml",
+   "name_key": "Rapid bolt wand",
+   "sprite": "data/items_gfx/machinegun.xml",
+   "mana_max": 200.0,
+   "mana_charge_speed": 60.0,
+   "shuffle": true,
+   "spells_per_cast": 1,
+   "recharge_time": 18.0,
+   "capacity": 8,
+   "cast_delay": 5.0,
+   "spread": null,
+   "speed_multiplier": null,
+   "scripts": [
+    "data/scripts/particles/wand_pickup.lua",
+    "data/scripts/animals/wand_charm.lua",
+    "data/scripts/gun/procedural/wand_level_02.lua"
+   ],
+   "stage": "3",
+   "_unverified": {
+    "spread": "not in the entity file (set by data/scripts/particles/wand_pickup.lua, data/scripts/animals/wand_charm.lua, data/scripts/gun/procedural/wand_level_02.lua)",
+    "speed_multiplier": "not in the entity file (set by data/scripts/particles/wand_pickup.lua, data/scripts/animals/wand_charm.lua, data/scripts/gun/procedural/wand_level_02.lua)"
+   },
+   "_sources": {
+    "all": "wand entity via tncli spells"
+   }
+  },
+  {
+   "id": "wand_level_03",
+   "entity": "data/entities/items/wand_level_03.xml",
+   "name_key": "Rapid bolt wand",
+   "sprite": "data/items_gfx/machinegun.xml",
+   "mana_max": 300.0,
+   "mana_charge_speed": 80.0,
+   "shuffle": true,
+   "spells_per_cast": 1,
+   "recharge_time": 18.0,
+   "capacity": 8,
+   "cast_delay": 5.0,
+   "spread": null,
+   "speed_multiplier": null,
+   "scripts": [
+    "data/scripts/particles/wand_pickup.lua",
+    "data/scripts/animals/wand_charm.lua",
+    "data/scripts/gun/procedural/wand_level_03.lua"
+   ],
+   "stage": "3",
+   "_unverified": {
+    "spread": "not in the entity file (set by data/scripts/particles/wand_pickup.lua, data/scripts/animals/wand_charm.lua, data/scripts/gun/procedural/wand_level_03.lua)",
+    "speed_multiplier": "not in the entity file (set by data/scripts/particles/wand_pickup.lua, data/scripts/animals/wand_charm.lua, data/scripts/gun/procedural/wand_level_03.lua)"
+   },
+   "_sources": {
+    "all": "wand entity via tncli spells"
+   }
+  },
+  {
+   "id": "wand_level_03_better",
+   "entity": "data/entities/items/wand_level_03_better.xml",
+   "name_key": "Rapid bolt wand",
+   "sprite": "data/items_gfx/machinegun.xml",
+   "mana_max": 300.0,
+   "mana_charge_speed": 80.0,
+   "shuffle": true,
+   "spells_per_cast": 1,
+   "recharge_time": 18.0,
+   "capacity": 8,
+   "cast_delay": 5.0,
+   "spread": null,
+   "speed_multiplier": null,
+   "scripts": [
+    "data/scripts/particles/wand_pickup.lua",
+    "data/scripts/animals/wand_charm.lua",
+    "data/scripts/gun/procedural/wand_level_03_better.lua"
+   ],
+   "stage": "3",
+   "_unverified": {
+    "spread": "not in the entity file (set by data/scripts/particles/wand_pickup.lua, data/scripts/animals/wand_charm.lua, data/scripts/gun/procedural/wand_level_03_better.lua)",
+    "speed_multiplier": "not in the entity file (set by data/scripts/particles/wand_pickup.lua, data/scripts/animals/wand_charm.lua, data/scripts/gun/procedural/wand_level_03_better.lua)"
+   },
+   "_sources": {
+    "all": "wand entity via tncli spells"
+   }
+  },
+  {
+   "id": "wand_level_03_p",
+   "entity": "data/entities/items/wand_level_03_p.xml",
+   "name_key": "Rapid bolt wand",
+   "sprite": "data/items_gfx/machinegun.xml",
+   "mana_max": 300.0,
+   "mana_charge_speed": 80.0,
+   "shuffle": true,
+   "spells_per_cast": 1,
+   "recharge_time": 18.0,
+   "capacity": 8,
+   "cast_delay": 5.0,
+   "spread": null,
+   "speed_multiplier": null,
+   "scripts": [
+    "data/scripts/particles/wand_pickup.lua",
+    "data/scripts/animals/wand_charm.lua",
+    "data/scripts/gun/procedural/wand_level_03.lua"
+   ],
+   "stage": "3",
+   "_unverified": {
+    "spread": "not in the entity file (set by data/scripts/particles/wand_pickup.lua, data/scripts/animals/wand_charm.lua, data/scripts/gun/procedural/wand_level_03.lua)",
+    "speed_multiplier": "not in the entity file (set by data/scripts/particles/wand_pickup.lua, data/scripts/animals/wand_charm.lua, data/scripts/gun/procedural/wand_level_03.lua)"
+   },
+   "_sources": {
+    "all": "wand entity via tncli spells"
+   }
+  },
+  {
+   "id": "wand_level_04",
+   "entity": "data/entities/items/wand_level_04.xml",
+   "name_key": "Rapid bolt wand",
+   "sprite": "data/items_gfx/machinegun.xml",
+   "mana_max": 400.0,
+   "mana_charge_speed": 100.0,
+   "shuffle": true,
+   "spells_per_cast": 1,
+   "recharge_time": 18.0,
+   "capacity": 8,
+   "cast_delay": 5.0,
+   "spread": null,
+   "speed_multiplier": null,
+   "scripts": [
+    "data/scripts/particles/wand_pickup.lua",
+    "data/scripts/animals/wand_charm.lua",
+    "data/scripts/gun/procedural/wand_level_04.lua"
+   ],
+   "stage": "3",
+   "_unverified": {
+    "spread": "not in the entity file (set by data/scripts/particles/wand_pickup.lua, data/scripts/animals/wand_charm.lua, data/scripts/gun/procedural/wand_level_04.lua)",
+    "speed_multiplier": "not in the entity file (set by data/scripts/particles/wand_pickup.lua, data/scripts/animals/wand_charm.lua, data/scripts/gun/procedural/wand_level_04.lua)"
+   },
+   "_sources": {
+    "all": "wand entity via tncli spells"
+   }
+  },
+  {
+   "id": "wand_level_04_better",
+   "entity": "data/entities/items/wand_level_04_better.xml",
+   "name_key": "Rapid bolt wand",
+   "sprite": "data/items_gfx/machinegun.xml",
+   "mana_max": 400.0,
+   "mana_charge_speed": 100.0,
+   "shuffle": true,
+   "spells_per_cast": 1,
+   "recharge_time": 18.0,
+   "capacity": 8,
+   "cast_delay": 5.0,
+   "spread": null,
+   "speed_multiplier": null,
+   "scripts": [
+    "data/scripts/particles/wand_pickup.lua",
+    "data/scripts/animals/wand_charm.lua",
+    "data/scripts/gun/procedural/wand_level_04_better.lua"
+   ],
+   "stage": "3",
+   "_unverified": {
+    "spread": "not in the entity file (set by data/scripts/particles/wand_pickup.lua, data/scripts/animals/wand_charm.lua, data/scripts/gun/procedural/wand_level_04_better.lua)",
+    "speed_multiplier": "not in the entity file (set by data/scripts/particles/wand_pickup.lua, data/scripts/animals/wand_charm.lua, data/scripts/gun/procedural/wand_level_04_better.lua)"
+   },
+   "_sources": {
+    "all": "wand entity via tncli spells"
+   }
+  },
+  {
+   "id": "wand_level_04_p",
+   "entity": "data/entities/items/wand_level_04_p.xml",
+   "name_key": "Rapid bolt wand",
+   "sprite": "data/items_gfx/machinegun.xml",
+   "mana_max": 400.0,
+   "mana_charge_speed": 100.0,
+   "shuffle": true,
+   "spells_per_cast": 1,
+   "recharge_time": 18.0,
+   "capacity": 8,
+   "cast_delay": 5.0,
+   "spread": null,
+   "speed_multiplier": null,
+   "scripts": [
+    "data/scripts/particles/wand_pickup.lua",
+    "data/scripts/animals/wand_charm.lua",
+    "data/scripts/gun/procedural/wand_level_04.lua"
+   ],
+   "stage": "3",
+   "_unverified": {
+    "spread": "not in the entity file (set by data/scripts/particles/wand_pickup.lua, data/scripts/animals/wand_charm.lua, data/scripts/gun/procedural/wand_level_04.lua)",
+    "speed_multiplier": "not in the entity file (set by data/scripts/particles/wand_pickup.lua, data/scripts/animals/wand_charm.lua, data/scripts/gun/procedural/wand_level_04.lua)"
+   },
+   "_sources": {
+    "all": "wand entity via tncli spells"
+   }
+  },
+  {
+   "id": "wand_level_05",
+   "entity": "data/entities/items/wand_level_05.xml",
+   "name_key": "Rapid bolt wand",
+   "sprite": "data/items_gfx/machinegun.xml",
+   "mana_max": 500.0,
+   "mana_charge_speed": 120.0,
+   "shuffle": true,
+   "spells_per_cast": 1,
+   "recharge_time": 18.0,
+   "capacity": 8,
+   "cast_delay": 5.0,
+   "spread": null,
+   "speed_multiplier": null,
+   "scripts": [
+    "data/scripts/particles/wand_pickup.lua",
+    "data/scripts/animals/wand_charm.lua",
+    "data/scripts/gun/procedural/wand_level_05.lua"
+   ],
+   "stage": "3",
+   "_unverified": {
+    "spread": "not in the entity file (set by data/scripts/particles/wand_pickup.lua, data/scripts/animals/wand_charm.lua, data/scripts/gun/procedural/wand_level_05.lua)",
+    "speed_multiplier": "not in the entity file (set by data/scripts/particles/wand_pickup.lua, data/scripts/animals/wand_charm.lua, data/scripts/gun/procedural/wand_level_05.lua)"
+   },
+   "_sources": {
+    "all": "wand entity via tncli spells"
+   }
+  },
+  {
+   "id": "wand_level_05_better",
+   "entity": "data/entities/items/wand_level_05_better.xml",
+   "name_key": "Rapid bolt wand",
+   "sprite": "data/items_gfx/machinegun.xml",
+   "mana_max": 500.0,
+   "mana_charge_speed": 120.0,
+   "shuffle": true,
+   "spells_per_cast": 1,
+   "recharge_time": 18.0,
+   "capacity": 8,
+   "cast_delay": 5.0,
+   "spread": null,
+   "speed_multiplier": null,
+   "scripts": [
+    "data/scripts/particles/wand_pickup.lua",
+    "data/scripts/animals/wand_charm.lua",
+    "data/scripts/gun/procedural/wand_level_05_better.lua"
+   ],
+   "stage": "3",
+   "_unverified": {
+    "spread": "not in the entity file (set by data/scripts/particles/wand_pickup.lua, data/scripts/animals/wand_charm.lua, data/scripts/gun/procedural/wand_level_05_better.lua)",
+    "speed_multiplier": "not in the entity file (set by data/scripts/particles/wand_pickup.lua, data/scripts/animals/wand_charm.lua, data/scripts/gun/procedural/wand_level_05_better.lua)"
+   },
+   "_sources": {
+    "all": "wand entity via tncli spells"
+   }
+  },
+  {
+   "id": "wand_level_05_p",
+   "entity": "data/entities/items/wand_level_05_p.xml",
+   "name_key": "Rapid bolt wand",
+   "sprite": "data/items_gfx/machinegun.xml",
+   "mana_max": 500.0,
+   "mana_charge_speed": 120.0,
+   "shuffle": true,
+   "spells_per_cast": 1,
+   "recharge_time": 18.0,
+   "capacity": 8,
+   "cast_delay": 5.0,
+   "spread": null,
+   "speed_multiplier": null,
+   "scripts": [
+    "data/scripts/particles/wand_pickup.lua",
+    "data/scripts/animals/wand_charm.lua",
+    "data/scripts/gun/procedural/wand_level_05.lua"
+   ],
+   "stage": "3",
+   "_unverified": {
+    "spread": "not in the entity file (set by data/scripts/particles/wand_pickup.lua, data/scripts/animals/wand_charm.lua, data/scripts/gun/procedural/wand_level_05.lua)",
+    "speed_multiplier": "not in the entity file (set by data/scripts/particles/wand_pickup.lua, data/scripts/animals/wand_charm.lua, data/scripts/gun/procedural/wand_level_05.lua)"
+   },
+   "_sources": {
+    "all": "wand entity via tncli spells"
+   }
+  },
+  {
+   "id": "wand_level_06",
+   "entity": "data/entities/items/wand_level_06.xml",
+   "name_key": "Rapid bolt wand",
+   "sprite": "data/items_gfx/machinegun.xml",
+   "mana_max": 600.0,
+   "mana_charge_speed": 140.0,
+   "shuffle": true,
+   "spells_per_cast": 1,
+   "recharge_time": 18.0,
+   "capacity": 8,
+   "cast_delay": 5.0,
+   "spread": null,
+   "speed_multiplier": null,
+   "scripts": [
+    "data/scripts/particles/wand_pickup.lua",
+    "data/scripts/animals/wand_charm.lua",
+    "data/scripts/gun/procedural/wand_level_06.lua"
+   ],
+   "stage": "3",
+   "_unverified": {
+    "spread": "not in the entity file (set by data/scripts/particles/wand_pickup.lua, data/scripts/animals/wand_charm.lua, data/scripts/gun/procedural/wand_level_06.lua)",
+    "speed_multiplier": "not in the entity file (set by data/scripts/particles/wand_pickup.lua, data/scripts/animals/wand_charm.lua, data/scripts/gun/procedural/wand_level_06.lua)"
+   },
+   "_sources": {
+    "all": "wand entity via tncli spells"
+   }
+  },
+  {
+   "id": "wand_level_06_better",
+   "entity": "data/entities/items/wand_level_06_better.xml",
+   "name_key": "Rapid bolt wand",
+   "sprite": "data/items_gfx/machinegun.xml",
+   "mana_max": 600.0,
+   "mana_charge_speed": 140.0,
+   "shuffle": true,
+   "spells_per_cast": 1,
+   "recharge_time": 18.0,
+   "capacity": 8,
+   "cast_delay": 5.0,
+   "spread": null,
+   "speed_multiplier": null,
+   "scripts": [
+    "data/scripts/particles/wand_pickup.lua",
+    "data/scripts/animals/wand_charm.lua",
+    "data/scripts/gun/procedural/wand_level_06_better.lua"
+   ],
+   "stage": "3",
+   "_unverified": {
+    "spread": "not in the entity file (set by data/scripts/particles/wand_pickup.lua, data/scripts/animals/wand_charm.lua, data/scripts/gun/procedural/wand_level_06_better.lua)",
+    "speed_multiplier": "not in the entity file (set by data/scripts/particles/wand_pickup.lua, data/scripts/animals/wand_charm.lua, data/scripts/gun/procedural/wand_level_06_better.lua)"
+   },
+   "_sources": {
+    "all": "wand entity via tncli spells"
+   }
+  },
+  {
+   "id": "wand_level_06_p",
+   "entity": "data/entities/items/wand_level_06_p.xml",
+   "name_key": "Rapid bolt wand",
+   "sprite": "data/items_gfx/machinegun.xml",
+   "mana_max": 600.0,
+   "mana_charge_speed": 140.0,
+   "shuffle": true,
+   "spells_per_cast": 1,
+   "recharge_time": 18.0,
+   "capacity": 8,
+   "cast_delay": 5.0,
+   "spread": null,
+   "speed_multiplier": null,
+   "scripts": [
+    "data/scripts/particles/wand_pickup.lua",
+    "data/scripts/animals/wand_charm.lua",
+    "data/scripts/gun/procedural/wand_level_06.lua"
+   ],
+   "stage": "3",
+   "_unverified": {
+    "spread": "not in the entity file (set by data/scripts/particles/wand_pickup.lua, data/scripts/animals/wand_charm.lua, data/scripts/gun/procedural/wand_level_06.lua)",
+    "speed_multiplier": "not in the entity file (set by data/scripts/particles/wand_pickup.lua, data/scripts/animals/wand_charm.lua, data/scripts/gun/procedural/wand_level_06.lua)"
+   },
+   "_sources": {
+    "all": "wand entity via tncli spells"
+   }
+  },
+  {
+   "id": "wand_level_10",
+   "entity": "data/entities/items/wand_level_10.xml",
+   "name_key": "Rapid bolt wand",
+   "sprite": "data/items_gfx/machinegun.xml",
+   "mana_max": 1000.0,
+   "mana_charge_speed": 250.0,
+   "shuffle": true,
+   "spells_per_cast": 1,
+   "recharge_time": 18.0,
+   "capacity": 8,
+   "cast_delay": 5.0,
+   "spread": null,
+   "speed_multiplier": null,
+   "scripts": [
+    "data/scripts/particles/wand_pickup.lua",
+    "data/scripts/animals/wand_charm.lua",
+    "data/scripts/gun/procedural/wand_level_10.lua"
+   ],
+   "stage": "3",
+   "_unverified": {
+    "spread": "not in the entity file (set by data/scripts/particles/wand_pickup.lua, data/scripts/animals/wand_charm.lua, data/scripts/gun/procedural/wand_level_10.lua)",
+    "speed_multiplier": "not in the entity file (set by data/scripts/particles/wand_pickup.lua, data/scripts/animals/wand_charm.lua, data/scripts/gun/procedural/wand_level_10.lua)"
+   },
+   "_sources": {
+    "all": "wand entity via tncli spells"
+   }
+  },
+  {
+   "id": "wand_petri",
+   "entity": "data/entities/items/wand_petri.xml",
+   "name_key": "Rapid bolt wand",
+   "sprite": "data/items_gfx/machinegun.xml",
+   "mana_max": 300.0,
+   "mana_charge_speed": 80.0,
+   "shuffle": false,
+   "spells_per_cast": 1,
+   "recharge_time": 18.0,
+   "capacity": 8,
+   "cast_delay": 5.0,
+   "spread": null,
+   "speed_multiplier": null,
+   "scripts": [
+    "data/scripts/particles/wand_pickup.lua",
+    "data/scripts/animals/wand_charm.lua",
+    "data/scripts/gun/procedural/wand_petri.lua"
+   ],
+   "stage": "3",
+   "_unverified": {
+    "spread": "not in the entity file (set by data/scripts/particles/wand_pickup.lua, data/scripts/animals/wand_charm.lua, data/scripts/gun/procedural/wand_petri.lua)",
+    "speed_multiplier": "not in the entity file (set by data/scripts/particles/wand_pickup.lua, data/scripts/animals/wand_charm.lua, data/scripts/gun/procedural/wand_petri.lua)"
+   },
+   "_sources": {
+    "all": "wand entity via tncli spells"
+   }
+  },
+  {
+   "id": "wand_unshuffle_01",
+   "entity": "data/entities/items/wand_unshuffle_01.xml",
+   "name_key": "Rapid bolt wand",
+   "sprite": "data/items_gfx/machinegun.xml",
+   "mana_max": 300.0,
+   "mana_charge_speed": 80.0,
+   "shuffle": false,
+   "spells_per_cast": 1,
+   "recharge_time": 18.0,
+   "capacity": 8,
+   "cast_delay": 5.0,
+   "spread": null,
+   "speed_multiplier": null,
+   "scripts": [
+    "data/scripts/particles/wand_pickup.lua",
+    "data/scripts/animals/wand_charm.lua",
+    "data/scripts/gun/procedural/wand_unshuffle_01.lua"
+   ],
+   "stage": "3",
+   "_unverified": {
+    "spread": "not in the entity file (set by data/scripts/particles/wand_pickup.lua, data/scripts/animals/wand_charm.lua, data/scripts/gun/procedural/wand_unshuffle_01.lua)",
+    "speed_multiplier": "not in the entity file (set by data/scripts/particles/wand_pickup.lua, data/scripts/animals/wand_charm.lua, data/scripts/gun/procedural/wand_unshuffle_01.lua)"
+   },
+   "_sources": {
+    "all": "wand entity via tncli spells"
+   }
+  },
+  {
+   "id": "wand_unshuffle_01_p",
+   "entity": "data/entities/items/wand_unshuffle_01_p.xml",
+   "name_key": "Rapid bolt wand",
+   "sprite": "data/items_gfx/machinegun.xml",
+   "mana_max": 300.0,
+   "mana_charge_speed": 80.0,
+   "shuffle": false,
+   "spells_per_cast": 1,
+   "recharge_time": 18.0,
+   "capacity": 8,
+   "cast_delay": 5.0,
+   "spread": null,
+   "speed_multiplier": null,
+   "scripts": [
+    "data/scripts/particles/wand_pickup.lua",
+    "data/scripts/animals/wand_charm.lua",
+    "data/scripts/gun/procedural/wand_unshuffle_01.lua"
+   ],
+   "stage": "3",
+   "_unverified": {
+    "spread": "not in the entity file (set by data/scripts/particles/wand_pickup.lua, data/scripts/animals/wand_charm.lua, data/scripts/gun/procedural/wand_unshuffle_01.lua)",
+    "speed_multiplier": "not in the entity file (set by data/scripts/particles/wand_pickup.lua, data/scripts/animals/wand_charm.lua, data/scripts/gun/procedural/wand_unshuffle_01.lua)"
+   },
+   "_sources": {
+    "all": "wand entity via tncli spells"
+   }
+  },
+  {
+   "id": "wand_unshuffle_02",
+   "entity": "data/entities/items/wand_unshuffle_02.xml",
+   "name_key": "Rapid bolt wand",
+   "sprite": "data/items_gfx/machinegun.xml",
+   "mana_max": 300.0,
+   "mana_charge_speed": 80.0,
+   "shuffle": false,
+   "spells_per_cast": 1,
+   "recharge_time": 18.0,
+   "capacity": 8,
+   "cast_delay": 5.0,
+   "spread": null,
+   "speed_multiplier": null,
+   "scripts": [
+    "data/scripts/particles/wand_pickup.lua",
+    "data/scripts/animals/wand_charm.lua",
+    "data/scripts/gun/procedural/wand_unshuffle_02.lua"
+   ],
+   "stage": "3",
+   "_unverified": {
+    "spread": "not in the entity file (set by data/scripts/particles/wand_pickup.lua, data/scripts/animals/wand_charm.lua, data/scripts/gun/procedural/wand_unshuffle_02.lua)",
+    "speed_multiplier": "not in the entity file (set by data/scripts/particles/wand_pickup.lua, data/scripts/animals/wand_charm.lua, data/scripts/gun/procedural/wand_unshuffle_02.lua)"
+   },
+   "_sources": {
+    "all": "wand entity via tncli spells"
+   }
+  },
+  {
+   "id": "wand_unshuffle_02_p",
+   "entity": "data/entities/items/wand_unshuffle_02_p.xml",
+   "name_key": "Rapid bolt wand",
+   "sprite": "data/items_gfx/machinegun.xml",
+   "mana_max": 300.0,
+   "mana_charge_speed": 80.0,
+   "shuffle": false,
+   "spells_per_cast": 1,
+   "recharge_time": 18.0,
+   "capacity": 8,
+   "cast_delay": 5.0,
+   "spread": null,
+   "speed_multiplier": null,
+   "scripts": [
+    "data/scripts/particles/wand_pickup.lua",
+    "data/scripts/animals/wand_charm.lua",
+    "data/scripts/gun/procedural/wand_unshuffle_02.lua"
+   ],
+   "stage": "3",
+   "_unverified": {
+    "spread": "not in the entity file (set by data/scripts/particles/wand_pickup.lua, data/scripts/animals/wand_charm.lua, data/scripts/gun/procedural/wand_unshuffle_02.lua)",
+    "speed_multiplier": "not in the entity file (set by data/scripts/particles/wand_pickup.lua, data/scripts/animals/wand_charm.lua, data/scripts/gun/procedural/wand_unshuffle_02.lua)"
+   },
+   "_sources": {
+    "all": "wand entity via tncli spells"
+   }
+  },
+  {
+   "id": "wand_unshuffle_03",
+   "entity": "data/entities/items/wand_unshuffle_03.xml",
+   "name_key": "Rapid bolt wand",
+   "sprite": "data/items_gfx/machinegun.xml",
+   "mana_max": 300.0,
+   "mana_charge_speed": 80.0,
+   "shuffle": false,
+   "spells_per_cast": 1,
+   "recharge_time": 18.0,
+   "capacity": 8,
+   "cast_delay": 5.0,
+   "spread": null,
+   "speed_multiplier": null,
+   "scripts": [
+    "data/scripts/particles/wand_pickup.lua",
+    "data/scripts/animals/wand_charm.lua",
+    "data/scripts/gun/procedural/wand_unshuffle_03.lua"
+   ],
+   "stage": "3",
+   "_unverified": {
+    "spread": "not in the entity file (set by data/scripts/particles/wand_pickup.lua, data/scripts/animals/wand_charm.lua, data/scripts/gun/procedural/wand_unshuffle_03.lua)",
+    "speed_multiplier": "not in the entity file (set by data/scripts/particles/wand_pickup.lua, data/scripts/animals/wand_charm.lua, data/scripts/gun/procedural/wand_unshuffle_03.lua)"
+   },
+   "_sources": {
+    "all": "wand entity via tncli spells"
+   }
+  },
+  {
+   "id": "wand_unshuffle_03_p",
+   "entity": "data/entities/items/wand_unshuffle_03_p.xml",
+   "name_key": "Rapid bolt wand",
+   "sprite": "data/items_gfx/machinegun.xml",
+   "mana_max": 300.0,
+   "mana_charge_speed": 80.0,
+   "shuffle": false,
+   "spells_per_cast": 1,
+   "recharge_time": 18.0,
+   "capacity": 8,
+   "cast_delay": 5.0,
+   "spread": null,
+   "speed_multiplier": null,
+   "scripts": [
+    "data/scripts/particles/wand_pickup.lua",
+    "data/scripts/animals/wand_charm.lua",
+    "data/scripts/gun/procedural/wand_unshuffle_03.lua"
+   ],
+   "stage": "3",
+   "_unverified": {
+    "spread": "not in the entity file (set by data/scripts/particles/wand_pickup.lua, data/scripts/animals/wand_charm.lua, data/scripts/gun/procedural/wand_unshuffle_03.lua)",
+    "speed_multiplier": "not in the entity file (set by data/scripts/particles/wand_pickup.lua, data/scripts/animals/wand_charm.lua, data/scripts/gun/procedural/wand_unshuffle_03.lua)"
+   },
+   "_sources": {
+    "all": "wand entity via tncli spells"
+   }
+  },
+  {
+   "id": "wand_unshuffle_04",
+   "entity": "data/entities/items/wand_unshuffle_04.xml",
+   "name_key": "Rapid bolt wand",
+   "sprite": "data/items_gfx/machinegun.xml",
+   "mana_max": 300.0,
+   "mana_charge_speed": 80.0,
+   "shuffle": false,
+   "spells_per_cast": 1,
+   "recharge_time": 18.0,
+   "capacity": 8,
+   "cast_delay": 5.0,
+   "spread": null,
+   "speed_multiplier": null,
+   "scripts": [
+    "data/scripts/particles/wand_pickup.lua",
+    "data/scripts/animals/wand_charm.lua",
+    "data/scripts/gun/procedural/wand_unshuffle_04.lua"
+   ],
+   "stage": "3",
+   "_unverified": {
+    "spread": "not in the entity file (set by data/scripts/particles/wand_pickup.lua, data/scripts/animals/wand_charm.lua, data/scripts/gun/procedural/wand_unshuffle_04.lua)",
+    "speed_multiplier": "not in the entity file (set by data/scripts/particles/wand_pickup.lua, data/scripts/animals/wand_charm.lua, data/scripts/gun/procedural/wand_unshuffle_04.lua)"
+   },
+   "_sources": {
+    "all": "wand entity via tncli spells"
+   }
+  },
+  {
+   "id": "wand_unshuffle_04_p",
+   "entity": "data/entities/items/wand_unshuffle_04_p.xml",
+   "name_key": "Rapid bolt wand",
+   "sprite": "data/items_gfx/machinegun.xml",
+   "mana_max": 300.0,
+   "mana_charge_speed": 80.0,
+   "shuffle": false,
+   "spells_per_cast": 1,
+   "recharge_time": 18.0,
+   "capacity": 8,
+   "cast_delay": 5.0,
+   "spread": null,
+   "speed_multiplier": null,
+   "scripts": [
+    "data/scripts/particles/wand_pickup.lua",
+    "data/scripts/animals/wand_charm.lua",
+    "data/scripts/gun/procedural/wand_unshuffle_04.lua"
+   ],
+   "stage": "3",
+   "_unverified": {
+    "spread": "not in the entity file (set by data/scripts/particles/wand_pickup.lua, data/scripts/animals/wand_charm.lua, data/scripts/gun/procedural/wand_unshuffle_04.lua)",
+    "speed_multiplier": "not in the entity file (set by data/scripts/particles/wand_pickup.lua, data/scripts/animals/wand_charm.lua, data/scripts/gun/procedural/wand_unshuffle_04.lua)"
+   },
+   "_sources": {
+    "all": "wand entity via tncli spells"
+   }
+  },
+  {
+   "id": "wand_unshuffle_05",
+   "entity": "data/entities/items/wand_unshuffle_05.xml",
+   "name_key": "Rapid bolt wand",
+   "sprite": "data/items_gfx/machinegun.xml",
+   "mana_max": 400.0,
+   "mana_charge_speed": 100.0,
+   "shuffle": false,
+   "spells_per_cast": 1,
+   "recharge_time": 18.0,
+   "capacity": 8,
+   "cast_delay": 5.0,
+   "spread": null,
+   "speed_multiplier": null,
+   "scripts": [
+    "data/scripts/particles/wand_pickup.lua",
+    "data/scripts/animals/wand_charm.lua",
+    "data/scripts/gun/procedural/wand_unshuffle_05.lua"
+   ],
+   "stage": "3",
+   "_unverified": {
+    "spread": "not in the entity file (set by data/scripts/particles/wand_pickup.lua, data/scripts/animals/wand_charm.lua, data/scripts/gun/procedural/wand_unshuffle_05.lua)",
+    "speed_multiplier": "not in the entity file (set by data/scripts/particles/wand_pickup.lua, data/scripts/animals/wand_charm.lua, data/scripts/gun/procedural/wand_unshuffle_05.lua)"
+   },
+   "_sources": {
+    "all": "wand entity via tncli spells"
+   }
+  },
+  {
+   "id": "wand_unshuffle_05_p",
+   "entity": "data/entities/items/wand_unshuffle_05_p.xml",
+   "name_key": "Rapid bolt wand",
+   "sprite": "data/items_gfx/machinegun.xml",
+   "mana_max": 400.0,
+   "mana_charge_speed": 100.0,
+   "shuffle": false,
+   "spells_per_cast": 1,
+   "recharge_time": 18.0,
+   "capacity": 8,
+   "cast_delay": 5.0,
+   "spread": null,
+   "speed_multiplier": null,
+   "scripts": [
+    "data/scripts/particles/wand_pickup.lua",
+    "data/scripts/animals/wand_charm.lua",
+    "data/scripts/gun/procedural/wand_unshuffle_05.lua"
+   ],
+   "stage": "3",
+   "_unverified": {
+    "spread": "not in the entity file (set by data/scripts/particles/wand_pickup.lua, data/scripts/animals/wand_charm.lua, data/scripts/gun/procedural/wand_unshuffle_05.lua)",
+    "speed_multiplier": "not in the entity file (set by data/scripts/particles/wand_pickup.lua, data/scripts/animals/wand_charm.lua, data/scripts/gun/procedural/wand_unshuffle_05.lua)"
+   },
+   "_sources": {
+    "all": "wand entity via tncli spells"
+   }
+  },
+  {
+   "id": "wand_unshuffle_06",
+   "entity": "data/entities/items/wand_unshuffle_06.xml",
+   "name_key": "Rapid bolt wand",
+   "sprite": "data/items_gfx/machinegun.xml",
+   "mana_max": 500.0,
+   "mana_charge_speed": 120.0,
+   "shuffle": false,
+   "spells_per_cast": 1,
+   "recharge_time": 18.0,
+   "capacity": 8,
+   "cast_delay": 5.0,
+   "spread": null,
+   "speed_multiplier": null,
+   "scripts": [
+    "data/scripts/particles/wand_pickup.lua",
+    "data/scripts/animals/wand_charm.lua",
+    "data/scripts/gun/procedural/wand_unshuffle_06.lua"
+   ],
+   "stage": "3",
+   "_unverified": {
+    "spread": "not in the entity file (set by data/scripts/particles/wand_pickup.lua, data/scripts/animals/wand_charm.lua, data/scripts/gun/procedural/wand_unshuffle_06.lua)",
+    "speed_multiplier": "not in the entity file (set by data/scripts/particles/wand_pickup.lua, data/scripts/animals/wand_charm.lua, data/scripts/gun/procedural/wand_unshuffle_06.lua)"
+   },
+   "_sources": {
+    "all": "wand entity via tncli spells"
+   }
+  },
+  {
+   "id": "wand_unshuffle_06_p",
+   "entity": "data/entities/items/wand_unshuffle_06_p.xml",
+   "name_key": "Rapid bolt wand",
+   "sprite": "data/items_gfx/machinegun.xml",
+   "mana_max": 500.0,
+   "mana_charge_speed": 120.0,
+   "shuffle": false,
+   "spells_per_cast": 1,
+   "recharge_time": 18.0,
+   "capacity": 8,
+   "cast_delay": 5.0,
+   "spread": null,
+   "speed_multiplier": null,
+   "scripts": [
+    "data/scripts/particles/wand_pickup.lua",
+    "data/scripts/animals/wand_charm.lua",
+    "data/scripts/gun/procedural/wand_unshuffle_06.lua"
+   ],
+   "stage": "3",
+   "_unverified": {
+    "spread": "not in the entity file (set by data/scripts/particles/wand_pickup.lua, data/scripts/animals/wand_charm.lua, data/scripts/gun/procedural/wand_unshuffle_06.lua)",
+    "speed_multiplier": "not in the entity file (set by data/scripts/particles/wand_pickup.lua, data/scripts/animals/wand_charm.lua, data/scripts/gun/procedural/wand_unshuffle_06.lua)"
+   },
+   "_sources": {
+    "all": "wand entity via tncli spells"
+   }
+  },
+  {
+   "id": "wand_unshuffle_10",
+   "entity": "data/entities/items/wand_unshuffle_10.xml",
+   "name_key": "Rapid bolt wand",
+   "sprite": "data/items_gfx/machinegun.xml",
+   "mana_max": 1000.0,
+   "mana_charge_speed": 200.0,
+   "shuffle": false,
+   "spells_per_cast": 1,
+   "recharge_time": 18.0,
+   "capacity": 8,
+   "cast_delay": 5.0,
+   "spread": null,
+   "speed_multiplier": null,
+   "scripts": [
+    "data/scripts/particles/wand_pickup.lua",
+    "data/scripts/animals/wand_charm.lua",
+    "data/scripts/gun/procedural/wand_unshuffle_10.lua"
+   ],
+   "stage": "3",
+   "_unverified": {
+    "spread": "not in the entity file (set by data/scripts/particles/wand_pickup.lua, data/scripts/animals/wand_charm.lua, data/scripts/gun/procedural/wand_unshuffle_10.lua)",
+    "speed_multiplier": "not in the entity file (set by data/scripts/particles/wand_pickup.lua, data/scripts/animals/wand_charm.lua, data/scripts/gun/procedural/wand_unshuffle_10.lua)"
+   },
+   "_sources": {
+    "all": "wand entity via tncli spells"
+   }
+  },
+  {
+   "id": "digger_01",
+   "entity": "data/entities/items/wands/custom/digger_01.xml",
+   "name_key": null,
+   "sprite": "data/items_gfx/wands/custom/scepter_01.xml",
+   "mana_max": 140.0,
+   "mana_charge_speed": 35.0,
+   "shuffle": false,
+   "spells_per_cast": null,
+   "recharge_time": 2.0,
+   "capacity": 12,
+   "cast_delay": 1.0,
+   "spread": null,
+   "speed_multiplier": null,
+   "scripts": [
+    "data/scripts/gun/procedural/digger_01_setup.lua",
+    "",
+    "data/scripts/animals/wand_charm.lua"
+   ],
+   "stage": "3",
+   "_unverified": {
+    "name_key": "not in the entity file (set by data/scripts/gun/procedural/digger_01_setup.lua, , data/scripts/animals/wand_charm.lua)",
+    "spells_per_cast": "not in the entity file (set by data/scripts/gun/procedural/digger_01_setup.lua, , data/scripts/animals/wand_charm.lua)",
+    "spread": "not in the entity file (set by data/scripts/gun/procedural/digger_01_setup.lua, , data/scripts/animals/wand_charm.lua)",
+    "speed_multiplier": "not in the entity file (set by data/scripts/gun/procedural/digger_01_setup.lua, , data/scripts/animals/wand_charm.lua)"
+   },
+   "_sources": {
+    "all": "wand entity via tncli spells"
+   }
+  },
+  {
+   "id": "experimental_wand_1",
+   "entity": "data/entities/items/wands/experimental/experimental_wand_1.xml",
+   "name_key": "experimental_wand_1",
+   "sprite": "data/entities/items/wands/experimental/experimental_wand_1_sprite.xml",
+   "mana_max": 100.0,
+   "mana_charge_speed": 30.0,
+   "shuffle": false,
+   "spells_per_cast": null,
+   "recharge_time": 24.0,
+   "capacity": 3,
+   "cast_delay": 10.0,
+   "spread": null,
+   "speed_multiplier": null,
+   "scripts": [
+    "data/entities/items/wands/experimental/experimental_wand_1.lua"
+   ],
+   "stage": "3",
+   "_unverified": {
+    "spells_per_cast": "not in the entity file (set by data/entities/items/wands/experimental/experimental_wand_1.lua)",
+    "spread": "not in the entity file (set by data/entities/items/wands/experimental/experimental_wand_1.lua)",
+    "speed_multiplier": "not in the entity file (set by data/entities/items/wands/experimental/experimental_wand_1.lua)"
+   },
+   "_sources": {
+    "all": "wand entity via tncli spells"
+   }
+  },
+  {
+   "id": "experimental_wand_2",
+   "entity": "data/entities/items/wands/experimental/experimental_wand_2.xml",
+   "name_key": "experimental_wand_2",
+   "sprite": "data/entities/items/wands/experimental/experimental_wand_2_sprite.xml",
+   "mana_max": 100.0,
+   "mana_charge_speed": 30.0,
+   "shuffle": false,
+   "spells_per_cast": null,
+   "recharge_time": 24.0,
+   "capacity": 3,
+   "cast_delay": 10.0,
+   "spread": null,
+   "speed_multiplier": null,
+   "scripts": [
+    "data/entities/items/wands/experimental/experimental_wand_2.lua"
+   ],
+   "stage": "3",
+   "_unverified": {
+    "spells_per_cast": "not in the entity file (set by data/entities/items/wands/experimental/experimental_wand_2.lua)",
+    "spread": "not in the entity file (set by data/entities/items/wands/experimental/experimental_wand_2.lua)",
+    "speed_multiplier": "not in the entity file (set by data/entities/items/wands/experimental/experimental_wand_2.lua)"
+   },
+   "_sources": {
+    "all": "wand entity via tncli spells"
+   }
+  },
+  {
+   "id": "experimental_wand_3",
+   "entity": "data/entities/items/wands/experimental/experimental_wand_3.xml",
+   "name_key": "experimental_wand_3",
+   "sprite": "data/items_gfx/wands/custom/actual_wand.xml",
+   "mana_max": 100.0,
+   "mana_charge_speed": 30.0,
+   "shuffle": false,
+   "spells_per_cast": null,
+   "recharge_time": 1.0,
+   "capacity": 2,
+   "cast_delay": 1.0,
+   "spread": null,
+   "speed_multiplier": null,
+   "scripts": [
+    "data/entities/items/wands/experimental/experimental_wand_3.lua"
+   ],
+   "stage": "3",
+   "_unverified": {
+    "spells_per_cast": "not in the entity file (set by data/entities/items/wands/experimental/experimental_wand_3.lua)",
+    "spread": "not in the entity file (set by data/entities/items/wands/experimental/experimental_wand_3.lua)",
+    "speed_multiplier": "not in the entity file (set by data/entities/items/wands/experimental/experimental_wand_3.lua)"
+   },
+   "_sources": {
+    "all": "wand entity via tncli spells"
+   }
+  },
+  {
+   "id": "experimental_wand_4",
+   "entity": "data/entities/items/wands/experimental/experimental_wand_4.xml",
+   "name_key": "experimental_wand_3",
+   "sprite": "data/items_gfx/wands/custom/chainsaw.xml",
+   "mana_max": 100.0,
+   "mana_charge_speed": 100.0,
+   "shuffle": false,
+   "spells_per_cast": null,
+   "recharge_time": 0.0,
+   "capacity": 2,
+   "cast_delay": 1.0,
+   "spread": null,
+   "speed_multiplier": null,
+   "scripts": [
+    "data/entities/items/wands/experimental/experimental_wand_4.lua"
+   ],
+   "stage": "3",
+   "_unverified": {
+    "spells_per_cast": "not in the entity file (set by data/entities/items/wands/experimental/experimental_wand_4.lua)",
+    "spread": "not in the entity file (set by data/entities/items/wands/experimental/experimental_wand_4.lua)",
+    "speed_multiplier": "not in the entity file (set by data/entities/items/wands/experimental/experimental_wand_4.lua)"
+   },
+   "_sources": {
+    "all": "wand entity via tncli spells"
+   }
+  },
+  {
+   "id": "base_wand_level_1",
+   "entity": "data/entities/items/wands/level_01/base_wand_level_1.xml",
+   "name_key": "Good Rapid bolt wand",
+   "sprite": "data/items_gfx/wands/wand_0484.png",
+   "mana_max": 220.0,
+   "mana_charge_speed": 45.0,
+   "shuffle": true,
+   "spells_per_cast": 1,
+   "recharge_time": 27.0,
+   "capacity": 7,
+   "cast_delay": 2.0,
+   "spread": 8.0,
+   "speed_multiplier": 1.03398,
+   "scripts": [
+    "data/scripts/gun/procedural/level_1_wand.lua",
+    "data/scripts/particles/wand_pickup.lua",
+    "data/scripts/animals/wand_charm.lua"
+   ],
+   "stage": "3",
+   "_unverified": {},
+   "_sources": {
+    "all": "wand entity via tncli spells"
+   }
+  },
+  {
+   "id": "wand_001",
+   "entity": "data/entities/items/wands/level_01/wand_001.xml",
+   "name_key": "Good Rapid bolt wand",
+   "sprite": "data/items_gfx/wands/wand_0484.png",
+   "mana_max": 220.0,
+   "mana_charge_speed": 45.0,
+   "shuffle": true,
+   "spells_per_cast": 1,
+   "recharge_time": 27.0,
+   "capacity": 7,
+   "cast_delay": 2.0,
+   "spread": 8.0,
+   "speed_multiplier": 1.03398,
+   "scripts": [
+    "data/scripts/gun/procedural/level_1_wand.lua",
+    "data/scripts/particles/wand_pickup.lua",
+    "data/scripts/animals/wand_charm.lua"
+   ],
+   "stage": "3",
+   "_unverified": {},
+   "_sources": {
+    "all": "wand entity via tncli spells"
+   }
+  },
+  {
+   "id": "wand_002",
+   "entity": "data/entities/items/wands/level_01/wand_002.xml",
+   "name_key": "Good Rapid bolt wand",
+   "sprite": "data/items_gfx/wands/wand_0654.png",
+   "mana_max": 250.0,
+   "mana_charge_speed": 53.0,
+   "shuffle": true,
+   "spells_per_cast": 1,
+   "recharge_time": 25.0,
+   "capacity": 5,
+   "cast_delay": 2.0,
+   "spread": 2.0,
+   "speed_multiplier": 0.982264,
+   "scripts": [
+    "data/scripts/gun/procedural/level_1_wand.lua",
+    "data/scripts/particles/wand_pickup.lua",
+    "data/scripts/animals/wand_charm.lua"
+   ],
+   "stage": "3",
+   "_unverified": {},
+   "_sources": {
+    "all": "wand entity via tncli spells"
+   }
+  },
+  {
+   "id": "wand_003",
+   "entity": "data/entities/items/wands/level_01/wand_003.xml",
+   "name_key": "Neutral Rapid bolt wand",
+   "sprite": "data/items_gfx/wands/wand_0958.png",
+   "mana_max": 180.0,
+   "mana_charge_speed": 54.0,
+   "shuffle": true,
+   "spells_per_cast": 1,
+   "recharge_time": 90.0,
+   "capacity": 6,
+   "cast_delay": 2.0,
+   "spread": -3.0,
+   "speed_multiplier": 0.994967,
+   "scripts": [
+    "data/scripts/gun/procedural/level_1_wand.lua",
+    "data/scripts/particles/wand_pickup.lua",
+    "data/scripts/animals/wand_charm.lua"
+   ],
+   "stage": "3",
+   "_unverified": {},
+   "_sources": {
+    "all": "wand entity via tncli spells"
+   }
+  },
+  {
+   "id": "wand_004",
+   "entity": "data/entities/items/wands/level_01/wand_004.xml",
+   "name_key": "Antique Rapid bolt wand",
+   "sprite": "data/items_gfx/wands/wand_0516.png",
+   "mana_max": 190.0,
+   "mana_charge_speed": 51.0,
+   "shuffle": false,
+   "spells_per_cast": 1,
+   "recharge_time": 16.0,
+   "capacity": 3,
+   "cast_delay": 23.0,
+   "spread": -1.0,
+   "speed_multiplier": 0.934037,
+   "scripts": [
+    "data/scripts/gun/procedural/level_1_wand.lua",
+    "data/scripts/particles/wand_pickup.lua",
+    "data/scripts/animals/wand_charm.lua"
+   ],
+   "stage": "3",
+   "_unverified": {},
+   "_sources": {
+    "all": "wand entity via tncli spells"
+   }
+  },
+  {
+   "id": "wand_005",
+   "entity": "data/entities/items/wands/level_01/wand_005.xml",
+   "name_key": "Slim Rapid bolt wand",
+   "sprite": "data/items_gfx/wands/wand_0484.png",
+   "mana_max": 210.0,
+   "mana_charge_speed": 52.0,
+   "shuffle": true,
+   "spells_per_cast": 1,
+   "recharge_time": 4.0,
+   "capacity": 5,
+   "cast_delay": 6.0,
+   "spread": 6.0,
+   "speed_multiplier": 0.824541,
+   "scripts": [
+    "data/scripts/gun/procedural/level_1_wand.lua",
+    "data/scripts/particles/wand_pickup.lua",
+    "data/scripts/animals/wand_charm.lua"
+   ],
+   "stage": "3",
+   "_unverified": {},
+   "_sources": {
+    "all": "wand entity via tncli spells"
+   }
+  },
+  {
+   "id": "wand_006",
+   "entity": "data/entities/items/wands/level_01/wand_006.xml",
+   "name_key": "Superior Rapid bolt wand",
+   "sprite": "data/items_gfx/wands/wand_0058.png",
+   "mana_max": 250.0,
+   "mana_charge_speed": 49.0,
+   "shuffle": false,
+   "spells_per_cast": 1,
+   "recharge_time": 23.0,
+   "capacity": 6,
+   "cast_delay": 13.0,
+   "spread": 3.0,
+   "speed_multiplier": 0.985946,
+   "scripts": [
+    "data/scripts/gun/procedural/level_1_wand.lua",
+    "data/scripts/particles/wand_pickup.lua",
+    "data/scripts/animals/wand_charm.lua"
+   ],
+   "stage": "3",
+   "_unverified": {},
+   "_sources": {
+    "all": "wand entity via tncli spells"
+   }
+  },
+  {
+   "id": "wand_007",
+   "entity": "data/entities/items/wands/level_01/wand_007.xml",
+   "name_key": "Shiny Rapid bolt wand",
+   "sprite": "data/items_gfx/wands/wand_0120.png",
+   "mana_max": 170.0,
+   "mana_charge_speed": 55.0,
+   "shuffle": false,
+   "spells_per_cast": 1,
+   "recharge_time": 40.0,
+   "capacity": 3,
+   "cast_delay": 26.0,
+   "spread": 1.0,
+   "speed_multiplier": 0.955205,
+   "scripts": [
+    "data/scripts/gun/procedural/level_1_wand.lua",
+    "data/scripts/particles/wand_pickup.lua",
+    "data/scripts/animals/wand_charm.lua"
+   ],
+   "stage": "3",
+   "_unverified": {},
+   "_sources": {
+    "all": "wand entity via tncli spells"
+   }
+  },
+  {
+   "id": "wand_008",
+   "entity": "data/entities/items/wands/level_01/wand_008.xml",
+   "name_key": "Solid Rapid bolt wand",
+   "sprite": "data/items_gfx/wands/wand_0898.png",
+   "mana_max": 160.0,
+   "mana_charge_speed": 52.0,
+   "shuffle": true,
+   "spells_per_cast": 1,
+   "recharge_time": 26.0,
+   "capacity": 7,
+   "cast_delay": 10.0,
+   "spread": 2.0,
+   "speed_multiplier": 0.987743,
+   "scripts": [
+    "data/scripts/gun/procedural/level_1_wand.lua",
+    "data/scripts/particles/wand_pickup.lua",
+    "data/scripts/animals/wand_charm.lua"
+   ],
+   "stage": "3",
+   "_unverified": {},
+   "_sources": {
+    "all": "wand entity via tncli spells"
+   }
+  },
+  {
+   "id": "wand_009",
+   "entity": "data/entities/items/wands/level_01/wand_009.xml",
+   "name_key": "Turbo Rapid bolt wand",
+   "sprite": "data/items_gfx/wands/wand_0724.png",
+   "mana_max": 160.0,
+   "mana_charge_speed": 46.0,
+   "shuffle": true,
+   "spells_per_cast": 1,
+   "recharge_time": 49.0,
+   "capacity": 6,
+   "cast_delay": 3.0,
+   "spread": 3.0,
+   "speed_multiplier": 0.853983,
+   "scripts": [
+    "data/scripts/gun/procedural/level_1_wand.lua",
+    "data/scripts/particles/wand_pickup.lua",
+    "data/scripts/animals/wand_charm.lua"
+   ],
+   "stage": "3",
+   "_unverified": {},
+   "_sources": {
+    "all": "wand entity via tncli spells"
+   }
+  },
+  {
+   "id": "wand_010",
+   "entity": "data/entities/items/wands/level_01/wand_010.xml",
+   "name_key": "Large Rapid bolt wand",
+   "sprite": "data/items_gfx/wands/wand_0326.png",
+   "mana_max": 210.0,
+   "mana_charge_speed": 46.0,
+   "shuffle": false,
+   "spells_per_cast": 1,
+   "recharge_time": 26.0,
+   "capacity": 3,
+   "cast_delay": 3.0,
+   "spread": -1.0,
+   "speed_multiplier": 1.05598,
+   "scripts": [
+    "data/scripts/gun/procedural/level_1_wand.lua",
+    "data/scripts/particles/wand_pickup.lua",
+    "data/scripts/animals/wand_charm.lua"
+   ],
+   "stage": "3",
+   "_unverified": {},
+   "_sources": {
+    "all": "wand entity via tncli spells"
+   }
+  },
+  {
+   "id": "wand_011",
+   "entity": "data/entities/items/wands/level_01/wand_011.xml",
+   "name_key": "Vanilla Rapid bolt wand",
+   "sprite": "data/items_gfx/wands/wand_0374.png",
+   "mana_max": 250.0,
+   "mana_charge_speed": 50.0,
+   "shuffle": false,
+   "spells_per_cast": 1,
+   "recharge_time": 26.0,
+   "capacity": 2,
+   "cast_delay": 20.0,
+   "spread": -2.0,
+   "speed_multiplier": 1.02408,
+   "scripts": [
+    "data/scripts/gun/procedural/level_1_wand.lua",
+    "data/scripts/particles/wand_pickup.lua",
+    "data/scripts/animals/wand_charm.lua"
+   ],
+   "stage": "3",
+   "_unverified": {},
+   "_sources": {
+    "all": "wand entity via tncli spells"
+   }
+  },
+  {
+   "id": "wand_012",
+   "entity": "data/entities/items/wands/level_01/wand_012.xml",
+   "name_key": "Bad Rapid bolt wand",
+   "sprite": "data/items_gfx/wands/wand_0324.png",
+   "mana_max": 250.0,
+   "mana_charge_speed": 49.0,
+   "shuffle": false,
+   "spells_per_cast": 1,
+   "recharge_time": 50.0,
+   "capacity": 6,
+   "cast_delay": 14.0,
+   "spread": -2.0,
+   "speed_multiplier": 0.995504,
+   "scripts": [
+    "data/scripts/gun/procedural/level_1_wand.lua",
+    "data/scripts/particles/wand_pickup.lua",
+    "data/scripts/animals/wand_charm.lua"
+   ],
+   "stage": "3",
+   "_unverified": {},
+   "_sources": {
+    "all": "wand entity via tncli spells"
+   }
+  },
+  {
+   "id": "wand_013",
+   "entity": "data/entities/items/wands/level_01/wand_013.xml",
+   "name_key": "Large Rapid bolt wand",
+   "sprite": "data/items_gfx/wands/wand_0309.png",
+   "mana_max": 220.0,
+   "mana_charge_speed": 51.0,
+   "shuffle": false,
+   "spells_per_cast": 1,
+   "recharge_time": 45.0,
+   "capacity": 5,
+   "cast_delay": 4.0,
+   "spread": 1.0,
+   "speed_multiplier": 0.969829,
+   "scripts": [
+    "data/scripts/gun/procedural/level_1_wand.lua",
+    "data/scripts/particles/wand_pickup.lua",
+    "data/scripts/animals/wand_charm.lua"
+   ],
+   "stage": "3",
+   "_unverified": {},
+   "_sources": {
+    "all": "wand entity via tncli spells"
+   }
+  },
+  {
+   "id": "wand_014",
+   "entity": "data/entities/items/wands/level_01/wand_014.xml",
+   "name_key": "Slick Rapid bolt wand",
+   "sprite": "data/items_gfx/wands/wand_0230.png",
+   "mana_max": 210.0,
+   "mana_charge_speed": 50.0,
+   "shuffle": false,
+   "spells_per_cast": 1,
+   "recharge_time": 12.0,
+   "capacity": 2,
+   "cast_delay": 6.0,
+   "spread": 1.0,
+   "speed_multiplier": 0.988051,
+   "scripts": [
+    "data/scripts/gun/procedural/level_1_wand.lua",
+    "data/scripts/particles/wand_pickup.lua",
+    "data/scripts/animals/wand_charm.lua"
+   ],
+   "stage": "3",
+   "_unverified": {},
+   "_sources": {
+    "all": "wand entity via tncli spells"
+   }
+  },
+  {
+   "id": "wand_015",
+   "entity": "data/entities/items/wands/level_01/wand_015.xml",
+   "name_key": "Bulky Rapid bolt wand",
+   "sprite": "data/items_gfx/wands/wand_0063.png",
+   "mana_max": 170.0,
+   "mana_charge_speed": 49.0,
+   "shuffle": true,
+   "spells_per_cast": 1,
+   "recharge_time": 53.0,
+   "capacity": 11,
+   "cast_delay": 24.0,
+   "spread": 1.0,
+   "speed_multiplier": 0.904531,
+   "scripts": [
+    "data/scripts/gun/procedural/level_1_wand.lua",
+    "data/scripts/particles/wand_pickup.lua",
+    "data/scripts/animals/wand_charm.lua"
+   ],
+   "stage": "3",
+   "_unverified": {},
+   "_sources": {
+    "all": "wand entity via tncli spells"
+   }
+  },
+  {
+   "id": "wand_016",
+   "entity": "data/entities/items/wands/level_01/wand_016.xml",
+   "name_key": "Giga Rapid bolt wand",
+   "sprite": "data/items_gfx/wands/wand_0830.png",
+   "mana_max": 750.0,
+   "mana_charge_speed": 10.0,
+   "shuffle": true,
+   "spells_per_cast": 1,
+   "recharge_time": 18.0,
+   "capacity": 9,
+   "cast_delay": 26.0,
+   "spread": -3.0,
+   "speed_multiplier": 1.07678,
+   "scripts": [
+    "data/scripts/gun/procedural/level_1_wand.lua",
+    "data/scripts/particles/wand_pickup.lua",
+    "data/scripts/animals/wand_charm.lua"
+   ],
+   "stage": "3",
+   "_unverified": {},
+   "_sources": {
+    "all": "wand entity via tncli spells"
+   }
+  },
+  {
+   "id": "wand_017",
+   "entity": "data/entities/items/wands/level_01/wand_017.xml",
+   "name_key": "Type a Rapid bolt wand",
+   "sprite": "data/items_gfx/wands/wand_1000.png",
+   "mana_max": 190.0,
+   "mana_charge_speed": 52.0,
+   "shuffle": true,
+   "spells_per_cast": 1,
+   "recharge_time": 14.0,
+   "capacity": 6,
+   "cast_delay": 2.0,
+   "spread": 5.0,
+   "speed_multiplier": 0.987879,
+   "scripts": [
+    "data/scripts/gun/procedural/level_1_wand.lua",
+    "data/scripts/particles/wand_pickup.lua",
+    "data/scripts/animals/wand_charm.lua"
+   ],
+   "stage": "3",
+   "_unverified": {},
+   "_sources": {
+    "all": "wand entity via tncli spells"
+   }
+  },
+  {
+   "id": "wand_good_1",
+   "entity": "data/entities/items/wands/wand_good/wand_good_1.xml",
+   "name_key": "wand_good_1",
+   "sprite": "data/items_gfx/wands/custom/good_01.xml",
+   "mana_max": 100.0,
+   "mana_charge_speed": 30.0,
+   "shuffle": false,
+   "spells_per_cast": null,
+   "recharge_time": 24.0,
+   "capacity": 3,
+   "cast_delay": 10.0,
+   "spread": null,
+   "speed_multiplier": null,
+   "scripts": [
+    "data/entities/items/wands/wand_good/wand_good_1.lua",
+    "data/entities/items/wands/wand_good/wand_good_pickup.lua"
+   ],
+   "stage": "3",
+   "_unverified": {
+    "spells_per_cast": "not in the entity file (set by data/entities/items/wands/wand_good/wand_good_1.lua, data/entities/items/wands/wand_good/wand_good_pickup.lua)",
+    "spread": "not in the entity file (set by data/entities/items/wands/wand_good/wand_good_1.lua, data/entities/items/wands/wand_good/wand_good_pickup.lua)",
+    "speed_multiplier": "not in the entity file (set by data/entities/items/wands/wand_good/wand_good_1.lua, data/entities/items/wands/wand_good/wand_good_pickup.lua)"
+   },
+   "_sources": {
+    "all": "wand entity via tncli spells"
+   }
+  },
+  {
+   "id": "wand_good_2",
+   "entity": "data/entities/items/wands/wand_good/wand_good_2.xml",
+   "name_key": "wand_good_2",
+   "sprite": "data/items_gfx/wands/custom/good_02.xml",
+   "mana_max": 100.0,
+   "mana_charge_speed": 30.0,
+   "shuffle": false,
+   "spells_per_cast": null,
+   "recharge_time": 24.0,
+   "capacity": 3,
+   "cast_delay": 10.0,
+   "spread": null,
+   "speed_multiplier": null,
+   "scripts": [
+    "data/entities/items/wands/wand_good/wand_good_2.lua",
+    "data/entities/items/wands/wand_good/wand_good_pickup.lua"
+   ],
+   "stage": "3",
+   "_unverified": {
+    "spells_per_cast": "not in the entity file (set by data/entities/items/wands/wand_good/wand_good_2.lua, data/entities/items/wands/wand_good/wand_good_pickup.lua)",
+    "spread": "not in the entity file (set by data/entities/items/wands/wand_good/wand_good_2.lua, data/entities/items/wands/wand_good/wand_good_pickup.lua)",
+    "speed_multiplier": "not in the entity file (set by data/entities/items/wands/wand_good/wand_good_2.lua, data/entities/items/wands/wand_good/wand_good_pickup.lua)"
+   },
+   "_sources": {
+    "all": "wand entity via tncli spells"
+   }
+  },
+  {
+   "id": "wand_good_3",
+   "entity": "data/entities/items/wands/wand_good/wand_good_3.xml",
+   "name_key": "wand_good_3",
+   "sprite": "data/items_gfx/wands/custom/good_03.xml",
+   "mana_max": 100.0,
+   "mana_charge_speed": 30.0,
+   "shuffle": false,
+   "spells_per_cast": null,
+   "recharge_time": 24.0,
+   "capacity": 3,
+   "cast_delay": 10.0,
+   "spread": null,
+   "speed_multiplier": null,
+   "scripts": [
+    "data/entities/items/wands/wand_good/wand_good_3.lua",
+    "data/entities/items/wands/wand_good/wand_good_pickup.lua"
+   ],
+   "stage": "3",
+   "_unverified": {
+    "spells_per_cast": "not in the entity file (set by data/entities/items/wands/wand_good/wand_good_3.lua, data/entities/items/wands/wand_good/wand_good_pickup.lua)",
+    "spread": "not in the entity file (set by data/entities/items/wands/wand_good/wand_good_3.lua, data/entities/items/wands/wand_good/wand_good_pickup.lua)",
+    "speed_multiplier": "not in the entity file (set by data/entities/items/wands/wand_good/wand_good_3.lua, data/entities/items/wands/wand_good/wand_good_pickup.lua)"
+   },
+   "_sources": {
+    "all": "wand entity via tncli spells"
+   }
+  }
+ ]
+}

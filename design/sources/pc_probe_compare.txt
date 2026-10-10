@@ -1,0 +1,926 @@
+behaviour: 781 of 910 (single 364 of 419, mod 358 of 419, combo 24 of 24, wand 35 of 48); matching Noita: 656 of 910 (single 314 of 419, mod 301 of 419, combo 19 of 24, wand 22 of 48); Noita rows to re-probe (did not cast): 15
+single:BOMB: numbers damage $damage_fire: 0.16 (Noita 3466.66)
+single:LIGHT_BULLET: OK
+single:LIGHT_BULLET_TRIGGER: OK
+single:LIGHT_BULLET_TRIGGER_2: OK
+single:LIGHT_BULLET_TIMER: OK
+single:BULLET: OK
+single:BULLET_TRIGGER: OK
+single:BULLET_TIMER: OK
+single:HEAVY_BULLET: OK
+single:HEAVY_BULLET_TRIGGER: OK
+single:HEAVY_BULLET_TIMER: OK
+single:AIR_BULLET: OK
+single:SLOW_BULLET: OK
+single:SLOW_BULLET_TRIGGER: OK
+single:SLOW_BULLET_TIMER: OK
+single:HOOK: OK
+single:BLACK_HOLE: OK
+single:BLACK_HOLE_DEATH_TRIGGER: OK
+single:WHITE_HOLE: OK
+single:BLACK_HOLE_BIG: OK
+single:WHITE_HOLE_BIG: OK
+single:BLACK_HOLE_GIGA: DOES damage : 0 (Noita 11); damage $action_black_hole_giga: 0 (Noita 12.6); damage $damage_projectile: 40040.16 (Noita 0) | numbers 
+single:WHITE_HOLE_GIGA: DOES damage : 0 (Noita 15.1); damage $action_white_hole_giga: 0 (Noita 17.36); damage $damage_projectile: 40040.16 (Noita 0) | numbers 
+single:TENTACLE_PORTAL: DOES shots tentacle: 8 (Noita 10) | numbers speed tentacle: 0 (Noita 684); path tentacle: 20 px off at frame 30
+single:SPITTER: OK
+single:SPITTER_TIMER: OK
+single:SPITTER_TIER_2: OK
+single:SPITTER_TIER_2_TIMER: OK
+single:SPITTER_TIER_3: numbers hit-miss $damage_projectile: 0 (Noita 0.6)
+single:SPITTER_TIER_3_TIMER: numbers hit-miss $damage_projectile: 0.6 (Noita 0)
+single:BUBBLESHOT: OK
+single:BUBBLESHOT_TRIGGER: OK
+single:DISC_BULLET: OK
+single:DISC_BULLET_BIG: DOES damage bzzt!: 0 (Noita 0.6) | numbers path disc_bullet_big: 20 px off at frame 20
+single:DISC_BULLET_BIGGER: OK
+single:BOUNCY_ORB: OK
+single:BOUNCY_ORB_TIMER: OK
+single:RUBBER_BALL: OK
+single:ARROW: numbers hit-miss $damage_slice: 0.2 (Noita 0)
+single:POLLEN: numbers path pollen: 8 px off at frame 10
+single:LANCE: OK
+single:LANCE_HOLY: numbers speed lance_holy: 172.11 (Noita 114.57)
+single:ROCKET: DOES damage $damage_fire: 0.48 (Noita 0) | numbers 
+single:ROCKET_TIER_2: OK
+single:ROCKET_TIER_3: DOES damage $damage_explosion: 5.2 (Noita 0); damage $damage_fire: 0.48 (Noita 0) | numbers 
+single:GRENADE: OK
+single:GRENADE_TRIGGER: OK
+single:GRENADE_TIER_2: OK
+single:GRENADE_TIER_3: OK
+single:GRENADE_ANTI: DOES damage $damage_explosion: 1.9 (Noita 0) | numbers path grenade_anti: 13 px off at frame 15; damage $damage_fire: 1.28 (Noita 0.8)
+single:GRENADE_LARGE: OK
+single:MINE: OK
+single:MINE_DEATH_TRIGGER: OK
+single:PIPE_BOMB: OK
+single:PIPE_BOMB_DEATH_TRIGGER: OK
+single:FISH: DOES path fish: 21 px off at frame 5 | numbers 
+single:EXPLODING_DEER: DOES path exploding_deer: 20 px off at frame 5 | numbers 
+single:EXPLODING_DUCKS: numbers path duck: 8 px off at frame 5; damage $damage_fire: 2.86 (Noita 12); damage $damage_projectile: 3.2 (Noita 16)
+single:WORM_SHOT: OK
+single:BOMB_DETONATOR: OK
+single:LASER: DOES damage $damage_explosion: 0.22 (Noita 0) | numbers 
+single:MEGALASER: DOES path megalaser_beam: 44 px off at frame 5; damage $damage_explosion: 1.1 (Noita 0) | numbers speed megalaser_beam: 73.33 (Noita 0)
+single:LIGHTNING: numbers speed lightning: 60 (Noita 5350.34)
+single:BALL_LIGHTNING: OK
+single:LASER_EMITTER: OK
+single:LASER_EMITTER_FOUR: OK
+single:LASER_EMITTER_CUTTER: OK
+single:DIGGER: OK
+single:POWERDIGGER: OK
+single:CHAINSAW: OK
+single:LUMINOUS_DRILL: OK
+single:LASER_LUMINOUS_DRILL: OK
+single:TENTACLE: OK
+single:TENTACLE_TIMER: OK
+single:HEAL_BULLET: numbers damage $damage_healing: 0 (Noita -0.35)
+single:ANTIHEAL: OK
+single:SPIRAL_SHOT: numbers path spiral_part: 13 px off at frame 5
+single:MAGIC_SHIELD: numbers path magic_shield_part: 12 px off at frame 5
+single:BIG_MAGIC_SHIELD: DOES path big_magic_shield_part: 47 px off at frame 5 | numbers 
+single:CHAIN_BOLT: OK
+single:FIREBALL: OK
+single:METEOR: DOES damage $damage_explosion: 0 (Noita 5) | numbers damage $damage_fire: 2.73 (Noita 13802.21)
+single:FLAMETHROWER: OK
+single:ICEBALL: OK
+single:SLIMEBALL: DOES damage $damage_explosion: 0 (Noita 0.3) | numbers hit-miss $damage_projectile: 0 (Noita 0.25)
+single:DARKFLAME: DOES shots darkflame_stationary: 35 (Noita 59) | numbers 
+single:MISSILE: DOES damage $damage_explosion: 0 (Noita 1); damage $damage_projectile: 0 (Noita 2) | numbers path rocket_player: 16 px off at frame 10
+single:FUNKY_SPELL: OK
+single:PEBBLE: DOES damage $damage_explosion: 0 (Noita 5) | numbers 
+single:DYNAMITE: DOES damage $damage_explosion: 0 (Noita 2.5) | numbers 
+single:GLITTER_BOMB: OK
+single:BUCKSHOT: numbers path buckshot_player: 9 px off at frame 5
+single:FREEZING_GAZE: OK
+single:GLOWING_BOLT: numbers damage $damage_projectile: 0.2 (Noita 0.4)
+single:SPORE_POD: DOES shots spore_pod_growing: 0 (Noita 1); shots spore_pod_spike: 0 (Noita 20) | numbers 
+single:GLUE_SHOT: DOES shots glue: 0 (Noita 1) | numbers 
+single:BOMB_HOLY: numbers damage $damage_fire: 0.18 (Noita 4199.97)
+single:BOMB_HOLY_GIGA: numbers path bomb_holy_giga: 10 px off at frame 5
+single:PROPANE_TANK: numbers path propane_tank: 9 px off at frame 15
+single:BOMB_CART: numbers speed bomb_cart: 11.98 (Noita 34.82); path bomb_cart: 6 px off at frame 10
+single:CURSED_ORB: OK
+single:EXPANDING_ORB: OK
+single:CRUMBLING_EARTH: OK
+single:SUMMON_ROCK: OK
+single:SUMMON_EGG: DOES shots egg_red: 0 (Noita 1) | numbers 
+single:SUMMON_HOLLOW_EGG: OK
+single:TNTBOX: OK
+single:TNTBOX_BIG: DOES damage $damage_fire: 0 (Noita 15933.27) | numbers 
+single:SWARM_FLY: numbers path swarm_fly: 10 px off at frame 15
+single:SWARM_FIREBUG: OK
+single:SWARM_WASP: numbers speed swarm_wasp: 98.31 (Noita 56.7); path swarm_wasp: 5 px off at frame 15
+single:FRIEND_FLY: numbers speed friend_fly: 81.7 (Noita 115.68); path friend_fly: 9 px off at frame 15
+single:ACIDSHOT: OK
+single:THUNDERBALL: DOES shots lightning_thunderburst: 0 (Noita 8) | numbers damage $damage_electricity: 1.5 (Noita 9.5); damage $damage_explosion: 1.8 (Noita 4.3)
+single:FIREBOMB: numbers damage $damage_fire: 0.87 (Noita 0.4)
+single:SOILBALL: OK
+single:DEATH_CROSS: OK
+single:DEATH_CROSS_BIG: DOES shots death_cross_big_explosion: 1 (Noita 0) | numbers 
+single:INFESTATION: DOES path infestation: 24 px off at frame 5 | numbers 
+single:WALL_HORIZONTAL: numbers Noita did not cast (mana 0): re-probe this row
+single:WALL_VERTICAL: OK
+single:WALL_SQUARE: OK
+single:TEMPORARY_WALL: OK
+single:TEMPORARY_PLATFORM: OK
+single:PURPLE_EXPLOSION_FIELD: numbers speed purple_explosion: 6.61 (Noita 0)
+single:DELAYED_SPELL: OK
+single:LONG_DISTANCE_CAST: OK
+single:TELEPORT_CAST: OK
+single:SUPER_TELEPORT_CAST: OK
+single:CASTER_CAST: OK
+single:MIST_RADIOACTIVE: OK
+single:MIST_ALCOHOL: OK
+single:MIST_SLIME: OK
+single:MIST_BLOOD: OK
+single:CIRCLE_FIRE: DOES damage $damage_fire: 0 (Noita 4933.32) | numbers 
+single:CIRCLE_ACID: OK
+single:CIRCLE_OIL: OK
+single:CIRCLE_WATER: OK
+single:MATERIAL_WATER: OK
+single:MATERIAL_OIL: OK
+single:MATERIAL_BLOOD: OK
+single:MATERIAL_ACID: OK
+single:MATERIAL_CEMENT: OK
+single:TELEPORT_PROJECTILE: OK
+single:TELEPORT_PROJECTILE_SHORT: OK
+single:TELEPORT_PROJECTILE_STATIC: OK
+single:SWAPPER_PROJECTILE: OK
+single:TELEPORT_PROJECTILE_CLOSER: OK
+single:NUKE: numbers damage $damage_fire: 0.48 (Noita 13799.96)
+single:NUKE_GIGA: numbers damage $damage_fire: 0.48 (Noita 14266.63)
+single:FIREWORK: DOES nothing fired (Noita fired) | numbers 
+single:SUMMON_WANDGHOST: DOES nothing fired (Noita fired) | numbers 
+single:TOUCH_GOLD: OK
+single:TOUCH_WATER: OK
+single:TOUCH_OIL: OK
+single:TOUCH_ALCOHOL: OK
+single:TOUCH_PISS: OK
+single:TOUCH_GRASS: OK
+single:TOUCH_BLOOD: OK
+single:TOUCH_SMOKE: OK
+single:DESTRUCTION: OK
+single:MASS_POLYMORPH: OK
+single:BURST_2: numbers Noita did not cast (mana 0): re-probe this row
+single:BURST_3: OK
+single:BURST_4: OK
+single:BURST_8: OK
+single:BURST_X: OK
+single:SCATTER_2: OK
+single:SCATTER_3: OK
+single:SCATTER_4: OK
+single:I_SHAPE: OK
+single:Y_SHAPE: OK
+single:T_SHAPE: OK
+single:W_SHAPE: OK
+single:CIRCLE_SHAPE: OK
+single:PENTAGRAM_SHAPE: OK
+single:I_SHOT: OK
+single:Y_SHOT: OK
+single:T_SHOT: OK
+single:W_SHOT: OK
+single:QUAD_SHOT: OK
+single:PENTA_SHOT: OK
+single:HEXA_SHOT: OK
+single:SPREAD_REDUCE: OK
+single:HEAVY_SPREAD: OK
+single:RECHARGE: OK
+single:LIFETIME: OK
+single:LIFETIME_DOWN: OK
+single:NOLLA: OK
+single:SLOW_BUT_STEADY: OK
+single:EXPLOSION_REMOVE: OK
+single:EXPLOSION_TINY: OK
+single:LASER_EMITTER_WIDER: OK
+single:MANA_REDUCE: numbers mana 0 (Noita -25)
+single:BLOOD_MAGIC: numbers mana 0 (Noita -95)
+single:MONEY_MAGIC: OK
+single:BLOOD_TO_POWER: numbers damage $damage_projectile: 17.72 (Noita 1.88)
+single:DUPLICATE: OK
+single:QUANTUM_SPLIT: OK
+single:GRAVITY: OK
+single:GRAVITY_ANTI: OK
+single:SINEWAVE: numbers hit-miss $damage_projectile: 0 (Noita 0.12)
+single:CHAOTIC_ARC: numbers hit-miss $damage_projectile: 0 (Noita 0.12)
+single:PINGPONG_PATH: numbers hit-miss $damage_projectile: 0 (Noita 0.12)
+single:AVOIDING_ARC: OK
+single:FLOATING_ARC: OK
+single:FLY_DOWNWARDS: OK
+single:FLY_UPWARDS: OK
+single:HORIZONTAL_ARC: OK
+single:LINE_ARC: OK
+single:ORBIT_SHOT: numbers path light_bullet: 17 px off at frame 5
+single:SPIRALING_SHOT: OK
+single:PHASING_ARC: OK
+single:TRUE_ORBIT: numbers speed light_bullet: 71.43 (Noita 738.07); path light_bullet: 17 px off at frame 5
+single:BOUNCE: OK
+single:REMOVE_BOUNCE: OK
+single:HOMING: numbers path light_bullet: 9 px off at frame 5
+single:ANTI_HOMING: DOES path light_bullet: 26 px off at frame 5 | numbers 
+single:HOMING_WAND: DOES path light_bullet: 25 px off at frame 5; damage $damage_projectile: 0.12 (Noita 0) | numbers 
+single:HOMING_SHORT: OK
+single:HOMING_ROTATE: OK
+single:HOMING_SHOOTER: numbers path light_bullet: 22 px off at frame 10; hit-miss $damage_projectile: 0.12 (Noita 0)
+single:AUTOAIM: OK
+single:HOMING_ACCELERATING: DOES path light_bullet: 18 px off at frame 5; damage $damage_projectile: 0.12 (Noita 0) | numbers speed light_bullet: 751.49 (Noita 305.55)
+single:HOMING_CURSOR: OK
+single:HOMING_AREA: OK
+single:PIERCING_SHOT: OK
+single:CLIPPING_SHOT: OK
+single:DAMAGE: OK
+single:DAMAGE_RANDOM: numbers damage $damage_projectile: 0.12 (Noita 1.72)
+single:BLOODLUST: OK
+single:DAMAGE_FOREVER: numbers damage $damage_projectile: 23.87 (Noita 1248.87); mana 955 (Noita 49955)
+single:CRITICAL_HIT: OK
+single:AREA_DAMAGE: DOES damage $damage_rock_curse: 0 (Noita 0.14) | numbers 
+single:SPELLS_TO_POWER: OK
+single:ESSENCE_TO_POWER: DOES damage $damage_explosion: 0 (Noita 120) | numbers damage $damage_projectile: 0.12 (Noita 120.12)
+single:ZERO_DAMAGE: OK
+single:HEAVY_SHOT: OK
+single:LIGHT_SHOT: OK
+single:KNOCKBACK: OK
+single:RECOIL: OK
+single:RECOIL_DAMPER: OK
+single:SPEED: OK
+single:ACCELERATING_SHOT: OK
+single:DECELERATING_SHOT: OK
+single:EXPLOSIVE_PROJECTILE: OK
+single:CLUSTERMOD: OK
+single:WATER_TO_POISON: OK
+single:BLOOD_TO_ACID: OK
+single:LAVA_TO_BLOOD: OK
+single:LIQUID_TO_EXPLOSION: OK
+single:TOXIC_TO_ACID: OK
+single:STATIC_TO_SAND: OK
+single:TRANSMUTATION: OK
+single:RANDOM_EXPLOSION: numbers shots death_cross: 0 (Noita 1); damage $damage_explosion: 0 (Noita 3)
+single:NECROMANCY: OK
+single:LIGHT: OK
+single:EXPLOSION: OK
+single:EXPLOSION_LIGHT: OK
+single:FIRE_BLAST: OK
+single:POISON_BLAST: OK
+single:ALCOHOL_BLAST: OK
+single:THUNDER_BLAST: numbers speed lightning: 60 (Noita 2500)
+single:BERSERK_FIELD: OK
+single:POLYMORPH_FIELD: OK
+single:CHAOS_POLYMORPH_FIELD: OK
+single:ELECTROCUTION_FIELD: OK
+single:FREEZE_FIELD: OK
+single:REGENERATION_FIELD: OK
+single:TELEPORTATION_FIELD: OK
+single:LEVITATION_FIELD: numbers path levitation_field: 8 px off at frame 10
+single:SHIELD_FIELD: OK
+single:PROJECTILE_TRANSMUTATION_FIELD: OK
+single:PROJECTILE_THUNDER_FIELD: OK
+single:PROJECTILE_GRAVITY_FIELD: OK
+single:VACUUM_POWDER: OK
+single:VACUUM_LIQUID: OK
+single:VACUUM_ENTITIES: OK
+single:SEA_LAVA: OK
+single:SEA_ALCOHOL: OK
+single:SEA_OIL: OK
+single:SEA_WATER: OK
+single:SEA_SWAMP: OK
+single:SEA_ACID: OK
+single:SEA_ACID_GAS: OK
+single:SEA_MIMIC: OK
+single:CLOUD_WATER: DOES path cloud_water: 40 px off at frame 5 | numbers 
+single:CLOUD_OIL: DOES path cloud_oil: 40 px off at frame 5 | numbers 
+single:CLOUD_BLOOD: DOES path cloud_blood: 40 px off at frame 5 | numbers 
+single:CLOUD_ACID: DOES path cloud_acid: 40 px off at frame 5 | numbers 
+single:CLOUD_THUNDER: DOES path cloud_thunder: 40 px off at frame 5 | numbers speed lightning_extra_arcs: 60 (Noita 4000)
+single:ELECTRIC_CHARGE: OK
+single:MATTER_EATER: OK
+single:FREEZE: DOES damage debuff: 0.64 (Noita 0) | numbers 
+single:HITFX_BURNING_CRITICAL_HIT: OK
+single:HITFX_CRITICAL_WATER: OK
+single:HITFX_CRITICAL_OIL: OK
+single:HITFX_CRITICAL_BLOOD: OK
+single:HITFX_TOXIC_CHARM: OK
+single:HITFX_EXPLOSION_SLIME: OK
+single:HITFX_EXPLOSION_SLIME_GIGA: OK
+single:HITFX_EXPLOSION_ALCOHOL: OK
+single:HITFX_EXPLOSION_ALCOHOL_GIGA: OK
+single:HITFX_PETRIFY: OK
+single:ROCKET_DOWNWARDS: OK
+single:ROCKET_OCTAGON: OK
+single:FIZZLE: DOES shots fizzle: 0 (Noita 5) | numbers damage $damage_projectile: 0.12 (Noita 0.54)
+single:BOUNCE_EXPLOSION: OK
+single:BOUNCE_SPARK: OK
+single:BOUNCE_LASER: OK
+single:BOUNCE_LASER_EMITTER: OK
+single:BOUNCE_LARPA: OK
+single:BOUNCE_SMALL_EXPLOSION: OK
+single:BOUNCE_LIGHTNING: OK
+single:BOUNCE_HOLE: OK
+single:FIREBALL_RAY: numbers speed fireball_ray: 1000 (Noita 3000)
+single:LIGHTNING_RAY: DOES damage $damage_electricity: 1 (Noita 0); damage $damage_explosion: 5 (Noita 0); damage $damage_fire: 0.48 (Noita 0) | numbers speed lightning_extra_arcs: 60 (Noita 3000)
+single:TENTACLE_RAY: DOES damage $damage_melee: 0.5 (Noita 0) | numbers speed tentacle: 0 (Noita 3000)
+single:LASER_EMITTER_RAY: DOES damage $damage_plasmabeam: 0 (Noita 11.76) | numbers 
+single:FIREBALL_RAY_LINE: numbers speed fireball_ray_small: 1000 (Noita 2000)
+single:FIREBALL_RAY_ENEMY: OK
+single:LIGHTNING_RAY_ENEMY: OK
+single:TENTACLE_RAY_ENEMY: OK
+single:GRAVITY_FIELD_ENEMY: OK
+single:CURSE: OK
+single:CURSE_WITHER_PROJECTILE: OK
+single:CURSE_WITHER_EXPLOSION: OK
+single:CURSE_WITHER_MELEE: OK
+single:CURSE_WITHER_ELECTRICITY: OK
+single:ORBIT_DISCS: DOES damage $damage_slice: 0 (Noita 4) | numbers 
+single:ORBIT_FIREBALLS: DOES damage $damage_explosion: 0 (Noita 0.8); damage $damage_fire: 0 (Noita 866.83) | numbers 
+single:ORBIT_NUKES: numbers damage $damage_explosion: 12 (Noita 24); damage $damage_fire: 0.5 (Noita 14333.31)
+single:ORBIT_LASERS: numbers damage $damage_projectile: 0.92 (Noita 0.12)
+single:ORBIT_LARPA: OK
+single:CHAIN_SHOT: OK
+single:ARC_ELECTRIC: OK
+single:ARC_FIRE: OK
+single:ARC_GUNPOWDER: OK
+single:ARC_POISON: OK
+single:CRUMBLING_EARTH_PROJECTILE: OK
+single:X_RAY: OK
+single:UNSTABLE_GUNPOWDER: OK
+single:ACID_TRAIL: OK
+single:POISON_TRAIL: DOES damage debuff: 0.08 (Noita 0) | numbers 
+single:OIL_TRAIL: OK
+single:WATER_TRAIL: OK
+single:GUNPOWDER_TRAIL: OK
+single:FIRE_TRAIL: numbers damage $damage_fire: 0.6 (Noita 66.67)
+single:BURN_TRAIL: numbers damage $damage_fire: 0.6 (Noita 66.67)
+single:TORCH: OK
+single:TORCH_ELECTRIC: OK
+single:ENERGY_SHIELD: OK
+single:ENERGY_SHIELD_SECTOR: OK
+single:ENERGY_SHIELD_SHOT: OK
+single:TINY_GHOST: numbers Noita did not cast (mana 0): re-probe this row
+single:OCARINA_A: OK
+single:OCARINA_B: OK
+single:OCARINA_C: OK
+single:OCARINA_D: OK
+single:OCARINA_E: OK
+single:OCARINA_F: OK
+single:OCARINA_GSHARP: OK
+single:OCARINA_A2: OK
+single:KANTELE_A: OK
+single:KANTELE_D: OK
+single:KANTELE_DIS: OK
+single:KANTELE_E: OK
+single:KANTELE_G: OK
+single:RANDOM_SPELL: numbers shots light_bullet: 3 (Noita 1); mana 20 (Noita 10)
+single:RANDOM_PROJECTILE: numbers shots healhurt: 0 (Noita 1); shots worm_shot: 1 (Noita 0); damage $damage_projectile: 0 (Noita 1.2)
+single:RANDOM_MODIFIER: numbers damage $damage_explosion: 0 (Noita 24); damage $damage_fire: 0 (Noita 14666.61); damage $damage_projectile: 0.12 (Noita 2.12)
+single:RANDOM_STATIC_PROJECTILE: numbers shots freeze_field: 1 (Noita 0); shots levitation_field: 0 (Noita 1)
+single:DRAW_RANDOM: OK
+single:DRAW_RANDOM_X3: OK
+single:DRAW_3_RANDOM: OK
+single:ALL_NUKES: DOES shots nuke: 1 (Noita 0); damage $damage_explosion: 10 (Noita 0); damage $damage_fire: 0.48 (Noita 0) | numbers 
+single:ALL_DISCS: DOES shots disc_bullet_big: 1 (Noita 0) | numbers 
+single:ALL_ROCKETS: DOES shots rocket: 1 (Noita 0) | numbers 
+single:ALL_DEATHCROSSES: DOES shots death_cross_big: 1 (Noita 0); shots death_cross_big_explosion: 1 (Noita 0); shots death_cross_big_laser: 16 (Noita 0); damage $damage_explosion: 1.52 (Noita 0); damage $damage_projectile: 4.6 (Noita 0) | numbers 
+single:ALL_BLACKHOLES: DOES shots black_hole: 1 (Noita 0) | numbers 
+single:ALL_ACID: DOES shots acidburst: 1 (Noita 0) | numbers 
+single:ALL_SPELLS: DOES shots remove_ground: 0 (Noita 1) | numbers 
+single:SUMMON_PORTAL: OK
+single:ADD_TRIGGER: OK
+single:ADD_TIMER: OK
+single:ADD_DEATH_TRIGGER: OK
+single:LARPA_CHAOS: OK
+single:LARPA_DOWNWARDS: OK
+single:LARPA_UPWARDS: OK
+single:LARPA_CHAOS_2: OK
+single:LARPA_DEATH: numbers damage $damage_projectile: 0.84 (Noita 0.6)
+single:ALPHA: OK
+single:GAMMA: OK
+single:TAU: OK
+single:OMEGA: OK
+single:MU: OK
+single:PHI: OK
+single:SIGMA: OK
+single:ZETA: OK
+single:DIVIDE_2: OK
+single:DIVIDE_3: OK
+single:DIVIDE_4: OK
+single:DIVIDE_10: OK
+single:METEOR_RAIN: DOES shots meteor_rain_meteor: 7 (Noita 10) | numbers 
+single:WORM_RAIN: DOES shots remove_ground: 0 (Noita 1) | numbers 
+single:RESET: OK
+single:IF_ENEMY: OK
+single:IF_PROJECTILE: OK
+single:IF_HP: OK
+single:IF_HALF: OK
+single:IF_END: OK
+single:IF_ELSE: OK
+single:COLOUR_RED: OK
+single:COLOUR_ORANGE: OK
+single:COLOUR_GREEN: OK
+single:COLOUR_YELLOW: OK
+single:COLOUR_PURPLE: OK
+single:COLOUR_BLUE: OK
+single:COLOUR_RAINBOW: OK
+single:COLOUR_INVIS: OK
+single:RAINBOW_TRAIL: OK
+single:CESSATION: OK
+mod:SPREAD_REDUCE+LIGHT_BULLET: OK
+mod:SPREAD_REDUCE+BOUNCY_ORB: OK
+mod:SPREAD_REDUCE+GRENADE: OK
+mod:HEAVY_SPREAD+LIGHT_BULLET: OK
+mod:HEAVY_SPREAD+BOUNCY_ORB: OK
+mod:HEAVY_SPREAD+GRENADE: OK
+mod:RECHARGE+LIGHT_BULLET: OK
+mod:RECHARGE+BOUNCY_ORB: OK
+mod:RECHARGE+GRENADE: OK
+mod:LIFETIME+LIGHT_BULLET: OK
+mod:LIFETIME+BOUNCY_ORB: OK
+mod:LIFETIME+GRENADE: OK
+mod:LIFETIME_DOWN+LIGHT_BULLET: OK
+mod:LIFETIME_DOWN+BOUNCY_ORB: OK
+mod:LIFETIME_DOWN+GRENADE: OK
+mod:NOLLA+LIGHT_BULLET: OK
+mod:NOLLA+BOUNCY_ORB: OK
+mod:NOLLA+GRENADE: OK
+mod:SLOW_BUT_STEADY+LIGHT_BULLET: OK
+mod:SLOW_BUT_STEADY+BOUNCY_ORB: OK
+mod:SLOW_BUT_STEADY+GRENADE: OK
+mod:EXPLOSION_REMOVE+LIGHT_BULLET: OK
+mod:EXPLOSION_REMOVE+BOUNCY_ORB: OK
+mod:EXPLOSION_REMOVE+GRENADE: OK
+mod:EXPLOSION_TINY+LIGHT_BULLET: OK
+mod:EXPLOSION_TINY+BOUNCY_ORB: OK
+mod:EXPLOSION_TINY+GRENADE: OK
+mod:LASER_EMITTER_WIDER+LIGHT_BULLET: OK
+mod:LASER_EMITTER_WIDER+BOUNCY_ORB: OK
+mod:LASER_EMITTER_WIDER+GRENADE: OK
+mod:MANA_REDUCE+LIGHT_BULLET: numbers mana 0 (Noita -25)
+mod:MANA_REDUCE+BOUNCY_ORB: numbers mana 0 (Noita -10)
+mod:MANA_REDUCE+GRENADE: OK
+mod:QUANTUM_SPLIT+LIGHT_BULLET: OK
+mod:QUANTUM_SPLIT+BOUNCY_ORB: OK
+mod:QUANTUM_SPLIT+GRENADE: OK
+mod:GRAVITY+LIGHT_BULLET: OK
+mod:GRAVITY+BOUNCY_ORB: OK
+mod:GRAVITY+GRENADE: OK
+mod:GRAVITY_ANTI+LIGHT_BULLET: OK
+mod:GRAVITY_ANTI+BOUNCY_ORB: OK
+mod:GRAVITY_ANTI+GRENADE: OK
+mod:SINEWAVE+LIGHT_BULLET: numbers hit-miss $damage_projectile: 0 (Noita 0.12)
+mod:SINEWAVE+BOUNCY_ORB: DOES path bouncy_orb: 60 px off at frame 5; damage $damage_projectile: 0 (Noita 0.18); damage $damage_slice: 0 (Noita 0.2) | numbers 
+mod:SINEWAVE+GRENADE: DOES path grenade: 28 px off at frame 5 | numbers 
+mod:CHAOTIC_ARC+LIGHT_BULLET: OK
+mod:CHAOTIC_ARC+BOUNCY_ORB: numbers path bouncy_orb: 23 px off at frame 5; damage $damage_projectile: 0.2 (Noita 0.11)
+mod:CHAOTIC_ARC+GRENADE: numbers path grenade: 8 px off at frame 5
+mod:PINGPONG_PATH+LIGHT_BULLET: numbers hit-miss $damage_projectile: 0 (Noita 0.12)
+mod:PINGPONG_PATH+BOUNCY_ORB: numbers path bouncy_orb: 25 px off at frame 15
+mod:PINGPONG_PATH+GRENADE: numbers path grenade: 14 px off at frame 15
+mod:AVOIDING_ARC+LIGHT_BULLET: OK
+mod:AVOIDING_ARC+BOUNCY_ORB: numbers hit-miss $damage_projectile: 0.2 (Noita 0); hit-miss $damage_slice: 0.2 (Noita 0)
+mod:AVOIDING_ARC+GRENADE: DOES damage $damage_explosion: 1.9 (Noita 0) | numbers damage $damage_fire: 0.98 (Noita 5667.14)
+mod:FLOATING_ARC+LIGHT_BULLET: OK
+mod:FLOATING_ARC+BOUNCY_ORB: numbers path bouncy_orb: 14 px off at frame 10; damage $damage_projectile: 0.2 (Noita 0.1)
+mod:FLOATING_ARC+GRENADE: DOES damage $damage_explosion: 1.9 (Noita 0) | numbers path grenade: 10 px off at frame 10; damage $damage_fire: 0.8 (Noita 0.5)
+mod:FLY_DOWNWARDS+LIGHT_BULLET: OK
+mod:FLY_DOWNWARDS+BOUNCY_ORB: numbers hit-miss $damage_projectile: 0.2 (Noita 0); hit-miss $damage_slice: 0.2 (Noita 0)
+mod:FLY_DOWNWARDS+GRENADE: OK
+mod:FLY_UPWARDS+LIGHT_BULLET: OK
+mod:FLY_UPWARDS+BOUNCY_ORB: numbers hit-miss $damage_projectile: 0.2 (Noita 0); hit-miss $damage_slice: 0.2 (Noita 0)
+mod:FLY_UPWARDS+GRENADE: OK
+mod:HORIZONTAL_ARC+LIGHT_BULLET: OK
+mod:HORIZONTAL_ARC+BOUNCY_ORB: OK
+mod:HORIZONTAL_ARC+GRENADE: DOES damage $damage_explosion: 1.9 (Noita 0) | numbers damage $damage_fire: 0.98 (Noita 0.5)
+mod:LINE_ARC+LIGHT_BULLET: OK
+mod:LINE_ARC+BOUNCY_ORB: OK
+mod:LINE_ARC+GRENADE: numbers damage $damage_fire: 0.98 (Noita 4600.5)
+mod:ORBIT_SHOT+LIGHT_BULLET: numbers path light_bullet: 18 px off at frame 5
+mod:ORBIT_SHOT+BOUNCY_ORB: numbers path bouncy_orb: 12 px off at frame 5
+mod:ORBIT_SHOT+GRENADE: numbers path grenade: 6 px off at frame 5
+mod:SPIRALING_SHOT+LIGHT_BULLET: OK
+mod:SPIRALING_SHOT+BOUNCY_ORB: DOES path bouncy_orb: 41 px off at frame 5 | numbers 
+mod:SPIRALING_SHOT+GRENADE: numbers Noita did not cast (mana 0): re-probe this row
+mod:PHASING_ARC+LIGHT_BULLET: numbers Noita did not cast (mana 0): re-probe this row
+mod:PHASING_ARC+BOUNCY_ORB: numbers Noita did not cast (mana 0): re-probe this row
+mod:PHASING_ARC+GRENADE: OK
+mod:TRUE_ORBIT+LIGHT_BULLET: numbers speed light_bullet: 73.21 (Noita 742.28); path light_bullet: 18 px off at frame 5
+mod:TRUE_ORBIT+BOUNCY_ORB: numbers speed bouncy_orb: 38.97 (Noita 416.5)
+mod:TRUE_ORBIT+GRENADE: numbers speed grenade: 30.72 (Noita 267.14)
+mod:BOUNCE+LIGHT_BULLET: OK
+mod:BOUNCE+BOUNCY_ORB: OK
+mod:BOUNCE+GRENADE: OK
+mod:REMOVE_BOUNCE+LIGHT_BULLET: OK
+mod:REMOVE_BOUNCE+BOUNCY_ORB: OK
+mod:REMOVE_BOUNCE+GRENADE: OK
+mod:HOMING+LIGHT_BULLET: numbers path light_bullet: 10 px off at frame 5
+mod:HOMING+BOUNCY_ORB: OK
+mod:HOMING+GRENADE: numbers path grenade: 18 px off at frame 20; damage $damage_fire: 0.98 (Noita 1333.83)
+mod:ANTI_HOMING+LIGHT_BULLET: DOES path light_bullet: 24 px off at frame 5 | numbers 
+mod:ANTI_HOMING+BOUNCY_ORB: DOES path bouncy_orb: 15 px off at frame 5 | numbers 
+mod:ANTI_HOMING+GRENADE: numbers path grenade: 9 px off at frame 5
+mod:HOMING_WAND+LIGHT_BULLET: DOES path light_bullet: 24 px off at frame 5; damage $damage_projectile: 0.12 (Noita 0) | numbers speed light_bullet: 758.15 (Noita 591.65)
+mod:HOMING_WAND+BOUNCY_ORB: numbers speed bouncy_orb: 440.57 (Noita 318.19); path bouncy_orb: 14 px off at frame 5
+mod:HOMING_WAND+GRENADE: numbers path grenade: 7 px off at frame 5
+mod:HOMING_SHORT+LIGHT_BULLET: OK
+mod:HOMING_SHORT+BOUNCY_ORB: OK
+mod:HOMING_SHORT+GRENADE: DOES damage $damage_explosion: 0 (Noita 1.9); damage $damage_fire: 0 (Noita 8667.14) | numbers hit-miss $damage_projectile: 0 (Noita 1.3)
+mod:HOMING_ROTATE+LIGHT_BULLET: OK
+mod:HOMING_ROTATE+BOUNCY_ORB: OK
+mod:HOMING_ROTATE+GRENADE: DOES damage $damage_explosion: 1.9 (Noita 0) | numbers damage $damage_fire: 0.98 (Noita 7533.82)
+mod:HOMING_SHOOTER+LIGHT_BULLET: numbers path light_bullet: 23 px off at frame 10; hit-miss $damage_projectile: 0.12 (Noita 0)
+mod:HOMING_SHOOTER+BOUNCY_ORB: numbers path bouncy_orb: 16 px off at frame 10
+mod:HOMING_SHOOTER+GRENADE: numbers path grenade: 11 px off at frame 10
+mod:AUTOAIM+LIGHT_BULLET: numbers hit-miss $damage_projectile: 0.12 (Noita 0)
+mod:AUTOAIM+BOUNCY_ORB: OK
+mod:AUTOAIM+GRENADE: OK
+mod:HOMING_ACCELERATING+LIGHT_BULLET: DOES path light_bullet: 19 px off at frame 5; damage $damage_projectile: 0.12 (Noita 0) | numbers speed light_bullet: 821.6 (Noita 313.31)
+mod:HOMING_ACCELERATING+BOUNCY_ORB: numbers speed bouncy_orb: 408.27 (Noita 175.79); path bouncy_orb: 10 px off at frame 5; damage $damage_projectile: 0.2 (Noita 0.34)
+mod:HOMING_ACCELERATING+GRENADE: numbers speed grenade: 276.85 (Noita 115.19); path grenade: 6 px off at frame 5; damage $damage_fire: 0.98 (Noita 800.5)
+mod:HOMING_CURSOR+LIGHT_BULLET: OK
+mod:HOMING_CURSOR+BOUNCY_ORB: numbers path bouncy_orb: 8 px off at frame 5
+mod:HOMING_CURSOR+GRENADE: numbers path grenade: 11 px off at frame 5
+mod:HOMING_AREA+LIGHT_BULLET: OK
+mod:HOMING_AREA+BOUNCY_ORB: numbers damage $damage_projectile: 0.2 (Noita 0.08)
+mod:HOMING_AREA+GRENADE: OK
+mod:PIERCING_SHOT+LIGHT_BULLET: OK
+mod:PIERCING_SHOT+BOUNCY_ORB: OK
+mod:PIERCING_SHOT+GRENADE: OK
+mod:CLIPPING_SHOT+LIGHT_BULLET: OK
+mod:CLIPPING_SHOT+BOUNCY_ORB: numbers path bouncy_orb: 21 px off at frame 30
+mod:CLIPPING_SHOT+GRENADE: numbers path grenade: 20 px off at frame 25
+mod:DAMAGE+LIGHT_BULLET: OK
+mod:DAMAGE+BOUNCY_ORB: OK
+mod:DAMAGE+GRENADE: OK
+mod:DAMAGE_RANDOM+LIGHT_BULLET: OK
+mod:DAMAGE_RANDOM+BOUNCY_ORB: OK
+mod:DAMAGE_RANDOM+GRENADE: OK
+mod:BLOODLUST+LIGHT_BULLET: OK
+mod:BLOODLUST+BOUNCY_ORB: DOES damage $damage_projectile: 1.5 (Noita 0) | numbers hit-miss $damage_slice: 0.2 (Noita 0)
+mod:BLOODLUST+GRENADE: OK
+mod:DAMAGE_FOREVER+LIGHT_BULLET: numbers damage $damage_projectile: 23.87 (Noita 1248.87); mana 955 (Noita 49955)
+mod:DAMAGE_FOREVER+BOUNCY_ORB: numbers mana 970 (Noita 49970)
+mod:DAMAGE_FOREVER+GRENADE: numbers mana 1000 (Noita 50000)
+mod:CRITICAL_HIT+LIGHT_BULLET: OK
+mod:CRITICAL_HIT+BOUNCY_ORB: OK
+mod:CRITICAL_HIT+GRENADE: OK
+mod:AREA_DAMAGE+LIGHT_BULLET: DOES damage $damage_rock_curse: 0 (Noita 0.14) | numbers 
+mod:AREA_DAMAGE+BOUNCY_ORB: DOES damage $damage_rock_curse: 0 (Noita 1.26) | numbers hit-miss $damage_projectile: 0.91 (Noita 0); hit-miss $damage_slice: 0.91 (Noita 0)
+mod:AREA_DAMAGE+GRENADE: OK
+mod:SPELLS_TO_POWER+LIGHT_BULLET: OK
+mod:SPELLS_TO_POWER+BOUNCY_ORB: OK
+mod:SPELLS_TO_POWER+GRENADE: OK
+mod:ESSENCE_TO_POWER+LIGHT_BULLET: DOES damage $damage_explosion: 0 (Noita 120) | numbers damage $damage_projectile: 0.12 (Noita 120.12)
+mod:ESSENCE_TO_POWER+BOUNCY_ORB: OK
+mod:ESSENCE_TO_POWER+GRENADE: OK
+mod:ZERO_DAMAGE+LIGHT_BULLET: OK
+mod:ZERO_DAMAGE+BOUNCY_ORB: OK
+mod:ZERO_DAMAGE+GRENADE: OK
+mod:HEAVY_SHOT+LIGHT_BULLET: OK
+mod:HEAVY_SHOT+BOUNCY_ORB: OK
+mod:HEAVY_SHOT+GRENADE: OK
+mod:LIGHT_SHOT+LIGHT_BULLET: OK
+mod:LIGHT_SHOT+BOUNCY_ORB: numbers hit-miss $damage_slice: 0 (Noita 0.2)
+mod:LIGHT_SHOT+GRENADE: numbers damage $damage_fire: 0.98 (Noita 733.83)
+mod:KNOCKBACK+LIGHT_BULLET: OK
+mod:KNOCKBACK+BOUNCY_ORB: OK
+mod:KNOCKBACK+GRENADE: OK
+mod:RECOIL+LIGHT_BULLET: OK
+mod:RECOIL+BOUNCY_ORB: OK
+mod:RECOIL+GRENADE: OK
+mod:RECOIL_DAMPER+LIGHT_BULLET: OK
+mod:RECOIL_DAMPER+BOUNCY_ORB: OK
+mod:RECOIL_DAMPER+GRENADE: OK
+mod:SPEED+LIGHT_BULLET: OK
+mod:SPEED+BOUNCY_ORB: OK
+mod:SPEED+GRENADE: DOES damage $damage_explosion: 1.9 (Noita 0); damage $damage_fire: 0.98 (Noita 0) | numbers hit-miss $damage_projectile: 1.3 (Noita 0)
+mod:ACCELERATING_SHOT+LIGHT_BULLET: OK
+mod:ACCELERATING_SHOT+BOUNCY_ORB: numbers hit-miss $damage_projectile: 0.2 (Noita 0); hit-miss $damage_slice: 0.2 (Noita 0)
+mod:ACCELERATING_SHOT+GRENADE: OK
+mod:DECELERATING_SHOT+LIGHT_BULLET: OK
+mod:DECELERATING_SHOT+BOUNCY_ORB: OK
+mod:DECELERATING_SHOT+GRENADE: OK
+mod:EXPLOSIVE_PROJECTILE+LIGHT_BULLET: OK
+mod:EXPLOSIVE_PROJECTILE+BOUNCY_ORB: OK
+mod:EXPLOSIVE_PROJECTILE+GRENADE: OK
+mod:CLUSTERMOD+LIGHT_BULLET: OK
+mod:CLUSTERMOD+BOUNCY_ORB: DOES damage $damage_explosion: 0 (Noita 0.5); damage $damage_fire: 0 (Noita 8599.98) | numbers 
+mod:CLUSTERMOD+GRENADE: DOES shots grenade_small: 0 (Noita 8); damage $damage_explosion: 0 (Noita 0.5); damage $damage_fire: 0 (Noita 9600.26); damage $damage_projectile: 0 (Noita 0.7) | numbers 
+mod:WATER_TO_POISON+LIGHT_BULLET: OK
+mod:WATER_TO_POISON+BOUNCY_ORB: OK
+mod:WATER_TO_POISON+GRENADE: OK
+mod:BLOOD_TO_ACID+LIGHT_BULLET: OK
+mod:BLOOD_TO_ACID+BOUNCY_ORB: OK
+mod:BLOOD_TO_ACID+GRENADE: OK
+mod:LAVA_TO_BLOOD+LIGHT_BULLET: OK
+mod:LAVA_TO_BLOOD+BOUNCY_ORB: OK
+mod:LAVA_TO_BLOOD+GRENADE: OK
+mod:LIQUID_TO_EXPLOSION+LIGHT_BULLET: OK
+mod:LIQUID_TO_EXPLOSION+BOUNCY_ORB: OK
+mod:LIQUID_TO_EXPLOSION+GRENADE: OK
+mod:TOXIC_TO_ACID+LIGHT_BULLET: OK
+mod:TOXIC_TO_ACID+BOUNCY_ORB: OK
+mod:TOXIC_TO_ACID+GRENADE: OK
+mod:STATIC_TO_SAND+LIGHT_BULLET: OK
+mod:STATIC_TO_SAND+BOUNCY_ORB: OK
+mod:STATIC_TO_SAND+GRENADE: OK
+mod:TRANSMUTATION+LIGHT_BULLET: OK
+mod:TRANSMUTATION+BOUNCY_ORB: OK
+mod:TRANSMUTATION+GRENADE: OK
+mod:RANDOM_EXPLOSION+LIGHT_BULLET: numbers shots black_hole_big: 0 (Noita 1); damage : 0 (Noita 5.6)
+mod:RANDOM_EXPLOSION+BOUNCY_ORB: numbers shots wall_builder: 0 (Noita 8); shots wall_piece: 0 (Noita 76); shots wall_sound: 0 (Noita 1); shots wall_square: 0 (Noita 1)
+mod:RANDOM_EXPLOSION+GRENADE: numbers shots fireball: 0 (Noita 1)
+mod:NECROMANCY+LIGHT_BULLET: OK
+mod:NECROMANCY+BOUNCY_ORB: OK
+mod:NECROMANCY+GRENADE: OK
+mod:LIGHT+LIGHT_BULLET: OK
+mod:LIGHT+BOUNCY_ORB: OK
+mod:LIGHT+GRENADE: OK
+mod:ELECTRIC_CHARGE+LIGHT_BULLET: OK
+mod:ELECTRIC_CHARGE+BOUNCY_ORB: OK
+mod:ELECTRIC_CHARGE+GRENADE: OK
+mod:MATTER_EATER+LIGHT_BULLET: OK
+mod:MATTER_EATER+BOUNCY_ORB: OK
+mod:MATTER_EATER+GRENADE: numbers path grenade: 13 px off at frame 20
+mod:FREEZE+LIGHT_BULLET: DOES damage debuff: 0.64 (Noita 0) | numbers 
+mod:FREEZE+BOUNCY_ORB: OK
+mod:FREEZE+GRENADE: OK
+mod:HITFX_BURNING_CRITICAL_HIT+LIGHT_BULLET: OK
+mod:HITFX_BURNING_CRITICAL_HIT+BOUNCY_ORB: OK
+mod:HITFX_BURNING_CRITICAL_HIT+GRENADE: OK
+mod:HITFX_CRITICAL_WATER+LIGHT_BULLET: OK
+mod:HITFX_CRITICAL_WATER+BOUNCY_ORB: OK
+mod:HITFX_CRITICAL_WATER+GRENADE: OK
+mod:HITFX_CRITICAL_OIL+LIGHT_BULLET: OK
+mod:HITFX_CRITICAL_OIL+BOUNCY_ORB: OK
+mod:HITFX_CRITICAL_OIL+GRENADE: OK
+mod:HITFX_CRITICAL_BLOOD+LIGHT_BULLET: OK
+mod:HITFX_CRITICAL_BLOOD+BOUNCY_ORB: OK
+mod:HITFX_CRITICAL_BLOOD+GRENADE: OK
+mod:HITFX_TOXIC_CHARM+LIGHT_BULLET: OK
+mod:HITFX_TOXIC_CHARM+BOUNCY_ORB: OK
+mod:HITFX_TOXIC_CHARM+GRENADE: OK
+mod:HITFX_EXPLOSION_SLIME+LIGHT_BULLET: OK
+mod:HITFX_EXPLOSION_SLIME+BOUNCY_ORB: OK
+mod:HITFX_EXPLOSION_SLIME+GRENADE: OK
+mod:HITFX_EXPLOSION_SLIME_GIGA+LIGHT_BULLET: OK
+mod:HITFX_EXPLOSION_SLIME_GIGA+BOUNCY_ORB: OK
+mod:HITFX_EXPLOSION_SLIME_GIGA+GRENADE: OK
+mod:HITFX_EXPLOSION_ALCOHOL+LIGHT_BULLET: OK
+mod:HITFX_EXPLOSION_ALCOHOL+BOUNCY_ORB: OK
+mod:HITFX_EXPLOSION_ALCOHOL+GRENADE: OK
+mod:HITFX_EXPLOSION_ALCOHOL_GIGA+LIGHT_BULLET: OK
+mod:HITFX_EXPLOSION_ALCOHOL_GIGA+BOUNCY_ORB: OK
+mod:HITFX_EXPLOSION_ALCOHOL_GIGA+GRENADE: OK
+mod:HITFX_PETRIFY+LIGHT_BULLET: OK
+mod:HITFX_PETRIFY+BOUNCY_ORB: OK
+mod:HITFX_PETRIFY+GRENADE: OK
+mod:ROCKET_DOWNWARDS+LIGHT_BULLET: OK
+mod:ROCKET_DOWNWARDS+BOUNCY_ORB: OK
+mod:ROCKET_DOWNWARDS+GRENADE: OK
+mod:ROCKET_OCTAGON+LIGHT_BULLET: OK
+mod:ROCKET_OCTAGON+BOUNCY_ORB: OK
+mod:ROCKET_OCTAGON+GRENADE: OK
+mod:FIZZLE+LIGHT_BULLET: numbers Noita did not cast (mana 0): re-probe this row
+mod:FIZZLE+BOUNCY_ORB: OK
+mod:FIZZLE+GRENADE: DOES shots fizzle: 0 (Noita 5) | numbers 
+mod:BOUNCE_EXPLOSION+LIGHT_BULLET: OK
+mod:BOUNCE_EXPLOSION+BOUNCY_ORB: DOES shots bounce_explosion: 4 (Noita 2) | numbers speed bounce_explosion: 6.61 (Noita 0)
+mod:BOUNCE_EXPLOSION+GRENADE: DOES shots bounce_explosion: 5 (Noita 4) | numbers 
+mod:BOUNCE_SPARK+LIGHT_BULLET: OK
+mod:BOUNCE_SPARK+BOUNCY_ORB: numbers damage $damage_projectile: 0.2 (Noita 0.4)
+mod:BOUNCE_SPARK+GRENADE: DOES shots bounce_spark_friendly_fire_silent: 2 (Noita 1); damage $damage_projectile: 0 (Noita 0.4) | numbers 
+mod:BOUNCE_LASER+LIGHT_BULLET: OK
+mod:BOUNCE_LASER+BOUNCY_ORB: DOES shots bounce_laser: 16 (Noita 12) | numbers 
+mod:BOUNCE_LASER+GRENADE: DOES shots bounce_laser: 20 (Noita 16) | numbers 
+mod:BOUNCE_LASER_EMITTER+LIGHT_BULLET: OK
+mod:BOUNCE_LASER_EMITTER+BOUNCY_ORB: OK
+mod:BOUNCE_LASER_EMITTER+GRENADE: OK
+mod:BOUNCE_LARPA+LIGHT_BULLET: OK
+mod:BOUNCE_LARPA+BOUNCY_ORB: DOES shots bouncy_orb: 9 (Noita 13); damage $damage_projectile: 0.4 (Noita 0); damage $damage_slice: 0.4 (Noita 0) | numbers 
+mod:BOUNCE_LARPA+GRENADE: DOES shots grenade: 9 (Noita 21); damage $damage_explosion: 3.8 (Noita 0) | numbers damage $damage_fire: 1.4 (Noita 1)
+mod:BOUNCE_SMALL_EXPLOSION+LIGHT_BULLET: OK
+mod:BOUNCE_SMALL_EXPLOSION+BOUNCY_ORB: DOES shots bounce_small_explosion: 5 (Noita 4) | numbers speed bounce_small_explosion: 6.61 (Noita 0)
+mod:BOUNCE_SMALL_EXPLOSION+GRENADE: DOES shots bounce_small_explosion: 5 (Noita 4) | numbers speed bounce_small_explosion: 6.61 (Noita 0)
+mod:BOUNCE_LIGHTNING+LIGHT_BULLET: OK
+mod:BOUNCE_LIGHTNING+BOUNCY_ORB: DOES damage $damage_explosion: 0 (Noita 3) | numbers speed bounce_lightning: 60 (Noita 1000)
+mod:BOUNCE_LIGHTNING+GRENADE: DOES shots bounce_lightning: 5 (Noita 4) | numbers speed bounce_lightning: 60 (Noita 1000)
+mod:BOUNCE_HOLE+LIGHT_BULLET: OK
+mod:BOUNCE_HOLE+BOUNCY_ORB: DOES shots bounce_hole: 5 (Noita 6) | numbers speed bounce_hole: 6.61 (Noita 0)
+mod:BOUNCE_HOLE+GRENADE: OK
+mod:FIREBALL_RAY+LIGHT_BULLET: numbers speed fireball_ray: 999.99 (Noita 3000)
+mod:FIREBALL_RAY+BOUNCY_ORB: DOES shots fireball_ray: 17 (Noita 7); damage $damage_fire: 0 (Noita 6400.17) | numbers speed fireball_ray: 1000 (Noita 3000)
+mod:FIREBALL_RAY+GRENADE: DOES shots fireball_ray: 14 (Noita 7) | numbers speed fireball_ray: 1000 (Noita 3000)
+mod:LIGHTNING_RAY+LIGHT_BULLET: DOES damage $damage_electricity: 1 (Noita 0); damage $damage_fire: 0.48 (Noita 0) | numbers speed lightning_extra_arcs: 60 (Noita 3000)
+mod:LIGHTNING_RAY+BOUNCY_ORB: DOES shots lightning_extra_arcs: 18 (Noita 7); damage $damage_fire: 0.48 (Noita 0) | numbers speed lightning_extra_arcs: 60 (Noita 3000); damage $damage_electricity: 1 (Noita 2)
+mod:LIGHTNING_RAY+GRENADE: DOES shots lightning_extra_arcs: 14 (Noita 9); damage $damage_electricity: 0 (Noita 1); damage $damage_fire: 0.56 (Noita 0) | numbers speed lightning_extra_arcs: 60 (Noita 3000); damage $damage_explosion: 20 (Noita 10)
+mod:TENTACLE_RAY+LIGHT_BULLET: DOES damage $damage_melee: 0.5 (Noita 0) | numbers speed tentacle: 0 (Noita 3000)
+mod:TENTACLE_RAY+BOUNCY_ORB: DOES shots tentacle: 17 (Noita 7) | numbers speed tentacle: 0 (Noita 3000); path tentacle: 10 px off at frame 5; damage $damage_melee: 0.5 (Noita 0.94)
+mod:TENTACLE_RAY+GRENADE: DOES shots tentacle: 23 (Noita 7) | numbers speed tentacle: 0 (Noita 3000); path tentacle: 20 px off at frame 25; damage $damage_melee: 0.5 (Noita 1.8)
+mod:LASER_EMITTER_RAY+LIGHT_BULLET: OK
+mod:LASER_EMITTER_RAY+BOUNCY_ORB: DOES shots orb_laseremitter_weak: 21 (Noita 9) | numbers 
+mod:LASER_EMITTER_RAY+GRENADE: DOES shots orb_laseremitter_weak: 27 (Noita 12) | numbers damage $damage_plasmabeam: 20.58 (Noita 5.88)
+mod:FIREBALL_RAY_LINE+LIGHT_BULLET: numbers speed fireball_ray_small: 1000 (Noita 2000)
+mod:FIREBALL_RAY_LINE+BOUNCY_ORB: DOES shots fireball_ray_small: 46 (Noita 14) | numbers speed fireball_ray_small: 1000 (Noita 2000); damage $damage_explosion: 0.8 (Noita 1.6); damage $damage_fire: 0.88 (Noita 7533.72)
+mod:FIREBALL_RAY_LINE+GRENADE: DOES shots fireball_ray_small: 22 (Noita 18); damage $damage_explosion: 0 (Noita 0.8); damage $damage_fire: 0 (Noita 4267.06) | numbers speed fireball_ray_small: 1000 (Noita 2000)
+mod:FIREBALL_RAY_ENEMY+LIGHT_BULLET: OK
+mod:FIREBALL_RAY_ENEMY+BOUNCY_ORB: OK
+mod:FIREBALL_RAY_ENEMY+GRENADE: OK
+mod:LIGHTNING_RAY_ENEMY+LIGHT_BULLET: OK
+mod:LIGHTNING_RAY_ENEMY+BOUNCY_ORB: OK
+mod:LIGHTNING_RAY_ENEMY+GRENADE: OK
+mod:TENTACLE_RAY_ENEMY+LIGHT_BULLET: OK
+mod:TENTACLE_RAY_ENEMY+BOUNCY_ORB: OK
+mod:TENTACLE_RAY_ENEMY+GRENADE: OK
+mod:GRAVITY_FIELD_ENEMY+LIGHT_BULLET: OK
+mod:GRAVITY_FIELD_ENEMY+BOUNCY_ORB: OK
+mod:GRAVITY_FIELD_ENEMY+GRENADE: OK
+mod:CURSE+LIGHT_BULLET: OK
+mod:CURSE+BOUNCY_ORB: OK
+mod:CURSE+GRENADE: OK
+mod:CURSE_WITHER_PROJECTILE+LIGHT_BULLET: OK
+mod:CURSE_WITHER_PROJECTILE+BOUNCY_ORB: OK
+mod:CURSE_WITHER_PROJECTILE+GRENADE: OK
+mod:CURSE_WITHER_EXPLOSION+LIGHT_BULLET: OK
+mod:CURSE_WITHER_EXPLOSION+BOUNCY_ORB: OK
+mod:CURSE_WITHER_EXPLOSION+GRENADE: OK
+mod:CURSE_WITHER_MELEE+LIGHT_BULLET: OK
+mod:CURSE_WITHER_MELEE+BOUNCY_ORB: OK
+mod:CURSE_WITHER_MELEE+GRENADE: OK
+mod:CURSE_WITHER_ELECTRICITY+LIGHT_BULLET: OK
+mod:CURSE_WITHER_ELECTRICITY+BOUNCY_ORB: OK
+mod:CURSE_WITHER_ELECTRICITY+GRENADE: OK
+mod:ORBIT_DISCS+LIGHT_BULLET: OK
+mod:ORBIT_DISCS+BOUNCY_ORB: DOES damage $damage_slice: 0 (Noita 6) | numbers 
+mod:ORBIT_DISCS+GRENADE: OK
+mod:ORBIT_FIREBALLS+LIGHT_BULLET: DOES damage $damage_explosion: 0 (Noita 0.8); damage $damage_fire: 0 (Noita 800.16) | numbers 
+mod:ORBIT_FIREBALLS+BOUNCY_ORB: DOES damage $damage_explosion: 0 (Noita 1.6); damage $damage_fire: 0 (Noita 4266.97) | numbers 
+mod:ORBIT_FIREBALLS+GRENADE: OK
+mod:ORBIT_NUKES+LIGHT_BULLET: numbers damage $damage_fire: 0.51 (Noita 14799.94)
+mod:ORBIT_NUKES+BOUNCY_ORB: numbers path bouncy_orb: 30 px off at frame 30; damage $damage_fire: 0.55 (Noita 12333.3)
+mod:ORBIT_NUKES+GRENADE: DOES damage $damage_explosion: 0 (Noita 24); damage $damage_fire: 0 (Noita 10133.3) | numbers path grenade: 13 px off at frame 25
+mod:ORBIT_LASERS+LIGHT_BULLET: numbers damage $damage_plasmabeam: 0.25 (Noita 0.15); damage $damage_projectile: 1.72 (Noita 0.12)
+mod:ORBIT_LASERS+BOUNCY_ORB: OK
+mod:ORBIT_LASERS+GRENADE: OK
+mod:ORBIT_LARPA+LIGHT_BULLET: OK
+mod:ORBIT_LARPA+BOUNCY_ORB: OK
+mod:ORBIT_LARPA+GRENADE: OK
+mod:CHAIN_SHOT+LIGHT_BULLET: OK
+mod:CHAIN_SHOT+BOUNCY_ORB: numbers path bouncy_orb: 28 px off at frame 15
+mod:CHAIN_SHOT+GRENADE: DOES shots grenade: 1 (Noita 3) | numbers 
+mod:ARC_ELECTRIC+LIGHT_BULLET: numbers Noita did not cast (mana 0): re-probe this row
+mod:ARC_ELECTRIC+BOUNCY_ORB: OK
+mod:ARC_ELECTRIC+GRENADE: OK
+mod:ARC_FIRE+LIGHT_BULLET: OK
+mod:ARC_FIRE+BOUNCY_ORB: OK
+mod:ARC_FIRE+GRENADE: OK
+mod:ARC_GUNPOWDER+LIGHT_BULLET: OK
+mod:ARC_GUNPOWDER+BOUNCY_ORB: OK
+mod:ARC_GUNPOWDER+GRENADE: OK
+mod:ARC_POISON+LIGHT_BULLET: OK
+mod:ARC_POISON+BOUNCY_ORB: OK
+mod:ARC_POISON+GRENADE: OK
+mod:CRUMBLING_EARTH_PROJECTILE+LIGHT_BULLET: OK
+mod:CRUMBLING_EARTH_PROJECTILE+BOUNCY_ORB: OK
+mod:CRUMBLING_EARTH_PROJECTILE+GRENADE: OK
+mod:UNSTABLE_GUNPOWDER+LIGHT_BULLET: OK
+mod:UNSTABLE_GUNPOWDER+BOUNCY_ORB: OK
+mod:UNSTABLE_GUNPOWDER+GRENADE: OK
+mod:ACID_TRAIL+LIGHT_BULLET: OK
+mod:ACID_TRAIL+BOUNCY_ORB: OK
+mod:ACID_TRAIL+GRENADE: OK
+mod:POISON_TRAIL+LIGHT_BULLET: DOES damage debuff: 0.08 (Noita 0) | numbers 
+mod:POISON_TRAIL+BOUNCY_ORB: OK
+mod:POISON_TRAIL+GRENADE: OK
+mod:OIL_TRAIL+LIGHT_BULLET: OK
+mod:OIL_TRAIL+BOUNCY_ORB: OK
+mod:OIL_TRAIL+GRENADE: DOES damage $damage_fire: 0 (Noita 7333.31) | numbers 
+mod:WATER_TRAIL+LIGHT_BULLET: OK
+mod:WATER_TRAIL+BOUNCY_ORB: OK
+mod:WATER_TRAIL+GRENADE: OK
+mod:GUNPOWDER_TRAIL+LIGHT_BULLET: OK
+mod:GUNPOWDER_TRAIL+BOUNCY_ORB: numbers hit-miss $damage_projectile: 0 (Noita 0.07); hit-miss $damage_slice: 0 (Noita 0.2)
+mod:GUNPOWDER_TRAIL+GRENADE: OK
+mod:FIRE_TRAIL+LIGHT_BULLET: DOES damage $damage_fire: 0.6 (Noita 0) | numbers 
+mod:FIRE_TRAIL+BOUNCY_ORB: DOES damage $damage_fire: 0 (Noita 666.67) | numbers 
+mod:FIRE_TRAIL+GRENADE: OK
+mod:BURN_TRAIL+LIGHT_BULLET: numbers damage $damage_fire: 0.6 (Noita 66.67)
+mod:BURN_TRAIL+BOUNCY_ORB: OK
+mod:BURN_TRAIL+GRENADE: OK
+mod:ENERGY_SHIELD_SHOT+LIGHT_BULLET: OK
+mod:ENERGY_SHIELD_SHOT+BOUNCY_ORB: OK
+mod:ENERGY_SHIELD_SHOT+GRENADE: OK
+mod:RANDOM_MODIFIER+LIGHT_BULLET: OK
+mod:RANDOM_MODIFIER+BOUNCY_ORB: OK
+mod:RANDOM_MODIFIER+GRENADE: numbers path grenade: 12 px off at frame 5
+mod:LARPA_CHAOS+LIGHT_BULLET: OK
+mod:LARPA_CHAOS+BOUNCY_ORB: DOES shots bouncy_orb: 17 (Noita 8) | numbers damage $damage_projectile: 0.6 (Noita 0.4); damage $damage_slice: 0.6 (Noita 0.4)
+mod:LARPA_CHAOS+GRENADE: DOES shots grenade: 24 (Noita 7); damage $damage_explosion: 3.8 (Noita 0); damage $damage_fire: 1.42 (Noita 0); damage $damage_projectile: 2.6 (Noita 0) | numbers 
+mod:LARPA_DOWNWARDS+LIGHT_BULLET: numbers Noita did not cast (mana 0): re-probe this row
+mod:LARPA_DOWNWARDS+BOUNCY_ORB: numbers Noita did not cast (mana 0): re-probe this row
+mod:LARPA_DOWNWARDS+GRENADE: DOES shots grenade: 24 (Noita 6) | numbers 
+mod:LARPA_UPWARDS+LIGHT_BULLET: OK
+mod:LARPA_UPWARDS+BOUNCY_ORB: DOES shots bouncy_orb: 17 (Noita 8); damage $damage_projectile: 0.2 (Noita 0); damage $damage_slice: 0.2 (Noita 0) | numbers 
+mod:LARPA_UPWARDS+GRENADE: DOES shots grenade: 24 (Noita 8) | numbers 
+mod:LARPA_CHAOS_2+LIGHT_BULLET: OK
+mod:LARPA_CHAOS_2+BOUNCY_ORB: DOES shots bouncy_orb: 36 (Noita 15) | numbers 
+mod:LARPA_CHAOS_2+GRENADE: DOES shots grenade: 40 (Noita 11) | numbers 
+mod:LARPA_DEATH+LIGHT_BULLET: numbers damage $damage_projectile: 0.84 (Noita 0.6)
+mod:LARPA_DEATH+BOUNCY_ORB: numbers damage $damage_projectile: 0.4 (Noita 0.28)
+mod:LARPA_DEATH+GRENADE: numbers Noita did not cast (mana 0): re-probe this row
+mod:COLOUR_RED+LIGHT_BULLET: numbers Noita did not cast (mana 0): re-probe this row
+mod:COLOUR_RED+BOUNCY_ORB: numbers Noita did not cast (mana 0): re-probe this row
+mod:COLOUR_RED+GRENADE: OK
+mod:COLOUR_ORANGE+LIGHT_BULLET: OK
+mod:COLOUR_ORANGE+BOUNCY_ORB: OK
+mod:COLOUR_ORANGE+GRENADE: OK
+mod:COLOUR_GREEN+LIGHT_BULLET: OK
+mod:COLOUR_GREEN+BOUNCY_ORB: OK
+mod:COLOUR_GREEN+GRENADE: OK
+mod:COLOUR_YELLOW+LIGHT_BULLET: OK
+mod:COLOUR_YELLOW+BOUNCY_ORB: OK
+mod:COLOUR_YELLOW+GRENADE: OK
+mod:COLOUR_PURPLE+LIGHT_BULLET: OK
+mod:COLOUR_PURPLE+BOUNCY_ORB: OK
+mod:COLOUR_PURPLE+GRENADE: OK
+mod:COLOUR_BLUE+LIGHT_BULLET: OK
+mod:COLOUR_BLUE+BOUNCY_ORB: OK
+mod:COLOUR_BLUE+GRENADE: OK
+mod:COLOUR_RAINBOW+LIGHT_BULLET: OK
+mod:COLOUR_RAINBOW+BOUNCY_ORB: OK
+mod:COLOUR_RAINBOW+GRENADE: OK
+mod:COLOUR_INVIS+LIGHT_BULLET: OK
+mod:COLOUR_INVIS+BOUNCY_ORB: OK
+mod:COLOUR_INVIS+GRENADE: OK
+mod:RAINBOW_TRAIL+LIGHT_BULLET: OK
+mod:RAINBOW_TRAIL+BOUNCY_ORB: OK
+mod:RAINBOW_TRAIL+GRENADE: OK
+combo:BURST_2+LIGHT_BULLET+BOUNCY_ORB: OK
+combo:BURST_3+LIGHT_BULLET+BOUNCY_ORB+GRENADE: OK
+combo:BURST_4+LIGHT_BULLET+LIGHT_BULLET+BOUNCY_ORB+GRENADE: OK
+combo:SCATTER_2+LIGHT_BULLET+LIGHT_BULLET: OK
+combo:SCATTER_3+LIGHT_BULLET+LIGHT_BULLET+LIGHT_BULLET: numbers hit-miss $damage_projectile: 0 (Noita 0.24)
+combo:SCATTER_4+LIGHT_BULLET+LIGHT_BULLET+LIGHT_BULLET+LIGHT_BULLET: numbers hit-miss $damage_projectile: 0 (Noita 0.12)
+combo:ADD_TRIGGER+LIGHT_BULLET+BOUNCY_ORB: OK
+combo:ADD_TIMER+LIGHT_BULLET+BOUNCY_ORB: OK
+combo:ADD_DEATH_TRIGGER+LIGHT_BULLET+BOUNCY_ORB: OK
+combo:ADD_TRIGGER+LIGHT_BULLET+BURST_2+BOUNCY_ORB+GRENADE: numbers damage $damage_fire: 0.98 (Noita 9733.8)
+combo:DIVIDE_2+LIGHT_BULLET: OK
+combo:DIVIDE_3+LIGHT_BULLET: OK
+combo:DIVIDE_4+LIGHT_BULLET: OK
+combo:DIVIDE_10+LIGHT_BULLET: OK
+combo:HOMING+BURST_2+LIGHT_BULLET+BOUNCY_ORB: numbers path light_bullet: 9 px off at frame 5
+combo:DAMAGE+HEAVY_SHOT+LIGHT_BULLET: OK
+combo:ALPHA+LIGHT_BULLET+BOUNCY_ORB: OK
+combo:GAMMA+LIGHT_BULLET+BOUNCY_ORB: OK
+combo:TAU+LIGHT_BULLET+BOUNCY_ORB+GRENADE: OK
+combo:OMEGA+LIGHT_BULLET+BOUNCY_ORB: OK
+combo:MU+HOMING+DAMAGE+LIGHT_BULLET: numbers speed light_bullet: 799.57 (Noita 587.68); path light_bullet: 13 px off at frame 5
+combo:PHI+LIGHT_BULLET+BOUNCY_ORB: OK
+combo:SIGMA+LIGHT_BULLET+BOUNCY_ORB: OK
+combo:ZETA+LIGHT_BULLET: OK
+wand:1-00: OK
+wand:2-01: OK
+wand:3-02: numbers hit-miss $damage_slice: 0.8 (Noita 0)
+wand:4-03: OK
+wand:5-04: DOES shots fireball_ray: 8 (Noita 2); damage $damage_fire: 0 (Noita 8800.16) | numbers speed fireball_ray: 1000 (Noita 3000)
+wand:6-05: numbers path propane_tank: 10 px off at frame 15
+wand:1-06: numbers Noita did not cast (mana 0): re-probe this row
+wand:2-07: DOES damage $damage_fire: 0 (Noita 9799.97) | numbers speed glitter_bomb: 518.84 (Noita 180)
+wand:3-08: OK
+wand:4-09: numbers path mine: 8 px off at frame 30
+wand:5-10: numbers path buckshot_player: 29 px off at frame 15
+wand:6-11: OK
+wand:1-12: numbers hit-miss $damage_projectile: 0.24 (Noita 0)
+wand:2-13: DOES damage $damage_explosion: 0.36 (Noita 0) | numbers 
+wand:3-14: OK
+wand:4-15: numbers path tentacle: 8 px off at frame 5
+wand:5-16: OK
+wand:6-17: DOES damage $damage_melee: 0 (Noita 0.8) | numbers path tentacle: 14 px off at frame 10
+wand:1-18: numbers path bubbleshot: 15 px off at frame 30
+wand:2-19: OK
+wand:3-20: OK
+wand:4-21: DOES damage debuff: 0.64 (Noita 0) | numbers 
+wand:5-22: numbers path spitter_tier_3: 23 px off at frame 10
+wand:6-23: DOES shots black_hole: 0 (Noita 1); shots disc_bullet_bigger: 2 (Noita 1); shots lightning_extra_arcs: 0 (Noita 6); path disc_bullet_bigger: 11 px off at frame 5; path arrow: 26 px off at frame 5; path bullet: 26 px off at frame 5; path chain_bolt: 45 px off at frame 10; path spitter_tier_3: 23 px off at frame 5; path bullet_slow: 24 px off at frame 5; path crumbling_earth: 15 px off at frame 5; damage $damage_plasmabeam: 0 (Noita 0.32); damage $damage_projectile: 3.4 (Noita 0) | numbers path orb_laseremitter_four: 5 px off at frame 15; speed crumbling_earth: 109.01 (Noita 303.08); mana 1000 (Noita 1110)
+wand:1-24: numbers damage $damage_explosion: 10 (Noita 5); damage $damage_fire: 0.16 (Noita 3533.32)
+wand:2-25: OK
+wand:3-26: OK
+wand:4-27: numbers path mine: 9 px off at frame 15
+wand:5-28: OK
+wand:6-29: DOES shots spitter_tier_2: 18 (Noita 11) | numbers damage $damage_projectile: 9 (Noita 0.5)
+wand:1-30: numbers Noita did not cast (mana 0): re-probe this row
+wand:2-31: OK
+wand:3-32: OK
+wand:4-33: numbers hit-miss $damage_projectile: 0.4 (Noita 0)
+wand:5-34: DOES shots spore_pod_growing: 0 (Noita 1); shots spore_pod_spike: 0 (Noita 20) | numbers damage $damage_fire: 0.48 (Noita 14866.61); damage $damage_projectile: 22.71 (Noita 0.1); mana 977 (Noita 49977)
+wand:6-35: OK
+wand:1-36: OK
+wand:2-37: DOES shots fireball_ray: 10 (Noita 9) | numbers speed fireball_ray: 1000 (Noita 3000)
+wand:3-38: DOES shots lightning_extra_arcs: 32 (Noita 3); damage $damage_explosion: 65 (Noita 0); damage $damage_fire: 0.58 (Noita 0) | numbers speed lightning_extra_arcs: 60 (Noita 3000)
+wand:4-39: OK
+wand:5-40: DOES path glowing_bolt: 31 px off at frame 5; damage $damage_explosion: 0 (Noita 0.2); damage $damage_fire: 0 (Noita 1466.66) | numbers 
+wand:6-41: numbers path lance: 21 px off at frame 25
+wand:1-42: numbers path rock: 7 px off at frame 25
+wand:2-43: OK
+wand:3-44: OK
+wand:4-45: OK
+wand:5-46: DOES shots pipe_bomb: 1 (Noita 0); shots tentacle: 8 (Noita 10) | numbers speed tentacle: 0 (Noita 631); path tentacle: 19 px off at frame 30
+wand:6-47: OK
+wand:1-48: OK
+wand:2-49: DOES damage $damage_explosion: 5 (Noita 0) | numbers path bomb: 9 px off at frame 25; damage $damage_fire: 0.16 (Noita 3533.32)
