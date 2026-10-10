@@ -97,7 +97,9 @@ namespace Terranoita.Game.Magic
                     case "SineWaveComponent": SineWave(s, e); break;
                     case "ArcComponent": Arc(s, e); break;
                     case "MagicConvertMaterialComponent":
-                        if (s.Age % 15 == 1 && Physics.Patches.On)
+                        // Noita converts every frame (steps_per_frame 48): once in 15 frames a fast shot crossed a pool of toxic
+                        // sludge and changed nearly nothing (author: TOXIC_TO_ACID "does not work")
+                        if (s.Age % 2 == 1 && Physics.Patches.On)
                             Physics.Fluids.ConvertMaterial((int)(s.Pos.X / 16), (int)(s.Pos.Y / 16), Math.Max(1, (int)(e.N("radius", 16) * Px / 16)),
                                 e.S("from_material"), e.S("to_material"));
                         break;
