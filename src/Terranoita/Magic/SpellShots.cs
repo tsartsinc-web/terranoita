@@ -622,6 +622,11 @@ namespace Terranoita.Game.Magic
                 Physics.Fire.IgniteArea(s.Pos, 24f, 0.8f);
             // Noita's ELECTRIC_CHARGE (lightning_count): "releases an electric charge on impact" (the engine's electricity,
             // misc/electricity.xml) - into the conducting liquid there
+            // spawn_entity: "this is spawned if hit something an on_collision_spawn_entity = 1" (component_documentation.txt;
+            // SPORE_POD grows its pod from it)
+            var proj = hit ? Part(s.Lua.File ?? "", "ProjectileComponent") : null;
+            if (proj != null && !string.IsNullOrEmpty(proj.Get("spawn_entity")) && proj.Get("on_collision_spawn_entity") != "0")
+                LoadEntity(proj.Get("spawn_entity"), s.Pos, s.Owner);
             if (hit && s.Lua.Get("lightning_count") > 0)
                 Physics.Electricity.Emit(s.Pos, ElectricEnergy(ElectricityFile));
             if (s.Phys.Lightning != null)
