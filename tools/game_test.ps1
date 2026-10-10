@@ -29,13 +29,14 @@ if ($Mode -in @("magic", "spells")) {
     if ($cli) { & $cli.FullName lua-golden $Noita --check (Join-Path $PSScriptRoot "..\design\sources\lua_cast_golden.txt") | Select-Object -Last 20 }
 }
 # only test games (started with our testsave folder) are ever closed; a game the author plays (Melty, by hand) stops the test
-$games = @(Get-CimInstance Win32_Process | Where-Object { $_.Name -match 'Terranoita' })
+# a test server (tools/mp_test.ps1: Terranoita.exe -server ... testsave) stays: -Mode mp joins it
+$games = @(Get-CimInstance Win32_Process | Where-Object { $_.Name -match 'Terranoita' -and $_.CommandLine -notmatch ' -server ' })
 $theirs = @($games | Where-Object { $_.CommandLine -notmatch 'testsave' })
 if ($theirs.Count -gt 0) { "the author's game is running (Terranoita, pid $($theirs[0].ProcessId)): no test now"; exit 1 }
 $games | ForEach-Object { "a test game was still running: closed"; Stop-Process -Id $_.ProcessId -Force }
 # (no memory check: the author removed it 2026-10-08; the PC has no page file, so a test with little memory free can
 # hang it, see MODLOG/tasks note)
-Copy-Item (Join-Path $bin "Terranoita.Game.dll"), (Join-Path $bin "Terranoita.Core.dll"), (Join-Path $bin "MoonSharp.Interpreter.dll") -Destination $Terraria -Force -ErrorAction Stop
+if ($Mode -ne "mp") { Copy-Item (Join-Path $bin "Terranoita.Game.dll"), (Join-Path $bin "Terranoita.Core.dll"), (Join-Path $bin "MoonSharp.Interpreter.dll") -Destination $Terraria -Force -ErrorAction Stop }   # mp: mp_test.ps1 copied them; the server holds them
 $data = Join-Path $env:LOCALAPPDATA "Terranoita"
 $log = Join-Path $data "logs\latest.log"
 if (Test-Path $log) { [IO.File]::Delete($log) }

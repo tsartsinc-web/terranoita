@@ -230,7 +230,8 @@ namespace Terranoita.Game
                 p.statLife = p.statLifeMax2;
             _worldFrames++;
             // only the enemy under test: Terraria's own hostile NPCs are removed as soon as they appear
-            for (int i = 0; i < Main.maxNPCs; i++)
+            // (not in multiplayer: a client does not own the NPCs, and it would hide the server's creatures from itself)
+            for (int i = 0; i < Main.maxNPCs && string.IsNullOrEmpty(Join); i++)
             {
                 var other = Main.npc[i];
                 if (other.active && !other.friendly && !other.townNPC && Carriers.Get(other) == null && !Carriers.IsSegment(other))
@@ -238,13 +239,39 @@ namespace Terranoita.Game
             }
             if (!string.IsNullOrEmpty(Join))
             {
-                // multiplayer: what of the server's Noita creatures this client knows (PC-38)
+                // multiplayer: what of the server's Noita creatures this client knows (PC-38). At frame 120 the test
+                // character goes into the caves (no town nearby, no daylight rule), where Noita creatures come
+                if (_worldFrames == 120)
+                {
+                    int cx = (int)(p.Center.X / 16);
+                    for (int y = (int)Main.rockLayer + 20; y < Main.maxTilesY - 250; y++)
+                    {
+                        bool air = true;
+                        for (int dx = -1; dx <= 1 && air; dx++)
+                            for (int dy = -3; dy <= 0 && air; dy++)
+                            {
+                                var t = Main.tile[cx + dx, y + dy];
+                                air = t != null && !(t.active() && Main.tileSolid[t.type]) && t.liquid == 0;
+                            }
+                        var below = Main.tile[cx, y + 1];
+                        if (air && below != null && below.active() && Main.tileSolid[below.type])
+                        {
+                            p.Teleport(new Vector2(cx * 16 - p.width / 2f + 8, (y + 1) * 16 - p.height), 1);
+                            p.velocity = Vector2.Zero;
+                            NetMessage.SendData(13, -1, -1, null, p.whoAmI);   // PlayerControls: the server learns where we are
+                            Entry.Log("MPTEST: into the caves at tile " + cx + "," + y);
+                            break;
+                        }
+                    }
+                }
                 if (_worldFrames % 300 == 0)
-                    Entry.Log("MPTEST frame " + _worldFrames + ": netMode " + Main.netMode + ", Noita creatures " +
+                    Entry.Log("MPTEST frame " + _worldFrames + ": at tile " + (int)(p.Center.X / 16) + "," + (int)(p.Center.Y / 16) + ", netMode " + Main.netMode + ", Noita creatures " +
                               Enumerable.Range(0, Main.maxNPCs).Count(i => Main.npc[i].active && Carriers.Get(Main.npc[i]) != null) + ", segments " +
                               Enumerable.Range(0, Main.maxNPCs).Count(i => Main.npc[i].active && Carriers.IsSegment(Main.npc[i])) + ", other npcs " +
-                              Enumerable.Range(0, Main.maxNPCs).Count(i => Main.npc[i].active && Carriers.Get(Main.npc[i]) == null && !Carriers.IsSegment(Main.npc[i])));
-                if (_worldFrames >= 3600 && ExitWhenDone)
+                              Enumerable.Range(0, Main.maxNPCs).Count(i => Main.npc[i].active && Carriers.Get(Main.npc[i]) == null && !Carriers.IsSegment(Main.npc[i])) +
+                              "; carrier npcs received: " + string.Join(",", Enumerable.Range(0, Main.maxNPCs).Where(i => Main.npc[i].active && Main.npc[i].type == Carriers.CarrierType)
+                                  .Select(i => "#" + i + " tag " + Main.npc[i].ai[3] + " at " + (int)((Main.npc[i].Center.X - p.Center.X) / 16) + "," + (int)((Main.npc[i].Center.Y - p.Center.Y) / 16))));
+                if (_worldFrames >= 5400 && ExitWhenDone)
                     Main.instance.Exit();
                 return;
             }

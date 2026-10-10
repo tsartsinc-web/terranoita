@@ -619,6 +619,15 @@
    "purpose": "Host & Play starts Terranoita.exe -server (the same mod) instead of plain TerrariaServer.exe, which deleted our items in chests (PC-38).",
    "stage": "3",
    "_unverified": {}
+  },
+  {
+   "id": "npc_carrier_defaults",
+   "target": "Terraria.NPC:SetDefaults(int, NPCSpawnParams)",
+   "patch": "postfix",
+   "system": "host_server",
+   "purpose": "Type 146 (our creatures' carrier) gets lifeMax 1, not 0: clients deactivated full-life creatures from the server (PC-38).",
+   "stage": "3",
+   "_unverified": {}
   }
  ]
 }

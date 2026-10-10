@@ -282,7 +282,8 @@
    "description": "Playing together: the host's server runs the mod too (launcher -server sets Main.dedServ).",
    "stage": "3",
    "hooks": [
-    "host_and_play"
+    "host_and_play",
+    "npc_carrier_defaults"
    ],
    "code": "src/Terranoita/HostServer.cs, src/Terranoita.Launcher/Program.cs",
    "_unverified": {}

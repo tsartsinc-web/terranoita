@@ -74,18 +74,42 @@ namespace Terranoita.Game
             }
             if (tag < 1 || (int)tag > Enemies.All.Length)
                 return;
-            if (Table[i] != null && Table[i].NetTag == tag)
-                return;
             var def = Enemies.All[(int)tag - 1];
             var tier = Defs.Tier[def.Tier];
+            int lifeMax = LifeMax(def, tier);
+            // already known, and Terraria has not made the slot anew (a new instance gets type 146's defaults again)
+            if (Table[i] != null && Table[i].NetTag == tag && npc.lifeMax == lifeMax)
+                return;
             var c = npc.Center;
             Size(npc, def);
             npc.Center = c;
+            // the server sends "full life" as one bit and the client then takes its own lifeMax: the real one from here on
+            bool full = npc.life >= npc.lifeMax;
+            npc.lifeMax = lifeMax;
+            if (full)
+                npc.life = lifeMax;
             npc.noGravity = true;
             npc.damage = npc.defDamage = 0;
             HeadOf[i] = -1;
-            Table[i] = new NoitaNpc { Def = def, Tier = tier, Brain = new Brain(def), Name = NoitaArt.Name(def), NetTag = tag };
+            if (Table[i] == null || Table[i].NetTag != tag)
+                Table[i] = new NoitaNpc { Def = def, Tier = tier, Brain = new Brain(def), Name = NoitaArt.Name(def), NetTag = tag };
             npc.noTileCollide = Table[i].Brain.PassesTiles;
+        }
+
+        static int LifeMax(EnemyDef def, BalanceDef tier) => Math.Max(1, (int)Math.Round(def.NoitaHp * tier.HpMult));
+
+        [Hook("npc_carrier_defaults")]
+        [HarmonyPatch(typeof(NPC), nameof(NPC.SetDefaults))]
+        static class CarrierDefaultsPatch
+        {
+            // type 146 (NPCID.None3, the carrier) has lifeMax 0. A client receiving a creature at full life takes its own
+            // lifeMax as the life and deactivates an NPC with life 0 (MessageBuffer, NPC update): our creatures vanished
+            // in multiplayer (2026-10-10). 1 keeps it alive until Adopt sets the creature's own.
+            static void Postfix(NPC __instance, int Type)
+            {
+                if (Type == CarrierType && __instance.lifeMax <= 0)
+                    __instance.lifeMax = __instance.life = 1;
+            }
         }
 
         static void Size(NPC npc, EnemyDef def)
@@ -136,7 +160,7 @@ namespace Terranoita.Game
             var tier = Defs.Tier[def.Tier];
             Size(npc, def);
             npc.position = new Vector2(x - npc.width / 2f, bottom - npc.height);
-            npc.lifeMax = Math.Max(1, (int)Math.Round(def.NoitaHp * tier.HpMult));
+            npc.lifeMax = LifeMax(def, tier);
             npc.life = npc.lifeMax;
             npc.defense = tier.Defense;
             npc.defDefense = tier.Defense;

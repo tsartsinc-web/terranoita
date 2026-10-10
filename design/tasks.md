@@ -32,6 +32,11 @@ How it works (author, 2026-10-08): the author only says "работай" to eith
 - Roadmap: design/roadmap.md. Worldgen plan: design/worldgen_plan.md (PC-10 after CLOUD-7).
 
 ## PC queue
+- PC-38 creatures in multiplayer VERIFIED (2026-10-10, tools/mp_test.ps1 -TestSpawn: our server + a joining test
+  client): the server spawns Noita creatures for every player (natural ones too: zombie, rat), the client sees them
+  (6 at once, tag 45 = zombie_weak, right places), 0 errors on both. Causes fixed: spawning was single player only;
+  type 146 (NPCID.None3) has lifeMax 0, and a client takes its own lifeMax for a full-life NPC update and deactivates
+  it (CarrierDefaultsPatch: 1, Adopt sets the real one); game_test closed the test server (keeps " -server " now).
 - PC-38 doing (author's multiplayer test 2026-10-10, top priority): ROOT CAUSE (from Terraria's code): Host & Play starts
   plain TerrariaServer.exe (Main.HostAndPlay); our mod is not in it. Item.SetDefaults turns deprecated item types to air,
   and our spell/wand/flask/perk carriers ARE deprecated types (only our process un-deprecates them): the server deletes

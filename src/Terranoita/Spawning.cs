@@ -60,6 +60,8 @@ namespace Terranoita.Game
             }
         }
 
+        static readonly bool TestSpawn = Environment.GetEnvironmentVariable("TERRANOITA_TEST_SPAWN") == "1";
+
         static void Roll()
         {
             // single player, or the world's server for every player (multiplayer: clients make no creatures, as in Terraria)
@@ -71,7 +73,24 @@ namespace Terranoita.Game
             {
                 for (int k = 0; k < Main.maxPlayers; k++)
                     if (Main.player[k].active)
+                    {
+                        // test (game_test -Mode mp with the server started with TERRANOITA_TEST_SPAWN=1): a weak zombie next
+                        // to every player every 5 s, whatever the place and time, so the client's side can be checked
+                        if (TestSpawn && Main.GameUpdateCount % 300 == 0)
+                        {
+                            var pl = Main.player[k];
+                            if (Main.dayTime)
+                            {
+                                Main.dayTime = false;   // the test is at night (author): surface creatures come too
+                                Main.time = 0;
+                                NetMessage.SendData(7);
+                            }
+                            int who = Carriers.Spawn(Enemies.All.First(e => e.Id == "zombie_weak"), (int)pl.Center.X + 160, (int)pl.Bottom.Y);
+                            Entry.Log("TEST server: player " + k + " at tile " + (int)(pl.Center.X / 16) + "," + (int)(pl.Center.Y / 16) + " -> #" + who +
+                                      "; carriers alive " + Enumerable.Range(0, Main.maxNPCs).Count(i => Main.npc[i].active && Main.npc[i].type == Carriers.CarrierType));
+                        }
                         RollFor(Main.player[k]);
+                    }
                 return;
             }
             RollFor(Main.LocalPlayer);

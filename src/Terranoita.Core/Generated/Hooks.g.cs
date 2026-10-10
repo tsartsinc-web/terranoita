@@ -90,6 +90,7 @@ namespace Terranoita.Generated
             new HookDef { Id = "worldgen_passes", Target = "Terraria.WorldGen:AddPasses()", Patch = "postfix", System = "loot", Purpose = "Noita's content in Terraria's own world generation: a loot pass after Final Cleanup fills chests by Noita's chest_random.lua (design/worldgen_plan.md).", Stage = "4" },
             new HookDef { Id = "perk_death", Target = "Terraria.Player:KillMe(PlayerDeathReason, double, int, bool)", Patch = "postfix", System = "perks", Purpose = "Noita perks are lost on death; with more than 10 a quarter drop as perk items (PC-34).", Stage = "3" },
             new HookDef { Id = "host_and_play", Target = "Terraria.Main:HostAndPlay()", Patch = "transpiler", System = "host_server", Purpose = "Host & Play starts Terranoita.exe -server (the same mod) instead of plain TerrariaServer.exe, which deleted our items in chests (PC-38).", Stage = "3" },
+            new HookDef { Id = "npc_carrier_defaults", Target = "Terraria.NPC:SetDefaults(int, NPCSpawnParams)", Patch = "postfix", System = "host_server", Purpose = "Type 146 (our creatures' carrier) gets lifeMax 1, not 0: clients deactivated full-life creatures from the server (PC-38).", Stage = "3" },
         };
     }
 }
