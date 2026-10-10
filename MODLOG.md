@@ -1210,3 +1210,13 @@ unless asked.
   script store (tncli perks --run: 105 of 106; STRONG_KICK needs KickComponent.max_force), wands as Noita wand entities
   for the wand perks, shot modifiers into gun.lua, icon row. game_test -Mode perks checks drop/use/death and 300
   kills for the spell drop.
+
+## 0.4.6 package (2026-10-10, PC)
+- build/terranoita-0.4.6.zip (1325521 bytes, sha256 4549ccc820c75c6b...): Release builds of 4e9644e+ (Game, Core,
+  launcher), README with the 0.4.6 line and the antivirus/0Harmony.dll line. Checks: game_test magic 12/12, golden
+  no change; game_test perks: boss drop 1, 12 perks, death 0 left / 3 dropped, 3 spell drops from 198 kills. Full probe
+  skipped for this release (author); last full number 781 of 910 (H3+T2, nearly this build).
+- Melty description block (below the author's "!!!" header): design/melty_description_0.4.6.md (What's inside,
+  counted from sheets and Noita files; new in 0.4.6; antivirus line).
+- NOT uploaded: this session has no Melty tools. Upload + submit_release (draft) need a session with the Melty
+  connector and the author's sign-in; publish only with the author's yes.

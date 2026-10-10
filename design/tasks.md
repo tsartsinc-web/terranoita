@@ -32,6 +32,9 @@ How it works (author, 2026-10-08): the author only says "работай" to eith
 - Roadmap: design/roadmap.md. Worldgen plan: design/worldgen_plan.md (PC-10 after CLOUD-7).
 
 ## PC queue
+- RELEASE 0.4.6 (author 2026-10-10: "package and submit 0.4.6 now"): package built and tested (MODLOG "0.4.6 package");
+  blocked: no Melty tools in this session (upload/submit_release need the Melty connector + the author's sign-in).
+  Description block: design/melty_description_0.4.6.md (goes below the "!!!" header). After it: the full probe run.
 - RELEASE 0.4.6 FIRST (author 2026-10-10: prepare the Melty update now, before any other task): perks (PC-34), 1%
   spell drop (PC-35), last night's magic fixes. Build, game_test magic + probe (behaviour must not drop below 781 of
   910), close the games. Melty description: keep the author's "!!!" header at the top unchanged; add the line "If
