@@ -297,13 +297,15 @@ namespace Terranoita.Cli
                             // PC-30 builds: 50 of Noita's own random wands (wand_level_01..06.xml, fixed seeds), made once here and
                             // written into both games' test files, so Noita and Terraria cast the same decks
                             var wands = new List<(int, int, MadeWand)>();
-                            for (int i = 0; i < 50; i++)
+                            // PC-37 d: 50 more (100 in all): the first 50 keep their seeds, so their rows stay valid
+                            for (int i = 0; i < 100; i++)
                             {
                                 int level = 1 + i % 6;
                                 var maker = new LuaWandMaker(p => Text(files, p), 1000 + i);
                                 wands.Add((level, i, maker.MakeEntity("data/entities/items/wand_level_0" + level + ".xml", i * 512, level * 512)));
                             }
                             tests.AddRange(ProbeTests.RandomWands(wands));
+                            tests.AddRange(ProbeTests.Synergy(actions.Select(a => a.id), NoitaPerks.Read(p => Text(files, p)).Select(k => k.Id)));
                             File.WriteAllText(args[2], ProbeTests.ToLua(tests));
                             File.WriteAllText(args[3], new JsonArray(tests.Select(t => (JsonNode)new JsonObject
                             {
@@ -313,6 +315,7 @@ namespace Terranoita.Cli
                                 ["spread"] = t.Spread,
                                 ["speed_multiplier"] = t.SpeedMultiplier,
                                 ["always_cast"] = new JsonArray(t.AlwaysCast.Select(d => (JsonNode)d).ToArray()),
+                                ["perks"] = new JsonArray(t.Perks.Select(d => (JsonNode)d).ToArray()),
                             }).ToArray()).ToJsonString(new JsonSerializerOptions { WriteIndented = false }));
                             Console.WriteLine(tests.Count + " tests: " + string.Join(", ", tests.GroupBy(t => t.Name.Split(':')[0]).Select(g => g.Key + " " + g.Count())));
                             return 0;

@@ -26,9 +26,9 @@ namespace Terranoita.Game
         static bool _open;
         static int _tab, _scroll;
         static Texture2D _pixel;
-        static readonly string[] Tabs = { ProgressBook.Spells, ProgressBook.Creatures, ProgressBook.Wands, ProgressBook.Liquids };
-        static readonly string[] TabKeys = { "$menu_progress_spells", "$menu_progress_enemies", "$menu_progress_wands", "$menu_progress_materials" };
-        static readonly string[] TabNames = { "Spells", "Creatures", "Wands", "Liquids" };
+        static readonly string[] Tabs = { ProgressBook.Spells, ProgressBook.Creatures, ProgressBook.Wands, ProgressBook.Liquids, ProgressBook.Perks };
+        static readonly string[] TabKeys = { "$progress_actions", "$progress_enemies", "$menu_progress_wands", "$menu_progress_materials", "$progress_perks" };
+        static readonly string[] TabNames = { "Spells", "Creatures", "Wands", "Liquids", "Perks" };
         static List<string> _wandSprites;
         static Rectangle _button;
 
@@ -182,6 +182,12 @@ namespace Terranoita.Game
 
         static string Tooltip(string category, string id)
         {
+            if (category == ProgressBook.Perks)
+            {
+                var k = Magic.Perks.Get(id);
+                int n = Magic.Perks.Of(Main.LocalPlayer).Count(x => x == id);
+                return Magic.Perks.Name(k) + (n > 1 ? " x" + n : "") + "\n" + NoitaArt.Text(k?.UiDescription, "");
+            }
             var lines = new List<string> { NameOf(category, id) };
             try { lines.AddRange(ProgressInfo.Lines(category, id)); }   // Core: life, places, attacks, statuses, damage...
             catch (Exception ex) { Entry.Error("progress info " + id, ex); }
@@ -201,6 +207,7 @@ namespace Terranoita.Game
                 case ProgressBook.Spells: art = NoitaArt.Get(MagicItems.Spell(id)?.Sprite); break;
                 case ProgressBook.Creatures: art = NoitaArt.Get("data/ui_gfx/animal_icons/" + id + ".png"); break;
                 case ProgressBook.Wands: art = NoitaArt.Get(id); break;
+                case ProgressBook.Perks: art = NoitaArt.Get(Magic.Perks.Get(id)?.PerkIcon); break;
             }
             if (art?.Texture != null && art.Sprite != null)
                 frame = MagicItems.Frame(art);
@@ -283,7 +290,10 @@ namespace Terranoita.Game
 
             // header: "Spells 45 / 393"
             string cat = Tabs[_tab];
-            var page = Book.Page(cat, FullList(cat));
+            // perks: every Noita perk, lit when the character has it now (they are lost on death, so not "seen ever")
+            var page = cat == ProgressBook.Perks
+                ? Magic.Perks.All.Select(k => (id: k.Id, known: Magic.Perks.Of(Main.LocalPlayer).Contains(k.Id))).ToList()
+                : Book.Page(cat, FullList(cat));
             string header = NoitaArt.Text(TabKeys[_tab], TabNames[_tab]) + "  " + page.Count(x => x.known) + " / " + page.Count;
             Utils.DrawBorderString(sb, header, new Vector2(panel.Right - 20, panel.Y + 14), Color.White, 0.9f, 1f, 0f);
 
