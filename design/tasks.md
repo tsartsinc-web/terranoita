@@ -32,6 +32,14 @@ How it works (author, 2026-10-08): the author only says "работай" to eith
 - Roadmap: design/roadmap.md. Worldgen plan: design/worldgen_plan.md (PC-10 after CLOUD-7).
 
 ## PC queue
+- RELEASE 0.4.6 FIRST (author 2026-10-10: prepare the Melty update now, before any other task): perks (PC-34), 1%
+  spell drop (PC-35), last night's magic fixes. Build, game_test magic + probe (behaviour must not drop below 781 of
+  910), close the games. Melty description: keep the author's "!!!" header at the top unchanged; add the line "If
+  install fails on 0Harmony.dll, your antivirus removed it: add the Melty folder to its exclusions"; add a "What's
+  inside" section with REAL counts from code/sheets (spells, modifiers, wands, perks in pool/total, liquids and
+  gases, reactions, creatures, status effects) and the probe number as "X% of spells behave as in Noita (tested
+  against real Noita)". Upload + submit_release 0.4.6 as a DRAFT (author's request for this release); tell the author
+  it is ready; publish only when he says so. Then continue with PC-36.
 - NIGHT PLAN (author 2026-10-09, asleep; work without pauses until the limit ends): order = release 0.4.5 if not
   done (publishing authorized) -> PC-33 -> PC-31 -> PC-32 -> PC-30 (50 wands compare) -> PC-24 -> PC-35 -> PC-34 (perks). Rules: never wait for
   the author: if a step is blocked (needs him, a login, a crash you can't fix in ~3 tries), write one line in the
