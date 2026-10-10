@@ -1239,3 +1239,13 @@ unless asked.
   checked), submit_release 0.4.6 (release 1a0b2d71, recipe = live 0.4.5's with the new fileName), update_mod
   description (header kept first, unchanged), publish -> in Melty's safety review. Token used only in the command
   environment; nowhere in files.
+
+## 0.4.7 (2026-10-10, PC) — published, author: "release now" (chosen over testing the server first)
+- build/terranoita-0.4.7.zip (1327881 bytes, sha256 a4f0d653...), Release builds of 8310104: chests 2-6 spells by
+  rarity (verified in game, single player), physics never breaks chests (built), Host & Play starts Terranoita.exe
+  -server (built, NOT verified: no local server run passed yet). Not run before release: magic/probe tests (author).
+- Melty: upload d86fc089, submit_release 0.4.7 (same review-only findings), description: the "!!!" header first and
+  unchanged, "New in 0.4.7" above "New in 0.4.6", playing-together line; publish -> review. Token only in the command
+  environment.
+- Next: verify server mode locally as soon as the author allows starting Terraria (server on the test world with
+  -savedirectory testsave, listens, no errors; a client joins 127.0.0.1); if it fails, a fix release quickly. Then PC-39.

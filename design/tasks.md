@@ -12,7 +12,7 @@ How it works (author, 2026-10-08): the author only says "работай" to eith
 - Status words: new, doing, waits <row>, done <commit>.
 
 ## State (keep to ~12 lines; update when it changes)
-- Melty: 0.4.6 published 2026-10-10 (in review at publish; 0.4.5 LIVE before, 2026-10-10 22:43, published by the agent with the author's permission for this version; 381 gets,
+- Melty: 0.4.7 published 2026-10-10 (author: "release now", server mode NOT verified; 0.4.6 before); 0.4.6 published 2026-10-10 (in review at publish; 0.4.5 LIVE before, 2026-10-10 22:43, published by the agent with the author's permission for this version; 381 gets,
   317 players before it). Description: the author's "!!!" header first, unchanged. Uninstalls ~13% (0.4.4).
   Multiplayer: 89 games hosted, 0 joins (PC-27).
 - Stage 3 magic in game: all spells via Noita's gun.lua, shot scripts, all wands, wand window (U), progress window (O),
