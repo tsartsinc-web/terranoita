@@ -37,7 +37,9 @@ namespace Terranoita.Launcher
             // Terraria.exe as TerrariaServer.exe runs it (that build differs only by Main.dedServ = true before the game
             // starts), with the same mod in it. Its own log, so the host's game log stays.
             bool server = Array.IndexOf(args, "-server") >= 0;
-            Log.Open(server ? "server" : "latest", server ? "server_previous" : "previous");
+            // TERRANOITA_LOG: a log name of its own (the second client of the multiplayer test)
+            string logName = Environment.GetEnvironmentVariable("TERRANOITA_LOG");
+            Log.Open(logName ?? (server ? "server" : "latest"), logName != null ? logName + "_previous" : server ? "server_previous" : "previous");
             Log.Write("Terranoita launcher " + typeof(Program).Assembly.GetName().Version + ", folder " + here);
             try
             {

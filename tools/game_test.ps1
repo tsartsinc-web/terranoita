@@ -30,7 +30,7 @@ if ($Mode -in @("magic", "spells")) {
 }
 # only test games (started with our testsave folder) are ever closed; a game the author plays (Melty, by hand) stops the test
 # a test server (tools/mp_test.ps1: Terranoita.exe -server ... testsave) stays: -Mode mp joins it
-$games = @(Get-CimInstance Win32_Process | Where-Object { $_.Name -match 'Terranoita' -and $_.CommandLine -notmatch ' -server ' })
+$games = @(Get-CimInstance Win32_Process | Where-Object { $_.Name -match 'Terranoita' -and $_.CommandLine -notmatch ' -server |-mptest2' })
 $theirs = @($games | Where-Object { $_.CommandLine -notmatch 'testsave' })
 if ($theirs.Count -gt 0) { "the author's game is running (Terranoita, pid $($theirs[0].ProcessId)): no test now"; exit 1 }
 $games | ForEach-Object { "a test game was still running: closed"; Stop-Process -Id $_.ProcessId -Force }

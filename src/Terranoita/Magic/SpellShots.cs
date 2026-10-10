@@ -38,7 +38,8 @@ namespace Terranoita.Game.Magic
             public bool Bounced;   // it has bounced: on the ground with its bounces spent it rolls (see the collision code)
             public int Script, StartLife;      // its entity in Noita's shot scripts (0 = none), lifetime at start
             public bool Killed;                // a script killed it
-            public bool Evicted;               // ended quietly to make room at the cap (no explosion, no payload)
+            public bool Evicted;
+            public bool Remote;                // another player's shot, shown here: it changes nothing (its owner's game does)               // ended quietly to make room at the cap (no explosion, no payload)
             public bool Triggered;             // its CollisionTriggerComponent went off (a mine: a creature came near)
             public uint Born;                  // the game frame it was fired in (shots of one cast share it)
             public float Damage, ExplosionDamage, Radius, Gravity, Friction, Knockback;
@@ -91,6 +92,21 @@ namespace Terranoita.Game.Magic
         /// (I/Y/T/W/circle/pentagram shapes, the divide spells): the projectiles of one shot (they share its config)
         /// fan out evenly over -P..+P degrees; a whole circle (P 180) spaces them 360/N apart, so the first and last
         /// do not overlap (I_SHAPE: forward and back).</summary>
+        // multiplayer (PC-40): another player's cast is shown here too (Net.cs sends it). Its shots are Remote: damage,
+        // blasts, fire, liquids, eaten tiles and teleports happen only in the caster's game (the tiles come from there)
+        static bool _remote;
+        static bool World => !_remote;
+        /// <summary>Other players' shots alive here (the multiplayer test counts them).</summary>
+        public static int RemoteCount => Live.Count(x => x.Remote);
+
+        /// <summary>Another player's cast, as its game sent it: shown, it changes nothing here.</summary>
+        public static void FireRemote(IList<LuaShot> shots, Vector2 pos, Vector2 dir, Player owner)
+        {
+            _remote = true;
+            try { FireAll(shots, pos, dir, owner, null); }
+            finally { _remote = false; }
+        }
+
         public static void FireAll(IList<LuaShot> shots, Vector2 pos, Vector2 dir, Player owner, WandData wand)
         {
             var groups = new Dictionary<object, List<LuaShot>>();
@@ -161,7 +177,7 @@ namespace Terranoita.Game.Magic
             bool nullAll = ls.Get("damage_null_all") > 0;
             var s = new Shot
             {
-                Id = _nextId++, Def = d, Lua = ls, Pos = pos, Owner = owner, Phys = phys, Origin = pos,
+                Id = _nextId++, Def = d, Lua = ls, Pos = pos, Owner = owner, Phys = phys, Origin = pos, Remote = _remote,
                 NoWorld = !d.CollideWithWorld, DieOnCollision = phys.OnCollisionDie, PenetrateWorld = phys.PenetrateWorld,
                 DieOnLow = phys.DieOnLowVelocity, ExplodeOnDeath = d.ExplodeOnDeath, NullDamage = nullAll,
                 FriendlyFire = ls.Config != null && ls.Config.TryGetValue("friendly_fire", out var ff) &&
@@ -280,8 +296,10 @@ namespace Terranoita.Game.Magic
             {
                 var s = Live[i];
                 bool gone = false;
+                _remote = s.Remote;   // what a remote shot releases or loads is remote too
                 try { gone = Step(s); }
                 catch (Exception ex) { Entry.Error("spell shot " + s.Def.Id, ex); gone = true; }
+                finally { _remote = false; }
                 if (!gone)
                     SpellRecorder.Sample(s.Id, s.Pos, s.Vel);   // after the move, as the Noita probe sees it
                 else
@@ -336,7 +354,7 @@ namespace Terranoita.Game.Magic
             StepExtras(s);
             // fire spells set burnable blocks and walls they pass on fire, now and then (as Terraria's fire projectiles do)
             if (s.Fire && s.Age % 6 == 0 && Physics.Patches.On)
-                Physics.Fire.IgniteArea(s.Pos, 12f, 0.25f);
+                if (World) Physics.Fire.IgniteArea(s.Pos, 12f, 0.25f);
             // shots cut grass, flowers, vines and pots like a sword does (author)
             NoitaActions.CutTiles(s.Pos, 6, Terraria.Enums.TileCuttingContext.AttackProjectile);
             // the timer of a timer trigger
@@ -417,7 +435,7 @@ namespace Terranoita.Game.Magic
             if (s.Def.AreaDamage > 0)
                 AreaDamageAt(s, Math.Max(4f, s.Def.AreaHalf) * Px, s.Def.AreaDamage * 25f);
             if (s.Def.Material != "none" && s.Age % 8 == 0 && Physics.Patches.On)
-                Physics.Fluids.Add((int)(s.Pos.X / 16), (int)(s.Pos.Y / 16), s.Def.Material, 12);
+                if (World) Physics.Fluids.Add((int)(s.Pos.X / 16), (int)(s.Pos.Y / 16), s.Def.Material, 12);
             // creatures
             for (int i = 0; i < Main.maxNPCs; i++)
             {
@@ -442,7 +460,7 @@ namespace Terranoita.Game.Magic
                 Collision.CheckAABBvLineCollision(me.position, me.Size, from, s.Pos))
             {
                 s.HitOwner = true;
-                me.Hurt(Terraria.DataStructures.PlayerDeathReason.ByCustomReason(me.name + " was hit by their own spell."), (int)Math.Round(s.Damage), s.Vel.X >= 0 ? 1 : -1);
+                if (World) me.Hurt(Terraria.DataStructures.PlayerDeathReason.ByCustomReason(me.name + " was hit by their own spell."), (int)Math.Round(s.Damage), s.Vel.X >= 0 ? 1 : -1);
                 if (!s.Penetrate && s.DieOnCollision)
                 {
                     End(s, true);
@@ -523,7 +541,7 @@ namespace Terranoita.Game.Magic
                         continue;
                     if (!Main.tile[x, y].active() || !Physics.Blast.Breakable(x, y, pickPower) || Main.rand.NextFloat() >= chance)
                         continue;
-                    WorldGen.KillTile(x, y, false, false, true);   // eaten: nothing drops
+                    if (World) WorldGen.KillTile(x, y, false, false, true);   // eaten: nothing drops
                 }
         }
 
@@ -586,6 +604,8 @@ namespace Terranoita.Game.Magic
 
         static void Strike(Shot s, NPC n, float damage, string message = "$damage_projectile")
         {
+            if (s.Remote)
+                return;   // the caster's game hits (Terraria sends its hits to the server)
             if (s.Owner == null)
                 return;
             float total = s.Kinds == null || message != "$damage_projectile" ? 0 : s.Kinds.Values.Where(v => v > 0).Sum();
@@ -611,7 +631,7 @@ namespace Terranoita.Game.Magic
         /// <summary>The shot hits something or runs out: its explosion, its payload.</summary>
         static void End(Shot s, bool hit)
         {
-            TeleportOwner(s);
+            if (World) TeleportOwner(s);
             if (s.Lua.Trigger == "hit_world" && hit || s.Lua.Trigger == "death" || s.Lua.Trigger == "timer" && s.TriggerIn > 0)
                 Release(s);
             if (DebugTools.Testing)
@@ -619,7 +639,7 @@ namespace Terranoita.Game.Magic
                           ", " + (Vector2.Distance(s.Origin, s.Pos) / 16).ToString("0.0") + " tiles from its start" + (hit ? ", hit" : s.Life <= 0 ? ", life out" : ""));
             // a fire spell that hits a block sets the burnable ones around it alight (author: fire weapons light wood)
             if (hit && s.Fire && Physics.Patches.On)
-                Physics.Fire.IgniteArea(s.Pos, 24f, 0.8f);
+                if (World) Physics.Fire.IgniteArea(s.Pos, 24f, 0.8f);
             // Noita's ELECTRIC_CHARGE (lightning_count): "releases an electric charge on impact" (the engine's electricity,
             // misc/electricity.xml) - into the conducting liquid there
             // spawn_entity: "this is spawned if hit something an on_collision_spawn_entity = 1" (component_documentation.txt;
@@ -628,7 +648,7 @@ namespace Terranoita.Game.Magic
             if (proj != null && !string.IsNullOrEmpty(proj.Get("spawn_entity")) && proj.Get("on_collision_spawn_entity") != "0")
                 LoadEntity(proj.Get("spawn_entity"), s.Pos, s.Owner);
             if (hit && s.Lua.Get("lightning_count") > 0)
-                Physics.Electricity.Emit(s.Pos, ElectricEnergy(ElectricityFile));
+                if (World) Physics.Electricity.Emit(s.Pos, ElectricEnergy(ElectricityFile));
             if (s.Phys.Lightning != null)
                 LightningBurst(s);   // a lightning projectile ends in its lightning trail and blast, whatever ends it
             else if (s.Radius > 0 && (hit || s.ExplodeOnDeath))
@@ -726,7 +746,7 @@ namespace Terranoita.Game.Magic
             var me = s.Owner;
             if (s.Def.HurtsShooter && me != null && me.active && !me.dead && s.ExplosionDamage > 0 &&
                 Vector2.Distance(me.Center, s.Pos) <= r + me.width / 2f)
-                me.Hurt(Terraria.DataStructures.PlayerDeathReason.ByCustomReason(me.name + " blew up."), (int)Math.Round(s.ExplosionDamage), me.Center.X < s.Pos.X ? -1 : 1);
+                if (World) me.Hurt(Terraria.DataStructures.PlayerDeathReason.ByCustomReason(me.name + " blew up."), (int)Math.Round(s.ExplosionDamage), me.Center.X < s.Pos.X ? -1 : 1);
             int dust = s.Fire || s.Radius >= 24 ? DustID.Torch : DustID.Smoke;
             int count = (int)Math.Min(80, 6 + r / 2);
             for (int k = 0; k < count; k++)
@@ -738,7 +758,7 @@ namespace Terranoita.Game.Magic
                 SoundEngine.PlaySound(SoundID.Item14, s.Pos);
             // big Noita explosions dig, as the enemies' do
             if (r >= 16 && Physics.Patches.On)
-                Physics.Blast.Explode(s.Pos, r, s.Fire || fire, Physics.Blast.PickPower(s.Owner));
+                if (World) Physics.Blast.Explode(s.Pos, r, s.Fire || fire, Physics.Blast.PickPower(s.Owner));
             Lighting.AddLight(s.Pos, 1f, 0.7f, 0.3f);
             // config_explosion load_this_entity's projectile files start at the blast (glitter_bomb_explosion.xml throws
             // the glitter bomb's shards: Noita 24 in the probe, ours none before)

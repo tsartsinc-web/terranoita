@@ -150,7 +150,7 @@ namespace Terranoita.Game.Magic
                             n.AddBuff(BuffID.OnFire, 180);
                     }
                     else if (Physics.Patches.On)
-                        Physics.Fluids.Add(tx, ty, m, Math.Max(4, (int)s.Lua.Get("trail_material_amount")));
+                        if (World) Physics.Fluids.Add(tx, ty, m, Math.Max(4, (int)s.Lua.Get("trail_material_amount")));
                 }
         }
 
@@ -186,7 +186,7 @@ namespace Terranoita.Game.Magic
             {
                 int x = (int)(cx + (Main.rand.NextFloat() - 0.5f) * w), y = (int)(cy + (Main.rand.NextFloat() - 0.5f) * h);
                 if (Physics.Mats.InWorld(x, y) && !Main.tile[x, y].active())
-                    Physics.Fluids.Add(x, y, e.S("material", "water"), 255);
+                    if (World) Physics.Fluids.Add(x, y, e.S("material", "water"), 255);
             }
         }
 
@@ -236,6 +236,8 @@ namespace Terranoita.Game.Magic
             // a wand file (Noita's summon-a-wand spells): a wand made by Noita's own scripts, dropped there
             if (file.StartsWith("data/entities/items/wand", StringComparison.OrdinalIgnoreCase))
             {
+                if (!World)
+                    return 0;   // the caster's game makes the wand
                 try
                 {
                     var w = WandWindow.Store(new LuaWandMaker(NoitaArt.ReadText, Main.rand.Next()).MakeEntity(file, pos.X / Px, pos.Y / Px));
@@ -249,6 +251,8 @@ namespace Terranoita.Game.Magic
             }
             string id = System.IO.Path.GetFileNameWithoutExtension(file);
             var def = file.Contains("/animals/") ? Enemies.All.FirstOrDefault(x => x.Id == id) : null;
+            if (def != null && !World)
+                return 0;   // the caster's game makes the creature
             if (def != null)
             {
                 int who = Carriers.Spawn(def, (int)pos.X, (int)pos.Y);
@@ -260,7 +264,7 @@ namespace Terranoita.Game.Magic
             int energy = ElectricEnergy(file);
             if (energy > 0)
             {
-                Physics.Electricity.Emit(pos, energy);
+                if (World) Physics.Electricity.Emit(pos, energy);
                 return 0;
             }
             // an entity that loads others (LoadEntitiesComponent: glitter_bomb_explosion.xml throws 12 shards, a blast's
@@ -446,7 +450,7 @@ namespace Terranoita.Game.Magic
                 if (Main.rand.Next(3) == 0)
                     Dust.NewDustPerfect(at, dust, Vector2.Zero, 0, default(Color), 0.8f).noGravity = true;
                 if (s.Age % 6 == 0 && mat.Length > 0 && mat != "fire" && Physics.Patches.On && Main.rand.Next(4) == 0)
-                    Physics.Fluids.Add((int)(at.X / 16), (int)(at.Y / 16), mat, 6);
+                    if (World) Physics.Fluids.Add((int)(at.X / 16), (int)(at.Y / 16), mat, 6);
             }
             if (s.Age % 10 != 0)
                 return;

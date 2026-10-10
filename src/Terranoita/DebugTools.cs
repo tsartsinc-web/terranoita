@@ -30,6 +30,7 @@ namespace Terranoita.Game
         /// <summary>TERRANOITA_AUTOTEST_PLACES=1: each enemy in another place (loot comes from where it dies).</summary>
         static readonly bool Places = Environment.GetEnvironmentVariable("TERRANOITA_AUTOTEST_PLACES") == "1";
         static readonly string Join = Environment.GetEnvironmentVariable("TERRANOITA_AUTOTEST_JOIN");
+        static Magic.WandData _mpWand;
         static int _menuFrames, _worldFrames, _autoIndex;
 
         // a ground tile that makes the place, and its layer: 0 surface, 1 below the surface, 2 rock layer
@@ -78,7 +79,8 @@ namespace Terranoita.Game
             Entry.Log("AUTOTEST: place " + place.name + " not found");
         }
         static bool _entering, _generating;
-        const string TestPlayer = "Terranoita Test";
+        // TERRANOITA_AUTOTEST_PLAYER: another test character (a second client of the multiplayer test)
+        static readonly string TestPlayer = Environment.GetEnvironmentVariable("TERRANOITA_AUTOTEST_PLAYER") ?? "Terranoita Test";
         static readonly NoitaNpc[] _seen = new NoitaNpc[Main.maxNPCs];
 
         static EnemyDef[] Built => Enemies.All.Where(e => Defs.InStage(e.Stage, Entry.Stage)).ToArray();
@@ -264,8 +266,23 @@ namespace Terranoita.Game
                         }
                     }
                 }
+                // TERRANOITA_MPTEST_CAST=1: this client casts a Spark Bolt every second (the other client should see it)
+                if (Environment.GetEnvironmentVariable("TERRANOITA_MPTEST_CAST") == "1" && _worldFrames >= 200)
+                {
+                    if (_mpWand == null)
+                    {
+                        _mpWand = Magic.WandStore.NewWand();
+                        _mpWand.Name = "mp test"; _mpWand.Sprite = "data/items_gfx/handgun.xml";
+                        _mpWand.Slots = new[] { "LIGHT_BULLET" }; _mpWand.Uses = new[] { -1 };
+                        _mpWand.CastDelay = 60; _mpWand.RechargeTime = 60; _mpWand.ManaMax = 300; _mpWand.ManaChargeSpeed = 300;
+                        p.inventory[0] = Magic.MagicItems.MakeWand(_mpWand);
+                        p.selectedItemState.Select(0);
+                    }
+                    Magic.Casting.TestAim = p.Center + new Vector2(300 * p.direction, -40);
+                    Magic.Casting.TestFire = true;
+                }
                 if (_worldFrames % 300 == 0)
-                    Entry.Log("MPTEST frame " + _worldFrames + ": at tile " + (int)(p.Center.X / 16) + "," + (int)(p.Center.Y / 16) + ", netMode " + Main.netMode + ", Noita creatures " +
+                    Entry.Log("MPTEST frame " + _worldFrames + ": remote shots " + Magic.SpellShots.RemoteCount + ", casts " + Magic.Casting.TestCasts + ", at tile " + (int)(p.Center.X / 16) + "," + (int)(p.Center.Y / 16) + ", netMode " + Main.netMode + ", Noita creatures " +
                               Enumerable.Range(0, Main.maxNPCs).Count(i => Main.npc[i].active && Carriers.Get(Main.npc[i]) != null) + ", segments " +
                               Enumerable.Range(0, Main.maxNPCs).Count(i => Main.npc[i].active && Carriers.IsSegment(Main.npc[i])) + ", other npcs " +
                               Enumerable.Range(0, Main.maxNPCs).Count(i => Main.npc[i].active && Carriers.Get(Main.npc[i]) == null && !Carriers.IsSegment(Main.npc[i])) +

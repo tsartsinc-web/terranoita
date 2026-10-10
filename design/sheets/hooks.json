@@ -628,6 +628,15 @@
    "purpose": "Type 146 (our creatures' carrier) gets lifeMax 1, not 0: clients deactivated full-life creatures from the server (PC-38).",
    "stage": "3",
    "_unverified": {}
+  },
+  {
+   "id": "net_register",
+   "target": "Terraria.Initializers.NetworkInitializer:Load()",
+   "patch": "postfix",
+   "system": "host_server",
+   "purpose": "Registers Terranoita's net module right after Terraria's own on the server (same id on every side; PC-40).",
+   "stage": "3",
+   "_unverified": {}
   }
  ]
 }

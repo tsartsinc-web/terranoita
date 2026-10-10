@@ -306,7 +306,7 @@ namespace Terranoita.Game.Magic
             {
                 int e = ElectricEnergy(f.Trim());
                 if (e > 0)
-                    Physics.Electricity.Emit(pos, e);
+                    if (World) Physics.Electricity.Emit(pos, e);
             }
         }
 

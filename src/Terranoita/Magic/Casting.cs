@@ -174,6 +174,7 @@ namespace Terranoita.Game.Magic
             TestMana += Math.Max(0, spent);
             TestShots += cast.Shots.Count;
             SpellShots.FireAll(cast.Shots, tip, dir, p, w);
+            TerranoitaNet.SendCast(p.whoAmI, cast.Shots, tip, dir);   // multiplayer: the others see it (PC-40)
             // recoil: Noita's shot effects push the caster back
             if (cast.Recoil != 0)
                 p.velocity -= dir * cast.Recoil / 20f;

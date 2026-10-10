@@ -89,7 +89,9 @@ namespace Terranoita.Game
 
         static void ApplyPatches()
         {
-            Magic.MagicItems.Init();   // before any player or world is loaded: Terraria keeps the spell and wand items
+            Magic.MagicItems.Init();
+            if (!Terraria.Main.dedServ)
+                TerranoitaNet.Register();   // Terraria registered its modules in Initialize already (the server: NetworkInitializer.Load postfix)   // before any player or world is loaded: Terraria keeps the spell and wand items
             var harmony = _harmony = new Harmony("gg.melty.terranoita");
             harmony.PatchAll(typeof(Entry).Assembly);
             NoitaArt.Preload();

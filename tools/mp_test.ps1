@@ -3,7 +3,9 @@
 # server's creature lines, then closes both. Only test games (testsave) are started and closed.
 #   powershell -ExecutionPolicy Bypass -File tools/mp_test.ps1 [-TestSpawn] [-Minutes 3]
 # -TestSpawn: the server also puts a weak Noita zombie next to every player every 5 s (TERRANOITA_TEST_SPAWN).
-param([switch]$TestSpawn, [int]$Minutes = 3)
+# -Two: a second test client ("Terranoita Test 2", log client2.log) joins too and casts a Spark Bolt every second;
+#       the first client counts the other player's shots it shows (remote shots).
+param([switch]$TestSpawn, [switch]$Two, [int]$Minutes = 3)
 $T = "D:\steam\steamapps\common\Terraria"
 $repo = Resolve-Path (Join-Path $PSScriptRoot "..")
 $bin = Join-Path $repo "src\Terranoita\bin\Release\net48"
@@ -25,10 +27,23 @@ for ($i = 0; $i -lt 60; $i++) {
     if ($srv.HasExited) { break }
 }
 "server listening: $ok after $($i * 2) s"
+$c2 = $null
+if ($ok -and $Two) {
+    $env:TERRANOITA_AUTOTEST = "1"; $env:TERRANOITA_AUTOTEST_EXIT = "1"; $env:TERRANOITA_AUTOTEST_JOIN = "127.0.0.1:7779"
+    $env:TERRANOITA_AUTOTEST_PLAYER = "Terranoita Test 2"; $env:TERRANOITA_MPTEST_CAST = "1"; $env:TERRANOITA_LOG = "client2"
+    $c2 = Start-Process -FilePath (Join-Path $T "Terranoita.exe") -WorkingDirectory $T -PassThru -WindowStyle Minimized -ArgumentList @(
+        "--noita-dir", "`"D:\steam\steamapps\common\Noita`"", "-savedirectory", "`"$save`"", "-mptest2")
+    foreach ($v in "TERRANOITA_AUTOTEST", "TERRANOITA_AUTOTEST_EXIT", "TERRANOITA_AUTOTEST_JOIN", "TERRANOITA_AUTOTEST_PLAYER", "TERRANOITA_MPTEST_CAST", "TERRANOITA_LOG") { Remove-Item "Env:$v" -ErrorAction SilentlyContinue }
+}
 try {
     if ($ok) { powershell -ExecutionPolicy Bypass -File (Join-Path $PSScriptRoot "game_test.ps1") -Mode mp -Minutes ($Minutes + 1) | Out-Null }
     "== client"
     Select-String -Path (Join-Path $logs "latest.log") -Pattern "MPTEST|joining|ERROR" | Select-Object -Last 16 | ForEach-Object { $_.Line.Substring(0, [Math]::Min(200, $_.Line.Length)) }
+    if ($Two) {
+        "== client 2 (casts)"
+        Select-String -Path (Join-Path $logs "client2.log") -Pattern "MPTEST|joining|ERROR" | Select-Object -Last 4 | ForEach-Object { $_.Line.Substring(0, [Math]::Min(200, $_.Line.Length)) }
+        Select-String -Path (Join-Path $logs "latest.log") -Pattern "net: cast" | Select-Object -First 3 | ForEach-Object { $_.Line }
+    }
     "== server"
     $s = Join-Path $logs "server.log"
     Select-String -Path $s -Pattern "ERROR|FATAL" | Select-Object -Last 5 | ForEach-Object { $_.Line.Substring(0, [Math]::Min(200, $_.Line.Length)) }

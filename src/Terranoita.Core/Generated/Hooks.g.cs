@@ -91,6 +91,7 @@ namespace Terranoita.Generated
             new HookDef { Id = "perk_death", Target = "Terraria.Player:KillMe(PlayerDeathReason, double, int, bool)", Patch = "postfix", System = "perks", Purpose = "Noita perks are lost on death; with more than 10 a quarter drop as perk items (PC-34).", Stage = "3" },
             new HookDef { Id = "host_and_play", Target = "Terraria.Main:HostAndPlay()", Patch = "transpiler", System = "host_server", Purpose = "Host & Play starts Terranoita.exe -server (the same mod) instead of plain TerrariaServer.exe, which deleted our items in chests (PC-38).", Stage = "3" },
             new HookDef { Id = "npc_carrier_defaults", Target = "Terraria.NPC:SetDefaults(int, NPCSpawnParams)", Patch = "postfix", System = "host_server", Purpose = "Type 146 (our creatures' carrier) gets lifeMax 1, not 0: clients deactivated full-life creatures from the server (PC-38).", Stage = "3" },
+            new HookDef { Id = "net_register", Target = "Terraria.Initializers.NetworkInitializer:Load()", Patch = "postfix", System = "host_server", Purpose = "Registers Terranoita's net module right after Terraria's own on the server (same id on every side; PC-40).", Stage = "3" },
         };
     }
 }
