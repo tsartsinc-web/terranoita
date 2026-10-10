@@ -28,7 +28,8 @@ namespace Terranoita.Game
         static float KickScale(int w, int h) => MathHelper.Clamp(30f / Math.Max(16, Math.Max(w, h)), 0.25f, 1f);
         const int DrinkPerFrame = 12;        // ours: liquid units (of 255 a tile) a frame
         const float Capacity = 7500, OverDamage = 0.002f * 25f;
-        static float _stomach;               // Noita's ingestion_size, in cells
+        static float _stomach;
+        static bool _fDown;               // Noita's ingestion_size, in cells
         static int _kickCooldown, _drinkSound;
         static readonly HashSet<string> _soundMissing = new HashSet<string>();
 
@@ -40,7 +41,10 @@ namespace Terranoita.Game
             if (_kickCooldown > 0)
                 _kickCooldown--;
             bool typing = Main.drawingPlayerChat || Main.editSign || Main.editChest || Main.blockInput;
-            if (!typing && Main.keyState.IsKeyDown(Keys.F) && !Main.oldKeyState.IsKeyDown(Keys.F) && _kickCooldown == 0)
+            // own key edge: Main.oldKeyState stays the same over several updates of one slow frame
+            bool f = Main.keyState.IsKeyDown(Keys.F), kick = f && !_fDown;
+            _fDown = f;
+            if (!typing && kick && _kickCooldown == 0)
                 Kick(p);
             // holding a flask, down drinks from it (Flasks); else from the liquid stood in
             if (!typing && p.controlDown && p.velocity.Y == 0 && !Magic.MagicItems.IsFlask(p.inventory[p.selectedItem]))

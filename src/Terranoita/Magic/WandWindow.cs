@@ -20,6 +20,7 @@ namespace Terranoita.Game.Magic
     /// </summary>
     public static class WandWindow
     {
+        static bool _uDown;
         public const int WandSlotCount = 4, SpellSlotCount = 16;
         // clicks on our slots act as an inventory slot (any item may go in, nothing is sent): a chest slot (context 3)
         // sends the open chest's slot to the server in multiplayer, and with no chest open (-1) Terraria's
@@ -280,7 +281,10 @@ namespace Terranoita.Game.Magic
         {
             if (Main.gameMenu || Main.drawingPlayerChat || Main.editSign || Main.editChest || Main.LocalPlayer?.active != true)
                 return;
-            if (Main.keyState.IsKeyDown(Keys.U) && !Main.oldKeyState.IsKeyDown(Keys.U))
+            // own key edge: Main.oldKeyState stays the same over several updates of one slow frame (U toggled twice)
+            bool u = Main.keyState.IsKeyDown(Keys.U), pressed = u && !_uDown;
+            _uDown = u;
+            if (pressed)
             {
                 _open = !_open;
                 if (_open)

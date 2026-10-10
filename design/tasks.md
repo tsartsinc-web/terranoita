@@ -32,6 +32,16 @@ How it works (author, 2026-10-08): the author only says "работай" to eith
 - Roadmap: design/roadmap.md. Worldgen plan: design/worldgen_plan.md (PC-10 after CLOUD-7).
 
 ## PC queue
+- PC-40 new (author's multiplayer test 2026-10-10, list): 1) blocks do not attach to the background wall; 6) the author
+  wants placed blocks to stand on a background wall with no support (now: they stay on the wall only after the support
+  breaks); 2) players do not see each other's fire / staff projectiles, cannot use another player's staff (author's
+  fire is seen by the friend, the friend's is not seen by the author); 3) spells look different per player (put one
+  in a chest, the other sees another spell: spell numbers are per player's WandStore, not shared); 4) the friend's
+  vanilla attacks are not seen; 5) the "radioactive" modifier does not work; 7) the triple scatter spell acts
+  strangely; 8) white hole etc. break blocks out of sync (each client breaks its own). O key: fixed (below).
+- O / U / F keys fixed 2026-10-10 (built): own key edges (Terraria runs several updates in one slow frame with the same
+  Main.oldKeyState: O toggled twice -> open-and-close / never-close on the friend's PC); O opens, Esc closes (undoes
+  the inventory toggle Terraria did on the same Esc).
 - PC-38 creatures in multiplayer VERIFIED (2026-10-10, tools/mp_test.ps1 -TestSpawn: our server + a joining test
   client): the server spawns Noita creatures for every player (natural ones too: zombie, rat), the client sees them
   (6 at once, tag 45 = zombie_weak, right places), 0 errors on both. Causes fixed: spawning was single player only;

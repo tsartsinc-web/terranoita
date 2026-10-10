@@ -123,7 +123,8 @@ namespace Terranoita.Game
             catch (Exception ex) { Entry.Error("progress load", ex); _loadFailed = true; }
         }
 
-        static bool _loadFailed;   // a book that cannot load is not tried again every frame
+        static bool _loadFailed;
+        static bool _oDown, _escDown, _inventoryBefore;   // a book that cannot load is not tried again every frame
 
         static void Save()
         {
@@ -194,9 +195,21 @@ namespace Terranoita.Game
                 EnterWorld(Main.LocalPlayer);
             if (Book == null)
                 return;
-            if (!Main.drawingPlayerChat && !Main.editSign && !Main.editChest &&
-                Main.keyState.IsKeyDown(Keys.O) && !Main.oldKeyState.IsKeyDown(Keys.O))
+            // O opens, Esc closes (author 2026-10-10). Our own key edges: Terraria runs several updates in one frame when
+            // the game is slow, and Main.oldKeyState stays the same for all of them, so "just pressed" was true twice
+            // and the window opened and closed at once (a friend's slower PC; author's report)
+            bool o = Main.keyState.IsKeyDown(Keys.O), esc = Main.keyState.IsKeyDown(Keys.Escape);
+            bool typing = Main.drawingPlayerChat || Main.editSign || Main.editChest;
+            if (o && !_oDown && !typing && !_open)
                 Toggle();
+            if (esc && !_escDown && _open)
+            {
+                Toggle();
+                Main.playerInventory = _inventoryBefore;   // Terraria's own Esc (the inventory) ran this frame: undone
+            }
+            _oDown = o;
+            _escDown = esc;
+            _inventoryBefore = Main.playerInventory;
             if (Main.GameUpdateCount % 30 == 0)
                 ScanTaken();
             if (Main.GameUpdateCount - _savedAt > 7200)
