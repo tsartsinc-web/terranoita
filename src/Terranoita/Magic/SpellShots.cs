@@ -35,6 +35,7 @@ namespace Terranoita.Game.Magic
             public float Rot;                  // its heading, radians (Noita's velocity_sets_rotation: the velocity's)
             public Vector2 Aim;                // the way it was cast (a tentacle reaches out along it)
             public int Life, Age, Bounces, TriggerIn;
+            public bool Bounced;   // it has bounced: on the ground with its bounces spent it rolls (see the collision code)
             public int Script, StartLife;      // its entity in Noita's shot scripts (0 = none), lifetime at start
             public bool Killed;                // a script killed it
             public bool Evicted;               // ended quietly to make room at the cap (no explosion, no payload)
@@ -354,18 +355,10 @@ namespace Terranoita.Game.Magic
                     next = ThrownHit(s, next);   // a physics body never dies on the ground: its fuse (lifetime) ends it
                 else if (s.PenetrateWorld)
                     next = s.Pos + s.Vel * ph.PenetrateCoeff;   // through the ground, slower inside it
-                else if (s.Bounces > 0 && s.Vel.Y > 0 && s.Vel.Y * 60f / Px < RollSpeed &&
-                         !Collision.SolidCollision(new Vector2(next.X, s.Pos.Y) - new Vector2(2, 2), 4, 4))
-                {
-                    // lying on the ground and rolling along it is no bounce: Noita's grenade rolls on for ~60 frames after
-                    // its first hit with its 4 bounces left (probe 2026-10-10), ours used them up in 47 frames and died
-                    s.Vel.Y = 0;
-                    s.Pos.X = next.X;
-                    return false;
-                }
                 else if (s.Bounces > 0)
                 {
                     s.Bounces--;
+                    s.Bounced = true;
                     // bounce off the side it hit; bounce_energy: "when bouncing, velocity is multiplied by this"
                     // (component_documentation.txt), all of it: in the Noita probe a grenade's speed along the floor halves
                     // at each bounce too (249 -> 119 -> 104 -> 50 px/s, 2026-10-09)
@@ -379,6 +372,16 @@ namespace Terranoita.Game.Magic
                     var fx = BounceFx(s);
                     if (!string.IsNullOrEmpty(fx))
                         LoadEntity(fx, s.Pos, s.Owner);
+                    return false;
+                }
+                else if (s.Bounced && s.Vel.Y >= 0 && s.Vel.Y * 60f / Px < RollSpeed &&
+                         !Collision.SolidCollision(new Vector2(next.X, s.Pos.Y) - new Vector2(2, 2), 4, 4))
+                {
+                    // its bounces spent, a bouncing shot lying on the ground rolls on: Noita's grenade bounces 4-5 times
+                    // (BOUNCE_HOLE: 5 holes) and rolls to ~frame 100 (probe 2026-10-10); ours died at its first touch
+                    // after the last bounce (47 frames)
+                    s.Vel.Y = 0;
+                    s.Pos.X = next.X;
                     return false;
                 }
                 else if (!s.DieOnCollision)

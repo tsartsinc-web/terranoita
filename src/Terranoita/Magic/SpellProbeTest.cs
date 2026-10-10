@@ -120,7 +120,9 @@ namespace Terranoita.Game.Magic
             }
             // a burning target keeps the test going, as in Noita (its fire lives on after the shots: BOMB's blast at frame
             // 180 burned the target to frame 240 there, ours stopped at 181 and recorded no fire)
-            bool burning = _target != null && _target.active && _target.lifeRegen < 0;
+            // (fire only: in Noita burning is fire cells, which keep its probe running; poison is a status and does not)
+            bool burning = _target != null && _target.active &&
+                           (_target.FindBuffIndex(Terraria.ID.BuffID.OnFire) >= 0 || _target.FindBuffIndex(Terraria.ID.BuffID.OnFire3) >= 0);
             if (ft >= MaxFrames || SpellRecorder.Alive == 0 && !burning && ft - _lastChange >= Quiet && ft - _firedAt >= Quiet)
                 Finish(ft, (SpellRecorder.Alive > 0 ? "still flying at the end; " : "") + "fired at frame " + _firedAt);
         }

@@ -84,7 +84,10 @@ How it works (author, 2026-10-08): the author only says "работай" to eith
   (glitter shards, crumbling earth), of looks-only ones (wall_sound); SetStartVelocityComponent; ProceduralRandom(f);
   Nxml: a comment between attributes no longer drops the rest (glitter_bomb.xml's load_this_entity; facts may change:
   rerun `tncli facts` + apply_facts once); shots roll on the ground instead of spending bounces (grenade lived 47
-  frames, Noita ~100; RollSpeed 60 px/s assumed). Not measured yet: the full run after these.
+  frames, Noita ~100; RollSpeed 60 px/s assumed). Run H3 (all of it + probe waits while the target burns):
+  behaviour 774 of 910 (G3 with the same compare 772): +19 (BOMB, NUKE, GLITTER_BOMB, CRUMBLING_EARTH, WALL_*, wand 1-24...)
+  -17 (grenade rows: rolling took real bounces, BOUNCE_HOLE 1 vs Noita 5; POISON_TRAIL: the wait counted poison). Fixed
+  after H3 (built): bounces are spent first, only then a slow ground contact rolls; the wait is for fire only.
 - AUTHOR 2026-10-09 (via cloud, the author is away): FOCUS. Finish magic first (PC-21..PC-25 with PC-28), then
   PC-27. Park PC-4, PC-10, PC-19, PC-17, PC-6 until then.
 - PC-30 doing (author 2026-10-09: WHAT MATTERS in magic; it sets the priority of PC-23..PC-25): behaviour first,
