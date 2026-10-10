@@ -1267,3 +1267,9 @@ unless asked.
   the mod, no errors).
 - build/terranoita-0.4.8.1.zip (1328014 bytes, sha256 816d875b...); Melty upload e1e8e8d7, submit_release 0.4.8.1,
   description: header first unchanged + "New in 0.4.8 and 0.4.8.1"; publish -> review.
+
+## 0.4.9 draft (2026-10-10, PC)
+- Multiplayer creatures (verified with tools/mp_test.ps1: server spawns, client sees them, attacks hit the client's
+  player, kills/loot on the server, 0 errors) + progress window Terraria tab (built; the author has not looked yet).
+- build/terranoita-0.4.9.zip (1330825 bytes, sha256 33191a3c...); Melty: uploaded, submit_release 0.4.9 = DRAFT.
+  Not published (live stays 0.4.8.1 until the author says so). Description not changed yet.
