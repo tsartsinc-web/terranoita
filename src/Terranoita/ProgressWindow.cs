@@ -26,9 +26,82 @@ namespace Terranoita.Game
         static bool _open;
         static int _tab, _scroll;
         static Texture2D _pixel;
-        static readonly string[] Tabs = { ProgressBook.Spells, ProgressBook.Creatures, ProgressBook.Wands, ProgressBook.Liquids, ProgressBook.Perks };
-        static readonly string[] TabKeys = { "$progress_actions", "$progress_enemies", "$menu_progress_wands", "$menu_progress_materials", "$progress_perks" };
-        static readonly string[] TabNames = { "Spells", "Creatures", "Wands", "Liquids", "Perks" };
+        /// <summary>Terraria's own creatures (author 2026-10-10): its bestiary's list, unlock state and flavor text.</summary>
+        const string TerrariaCreatures = "terraria_creature";
+        static readonly string[] Tabs = { ProgressBook.Spells, ProgressBook.Creatures, ProgressBook.Wands, ProgressBook.Liquids, ProgressBook.Perks, TerrariaCreatures };
+        static readonly string[] TabKeys = { "$progress_actions", "$progress_enemies", "$menu_progress_wands", "$menu_progress_materials", "$progress_perks", null };
+        static readonly string[] TabNames = { "Spells", "Creatures", "Wands", "Liquids", "Perks", "Terraria" };
+
+        static string TabLabel(int i) =>
+            Tabs[i] != TerrariaCreatures ? NoitaArt.Text(TabKeys[i], TabNames[i]) :
+            Terraria.Localization.Language.Exists("UI.Bestiary") ? Terraria.Localization.Language.GetTextValue("UI.Bestiary") : TabNames[i];
+
+        // ---- Terraria's creatures: the bestiary ----
+
+        static readonly System.Reflection.FieldInfo FlavorKey =
+            AccessTools.Field(typeof(Terraria.GameContent.Bestiary.FlavorTextBestiaryInfoElement), "_key");
+
+        /// <summary>Every creature of Terraria's bestiary (its order), lit when the bestiary knows it (seen or killed).</summary>
+        static List<(string id, bool known)> _terrariaPage;
+        static uint _terrariaPageAt;
+
+        static List<(string id, bool known)> TerrariaPage()
+        {
+            // the bestiary works out each entry's state: twice a second is enough for an open window
+            if (_terrariaPage != null && Main.GameUpdateCount - _terrariaPageAt < 30)
+                return _terrariaPage;
+            _terrariaPageAt = Main.GameUpdateCount;
+            var list = _terrariaPage = new List<(string id, bool known)>();
+            foreach (var e in Main.BestiaryDB.Entries)
+            {
+                var npc = e.Info.OfType<Terraria.GameContent.Bestiary.NPCNetIdBestiaryInfoElement>().FirstOrDefault();
+                if (npc == null)
+                    continue;
+                var state = e.UIInfoProvider.GetEntryUICollectionInfo().UnlockState;
+                list.Add((npc.NetId.ToString(), state != Terraria.GameContent.Bestiary.BestiaryEntryUnlockState.NotKnownAtAll_0));
+            }
+            return list;
+        }
+
+        static string TerrariaTooltip(int netId)
+        {
+            var lines = new List<string> { Lang.GetNPCNameValue(netId) };
+            var entry = Main.BestiaryDB.FindEntryByNPCID(netId);
+            var flavor = entry?.Info.OfType<Terraria.GameContent.Bestiary.FlavorTextBestiaryInfoElement>().FirstOrDefault();
+            string key = flavor == null ? null : FlavorKey?.GetValue(flavor) as string;
+            if (!string.IsNullOrEmpty(key))
+                lines.Add(Terraria.Localization.Language.GetTextValue(key));
+            if (Terraria.ID.ContentSamples.NpcBestiaryCreditIdsByNpcNetIds.TryGetValue(netId, out string credit))
+                lines.Add(NoitaArt.Text("$menu_progress_kills", "Kills") + ": " + Main.BestiaryTracker.Kills.GetKillCount(credit));
+            return string.Join("\n", lines);
+        }
+
+        static Array _npcAssets;
+        static System.Reflection.PropertyInfo _assetValue;
+
+        static Texture2D TerrariaIcon(int netId, out Rectangle? frame)
+        {
+            frame = null;
+            int type = netId;
+            if (type < 0 && Terraria.ID.ContentSamples.NpcsByNetId.TryGetValue(netId, out var sample))
+                type = sample.type;
+            if (_npcAssets == null)
+                _npcAssets = (Array)typeof(Terraria.GameContent.TextureAssets).GetField("Npc").GetValue(null);   // ReLogic's Asset<T>: by reflection
+            if (type <= 0 || type >= _npcAssets.Length)
+                return null;
+            Main.instance.LoadNPC(type);
+            object asset = _npcAssets.GetValue(type);
+            if (asset == null)
+                return null;
+            if (_assetValue == null)
+                _assetValue = asset.GetType().GetProperty("Value");
+            var tex = _assetValue.GetValue(asset) as Texture2D;
+            if (tex == null)
+                return null;
+            int frames = Math.Max(1, Main.npcFrameCount[type]);
+            frame = new Rectangle(0, 0, tex.Width, tex.Height / frames);
+            return tex;
+        }
         static List<string> _wandSprites;
         static Rectangle _button;
 
@@ -190,6 +263,8 @@ namespace Terranoita.Game
 
         static string Tooltip(string category, string id)
         {
+            if (category == TerrariaCreatures)
+                return TerrariaTooltip(int.Parse(id));
             if (category == ProgressBook.Perks)
             {
                 var k = Magic.Perks.Get(id);
@@ -209,6 +284,8 @@ namespace Terranoita.Game
         static Texture2D Icon(string category, string id, out Rectangle? frame)
         {
             frame = null;
+            if (category == TerrariaCreatures)
+                return TerrariaIcon(int.Parse(id), out frame);
             NoitaArt.Art art = null;
             switch (category)
             {
@@ -282,7 +359,7 @@ namespace Terranoita.Game
             int tx = panel.X + 16;
             for (int i = 0; i < Tabs.Length; i++)
             {
-                string label = NoitaArt.Text(TabKeys[i], TabNames[i]);
+                string label = TabLabel(i);
                 var r = new Rectangle(tx, panel.Y + 10, label.Length * 9 + 12, 26);
                 bool over = r.Contains(Main.mouseX, Main.mouseY);
                 sb.Draw(Pixel, r, (i == _tab ? new Color(90, 70, 40) : new Color(40, 34, 44)) * (over ? 1f : 0.85f));
@@ -301,8 +378,9 @@ namespace Terranoita.Game
             // perks: every Noita perk, lit when the character has it now (they are lost on death, so not "seen ever")
             var page = cat == ProgressBook.Perks
                 ? Magic.Perks.All.Select(k => (id: k.Id, known: Magic.Perks.Of(Main.LocalPlayer).Contains(k.Id))).ToList()
+                : cat == TerrariaCreatures ? TerrariaPage()
                 : Book.Page(cat, FullList(cat));
-            string header = NoitaArt.Text(TabKeys[_tab], TabNames[_tab]) + "  " + page.Count(x => x.known) + " / " + page.Count;
+            string header = TabLabel(_tab) + "  " + page.Count(x => x.known) + " / " + page.Count;
             Utils.DrawBorderString(sb, header, new Vector2(panel.Right - 20, panel.Y + 14), Color.White, 0.9f, 1f, 0f);
 
             // the grid
