@@ -176,7 +176,7 @@ namespace Terranoita.Game
         /// <summary>Make every built enemy's and projectile's texture once the engine has loaded, so play does not stutter.</summary>
         public static void Preload()
         {
-            if (!Ready)
+            if (!Ready || Main.dedServ)   // the world's server draws nothing: no textures to make
                 return;
             int ok = 0, bad = 0;
             foreach (var e in Enemies.All)
