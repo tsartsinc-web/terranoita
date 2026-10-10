@@ -1220,3 +1220,18 @@ unless asked.
   counted from sheets and Noita files; new in 0.4.6; antivirus line).
 - NOT uploaded: this session has no Melty tools. Upload + submit_release (draft) need a session with the Melty
   connector and the author's sign-in; publish only with the author's yes.
+
+## Handoff 2026-10-10 morning (PC, before a new chat)
+- 0.4.6: author authorized upload, submit and PUBLISH of this version (2026-10-10). Blocked: this session has no Melty
+  tools. Ready: build/terranoita-0.4.6.zip (1325521 bytes, sha256 4549ccc8...), tested (magic 12/12, perks test).
+  Next session with the Melty connector (author signs in): update_mod description = the author's "!!!" header first,
+  unchanged, then design/melty_description_0.4.6.md; start_upload/PUT/finish_upload the zip; submit_release 0.4.6;
+  publish (authorized for 0.4.6 only).
+- Probe behaviour (last full): 781 of 910 (H3+T2; single 364/419, mod 358/419, combo 24/24, wand 35/48; 15 Noita rows
+  "did not cast" left out). PC-24: components 513 vs 516 on 588 rows (switch stays off).
+- PC-36: game_test -Mode perks_all written, not run yet. PC-37: probe generator has pair/chain/perk sets and 100
+  wands (tncli probe-tests); not done: regenerate tests files, Noita probe mod perks support (perk_pickup with
+  no_perk_entity + cleanup) and killing stray shots before a test, SpellProbeTest perks support, one Noita run.
+- Author's questions still open: liquids mixing check in game (reactions test stopped for the release; last result
+  117/126 OK), English (code: Noita texts follow Terraria's language; not tried in game).
+- Exact next step: publish 0.4.6 (above), then game_test -Mode perks_all, then PC-37 Noita run.
