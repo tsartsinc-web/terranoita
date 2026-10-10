@@ -47,8 +47,10 @@ namespace Terranoita.Game
                 Book.Discovered += Discovered;
                 _savedAt = Main.GameUpdateCount;
             }
-            catch (Exception ex) { Entry.Error("progress load", ex); }
+            catch (Exception ex) { Entry.Error("progress load", ex); _loadFailed = true; }
         }
+
+        static bool _loadFailed;   // a book that cannot load is not tried again every frame
 
         static void Save()
         {
@@ -111,7 +113,13 @@ namespace Terranoita.Game
                 }
                 return;
             }
-            if (Book == null || Main.LocalPlayer?.active != true)
+            if (Main.LocalPlayer?.active != true)
+                return;
+            // multiplayer: Terraria spawns the player into the world (EnterWorld) while Main.gameMenu is still true, so
+            // the menu branch above unloaded the book at once and O did nothing (author 2026-10-10): load it here
+            if (Book == null && !_loadFailed)
+                EnterWorld(Main.LocalPlayer);
+            if (Book == null)
                 return;
             if (!Main.drawingPlayerChat && !Main.editSign && !Main.editChest &&
                 Main.keyState.IsKeyDown(Keys.O) && !Main.oldKeyState.IsKeyDown(Keys.O))
