@@ -33,7 +33,7 @@ namespace Terranoita.Game.Magic
         // the world whose loot is loaded: a world is saved once while Terraria makes it, before it is ever played, and
         // that save must not write an empty file (it made every new world's chests stay empty, 2026-10-08)
         static string _loadedFor;
-        const string Version = "3";   // 3: flask pedestals (older files get them once)
+        const string Version = "4";   // 3: flask pedestals, 4: every chest 2-6 spells (older files get them once)
 
         public static void Load()
         {
@@ -55,7 +55,9 @@ namespace Terranoita.Game.Magic
                 }
                 if (lines[0].Trim() != Version)
                 {
-                    PlaceFlaskAltars();
+                    if (lines[0].Trim() != "3")
+                        PlaceFlaskAltars();
+                    TopUpAllChests();
                     Save();
                 }
                 return;
@@ -164,6 +166,51 @@ namespace Terranoita.Game.Magic
             }
         }
 
+        /// <summary>Spells a chest always holds (author 2026-10-10): 2 in the plainest chests, one more a rarity level, 6 in
+        /// the rarest (level 1 -> 2 ... level 5 and up -> 6).</summary>
+        public static int SpellsWanted(int level) => Math.Max(2, Math.Min(6, level + 1));
+
+        /// <summary>Adds random spells of the chest's Noita level (by Noita's own GetRandomAction; the best chests sometimes
+        /// level 10) until it holds SpellsWanted, as far as it has free slots. Returns how many were added.</summary>
+        static int TopUpSpells(Chest c, int level)
+        {
+            int have = c.item.Count(it => it != null && MagicItems.IsSpell(it)), added = 0;
+            for (int guard = 0; have < SpellsWanted(level) && guard < 20; guard++)
+            {
+                int slot = Array.FindIndex(c.item, it => it == null || it.IsAir);
+                if (slot < 0)
+                    break;
+                int l = level >= 6 && WorldGen.genRand.Next(100) < 15 ? 10 : level;
+                string id = Maker.RandomAction(l, -1);
+                if (string.IsNullOrEmpty(id))
+                    continue;
+                c.item[slot] = MagicItems.MakeSpell(id);
+                have++;
+                added++;
+            }
+            return added;
+        }
+
+        /// <summary>Every chest of a world made before chests always held spells, topped up once.</summary>
+        static void TopUpAllChests()
+        {
+            int chests = 0, added = 0;
+            for (int i = 0; i < Main.maxChests; i++)
+            {
+                var c = Main.chest[i];
+                if (c == null || !Physics.Mats.InWorld(c.x, c.y))
+                    continue;
+                var t = Main.tile[c.x, c.y];
+                if (!t.active() || (t.type != TileID.Containers && t.type != TileID.Containers2))
+                    continue;
+                int n = TopUpSpells(c, ChestLevel(t, c.y));
+                added += n;
+                if (n > 0)
+                    chests++;
+            }
+            Entry.Log("world loot: chests topped up to " + SpellsWanted(1) + ".." + SpellsWanted(6) + " spells: " + added + " spells in " + chests + " chests");
+        }
+
         static void FillChests()
         {
             int filled = 0, spells = 0, flasks = 0;
@@ -182,18 +229,9 @@ namespace Terranoita.Game.Magic
                 // Noita's level 10 (giga holes, nukes...) sometimes in the best chests
                 if (level >= 6 && WorldGen.genRand.Next(100) < 15)
                     level = 10;
-                int n = WorldGen.genRand.Next(100) < 30 ? 2 : 1;
-                bool any = false;
-                for (int k = 0; k < n; k++)
-                {
-                    int slot = Array.FindIndex(c.item, it => it == null || it.IsAir);
-                    string id = Maker.RandomAction(level, -1);
-                    if (slot < 0 || string.IsNullOrEmpty(id))
-                        break;
-                    c.item[slot] = MagicItems.MakeSpell(id);
-                    spells++;
-                    any = true;
-                }
+                int added = TopUpSpells(c, ChestLevel(t, c.y));
+                spells += added;
+                bool any = added > 0;
                 // Noita's chests hold potions too (chest_random.lua): one in four, filled by Noita's potion.lua
                 int free = Array.FindIndex(c.item, it => it == null || it.IsAir);
                 if (free >= 0 && WorldGen.genRand.Next(4) == 0)

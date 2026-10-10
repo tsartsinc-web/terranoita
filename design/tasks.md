@@ -32,6 +32,16 @@ How it works (author, 2026-10-08): the author only says "работай" to eith
 - Roadmap: design/roadmap.md. Worldgen plan: design/worldgen_plan.md (PC-10 after CLOUD-7).
 
 ## PC queue
+- PC-38 doing (author's multiplayer test 2026-10-10, top priority): ROOT CAUSE (from Terraria's code): Host & Play starts
+  plain TerrariaServer.exe (Main.HostAndPlay); our mod is not in it. Item.SetDefaults turns deprecated item types to air,
+  and our spell/wand/flask/perk carriers ARE deprecated types (only our process un-deprecates them): the server deletes
+  them from chests and saves the world without them; Noita creatures never spawn (server); the kick's knockback is
+  client-side only. Fix: Host & Play starts Terranoita.exe in server mode (launcher passes -server) so the server runs
+  the mod; test locally first. Done today (built, verified in game, single player): every chest holds 2-6 spells by
+  rarity (new world: 848 spells in 256 chests; older worlds topped up once: WorldLoot version 4); our physics never
+  breaks chests/dressers (falling blocks, blasts, fire, acid: Mats.HoldsItems; the Dead Man's Chest loss); drinking
+  checked in game: flask (alcohol 1000 -> 985, INGESTION_DRUNK) and pool both work (game_test -Mode perks).
+  O key in multiplayer: not found yet (ProgressWindow needs Book, loaded on Player.Hooks.EnterWorld).
 - RELEASE 0.4.6 done (2026-10-10, published with the author's permission for this version): upload f8569bba, release
   1a0b2d71 (one click yes, findings review-only as 0.4.5), description: the "!!!" header first unchanged, then
   "What's inside" (counted), "New in 0.4.6", magic 86% (781/910), antivirus line. publish -> Melty safety review.

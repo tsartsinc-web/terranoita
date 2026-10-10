@@ -24,7 +24,7 @@ namespace Terranoita.Game.Physics
                     // solid inside 60% of the radius, ragged edge beyond
                     if (d > r || (d > r * 0.6f && Main.rand.Next(2) == 0) || !Mats.InWorld(x, y))
                         continue;
-                    if (Breakable(x, y, pickPower))
+                    if (Breakable(x, y, pickPower) && !Mats.HoldsItems(x, y))
                     {
                         bool drop = drops < 4 && Main.rand.Next(3) == 0;
                         if (drop)

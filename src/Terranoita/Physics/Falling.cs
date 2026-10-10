@@ -277,7 +277,7 @@ namespace Terranoita.Game.Physics
                     var t = Main.tile[x, y];
                     if (t.active())
                     {
-                        if (Main.tileSolid[t.type])
+                        if (Main.tileSolid[t.type] || Mats.HoldsItems(x, y))
                         {
                             if (p.Placed)
                                 DropAsItem(p.Tile, x, y);   // taken meanwhile: the player's block comes back as an item

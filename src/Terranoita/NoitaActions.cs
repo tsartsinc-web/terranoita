@@ -127,6 +127,10 @@ namespace Terranoita.Game
 
         // ---- drink ----
 
+        /// <summary>For the drink test (PerkTest): one frame of drinking from the liquid stood in, and the stomach.</summary>
+        internal static void TestDrink(Player p) => Drink(p);
+        internal static float Stomach => _stomach;
+
         static void Drink(Player p)
         {
             int x = (int)(p.Center.X / 16), y = (int)((p.position.Y + p.height - 4) / 16);

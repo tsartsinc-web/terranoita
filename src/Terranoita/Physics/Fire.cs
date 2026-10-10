@@ -231,7 +231,7 @@ namespace Terranoita.Game.Physics
                 NetSync.Tile(x, y);
                 Falling.Disturb(x, y);
             }
-            else
+            else if (!Mats.HoldsItems(x, y))
             {
                 WorldGen.KillTile(x, y, false, false, true);   // burned away: nothing drops; the hook disturbs around it
                 NetSync.Tile(x, y);
@@ -253,7 +253,7 @@ namespace Terranoita.Game.Physics
         static void Melt(int x, int y)
         {
             var t = Main.tile[x, y];
-            if (!Mats.Melts(t))
+            if (!Mats.Melts(t) || Mats.HoldsItems(x, y))
                 return;
             Placed.Remove(x, y);
             WorldGen.KillTile(x, y, false, false, true);

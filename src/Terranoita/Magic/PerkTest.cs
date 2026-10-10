@@ -15,10 +15,12 @@ namespace Terranoita.Game.Magic
     public static class PerkTest
     {
         public static readonly bool Enabled = Environment.GetEnvironmentVariable("TERRANOITA_AUTOTEST_PERKS") == "1";
-        public const int Length = 400;
+        public const int Length = 460;
         const int Taken = 12;
 
         static void Log(string s) => Entry.Log("PERKS " + s);
+        static Item _flask;
+        static float _stomach0;
 
         static int PerkItemsNear(Player p) =>
             Main.item.Count(i => i.active && Perks.IsPerk(i.inner));
@@ -84,6 +86,44 @@ namespace Terranoita.Game.Magic
                     int spells = Main.item.Count(it => it.active && MagicItems.IsSpell(it.inner)) - before;
                     Log("spell drops: " + spells + " from " + killed + " Noita creatures (1 in " + Loot.SpellDropChance + ": about " + killed / Loot.SpellDropChance + ")");
                     Log("done");
+                }
+                else if (frame == 130)
+                {
+                    // drinking (author 2026-10-10: "drinking liquids broke"): a flask of alcohol in the hand, down held
+                    _flask = MagicItems.MakeFlask("alcohol", Flasks.Capacity);
+                    p.inventory[1] = _flask;
+                    p.selectedItemState.Select(1);
+                    _stomach0 = NoitaActions.Stomach;
+                }
+                else if (frame > 130 && frame <= 150)
+                {
+                    p.velocity.Y = 0;
+                    p.controlDown = true;
+                    Flasks.Update(p, false);
+                    p.controlDown = false;
+                }
+                else if (frame == 151)
+                {
+                    var w = MagicItems.FlaskOf(p.inventory[1]);
+                    Log("flask drink: alcohol " + Flasks.Capacity + " -> " + (w == null ? "no flask" : w.FlaskAmount.ToString("0")) + ", stomach +" +
+                        (NoitaActions.Stomach - _stomach0).ToString("0") + ", statuses " + string.Join(",", Physics.Status.Active));
+                    // and from a pool: Terraria water at the feet
+                    p.inventory[1].TurnToAir();
+                    int x = (int)(p.Center.X / 16), y = (int)((p.position.Y + p.height - 4) / 16);
+                    Main.tile[x, y].liquid = 255;
+                    Main.tile[x, y].liquidType(0);
+                    _stomach0 = NoitaActions.Stomach;
+                }
+                else if (frame > 151 && frame <= 171)
+                {
+                    p.velocity.Y = 0;
+                    NoitaActions.TestDrink(p);
+                }
+                else if (frame == 172)
+                {
+                    int x = (int)(p.Center.X / 16), y = (int)((p.position.Y + p.height - 4) / 16);
+                    Log("pool drink: stomach +" + (NoitaActions.Stomach - _stomach0).ToString("0") + ", water left " + Main.tile[x, y].liquid);
+                    Main.tile[x, y].liquid = 0;
                 }
             }
             catch (Exception ex) { Entry.Error("PERKS test", ex); }

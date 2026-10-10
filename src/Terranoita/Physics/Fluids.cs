@@ -1183,6 +1183,8 @@ namespace Terranoita.Game.Physics
                     NetSync.AddWater(x, y);
                     break;
                 case What.Tile:
+                    if (Mats.HoldsItems(x, y))
+                        break;
                     Placed.Remove(x, y);
                     WorldGen.KillTile(x, y, false, false, true);
                     NetSync.Tile(x, y);

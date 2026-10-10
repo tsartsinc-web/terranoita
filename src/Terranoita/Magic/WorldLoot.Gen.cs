@@ -145,6 +145,8 @@ namespace Terranoita.Game.Magic
                         else other++;
                     }
                 }
+                // and always 2 to 6 spells by the chest's rarity (author 2026-10-10)
+                spells += TopUpSpells(c, level);
                 // a chance of an empty wand (author, PC-33): one Noita's wand script of the chest's level made, its
                 // spells taken out (all its slots free)
                 int free = Array.FindIndex(c.item, it => it == null || it.IsAir);

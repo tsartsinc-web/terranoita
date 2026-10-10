@@ -80,6 +80,16 @@ namespace Terranoita.Game.Physics
         /// <summary>0 = nothing is left.</summary>
         public static ushort BurnsTo(int type) { Of(type); return _burnsTo[type]; }
 
+        /// <summary>A tile that keeps items (chests, trapped chests, dressers...): our physics never breaks it. In multiplayer a
+        /// client's KillTile of a chest sends only the tile: the server lost the chest's items and made empty chests of it
+        /// (author's test 2026-10-10: a dirt block fell on a Dead Man's Chest).</summary>
+        public static bool HoldsItems(int x, int y)
+        {
+            var t = Main.tile[x, y];
+            return t != null && t.active() && (Main.tileContainer[t.type] || Terraria.ID.TileID.Sets.BasicChest[t.type] ||
+                t.type == Terraria.ID.TileID.Containers || t.type == Terraria.ID.TileID.Containers2 || t.type == Terraria.ID.TileID.Dressers);
+        }
+
         /// <summary>Blocks things stand on: solid tiles and platforms (not actuated ones).</summary>
         public static bool Solid(int x, int y)
         {
