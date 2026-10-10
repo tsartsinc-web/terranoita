@@ -87,7 +87,9 @@ How it works (author, 2026-10-08): the author only says "работай" to eith
   frames, Noita ~100; RollSpeed 60 px/s assumed). Run H3 (all of it + probe waits while the target burns):
   behaviour 774 of 910 (G3 with the same compare 772): +19 (BOMB, NUKE, GLITTER_BOMB, CRUMBLING_EARTH, WALL_*, wand 1-24...)
   -17 (grenade rows: rolling took real bounces, BOUNCE_HOLE 1 vs Noita 5; POISON_TRAIL: the wait counted poison). Fixed
-  after H3 (built): bounces are spent first, only then a slow ground contact rolls; the wait is for fire only.
+  after H3: bounces are spent first, only then a slow ground contact rolls; the wait is for fire only. H3 + targeted
+  T2 (183 GRENADE/BOUNCE/POISON/BLOODLUST tests again, same build as now): behaviour 781 of 910 (single 364/419, mod
+  358/419, combo 24/24, wand 35/48) = design/sources/pc_probe_compare.txt.
 - AUTHOR 2026-10-09 (via cloud, the author is away): FOCUS. Finish magic first (PC-21..PC-25 with PC-28), then
   PC-27. Park PC-4, PC-10, PC-19, PC-17, PC-6 until then.
 - PC-30 doing (author 2026-10-09: WHAT MATTERS in magic; it sets the priority of PC-23..PC-25): behaviour first,
