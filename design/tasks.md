@@ -62,6 +62,9 @@ How it works (author, 2026-10-08): the author only says "работай" to eith
   on the player, same scenario, same records): new rows only (PC-29 rule), one Noita run. Compare: behaviour match
   per perk. 3) Fix by group, biggest first. Also stacking (take twice) for stackable perks. Check: "perks: WORKS X of
   106, match Noita Y of 100 (pool)"; list NO EFFECT/ERROR perks in MODLOG.
+  Step 1 written 2026-10-10 (built only): Magic/PerksAllTest.cs, `game_test -Mode perks_all -Minutes 20`: baseline
+  without a perk, then each perk (stackable ones twice too): stand (life, mana, run, jump, flight, gravity, defense,
+  immunities, the perk's Noita components), a hit of 20, five debuffs touched, one Spark Bolt cast at a target, a kill.
 - PC-35 new (author 2026-10-10, small: do it with the next release): every Noita creature has a 1% chance to drop a
   random spell item on death (MagicItems.MakeSpell; spell level by the creature's tier / depth, e.g. Maker.RandomAction
   with the zone's Noita level). Not from bosses (they drop perks, PC-34), not from summoned/split creatures.

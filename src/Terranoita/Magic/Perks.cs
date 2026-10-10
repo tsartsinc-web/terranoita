@@ -298,6 +298,7 @@ namespace Terranoita.Game.Magic
             }
             catch (Exception ex)
             {
+                FuncErrors.Add(id);
                 if (Told.Add("func:" + id))
                     Entry.Error("perk func " + id, ex);
             }
@@ -367,6 +368,9 @@ namespace Terranoita.Game.Magic
         // ---- for the perk test (PerkTest) ----
 
         internal static void TestTake(Player p, string id) => Take(p, Get(id));
+        /// <summary>Perks whose func threw (the perk test's ERROR verdict).</summary>
+        internal static readonly List<string> FuncErrors = new List<string>();
+        internal static int PlayerEntity(Player p) => Entity(p);
         internal static NoitaPerk RandomFor(Player p) => Random(p);
         internal static void TestClear(Player p)
         {

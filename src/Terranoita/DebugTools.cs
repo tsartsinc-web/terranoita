@@ -274,6 +274,13 @@ namespace Terranoita.Game
                     Main.instance.Exit();
                 return;
             }
+            if (Magic.PerksAllTest.Enabled)
+            {
+                Magic.PerksAllTest.Frame(p, _worldFrames);
+                if (Magic.PerksAllTest.Done && ExitWhenDone)
+                    Main.instance.Exit();
+                return;
+            }
             if (Magic.PerkTest.Enabled)
             {
                 Magic.PerkTest.Frame(p, _worldFrames);

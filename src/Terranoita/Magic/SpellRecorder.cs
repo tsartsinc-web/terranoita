@@ -38,6 +38,9 @@ namespace Terranoita.Game.Magic
         const float Px = Terranoita.Noita.Units.PixelScale;
 
         public static int Alive => Shots.Count(r => r.End == null);
+        /// <summary>For the perk test (PerksAllTest): the files of the shots recorded, and the damage done to Target.</summary>
+        internal static IEnumerable<string> ShotFiles => Shots.Select(r => r.File);
+        internal static double HitDamage => Hits.Sum(h => h.damage) + Dots.Values.Sum();
         public static int Count => Shots.Count;
 
         public static void Begin(Vector2 casterCenter)
