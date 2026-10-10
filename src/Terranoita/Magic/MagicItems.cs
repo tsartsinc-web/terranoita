@@ -18,7 +18,41 @@ namespace Terranoita.Game.Magic
     /// </summary>
     public static class MagicItems
     {
-        public static readonly int[] SpellTypes = { 3847, 3848 };
+        // 3847, 3848: the first numbers (each PC's own, spell_numbers.txt); 2772, 2773 (Terraria's unused Vortex Axe and
+        // Chainsaw): the fixed numbers, the same on every PC (WandStore.Fixed)
+        public static readonly int[] SpellTypes = { 3847, 3848, 2772, 2773 };
+
+        /// <summary>A spell item with an old per-PC number becomes the same spell with its fixed number (read here, where
+        /// that PC's numbers made it). True when it changed.</summary>
+        public static bool FixNumber(Item i)
+        {
+            if (!IsSpell(i))
+                return false;
+            int n = Array.IndexOf(SpellTypes, i.type) * 255 + i.prefix - 1;
+            if (n >= WandStore.Fixed)
+                return false;
+            string id = SpellOf(i);
+            if (id == null || Array.FindIndex(Generated.SpellTable.All, s => s.Id == id) < 0)
+                return false;
+            int uses = UsesLeft(i);
+            var made = MakeSpell(id);
+            i.SetDefaults(made.type);
+            i.prefix = made.prefix;
+            if (uses >= 0)
+                SetUses(i, uses);
+            return true;
+        }
+
+        /// <summary>Every spell item with an old number in these items, fixed.</summary>
+        public static int FixNumbers(Item[] items)
+        {
+            int n = 0;
+            if (items != null)
+                foreach (var it in items)
+                    if (FixNumber(it))
+                        n++;
+            return n;
+        }
         public static readonly int[] WandTypes = { 6143, 3849, 3850, 3851, 3861, 3862 };
 
         public static void Init()

@@ -39,8 +39,16 @@ namespace Terranoita.Game.Magic
 
         // ---- spells: an action id gets a number the first time it is seen, kept for good ----
 
+        /// <summary>Spell numbers from here up are the same on every PC (PC-40: a spell put in a chest showed as another
+        /// spell to the other player): Fixed + the spell's place in Noita's list (SpellTable). Below it, the numbers each PC
+        /// gave in the order it first saw spells (spell_numbers.txt): only read, and turned into fixed ones on load.</summary>
+        public const int Fixed = 510;
+
         public static int SpellNumber(string actionId)
         {
+            int k = Array.FindIndex(Generated.SpellTable.All, s => s.Id == actionId);
+            if (k >= 0)
+                return Fixed + k;
             LoadSpells();
             if (_spellNumber.TryGetValue(actionId, out int n))
                 return n;
@@ -54,6 +62,8 @@ namespace Terranoita.Game.Magic
 
         public static string SpellId(int number)
         {
+            if (number >= Fixed)
+                return number - Fixed < Generated.SpellTable.All.Length ? Generated.SpellTable.All[number - Fixed].Id : null;
             LoadSpells();
             return number >= 0 && number < _spells.Count ? _spells[number] : null;
         }

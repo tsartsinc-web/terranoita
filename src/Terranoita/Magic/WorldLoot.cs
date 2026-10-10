@@ -37,6 +37,16 @@ namespace Terranoita.Game.Magic
 
         public static void Load()
         {
+            // spells in chests with this PC's old numbers get the fixed ones (the world's server or single player)
+            if (Main.netMode != 1)
+            {
+                int fixedSpells = 0;
+                foreach (var c in Main.chest)
+                    if (c != null)
+                        fixedSpells += MagicItems.FixNumbers(c.item);
+                if (fixedSpells > 0)
+                    Entry.Log("spells in chests given fixed numbers: " + fixedSpells);
+            }
             Spots.Clear();
             _loadedFor = null;
             var path = FileOf;

@@ -57,6 +57,10 @@ namespace Terranoita.Game.Magic
 
         public static void EnterWorld(Player p)
         {
+            int fixedSpells = MagicItems.FixNumbers(p.inventory) + MagicItems.FixNumbers(p.bank.item) + MagicItems.FixNumbers(p.bank2.item) +
+                              MagicItems.FixNumbers(p.bank3.item) + MagicItems.FixNumbers(p.bank4.item);
+            if (fixedSpells > 0)
+                Entry.Log("spells given fixed numbers: " + fixedSpells);
             if (p.whoAmI != Main.myPlayer)
                 return;
             try
