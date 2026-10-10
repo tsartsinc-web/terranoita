@@ -42,6 +42,9 @@ How it works (author, 2026-10-08): the author only says "работай" to eith
   breaks chests/dressers (falling blocks, blasts, fire, acid: Mats.HoldsItems; the Dead Man's Chest loss); drinking
   checked in game: flask (alcohol 1000 -> 985, INGESTION_DRUNK) and pool both work (game_test -Mode perks).
   O key in multiplayer: not found yet (ProgressWindow needs Book, loaded on Player.Hooks.EnterWorld).
+- PC-39 new (author 2026-10-10, small): Wall of Flesh drops a ready-built wand (a Noita wand with spells already
+  in it, a working build) with a 10% chance per kill. Which builds: ask the author (default: Noita's wand script of
+  level 3-4 with its spells kept). Check with one kill test, no probe.
 - RELEASE 0.4.6 done (2026-10-10, published with the author's permission for this version): upload f8569bba, release
   1a0b2d71 (one click yes, findings review-only as 0.4.5), description: the "!!!" header first unchanged, then
   "What's inside" (counted), "New in 0.4.6", magic 86% (781/910), antivirus line. publish -> Melty safety review.
