@@ -1258,3 +1258,12 @@ unless asked.
   server (252 "graphics device" failures). Not tested: the host leaving (autoshutdown) and a client joining.
 - build/terranoita-0.4.8.zip (1327929 bytes, sha256 9df60221...); Melty: uploaded, submit_release 0.4.8 = draft.
   Description not changed yet (add a 0.4.8 line when publishing). Publish only with the author's yes.
+
+## 0.4.8.1 (2026-10-10, PC) — published (author: "do the micro update")
+- O (progress window) in multiplayer: Terraria spawns the joining player (MessageBuffer case 49, Player.Spawn
+  SpawningIntoWorld -> Hooks.EnterWorld) while Main.gameMenu is still true, so ProgressWindow's menu branch unloaded
+  the book at once. Now the book loads whenever the player is in the world without one. Verified by the author in game
+  (Host & Play, O opens). Host & Play's modded server verified by the author's run (server.log: his world loaded with
+  the mod, no errors).
+- build/terranoita-0.4.8.1.zip (1328014 bytes, sha256 816d875b...); Melty upload e1e8e8d7, submit_release 0.4.8.1,
+  description: header first unchanged + "New in 0.4.8 and 0.4.8.1"; publish -> review.

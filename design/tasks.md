@@ -12,7 +12,7 @@ How it works (author, 2026-10-08): the author only says "работай" to eith
 - Status words: new, doing, waits <row>, done <commit>.
 
 ## State (keep to ~12 lines; update when it changes)
-- Melty: 0.4.7 published 2026-10-10 (author: "release now", server mode NOT verified; 0.4.6 before); 0.4.6 published 2026-10-10 (in review at publish; 0.4.5 LIVE before, 2026-10-10 22:43, published by the agent with the author's permission for this version; 381 gets,
+- Melty: 0.4.8.1 published 2026-10-10 (O in multiplayer, verified by the author; 0.4.8 live before: server closes cleanly); 0.4.7 published 2026-10-10 (author: "release now", server mode NOT verified; 0.4.6 before); 0.4.6 published 2026-10-10 (in review at publish; 0.4.5 LIVE before, 2026-10-10 22:43, published by the agent with the author's permission for this version; 381 gets,
   317 players before it). Description: the author's "!!!" header first, unchanged. Uninstalls ~13% (0.4.4).
   Multiplayer: 89 games hosted, 0 joins (PC-27).
 - Stage 3 magic in game: all spells via Noita's gun.lua, shot scripts, all wands, wand window (U), progress window (O),
@@ -41,7 +41,9 @@ How it works (author, 2026-10-08): the author only says "работай" to eith
   rarity (new world: 848 spells in 256 chests; older worlds topped up once: WorldLoot version 4); our physics never
   breaks chests/dressers (falling blocks, blasts, fire, acid: Mats.HoldsItems; the Dead Man's Chest loss); drinking
   checked in game: flask (alcohol 1000 -> 985, INGESTION_DRUNK) and pool both work (game_test -Mode perks).
-  O key in multiplayer: not found yet (ProgressWindow needs Book, loaded on Player.Hooks.EnterWorld).
+  O key in multiplayer: fixed in 0.4.8.1 (book unloaded by the gameMenu branch: Terraria spawns the MP player while
+  Main.gameMenu is true), verified by the author with Host & Play. Host & Play with the modded server verified by the
+  author (server loaded his world with the mod, no errors).
   Server mode written (built, NOT verified): launcher -server -> TERRANOITA_SERVER, Entry: Main.dedServ = true right after
   Program.SavePath (as TerrariaServer.exe's RunGame), patches applied at Main.DedServ start (OnEngineLoad fires only in
   DrawMenu); Host & Play transpiler starts Terranoita.exe -server --noita-dir (HostServer.cs); server log server.log.
