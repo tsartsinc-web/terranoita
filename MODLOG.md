@@ -1273,3 +1273,10 @@ unless asked.
   player, kills/loot on the server, 0 errors) + progress window Terraria tab (built; the author has not looked yet).
 - build/terranoita-0.4.9.zip (1330825 bytes, sha256 33191a3c...); Melty: uploaded, submit_release 0.4.9 = DRAFT.
   Not published (live stays 0.4.8.1 until the author says so). Description not changed yet.
+
+## Handoff 2026-10-10 (PC, weekly limit nearly out)
+- Live 0.4.8.1; Melty draft 0.4.9 (not published, the author: "upload nothing for now"); 0.4.9.1 zip built locally only.
+- PC-40 list: see design/tasks.md "PC-40 status" (built, not run). O/U/F key fix, multiplayer creatures (verified),
+  Terraria bestiary tab, Host & Play modded server (verified) are in.
+- Next: run `powershell -ExecutionPolicy Bypass -File tools/mp_test.ps1 -Two -TestSpawn -Minutes 1` (two test clients)
+  to check remote casts; then the shared wand store design (2b); ask the author about item 7.

@@ -32,6 +32,12 @@ How it works (author, 2026-10-08): the author only says "работай" to eith
 - Roadmap: design/roadmap.md. Worldgen plan: design/worldgen_plan.md (PC-10 after CLOUD-7).
 
 ## PC queue
+- PC-40 status 2026-10-10 (all built, NOT run in game; commits ea39db6..cd708f5): 1+6 blocks on a background wall hold;
+  2 casts sent over Terranoita's net channel (Net.cs) and shown as remote shots (no world changes there); 3 fixed spell
+  numbers (510 + list place, carriers 2772/2773, old ones converted on load); 4+8 tile sync as 8x8 areas, 12 a frame
+  (the flood dropped packets); 5 TOXIC_TO_ACID converts every 2 frames. Open: 7 (ask the author what is strange);
+  2b "cannot use the other player's staff" = wands live in each PC's WandStore (ids collide): needs a shared wand store
+  on the server (design first); fire spreading is still each player's own. Next: tools/mp_test.ps1 -Two to see item 2.
 - PC-40 new (author's multiplayer test 2026-10-10, list): 1) blocks do not attach to the background wall; 6) the author
   wants placed blocks to stand on a background wall with no support (now: they stay on the wall only after the support
   breaks); 2) players do not see each other's fire / staff projectiles, cannot use another player's staff (author's
